@@ -11,15 +11,17 @@
 		B90A79142899E2BF00B90193 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90A79132899E2BF00B90193 /* SceneDelegate.swift */; };
 		B90A791B2899E2C200B90193 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B90A791A2899E2C200B90193 /* Assets.xcassets */; };
 		B90A791E2899E2C200B90193 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B90A791C2899E2C200B90193 /* LaunchScreen.storyboard */; };
-		B90A792B2899F0B800B90193 /* CompanyListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90A792A2899F0B800B90193 /* CompanyListViewController.swift */; };
 		B90A792D289A8C2200B90193 /* Tobacco.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90A792C289A8C2200B90193 /* Tobacco.swift */; };
-		B91EB76928A1421B00502221 /* extention + String.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91EB76828A1421B00502221 /* extention + String.swift */; };
-		B948915028CCEC8B0021EE79 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B948914F28CCEC8B0021EE79 /* UserDefaultsManager.swift */; };
 		B948D83628CD286400E35884 /* SetDataBaseNetworkingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B948D83528CD286400E35884 /* SetDataBaseNetworkingProtocol.swift */; };
 		B9677CF228D8917000EF9FC6 /* extention + UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9677CF128D8917000EF9FC6 /* extention + UIViewController.swift */; };
 		B9677CF428D89D4000EF9FC6 /* FirestoreCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9677CF328D89D4000EF9FC6 /* FirestoreCollection.swift */; };
+		B98E1DB128F04A0F00964B8F /* AddManufacturerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DAB28F04A0F00964B8F /* AddManufacturerPresenter.swift */; };
+		B98E1DB228F04A0F00964B8F /* AddManufacturerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DAC28F04A0F00964B8F /* AddManufacturerRouter.swift */; };
+		B98E1DB328F04A0F00964B8F /* AddManufacturerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DAD28F04A0F00964B8F /* AddManufacturerViewController.swift */; };
+		B98E1DB428F04A0F00964B8F /* AddManufacturerInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DAE28F04A0F00964B8F /* AddManufacturerInteractor.swift */; };
+		B98E1DB528F04A0F00964B8F /* AddManufacturerConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DAF28F04A0F00964B8F /* AddManufacturerConfigurator.swift */; };
+		B98E1DB628F04A0F00964B8F /* AddManufacturerEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DB028F04A0F00964B8F /* AddManufacturerEntity.swift */; };
 		B992985C28DC960400C4E80F /* AddTobaccoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B992985B28DC960400C4E80F /* AddTobaccoViewController.swift */; };
-		B9A1C14328D12237002D0BFE /* AddManufacturerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A1C14228D12237002D0BFE /* AddManufacturerViewController.swift */; };
 		B9A4708328D2B84500CA6FAA /* extention + UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A4708228D2B84500CA6FAA /* extention + UIFont.swift */; };
 		B9A4708628D2BB6400CA6FAA /* AddTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A4708528D2BB6400CA6FAA /* AddTextFieldView.swift */; };
 		B9C7825A28ECE25800DBF8C6 /* AuthServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C7825928ECE25800DBF8C6 /* AuthServiceProtocol.swift */; };
@@ -51,8 +53,13 @@
 		B948D83528CD286400E35884 /* SetDataBaseNetworkingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetDataBaseNetworkingProtocol.swift; sourceTree = "<group>"; };
 		B9677CF128D8917000EF9FC6 /* extention + UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extention + UIViewController.swift"; sourceTree = "<group>"; };
 		B9677CF328D89D4000EF9FC6 /* FirestoreCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreCollection.swift; sourceTree = "<group>"; };
+		B98E1DAB28F04A0F00964B8F /* AddManufacturerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddManufacturerPresenter.swift; sourceTree = "<group>"; };
+		B98E1DAC28F04A0F00964B8F /* AddManufacturerRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddManufacturerRouter.swift; sourceTree = "<group>"; };
+		B98E1DAD28F04A0F00964B8F /* AddManufacturerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddManufacturerViewController.swift; sourceTree = "<group>"; };
+		B98E1DAE28F04A0F00964B8F /* AddManufacturerInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddManufacturerInteractor.swift; sourceTree = "<group>"; };
+		B98E1DAF28F04A0F00964B8F /* AddManufacturerConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddManufacturerConfigurator.swift; sourceTree = "<group>"; };
+		B98E1DB028F04A0F00964B8F /* AddManufacturerEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddManufacturerEntity.swift; sourceTree = "<group>"; };
 		B992985B28DC960400C4E80F /* AddTobaccoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTobaccoViewController.swift; sourceTree = "<group>"; };
-		B9A1C14228D12237002D0BFE /* AddManufacturerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddManufacturerViewController.swift; sourceTree = "<group>"; };
 		B9A4708228D2B84500CA6FAA /* extention + UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extention + UIFont.swift"; sourceTree = "<group>"; };
 		B9A4708528D2BB6400CA6FAA /* AddTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTextFieldView.swift; sourceTree = "<group>"; };
 		B9C7825928ECE25800DBF8C6 /* AuthServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServiceProtocol.swift; sourceTree = "<group>"; };
@@ -162,12 +169,17 @@
 			path = NetworkService;
 			sourceTree = "<group>";
 		};
-		B948D83728CFAF9000E35884 /* AddManufacturer */ = {
+		B98E1DAA28F049E500964B8F /* AddManufacturerModule */ = {
 			isa = PBXGroup;
 			children = (
-				B9A4708428D2BB3100CA6FAA /* View */,
+				B98E1DAB28F04A0F00964B8F /* AddManufacturerPresenter.swift */,
+				B98E1DAC28F04A0F00964B8F /* AddManufacturerRouter.swift */,
+				B98E1DAD28F04A0F00964B8F /* AddManufacturerViewController.swift */,
+				B98E1DAE28F04A0F00964B8F /* AddManufacturerInteractor.swift */,
+				B98E1DAF28F04A0F00964B8F /* AddManufacturerConfigurator.swift */,
+				B98E1DB028F04A0F00964B8F /* AddManufacturerEntity.swift */,
 			);
-			path = AddManufacturer;
+			path = AddManufacturerModule;
 			sourceTree = "<group>";
 		};
 		B992985928DC95DA00C4E80F /* AddTobacco */ = {
@@ -190,14 +202,6 @@
 			isa = PBXGroup;
 			children = (
 				B9A4708528D2BB6400CA6FAA /* AddTextFieldView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		B9A4708428D2BB3100CA6FAA /* View */ = {
-			isa = PBXGroup;
-			children = (
-				B9A1C14228D12237002D0BFE /* AddManufacturerViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -281,8 +285,8 @@
 		B9D705F928E3A6730079AD23 /* AdminViews */ = {
 			isa = PBXGroup;
 			children = (
+				B98E1DAA28F049E500964B8F /* AddManufacturerModule */,
 				B9D6056D28D50B410058D19E /* Login */,
-				B948D83728CFAF9000E35884 /* AddManufacturer */,
 				B992985928DC95DA00C4E80F /* AddTobacco */,
 				B9D705F528E39F110079AD23 /* AddedMenu */,
 			);
@@ -371,6 +375,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B992985C28DC960400C4E80F /* AddTobaccoViewController.swift in Sources */,
+				B98E1DB428F04A0F00964B8F /* AddManufacturerInteractor.swift in Sources */,
 				B9D6057128D50B630058D19E /* LoginViewController.swift in Sources */,
 				B90A79122899E2BF00B90193 /* AppDelegate.swift in Sources */,
 				B9D6055D28D4CFA70058D19E /* GetDataBaseNetworkingProtocol.swift in Sources */,
@@ -378,19 +383,20 @@
 				B9D6057428D53C350058D19E /* FireBaseAuthService.swift in Sources */,
 				B9C7825A28ECE25800DBF8C6 /* AuthServiceProtocol.swift in Sources */,
 				B9D705F828E39F4C0079AD23 /* AddedMenuViewController.swift in Sources */,
+				B98E1DB628F04A0F00964B8F /* AddManufacturerEntity.swift in Sources */,
 				B9D6055928D4CB590058D19E /* Manufacturer.swift in Sources */,
 				B9D6055B28D4CF610058D19E /* FireBaseSetNetworkManager.swift in Sources */,
-				B91EB76928A1421B00502221 /* extention + String.swift in Sources */,
 				B9A4708328D2B84500CA6FAA /* extention + UIFont.swift in Sources */,
 				B948D83628CD286400E35884 /* SetDataBaseNetworkingProtocol.swift in Sources */,
-				B948915028CCEC8B0021EE79 /* UserDefaultsManager.swift in Sources */,
+				B98E1DB528F04A0F00964B8F /* AddManufacturerConfigurator.swift in Sources */,
 				B90A79142899E2BF00B90193 /* SceneDelegate.swift in Sources */,
 				B90A792D289A8C2200B90193 /* Tobacco.swift in Sources */,
 				B9677CF428D89D4000EF9FC6 /* FirestoreCollection.swift in Sources */,
 				B9A4708628D2BB6400CA6FAA /* AddTextFieldView.swift in Sources */,
-				B9A1C14328D12237002D0BFE /* AddManufacturerViewController.swift in Sources */,
-				B90A792B2899F0B800B90193 /* CompanyListViewController.swift in Sources */,
+				B98E1DB328F04A0F00964B8F /* AddManufacturerViewController.swift in Sources */,
 				B9677CF228D8917000EF9FC6 /* extention + UIViewController.swift in Sources */,
+				B98E1DB228F04A0F00964B8F /* AddManufacturerRouter.swift in Sources */,
+				B98E1DB128F04A0F00964B8F /* AddManufacturerPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

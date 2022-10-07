@@ -1,17 +1,27 @@
 //
+//
 //  AddManufacturerViewController.swift
 //  HookahTobacco
 //
-//  Created by антон кочетков on 13.09.2022.
+//  Created by антон кочетков on 07.10.2022.
+//
 //
 
 import UIKit
-import SnapKit
+
+protocol AddManufacturerViewInputProtocol: AnyObject {
+    func showAlertForUnspecifiedField(with title: String, message: String)
+    func showAlertError(with message: String)
+    func showSuccessViewAlert()
+}
+
+protocol AddManufacturerViewOutputProtocol {
+    func pressedAddButton(with enteredData: AddManufacturerEntity.EnterData)
+}
 
 class AddManufacturerViewController: UIViewController {
 
-    //MARK: properties
-    private let setNetworkManager: SetDataBaseNetworkingProtocol = FireBaseSetNetworkManager()
+    var presenter: AddManufacturerViewOutputProtocol!
     
     //MARK: ui properties
     private let nameTextFieldView = AddTextFieldView()
@@ -52,6 +62,7 @@ class AddManufacturerViewController: UIViewController {
     //MARK: override viewController
     override func viewDidLoad() {
         super.viewDidLoad()
+    
         view.backgroundColor = .white
         setupSubviews()
     }
@@ -65,7 +76,6 @@ class AddManufacturerViewController: UIViewController {
         
         addedButton.layer.cornerRadius = addedButton.frame.height / 2
         addedButton.clipsToBounds = true
-
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -120,30 +130,29 @@ class AddManufacturerViewController: UIViewController {
     //MARK: private methods
     @objc
     private func touchAddedButton() {
-        guard let name = nameTextFieldView.text, !name.isEmpty else {
-            showAlertError(title: "Ошибка", message: "Название производства не введено, поле является обязательным!")
-            return
-        }
-        guard let country = countryTextFieldView.text, !country.isEmpty else {
-            showAlertError(title: "Ошибка", message: "Страна произовдителя не введена, поле является обязательным!")
-            return
-        }
-        let description = descriptionTextView.text
+        let entity = AddManufacturerEntity.EnterData(name: nameTextFieldView.text,
+                                                     country: countryTextFieldView.text,
+                                                     description: descriptionTextView.text)
         
-        let manufacturer = Manufacturer(name: name,
-                                        country: country,
-                                        description: description ?? "")
-        
-        setNetworkManager.addManufacturer(manufacturer) { [weak self] error in
-            if error == nil {
-                self?.showSuccessView(duration: 0.3, delay: 2.0)
-                self?.nameTextFieldView.text = ""
-                self?.countryTextFieldView.text = ""
-                self?.descriptionTextView.text = ""
-            } else {
-                self?.showAlertError(title: "Ошибка", message: (error! as NSError).userInfo.description)
-            }
-        }
+        presenter.pressedAddButton(with: entity)
+    }
+}
+
+extension AddManufacturerViewController: AddManufacturerViewInputProtocol {
+    func showAlertForUnspecifiedField(with title: String, message: String) {
+        showAlertError(title: title, message: message)
+    }
+    
+    func showAlertError(with message: String) {
+        showAlertError(title: "Ошибка", message: message)
+    }
+    
+    func showSuccessViewAlert() {
+        showSuccessView(duration: 0.3, delay: 2.0)
+        nameTextFieldView.text = ""
+        countryTextFieldView.text = ""
+        descriptionTextView.text = ""
+        let _ = nameTextFieldView.becomeFirstResponderTextField()
     }
 }
 
