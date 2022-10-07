@@ -1,14 +1,32 @@
 //
+//
 //  LoginViewController.swift
 //  HookahTobacco
 //
-//  Created by антон кочетков on 16.09.2022.
+//  Created by антон кочетков on 07.10.2022.
+//
 //
 
 import UIKit
 import SnapKit
 
+enum LoginField {
+    case login
+    case password
+}
+
+protocol LoginViewInputProtocol: AnyObject {
+    func showAlertForUnspecifiedField(with title: String, message: String, error field: LoginField)
+    func showAlertError(with message: String)
+}
+
+protocol LoginViewOutputProtocol {
+    func pressedButtonLogin(with login: String?, and password: String?)
+}
+
 class LoginViewController: UIViewController {
+
+    var presenter: LoginViewOutputProtocol!
     
     private let emailTextField: UITextField = {
         let text = UITextField()
@@ -34,7 +52,7 @@ class LoginViewController: UIViewController {
         text.backgroundColor = UIColor(white: 0.95, alpha: 0.8)
         return text
     }()
-
+    
     private let loginButton: UIButton = {
         let button = UIButton()
         button.setTitle("Войти / Log in", for: .normal)
@@ -92,28 +110,24 @@ class LoginViewController: UIViewController {
     
     @objc
     private func touchLoginButton() {
-        guard let email = emailTextField.text, !email.isEmpty else {
-            showAlertError(title: "Ошибка", message: "email не введен") {
-                self.emailTextField.becomeFirstResponder()
-            }
-            return
-        }
-        guard let pass = passwordTextField.text, !pass.isEmpty else {
-            showAlertError(title: "Ошибка", message: "пароль не введен") {
-                self.passwordTextField.becomeFirstResponder()
-            }
-            return
-        }
-        
-        FireBaseAuthService.shared.login(with: email, password: pass) { [weak self] error in
-            if let error = error {
-                self?.showAlertError(title: "Ошибка", message: "Ошибка: \((error as NSError).userInfo)") //TODO: написать пользовательские ошибки
-            } else {
-                let addedMenuVC = AddedMenuViewController()
-                self?.navigationController?.setViewControllers([addedMenuVC], animated: true)
-                //router to view
+        presenter.pressedButtonLogin(with: emailTextField.text, and: passwordTextField.text)
+    }
+}
+
+extension LoginViewController: LoginViewInputProtocol {
+    func showAlertForUnspecifiedField(with title: String, message: String, error field: LoginField) {
+        showAlertError(title: title, message: message) {
+            switch field {
+                case .login:
+                    self.emailTextField.becomeFirstResponder()
+                case .password:
+                    self.passwordTextField.becomeFirstResponder()
             }
         }
+    }
+    
+    func showAlertError(with message: String) {
+        showAlertError(title: "Ошибка", message: message)
     }
 }
 

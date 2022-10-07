@@ -14,8 +14,8 @@ protocol AddManufacturerInteractorInputProtocol {
 }
 
 protocol AddManufacturerInteractorOutputProtocol: AnyObject {
-    func successAddOperation()
-    func errorAddOperation(with code: Int, and message: String)
+    func receivedSuccessWhileAdding()
+    func receivedErrorWhileAdding(with code: Int, and message: String)
 }
 
 class AddManufacturerInteractor {
@@ -38,11 +38,11 @@ extension AddManufacturerInteractor: AddManufacturerInteractorInputProtocol {
         setNetworkManager.addManufacturer(manufacturer) { [weak self] error in
             guard let self = self else { return }
             if error == nil {
-                self.presenter.successAddOperation()
+                self.presenter.receivedSuccessWhileAdding()
             } else {
                 //TODO: создать обработку ошибок в AddManufacturerInteractor.sendNewManufacturerToServer
 //                        let localError = error as?
-                self.presenter.errorAddOperation(with: 0, and: "")
+                self.presenter.receivedErrorWhileAdding(with: 0, and: "")
             }
         }
     }

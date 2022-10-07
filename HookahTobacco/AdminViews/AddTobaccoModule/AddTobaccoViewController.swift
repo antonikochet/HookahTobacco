@@ -1,25 +1,32 @@
 //
+//
 //  AddTobaccoViewController.swift
 //  HookahTobacco
 //
-//  Created by антон кочетков on 22.09.2022.
+//  Created by антон кочетков on 07.10.2022.
+//
 //
 
 import UIKit
 import SnapKit
 
-//Model
-//name tobaccco
-//manufacturer (in firebase send id manufacturer)
-//taste
-//description
-class AddTobaccoViewController: UIViewController {
+protocol AddTobaccoViewInputProtocol: AnyObject {
+    func showAlertForUnspecifiedField(with title: String, message: String)
+    func showAlertError(with message: String)
+    func showSuccessViewAlert()
+}
 
-    var manufacturers: [Manufacturer]?
-    var manufacturerSelected: Manufacturer?
-    var getDataManager: GetDataBaseNetworkingProtocol?
-    var setDataManager: SetDataBaseNetworkingProtocol?
+protocol AddTobaccoViewOutputProtocol: AnyObject {
+    func pressedButtonAdded(with data: AddTobaccoEntity.EnteredData)
+    func didSelectedManufacturer(by index: Int)
+    var numberOfRows: Int { get }
+    func receiveRow(by index: Int) -> String
+}
+
+class AddTobaccoViewController: UIViewController {
+    var presenter: AddTobaccoViewOutputProtocol!
     
+    //MARK: UI property
     private let nameView: AddTextFieldView = AddTextFieldView()
     
     private let manufacturerLabel: UILabel = {
@@ -36,6 +43,7 @@ class AddTobaccoViewController: UIViewController {
         let textField = UITextField()
         textField.textColor = .black
         textField.borderStyle = .roundedRect
+        textField.textAlignment = .center
         textField.backgroundColor = UIColor(white: 0.95, alpha: 0.8)
         return textField
     }()
@@ -78,24 +86,15 @@ class AddTobaccoViewController: UIViewController {
         return button
     }()
     
+    //MARK: override viewController
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        //TODO: убрать от сюда этот код
-        getDataManager = FireBaseGetNetworkManager()
-        setDataManager = FireBaseSetNetworkManager()
-        getDataManager?.getManufacturers(completion: { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-                case .success(let data):
-                    self.manufacturers = data
-                case .failure(let error):
-                    self.showAlertError(title: "Ошибка", message: error.localizedDescription)
-            }
-        })
+        
         setupSubviews()
     }
     
+    //MARK: setup subviews
     private func setupSubviews() {
         view.addSubview(nameView)
         nameView.setupView(textLabel: "Название",
@@ -169,47 +168,37 @@ class AddTobaccoViewController: UIViewController {
         }
     }
     
+    //MARK: private methods
     @objc
     private func touchAddedButton() {
-        guard let name = nameView.text, !name.isEmpty else {
-            showAlertError(title: "Ошибка", message: "Название табака не введено, поле является обязательным!")
-            return
-        }
-        guard let manufacturerSelected = manufacturerSelected,
-              let idManufacturer = manufacturerSelected.uid else {
-            showAlertError(title: "Ошибка", message: "У табака должен быть выбран производитель")
-            return
-        }
-        guard let tastes = tasteView.text else {
-            showAlertError(title: "Ошибка", message: "Вкусы табака отсутсвуют, поле является обязательным!")
-            return
-        }
-        let taste = tastes.replacingOccurrences(of: "\\s*",
-                                          with: "",
-                                          options: [.regularExpression])
-                            .split(separator: ",")
-                            .map { String($0) }
-        
-        let description = descriptionTextView.text
-        
-        let tobacco = Tobacco(uid: nil,
-                              name: name,
-                              taste: taste,
-                              idManufacturer: idManufacturer,
-                              description: description ?? "")
-        
-        setDataManager?.addTobacco(tobacco, completion: { [weak self] error in
-            if error == nil {
-                self?.showSuccessView(duration: 0.3, delay: 2.0)
-                self?.nameView.text = ""
-                self?.tasteView.text = ""
-                self?.manufacturerSelectedTextField.text = ""
-                self?.manufacturerSelected = nil
-                self?.descriptionTextView.text = ""
-            } else {
-                self?.showAlertError(title: "Ошибка", message: (error! as NSError).userInfo.description)
-            }
-        })
+        let data = AddTobaccoEntity.EnteredData(
+                        name: nameView.text,
+                        tastes: tasteView.text,
+                        description: descriptionTextView.text)
+        presenter.pressedButtonAdded(with: data)
+    }
+    
+    private func changeManufacturerTextField(by row: Int) {
+        presenter.didSelectedManufacturer(by: row)
+        manufacturerSelectedTextField.text = presenter.receiveRow(by: row)
+    }
+}
+
+extension AddTobaccoViewController: AddTobaccoViewInputProtocol {
+    func showAlertForUnspecifiedField(with title: String, message: String) {
+        showAlertError(title: title, message: message)
+    }
+    
+    func showAlertError(with message: String) {
+        showAlertError(title: "Ошибка", message: message)
+    }
+    
+    func showSuccessViewAlert() {
+        showSuccessView(duration: 0.3, delay: 2.0)
+        nameView.text = ""
+        tasteView.text = ""
+        descriptionTextView.text = ""
+        changeManufacturerTextField(by: 0)
     }
 }
 
@@ -240,18 +229,17 @@ extension AddTobaccoViewController: UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return manufacturers?.count ?? 0
+        return presenter.numberOfRows
     }
 }
 
 extension AddTobaccoViewController: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        manufacturers?[row].name
+        return presenter.receiveRow(by: row)
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        manufacturerSelectedTextField.text = manufacturers?[row].name
-        manufacturerSelected = manufacturers?[row]
+        changeManufacturerTextField(by: row)
         self.manufacturerPickerView.isHidden = true
         self.manufacturerPickerView.snp.updateConstraints { make in
             make.height.equalTo(0)

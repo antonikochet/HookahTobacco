@@ -16,11 +16,11 @@ class AddManufacturerPresenter {
 }
 
 extension AddManufacturerPresenter: AddManufacturerInteractorOutputProtocol {
-    func successAddOperation() {
+    func receivedSuccessWhileAdding() {
         view.showSuccessViewAlert()
     }
     
-    func errorAddOperation(with code: Int, and message: String) {
+    func receivedErrorWhileAdding(with code: Int, and message: String) {
         view.showAlertError(with: "Code - \(code). \(message)")
     }
 }

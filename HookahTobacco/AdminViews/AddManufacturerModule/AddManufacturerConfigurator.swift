@@ -9,11 +9,7 @@
 
 import UIKit
 
-protocol AddManufacturerConfiguratorProtocol {
-    func configure() -> UIViewController
-}
-
-class AddManufacturerConfigurator: AddManufacturerConfiguratorProtocol {
+class AddManufacturerConfigurator: ConfiguratorProtocol {
     
     var setNetworkManager: SetDataBaseNetworkingProtocol
     

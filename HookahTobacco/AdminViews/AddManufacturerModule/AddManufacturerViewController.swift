@@ -8,6 +8,7 @@
 //
 
 import UIKit
+import SnapKit
 
 protocol AddManufacturerViewInputProtocol: AnyObject {
     func showAlertForUnspecifiedField(with title: String, message: String)
