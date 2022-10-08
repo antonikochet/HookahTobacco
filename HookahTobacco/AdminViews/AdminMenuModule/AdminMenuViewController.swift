@@ -1,15 +1,28 @@
 //
-//  AddedMenuViewController.swift
+//
+//  AdminMenuViewController.swift
 //  HookahTobacco
 //
-//  Created by антон кочетков on 28.09.2022.
+//  Created by антон кочетков on 08.10.2022.
+//
 //
 
 import UIKit
-import SnapKit
 
-class AddedMenuViewController: UIViewController {
+protocol AdminMenuViewInputProtocol: AnyObject {
+    func showError(with title: String, and message: String)
+}
+
+protocol AdminMenuViewOutputProtocol: AnyObject {
+    func pressedAddManufacturerButton()
+    func pressedAddTobaccoButton()
+    func pressedLogoutButton()
+}
+
+class AdminMenuViewController: UIViewController {
+    var presenter: AdminMenuViewOutputProtocol!
     
+    //MARK: UI properties
     private let addManufacturer: UIButton = {
         let button = UIButton()
         button.setTitle("Добавить производителя", for: .normal)
@@ -32,6 +45,7 @@ class AddedMenuViewController: UIViewController {
         return button
     }()
     
+    //MARK: override ViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Меню"
@@ -41,6 +55,7 @@ class AddedMenuViewController: UIViewController {
         setupRightButtonNavigationBar()
     }
     
+    //MARK: setup subviews
     private func setupSubviews() {
         view.addSubview(addManufacturer)
         addManufacturer.snp.makeConstraints { make in
@@ -66,23 +81,20 @@ class AddedMenuViewController: UIViewController {
     @objc
     private func touchButton(_ button: UIButton) {
         if addManufacturer == button {
-            let addManufacturerVC = AddManufacturerViewController()
-            navigationController?.pushViewController(addManufacturerVC, animated: true)
+            presenter.pressedAddManufacturerButton()
         } else if addTobacco == button {
-            let addTobaccoVC = AddTobaccoViewController()
-            navigationController?.pushViewController(addTobaccoVC, animated: true)
+            presenter.pressedAddTobaccoButton()
         }
     }
     
     @objc
     private func touchRightButtonNavBar() {
-        FireBaseAuthService.shared.logout { [weak self] error in
-            if let error = error {
-                let nserror = error as NSError
-                self?.showAlertError(title: "Ошибка", message: "Выйти из пользователя не вышло, причина: \(nserror.userInfo)")
-            } else {
-                self?.navigationController?.setViewControllers([LoginViewController()], animated: true)
-            }
-        }
+        presenter.pressedLogoutButton()
+    }
+}
+
+extension AdminMenuViewController: AdminMenuViewInputProtocol {
+    func showError(with title: String, and message: String) {
+        showAlertError(title: title, message: message)
     }
 }

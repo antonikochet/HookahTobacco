@@ -19,10 +19,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
         let navVC = UINavigationController()
         if FireBaseAuthService.shared.isUserLoggerIn {
-            let menuVC = AddedMenuViewController()
+            let configucator = AdminMenuConfigurator()
+            let menuVC = configucator.configure()
             navVC.pushViewController(menuVC, animated: true)
         } else {
-            let loginVC = LoginViewController()
+            let configurator = LoginConfigurator()
+            let loginVC = configurator.configure()
             navVC.pushViewController(loginVC, animated: true)
         }
         window?.rootViewController = navVC
