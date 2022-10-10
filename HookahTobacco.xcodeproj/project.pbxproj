@@ -24,7 +24,6 @@
 		B98E1DD728F0812500964B8F /* LoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DD128F0812500964B8F /* LoginRouter.swift */; };
 		B98E1DD828F0812500964B8F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DD228F0812500964B8F /* LoginViewController.swift */; };
 		B98E1DD928F0812500964B8F /* LoginInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DD328F0812500964B8F /* LoginInteractor.swift */; };
-		B98E1DDD28F08C0300964B8F /* Configurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DDC28F08C0300964B8F /* Configurator.swift */; };
 		B98E1DE528F08D4400964B8F /* AddTobaccoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DDF28F08D4400964B8F /* AddTobaccoPresenter.swift */; };
 		B98E1DE628F08D4400964B8F /* AddTobaccoRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DE028F08D4400964B8F /* AddTobaccoRouter.swift */; };
 		B98E1DE728F08D4400964B8F /* AddTobaccoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DE128F08D4400964B8F /* AddTobaccoViewController.swift */; };
@@ -85,7 +84,6 @@
 		B98E1DD128F0812500964B8F /* LoginRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRouter.swift; sourceTree = "<group>"; };
 		B98E1DD228F0812500964B8F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		B98E1DD328F0812500964B8F /* LoginInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInteractor.swift; sourceTree = "<group>"; };
-		B98E1DDC28F08C0300964B8F /* Configurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configurator.swift; sourceTree = "<group>"; };
 		B98E1DDF28F08D4400964B8F /* AddTobaccoPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTobaccoPresenter.swift; sourceTree = "<group>"; };
 		B98E1DE028F08D4400964B8F /* AddTobaccoRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTobaccoRouter.swift; sourceTree = "<group>"; };
 		B98E1DE128F08D4400964B8F /* AddTobaccoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTobaccoViewController.swift; sourceTree = "<group>"; };
@@ -194,7 +192,6 @@
 				B91EB76828A1421B00502221 /* extention + String.swift */,
 				B9A4708228D2B84500CA6FAA /* extention + UIFont.swift */,
 				B9677CF128D8917000EF9FC6 /* extention + UIViewController.swift */,
-				B98E1DDC28F08C0300964B8F /* Configurator.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -487,7 +484,6 @@
 				B9EB024128F31B6300B3B6DA /* ServiceAssembly.swift in Sources */,
 				B9D6055D28D4CFA70058D19E /* GetDataBaseNetworkingProtocol.swift in Sources */,
 				B9F77A2128E500040089D80C /* FireBaseGetNetworkManager.swift in Sources */,
-				B98E1DDD28F08C0300964B8F /* Configurator.swift in Sources */,
 				B9EB024B28F3604E00B3B6DA /* AddTobaccoModule.swift in Sources */,
 				B9EB024928F35B5F00B3B6DA /* ModuleProtocol.swift in Sources */,
 				B9D6057428D53C350058D19E /* FireBaseAuthService.swift in Sources */,

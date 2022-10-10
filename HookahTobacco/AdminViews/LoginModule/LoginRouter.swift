@@ -15,11 +15,9 @@ protocol LoginRouterProtocol: RouterProtocol {
 
 class LoginRouter: LoginRouterProtocol {
     var appRouter: AppRouterProtocol
-    weak var viewController: UIViewController!
     
-    required init(_ appRouter: AppRouterProtocol, _ viewController: UIViewController) {
+    required init(_ appRouter: AppRouterProtocol) {
         self.appRouter = appRouter
-        self.viewController = viewController
     }
     
     func presentAddMenuView() {

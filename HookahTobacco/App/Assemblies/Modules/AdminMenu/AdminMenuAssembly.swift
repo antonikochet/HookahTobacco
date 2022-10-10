@@ -13,8 +13,8 @@ import Swinject
 class AdminMenuAssembly: Assembly {
     func assemble(container: Container) {
         
-        container.register(AdminMenuRouterProtocol.self) { (r, appAssembler: AppRouterProtocol, viewController: AdminMenuViewController) in
-            let router = AdminMenuRouter(appAssembler, viewController)
+        container.register(AdminMenuRouterProtocol.self) { (r, appAssembler: AppRouterProtocol) in
+            let router = AdminMenuRouter(appAssembler)
             return router
         }
         
@@ -33,7 +33,7 @@ class AdminMenuAssembly: Assembly {
             let view = AdminMenuViewController()
             let presenter = r.resolve(AdminMenuViewOutputProtocol.self) as! AdminMenuPresenter
             let interactor = r.resolve(AdminMenuInteractorInputProtocol.self) as! AdminMenuInteractor
-            let router = r.resolve(AdminMenuRouterProtocol.self, arguments: appAssembler, view)!
+            let router = r.resolve(AdminMenuRouterProtocol.self, argument: appAssembler)!
             
             view.presenter = presenter
             presenter.view = view

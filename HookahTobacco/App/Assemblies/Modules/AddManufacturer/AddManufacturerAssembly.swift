@@ -13,8 +13,8 @@ import Swinject
 class AddManufacturerAssembly: Assembly {
     func assemble(container: Container) {
         
-        container.register(AddManufacturerRouterProtocol.self) { (r, appRouter: AppRouterProtocol, viewController: AddManufacturerViewController) in
-            let router = AddManufacturerRouter(appRouter, viewController)
+        container.register(AddManufacturerRouterProtocol.self) { (r, appRouter: AppRouterProtocol) in
+            let router = AddManufacturerRouter(appRouter)
             return router
         }
         
@@ -33,7 +33,7 @@ class AddManufacturerAssembly: Assembly {
             let view = AddManufacturerViewController()
             let presenter = r.resolve(AddManufacturerViewOutputProtocol.self) as! AddManufacturerPresenter
             let interactor = r.resolve(AddManufacturerInteractorInputProtocol.self) as! AddManufacturerInteractor
-            let router = r.resolve(AddManufacturerRouterProtocol.self, arguments: appRouter, view)!
+            let router = r.resolve(AddManufacturerRouterProtocol.self, argument: appRouter)!
             
             view.presenter = presenter
             presenter.view = view
