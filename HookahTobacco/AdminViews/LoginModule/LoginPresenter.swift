@@ -12,11 +12,12 @@ import Foundation
 class LoginPresenter {
     weak var view: LoginViewInputProtocol!
     var interactor: LoginInteractorInputProtocol!
+    var router: LoginRouterProtocol!
 }
 
 extension LoginPresenter: LoginInteractorOutputProtocol {
     func receivedSuccessWhileLogin() {
-        //router to addedMenu
+        router.presentAddMenuView()
     }
     
     func receivedErrorLogin(with message: String) {

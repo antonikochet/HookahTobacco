@@ -7,12 +7,22 @@
 //
 //
 
-import Foundation
+import UIKit
 
-protocol LoginRouterInputProtocol {
-    
+protocol LoginRouterProtocol: RouterProtocol {
+    func presentAddMenuView()
 }
 
-class LoginRouter: LoginRouterInputProtocol {
-    weak var viewController: LoginViewController!
+class LoginRouter: LoginRouterProtocol {
+    var appRouter: AppRouterProtocol
+    weak var viewController: UIViewController!
+    
+    required init(_ appRouter: AppRouterProtocol, _ viewController: UIViewController) {
+        self.appRouter = appRouter
+        self.viewController = viewController
+    }
+    
+    func presentAddMenuView() {
+        appRouter.presentView(module: AdminMenuModule.self, moduleData: nil, animated: true)
+    }
 }

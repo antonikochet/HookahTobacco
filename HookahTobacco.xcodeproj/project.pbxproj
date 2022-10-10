@@ -19,13 +19,11 @@
 		B98E1DB228F04A0F00964B8F /* AddManufacturerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DAC28F04A0F00964B8F /* AddManufacturerRouter.swift */; };
 		B98E1DB328F04A0F00964B8F /* AddManufacturerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DAD28F04A0F00964B8F /* AddManufacturerViewController.swift */; };
 		B98E1DB428F04A0F00964B8F /* AddManufacturerInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DAE28F04A0F00964B8F /* AddManufacturerInteractor.swift */; };
-		B98E1DB528F04A0F00964B8F /* AddManufacturerConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DAF28F04A0F00964B8F /* AddManufacturerConfigurator.swift */; };
 		B98E1DB628F04A0F00964B8F /* AddManufacturerEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DB028F04A0F00964B8F /* AddManufacturerEntity.swift */; };
 		B98E1DD628F0812500964B8F /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DD028F0812500964B8F /* LoginPresenter.swift */; };
 		B98E1DD728F0812500964B8F /* LoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DD128F0812500964B8F /* LoginRouter.swift */; };
 		B98E1DD828F0812500964B8F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DD228F0812500964B8F /* LoginViewController.swift */; };
 		B98E1DD928F0812500964B8F /* LoginInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DD328F0812500964B8F /* LoginInteractor.swift */; };
-		B98E1DDA28F0812500964B8F /* LoginConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DD428F0812500964B8F /* LoginConfigurator.swift */; };
 		B98E1DDD28F08C0300964B8F /* Configurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DDC28F08C0300964B8F /* Configurator.swift */; };
 		B98E1DE528F08D4400964B8F /* AddTobaccoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DDF28F08D4400964B8F /* AddTobaccoPresenter.swift */; };
 		B98E1DE628F08D4400964B8F /* AddTobaccoRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DE028F08D4400964B8F /* AddTobaccoRouter.swift */; };
@@ -52,6 +50,10 @@
 		B9E7ACA128F4528000A3D7E5 /* RouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7ACA028F4528000A3D7E5 /* RouterProtocol.swift */; };
 		B9E7ACAE28F46AFB00A3D7E5 /* AdminMenuModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7ACAC28F46AFB00A3D7E5 /* AdminMenuModule.swift */; };
 		B9E7ACAF28F46AFB00A3D7E5 /* AdminMenuAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7ACAD28F46AFB00A3D7E5 /* AdminMenuAssembly.swift */; };
+		B9E7ACB328F492ED00A3D7E5 /* LoginModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7ACB128F492ED00A3D7E5 /* LoginModule.swift */; };
+		B9E7ACB428F492ED00A3D7E5 /* LoginAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7ACB228F492ED00A3D7E5 /* LoginAssembly.swift */; };
+		B9E7ACB828F495B300A3D7E5 /* AddManufacturerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7ACB628F495B300A3D7E5 /* AddManufacturerModule.swift */; };
+		B9E7ACB928F495B300A3D7E5 /* AddManufacturerAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7ACB728F495B300A3D7E5 /* AddManufacturerAssembly.swift */; };
 		B9EB023B28F3159A00B3B6DA /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = B9EB023A28F3159A00B3B6DA /* Swinject */; };
 		B9EB024128F31B6300B3B6DA /* ServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EB024028F31B6300B3B6DA /* ServiceAssembly.swift */; };
 		B9EB024728F3252500B3B6DA /* AddTobaccoAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EB024628F3252500B3B6DA /* AddTobaccoAssembly.swift */; };
@@ -78,13 +80,11 @@
 		B98E1DAC28F04A0F00964B8F /* AddManufacturerRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddManufacturerRouter.swift; sourceTree = "<group>"; };
 		B98E1DAD28F04A0F00964B8F /* AddManufacturerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddManufacturerViewController.swift; sourceTree = "<group>"; };
 		B98E1DAE28F04A0F00964B8F /* AddManufacturerInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddManufacturerInteractor.swift; sourceTree = "<group>"; };
-		B98E1DAF28F04A0F00964B8F /* AddManufacturerConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddManufacturerConfigurator.swift; sourceTree = "<group>"; };
 		B98E1DB028F04A0F00964B8F /* AddManufacturerEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddManufacturerEntity.swift; sourceTree = "<group>"; };
 		B98E1DD028F0812500964B8F /* LoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
 		B98E1DD128F0812500964B8F /* LoginRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRouter.swift; sourceTree = "<group>"; };
 		B98E1DD228F0812500964B8F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		B98E1DD328F0812500964B8F /* LoginInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInteractor.swift; sourceTree = "<group>"; };
-		B98E1DD428F0812500964B8F /* LoginConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginConfigurator.swift; sourceTree = "<group>"; };
 		B98E1DDC28F08C0300964B8F /* Configurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configurator.swift; sourceTree = "<group>"; };
 		B98E1DDF28F08D4400964B8F /* AddTobaccoPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTobaccoPresenter.swift; sourceTree = "<group>"; };
 		B98E1DE028F08D4400964B8F /* AddTobaccoRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTobaccoRouter.swift; sourceTree = "<group>"; };
@@ -107,6 +107,10 @@
 		B9E7ACA028F4528000A3D7E5 /* RouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterProtocol.swift; sourceTree = "<group>"; };
 		B9E7ACAC28F46AFB00A3D7E5 /* AdminMenuModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminMenuModule.swift; sourceTree = "<group>"; };
 		B9E7ACAD28F46AFB00A3D7E5 /* AdminMenuAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminMenuAssembly.swift; sourceTree = "<group>"; };
+		B9E7ACB128F492ED00A3D7E5 /* LoginModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModule.swift; sourceTree = "<group>"; };
+		B9E7ACB228F492ED00A3D7E5 /* LoginAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAssembly.swift; sourceTree = "<group>"; };
+		B9E7ACB628F495B300A3D7E5 /* AddManufacturerModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddManufacturerModule.swift; sourceTree = "<group>"; };
+		B9E7ACB728F495B300A3D7E5 /* AddManufacturerAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddManufacturerAssembly.swift; sourceTree = "<group>"; };
 		B9EB024028F31B6300B3B6DA /* ServiceAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceAssembly.swift; sourceTree = "<group>"; };
 		B9EB024628F3252500B3B6DA /* AddTobaccoAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTobaccoAssembly.swift; sourceTree = "<group>"; };
 		B9EB024828F35B5F00B3B6DA /* ModuleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleProtocol.swift; sourceTree = "<group>"; };
@@ -220,7 +224,6 @@
 				B98E1DAC28F04A0F00964B8F /* AddManufacturerRouter.swift */,
 				B98E1DAD28F04A0F00964B8F /* AddManufacturerViewController.swift */,
 				B98E1DAE28F04A0F00964B8F /* AddManufacturerInteractor.swift */,
-				B98E1DAF28F04A0F00964B8F /* AddManufacturerConfigurator.swift */,
 				B98E1DB028F04A0F00964B8F /* AddManufacturerEntity.swift */,
 			);
 			path = AddManufacturerModule;
@@ -233,7 +236,6 @@
 				B98E1DD128F0812500964B8F /* LoginRouter.swift */,
 				B98E1DD228F0812500964B8F /* LoginViewController.swift */,
 				B98E1DD328F0812500964B8F /* LoginInteractor.swift */,
-				B98E1DD428F0812500964B8F /* LoginConfigurator.swift */,
 			);
 			path = LoginModule;
 			sourceTree = "<group>";
@@ -327,6 +329,8 @@
 		B9E7AC9F28F4518C00A3D7E5 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				B9E7ACB528F4959500A3D7E5 /* AddManufacturer */,
+				B9E7ACB028F492D000A3D7E5 /* Login */,
 				B9E7ACA728F4673400A3D7E5 /* AdminMenu */,
 				B9E7ACA328F454B500A3D7E5 /* AddTobacco */,
 				B9EB024828F35B5F00B3B6DA /* ModuleProtocol.swift */,
@@ -350,6 +354,24 @@
 				B9E7ACAD28F46AFB00A3D7E5 /* AdminMenuAssembly.swift */,
 			);
 			path = AdminMenu;
+			sourceTree = "<group>";
+		};
+		B9E7ACB028F492D000A3D7E5 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				B9E7ACB128F492ED00A3D7E5 /* LoginModule.swift */,
+				B9E7ACB228F492ED00A3D7E5 /* LoginAssembly.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		B9E7ACB528F4959500A3D7E5 /* AddManufacturer */ = {
+			isa = PBXGroup;
+			children = (
+				B9E7ACB628F495B300A3D7E5 /* AddManufacturerModule.swift */,
+				B9E7ACB728F495B300A3D7E5 /* AddManufacturerAssembly.swift */,
+			);
+			path = AddManufacturer;
 			sourceTree = "<group>";
 		};
 		B9EB023C28F3165100B3B6DA /* App */ = {
@@ -469,22 +491,24 @@
 				B9EB024B28F3604E00B3B6DA /* AddTobaccoModule.swift in Sources */,
 				B9EB024928F35B5F00B3B6DA /* ModuleProtocol.swift in Sources */,
 				B9D6057428D53C350058D19E /* FireBaseAuthService.swift in Sources */,
+				B9E7ACB328F492ED00A3D7E5 /* LoginModule.swift in Sources */,
+				B9E7ACB428F492ED00A3D7E5 /* LoginAssembly.swift in Sources */,
 				B9C7825A28ECE25800DBF8C6 /* AuthServiceProtocol.swift in Sources */,
 				B98E1DB628F04A0F00964B8F /* AddManufacturerEntity.swift in Sources */,
 				B98E1DF328F0DBCF00964B8F /* AdminMenuRouter.swift in Sources */,
 				B98E1DF528F0DBCF00964B8F /* AdminMenuInteractor.swift in Sources */,
 				B9D6055928D4CB590058D19E /* Manufacturer.swift in Sources */,
 				B9D6055B28D4CF610058D19E /* FireBaseSetNetworkManager.swift in Sources */,
-				B98E1DDA28F0812500964B8F /* LoginConfigurator.swift in Sources */,
 				B9A4708328D2B84500CA6FAA /* extention + UIFont.swift in Sources */,
 				B98E1DE828F08D4400964B8F /* AddTobaccoInteractor.swift in Sources */,
 				B948D83628CD286400E35884 /* SetDataBaseNetworkingProtocol.swift in Sources */,
-				B98E1DB528F04A0F00964B8F /* AddManufacturerConfigurator.swift in Sources */,
 				B9EB024728F3252500B3B6DA /* AddTobaccoAssembly.swift in Sources */,
 				B98E1DD928F0812500964B8F /* LoginInteractor.swift in Sources */,
 				B90A79142899E2BF00B90193 /* SceneDelegate.swift in Sources */,
+				B9E7ACB928F495B300A3D7E5 /* AddManufacturerAssembly.swift in Sources */,
 				B90A792D289A8C2200B90193 /* Tobacco.swift in Sources */,
 				B9677CF428D89D4000EF9FC6 /* FirestoreCollection.swift in Sources */,
+				B9E7ACB828F495B300A3D7E5 /* AddManufacturerModule.swift in Sources */,
 				B98E1DE628F08D4400964B8F /* AddTobaccoRouter.swift in Sources */,
 				B9A4708628D2BB6400CA6FAA /* AddTextFieldView.swift in Sources */,
 				B98E1DF428F0DBCF00964B8F /* AdminMenuViewController.swift in Sources */,

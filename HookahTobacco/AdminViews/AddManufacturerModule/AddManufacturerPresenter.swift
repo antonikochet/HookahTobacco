@@ -10,9 +10,9 @@
 import Foundation
 
 class AddManufacturerPresenter {
-    
     weak var view: AddManufacturerViewInputProtocol!
     var interactor: AddManufacturerInteractorInputProtocol!
+    var router: AddManufacturerRouterProtocol!
 }
 
 extension AddManufacturerPresenter: AddManufacturerInteractorOutputProtocol {

@@ -16,27 +16,23 @@ protocol AdminMenuRouterProtocol: RouterProtocol {
 }
 
 class AdminMenuRouter: AdminMenuRouterProtocol {
-    var appAssembler: AppRouterProtocol
+    var appRouter: AppRouterProtocol
     weak var viewController: UIViewController!
     
-    required init(_ appAssembler: AppRouterProtocol, _ viewController: UIViewController) {
-        self.appAssembler = appAssembler
+    required init(_ appRouter: AppRouterProtocol, _ viewController: UIViewController) {
+        self.appRouter = appRouter
         self.viewController = viewController
     }
     
     func showAddManufacturerModule() {
-        let configurator = AddManufacturerConfigurator(setNetworkManager: FireBaseSetNetworkManager())
-        let vc = configurator.configure()
-        viewController.navigationController?.pushViewController(vc, animated: true)
+        appRouter.pushViewController(module: AddManufacturerModule.self, moduleData: nil, animateDisplay: true)
     }
     
     func showAddTobaccoModule() {
-        appAssembler.pushViewController(module: AddTobaccoModule.self, moduleData: nil, animateDisplay: true)
+        appRouter.pushViewController(module: AddTobaccoModule.self, moduleData: nil, animateDisplay: true)
     }
     
     func showLoginModule() {
-        let configurator = LoginConfigurator()
-        let vc = configurator.configure()
-        viewController.navigationController?.setViewControllers([vc], animated: true)
+        appRouter.presentView(module: LoginModule.self, moduleData: nil, animated: true)
     }
 }

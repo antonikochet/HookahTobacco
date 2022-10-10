@@ -7,12 +7,18 @@
 //
 //
 
-import Foundation
+import UIKit
 
-protocol AddManufacturerRouterInputProtocol {
+protocol AddManufacturerRouterProtocol: RouterProtocol {
     
 }
 
-class AddManufacturerRouter: AddManufacturerRouterInputProtocol {
-    weak var viewController: AddManufacturerViewController!
+class AddManufacturerRouter: AddManufacturerRouterProtocol {
+    var appRouter: AppRouterProtocol
+    weak var viewController: UIViewController!
+    
+    required init(_ appRouter: AppRouterProtocol, _ viewController: UIViewController) {
+        self.appRouter = appRouter
+        self.viewController = viewController
+    }
 }

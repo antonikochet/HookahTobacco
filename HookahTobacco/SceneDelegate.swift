@@ -26,9 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if FireBaseAuthService.shared.isUserLoggerIn {
             assembler.presentView(module: AdminMenuModule.self, animated: true)
         } else {
-            let configurator = LoginConfigurator()
-            let loginVC = configurator.configure()
-            navVC.pushViewController(loginVC, animated: true)
+            assembler.presentView(module: LoginModule.self, animated: true)
         }
         window?.rootViewController = navVC
         window?.makeKeyAndVisible()
@@ -46,5 +44,7 @@ extension AppRouter {
     func registerAppModules() {
         registerModule(AddTobaccoAssembly(), AddTobaccoModule.nameModule) { AddTobaccoModule($0) }
         registerModule(AdminMenuAssembly(), AdminMenuModule.nameModule) { AdminMenuModule($0) }
+        registerModule(LoginAssembly(), LoginModule.nameModule) { LoginModule($0) }
+        registerModule(AddManufacturerAssembly(), AddManufacturerModule.nameModule) { AddManufacturerModule($0) }
     }
 }
