@@ -9,15 +9,15 @@
 
 import UIKit
 
-protocol AddTobaccoRouterInputProtocol: RouterProtocol {
+protocol AddTobaccoRouterProtocol: RouterProtocol {
     
 }
 
-class AddTobaccoRouter: AddTobaccoRouterInputProtocol {
-    var appAssembler: AppAssemblerProtocol
+class AddTobaccoRouter: AddTobaccoRouterProtocol {
+    var appAssembler: AppRouterProtocol
     weak var viewController: UIViewController!
     
-    required init(_ appAssembler: AppAssemblerProtocol, _ viewController: UIViewController) {
+    required init(_ appAssembler: AppRouterProtocol, _ viewController: UIViewController) {
         self.appAssembler = appAssembler
         self.viewController = viewController
     }

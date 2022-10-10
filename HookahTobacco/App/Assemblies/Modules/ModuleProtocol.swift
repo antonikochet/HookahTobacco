@@ -10,7 +10,7 @@ import UIKit
 protocol ModuleProtocol {
     init(_ data: DataModuleProtocol?)
     static var nameModule: String { get }
-    func createModule(_ appAssembler: AppAssemblerProtocol) -> UIViewController?
+    func createModule(_ appAssembler: AppRouterProtocol) -> UIViewController?
 }
 
 protocol DataModuleProtocol {

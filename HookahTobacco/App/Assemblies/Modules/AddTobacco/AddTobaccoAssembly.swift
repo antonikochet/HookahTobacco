@@ -11,7 +11,7 @@ import Swinject
 class AddTobaccoAssembly: Assembly {
     func assemble(container: Container) {
         
-        container.register(AddTobaccoRouterInputProtocol.self) { (r, appAssembler: AppAssemblerProtocol, viewController: AddTobaccoViewController) in
+        container.register(AddTobaccoRouterProtocol.self) { (r, appAssembler: AppRouterProtocol, viewController: AddTobaccoViewController) in
             let router = AddTobaccoRouter(appAssembler, viewController)
             return router
         }
@@ -28,11 +28,11 @@ class AddTobaccoAssembly: Assembly {
             return presenter
         }
         
-        container.register(AddTobaccoViewController.self) { (r, appAssembler: AppAssemblerProtocol) in
+        container.register(AddTobaccoViewController.self) { (r, appAssembler: AppRouterProtocol) in
             let view = AddTobaccoViewController()
             let presenter = r.resolve(AddTobaccoViewOutputProtocol.self) as! AddTobaccoPresenter
             let interactor = r.resolve(AddTobaccoInteractorInputProtocol.self) as! AddTobaccoInteractor
-            let router = r.resolve(AddTobaccoRouterInputProtocol.self, arguments: appAssembler, view)!
+            let router = r.resolve(AddTobaccoRouterProtocol.self, arguments: appAssembler, view)!
             
             view.presenter = presenter
             presenter.view = view

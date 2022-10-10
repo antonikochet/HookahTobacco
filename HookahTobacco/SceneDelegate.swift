@@ -16,16 +16,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         window = UIWindow(windowScene: windowScene)
-    
-        let assembler = AppAssembler()
+        let navVC = UINavigationController()
+        
+        let assembler = AppRouter()
+        assembler.navigationController = navVC
         assembler.registerServices()
         assembler.registerAppModules()
-    
-        let navVC = UINavigationController()
+        
         if FireBaseAuthService.shared.isUserLoggerIn {
-            let configucator = AdminMenuConfigurator()
-            let menuVC = configucator.configure()
-            navVC.pushViewController(menuVC, animated: true)
+            assembler.presentView(module: AdminMenuModule.self, animated: true)
         } else {
             let configurator = LoginConfigurator()
             let loginVC = configurator.configure()
@@ -36,7 +35,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 }
 
-extension AppAssembler {
+extension AppRouter {
     func registerServices() {
         apply(assemblies: [
             ServiceAssembly()
@@ -45,8 +44,7 @@ extension AppAssembler {
     }
     
     func registerAppModules() {
-        registerModule(AddTobaccoAssembly(), AddTobaccoModule.nameModule) {
-            AddTobaccoModule($0)
-        }
+        registerModule(AddTobaccoAssembly(), AddTobaccoModule.nameModule) { AddTobaccoModule($0) }
+        registerModule(AdminMenuAssembly(), AdminMenuModule.nameModule) { AdminMenuModule($0) }
     }
 }

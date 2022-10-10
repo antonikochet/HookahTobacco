@@ -8,5 +8,5 @@
 import UIKit
 
 protocol RouterProtocol: AnyObject {
-    init(_ appAssembler: AppAssemblerProtocol, _ viewController: UIViewController)
+    init(_ appAssembler: AppRouterProtocol, _ viewController: UIViewController)
 }

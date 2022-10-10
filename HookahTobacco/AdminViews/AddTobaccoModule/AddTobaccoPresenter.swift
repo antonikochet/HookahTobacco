@@ -12,7 +12,7 @@ import Foundation
 class AddTobaccoPresenter {
     weak var view: AddTobaccoViewInputProtocol!
     var interactor: AddTobaccoInteractorInputProtocol!
-    var router: AddTobaccoRouterInputProtocol!
+    var router: AddTobaccoRouterProtocol!
     
     private var manufacturerSelectItems: [String] = ["-"]
 }

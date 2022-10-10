@@ -36,7 +36,6 @@
 		B98E1DF328F0DBCF00964B8F /* AdminMenuRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DED28F0DBCF00964B8F /* AdminMenuRouter.swift */; };
 		B98E1DF428F0DBCF00964B8F /* AdminMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DEE28F0DBCF00964B8F /* AdminMenuViewController.swift */; };
 		B98E1DF528F0DBCF00964B8F /* AdminMenuInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DEF28F0DBCF00964B8F /* AdminMenuInteractor.swift */; };
-		B98E1DF628F0DBCF00964B8F /* AdminMenuConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DF028F0DBCF00964B8F /* AdminMenuConfigurator.swift */; };
 		B9A4708328D2B84500CA6FAA /* extention + UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A4708228D2B84500CA6FAA /* extention + UIFont.swift */; };
 		B9A4708628D2BB6400CA6FAA /* AddTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A4708528D2BB6400CA6FAA /* AddTextFieldView.swift */; };
 		B9C7825A28ECE25800DBF8C6 /* AuthServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C7825928ECE25800DBF8C6 /* AuthServiceProtocol.swift */; };
@@ -49,8 +48,10 @@
 		B9D6056828D4FED20058D19E /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = B9D6056728D4FED20058D19E /* FirebaseStorage */; };
 		B9D6056C28D508800058D19E /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = B9D6056B28D508800058D19E /* SnapKit */; };
 		B9D6057428D53C350058D19E /* FireBaseAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D6057328D53C350058D19E /* FireBaseAuthService.swift */; };
-		B9E7AC9E28F4337100A3D7E5 /* AppAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7AC9D28F4337100A3D7E5 /* AppAssembler.swift */; };
+		B9E7AC9E28F4337100A3D7E5 /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7AC9D28F4337100A3D7E5 /* AppRouter.swift */; };
 		B9E7ACA128F4528000A3D7E5 /* RouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7ACA028F4528000A3D7E5 /* RouterProtocol.swift */; };
+		B9E7ACAE28F46AFB00A3D7E5 /* AdminMenuModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7ACAC28F46AFB00A3D7E5 /* AdminMenuModule.swift */; };
+		B9E7ACAF28F46AFB00A3D7E5 /* AdminMenuAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7ACAD28F46AFB00A3D7E5 /* AdminMenuAssembly.swift */; };
 		B9EB023B28F3159A00B3B6DA /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = B9EB023A28F3159A00B3B6DA /* Swinject */; };
 		B9EB024128F31B6300B3B6DA /* ServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EB024028F31B6300B3B6DA /* ServiceAssembly.swift */; };
 		B9EB024728F3252500B3B6DA /* AddTobaccoAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EB024628F3252500B3B6DA /* AddTobaccoAssembly.swift */; };
@@ -94,7 +95,6 @@
 		B98E1DED28F0DBCF00964B8F /* AdminMenuRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminMenuRouter.swift; sourceTree = "<group>"; };
 		B98E1DEE28F0DBCF00964B8F /* AdminMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminMenuViewController.swift; sourceTree = "<group>"; };
 		B98E1DEF28F0DBCF00964B8F /* AdminMenuInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminMenuInteractor.swift; sourceTree = "<group>"; };
-		B98E1DF028F0DBCF00964B8F /* AdminMenuConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminMenuConfigurator.swift; sourceTree = "<group>"; };
 		B9A4708228D2B84500CA6FAA /* extention + UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extention + UIFont.swift"; sourceTree = "<group>"; };
 		B9A4708528D2BB6400CA6FAA /* AddTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTextFieldView.swift; sourceTree = "<group>"; };
 		B9C7825928ECE25800DBF8C6 /* AuthServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServiceProtocol.swift; sourceTree = "<group>"; };
@@ -103,8 +103,10 @@
 		B9D6055C28D4CFA70058D19E /* GetDataBaseNetworkingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDataBaseNetworkingProtocol.swift; sourceTree = "<group>"; };
 		B9D6056028D4F1410058D19E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B9D6057328D53C350058D19E /* FireBaseAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseAuthService.swift; sourceTree = "<group>"; };
-		B9E7AC9D28F4337100A3D7E5 /* AppAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAssembler.swift; sourceTree = "<group>"; };
+		B9E7AC9D28F4337100A3D7E5 /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
 		B9E7ACA028F4528000A3D7E5 /* RouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterProtocol.swift; sourceTree = "<group>"; };
+		B9E7ACAC28F46AFB00A3D7E5 /* AdminMenuModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminMenuModule.swift; sourceTree = "<group>"; };
+		B9E7ACAD28F46AFB00A3D7E5 /* AdminMenuAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminMenuAssembly.swift; sourceTree = "<group>"; };
 		B9EB024028F31B6300B3B6DA /* ServiceAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceAssembly.swift; sourceTree = "<group>"; };
 		B9EB024628F3252500B3B6DA /* AddTobaccoAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTobaccoAssembly.swift; sourceTree = "<group>"; };
 		B9EB024828F35B5F00B3B6DA /* ModuleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleProtocol.swift; sourceTree = "<group>"; };
@@ -255,7 +257,6 @@
 				B98E1DED28F0DBCF00964B8F /* AdminMenuRouter.swift */,
 				B98E1DEE28F0DBCF00964B8F /* AdminMenuViewController.swift */,
 				B98E1DEF28F0DBCF00964B8F /* AdminMenuInteractor.swift */,
-				B98E1DF028F0DBCF00964B8F /* AdminMenuConfigurator.swift */,
 			);
 			path = AdminMenuModule;
 			sourceTree = "<group>";
@@ -326,6 +327,7 @@
 		B9E7AC9F28F4518C00A3D7E5 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				B9E7ACA728F4673400A3D7E5 /* AdminMenu */,
 				B9E7ACA328F454B500A3D7E5 /* AddTobacco */,
 				B9EB024828F35B5F00B3B6DA /* ModuleProtocol.swift */,
 			);
@@ -341,11 +343,20 @@
 			path = AddTobacco;
 			sourceTree = "<group>";
 		};
+		B9E7ACA728F4673400A3D7E5 /* AdminMenu */ = {
+			isa = PBXGroup;
+			children = (
+				B9E7ACAC28F46AFB00A3D7E5 /* AdminMenuModule.swift */,
+				B9E7ACAD28F46AFB00A3D7E5 /* AdminMenuAssembly.swift */,
+			);
+			path = AdminMenu;
+			sourceTree = "<group>";
+		};
 		B9EB023C28F3165100B3B6DA /* App */ = {
 			isa = PBXGroup;
 			children = (
 				B9EB023F28F31B2500B3B6DA /* Assemblies */,
-				B9E7AC9D28F4337100A3D7E5 /* AppAssembler.swift */,
+				B9E7AC9D28F4337100A3D7E5 /* AppRouter.swift */,
 				B9E7ACA028F4528000A3D7E5 /* RouterProtocol.swift */,
 			);
 			path = App;
@@ -443,6 +454,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9E7ACAF28F46AFB00A3D7E5 /* AdminMenuAssembly.swift in Sources */,
 				B98E1DE528F08D4400964B8F /* AddTobaccoPresenter.swift in Sources */,
 				B98E1DEA28F08D4400964B8F /* AddTobaccoEntity.swift in Sources */,
 				B98E1DD628F0812500964B8F /* LoginPresenter.swift in Sources */,
@@ -476,15 +488,15 @@
 				B98E1DE628F08D4400964B8F /* AddTobaccoRouter.swift in Sources */,
 				B9A4708628D2BB6400CA6FAA /* AddTextFieldView.swift in Sources */,
 				B98E1DF428F0DBCF00964B8F /* AdminMenuViewController.swift in Sources */,
-				B9E7AC9E28F4337100A3D7E5 /* AppAssembler.swift in Sources */,
+				B9E7AC9E28F4337100A3D7E5 /* AppRouter.swift in Sources */,
 				B98E1DB328F04A0F00964B8F /* AddManufacturerViewController.swift in Sources */,
 				B9677CF228D8917000EF9FC6 /* extention + UIViewController.swift in Sources */,
 				B9E7ACA128F4528000A3D7E5 /* RouterProtocol.swift in Sources */,
 				B98E1DE728F08D4400964B8F /* AddTobaccoViewController.swift in Sources */,
+				B9E7ACAE28F46AFB00A3D7E5 /* AdminMenuModule.swift in Sources */,
 				B98E1DB228F04A0F00964B8F /* AddManufacturerRouter.swift in Sources */,
 				B98E1DD828F0812500964B8F /* LoginViewController.swift in Sources */,
 				B98E1DB128F04A0F00964B8F /* AddManufacturerPresenter.swift in Sources */,
-				B98E1DF628F0DBCF00964B8F /* AdminMenuConfigurator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

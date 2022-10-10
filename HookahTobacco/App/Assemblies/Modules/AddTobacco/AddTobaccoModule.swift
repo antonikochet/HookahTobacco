@@ -14,11 +14,7 @@ class AddTobaccoModule: ModuleProtocol {
         self.data = data
     }
     
-    static var nameModule: String {
-        String(describing: self)
-    }
-    
-    func createModule(_ appAssembler: AppAssemblerProtocol) -> UIViewController? {
+    func createModule(_ appAssembler: AppRouterProtocol) -> UIViewController? {
         return appAssembler.resolver.resolve(AddTobaccoViewController.self, argument: appAssembler)
     }
 }

@@ -7,17 +7,22 @@
 //
 //
 
-import Foundation
 import UIKit
 
-protocol AdminMenuRouterInputProtocol {
+protocol AdminMenuRouterProtocol: RouterProtocol {
     func showAddManufacturerModule()
     func showAddTobaccoModule()
     func showLoginModule()
 }
 
-class AdminMenuRouter: AdminMenuRouterInputProtocol {
-    weak var viewController: AdminMenuViewController!
+class AdminMenuRouter: AdminMenuRouterProtocol {
+    var appAssembler: AppRouterProtocol
+    weak var viewController: UIViewController!
+    
+    required init(_ appAssembler: AppRouterProtocol, _ viewController: UIViewController) {
+        self.appAssembler = appAssembler
+        self.viewController = viewController
+    }
     
     func showAddManufacturerModule() {
         let configurator = AddManufacturerConfigurator(setNetworkManager: FireBaseSetNetworkManager())
@@ -26,10 +31,7 @@ class AdminMenuRouter: AdminMenuRouterInputProtocol {
     }
     
     func showAddTobaccoModule() {
-        let configurator = AddTobaccoConfigurator(getDataManager: FireBaseGetNetworkManager(),
-                                                  setDataManager: FireBaseSetNetworkManager())
-        let vc = configurator.configure()
-        viewController.navigationController?.pushViewController(vc, animated: true)
+        appAssembler.pushViewController(module: AddTobaccoModule.self, moduleData: nil, animateDisplay: true)
     }
     
     func showLoginModule() {

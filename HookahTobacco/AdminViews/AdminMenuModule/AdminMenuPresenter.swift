@@ -12,7 +12,7 @@ import Foundation
 class AdminMenuPresenter {
     weak var view: AdminMenuViewInputProtocol!
     var interactor: AdminMenuInteractorInputProtocol!
-    var router: AdminMenuRouterInputProtocol!
+    var router: AdminMenuRouterProtocol!
 }
 
 extension AdminMenuPresenter: AdminMenuInteractorOutputProtocol {
