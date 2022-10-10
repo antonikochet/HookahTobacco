@@ -17,6 +17,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(windowScene: windowScene)
     
+        let assembler = AppAssembler()
+        assembler.registerServices()
+        assembler.registerAppModules()
+    
         let navVC = UINavigationController()
         if FireBaseAuthService.shared.isUserLoggerIn {
             let configucator = AdminMenuConfigurator()
@@ -32,3 +36,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 }
 
+extension AppAssembler {
+    func registerServices() {
+        apply(assemblies: [
+            ServiceAssembly()
+        ])
+        
+    }
+    
+    func registerAppModules() {
+        registerModule(AddTobaccoAssembly(), AddTobaccoModule.nameModule) {
+            AddTobaccoModule($0)
+        }
+    }
+}
