@@ -59,8 +59,8 @@ class ManufacturerListInteractor {
     private func receiveImageManufacturer(by index: Int) {
         guard index < manufacturers.count else { return }
         let manufacturer = manufacturers[index]
-        guard let urlImage = manufacturer.image, !urlImage.isEmpty else { return }
-        getImageManager.getImage(url: urlImage) { [weak self] result in
+        guard let nameImage = manufacturer.image, !nameImage.isEmpty else { return }
+        getImageManager.getImage(for: .manufacturerImage(name: nameImage)) { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 switch result {

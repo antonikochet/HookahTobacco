@@ -8,5 +8,5 @@
 import Foundation
 
 protocol GetImageDataBaseProtocol {
-    func getImage(url: String, completion: @escaping (Result<Data, Error>) -> Void)
+    func getImage(for type: NamedFireStorage, completion: @escaping (Result<Data, Error>) -> Void)
 }
