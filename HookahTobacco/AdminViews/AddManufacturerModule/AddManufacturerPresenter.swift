@@ -42,6 +42,10 @@ extension AddManufacturerPresenter: AddManufacturerViewOutputProtocol {
                                 country: country,
                                 description: enteredData.description)
         
-        interactor.sendNewManufacturerToServer(data)
+        interactor.didEnterDataManufacturer(data)
+    }
+    
+    func selectedImage(with urlFile: URL) {
+        interactor.didSelectImage(with: urlFile)
     }
 }

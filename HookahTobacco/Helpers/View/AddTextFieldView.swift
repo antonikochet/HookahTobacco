@@ -16,6 +16,10 @@ class AddTextFieldView: UIView {
         set { textField.text = newValue }
     }
     
+    var heightView: CGFloat {
+        label.font.lineHeight + 8 + 31
+    }
+    
     //MARK: private properties UI
     private let label: UILabel = {
         let label = UILabel()
@@ -74,6 +78,7 @@ class AddTextFieldView: UIView {
             make.top.equalTo(label.snp.bottom).offset(8)
             make.leading.trailing.equalTo(self)
             make.bottom.equalTo(self.snp.bottom)
+            make.height.equalTo(31)
         }
     }
 }

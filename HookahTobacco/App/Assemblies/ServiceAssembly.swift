@@ -20,5 +20,8 @@ class ServiceAssembly: Assembly {
         container.register(GetImageDataBaseProtocol.self) { _ in
             FireStorageGetImageManager()
         }
+        container.register(SetImageDataBaseProtocol.self) { _ in
+            FireStorageSetImageManager()
+        }
     }
 }

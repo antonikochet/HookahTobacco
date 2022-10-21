@@ -18,6 +18,7 @@ protocol AddManufacturerViewInputProtocol: AnyObject {
 
 protocol AddManufacturerViewOutputProtocol {
     func pressedAddButton(with enteredData: AddManufacturerEntity.EnterData)
+    func selectedImage(with urlFile: URL)
 }
 
 class AddManufacturerViewController: UIViewController {
@@ -48,6 +49,26 @@ class AddManufacturerViewController: UIViewController {
         return text
     }()
     
+    private let imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.isHidden = true
+        return imageView
+    }()
+    
+    private let selectImageButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Добавить изображение", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .systemOrange
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.titleLabel?.minimumScaleFactor = 0.8
+        button.titleLabel?.font = UIFont.appFont(size: 17, weight: .bold)
+        return button
+    }()
+    
+    //TODO: сделать переход на PHPickerView
+    private var imagePickerView: UIImagePickerController?
+    
     private let addedButton: UIButton = {
         let button = UIButton()
         button.setTitle("Добавить нового производителя", for: .normal)
@@ -77,6 +98,9 @@ class AddManufacturerViewController: UIViewController {
         
         addedButton.layer.cornerRadius = addedButton.frame.height / 2
         addedButton.clipsToBounds = true
+        
+        selectImageButton.layer.cornerRadius = selectImageButton.frame.height / 2
+        selectImageButton.clipsToBounds = true
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -92,6 +116,7 @@ class AddManufacturerViewController: UIViewController {
                                     delegate: self)
         nameTextFieldView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(32)
+            make.height.height.equalTo(nameTextFieldView.heightView)
             make.leading.trailing.equalTo(view).inset(32)
         }
         
@@ -101,6 +126,7 @@ class AddManufacturerViewController: UIViewController {
                                        delegate: self)
         countryTextFieldView.snp.makeConstraints { make in
             make.top.equalTo(nameTextFieldView.snp.bottom).offset(16)
+            make.height.height.equalTo(countryTextFieldView.heightView)
             make.leading.trailing.equalTo(view).inset(32)
         }
         
@@ -126,6 +152,29 @@ class AddManufacturerViewController: UIViewController {
             make.height.equalTo(50)
         }
         addedButton.addTarget(self, action: #selector(touchAddedButton), for: .touchUpInside)
+        
+        view.addSubview(selectImageButton)
+        selectImageButton.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.6)
+            make.bottom.equalTo(addedButton.snp.top).inset(-16)
+            make.height.equalTo(35)
+        }
+        selectImageButton.addTarget(self, action: #selector(touchSelectImageButton), for: .touchUpInside)
+        
+        view.addSubview(imageView)
+        imageView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(descriptionTextView.snp.bottom).inset(-32)
+            make.bottom.equalTo(selectImageButton.snp.top).inset(-16)
+            make.width.equalTo(imageView.snp.height)
+        }
+    }
+    
+    private func setupImagePickerView() {
+        imagePickerView = UIImagePickerController()
+        imagePickerView?.sourceType = .photoLibrary
+        imagePickerView?.delegate = self
     }
     
     //MARK: private methods
@@ -136,6 +185,15 @@ class AddManufacturerViewController: UIViewController {
                                                      description: descriptionTextView.text)
         
         presenter.pressedAddButton(with: entity)
+    }
+    
+    @objc
+    private func touchSelectImageButton() {
+        setupImagePickerView()
+        guard let imagePickerView = imagePickerView else {
+            return
+        }
+        present(imagePickerView, animated: true)
     }
 }
 
@@ -153,7 +211,9 @@ extension AddManufacturerViewController: AddManufacturerViewInputProtocol {
         nameTextFieldView.text = ""
         countryTextFieldView.text = ""
         descriptionTextView.text = ""
-        let _ = nameTextFieldView.becomeFirstResponderTextField()
+        imageView.image = nil
+        imageView.isHidden = true
+        selectImageButton.setTitle("Добавить изображение", for: .normal)
     }
 }
 
@@ -165,5 +225,27 @@ extension AddManufacturerViewController: UITextFieldDelegate {
             return descriptionTextView.becomeFirstResponder()
         }
         return false
+    }
+}
+
+extension AddManufacturerViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        guard let selectedImage = info[.originalImage] as? UIImage,
+              let urlImageFile = info[.imageURL] as? URL else {
+            return
+        }
+        picker.dismiss(animated: true) { [weak self] in
+            guard let self = self else { return }
+            self.presenter.selectedImage(with: urlImageFile)
+            self.imageView.isHidden = false
+            self.imageView.image = selectedImage
+            self.imagePickerView = nil
+            self.selectImageButton.setTitle("Изменить изображение", for: .normal)
+        }
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true)
     }
 }
