@@ -9,6 +9,10 @@
 
 import UIKit
 
+struct AddManufacturerDataModule: DataModuleProtocol {
+    let editingManufacturer: Manufacturer
+}
+
 class AddManufacturerModule: ModuleProtocol {
     private var data: DataModuleProtocol?
     
@@ -21,6 +25,10 @@ class AddManufacturerModule: ModuleProtocol {
     }
     
     func createModule(_ appRouter: AppRouterProtocol) -> UIViewController? {
-        return appRouter.resolver.resolve(AddManufacturerViewController.self, argument: appRouter)
+        var manufacturer: Manufacturer? = nil
+        if let data = data as? AddManufacturerDataModule {
+            manufacturer = data.editingManufacturer
+        }
+        return appRouter.resolver.resolve(AddManufacturerViewController.self, arguments: appRouter, manufacturer)
     }
 }

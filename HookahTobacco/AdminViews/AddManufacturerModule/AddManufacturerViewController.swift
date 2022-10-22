@@ -11,14 +11,16 @@ import UIKit
 import SnapKit
 
 protocol AddManufacturerViewInputProtocol: AnyObject {
-    func showAlertForUnspecifiedField(with title: String, message: String)
     func showAlertError(with message: String)
-    func showSuccessViewAlert()
+    func showSuccessViewAlert(_ isClear: Bool)
+    func setupContent(_ viewModel: AddManufacturerEntity.ViewModel)
+    func setupImageManufacturer(_ image: Data?, textButton: String)
 }
 
 protocol AddManufacturerViewOutputProtocol {
     func pressedAddButton(with enteredData: AddManufacturerEntity.EnterData)
     func selectedImage(with urlFile: URL)
+    func viewDidLoad()
 }
 
 class AddManufacturerViewController: UIViewController {
@@ -86,6 +88,7 @@ class AddManufacturerViewController: UIViewController {
         super.viewDidLoad()
     
         view.backgroundColor = .white
+        presenter.viewDidLoad()
         setupSubviews()
     }
     
@@ -198,22 +201,36 @@ class AddManufacturerViewController: UIViewController {
 }
 
 extension AddManufacturerViewController: AddManufacturerViewInputProtocol {
-    func showAlertForUnspecifiedField(with title: String, message: String) {
-        showAlertError(title: title, message: message)
-    }
-    
     func showAlertError(with message: String) {
         showAlertError(title: "Ошибка", message: message)
     }
     
-    func showSuccessViewAlert() {
+    func showSuccessViewAlert(_ isClear: Bool) {
         showSuccessView(duration: 0.3, delay: 2.0)
-        nameTextFieldView.text = ""
-        countryTextFieldView.text = ""
-        descriptionTextView.text = ""
-        imageView.image = nil
-        imageView.isHidden = true
-        selectImageButton.setTitle("Добавить изображение", for: .normal)
+        if isClear {
+            nameTextFieldView.text = ""
+            countryTextFieldView.text = ""
+            descriptionTextView.text = ""
+            imageView.image = nil
+            imageView.isHidden = true
+            selectImageButton.setTitle("Добавить изображение", for: .normal)
+            let _ = nameTextFieldView.becomeFirstResponderTextField()
+        }
+    }
+    
+    func setupContent(_ viewModel: AddManufacturerEntity.ViewModel) {
+        nameTextFieldView.text = viewModel.name
+        countryTextFieldView.text = viewModel.country
+        descriptionTextView.text = viewModel.description
+        addedButton.setTitle(viewModel.textButton, for: .normal)
+    }
+    
+    func setupImageManufacturer(_ image: Data?, textButton: String) {
+        selectImageButton.setTitle(textButton, for: .normal)
+        if let image = image {
+            imageView.image = UIImage(data: image)
+            imageView.isHidden = false
+        }
     }
 }
 

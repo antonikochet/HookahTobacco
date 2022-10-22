@@ -21,4 +21,11 @@ struct AddManufacturerEntity {
         let country: String
         let description: String?
     }
+    
+    struct ViewModel {
+        let name: String
+        let country: String
+        let description: String
+        let textButton: String
+    }
 }

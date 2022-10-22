@@ -10,6 +10,7 @@ import Foundation
 protocol SetImageDataBaseProtocol {
     typealias Completion = (Error?) -> Void
     
-    func setImage(_ image: Data, for type: NamedFireStorage, completion: @escaping Completion)
-    func setImage(_ urlFile: URL, for type: NamedFireStorage, completion: @escaping Completion)
+    func addImage(by fileURL: URL, for image: NamedFireStorage, completion: @escaping Completion)
+    func setImage(from oldImage: NamedFireStorage, to newURL: URL, for newImage: NamedFireStorage, completion: @escaping Completion)
+    func setImageName(from oldImage: NamedFireStorage, to newImage: NamedFireStorage, completion: @escaping Completion)
 }

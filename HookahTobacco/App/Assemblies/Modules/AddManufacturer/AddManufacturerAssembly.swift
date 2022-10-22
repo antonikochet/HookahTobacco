@@ -18,10 +18,17 @@ class AddManufacturerAssembly: Assembly {
             return router
         }
         
-        container.register(AddManufacturerInteractorInputProtocol.self) { r in
+        container.register(AddManufacturerInteractorInputProtocol.self) { (r, manufacturer: Manufacturer?) in
             //here resolve dependency injection
             let setNetworkManager = r.resolve(SetDataBaseNetworkingProtocol.self)!
             let setImageManager = r.resolve(SetImageDataBaseProtocol.self)!
+            if let manufacturer = manufacturer {
+                let getImageManager = r.resolve(GetImageDataBaseProtocol.self)!
+                return AddManufacturerInteractor(manufacturer,
+                                                 setNetworkManager: setNetworkManager,
+                                                 setImageManager: setImageManager,
+                                                 getImageManager: getImageManager)
+            }
             return AddManufacturerInteractor(setNetworkManager: setNetworkManager,
                                              setImageManager: setImageManager)
         }
@@ -31,10 +38,10 @@ class AddManufacturerAssembly: Assembly {
             return presenter
         }
         
-        container.register(AddManufacturerViewController.self) { (r, appRouter: AppRouterProtocol) in
+        container.register(AddManufacturerViewController.self) { (r, appRouter: AppRouterProtocol, manufacturer: Manufacturer?) in
             let view = AddManufacturerViewController()
             let presenter = r.resolve(AddManufacturerViewOutputProtocol.self) as! AddManufacturerPresenter
-            let interactor = r.resolve(AddManufacturerInteractorInputProtocol.self) as! AddManufacturerInteractor
+            let interactor = r.resolve(AddManufacturerInteractorInputProtocol.self, argument: manufacturer) as! AddManufacturerInteractor
             let router = r.resolve(AddManufacturerRouterProtocol.self, argument: appRouter)!
             
             view.presenter = presenter

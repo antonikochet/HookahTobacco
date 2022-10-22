@@ -10,7 +10,7 @@
 import UIKit
 
 protocol AddManufacturerRouterProtocol: RouterProtocol {
-    
+    func dismissView()
 }
 
 class AddManufacturerRouter: AddManufacturerRouterProtocol {
@@ -18,5 +18,9 @@ class AddManufacturerRouter: AddManufacturerRouterProtocol {
     
     required init(_ appRouter: AppRouterProtocol) {
         self.appRouter = appRouter
+    }
+    
+    func dismissView() {
+        appRouter.popViewConroller(animated: true, completion: nil)
     }
 }
