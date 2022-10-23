@@ -11,16 +11,27 @@ import UIKit
 
 protocol AddManufacturerRouterProtocol: RouterProtocol {
     func dismissView()
+    func dismissView(with changedData: Manufacturer)
+}
+
+protocol AddManufacturerOutputModule: AnyObject {
+    func sendChangedManufacturer(_ manufacture: Manufacturer)
 }
 
 class AddManufacturerRouter: AddManufacturerRouterProtocol {
     var appRouter: AppRouterProtocol
+    weak var delegate: AddManufacturerOutputModule?
     
     required init(_ appRouter: AppRouterProtocol) {
         self.appRouter = appRouter
     }
     
     func dismissView() {
+        appRouter.popViewConroller(animated: true, completion: nil)
+    }
+    
+    func dismissView(with changedData: Manufacturer) {
+        delegate?.sendChangedManufacturer(changedData)
         appRouter.popViewConroller(animated: true, completion: nil)
     }
 }

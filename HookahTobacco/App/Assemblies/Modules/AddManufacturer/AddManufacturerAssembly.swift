@@ -38,11 +38,11 @@ class AddManufacturerAssembly: Assembly {
             return presenter
         }
         
-        container.register(AddManufacturerViewController.self) { (r, appRouter: AppRouterProtocol, manufacturer: Manufacturer?) in
+        container.register(AddManufacturerViewController.self) { (r, appRouter: AppRouterProtocol, manufacturer: Manufacturer?, delegate: AddManufacturerOutputModule?) in
             let view = AddManufacturerViewController()
             let presenter = r.resolve(AddManufacturerViewOutputProtocol.self) as! AddManufacturerPresenter
             let interactor = r.resolve(AddManufacturerInteractorInputProtocol.self, argument: manufacturer) as! AddManufacturerInteractor
-            let router = r.resolve(AddManufacturerRouterProtocol.self, argument: appRouter)!
+            let router = r.resolve(AddManufacturerRouterProtocol.self, argument: appRouter) as! AddManufacturerRouter
             
             view.presenter = presenter
             presenter.view = view
@@ -50,6 +50,8 @@ class AddManufacturerAssembly: Assembly {
             interactor.presenter = presenter
             
             presenter.router = router
+            
+            router.delegate = delegate
             return view
         }
     }

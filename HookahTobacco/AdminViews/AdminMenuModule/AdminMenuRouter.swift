@@ -12,6 +12,7 @@ import UIKit
 protocol AdminMenuRouterProtocol: RouterProtocol {
     func showAddManufacturerModule()
     func showAddTobaccoModule()
+    func showManufacturerListModule()
     func showLoginModule()
 }
 
@@ -28,6 +29,11 @@ class AdminMenuRouter: AdminMenuRouterProtocol {
     
     func showAddTobaccoModule() {
         appRouter.pushViewController(module: AddTobaccoModule.self, moduleData: nil, animateDisplay: true)
+    }
+    
+    func showManufacturerListModule() {
+        let data = ManufacturerListDataModile(isAdminMode: true)
+        appRouter.pushViewController(module: ManufacturerListModule.self, moduleData: data, animateDisplay: true)
     }
     
     func showLoginModule() {

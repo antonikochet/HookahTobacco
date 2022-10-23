@@ -11,6 +11,7 @@ import UIKit
 
 struct AddManufacturerDataModule: DataModuleProtocol {
     let editingManufacturer: Manufacturer
+    var delegate: AddManufacturerOutputModule? = nil
 }
 
 class AddManufacturerModule: ModuleProtocol {
@@ -26,9 +27,11 @@ class AddManufacturerModule: ModuleProtocol {
     
     func createModule(_ appRouter: AppRouterProtocol) -> UIViewController? {
         var manufacturer: Manufacturer? = nil
+        var delegate: AddManufacturerOutputModule? = nil
         if let data = data as? AddManufacturerDataModule {
             manufacturer = data.editingManufacturer
+            delegate = data.delegate
         }
-        return appRouter.resolver.resolve(AddManufacturerViewController.self, arguments: appRouter, manufacturer)
+        return appRouter.resolver.resolve(AddManufacturerViewController.self, arguments: appRouter, manufacturer, delegate)
     }
 }

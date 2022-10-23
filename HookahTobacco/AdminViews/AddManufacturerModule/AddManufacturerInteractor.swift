@@ -16,7 +16,8 @@ protocol AddManufacturerInteractorInputProtocol {
 }
 
 protocol AddManufacturerInteractorOutputProtocol: AnyObject {
-    func receivedSuccess(_ isEditing: Bool)
+    func receivedSuccessAddition()
+    func receivedSuccessEditing(with changedData: Manufacturer)
     func receivedError(with code: Int, and message: String)
     func initialDataForPresentation(_ manufacturer: AddManufacturerEntity.Manufacturer, isEditing: Bool)
     func initialImage(_ image: Data?)
@@ -169,7 +170,11 @@ extension AddManufacturerInteractor: AddManufacturerInteractorInputProtocol {
         
         dispatchGroup.notify(queue: .main) {
             if self.receivedErrors.isEmpty {
-                self.presenter.receivedSuccess(self.isEditing)
+                if self.isEditing {
+                    self.presenter.receivedSuccessEditing(with: enterManufacturer)
+                } else {
+                    self.presenter.receivedSuccessAddition()
+                }
             } else {
                 //TODO: исправить данный вывод ошибок
                 for error in self.receivedErrors {

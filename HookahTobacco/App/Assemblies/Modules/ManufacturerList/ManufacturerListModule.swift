@@ -9,6 +9,10 @@
 
 import UIKit
 
+struct ManufacturerListDataModile: DataModuleProtocol {
+    let isAdminMode: Bool
+}
+
 class ManufacturerListModule: ModuleProtocol {
     private var data: DataModuleProtocol?
     
@@ -17,6 +21,10 @@ class ManufacturerListModule: ModuleProtocol {
     }
     
     func createModule(_ appRouter: AppRouterProtocol) -> UIViewController? {
-        return appRouter.resolver.resolve(ManufacturerListViewController.self, argument: appRouter)
+        var isAdminMode = false
+        if let data = data as? ManufacturerListDataModile {
+            isAdminMode = data.isAdminMode
+        }
+        return appRouter.resolver.resolve(ManufacturerListViewController.self, arguments: appRouter, isAdminMode)
     }
 }

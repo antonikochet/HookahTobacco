@@ -13,6 +13,7 @@ import SwiftUI
 protocol ManufacturerListInteractorInputProtocol: AnyObject {
     func startReceiveData()
     func receiveDataForShowDetail(by index: Int)
+    func receivedDataFromOutside(_ data: Manufacturer)
 }
 
 protocol ManufacturerListInteractorOutputProtocol: AnyObject {
@@ -20,6 +21,7 @@ protocol ManufacturerListInteractorOutputProtocol: AnyObject {
     func receivedError(with message: String)
     func receivedImage(for manufacturer: Manufacturer, with data: Data)
     func receivedDataForShowDetail(_ manudacturer: Manufacturer)
+    func receivedDataForEditing(_ manufacturer: Manufacturer)
 }
 
 class ManufacturerListInteractor {
@@ -30,11 +32,15 @@ class ManufacturerListInteractor {
             presenter.receivedManufacturersSuccess(with: manufacturers)
         }
     }
+    private var isAdminMode: Bool
     
     private var getDataManager: GetDataBaseNetworkingProtocol
     private var getImageManager: GetImageDataBaseProtocol
     
-    init(getDataManager: GetDataBaseNetworkingProtocol, getImageManager: GetImageDataBaseProtocol) {
+    init(_ isAdminMode: Bool,
+         getDataManager: GetDataBaseNetworkingProtocol,
+         getImageManager: GetImageDataBaseProtocol) {
+        self.isAdminMode = isAdminMode
         self.getDataManager = getDataManager
         self.getImageManager = getImageManager
     }
@@ -82,6 +88,15 @@ extension ManufacturerListInteractor: ManufacturerListInteractorInputProtocol {
     
     func receiveDataForShowDetail(by index: Int) {
         guard index < manufacturers.count else { return }
-        presenter.receivedDataForShowDetail(manufacturers[index])
+        if isAdminMode {
+            presenter.receivedDataForEditing(manufacturers[index])
+        } else {
+            presenter.receivedDataForShowDetail(manufacturers[index])
+        }
+    }
+    
+    func receivedDataFromOutside(_ data: Manufacturer) {
+        guard let index = manufacturers.firstIndex(where: { $0.uid == data.uid }) else { return }
+        manufacturers[index] = data
     }
 }

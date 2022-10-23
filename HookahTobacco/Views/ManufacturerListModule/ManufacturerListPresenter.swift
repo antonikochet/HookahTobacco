@@ -44,6 +44,10 @@ extension ManufacturerListPresenter: ManufacturerListInteractorOutputProtocol {
     func receivedDataForShowDetail(_ manudacturer: Manufacturer) {
         router.showDetail(for: manudacturer)
     }
+    
+    func receivedDataForEditing(_ manufacturer: Manufacturer) {
+        router.showAddManufacturer(manufacturer, delegate: self)
+    }
 }
 
 extension ManufacturerListPresenter: ManufacturerListViewOutputProtocol {
@@ -61,5 +65,11 @@ extension ManufacturerListPresenter: ManufacturerListViewOutputProtocol {
     
     func didTouchForElement(by row: Int) {
         interactor.receiveDataForShowDetail(by: row)
+    }
+}
+
+extension ManufacturerListPresenter: AddManufacturerOutputModule {
+    func sendChangedManufacturer(_ manufacture: Manufacturer) {
+        interactor.receivedDataFromOutside(manufacture)
     }
 }

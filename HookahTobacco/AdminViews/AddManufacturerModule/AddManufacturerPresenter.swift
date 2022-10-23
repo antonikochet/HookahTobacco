@@ -19,12 +19,14 @@ class AddManufacturerPresenter {
 }
 
 extension AddManufacturerPresenter: AddManufacturerInteractorOutputProtocol {
-    func receivedSuccess(_ isEditing: Bool) {
-        view.showSuccessViewAlert(!isEditing)
-        if isEditing {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                self.router.dismissView()
-            }
+    func receivedSuccessAddition() {
+        view.showSuccessViewAlert(true)
+    }
+    
+    func receivedSuccessEditing(with changedData: Manufacturer) {
+        view.showSuccessViewAlert(false)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.router.dismissView(with: changedData)
         }
     }
     

@@ -18,12 +18,13 @@ class ManufacturerListAssembly: Assembly {
             return router
         }
         
-        container.register(ManufacturerListInteractorInputProtocol.self) { r  in
+        container.register(ManufacturerListInteractorInputProtocol.self) { (r, isAdminMode: Bool) in
             //here resolve dependency injection
             let getDataManager = r.resolve(GetDataBaseNetworkingProtocol.self)!
             let getImageManager = r.resolve(GetImageDataBaseProtocol.self)!
             
-            return ManufacturerListInteractor(getDataManager: getDataManager,
+            return ManufacturerListInteractor(isAdminMode,
+                                              getDataManager: getDataManager,
                                               getImageManager: getImageManager)
         }
         
@@ -32,10 +33,10 @@ class ManufacturerListAssembly: Assembly {
             return presenter
         }
         
-        container.register(ManufacturerListViewController.self) { (r, appRouter: AppRouterProtocol) in
+        container.register(ManufacturerListViewController.self) { (r, appRouter: AppRouterProtocol, isAdminMode: Bool) in
             let view = ManufacturerListViewController()
             let presenter = r.resolve(ManufacturerListViewOutputProtocol.self) as! ManufacturerListPresenter
-            let interactor = r.resolve(ManufacturerListInteractorInputProtocol.self) as! ManufacturerListInteractor
+            let interactor = r.resolve(ManufacturerListInteractorInputProtocol.self, argument: isAdminMode) as! ManufacturerListInteractor
             let router = r.resolve(ManufacturerListRouterProtocol.self, argument: appRouter)!
             
             view.presenter = presenter
