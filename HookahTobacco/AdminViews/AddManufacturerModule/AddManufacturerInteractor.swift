@@ -34,6 +34,7 @@ class AddManufacturerInteractor {
     private var imageFileURL: URL?
     private var manufacturer: Manufacturer?
     private let isEditing: Bool
+    private var editingImage: Data?
     
     private var dispatchGroup = DispatchGroup()
     private var receivedErrors: [Error] = []
@@ -96,12 +97,13 @@ class AddManufacturerInteractor {
     
     //MARK: methods for changing manufacturer data
     private func receiveImage(for manufacturer: Manufacturer) {
-        guard let nameImage = manufacturer.image else { return }
+        let nameImage = manufacturer.nameImage
         let type = NamedFireStorage.manufacturerImage(name: nameImage)
         getImageManager?.getImage(for: type) { [weak self] result in
             guard let self = self else { return }
             switch result {
                 case .success(let image):
+                    self.editingImage = image
                     self.presenter.initialImage(image)
                 case .failure(let error):
                     let err = error as NSError
@@ -122,6 +124,7 @@ class AddManufacturerInteractor {
     
     private func setImage(with newURL: URL, from oldName: String, to newName: String) {
         dispatchGroup.enter()
+        editingImage = try? Data(contentsOf: newURL)
         setImageManager.setImage(from: .manufacturerImage(name: oldName),
                                  to: newURL,
                                  for: .manufacturerImage(name: newName)) { [weak self] error in
@@ -144,16 +147,20 @@ class AddManufacturerInteractor {
 extension AddManufacturerInteractor: AddManufacturerInteractorInputProtocol {
     func didEnterDataManufacturer(_ data: AddManufacturerEntity.Manufacturer) {
         var enterManufacturer = Manufacturer(name: data.name,
-                                        country: data.country,
-                                        description: data.description ?? "")
+                                             country: data.country,
+                                             description: data.description ?? "",
+                                             nameImage: "")
         dispatchGroup = DispatchGroup()
         if isEditing {
-            guard let manufacturer = manufacturer,
-                  let nameImage = manufacturer.image else { return }
+            guard let manufacturer = manufacturer else { return }
+            let nameImage = manufacturer.nameImage
             let NameImageURL = URL(string: nameImage.replacingOccurrences(of: " ", with: ""))!
             let newNameFile = createNameImageFile(with: NameImageURL, for: enterManufacturer)
-            enterManufacturer.image = newNameFile
-            if manufacturer.name != enterManufacturer.name {
+            enterManufacturer.nameImage = newNameFile
+            if let newURLFile = imageFileURL,
+               manufacturer.name != enterManufacturer.name {
+                setImage(with: newURLFile, from: nameImage, to: newNameFile)
+            } else if manufacturer.name != enterManufacturer.name {
                 setNameImage(oldName: nameImage, newName: newNameFile)
             } else if let newUrlFile = imageFileURL {
                 setImage(with: newUrlFile, from: nameImage, to: newNameFile)
@@ -163,7 +170,7 @@ extension AddManufacturerInteractor: AddManufacturerInteractorInputProtocol {
         } else {
             guard let fileURL = imageFileURL else { return }
             let nameFile = createNameImageFile(with: fileURL, for: enterManufacturer)
-            enterManufacturer.image = nameFile
+            enterManufacturer.nameImage = nameFile
             addImageToServer(with: fileURL, nameFile)
             addManufacturerToServer(enterManufacturer)
         }
@@ -171,6 +178,7 @@ extension AddManufacturerInteractor: AddManufacturerInteractorInputProtocol {
         dispatchGroup.notify(queue: .main) {
             if self.receivedErrors.isEmpty {
                 if self.isEditing {
+                    enterManufacturer.image = self.editingImage
                     self.presenter.receivedSuccessEditing(with: enterManufacturer)
                 } else {
                     self.presenter.receivedSuccessAddition()
@@ -194,7 +202,12 @@ extension AddManufacturerInteractor: AddManufacturerInteractorInputProtocol {
     func receiveStartingDataView() {
         if isEditing {
             guard let manufacturer = manufacturer else { return }
-            receiveImage(for: manufacturer)
+            if manufacturer.image == nil {
+                receiveImage(for: manufacturer)
+            } else {
+                editingImage = manufacturer.image
+                presenter.initialImage(manufacturer.image!)
+            }
             let pManufacturer = AddManufacturerEntity.Manufacturer(
                                     name: manufacturer.name,
                                     country: manufacturer.country,

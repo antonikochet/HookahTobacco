@@ -8,7 +8,6 @@
 //
 
 import Foundation
-import SwiftUI
 
 protocol ManufacturerListInteractorInputProtocol: AnyObject {
     func startReceiveData()
@@ -19,7 +18,7 @@ protocol ManufacturerListInteractorInputProtocol: AnyObject {
 protocol ManufacturerListInteractorOutputProtocol: AnyObject {
     func receivedManufacturersSuccess(with data: [Manufacturer])
     func receivedError(with message: String)
-    func receivedImage(for manufacturer: Manufacturer, with data: Data)
+    func receivedUpdate(for manufacturer: Manufacturer, at index: Int)
     func receivedDataForShowDetail(_ manudacturer: Manufacturer)
     func receivedDataForEditing(_ manufacturer: Manufacturer)
 }
@@ -27,11 +26,8 @@ protocol ManufacturerListInteractorOutputProtocol: AnyObject {
 class ManufacturerListInteractor {
     weak var presenter: ManufacturerListInteractorOutputProtocol!
     
-    private var manufacturers: [Manufacturer] = [] {
-        didSet {
-            presenter.receivedManufacturersSuccess(with: manufacturers)
-        }
-    }
+    private var manufacturers: [Manufacturer] = []
+    
     private var isAdminMode: Bool
     
     private var getDataManager: GetDataBaseNetworkingProtocol
@@ -52,27 +48,29 @@ class ManufacturerListInteractor {
                 switch result {
                     case .success(let data):
                         self.manufacturers = data
+                        self.presenter.receivedManufacturersSuccess(with: data)
                     case .failure(let error):
                         self.presenter.receivedError(with: error.localizedDescription)
                 }
-                for i in 0..<self.manufacturers.count {
-                    self.receiveImageManufacturer(by: i)
+                for (i, m) in self.manufacturers.enumerated() {
+                    self.receiveImage(for: m, at: i)
                 }
             }
         }
     }
     
-    private func receiveImageManufacturer(by index: Int) {
-        guard index < manufacturers.count else { return }
-        let manufacturer = manufacturers[index]
-        guard let nameImage = manufacturer.image, !nameImage.isEmpty else { return }
-        getImageManager.getImage(for: .manufacturerImage(name: nameImage)) { [weak self] result in
+    private func receiveImage(for manufacturer: Manufacturer, at index: Int) {
+        let imageName = manufacturer.nameImage
+        guard !imageName.isEmpty else { return }
+        getImageManager.getImage(for: .manufacturerImage(name: imageName)) { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 switch result {
                     case .success(let data):
-                        self.presenter.receivedImage(for: manufacturer, with: data)
-                        break
+                        var mutableManufacturer = manufacturer
+                        mutableManufacturer.image = data
+                        self.manufacturers[index] = mutableManufacturer
+                        self.presenter.receivedUpdate(for: mutableManufacturer, at: index)
                     case .failure(let error):
                         self.presenter.receivedError(with: error.localizedDescription)
                 }
@@ -98,5 +96,6 @@ extension ManufacturerListInteractor: ManufacturerListInteractorInputProtocol {
     func receivedDataFromOutside(_ data: Manufacturer) {
         guard let index = manufacturers.firstIndex(where: { $0.uid == data.uid }) else { return }
         manufacturers[index] = data
+        presenter.receivedUpdate(for: data, at: index)
     }
 }

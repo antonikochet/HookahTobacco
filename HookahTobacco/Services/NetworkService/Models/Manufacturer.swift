@@ -12,7 +12,8 @@ struct Manufacturer {
     let name: String
     let country: String
     let description: String
-    var image: String?
+    var nameImage: String
+    var image: Data?
 }
 
 extension Manufacturer: Equatable {

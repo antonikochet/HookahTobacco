@@ -49,7 +49,7 @@ fileprivate extension Manufacturer {
             NamedFireStore.Documents.Manufacturer.name : self.name,
             NamedFireStore.Documents.Manufacturer.country : self.country,
             NamedFireStore.Documents.Manufacturer.description: self.description,
-            NamedFireStore.Documents.Manufacturer.image: self.image as Any
+            NamedFireStore.Documents.Manufacturer.image: self.nameImage
         ]
     }
 }

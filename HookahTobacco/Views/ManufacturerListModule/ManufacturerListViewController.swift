@@ -12,7 +12,7 @@ import UIKit
 protocol ManufacturerListViewInputProtocol: AnyObject {
     func showError(with message: String)
     func showData()
-    func showImage(by row: Int)
+    func showRow(_ row: Int)
 }
 
 protocol ManufacturerListViewOutputProtocol: AnyObject {
@@ -59,7 +59,7 @@ extension ManufacturerListViewController: ManufacturerListViewInputProtocol {
         tableView.reloadData()
     }
     
-    func showImage(by row: Int) {
+    func showRow(_ row: Int) {
         tableView.reloadRows(at: [IndexPath(row: row, section: 0)], with: .none)
     }
 }

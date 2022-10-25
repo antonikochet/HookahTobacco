@@ -54,12 +54,19 @@ class FireStorageSetImageManager: SetImageDataBaseProtocol {
         
         let newPath = newImage.path
         let newRef = storage.reference(withPath: newPath)
-        let url = URL(string: "gs://\(oldRef.bucket)/\(oldPath)")!
-        newRef.putFile(from: url) { _, error in
-            if error == nil {
-                oldRef.delete(completion: completion)
-            } else {
-                completion(error)
+        oldRef.getData(maxSize: 2 * 1024 * 1024) { result in
+            switch result {
+                case .success(let data):
+                    newRef.putData(data) { result in
+                        switch result {
+                            case .success(_):
+                                oldRef.delete(completion: completion)
+                            case .failure(let error):
+                                completion(error)
+                        }
+                    }
+                case .failure(let error):
+                    completion(error)
             }
         }
     }
