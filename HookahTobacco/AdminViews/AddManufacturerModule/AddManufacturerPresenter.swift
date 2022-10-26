@@ -20,10 +20,12 @@ class AddManufacturerPresenter {
 
 extension AddManufacturerPresenter: AddManufacturerInteractorOutputProtocol {
     func receivedSuccessAddition() {
+        view.hideLoading()
         view.showSuccessViewAlert(true)
     }
     
     func receivedSuccessEditing(with changedData: Manufacturer) {
+        view.hideLoading()
         view.showSuccessViewAlert(false)
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             self.router.dismissView(with: changedData)
@@ -31,6 +33,7 @@ extension AddManufacturerPresenter: AddManufacturerInteractorOutputProtocol {
     }
     
     func receivedError(with code: Int, and message: String) {
+        view.hideLoading()
         view.showAlertError(with: "Code - \(code). \(message)")
     }
     
@@ -73,6 +76,7 @@ extension AddManufacturerPresenter: AddManufacturerViewOutputProtocol {
                                 country: country,
                                 description: enteredData.description)
         
+        view.showLoading()
         interactor.didEnterDataManufacturer(data)
     }
     

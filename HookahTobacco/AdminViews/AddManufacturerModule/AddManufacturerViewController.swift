@@ -15,6 +15,8 @@ protocol AddManufacturerViewInputProtocol: AnyObject {
     func showSuccessViewAlert(_ isClear: Bool)
     func setupContent(_ viewModel: AddManufacturerEntity.ViewModel)
     func setupImageManufacturer(_ image: Data?, textButton: String)
+    func showLoading()
+    func hideLoading()
 }
 
 protocol AddManufacturerViewOutputProtocol {
@@ -68,6 +70,8 @@ class AddManufacturerViewController: UIViewController {
         return button
     }()
     
+    private let activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView(style: .large)
+    
     //TODO: сделать переход на PHPickerView
     private var imagePickerView: UIImagePickerController?
     
@@ -93,8 +97,6 @@ class AddManufacturerViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
         descriptionTextView.layer.cornerRadius = 10
         descriptionTextView.layer.borderColor = UIColor(white: 0.5, alpha: 0.2).cgColor
         descriptionTextView.layer.borderWidth = 1
@@ -172,6 +174,12 @@ class AddManufacturerViewController: UIViewController {
             make.bottom.equalTo(selectImageButton.snp.top).inset(-16)
             make.width.equalTo(imageView.snp.height)
         }
+        
+        view.addSubview(activityIndicator)
+        activityIndicator.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
+        }
+        activityIndicator.hidesWhenStopped = true
     }
     
     private func setupImagePickerView() {
@@ -214,7 +222,7 @@ extension AddManufacturerViewController: AddManufacturerViewInputProtocol {
             imageView.image = nil
             imageView.isHidden = true
             selectImageButton.setTitle("Добавить изображение", for: .normal)
-            let _ = nameTextFieldView.becomeFirstResponderTextField()
+            nameTextFieldView.becomeFirstResponderTextField()
         }
     }
     
@@ -231,6 +239,14 @@ extension AddManufacturerViewController: AddManufacturerViewInputProtocol {
             imageView.image = UIImage(data: image)
             imageView.isHidden = false
         }
+    }
+    
+    func showLoading() {
+        activityIndicator.startAnimating()
+    }
+    
+    func hideLoading() {
+        activityIndicator.stopAnimating()
     }
 }
 
