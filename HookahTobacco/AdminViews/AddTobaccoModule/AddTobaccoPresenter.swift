@@ -18,33 +18,56 @@ class AddTobaccoPresenter {
 }
 
 extension AddTobaccoPresenter: AddTobaccoInteractorOutputProtocol {
-    func receivedSuccessWhileAdding() {
-        view.showSuccessViewAlert()
+    func receivedSuccessAddition() {
+        view.hideLoading()
+        view.showSuccessViewAlert(true)
     }
     
-    func receivedErrorWhileAdding(with code: Int, and message: String) {
+    func receivedSuccessEditing(with changedData: Tobacco) {
+        view.hideLoading()
+        view.showSuccessViewAlert(false)
+        router.dismissView(with: changedData)
+    }
+    
+    func receivedError(with code: Int, and message: String) {
+        view.hideLoading()
         view.showAlertError(with: "Code - \(code). \(message)")
-    }
-    
-    func receivedError(with title: String, and message: String) {
-        view.showAlertForUnspecifiedField(with: title, message: message)
     }
     
     func showNameManufacturersForSelect(_ names: [String]) {
         manufacturerSelectItems = names
         manufacturerSelectItems.insert("-", at: 0)
     }
+    
+    func initialDataForPresentation(_ tobacco: AddTobaccoEntity.Tobacco, isEditing: Bool) {
+        let tastes = tobacco.tastes.joined(separator: ", ")
+        let textButton = isEditing ? "Изменить табак" : "Добавить табак"
+        let viewModel = AddTobaccoEntity.ViewModel(
+                            name: tobacco.name,
+                            tastes: tastes,
+                            description: tobacco.description,
+                            textButton: textButton)
+        view.setupContent(viewModel)
+}
+    
+    func initialSelectedManufacturer(_ name: String?) {
+        if let name = name,
+           let index = manufacturerSelectItems.firstIndex(of: name) {
+            view.setupSelectedManufacturer(index)
+        } else {
+            view.setupSelectedManufacturer(0)
+        }
+    }
 }
 
 extension AddTobaccoPresenter: AddTobaccoViewOutputProtocol {
     func pressedButtonAdded(with data: AddTobaccoEntity.EnteredData) {
         guard let name = data.name, !name.isEmpty else {
-            view.showAlertForUnspecifiedField(with: "Ошибка",
-                                              message: "Название табака не введено, поле является обязательным!")
+            view.showAlertError(with: "Название табака не введено, поле является обязательным!")
             return
         }
         guard let tastes = data.tastes, !tastes.isEmpty else {
-            view.showAlertForUnspecifiedField(with: "Ошибка", message: "Вкусы табака отсутсвуют, поле является обязательным!")
+            view.showAlertError(with: "Вкусы табака отсутсвуют, поле является обязательным!")
             return
         }
         
@@ -71,5 +94,9 @@ extension AddTobaccoPresenter: AddTobaccoViewOutputProtocol {
     
     func receiveRow(by index: Int) -> String {
         manufacturerSelectItems[index]
+    }
+    
+    func viewDidLoad() {
+        interactor.receiveStartingDataView()
     }
 }

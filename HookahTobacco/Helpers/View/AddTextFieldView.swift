@@ -60,6 +60,7 @@ class AddTextFieldView: UIView {
         textField == self.textField
     }
     
+    @discardableResult
     func becomeFirstResponderTextField() -> Bool {
         textField.becomeFirstResponder()
     }

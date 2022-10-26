@@ -7,6 +7,11 @@
 
 import UIKit
 
+struct AddTobaccoDataModule: DataModuleProtocol {
+    let editingTobacco: Tobacco
+    let delegate: AddTobaccoOutputModule?
+}
+
 class AddTobaccoModule: ModuleProtocol {
     private var data: DataModuleProtocol?
     
@@ -15,6 +20,12 @@ class AddTobaccoModule: ModuleProtocol {
     }
     
     func createModule(_ appAssembler: AppRouterProtocol) -> UIViewController? {
-        return appAssembler.resolver.resolve(AddTobaccoViewController.self, argument: appAssembler)
+        var tobacco: Tobacco? = nil
+        var delegate: AddTobaccoOutputModule? = nil
+        if let data = data as? AddTobaccoDataModule {
+            tobacco = data.editingTobacco
+            delegate = data.delegate
+        }
+        return appAssembler.resolver.resolve(AddTobaccoViewController.self, arguments: appAssembler, tobacco, delegate)
     }
 }

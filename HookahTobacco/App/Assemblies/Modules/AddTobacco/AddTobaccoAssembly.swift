@@ -16,10 +16,11 @@ class AddTobaccoAssembly: Assembly {
             return router
         }
         
-        container.register(AddTobaccoInteractorInputProtocol.self) { r in
+        container.register(AddTobaccoInteractorInputProtocol.self) { (r, tobacco: Tobacco?) in
             let getDataManager = r.resolve(GetDataBaseNetworkingProtocol.self)!
             let setDataManager = r.resolve(SetDataBaseNetworkingProtocol.self)!
-            return AddTobaccoInteractor(getDataManager: getDataManager,
+            return AddTobaccoInteractor(tobacco,
+                                        getDataManager: getDataManager,
                                         setDataManager: setDataManager)
         }
         
@@ -28,11 +29,11 @@ class AddTobaccoAssembly: Assembly {
             return presenter
         }
         
-        container.register(AddTobaccoViewController.self) { (r, appAssembler: AppRouterProtocol) in
+        container.register(AddTobaccoViewController.self) { (r, appRouter: AppRouterProtocol, tobacco: Tobacco?, delegate: AddTobaccoOutputModule?) in
             let view = AddTobaccoViewController()
             let presenter = r.resolve(AddTobaccoViewOutputProtocol.self) as! AddTobaccoPresenter
-            let interactor = r.resolve(AddTobaccoInteractorInputProtocol.self) as! AddTobaccoInteractor
-            let router = r.resolve(AddTobaccoRouterProtocol.self, argument: appAssembler)!
+            let interactor = r.resolve(AddTobaccoInteractorInputProtocol.self, argument: tobacco) as! AddTobaccoInteractor
+            let router = r.resolve(AddTobaccoRouterProtocol.self, argument: appRouter) as! AddTobaccoRouter
             
             view.presenter = presenter
             presenter.view = view
@@ -40,6 +41,8 @@ class AddTobaccoAssembly: Assembly {
             interactor.presenter = presenter
             
             presenter.router = router
+            
+            router.delegate = delegate
             return view
         }
     }

@@ -21,4 +21,11 @@ struct AddTobaccoEntity {
         let tastes: [String]
         let description: String
     }
+    
+    struct ViewModel {
+        let name: String
+        let tastes: String
+        let description: String
+        let textButton: String
+    }
 }

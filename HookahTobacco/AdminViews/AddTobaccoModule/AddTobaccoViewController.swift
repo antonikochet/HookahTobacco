@@ -11,9 +11,12 @@ import UIKit
 import SnapKit
 
 protocol AddTobaccoViewInputProtocol: AnyObject {
-    func showAlertForUnspecifiedField(with title: String, message: String)
     func showAlertError(with message: String)
-    func showSuccessViewAlert()
+    func showSuccessViewAlert(_ isClear: Bool)
+    func setupContent(_ viewModel: AddTobaccoEntity.ViewModel)
+    func setupSelectedManufacturer(_ index: Int)
+    func showLoading()
+    func hideLoading()
 }
 
 protocol AddTobaccoViewOutputProtocol: AnyObject {
@@ -21,6 +24,7 @@ protocol AddTobaccoViewOutputProtocol: AnyObject {
     func didSelectedManufacturer(by index: Int)
     var numberOfRows: Int { get }
     func receiveRow(by index: Int) -> String
+    func viewDidLoad()
 }
 
 class AddTobaccoViewController: UIViewController {
@@ -71,13 +75,12 @@ class AddTobaccoViewController: UIViewController {
         text.textColor = .black
         text.backgroundColor = UIColor(white: 0.95, alpha: 0.8)
         text.font = UIFont.appFont(size: 17, weight: .regular)
-        
+        text.contentInset = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
         return text
     }()
     
     private let addedButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Добавить новый табак", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .systemOrange
         button.titleLabel?.adjustsFontSizeToFitWidth = true
@@ -86,12 +89,23 @@ class AddTobaccoViewController: UIViewController {
         return button
     }()
     
+    private let activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView(style: .large)
+    
     //MARK: override viewController
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         
         setupSubviews()
+        presenter.viewDidLoad()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        descriptionTextView.layer.cornerRadius = 8
+        descriptionTextView.clipsToBounds = true
+        
+        addedButton.layer.cornerRadius = addedButton.frame.height / 2
+        addedButton.clipsToBounds = true
     }
     
     //MARK: setup subviews
@@ -125,6 +139,12 @@ class AddTobaccoViewController: UIViewController {
             make.height.equalTo(50)
         }
         addedButton.addTarget(self, action: #selector(touchAddedButton), for: .touchUpInside)
+        
+        view.addSubview(activityIndicator)
+        activityIndicator.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
+        }
+        activityIndicator.hidesWhenStopped = true
     }
     
     private func setupManufacturerViews(topView: UIView) {
@@ -185,20 +205,38 @@ class AddTobaccoViewController: UIViewController {
 }
 
 extension AddTobaccoViewController: AddTobaccoViewInputProtocol {
-    func showAlertForUnspecifiedField(with title: String, message: String) {
-        showAlertError(title: title, message: message)
-    }
-    
     func showAlertError(with message: String) {
         showAlertError(title: "Ошибка", message: message)
     }
     
-    func showSuccessViewAlert() {
+    func showSuccessViewAlert(_ isClear: Bool) {
         showSuccessView(duration: 0.3, delay: 2.0)
-        nameView.text = ""
-        tasteView.text = ""
-        descriptionTextView.text = ""
-        changeManufacturerTextField(by: 0)
+        if isClear {
+            nameView.text = ""
+            tasteView.text = ""
+            descriptionTextView.text = ""
+            changeManufacturerTextField(by: 0)
+            nameView.becomeFirstResponderTextField()
+        }
+    }
+    
+    func setupContent(_ viewModel: AddTobaccoEntity.ViewModel) {
+        nameView.text = viewModel.name
+        tasteView.text = viewModel.tastes
+        descriptionTextView.text = viewModel.description
+        addedButton.setTitle(viewModel.textButton, for: .normal)
+    }
+    
+    func setupSelectedManufacturer(_ index: Int) {
+        changeManufacturerTextField(by: index)
+    }
+    
+    func showLoading() {
+        activityIndicator.startAnimating()
+    }
+    
+    func hideLoading() {
+        activityIndicator.stopAnimating()
     }
 }
 
