@@ -36,6 +36,19 @@ class FireBaseGetNetworkManager: GetDataBaseNetworkingProtocol {
             }
         }
     }
+    
+    func getAllTobaccos(completion: @escaping (Result<[Tobacco], Error>) -> Void) {
+        db.collection(NamedFireStore.Collections.tobaccos).getDocuments { snapshot, error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                if let snapshot = snapshot {
+                    let tobaccos = snapshot.documents.map { Tobacco($0.data(), uid: $0.documentID) }
+                    completion(.success(tobaccos))
+                }
+            }
+        }
+    }
 }
 
 
@@ -55,6 +68,7 @@ fileprivate extension Tobacco {
         self.name = data[NamedFireStore.Documents.Tobacco.name] as? String ?? ""
         self.taste = data[NamedFireStore.Documents.Tobacco.taste] as? [String] ?? []
         self.idManufacturer = data[NamedFireStore.Documents.Tobacco.idManufacturer] as? String ?? ""
+        self.nameManufacturer = data[NamedFireStore.Documents.Tobacco.nameManufacturer] as? String ?? ""
         self.description = data[NamedFireStore.Documents.Tobacco.description] as? String ?? ""
     }
 }

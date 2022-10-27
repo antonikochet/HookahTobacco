@@ -47,5 +47,6 @@ extension AppRouter {
         registerModule(LoginAssembly(), LoginModule.nameModule) { LoginModule($0) }
         registerModule(AddManufacturerAssembly(), AddManufacturerModule.nameModule) { AddManufacturerModule($0) }
         registerModule(ManufacturerListAssembly(), ManufacturerListModule.nameModule) { ManufacturerListModule($0) }
+        registerModule(TobaccoListAssembly(), TobaccoListModule.nameModule) { TobaccoListModule($0) }
     }
 }

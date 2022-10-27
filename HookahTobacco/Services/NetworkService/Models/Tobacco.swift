@@ -18,7 +18,9 @@ struct Tobacco {
     let name: String
     let taste: [String]
     let idManufacturer: String
+    let nameManufacturer: String
     let description: String
+    var image: Data?
 //    let variety: VarietyTobaccoLeaf
     //грамовка
     //крепкость

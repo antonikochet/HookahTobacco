@@ -33,6 +33,7 @@ struct NamedFireStore {
             static let name = "name"
             static let taste = "taste"
             static let idManufacturer = "idManufacturer"
+            static let nameManufacturer = "nameManufacturer"
             static let description = "description"
         }
     }

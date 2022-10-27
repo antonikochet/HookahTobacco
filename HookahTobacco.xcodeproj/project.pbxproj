@@ -71,6 +71,14 @@
 		B9EB024728F3252500B3B6DA /* AddTobaccoAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EB024628F3252500B3B6DA /* AddTobaccoAssembly.swift */; };
 		B9EB024928F35B5F00B3B6DA /* ModuleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EB024828F35B5F00B3B6DA /* ModuleProtocol.swift */; };
 		B9EB024B28F3604E00B3B6DA /* AddTobaccoModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EB024A28F3604E00B3B6DA /* AddTobaccoModule.swift */; };
+		B9ED9102290989EF00DC3A6D /* TobaccoListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ED90FD290989EF00DC3A6D /* TobaccoListPresenter.swift */; };
+		B9ED9103290989EF00DC3A6D /* TobaccoListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ED90FE290989EF00DC3A6D /* TobaccoListRouter.swift */; };
+		B9ED9104290989EF00DC3A6D /* TobaccoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ED90FF290989EF00DC3A6D /* TobaccoListViewController.swift */; };
+		B9ED9105290989EF00DC3A6D /* TobaccoListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ED9100290989EF00DC3A6D /* TobaccoListInteractor.swift */; };
+		B9ED9106290989EF00DC3A6D /* TobaccoListEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ED9101290989EF00DC3A6D /* TobaccoListEntity.swift */; };
+		B9ED910929098AA000DC3A6D /* TobaccoListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ED910829098AA000DC3A6D /* TobaccoListCell.swift */; };
+		B9ED910D2909D26100DC3A6D /* TobaccoListModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ED910B2909D26100DC3A6D /* TobaccoListModule.swift */; };
+		B9ED910E2909D26100DC3A6D /* TobaccoListAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ED910C2909D26100DC3A6D /* TobaccoListAssembly.swift */; };
 		B9F77A2128E500040089D80C /* FireBaseGetNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F77A2028E500040089D80C /* FireBaseGetNetworkManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -136,6 +144,14 @@
 		B9EB024628F3252500B3B6DA /* AddTobaccoAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTobaccoAssembly.swift; sourceTree = "<group>"; };
 		B9EB024828F35B5F00B3B6DA /* ModuleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleProtocol.swift; sourceTree = "<group>"; };
 		B9EB024A28F3604E00B3B6DA /* AddTobaccoModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTobaccoModule.swift; sourceTree = "<group>"; };
+		B9ED90FD290989EF00DC3A6D /* TobaccoListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TobaccoListPresenter.swift; sourceTree = "<group>"; };
+		B9ED90FE290989EF00DC3A6D /* TobaccoListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TobaccoListRouter.swift; sourceTree = "<group>"; };
+		B9ED90FF290989EF00DC3A6D /* TobaccoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TobaccoListViewController.swift; sourceTree = "<group>"; };
+		B9ED9100290989EF00DC3A6D /* TobaccoListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TobaccoListInteractor.swift; sourceTree = "<group>"; };
+		B9ED9101290989EF00DC3A6D /* TobaccoListEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TobaccoListEntity.swift; sourceTree = "<group>"; };
+		B9ED910829098AA000DC3A6D /* TobaccoListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TobaccoListCell.swift; sourceTree = "<group>"; };
+		B9ED910B2909D26100DC3A6D /* TobaccoListModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TobaccoListModule.swift; sourceTree = "<group>"; };
+		B9ED910C2909D26100DC3A6D /* TobaccoListAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TobaccoListAssembly.swift; sourceTree = "<group>"; };
 		B9F77A2028E500040089D80C /* FireBaseGetNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseGetNetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -285,6 +301,18 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		B9B7274629096C5A00EB7323 /* TobaccoListModule */ = {
+			isa = PBXGroup;
+			children = (
+				B9ED90FD290989EF00DC3A6D /* TobaccoListPresenter.swift */,
+				B9ED90FE290989EF00DC3A6D /* TobaccoListRouter.swift */,
+				B9ED90FF290989EF00DC3A6D /* TobaccoListViewController.swift */,
+				B9ED9100290989EF00DC3A6D /* TobaccoListInteractor.swift */,
+				B9ED9101290989EF00DC3A6D /* TobaccoListEntity.swift */,
+			);
+			path = TobaccoListModule;
+			sourceTree = "<group>";
+		};
 		B9D6055728D4CB490058D19E /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -348,6 +376,7 @@
 		B9E7AC9F28F4518C00A3D7E5 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				B9ED910A2909D24500DC3A6D /* TobaccoList */,
 				B9E8DA4D28F7825200CCA034 /* ManufacturerList */,
 				B9E7ACB528F4959500A3D7E5 /* AddManufacturer */,
 				B9E7ACB028F492D000A3D7E5 /* Login */,
@@ -408,6 +437,7 @@
 			children = (
 				B9E8DA5428F7837200CCA034 /* Cells */,
 				B95699AB28F709C000D9E584 /* ManufacturerListModule */,
+				B9B7274629096C5A00EB7323 /* TobaccoListModule */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -415,6 +445,7 @@
 		B9E8DA5428F7837200CCA034 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				B9ED910729098A8400DC3A6D /* TobaccoListCell */,
 				B9E8DA5528F7837F00CCA034 /* ManufacturerListCell */,
 			);
 			path = Cells;
@@ -445,6 +476,23 @@
 				B9EB024028F31B6300B3B6DA /* ServiceAssembly.swift */,
 			);
 			path = Assemblies;
+			sourceTree = "<group>";
+		};
+		B9ED910729098A8400DC3A6D /* TobaccoListCell */ = {
+			isa = PBXGroup;
+			children = (
+				B9ED910829098AA000DC3A6D /* TobaccoListCell.swift */,
+			);
+			path = TobaccoListCell;
+			sourceTree = "<group>";
+		};
+		B9ED910A2909D24500DC3A6D /* TobaccoList */ = {
+			isa = PBXGroup;
+			children = (
+				B9ED910B2909D26100DC3A6D /* TobaccoListModule.swift */,
+				B9ED910C2909D26100DC3A6D /* TobaccoListAssembly.swift */,
+			);
+			path = TobaccoList;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -534,6 +582,7 @@
 				B9E8DA4C28F77A8300CCA034 /* ManufacturerListEntity.swift in Sources */,
 				B98E1DE528F08D4400964B8F /* AddTobaccoPresenter.swift in Sources */,
 				B98E1DEA28F08D4400964B8F /* AddTobaccoEntity.swift in Sources */,
+				B9ED9104290989EF00DC3A6D /* TobaccoListViewController.swift in Sources */,
 				B98E1DD628F0812500964B8F /* LoginPresenter.swift in Sources */,
 				B9E7A98628FEF9D700D711B4 /* GetImageDataBaseProtocol.swift in Sources */,
 				B98E1DB428F04A0F00964B8F /* AddManufacturerInteractor.swift in Sources */,
@@ -543,7 +592,9 @@
 				B98E1DF228F0DBCF00964B8F /* AdminMenuPresenter.swift in Sources */,
 				B90A79122899E2BF00B90193 /* AppDelegate.swift in Sources */,
 				B9E8DA5028F7827900CCA034 /* ManufacturerListModule.swift in Sources */,
+				B9ED910E2909D26100DC3A6D /* TobaccoListAssembly.swift in Sources */,
 				B9E7A98C28FF15DF00D711B4 /* SetImageDataBaseProtocol.swift in Sources */,
+				B9ED9105290989EF00DC3A6D /* TobaccoListInteractor.swift in Sources */,
 				B9EB024128F31B6300B3B6DA /* ServiceAssembly.swift in Sources */,
 				B9D6055D28D4CFA70058D19E /* GetDataBaseNetworkingProtocol.swift in Sources */,
 				B9F77A2128E500040089D80C /* FireBaseGetNetworkManager.swift in Sources */,
@@ -554,10 +605,14 @@
 				B9E7ACB428F492ED00A3D7E5 /* LoginAssembly.swift in Sources */,
 				B9C7825A28ECE25800DBF8C6 /* AuthServiceProtocol.swift in Sources */,
 				B98E1DB628F04A0F00964B8F /* AddManufacturerEntity.swift in Sources */,
+				B9ED9103290989EF00DC3A6D /* TobaccoListRouter.swift in Sources */,
 				B98E1DF328F0DBCF00964B8F /* AdminMenuRouter.swift in Sources */,
+				B9ED9106290989EF00DC3A6D /* TobaccoListEntity.swift in Sources */,
 				B98E1DF528F0DBCF00964B8F /* AdminMenuInteractor.swift in Sources */,
+				B9ED910929098AA000DC3A6D /* TobaccoListCell.swift in Sources */,
 				B9D6055928D4CB590058D19E /* Manufacturer.swift in Sources */,
 				B9D6055B28D4CF610058D19E /* FireBaseSetNetworkManager.swift in Sources */,
+				B9ED9102290989EF00DC3A6D /* TobaccoListPresenter.swift in Sources */,
 				B9A4708328D2B84500CA6FAA /* extention + UIFont.swift in Sources */,
 				B98E1DE828F08D4400964B8F /* AddTobaccoInteractor.swift in Sources */,
 				B90FB1332901857100881D56 /* FireStorageSetImageManager.swift in Sources */,
@@ -571,6 +626,7 @@
 				B90A792D289A8C2200B90193 /* Tobacco.swift in Sources */,
 				B9677CF428D89D4000EF9FC6 /* FirestoreCollection.swift in Sources */,
 				B9E8DA4928F77A8300CCA034 /* ManufacturerListViewController.swift in Sources */,
+				B9ED910D2909D26100DC3A6D /* TobaccoListModule.swift in Sources */,
 				B9E7ACB828F495B300A3D7E5 /* AddManufacturerModule.swift in Sources */,
 				B9E7A98E28FF16CC00D711B4 /* NamedFireStorage.swift in Sources */,
 				B98E1DE628F08D4400964B8F /* AddTobaccoRouter.swift in Sources */,
