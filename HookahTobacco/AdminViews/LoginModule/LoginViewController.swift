@@ -53,16 +53,7 @@ class LoginViewController: UIViewController {
         return text
     }()
     
-    private let loginButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Войти / Log in", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemOrange
-        button.titleLabel?.adjustsFontSizeToFitWidth = true
-        button.titleLabel?.minimumScaleFactor = 0.8
-        button.titleLabel?.font = UIFont.appFont(size: 25, weight: .bold)
-        return button
-    }()
+    private let loginButton: UIButton = UIButton.createAppBigButton("Войти / Log in", fontSise: 25)
     
     override func viewDidLoad() {
         super.viewDidLoad()

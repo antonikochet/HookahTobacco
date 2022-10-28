@@ -25,9 +25,9 @@ class AdminMenuViewController: UIViewController {
     var presenter: AdminMenuViewOutputProtocol!
     
     //MARK: UI properties
-    private let addManufacturer = UIButton.createButton(text: "Добавить производителя")
-    private let addTobacco = UIButton.createButton(text: "Добавить табак")
-    private let editManufacturer = UIButton.createButton(text: "Изменить производителей")
+    private let addManufacturer = UIButton.createAppBigButton("Добавить производителя")
+    private let addTobacco = UIButton.createAppBigButton("Добавить табак")
+    private let editManufacturer = UIButton.createAppBigButton("Изменить производителей")
     
     //MARK: override ViewController
     override func viewDidLoad() {
@@ -39,8 +39,7 @@ class AdminMenuViewController: UIViewController {
         setupRightButtonNavigationBar()
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
+    override func viewDidLayoutSubviews() {
         addManufacturer.createCornerRadius()
         addTobacco.createCornerRadius()
         editManufacturer.createCornerRadius()
@@ -86,22 +85,6 @@ extension AdminMenuViewController: AdminMenuViewInputProtocol {
 }
 
 fileprivate extension UIButton {
-    static func createButton(text: String) -> UIButton {
-        let button = UIButton()
-        button.setTitle(text, for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemOrange
-        button.titleLabel?.adjustsFontSizeToFitWidth = true
-        button.titleLabel?.minimumScaleFactor = 0.8
-        button.titleLabel?.font = UIFont.appFont(size: 20, weight: .bold)
-        return button
-    }
-    
-    func createCornerRadius() {
-        layer.cornerRadius = frame.height / 2
-        clipsToBounds = true
-    }
-    
     func setupButton(superView: UIView, topViewConstraint: ConstraintItem) {
         superView.addSubview(self)
         self.snp.makeConstraints { make in

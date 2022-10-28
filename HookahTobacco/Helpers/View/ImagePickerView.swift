@@ -28,7 +28,15 @@ class ImagePickerView: UIView {
         }
     }
     
-    private var heightImage: CGFloat
+    var imageHeight: CGFloat = 100
+    
+    var viewWithoutImageHeight: CGFloat {
+        heightButton + constraintBetweenButtonAndImage
+    }
+    
+    private var currectImageHeight: CGFloat {
+        get { image != nil ? imageHeight : 0 }
+    }
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()
@@ -46,16 +54,19 @@ class ImagePickerView: UIView {
         return button
     }()
     
-    init(heightImage: CGFloat = 100) {
-        self.heightImage = heightImage
+    init() {
         super.init(frame: .zero)
         setup()
     }
     
     required init?(coder: NSCoder) {
-        self.heightImage = 100
         super.init(coder: coder)
         setup()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        selectImageButton.createCornerRadius()
     }
     
     private func setup() {
@@ -121,6 +132,6 @@ extension ImagePickerView {
     fileprivate var heightView: CGFloat {
         heightButton +
         constraintBetweenButtonAndImage +
-        (image != nil ? heightImage : 0)
+        currectImageHeight
     }
 }
