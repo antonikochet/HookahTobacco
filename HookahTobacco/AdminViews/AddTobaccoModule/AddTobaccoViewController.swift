@@ -15,6 +15,7 @@ protocol AddTobaccoViewInputProtocol: AnyObject {
     func showSuccessViewAlert(_ isClear: Bool)
     func setupContent(_ viewModel: AddTobaccoEntity.ViewModel)
     func setupSelectedManufacturer(_ index: Int)
+    func setupMainImage(_ image: Data?, textButton: String)
     func showLoading()
     func hideLoading()
 }
@@ -22,8 +23,10 @@ protocol AddTobaccoViewInputProtocol: AnyObject {
 protocol AddTobaccoViewOutputProtocol: AnyObject {
     func pressedButtonAdded(with data: AddTobaccoEntity.EnteredData)
     func didSelectedManufacturer(by index: Int)
+    func didSelectMainImage(with imageURL: URL)
     var numberOfRows: Int { get }
     func receiveRow(by index: Int) -> String
+    func receiveIndexRow(for title: String) -> Int
     func viewDidLoad()
 }
 
@@ -79,6 +82,8 @@ class AddTobaccoViewController: UIViewController {
         return text
     }()
     
+    private let imagePickerView = ImagePickerView()
+    
     private let addedButton: UIButton = {
         let button = UIButton()
         button.setTitleColor(.white, for: .normal)
@@ -117,6 +122,7 @@ class AddTobaccoViewController: UIViewController {
         nameView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(32)
             make.leading.trailing.equalToSuperview().inset(32)
+            make.height.equalTo(nameView.heightView)
         }
         
         setupManufacturerViews(topView: nameView)
@@ -128,6 +134,7 @@ class AddTobaccoViewController: UIViewController {
         tasteView.snp.makeConstraints { make in
             make.top.equalTo(manufacturerPickerView.snp.bottom).offset(16)
             make.leading.trailing.equalToSuperview().inset(32)
+            make.height.equalTo(tasteView.heightView)
         }
         
         setupDescriptionViews(topView: tasteView)
@@ -139,6 +146,13 @@ class AddTobaccoViewController: UIViewController {
             make.height.equalTo(50)
         }
         addedButton.addTarget(self, action: #selector(touchAddedButton), for: .touchUpInside)
+        
+        view.addSubview(imagePickerView)
+        imagePickerView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.top.equalTo(descriptionTextView.snp.bottom).inset(-16)
+        }
+        imagePickerView.delegate = self
         
         view.addSubview(activityIndicator)
         activityIndicator.snp.makeConstraints { make in
@@ -152,6 +166,7 @@ class AddTobaccoViewController: UIViewController {
         manufacturerLabel.snp.makeConstraints { make in
             make.top.equalTo(topView.snp.bottom).offset(16)
             make.leading.trailing.equalToSuperview().inset(32)
+            make.height.equalTo(manufacturerLabel.font.lineHeight)
         }
         
         view.addSubview(manufacturerSelectedTextField)
@@ -159,6 +174,7 @@ class AddTobaccoViewController: UIViewController {
         manufacturerSelectedTextField.snp.makeConstraints { make in
             make.top.equalTo(manufacturerLabel.snp.bottom).offset(16)
             make.leading.trailing.equalToSuperview().inset(32)
+            make.height.equalTo(31)
         }
         
         view.addSubview(manufacturerPickerView)
@@ -199,8 +215,15 @@ class AddTobaccoViewController: UIViewController {
     }
     
     private func changeManufacturerTextField(by row: Int) {
-        presenter.didSelectedManufacturer(by: row)
         manufacturerSelectedTextField.text = presenter.receiveRow(by: row)
+    }
+    
+    private func showSelectedManufacturer() {
+        guard let title = manufacturerSelectedTextField.text else { return }
+        let index = presenter.receiveIndexRow(for: title)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            self.manufacturerPickerView.selectRow(index, inComponent: 0, animated: true)
+        }
     }
 }
 
@@ -217,6 +240,8 @@ extension AddTobaccoViewController: AddTobaccoViewInputProtocol {
             descriptionTextView.text = ""
             changeManufacturerTextField(by: 0)
             nameView.becomeFirstResponderTextField()
+            imagePickerView.textButton = "Добавить изображение"
+            imagePickerView.image = nil
         }
     }
     
@@ -229,6 +254,13 @@ extension AddTobaccoViewController: AddTobaccoViewInputProtocol {
     
     func setupSelectedManufacturer(_ index: Int) {
         changeManufacturerTextField(by: index)
+    }
+    
+    func setupMainImage(_ image: Data?, textButton: String) {
+        imagePickerView.textButton = textButton
+        if let image = image {
+            imagePickerView.image = UIImage(data: image)
+        }
     }
     
     func showLoading() {
@@ -247,6 +279,7 @@ extension AddTobaccoViewController: UITextFieldDelegate {
             manufacturerPickerView.snp.updateConstraints { make in
                 make.height.equalTo(120)
             }
+            showSelectedManufacturer()
             textField.endEditing(true)
         }
     }
@@ -277,10 +310,25 @@ extension AddTobaccoViewController: UIPickerViewDelegate {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        presenter.didSelectedManufacturer(by: row)
         changeManufacturerTextField(by: row)
         self.manufacturerPickerView.isHidden = true
         self.manufacturerPickerView.snp.updateConstraints { make in
             make.height.equalTo(0)
         }
+    }
+}
+
+extension AddTobaccoViewController: ImagePickerViewDelegate {
+    func present(_ viewController: UIViewController) {
+        present(viewController, animated: true)
+    }
+    
+    func didSelectedImage(by fileURL: URL) {
+        presenter.didSelectMainImage(with: fileURL)
+    }
+    
+    func didCancel() {
+        
     }
 }

@@ -58,6 +58,13 @@ extension AddTobaccoPresenter: AddTobaccoInteractorOutputProtocol {
             view.setupSelectedManufacturer(0)
         }
     }
+    
+    func initialMainImage(_ image: Data?) {
+        let textButton = (image != nil
+                          ? "Изменить изображение"
+                          : "Добавить изображение")
+        view.setupMainImage(image, textButton: textButton)
+    }
 }
 
 extension AddTobaccoPresenter: AddTobaccoViewOutputProtocol {
@@ -80,6 +87,7 @@ extension AddTobaccoPresenter: AddTobaccoViewOutputProtocol {
         let tobaccoInteractor = AddTobaccoEntity.Tobacco(name: name,
                                                          tastes: taste,
                                                          description: description)
+        view.showLoading()
         interactor.sendNewTobaccoToServer(tobaccoInteractor)
     }
     
@@ -88,12 +96,21 @@ extension AddTobaccoPresenter: AddTobaccoViewOutputProtocol {
         interactor.didSelectedManufacturer(manufacturerSelectItems[index])
     }
     
+    func didSelectMainImage(with imageURL: URL) {
+        interactor.didSelectMainImage(with: imageURL)
+    }
+    
     var numberOfRows: Int {
         manufacturerSelectItems.count
     }
     
     func receiveRow(by index: Int) -> String {
         manufacturerSelectItems[index]
+    }
+    
+    func receiveIndexRow(for title: String) -> Int {
+        guard let index = manufacturerSelectItems.firstIndex(of: title) else { return 0 }
+        return index
     }
     
     func viewDidLoad() {

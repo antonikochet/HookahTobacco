@@ -46,6 +46,7 @@
 		B9D6056828D4FED20058D19E /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = B9D6056728D4FED20058D19E /* FirebaseStorage */; };
 		B9D6056C28D508800058D19E /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = B9D6056B28D508800058D19E /* SnapKit */; };
 		B9D6057428D53C350058D19E /* FireBaseAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D6057328D53C350058D19E /* FireBaseAuthService.swift */; };
+		B9DBE935290B0C07004D7B97 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DBE934290B0C07004D7B97 /* ImagePickerView.swift */; };
 		B9E7A98628FEF9D700D711B4 /* GetImageDataBaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7A98528FEF9D700D711B4 /* GetImageDataBaseProtocol.swift */; };
 		B9E7A98828FEFA9500D711B4 /* FireStorageGetImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7A98728FEFA9500D711B4 /* FireStorageGetImageManager.swift */; };
 		B9E7A98C28FF15DF00D711B4 /* SetImageDataBaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7A98B28FF15DF00D711B4 /* SetImageDataBaseProtocol.swift */; };
@@ -120,6 +121,7 @@
 		B9D6055C28D4CFA70058D19E /* GetDataBaseNetworkingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDataBaseNetworkingProtocol.swift; sourceTree = "<group>"; };
 		B9D6056028D4F1410058D19E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B9D6057328D53C350058D19E /* FireBaseAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseAuthService.swift; sourceTree = "<group>"; };
+		B9DBE934290B0C07004D7B97 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		B9E7A98528FEF9D700D711B4 /* GetImageDataBaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetImageDataBaseProtocol.swift; sourceTree = "<group>"; };
 		B9E7A98728FEFA9500D711B4 /* FireStorageGetImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStorageGetImageManager.swift; sourceTree = "<group>"; };
 		B9E7A98B28FF15DF00D711B4 /* SetImageDataBaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetImageDataBaseProtocol.swift; sourceTree = "<group>"; };
@@ -296,6 +298,7 @@
 		B992985D28DC965600C4E80F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B9DBE934290B0C07004D7B97 /* ImagePickerView.swift */,
 				B9A4708528D2BB6400CA6FAA /* AddTextFieldView.swift */,
 			);
 			path = View;
@@ -629,6 +632,7 @@
 				B9ED910D2909D26100DC3A6D /* TobaccoListModule.swift in Sources */,
 				B9E7ACB828F495B300A3D7E5 /* AddManufacturerModule.swift in Sources */,
 				B9E7A98E28FF16CC00D711B4 /* NamedFireStorage.swift in Sources */,
+				B9DBE935290B0C07004D7B97 /* ImagePickerView.swift in Sources */,
 				B98E1DE628F08D4400964B8F /* AddTobaccoRouter.swift in Sources */,
 				B9A4708628D2BB6400CA6FAA /* AddTextFieldView.swift in Sources */,
 				B98E1DF428F0DBCF00964B8F /* AdminMenuViewController.swift in Sources */,

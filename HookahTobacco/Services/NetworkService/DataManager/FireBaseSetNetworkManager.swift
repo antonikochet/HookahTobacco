@@ -26,9 +26,14 @@ class FireBaseSetNetworkManager: SetDataBaseNetworkingProtocol {
         }
     }
     
-    func addTobacco(_ tobacco: Tobacco, completion: setDBNetworingCompletion?) {
+    func addTobacco(_ tobacco: Tobacco, completion: ((Result<String, Error>) -> Void)?) {
         let data = tobacco.formatterToDataFireStore()
-        db.collection(NamedFireStore.Collections.tobaccos).addDocument(data: data, completion: completion)
+        let docRef = db.collection(NamedFireStore.Collections.tobaccos).document()
+        let uidDoc = docRef.documentID
+        docRef.setData(data) { error in
+            if let error = error { completion?(.failure(error)) }
+            else { completion?(.success(uidDoc))}
+        }
     }
     
     func setTobacco(_ newTobacco: Tobacco, completion: setDBNetworingCompletion?) {
@@ -59,6 +64,7 @@ fileprivate extension Tobacco {
         return [
             NamedFireStore.Documents.Tobacco.name : self.name,
             NamedFireStore.Documents.Tobacco.idManufacturer : self.idManufacturer,
+            NamedFireStore.Documents.Tobacco.nameManufacturer : self.nameManufacturer,
             NamedFireStore.Documents.Tobacco.taste : self.taste,
             NamedFireStore.Documents.Tobacco.description : self.description
         ]

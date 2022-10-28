@@ -11,6 +11,6 @@ protocol SetDataBaseNetworkingProtocol {
     typealias setDBNetworingCompletion = (Error?) -> Void
     func addManufacturer(_ manufacturer: Manufacturer, completion: setDBNetworingCompletion?)
     func setManufacturer(_ newManufacturer: Manufacturer, completion: setDBNetworingCompletion?)
-    func addTobacco(_ tobacco: Tobacco, completion: setDBNetworingCompletion?)
+    func addTobacco(_ tobacco: Tobacco, completion: ((Result<String, Error>) -> Void)?)
     func setTobacco(_ newTobacco: Tobacco, completion: setDBNetworingCompletion?)
 }
