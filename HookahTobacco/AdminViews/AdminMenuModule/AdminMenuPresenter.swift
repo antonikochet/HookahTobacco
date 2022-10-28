@@ -38,6 +38,10 @@ extension AdminMenuPresenter: AdminMenuViewOutputProtocol {
         router.showManufacturerListModule()
     }
     
+    func pressedEditTobacco() {
+        router.showTobaccoListModule()
+    }
+    
     func pressedLogoutButton() {
         interactor.logout()
     }

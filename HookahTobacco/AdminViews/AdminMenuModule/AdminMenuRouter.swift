@@ -13,6 +13,7 @@ protocol AdminMenuRouterProtocol: RouterProtocol {
     func showAddManufacturerModule()
     func showAddTobaccoModule()
     func showManufacturerListModule()
+    func showTobaccoListModule()
     func showLoginModule()
 }
 
@@ -34,6 +35,11 @@ class AdminMenuRouter: AdminMenuRouterProtocol {
     func showManufacturerListModule() {
         let data = ManufacturerListDataModile(isAdminMode: true)
         appRouter.pushViewController(module: ManufacturerListModule.self, moduleData: data, animateDisplay: true)
+    }
+    
+    func showTobaccoListModule() {
+        let data = TobaccoListDataModile(isAdminMode: true)
+        appRouter.pushViewController(module: TobaccoListModule.self, moduleData: data, animateDisplay: true)
     }
     
     func showLoginModule() {

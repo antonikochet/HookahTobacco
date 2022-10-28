@@ -18,6 +18,7 @@ protocol AdminMenuViewOutputProtocol: AnyObject {
     func pressedAddManufacturerButton()
     func pressedAddTobaccoButton()
     func pressedEditManufacturers()
+    func pressedEditTobacco()
     func pressedLogoutButton()
 }
 
@@ -28,6 +29,7 @@ class AdminMenuViewController: UIViewController {
     private let addManufacturer = UIButton.createAppBigButton("Добавить производителя")
     private let addTobacco = UIButton.createAppBigButton("Добавить табак")
     private let editManufacturer = UIButton.createAppBigButton("Изменить производителей")
+    private let editTobacco = UIButton.createAppBigButton("Изменить табаки")
     
     //MARK: override ViewController
     override func viewDidLoad() {
@@ -43,6 +45,7 @@ class AdminMenuViewController: UIViewController {
         addManufacturer.createCornerRadius()
         addTobacco.createCornerRadius()
         editManufacturer.createCornerRadius()
+        editTobacco.createCornerRadius()
     }
     
     //MARK: setup subviews
@@ -55,6 +58,9 @@ class AdminMenuViewController: UIViewController {
         
         editManufacturer.setupButton(superView: view, topViewConstraint: addTobacco.snp.bottom)
         editManufacturer.addTarget(self, action: #selector(touchButton(_:)), for: .touchUpInside)
+        
+        editTobacco.setupButton(superView: view, topViewConstraint: editManufacturer.snp.bottom)
+        editTobacco.addTarget(self, action: #selector(touchButton(_:)), for: .touchUpInside)
     }
     
     private func setupRightButtonNavigationBar() {
@@ -69,6 +75,8 @@ class AdminMenuViewController: UIViewController {
             presenter.pressedAddTobaccoButton()
         } else if editManufacturer == button {
             presenter.pressedEditManufacturers()
+        } else if editTobacco == button {
+            presenter.pressedEditTobacco()
         }
     }
     
