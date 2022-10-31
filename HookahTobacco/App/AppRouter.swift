@@ -24,11 +24,12 @@ protocol AppRouterProtocol {
 class AppRouter: AppRouterProtocol {
     private var assembler: Assembler
     private var registerModule: [String: (DataModuleProtocol?) -> ModuleProtocol]
-    var navigationController: UINavigationController!
+    var appWindow: UIWindow
     
-    init() {
+    init(_ window: UIWindow) {
         assembler = Assembler()
         registerModule = [:]
+        self.appWindow = window
     }
     
     func apply(assemblies: [Assembly]) {
@@ -42,7 +43,32 @@ class AppRouter: AppRouterProtocol {
         registerModule.updateValue(createModuleClosure, forKey: nameModule)
     }
     
-    private func receiveModule(_ module: ModuleProtocol.Type, _ data: DataModuleProtocol? = nil) -> ModuleProtocol? {
+    func startAppPresent(_ containers: [(module: ModuleProtocol.Type,
+                                         tabBarItem: TabBarItemProtocol)]) {
+        var createdContainers: [(module: ModuleProtocol,
+                                 tabBarItem: TabBarItemProtocol)] = []
+        containers.forEach {
+            if let module = receiveModule($0.module) {
+                createdContainers.append((module, $0.tabBarItem))
+            }
+        }
+        
+        let dependency = HTTabBarControllerDependency(appRouter: self,
+                                                      containers: createdContainers)
+        let tabBar = resolver.resolve(HTTabBarController.self,
+                                      argument: dependency)
+        appWindow.rootViewController = tabBar
+    }
+    
+    private func receiveContainer() -> HTNavigationController? {
+        guard let tabBar = appWindow.rootViewController as? HTTabBarController,
+              let navController = tabBar.selectedViewController as? HTNavigationController
+        else { return nil }
+        return navController
+    }
+    
+    private func receiveModule(_ module: ModuleProtocol.Type,
+                               _ data: DataModuleProtocol? = nil) -> ModuleProtocol? {
         if let constructor = registerModule[module.nameModule] {
             return constructor(data)
         } else {
@@ -56,25 +82,39 @@ class AppRouter: AppRouterProtocol {
         assembler.resolver
     }
     
-    func pushViewController(module: ModuleProtocol.Type, moduleData data: DataModuleProtocol? = nil, animateDisplay: Bool) {
-        pushViewController(module: module, moduleData: data, animateDisplay: animateDisplay, completion: nil)
+    func pushViewController(module: ModuleProtocol.Type,
+                            moduleData data: DataModuleProtocol? = nil,
+                            animateDisplay: Bool) {
+        pushViewController(module: module,
+                           moduleData: data,
+                           animateDisplay: animateDisplay,
+                           completion: nil)
     }
     
-    func pushViewController(module: ModuleProtocol.Type, moduleData data: DataModuleProtocol? = nil, animateDisplay: Bool, completion: (() -> Void)?) {
+    func pushViewController(module: ModuleProtocol.Type,
+                            moduleData data: DataModuleProtocol? = nil,
+                            animateDisplay: Bool,
+                            completion: (() -> Void)?) {
         guard let module = receiveModule(module, data),
-              let view = module.createModule(self) else { return }
+              let view = module.createModule(self),
+              let navigationController = receiveContainer() else { return }
         navigationController.pushViewController(view, animated: animateDisplay)
         completion?()
     }
     
-    func popViewConroller(animated: Bool, completion:(() -> Void)? = nil) {
+    func popViewConroller(animated: Bool,
+                          completion:(() -> Void)? = nil) {
+        guard let navigationController = receiveContainer() else { return }
         navigationController.popViewController(animated: animated)
         completion?()
     }
     
-    func presentView(module: ModuleProtocol.Type, moduleData data: DataModuleProtocol? = nil, animated: Bool) {
+    func presentView(module: ModuleProtocol.Type,
+                     moduleData data: DataModuleProtocol? = nil,
+                     animated: Bool) {
         guard let module = receiveModule(module, data),
-              let view = module.createModule(self) else { return }
+              let view = module.createModule(self),
+              let navigationController = receiveContainer() else { return }
         navigationController.setViewControllers([view], animated: animated)
     }
     
