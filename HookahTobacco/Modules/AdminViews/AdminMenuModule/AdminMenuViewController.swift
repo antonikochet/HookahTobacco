@@ -34,7 +34,7 @@ class AdminMenuViewController: UIViewController {
     //MARK: override ViewController
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Меню"
+        navigationItem.title = "Меню"
         view.backgroundColor = .white
         
         setupSubviews()

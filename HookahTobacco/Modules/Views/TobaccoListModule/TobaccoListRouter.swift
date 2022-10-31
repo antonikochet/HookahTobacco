@@ -27,8 +27,8 @@ class TobaccoListRouter: TobaccoListRouterProtocol {
     
     func showAddTobacco(_ data: Tobacco, delegate: AddTobaccoOutputModule?) {
         let tData = AddTobaccoDataModule(editingTobacco: data, delegate: delegate)
-        appRouter.presentView(module: AddTobaccoModule.self,
-                              moduleData: tData,
-                              animated: true)
+        appRouter.pushViewController(module: AddTobaccoModule.self,
+                                     moduleData: tData,
+                                     animateDisplay: true)
     }
 }

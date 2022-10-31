@@ -35,7 +35,7 @@ class ManufacturerListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Производители табаков"
+        navigationItem.title = "Производители табаков"
         setupSubviews()
         presenter.viewDidLoad()
     }
