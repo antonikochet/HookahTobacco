@@ -63,17 +63,18 @@ class TobaccoListCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        selectionStyle = .none
-        setupSubviews()
+        setup()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        selectionStyle = .none
-        setupSubviews()
+        setup()
     }
     
-    private func setupSubviews() {
+    private func setup() {
+        selectionStyle = .none
+        backgroundColor = .clear
+        
         contentView.addSubview(tobaccoImageView)
         tobaccoImageView.snp.makeConstraints { make in
             make.leading.top.bottom.equalToSuperview().inset(8)

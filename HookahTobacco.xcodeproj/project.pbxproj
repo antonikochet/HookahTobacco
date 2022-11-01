@@ -21,6 +21,8 @@
 		B94B771C290C3785002C5660 /* AddPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94B771B290C3785002C5660 /* AddPickerView.swift */; };
 		B9677CF228D8917000EF9FC6 /* extention + UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9677CF128D8917000EF9FC6 /* extention + UIViewController.swift */; };
 		B9677CF428D89D4000EF9FC6 /* FirestoreCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9677CF328D89D4000EF9FC6 /* FirestoreCollection.swift */; };
+		B97181572911254100E5DB28 /* DetailInfoManufacturerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97181552911254100E5DB28 /* DetailInfoManufacturerModule.swift */; };
+		B97181582911254100E5DB28 /* DetailInfoManufacturerAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97181562911254100E5DB28 /* DetailInfoManufacturerAssembly.swift */; };
 		B98E1DB128F04A0F00964B8F /* AddManufacturerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DAB28F04A0F00964B8F /* AddManufacturerPresenter.swift */; };
 		B98E1DB228F04A0F00964B8F /* AddManufacturerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DAC28F04A0F00964B8F /* AddManufacturerRouter.swift */; };
 		B98E1DB328F04A0F00964B8F /* AddManufacturerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DAD28F04A0F00964B8F /* AddManufacturerViewController.swift */; };
@@ -41,7 +43,9 @@
 		B98E1DF528F0DBCF00964B8F /* AdminMenuInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DEF28F0DBCF00964B8F /* AdminMenuInteractor.swift */; };
 		B9A4708328D2B84500CA6FAA /* extention + UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A4708228D2B84500CA6FAA /* extention + UIFont.swift */; };
 		B9A4708628D2BB6400CA6FAA /* AddTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A4708528D2BB6400CA6FAA /* AddTextFieldView.swift */; };
+		B9B358CC291169E2001D178F /* EmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B358CB291169E2001D178F /* EmptyCell.swift */; };
 		B9C7825A28ECE25800DBF8C6 /* AuthServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C7825928ECE25800DBF8C6 /* AuthServiceProtocol.swift */; };
+		B9C9ECFB29128F2F000A359B /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = B9C9ECFA29128F2F000A359B /* FirebaseCrashlytics */; };
 		B9D6055928D4CB590058D19E /* Manufacturer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D6055828D4CB590058D19E /* Manufacturer.swift */; };
 		B9D6055B28D4CF610058D19E /* FireBaseSetNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D6055A28D4CF610058D19E /* FireBaseSetNetworkManager.swift */; };
 		B9D6055D28D4CFA70058D19E /* GetDataBaseNetworkingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D6055C28D4CFA70058D19E /* GetDataBaseNetworkingProtocol.swift */; };
@@ -75,6 +79,7 @@
 		B9E8DA5028F7827900CCA034 /* ManufacturerListModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E8DA4E28F7827900CCA034 /* ManufacturerListModule.swift */; };
 		B9E8DA5128F7827900CCA034 /* ManufacturerListAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E8DA4F28F7827900CCA034 /* ManufacturerListAssembly.swift */; };
 		B9E8DA5728F783B400CCA034 /* ManufacturerListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E8DA5628F783B400CCA034 /* ManufacturerListTableViewCell.swift */; };
+		B9E98A9229107BC000E1389B /* extention + String.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E98A9129107BC000E1389B /* extention + String.swift */; };
 		B9EB023B28F3159A00B3B6DA /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = B9EB023A28F3159A00B3B6DA /* Swinject */; };
 		B9EB024128F31B6300B3B6DA /* ServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EB024028F31B6300B3B6DA /* ServiceAssembly.swift */; };
 		B9EB024728F3252500B3B6DA /* AddTobaccoAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EB024628F3252500B3B6DA /* AddTobaccoAssembly.swift */; };
@@ -88,6 +93,12 @@
 		B9ED910929098AA000DC3A6D /* TobaccoListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ED910829098AA000DC3A6D /* TobaccoListCell.swift */; };
 		B9ED910D2909D26100DC3A6D /* TobaccoListModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ED910B2909D26100DC3A6D /* TobaccoListModule.swift */; };
 		B9ED910E2909D26100DC3A6D /* TobaccoListAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ED910C2909D26100DC3A6D /* TobaccoListAssembly.swift */; };
+		B9EE2376291023F00098E4E0 /* DetailInfoManufacturerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EE2371291023F00098E4E0 /* DetailInfoManufacturerPresenter.swift */; };
+		B9EE2377291023F00098E4E0 /* DetailInfoManufacturerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EE2372291023F00098E4E0 /* DetailInfoManufacturerRouter.swift */; };
+		B9EE2378291023F00098E4E0 /* DetailInfoManufacturerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EE2373291023F00098E4E0 /* DetailInfoManufacturerViewController.swift */; };
+		B9EE2379291023F00098E4E0 /* DetailInfoManufacturerInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EE2374291023F00098E4E0 /* DetailInfoManufacturerInteractor.swift */; };
+		B9EE237A291023F00098E4E0 /* DetailInfoManufacturerEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EE2375291023F00098E4E0 /* DetailInfoManufacturerEntity.swift */; };
+		B9EE237D29102B710098E4E0 /* DetailInfoManufacturerTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EE237C29102B710098E4E0 /* DetailInfoManufacturerTableCell.swift */; };
 		B9F77A2128E500040089D80C /* FireBaseGetNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F77A2028E500040089D80C /* FireBaseGetNetworkManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -108,6 +119,8 @@
 		B94B771B290C3785002C5660 /* AddPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPickerView.swift; sourceTree = "<group>"; };
 		B9677CF128D8917000EF9FC6 /* extention + UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extention + UIViewController.swift"; sourceTree = "<group>"; };
 		B9677CF328D89D4000EF9FC6 /* FirestoreCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreCollection.swift; sourceTree = "<group>"; };
+		B97181552911254100E5DB28 /* DetailInfoManufacturerModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfoManufacturerModule.swift; sourceTree = "<group>"; };
+		B97181562911254100E5DB28 /* DetailInfoManufacturerAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfoManufacturerAssembly.swift; sourceTree = "<group>"; };
 		B98E1DAB28F04A0F00964B8F /* AddManufacturerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddManufacturerPresenter.swift; sourceTree = "<group>"; };
 		B98E1DAC28F04A0F00964B8F /* AddManufacturerRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddManufacturerRouter.swift; sourceTree = "<group>"; };
 		B98E1DAD28F04A0F00964B8F /* AddManufacturerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddManufacturerViewController.swift; sourceTree = "<group>"; };
@@ -128,6 +141,7 @@
 		B98E1DEF28F0DBCF00964B8F /* AdminMenuInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminMenuInteractor.swift; sourceTree = "<group>"; };
 		B9A4708228D2B84500CA6FAA /* extention + UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extention + UIFont.swift"; sourceTree = "<group>"; };
 		B9A4708528D2BB6400CA6FAA /* AddTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTextFieldView.swift; sourceTree = "<group>"; };
+		B9B358CB291169E2001D178F /* EmptyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCell.swift; sourceTree = "<group>"; };
 		B9C7825928ECE25800DBF8C6 /* AuthServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServiceProtocol.swift; sourceTree = "<group>"; };
 		B9D6055828D4CB590058D19E /* Manufacturer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manufacturer.swift; sourceTree = "<group>"; };
 		B9D6055A28D4CF610058D19E /* FireBaseSetNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseSetNetworkManager.swift; sourceTree = "<group>"; };
@@ -158,6 +172,7 @@
 		B9E8DA4E28F7827900CCA034 /* ManufacturerListModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManufacturerListModule.swift; sourceTree = "<group>"; };
 		B9E8DA4F28F7827900CCA034 /* ManufacturerListAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManufacturerListAssembly.swift; sourceTree = "<group>"; };
 		B9E8DA5628F783B400CCA034 /* ManufacturerListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManufacturerListTableViewCell.swift; sourceTree = "<group>"; };
+		B9E98A9129107BC000E1389B /* extention + String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "extention + String.swift"; sourceTree = "<group>"; };
 		B9EB024028F31B6300B3B6DA /* ServiceAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceAssembly.swift; sourceTree = "<group>"; };
 		B9EB024628F3252500B3B6DA /* AddTobaccoAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTobaccoAssembly.swift; sourceTree = "<group>"; };
 		B9EB024828F35B5F00B3B6DA /* ModuleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleProtocol.swift; sourceTree = "<group>"; };
@@ -170,6 +185,12 @@
 		B9ED910829098AA000DC3A6D /* TobaccoListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TobaccoListCell.swift; sourceTree = "<group>"; };
 		B9ED910B2909D26100DC3A6D /* TobaccoListModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TobaccoListModule.swift; sourceTree = "<group>"; };
 		B9ED910C2909D26100DC3A6D /* TobaccoListAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TobaccoListAssembly.swift; sourceTree = "<group>"; };
+		B9EE2371291023F00098E4E0 /* DetailInfoManufacturerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfoManufacturerPresenter.swift; sourceTree = "<group>"; };
+		B9EE2372291023F00098E4E0 /* DetailInfoManufacturerRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfoManufacturerRouter.swift; sourceTree = "<group>"; };
+		B9EE2373291023F00098E4E0 /* DetailInfoManufacturerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfoManufacturerViewController.swift; sourceTree = "<group>"; };
+		B9EE2374291023F00098E4E0 /* DetailInfoManufacturerInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfoManufacturerInteractor.swift; sourceTree = "<group>"; };
+		B9EE2375291023F00098E4E0 /* DetailInfoManufacturerEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfoManufacturerEntity.swift; sourceTree = "<group>"; };
+		B9EE237C29102B710098E4E0 /* DetailInfoManufacturerTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfoManufacturerTableCell.swift; sourceTree = "<group>"; };
 		B9F77A2028E500040089D80C /* FireBaseGetNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseGetNetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -181,6 +202,7 @@
 				B9D6056428D4FED20058D19E /* FirebaseAuth in Frameworks */,
 				B9EB023B28F3159A00B3B6DA /* Swinject in Frameworks */,
 				B9D6056C28D508800058D19E /* SnapKit in Frameworks */,
+				B9C9ECFB29128F2F000A359B /* FirebaseCrashlytics in Frameworks */,
 				B9D6056628D4FED20058D19E /* FirebaseFirestoreSwift in Frameworks */,
 				B9D6056828D4FED20058D19E /* FirebaseStorage in Frameworks */,
 			);
@@ -279,6 +301,7 @@
 		B91EB76728A141F400502221 /* Extentions */ = {
 			isa = PBXGroup;
 			children = (
+				B9E98A9129107BC000E1389B /* extention + String.swift */,
 				B9A4708228D2B84500CA6FAA /* extention + UIFont.swift */,
 				B9677CF128D8917000EF9FC6 /* extention + UIViewController.swift */,
 				B94B7716290C239E002C5660 /* extention + UIButton.swift */,
@@ -306,6 +329,15 @@
 				B9E8DA4628F77A8300CCA034 /* ManufacturerListEntity.swift */,
 			);
 			path = ManufacturerListModule;
+			sourceTree = "<group>";
+		};
+		B97181542911252100E5DB28 /* DetailInfoManufacturer */ = {
+			isa = PBXGroup;
+			children = (
+				B97181552911254100E5DB28 /* DetailInfoManufacturerModule.swift */,
+				B97181562911254100E5DB28 /* DetailInfoManufacturerAssembly.swift */,
+			);
+			path = DetailInfoManufacturer;
 			sourceTree = "<group>";
 		};
 		B98E1DAA28F049E500964B8F /* AddManufacturerModule */ = {
@@ -363,6 +395,14 @@
 				B94B771B290C3785002C5660 /* AddPickerView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		B9B358CA291169C4001D178F /* EmptyCell */ = {
+			isa = PBXGroup;
+			children = (
+				B9B358CB291169E2001D178F /* EmptyCell.swift */,
+			);
+			path = EmptyCell;
 			sourceTree = "<group>";
 		};
 		B9B7274629096C5A00EB7323 /* TobaccoListModule */ = {
@@ -438,6 +478,7 @@
 		B9E7AC9F28F4518C00A3D7E5 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				B97181542911252100E5DB28 /* DetailInfoManufacturer */,
 				B9ED910A2909D24500DC3A6D /* TobaccoList */,
 				B9E8DA4D28F7825200CCA034 /* ManufacturerList */,
 				B9E7ACB528F4959500A3D7E5 /* AddManufacturer */,
@@ -498,6 +539,7 @@
 			isa = PBXGroup;
 			children = (
 				B9E8DA5428F7837200CCA034 /* Cells */,
+				B9EE23522910196B0098E4E0 /* DetailInfoManufacturerModule */,
 				B95699AB28F709C000D9E584 /* ManufacturerListModule */,
 				B9B7274629096C5A00EB7323 /* TobaccoListModule */,
 			);
@@ -507,6 +549,8 @@
 		B9E8DA5428F7837200CCA034 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				B9B358CA291169C4001D178F /* EmptyCell */,
+				B9EE237B29102A0E0098E4E0 /* DetailInfoManufacturerTableCell */,
 				B9ED910729098A8400DC3A6D /* TobaccoListCell */,
 				B9E8DA5528F7837F00CCA034 /* ManufacturerListCell */,
 			);
@@ -562,6 +606,26 @@
 			path = TobaccoList;
 			sourceTree = "<group>";
 		};
+		B9EE23522910196B0098E4E0 /* DetailInfoManufacturerModule */ = {
+			isa = PBXGroup;
+			children = (
+				B9EE2371291023F00098E4E0 /* DetailInfoManufacturerPresenter.swift */,
+				B9EE2372291023F00098E4E0 /* DetailInfoManufacturerRouter.swift */,
+				B9EE2373291023F00098E4E0 /* DetailInfoManufacturerViewController.swift */,
+				B9EE2374291023F00098E4E0 /* DetailInfoManufacturerInteractor.swift */,
+				B9EE2375291023F00098E4E0 /* DetailInfoManufacturerEntity.swift */,
+			);
+			path = DetailInfoManufacturerModule;
+			sourceTree = "<group>";
+		};
+		B9EE237B29102A0E0098E4E0 /* DetailInfoManufacturerTableCell */ = {
+			isa = PBXGroup;
+			children = (
+				B9EE237C29102B710098E4E0 /* DetailInfoManufacturerTableCell.swift */,
+			);
+			path = DetailInfoManufacturerTableCell;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -572,6 +636,7 @@
 				B90A790A2899E2BF00B90193 /* Sources */,
 				B90A790B2899E2BF00B90193 /* Frameworks */,
 				B90A790C2899E2BF00B90193 /* Resources */,
+				B9B358D729118D28001D178F /* Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -584,6 +649,7 @@
 				B9D6056728D4FED20058D19E /* FirebaseStorage */,
 				B9D6056B28D508800058D19E /* SnapKit */,
 				B9EB023A28F3159A00B3B6DA /* Swinject */,
+				B9C9ECFA29128F2F000A359B /* FirebaseCrashlytics */,
 			);
 			productName = HookahTobacco;
 			productReference = B90A790E2899E2BF00B90193 /* HookahTobacco.app */;
@@ -640,12 +706,36 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		B9B358D729118D28001D178F /* Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			name = Crashlytics;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		B90A790A2899E2BF00B90193 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				B9E7ACAF28F46AFB00A3D7E5 /* AdminMenuAssembly.swift in Sources */,
+				B9EE2378291023F00098E4E0 /* DetailInfoManufacturerViewController.swift in Sources */,
 				B9E8DA4C28F77A8300CCA034 /* ManufacturerListEntity.swift in Sources */,
 				B98E1DE528F08D4400964B8F /* AddTobaccoPresenter.swift in Sources */,
 				B98E1DEA28F08D4400964B8F /* AddTobaccoEntity.swift in Sources */,
@@ -661,16 +751,20 @@
 				B98E1DF228F0DBCF00964B8F /* AdminMenuPresenter.swift in Sources */,
 				B90A79122899E2BF00B90193 /* AppDelegate.swift in Sources */,
 				B9E8DA5028F7827900CCA034 /* ManufacturerListModule.swift in Sources */,
+				B9B358CC291169E2001D178F /* EmptyCell.swift in Sources */,
 				B9ED910E2909D26100DC3A6D /* TobaccoListAssembly.swift in Sources */,
 				B9E7A98C28FF15DF00D711B4 /* SetImageDataBaseProtocol.swift in Sources */,
 				B9ED9105290989EF00DC3A6D /* TobaccoListInteractor.swift in Sources */,
+				B9EE2379291023F00098E4E0 /* DetailInfoManufacturerInteractor.swift in Sources */,
 				B9EB024128F31B6300B3B6DA /* ServiceAssembly.swift in Sources */,
 				B9DBE50B290DD8B1005B185C /* HTTabBarController.swift in Sources */,
 				B9D6055D28D4CFA70058D19E /* GetDataBaseNetworkingProtocol.swift in Sources */,
 				B9F77A2128E500040089D80C /* FireBaseGetNetworkManager.swift in Sources */,
+				B9E98A9229107BC000E1389B /* extention + String.swift in Sources */,
 				B9EB024B28F3604E00B3B6DA /* AddTobaccoModule.swift in Sources */,
 				B9EB024928F35B5F00B3B6DA /* ModuleProtocol.swift in Sources */,
 				B9D6057428D53C350058D19E /* FireBaseAuthService.swift in Sources */,
+				B9EE2377291023F00098E4E0 /* DetailInfoManufacturerRouter.swift in Sources */,
 				B9E7ACB328F492ED00A3D7E5 /* LoginModule.swift in Sources */,
 				B9E7ACB428F492ED00A3D7E5 /* LoginAssembly.swift in Sources */,
 				B9C7825A28ECE25800DBF8C6 /* AuthServiceProtocol.swift in Sources */,
@@ -686,13 +780,16 @@
 				B9A4708328D2B84500CA6FAA /* extention + UIFont.swift in Sources */,
 				B98E1DE828F08D4400964B8F /* AddTobaccoInteractor.swift in Sources */,
 				B90FB1332901857100881D56 /* FireStorageSetImageManager.swift in Sources */,
+				B97181582911254100E5DB28 /* DetailInfoManufacturerAssembly.swift in Sources */,
 				B948D83628CD286400E35884 /* SetDataBaseNetworkingProtocol.swift in Sources */,
 				B9EB024728F3252500B3B6DA /* AddTobaccoAssembly.swift in Sources */,
+				B9EE237A291023F00098E4E0 /* DetailInfoManufacturerEntity.swift in Sources */,
 				B98E1DD928F0812500964B8F /* LoginInteractor.swift in Sources */,
 				B90A79142899E2BF00B90193 /* SceneDelegate.swift in Sources */,
 				B9E7ACB928F495B300A3D7E5 /* AddManufacturerAssembly.swift in Sources */,
 				B9DBE50E290DE11F005B185C /* HTNavigationController.swift in Sources */,
 				B9E8DA4A28F77A8300CCA034 /* ManufacturerListInteractor.swift in Sources */,
+				B9EE237D29102B710098E4E0 /* DetailInfoManufacturerTableCell.swift in Sources */,
 				B94B7717290C239E002C5660 /* extention + UIButton.swift in Sources */,
 				B9E8DA5128F7827900CCA034 /* ManufacturerListAssembly.swift in Sources */,
 				B90A792D289A8C2200B90193 /* Tobacco.swift in Sources */,
@@ -704,7 +801,9 @@
 				B9E7A98E28FF16CC00D711B4 /* NamedFireStorage.swift in Sources */,
 				B9DBE935290B0C07004D7B97 /* ImagePickerView.swift in Sources */,
 				B98E1DE628F08D4400964B8F /* AddTobaccoRouter.swift in Sources */,
+				B97181572911254100E5DB28 /* DetailInfoManufacturerModule.swift in Sources */,
 				B9A4708628D2BB6400CA6FAA /* AddTextFieldView.swift in Sources */,
+				B9EE2376291023F00098E4E0 /* DetailInfoManufacturerPresenter.swift in Sources */,
 				B98E1DF428F0DBCF00964B8F /* AdminMenuViewController.swift in Sources */,
 				B9E7AC9E28F4337100A3D7E5 /* AppRouter.swift in Sources */,
 				B94B771A290C2738002C5660 /* AddTextView.swift in Sources */,
@@ -857,6 +956,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Q8BJ8563H3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = HookahTobacco/Resources/Info.plist;
@@ -959,6 +1059,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		B9C9ECFA29128F2F000A359B /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B9D6056228D4FED20058D19E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
 		B9D6056328D4FED20058D19E /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B9D6056228D4FED20058D19E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

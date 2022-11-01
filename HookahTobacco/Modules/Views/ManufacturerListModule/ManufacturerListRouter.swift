@@ -22,12 +22,16 @@ class ManufacturerListRouter: ManufacturerListRouterProtocol {
     }
     
     func showDetail(for manufacturer: Manufacturer) {
-        print(#function, manufacturer)
-        //TODO: create a detailed view of the manufacturer and create a transition to the detailed view
+        let data = DetailInfoManufacturerDataModule(manufacturer: manufacturer)
+        appRouter.pushViewController(module: DetailInfoManufacturerModule.self,
+                                     moduleData: data,
+                                     animateDisplay: true)
     }
     
     func showAddManufacturer(_ data: Manufacturer, delegate: AddManufacturerOutputModule?) {
         let data = AddManufacturerDataModule(editingManufacturer: data, delegate: delegate)
-        appRouter.pushViewController(module: AddManufacturerModule.self, moduleData: data, animateDisplay: true)
+        appRouter.pushViewController(module: AddManufacturerModule.self,
+                                     moduleData: data,
+                                     animateDisplay: true)
     }
 }

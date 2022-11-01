@@ -25,7 +25,10 @@ class FireBaseGetNetworkManager: GetDataBaseNetworkingProtocol {
     }
     
     func getTobaccos(for manufacturer: Manufacturer, completion: @escaping (Result<[Tobacco], Error>) -> Void) {
-        db.collection(NamedFireStore.Collections.manufacturers).getDocuments { snapshot, error in
+        guard let uid = manufacturer.uid else { return }
+        db.collection(NamedFireStore.Collections.tobaccos)
+            .whereField(NamedFireStore.Documents.Tobacco.idManufacturer, isEqualTo: uid)
+            .getDocuments { snapshot, error in
             if let error = error {
                 completion(.failure(error))
             } else {
