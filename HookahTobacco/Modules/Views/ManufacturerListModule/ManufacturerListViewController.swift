@@ -8,6 +8,7 @@
 //
 
 import UIKit
+import SnapKit
 
 protocol ManufacturerListViewInputProtocol: AnyObject {
     func showError(with message: String)
@@ -20,11 +21,14 @@ protocol ManufacturerListViewOutputProtocol: AnyObject {
     func getViewModel(by row: Int) -> ManufacturerListEntity.ViewModel
     func viewDidLoad()
     func didTouchForElement(by row: Int)
+    func didStartingRefreshView()
 }
 
 class ManufacturerListViewController: UIViewController {
+    // MARK: - Public properties
     var presenter: ManufacturerListViewOutputProtocol!
     
+    // MARK: - Private properties
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(ManufacturerListTableViewCell.self,
@@ -33,6 +37,9 @@ class ManufacturerListViewController: UIViewController {
         return tableView
     }()
     
+    private let refreshControl = UIRefreshControl()
+    
+    // MARK: - Live Cycle ViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Производители табаков"
@@ -40,6 +47,7 @@ class ManufacturerListViewController: UIViewController {
         presenter.viewDidLoad()
     }
     
+    // MARK: - Setups
     private func setupSubviews() {
         view.addSubview(tableView)
         tableView.dataSource = self
@@ -47,9 +55,20 @@ class ManufacturerListViewController: UIViewController {
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+        tableView.refreshControl = refreshControl
+        
+        refreshControl.addTarget(self, action: #selector(refreshTableView), for: .valueChanged)
+    }
+    
+    // MARK: - Private methods
+    
+    // MARK: - Selectors
+    @objc private func refreshTableView() {
+        presenter.didStartingRefreshView()
     }
 }
 
+// MARK: - ViewInputProtocol implementation
 extension ManufacturerListViewController: ManufacturerListViewInputProtocol {
     func showError(with message: String) {
         showAlertError(title: "Ошибка", message: message)
@@ -57,6 +76,7 @@ extension ManufacturerListViewController: ManufacturerListViewInputProtocol {
     
     func showData() {
         tableView.reloadData()
+        refreshControl.endRefreshing()
     }
     
     func showRow(_ row: Int) {
@@ -64,6 +84,7 @@ extension ManufacturerListViewController: ManufacturerListViewInputProtocol {
     }
 }
 
+// MARK: - UITableViewDataSource implementation
 extension ManufacturerListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.numberOfRows
@@ -77,6 +98,7 @@ extension ManufacturerListViewController: UITableViewDataSource {
     }
 }
 
+// MARK: - UITableViewDelegate implementation
 extension ManufacturerListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return tableView.frame.height / 8

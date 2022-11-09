@@ -10,12 +10,15 @@
 import Foundation
 
 class TobaccoListPresenter {
+    // MARK: - Public properties
     weak var view: TobaccoListViewInputProtocol!
     var interactor: TobaccoListInteractorInputProtocol!
     var router: TobaccoListRouterProtocol!
     
+    // MARK: - Private properties
     private var viewModels: [TobaccoListCellViewModel] = []
     
+    // MARK: - Private methods
     private func createViewModel(_ data: Tobacco) -> TobaccoListCellViewModel {
         let taste = data.taste.joined(separator: ", ")
         return TobaccoListCellViewModel(name: data.name,
@@ -25,6 +28,7 @@ class TobaccoListPresenter {
     }
 }
 
+// MARK: - InteractorOutputProtocol implementation
 extension TobaccoListPresenter: TobaccoListInteractorOutputProtocol {
     func receivedSuccess(_ data: [Tobacco]) {
         viewModels = data.map { createViewModel($0) }
@@ -54,6 +58,7 @@ extension TobaccoListPresenter: TobaccoListInteractorOutputProtocol {
     }
 }
 
+// MARK: - ViewOutputProtocol implementation
 extension TobaccoListPresenter: TobaccoListViewOutputProtocol {
     var numberOfRows: Int {
         viewModels.count
@@ -70,8 +75,13 @@ extension TobaccoListPresenter: TobaccoListViewOutputProtocol {
     func didTouchForElement(by index: Int) {
         interactor.receiveDataForShowDetail(by: index)
     }
+    
+    func didStartingRefreshView() {
+        interactor.updateData()
+    }
 }
 
+// MARK: - OutputModule implementation
 extension TobaccoListPresenter: AddTobaccoOutputModule {
     func sendChangedTobacco(_ tobacco: Tobacco) {
         interactor.receivedDataFromOutside(tobacco)

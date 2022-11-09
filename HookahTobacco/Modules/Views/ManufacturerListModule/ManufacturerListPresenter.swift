@@ -10,12 +10,15 @@
 import Foundation
 
 class ManufacturerListPresenter {
+    // MARK: - Public properties
     weak var view: ManufacturerListViewInputProtocol!
     var interactor: ManufacturerListInteractorInputProtocol!
     var router: ManufacturerListRouterProtocol!
     
+    // MARK: - Private properties
     private var viewModels: [ManufacturerListEntity.ViewModel] = []
     
+    // MARK: - Private methods
     private func createViewModel(for manufacturer: Manufacturer) -> ManufacturerListEntity.ViewModel {
         return ManufacturerListEntity.ViewModel(name: manufacturer.name,
                                                 country: manufacturer.country,
@@ -23,6 +26,7 @@ class ManufacturerListPresenter {
     }
 }
 
+// MARK: - InteractorOutputProtocol implementation
 extension ManufacturerListPresenter: ManufacturerListInteractorOutputProtocol {
     func receivedManufacturersSuccess(with data: [Manufacturer]) {
         viewModels = data.map { createViewModel(for: $0) }
@@ -48,6 +52,7 @@ extension ManufacturerListPresenter: ManufacturerListInteractorOutputProtocol {
     }
 }
 
+// MARK: - ViewOutputProtocol implementation
 extension ManufacturerListPresenter: ManufacturerListViewOutputProtocol {
     var numberOfRows: Int {
         viewModels.count
@@ -64,8 +69,13 @@ extension ManufacturerListPresenter: ManufacturerListViewOutputProtocol {
     func didTouchForElement(by row: Int) {
         interactor.receiveDataForShowDetail(by: row)
     }
+    
+    func didStartingRefreshView() {
+        interactor.updateData()
+    }
 }
 
+// MARK: - OutputModule implementation
 extension ManufacturerListPresenter: AddManufacturerOutputModule {
     func sendChangedManufacturer(_ manufacture: Manufacturer) {
         interactor.receivedDataFromOutside(manufacture)

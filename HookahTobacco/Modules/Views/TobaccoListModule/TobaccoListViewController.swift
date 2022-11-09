@@ -21,42 +21,57 @@ protocol TobaccoListViewOutputProtocol: AnyObject {
     func cellViewModel(at index: Int) -> TobaccoListCellViewModel
     func viewDidLoad()
     func didTouchForElement(by index: Int)
+    func didStartingRefreshView()
 }
 
 class TobaccoListViewController: UIViewController {
+    // MARK: - Public properties
     var presenter: TobaccoListViewOutputProtocol!
     
-    //MARK: subviews
+    // MARK: - Private properties
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(TobaccoListCell.self, forCellReuseIdentifier: TobaccoListCell.identifier)
         return tableView
     }()
     
-    //MARK: override viewController
+    private let refreshControl = UIRefreshControl()
+    
+    // MARK: - Live Cycle ViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
         presenter.viewDidLoad()
     }
     
-    //MARK: setups
+    // MARK: - Setups
     private func setup() {
+        navigationItem.title = "Табаки"
+        
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.refreshControl = refreshControl
+        
+        refreshControl.addTarget(self, action: #selector(refreshTableView), for: .valueChanged)
     }
     
-    //MARK: private methods
+    // MARK: - Private methods
     
+    // MARK: - Selectors
+    @objc private func refreshTableView() {
+        presenter.didStartingRefreshView()
+    }
 }
 
+// MARK: - ViewInputProtocol implementation
 extension TobaccoListViewController: TobaccoListViewInputProtocol {
     func showData() {
         tableView.reloadData()
+        refreshControl.endRefreshing()
     }
     
     func updateRow(at index: Int) {
@@ -68,6 +83,7 @@ extension TobaccoListViewController: TobaccoListViewInputProtocol {
     }
 }
 
+// MARK: - UITableViewDataSource implementation
 extension TobaccoListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.numberOfRows
@@ -81,6 +97,7 @@ extension TobaccoListViewController: UITableViewDataSource {
     }
 }
 
+// MARK: - UITableViewDelegate implementation
 extension TobaccoListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return tableView.frame.height / 6

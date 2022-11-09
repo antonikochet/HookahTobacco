@@ -13,6 +13,7 @@ protocol TobaccoListInteractorInputProtocol: AnyObject {
     func startReceiveData()
     func receiveDataForShowDetail(by index: Int)
     func receivedDataFromOutside(_ data: Tobacco)
+    func updateData()
 }
 
 protocol TobaccoListInteractorOutputProtocol: AnyObject {
@@ -25,17 +26,18 @@ protocol TobaccoListInteractorOutputProtocol: AnyObject {
 }
 
 class TobaccoListInteractor {
+    // MARK: - Public properties
     weak var presenter: TobaccoListInteractorOutputProtocol!
     
-    //MARK: dependency
+    // MARK: - Dependency
     private var getDataManager: GetDataBaseNetworkingProtocol
     private var getImageManager: GetImageDataBaseProtocol
     
-    //MARK: properties
+    // MARK: - Private properties
     private var tobaccos: [Tobacco] = []
     private var isAdminMode: Bool
     
-    //MARK: initializers
+    // MARK: - Initializers
     init(_ isAdminModel: Bool,
          getDataManager: GetDataBaseNetworkingProtocol,
          getImageManager: GetImageDataBaseProtocol) {
@@ -44,7 +46,7 @@ class TobaccoListInteractor {
         self.getImageManager = getImageManager
     }
     
-    //MARK: private methods
+    // MARK: - Private methods
     private func getTobacco() {
         getDataManager.getAllTobaccos { [weak self] result in
             guard let self = self else { return }
@@ -56,8 +58,9 @@ class TobaccoListInteractor {
                         self.presenter.receivedSuccess(data)
                     }
                 case .failure(let error):
-                    let err = error as NSError
-                    self.presenter.receivedError(with: err.code, and: err.localizedDescription)
+                    DispatchQueue.main.async {
+                        self.presenter.receivedError(with: error.localizedDescription)
+                    }
             }
         }
     }
@@ -78,9 +81,8 @@ class TobaccoListInteractor {
                         self.presenter.receivedUpdate(for: mutableTobacco, at: index)
                     }
                 case .failure(let error):
-                    let err = error as NSError
                     DispatchQueue.main.async {
-                        self.presenter.receivedError(with: err.code, and: err.localizedDescription)
+                            self.presenter.receivedError(with: error.localizedDescription)
                     }
                 }
         }
@@ -93,6 +95,7 @@ class TobaccoListInteractor {
     }
 }
 
+// MARK: - InputProtocol implementation 
 extension TobaccoListInteractor: TobaccoListInteractorInputProtocol {
     func startReceiveData() {
         getTobacco()
@@ -110,5 +113,9 @@ extension TobaccoListInteractor: TobaccoListInteractorInputProtocol {
         guard let index = tobaccos.firstIndex(where: { $0.uid == data.uid }) else { return }
         tobaccos[index] = data
         presenter.receivedUpdate(for: data, at: index)
+    }
+    
+    func updateData() {
+        getTobacco()
     }
 }

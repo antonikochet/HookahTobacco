@@ -13,6 +13,7 @@ protocol ManufacturerListInteractorInputProtocol: AnyObject {
     func startReceiveData()
     func receiveDataForShowDetail(by index: Int)
     func receivedDataFromOutside(_ data: Manufacturer)
+    func updateData()
 }
 
 protocol ManufacturerListInteractorOutputProtocol: AnyObject {
@@ -24,15 +25,18 @@ protocol ManufacturerListInteractorOutputProtocol: AnyObject {
 }
 
 class ManufacturerListInteractor {
+    // MARK: - Public properties
     weak var presenter: ManufacturerListInteractorOutputProtocol!
     
-    private var manufacturers: [Manufacturer] = []
-    
-    private var isAdminMode: Bool
-    
+    // MARK: - Dependency
     private var getDataManager: GetDataBaseNetworkingProtocol
     private var getImageManager: GetImageDataBaseProtocol
     
+    // MARK: - Private properties
+    private var manufacturers: [Manufacturer] = []
+    private var isAdminMode: Bool
+    
+    // MARK: - Initializers
     init(_ isAdminMode: Bool,
          getDataManager: GetDataBaseNetworkingProtocol,
          getImageManager: GetImageDataBaseProtocol) {
@@ -41,6 +45,7 @@ class ManufacturerListInteractor {
         self.getImageManager = getImageManager
     }
     
+    // MARK: - Private methods
     private func receiveManufacturers() {
         getDataManager.getManufacturers { [weak self] result in
             guard let self = self else { return }
@@ -79,6 +84,7 @@ class ManufacturerListInteractor {
     }
 }
 
+// MARK: - InputProtocol implementation
 extension ManufacturerListInteractor: ManufacturerListInteractorInputProtocol {
     func startReceiveData() {
         receiveManufacturers()
@@ -97,5 +103,9 @@ extension ManufacturerListInteractor: ManufacturerListInteractorInputProtocol {
         guard let index = manufacturers.firstIndex(where: { $0.uid == data.uid }) else { return }
         manufacturers[index] = data
         presenter.receivedUpdate(for: data, at: index)
+    }
+    
+    func updateData() {
+        receiveManufacturers()
     }
 }
