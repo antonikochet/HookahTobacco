@@ -11,17 +11,20 @@ import Swinject
 class ServiceAssembly: Assembly {
     func assemble(container: Container) {
         
-        container.register(SetDataBaseNetworkingProtocol.self) { _ in
-            FireBaseSetNetworkManager()
+        container.register(NetworkHandlerErrors.self) { _ in
+            FireBaseHandlerErrors()
         }
-        container.register(GetDataBaseNetworkingProtocol.self) { _ in
-            FireBaseGetNetworkManager()
+        container.register(SetDataBaseNetworkingProtocol.self) { r in
+            FireBaseSetNetworkManager(handlerErrors: r.resolve(NetworkHandlerErrors.self)!)
         }
-        container.register(GetImageDataBaseProtocol.self) { _ in
-            FireStorageGetImageManager()
+        container.register(GetDataBaseNetworkingProtocol.self) { r in
+            FireBaseGetNetworkManager(handlerErrors: r.resolve(NetworkHandlerErrors.self)!)
         }
-        container.register(SetImageDataBaseProtocol.self) { _ in
-            FireStorageSetImageManager()
+        container.register(GetImageDataBaseProtocol.self) { r in
+            FireStorageGetImageManager(handlerErrors: r.resolve(NetworkHandlerErrors.self)!)
+        }
+        container.register(SetImageDataBaseProtocol.self) { r in
+            FireStorageSetImageManager(handlerErrors: r.resolve(NetworkHandlerErrors.self)!)
         }
     }
 }

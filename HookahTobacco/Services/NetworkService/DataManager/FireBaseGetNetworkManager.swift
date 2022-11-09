@@ -10,11 +10,17 @@ import FirebaseFirestore
 
 class FireBaseGetNetworkManager: GetDataBaseNetworkingProtocol {
     private var db = Firestore.firestore()
+    private var handlerErrors: NetworkHandlerErrors
     
-    func getManufacturers(completion: @escaping (Result<[Manufacturer], Error>) -> Void) {
-        db.collection(NamedFireStore.Collections.manufacturers).getDocuments { snapshot, error in
+    init(handlerErrors: NetworkHandlerErrors) {
+        self.handlerErrors = handlerErrors
+    }
+    
+    func getManufacturers(completion: @escaping (Result<[Manufacturer], NetworkError>) -> Void) {
+        db.collection(NamedFireStore.Collections.manufacturers).getDocuments { [weak self] snapshot, error in
+            guard let self = self else { return }
             if let error = error {
-                completion(.failure(error))
+                completion(.failure(self.handlerErrors.handlerError(error)))
             } else {
                 if let snapshot = snapshot {
                     let manufacturers = snapshot.documents.map { Manufacturer($0.data(), uid: $0.documentID) }
@@ -24,26 +30,28 @@ class FireBaseGetNetworkManager: GetDataBaseNetworkingProtocol {
         }
     }
     
-    func getTobaccos(for manufacturer: Manufacturer, completion: @escaping (Result<[Tobacco], Error>) -> Void) {
+    func getTobaccos(for manufacturer: Manufacturer, completion: @escaping (Result<[Tobacco], NetworkError>) -> Void) {
         guard let uid = manufacturer.uid else { return }
         db.collection(NamedFireStore.Collections.tobaccos)
             .whereField(NamedFireStore.Documents.Tobacco.idManufacturer, isEqualTo: uid)
-            .getDocuments { snapshot, error in
-            if let error = error {
-                completion(.failure(error))
-            } else {
-                if let snapshot = snapshot {
-                    let tobaccos = snapshot.documents.map { Tobacco($0.data(), uid: $0.documentID) }
-                    completion(.success(tobaccos))
+            .getDocuments { [weak self] snapshot, error in
+                guard let self = self else { return }
+                if let error = error {
+                    completion(.failure(self.handlerErrors.handlerError(error)))
+                } else {
+                    if let snapshot = snapshot {
+                        let tobaccos = snapshot.documents.map { Tobacco($0.data(), uid: $0.documentID) }
+                        completion(.success(tobaccos))
+                    }
                 }
             }
-        }
     }
     
-    func getAllTobaccos(completion: @escaping (Result<[Tobacco], Error>) -> Void) {
-        db.collection(NamedFireStore.Collections.tobaccos).getDocuments { snapshot, error in
+    func getAllTobaccos(completion: @escaping (Result<[Tobacco], NetworkError>) -> Void) {
+        db.collection(NamedFireStore.Collections.tobaccos).getDocuments { [weak self] snapshot, error in
+            guard let self = self else { return }
             if let error = error {
-                completion(.failure(error))
+                completion(.failure(self.handlerErrors.handlerError(error)))
             } else {
                 if let snapshot = snapshot {
                     let tobaccos = snapshot.documents.map { Tobacco($0.data(), uid: $0.documentID) }

@@ -1,5 +1,5 @@
 //
-//  FirestoreCollection.swift
+//  NamedFireStore.swift
 //  HookahTobacco
 //
 //  Created by антон кочетков on 19.09.2022.

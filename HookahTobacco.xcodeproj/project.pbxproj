@@ -20,7 +20,7 @@
 		B94B771A290C2738002C5660 /* AddTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94B7719290C2738002C5660 /* AddTextView.swift */; };
 		B94B771C290C3785002C5660 /* AddPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94B771B290C3785002C5660 /* AddPickerView.swift */; };
 		B9677CF228D8917000EF9FC6 /* extention + UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9677CF128D8917000EF9FC6 /* extention + UIViewController.swift */; };
-		B9677CF428D89D4000EF9FC6 /* FirestoreCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9677CF328D89D4000EF9FC6 /* FirestoreCollection.swift */; };
+		B9677CF428D89D4000EF9FC6 /* NamedFireStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9677CF328D89D4000EF9FC6 /* NamedFireStore.swift */; };
 		B97181572911254100E5DB28 /* DetailInfoManufacturerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97181552911254100E5DB28 /* DetailInfoManufacturerModule.swift */; };
 		B97181582911254100E5DB28 /* DetailInfoManufacturerAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97181562911254100E5DB28 /* DetailInfoManufacturerAssembly.swift */; };
 		B98E1DB128F04A0F00964B8F /* AddManufacturerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DAB28F04A0F00964B8F /* AddManufacturerPresenter.swift */; };
@@ -46,6 +46,8 @@
 		B9B358CC291169E2001D178F /* EmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B358CB291169E2001D178F /* EmptyCell.swift */; };
 		B9C7825A28ECE25800DBF8C6 /* AuthServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C7825928ECE25800DBF8C6 /* AuthServiceProtocol.swift */; };
 		B9C9ECFB29128F2F000A359B /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = B9C9ECFA29128F2F000A359B /* FirebaseCrashlytics */; };
+		B9C9ECFD29129E00000A359B /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C9ECFC29129E00000A359B /* NetworkError.swift */; };
+		B9C9ECFF29129F09000A359B /* FirebaseHandlerErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C9ECFE29129F09000A359B /* FirebaseHandlerErrors.swift */; };
 		B9D6055928D4CB590058D19E /* Manufacturer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D6055828D4CB590058D19E /* Manufacturer.swift */; };
 		B9D6055B28D4CF610058D19E /* FireBaseSetNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D6055A28D4CF610058D19E /* FireBaseSetNetworkManager.swift */; };
 		B9D6055D28D4CFA70058D19E /* GetDataBaseNetworkingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D6055C28D4CFA70058D19E /* GetDataBaseNetworkingProtocol.swift */; };
@@ -118,7 +120,7 @@
 		B94B7719290C2738002C5660 /* AddTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTextView.swift; sourceTree = "<group>"; };
 		B94B771B290C3785002C5660 /* AddPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPickerView.swift; sourceTree = "<group>"; };
 		B9677CF128D8917000EF9FC6 /* extention + UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extention + UIViewController.swift"; sourceTree = "<group>"; };
-		B9677CF328D89D4000EF9FC6 /* FirestoreCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreCollection.swift; sourceTree = "<group>"; };
+		B9677CF328D89D4000EF9FC6 /* NamedFireStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamedFireStore.swift; sourceTree = "<group>"; };
 		B97181552911254100E5DB28 /* DetailInfoManufacturerModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfoManufacturerModule.swift; sourceTree = "<group>"; };
 		B97181562911254100E5DB28 /* DetailInfoManufacturerAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfoManufacturerAssembly.swift; sourceTree = "<group>"; };
 		B98E1DAB28F04A0F00964B8F /* AddManufacturerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddManufacturerPresenter.swift; sourceTree = "<group>"; };
@@ -143,6 +145,8 @@
 		B9A4708528D2BB6400CA6FAA /* AddTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTextFieldView.swift; sourceTree = "<group>"; };
 		B9B358CB291169E2001D178F /* EmptyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCell.swift; sourceTree = "<group>"; };
 		B9C7825928ECE25800DBF8C6 /* AuthServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServiceProtocol.swift; sourceTree = "<group>"; };
+		B9C9ECFC29129E00000A359B /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		B9C9ECFE29129F09000A359B /* FirebaseHandlerErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseHandlerErrors.swift; sourceTree = "<group>"; };
 		B9D6055828D4CB590058D19E /* Manufacturer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manufacturer.swift; sourceTree = "<group>"; };
 		B9D6055A28D4CF610058D19E /* FireBaseSetNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseSetNetworkManager.swift; sourceTree = "<group>"; };
 		B9D6055C28D4CFA70058D19E /* GetDataBaseNetworkingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDataBaseNetworkingProtocol.swift; sourceTree = "<group>"; };
@@ -420,8 +424,9 @@
 		B9D6055728D4CB490058D19E /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				B9677CF328D89D4000EF9FC6 /* FirestoreCollection.swift */,
+				B9677CF328D89D4000EF9FC6 /* NamedFireStore.swift */,
 				B9E7A98D28FF16CC00D711B4 /* NamedFireStorage.swift */,
+				B9C9ECFC29129E00000A359B /* NetworkError.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -444,6 +449,7 @@
 				B9F77A2028E500040089D80C /* FireBaseGetNetworkManager.swift */,
 				B9E7A98728FEFA9500D711B4 /* FireStorageGetImageManager.swift */,
 				B90FB1322901857100881D56 /* FireStorageSetImageManager.swift */,
+				B9C9ECFE29129F09000A359B /* FirebaseHandlerErrors.swift */,
 			);
 			path = DataManager;
 			sourceTree = "<group>";
@@ -758,6 +764,7 @@
 				B9EE2379291023F00098E4E0 /* DetailInfoManufacturerInteractor.swift in Sources */,
 				B9EB024128F31B6300B3B6DA /* ServiceAssembly.swift in Sources */,
 				B9DBE50B290DD8B1005B185C /* HTTabBarController.swift in Sources */,
+				B9C9ECFF29129F09000A359B /* FirebaseHandlerErrors.swift in Sources */,
 				B9D6055D28D4CFA70058D19E /* GetDataBaseNetworkingProtocol.swift in Sources */,
 				B9F77A2128E500040089D80C /* FireBaseGetNetworkManager.swift in Sources */,
 				B9E98A9229107BC000E1389B /* extention + String.swift in Sources */,
@@ -768,6 +775,7 @@
 				B9E7ACB328F492ED00A3D7E5 /* LoginModule.swift in Sources */,
 				B9E7ACB428F492ED00A3D7E5 /* LoginAssembly.swift in Sources */,
 				B9C7825A28ECE25800DBF8C6 /* AuthServiceProtocol.swift in Sources */,
+				B9C9ECFD29129E00000A359B /* NetworkError.swift in Sources */,
 				B98E1DB628F04A0F00964B8F /* AddManufacturerEntity.swift in Sources */,
 				B9ED9103290989EF00DC3A6D /* TobaccoListRouter.swift in Sources */,
 				B98E1DF328F0DBCF00964B8F /* AdminMenuRouter.swift in Sources */,
@@ -794,7 +802,7 @@
 				B9E8DA5128F7827900CCA034 /* ManufacturerListAssembly.swift in Sources */,
 				B90A792D289A8C2200B90193 /* Tobacco.swift in Sources */,
 				B9074144290F041B00499674 /* HTTabBarControllerAssembly.swift in Sources */,
-				B9677CF428D89D4000EF9FC6 /* FirestoreCollection.swift in Sources */,
+				B9677CF428D89D4000EF9FC6 /* NamedFireStore.swift in Sources */,
 				B9E8DA4928F77A8300CCA034 /* ManufacturerListViewController.swift in Sources */,
 				B9ED910D2909D26100DC3A6D /* TobaccoListModule.swift in Sources */,
 				B9E7ACB828F495B300A3D7E5 /* AddManufacturerModule.swift in Sources */,

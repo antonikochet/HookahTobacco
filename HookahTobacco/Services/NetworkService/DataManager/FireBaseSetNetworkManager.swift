@@ -10,10 +10,19 @@ import FirebaseFirestore
 
 class FireBaseSetNetworkManager: SetDataBaseNetworkingProtocol {
     private var db = Firestore.firestore()
+    private var handlerErrors: NetworkHandlerErrors
+    
+    init(handlerErrors: NetworkHandlerErrors) {
+        self.handlerErrors = handlerErrors
+    }
     
     func addManufacturer(_ manufacturer: Manufacturer, completion: setDBNetworingCompletion?) {
         let data = manufacturer.formatterToDataFireStore()
-        db.collection(NamedFireStore.Collections.manufacturers).addDocument(data: data, completion: completion)
+        db.collection(NamedFireStore.Collections.manufacturers).addDocument(data: data) { [weak self] error in
+            guard let self = self else { return }
+            if let error = error { completion?(self.handlerErrors.handlerError(error)) }
+            else { completion?(nil)}
+        }
     }
     
     func setManufacturer(_ newManufacturer: Manufacturer, completion: setDBNetworingCompletion?) {
@@ -21,17 +30,21 @@ class FireBaseSetNetworkManager: SetDataBaseNetworkingProtocol {
             db.collection(NamedFireStore.Collections.manufacturers)
                 .document(uid)
                 .setData(newManufacturer.formatterToDataFireStore(),
-                         merge: true,
-                         completion: completion)
+                         merge: true) { [weak self] error in
+                    guard let self = self else { return }
+                    if let error = error { completion?(self.handlerErrors.handlerError(error)) }
+                    else { completion?(nil)}
+                }
         }
     }
     
-    func addTobacco(_ tobacco: Tobacco, completion: ((Result<String, Error>) -> Void)?) {
+    func addTobacco(_ tobacco: Tobacco, completion: ((Result<String, NetworkError>) -> Void)?) {
         let data = tobacco.formatterToDataFireStore()
         let docRef = db.collection(NamedFireStore.Collections.tobaccos).document()
         let uidDoc = docRef.documentID
-        docRef.setData(data) { error in
-            if let error = error { completion?(.failure(error)) }
+        docRef.setData(data) { [weak self] error in
+            guard let self = self else { return }
+            if let error = error { completion?(.failure(self.handlerErrors.handlerError(error))) }
             else { completion?(.success(uidDoc))}
         }
     }
@@ -41,8 +54,11 @@ class FireBaseSetNetworkManager: SetDataBaseNetworkingProtocol {
             db.collection(NamedFireStore.Collections.tobaccos)
                 .document(uid)
                 .setData(newTobacco.formatterToDataFireStore(),
-                         merge: true,
-                         completion: completion)
+                         merge: true) { [weak self] error in
+                    guard let self = self else { return }
+                    if let error = error { completion?(self.handlerErrors.handlerError(error)) }
+                    else { completion?(nil)}
+                }
         }
         
     }

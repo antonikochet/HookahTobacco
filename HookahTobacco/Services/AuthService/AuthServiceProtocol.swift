@@ -9,7 +9,7 @@ import Foundation
 
 protocol AuthServiceProtocol {
     associatedtype User
-    typealias AuthServiceCompletion = (Error?) -> Void
+    typealias AuthServiceCompletion = (NetworkError?) -> Void
     var isUserLoggerIn: Bool { get }
     var currectUser: User? { get }
     func login(with email: String, password: String, completion: AuthServiceCompletion?)

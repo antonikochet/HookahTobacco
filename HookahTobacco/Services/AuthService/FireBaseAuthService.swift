@@ -21,13 +21,15 @@ class FireBaseAuthService: AuthServiceProtocol {
     typealias User = FBUser
     
     //TODO: возможно убрать одиночку
-    static let shared = FireBaseAuthService()
+    static let shared = FireBaseAuthService(handlerErrors: FireBaseHandlerErrors())
     
     private var auth = Auth.auth()
     private var db = Firestore.firestore()
     private var _currectUser: FBUser?
+    private var handlerErrors: NetworkHandlerErrors
     
-    private init() {
+    private init(handlerErrors: NetworkHandlerErrors) {
+        self.handlerErrors = handlerErrors
         getUserInfo()
     }
     
@@ -43,15 +45,16 @@ class FireBaseAuthService: AuthServiceProtocol {
     
     func login(with email: String, password: String, completion: AuthServiceCompletion?) {
         auth.signIn(withEmail: email, password: password) { [weak self] result, error in
+            guard let self = self else { return }
             guard error == nil else {
-                completion?(error)
+                completion?(self.handlerErrors.handlerError(error!))
                 return
             }
             if result?.user != nil {
-                self?.getUserInfo()
+                self.getUserInfo()
                 completion?(nil)
             } else {
-//                completion?(.failure(error)) //TODO: добавить ошибку
+                completion?(NetworkError.userNotFound)
             }
         }
     }
@@ -60,8 +63,8 @@ class FireBaseAuthService: AuthServiceProtocol {
         do {
             try auth.signOut()
             completion?(nil)
-        } catch let error as NSError {
-            completion?(error)
+        } catch let error {
+            completion?(self.handlerErrors.handlerError(error))
         }
     }
     
