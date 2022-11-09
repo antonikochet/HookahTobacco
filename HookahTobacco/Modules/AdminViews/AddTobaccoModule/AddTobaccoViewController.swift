@@ -31,9 +31,10 @@ protocol AddTobaccoViewOutputProtocol: AnyObject {
 }
 
 class AddTobaccoViewController: UIViewController {
+    // MARK: - Public properties
     var presenter: AddTobaccoViewOutputProtocol!
     
-    //MARK: UI property
+    // MARK: - UI properties
     private let nameView: AddTextFieldView = AddTextFieldView()
     
     private let manufacturerPickerView = AddPickerView()
@@ -42,13 +43,13 @@ class AddTobaccoViewController: UIViewController {
     
     private let descriptionView = AddTextView()
     
-    private let imagePickerView = ImagePickerView()
+    private let imagePickerView = ImageButtonPickerView()
     
     private let addedButton = UIButton.createAppBigButton()
     
     private let activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView(style: .large)
     
-    //MARK: override viewController
+    // MARK: - ViewController Lifecycle 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -59,10 +60,6 @@ class AddTobaccoViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         addedButton.createCornerRadius()
-        imagePickerView.imageHeight = (addedButton.frame.minY -
-                                       descriptionView.frame.maxY -
-                                       imagePickerView.viewWithoutImageHeight -
-                                       32)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -70,7 +67,7 @@ class AddTobaccoViewController: UIViewController {
         view.endEditing(true)
     }
     
-    //MARK: setup subviews
+    // MARK: - Setups
     private func setupSubviews() {
         view.addSubview(nameView)
         nameView.setupView(textLabel: "Название",
@@ -117,8 +114,10 @@ class AddTobaccoViewController: UIViewController {
         
         view.addSubview(imagePickerView)
         imagePickerView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview()
             make.top.equalTo(descriptionView.snp.bottom).inset(-16)
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(addedButton.snp.top).offset(-16)
+            make.width.equalTo(imagePickerView.snp.height)
         }
         imagePickerView.delegate = self
         
@@ -129,7 +128,12 @@ class AddTobaccoViewController: UIViewController {
         activityIndicator.hidesWhenStopped = true
     }
     
-    //MARK: private methods
+    // MARK: - Private methods
+    private func changeManufacturerPickerView(by row: Int) {
+        manufacturerPickerView.text = presenter.receiveRow(by: row)
+    }
+    
+    // MARK: - Selectors
     @objc
     private func touchAddedButton() {
         let data = AddTobaccoEntity.EnteredData(
@@ -138,12 +142,9 @@ class AddTobaccoViewController: UIViewController {
                         description: descriptionView.text)
         presenter.pressedButtonAdded(with: data)
     }
-    
-    private func changeManufacturerPickerView(by row: Int) {
-        manufacturerPickerView.text = presenter.receiveRow(by: row)
-    }
 }
 
+// MARK: - ViewInputProtocol implementation
 extension AddTobaccoViewController: AddTobaccoViewInputProtocol {
     func showAlertError(with message: String) {
         showAlertError(title: "Ошибка", message: message)
@@ -157,7 +158,6 @@ extension AddTobaccoViewController: AddTobaccoViewInputProtocol {
             descriptionView.text = ""
             changeManufacturerPickerView(by: 0)
             nameView.becomeFirstResponderTextField()
-            imagePickerView.textButton = "Добавить изображение"
             imagePickerView.image = nil
         }
     }
@@ -174,7 +174,7 @@ extension AddTobaccoViewController: AddTobaccoViewInputProtocol {
     }
     
     func setupMainImage(_ image: Data?, textButton: String) {
-        imagePickerView.textButton = textButton
+//        imagePickerView.textButton = textButton
         if let image = image {
             imagePickerView.image = UIImage(data: image)
         }
@@ -189,6 +189,7 @@ extension AddTobaccoViewController: AddTobaccoViewInputProtocol {
     }
 }
 
+// MARK: - UITextFieldDelegate implementation
 extension AddTobaccoViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if nameView.isMyTextField(textField) {
@@ -200,6 +201,7 @@ extension AddTobaccoViewController: UITextFieldDelegate {
     }
 }
 
+// MARK: - ImagePickerViewDelegate implementation
 extension AddTobaccoViewController: ImagePickerViewDelegate {
     func present(_ viewController: UIViewController) {
         present(viewController, animated: true)
@@ -214,6 +216,7 @@ extension AddTobaccoViewController: ImagePickerViewDelegate {
     }
 }
 
+// MARK: - AddPickerViewDelegate implementation
 extension AddTobaccoViewController: AddPickerViewDelegate {
     var pickerNumberOfRows: Int {
         presenter.numberOfRows

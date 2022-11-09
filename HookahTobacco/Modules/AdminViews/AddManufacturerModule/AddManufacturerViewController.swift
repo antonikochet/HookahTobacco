@@ -26,17 +26,17 @@ protocol AddManufacturerViewOutputProtocol {
 }
 
 class AddManufacturerViewController: UIViewController {
-
+    // MARK: - Public properties
     var presenter: AddManufacturerViewOutputProtocol!
     
-    //MARK: ui properties
+    // MARK: - UI properties
     private let nameTextFieldView = AddTextFieldView()
     
     private let countryTextFieldView = AddTextFieldView()
     
     private let descriptionView = AddTextView()
     
-    private let imagePickerView = ImagePickerView()
+    private let imagePickerView = ImageButtonPickerView()
 
     private let activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView(style: .large)
     
@@ -46,7 +46,7 @@ class AddManufacturerViewController: UIViewController {
         return button
     }()
     
-    //MARK: override viewController
+    // MARK: - ViewController Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
     
@@ -57,11 +57,6 @@ class AddManufacturerViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         addedButton.createCornerRadius()
-        //Изменять код при добавление новый view
-        imagePickerView.imageHeight = (addedButton.frame.minY -
-                                       descriptionView.frame.maxY -
-                                       imagePickerView.viewWithoutImageHeight -
-                                       32)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -69,7 +64,7 @@ class AddManufacturerViewController: UIViewController {
         view.endEditing(true)
     }
     
-    //MARK: setups
+    // MARK: - Setups
     private func setupSubviews() {
         view.addSubview(nameTextFieldView)
         nameTextFieldView.setupView(textLabel: "Название",
@@ -108,8 +103,10 @@ class AddManufacturerViewController: UIViewController {
         
         view.addSubview(imagePickerView)
         imagePickerView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview()
             make.top.equalTo(descriptionView.snp.bottom).inset(-16)
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(addedButton.snp.top).offset(-16)
+            make.width.equalTo(imagePickerView.snp.height)
         }
         imagePickerView.delegate = self
       
@@ -120,7 +117,7 @@ class AddManufacturerViewController: UIViewController {
         activityIndicator.hidesWhenStopped = true
     }
     
-    //MARK: private methods
+    // MARK: - Selectors
     @objc
     private func touchAddedButton() {
         let entity = AddManufacturerEntity.EnterData(name: nameTextFieldView.text,
@@ -131,6 +128,7 @@ class AddManufacturerViewController: UIViewController {
     }
 }
 
+// MARK: - ViewInputProtocol implementation
 extension AddManufacturerViewController: AddManufacturerViewInputProtocol {
     func showAlertError(with message: String) {
         showAlertError(title: "Ошибка", message: message)
@@ -143,7 +141,6 @@ extension AddManufacturerViewController: AddManufacturerViewInputProtocol {
             countryTextFieldView.text = ""
             descriptionView.text = ""
             imagePickerView.image = nil
-            imagePickerView.textButton = "Добавить изображение"
             nameTextFieldView.becomeFirstResponderTextField()
         }
     }
@@ -156,7 +153,7 @@ extension AddManufacturerViewController: AddManufacturerViewInputProtocol {
     }
     
     func setupImageManufacturer(_ image: Data?, textButton: String) {
-        imagePickerView.textButton = textButton
+//        imagePickerView.textButton = textButton
         if let image = image {
             imagePickerView.image = UIImage(data: image)
         }
@@ -171,6 +168,7 @@ extension AddManufacturerViewController: AddManufacturerViewInputProtocol {
     }
 }
 
+// MARK: - UITextFieldDelegate implementation
 extension AddManufacturerViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if nameTextFieldView.isMyTextField(textField) {
@@ -182,6 +180,7 @@ extension AddManufacturerViewController: UITextFieldDelegate {
     }
 }
 
+// MARK: - ImagePickerViewDelegate implementation
 extension AddManufacturerViewController: ImagePickerViewDelegate {
     func present(_ viewController: UIViewController) {
         present(viewController, animated: true)

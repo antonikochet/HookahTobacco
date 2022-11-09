@@ -19,6 +19,7 @@
 		B94B7717290C239E002C5660 /* extention + UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94B7716290C239E002C5660 /* extention + UIButton.swift */; };
 		B94B771A290C2738002C5660 /* AddTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94B7719290C2738002C5660 /* AddTextView.swift */; };
 		B94B771C290C3785002C5660 /* AddPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94B771B290C3785002C5660 /* AddPickerView.swift */; };
+		B9567C92291C4BC300CF6176 /* ImageButtonPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9567C91291C4BC300CF6176 /* ImageButtonPickerView.swift */; };
 		B9677CF228D8917000EF9FC6 /* extention + UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9677CF128D8917000EF9FC6 /* extention + UIViewController.swift */; };
 		B9677CF428D89D4000EF9FC6 /* NamedFireStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9677CF328D89D4000EF9FC6 /* NamedFireStore.swift */; };
 		B97181572911254100E5DB28 /* DetailInfoManufacturerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97181552911254100E5DB28 /* DetailInfoManufacturerModule.swift */; };
@@ -119,6 +120,7 @@
 		B94B7716290C239E002C5660 /* extention + UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extention + UIButton.swift"; sourceTree = "<group>"; };
 		B94B7719290C2738002C5660 /* AddTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTextView.swift; sourceTree = "<group>"; };
 		B94B771B290C3785002C5660 /* AddPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPickerView.swift; sourceTree = "<group>"; };
+		B9567C91291C4BC300CF6176 /* ImageButtonPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageButtonPickerView.swift; sourceTree = "<group>"; };
 		B9677CF128D8917000EF9FC6 /* extention + UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extention + UIViewController.swift"; sourceTree = "<group>"; };
 		B9677CF328D89D4000EF9FC6 /* NamedFireStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamedFireStore.swift; sourceTree = "<group>"; };
 		B97181552911254100E5DB28 /* DetailInfoManufacturerModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfoManufacturerModule.swift; sourceTree = "<group>"; };
@@ -394,6 +396,7 @@
 			isa = PBXGroup;
 			children = (
 				B9DBE934290B0C07004D7B97 /* ImagePickerView.swift */,
+				B9567C91291C4BC300CF6176 /* ImageButtonPickerView.swift */,
 				B9A4708528D2BB6400CA6FAA /* AddTextFieldView.swift */,
 				B94B7719290C2738002C5660 /* AddTextView.swift */,
 				B94B771B290C3785002C5660 /* AddPickerView.swift */,
@@ -757,6 +760,7 @@
 				B98E1DF228F0DBCF00964B8F /* AdminMenuPresenter.swift in Sources */,
 				B90A79122899E2BF00B90193 /* AppDelegate.swift in Sources */,
 				B9E8DA5028F7827900CCA034 /* ManufacturerListModule.swift in Sources */,
+				B9567C92291C4BC300CF6176 /* ImageButtonPickerView.swift in Sources */,
 				B9B358CC291169E2001D178F /* EmptyCell.swift in Sources */,
 				B9ED910E2909D26100DC3A6D /* TobaccoListAssembly.swift in Sources */,
 				B9E7A98C28FF15DF00D711B4 /* SetImageDataBaseProtocol.swift in Sources */,
