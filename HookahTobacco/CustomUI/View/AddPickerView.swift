@@ -33,7 +33,7 @@ class AddPickerView: UIView {
         return label
     }()
     
-    private var viewHeight: CGFloat {
+    var viewHeight: CGFloat {
         label.font.lineHeight + 16 + 31
     }
     

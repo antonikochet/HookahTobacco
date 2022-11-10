@@ -58,3 +58,9 @@ extension UIViewController {
         }
     }
 }
+
+extension UIViewController {
+    var sideSpacingConstraint: CGFloat { 32 }
+    var spacingBetweenViews: CGFloat { 16 }
+    var topSpacingFromSuperview: CGFloat { 32 }
+}

@@ -44,6 +44,7 @@
 		B98E1DF528F0DBCF00964B8F /* AdminMenuInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DEF28F0DBCF00964B8F /* AdminMenuInteractor.swift */; };
 		B9A4708328D2B84500CA6FAA /* extention + UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A4708228D2B84500CA6FAA /* extention + UIFont.swift */; };
 		B9A4708628D2BB6400CA6FAA /* AddTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A4708528D2BB6400CA6FAA /* AddTextFieldView.swift */; };
+		B9ACB678291D15AE001D65CE /* HTScrollContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ACB677291D15AE001D65CE /* HTScrollContentViewController.swift */; };
 		B9B358CC291169E2001D178F /* EmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B358CB291169E2001D178F /* EmptyCell.swift */; };
 		B9C7825A28ECE25800DBF8C6 /* AuthServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C7825928ECE25800DBF8C6 /* AuthServiceProtocol.swift */; };
 		B9C9ECFB29128F2F000A359B /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = B9C9ECFA29128F2F000A359B /* FirebaseCrashlytics */; };
@@ -145,6 +146,7 @@
 		B98E1DEF28F0DBCF00964B8F /* AdminMenuInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminMenuInteractor.swift; sourceTree = "<group>"; };
 		B9A4708228D2B84500CA6FAA /* extention + UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extention + UIFont.swift"; sourceTree = "<group>"; };
 		B9A4708528D2BB6400CA6FAA /* AddTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTextFieldView.swift; sourceTree = "<group>"; };
+		B9ACB677291D15AE001D65CE /* HTScrollContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTScrollContentViewController.swift; sourceTree = "<group>"; };
 		B9B358CB291169E2001D178F /* EmptyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCell.swift; sourceTree = "<group>"; };
 		B9C7825928ECE25800DBF8C6 /* AuthServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServiceProtocol.swift; sourceTree = "<group>"; };
 		B9C9ECFC29129E00000A359B /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
@@ -231,6 +233,7 @@
 			children = (
 				B9DBE50D290DE11F005B185C /* HTNavigationController.swift */,
 				B9DBE50A290DD8B1005B185C /* HTTabBarController.swift */,
+				B9ACB677291D15AE001D65CE /* HTScrollContentViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -762,6 +765,7 @@
 				B9E8DA5028F7827900CCA034 /* ManufacturerListModule.swift in Sources */,
 				B9567C92291C4BC300CF6176 /* ImageButtonPickerView.swift in Sources */,
 				B9B358CC291169E2001D178F /* EmptyCell.swift in Sources */,
+				B9ACB678291D15AE001D65CE /* HTScrollContentViewController.swift in Sources */,
 				B9ED910E2909D26100DC3A6D /* TobaccoListAssembly.swift in Sources */,
 				B9E7A98C28FF15DF00D711B4 /* SetImageDataBaseProtocol.swift in Sources */,
 				B9ED9105290989EF00DC3A6D /* TobaccoListInteractor.swift in Sources */,

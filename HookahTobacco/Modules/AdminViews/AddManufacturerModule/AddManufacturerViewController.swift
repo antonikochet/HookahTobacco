@@ -25,7 +25,7 @@ protocol AddManufacturerViewOutputProtocol {
     func viewDidLoad()
 }
 
-class AddManufacturerViewController: UIViewController {
+final class AddManufacturerViewController: HTScrollContentViewController {
     // MARK: - Public properties
     var presenter: AddManufacturerViewOutputProtocol!
     
@@ -57,55 +57,61 @@ class AddManufacturerViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         addedButton.createCornerRadius()
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        view.endEditing(true)
+        contentScrollView.snp.updateConstraints { make in
+            make.height.equalTo(heightContentView)
+        }
     }
     
     // MARK: - Setups
-    private func setupSubviews() {
-        view.addSubview(nameTextFieldView)
+    override func setupSubviews() {
+        super.setupSubviews()
+        
+        contentScrollView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+            make.width.equalToSuperview()
+            make.height.equalTo(heightContentView)
+        }
+        
+        contentScrollView.addSubview(nameTextFieldView)
         nameTextFieldView.setupView(textLabel: "Название",
                                     placeholder: "Введите название производителя...",
                                     delegate: self)
         nameTextFieldView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(32)
-            make.height.height.equalTo(nameTextFieldView.heightView)
-            make.leading.trailing.equalTo(view).inset(32)
+            make.top.equalToSuperview().offset(topSpacingFromSuperview)
+            make.height.equalTo(nameTextFieldView.heightView)
+            make.leading.trailing.equalTo(view).inset(sideSpacingConstraint)
         }
         
-        view.addSubview(countryTextFieldView)
+        contentScrollView.addSubview(countryTextFieldView)
         countryTextFieldView.setupView(textLabel: "Страна производителя",
                                        placeholder: "Введите страну производителя",
                                        delegate: self)
         countryTextFieldView.snp.makeConstraints { make in
-            make.top.equalTo(nameTextFieldView.snp.bottom).offset(16)
-            make.height.height.equalTo(countryTextFieldView.heightView)
-            make.leading.trailing.equalTo(view).inset(32)
+            make.top.equalTo(nameTextFieldView.snp.bottom).offset(spacingBetweenViews)
+            make.height.equalTo(countryTextFieldView.heightView)
+            make.leading.trailing.equalTo(view).inset(sideSpacingConstraint)
         }
         
-        view.addSubview(descriptionView)
+        contentScrollView.addSubview(descriptionView)
         descriptionView.setupView(textLabel: "Описание производителя (не обязательно)")
         descriptionView.snp.makeConstraints { make in
-            make.top.equalTo(countryTextFieldView.snp.bottom).offset(16)
-            make.leading.trailing.equalToSuperview().inset(32)
+            make.top.equalTo(countryTextFieldView.snp.bottom).offset(spacingBetweenViews)
+            make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
         }
         
         view.addSubview(addedButton)
         addedButton.snp.makeConstraints { make in
-            make.leading.trailing.equalTo(view).inset(24)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(16)
+            make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(spacingBetweenViews)
             make.height.equalTo(50)
         }
         addedButton.addTarget(self, action: #selector(touchAddedButton), for: .touchUpInside)
         
-        view.addSubview(imagePickerView)
+        contentScrollView.addSubview(imagePickerView)
         imagePickerView.snp.makeConstraints { make in
-            make.top.equalTo(descriptionView.snp.bottom).inset(-16)
+            make.top.equalTo(descriptionView.snp.bottom).inset(-spacingBetweenViews)
             make.centerX.equalToSuperview()
-            make.bottom.equalTo(addedButton.snp.top).offset(-16)
+            make.bottom.equalToSuperview().inset(spacingBetweenViews)
             make.width.equalTo(imagePickerView.snp.height)
         }
         imagePickerView.delegate = self
@@ -115,6 +121,11 @@ class AddManufacturerViewController: UIViewController {
             make.centerX.centerY.equalToSuperview()
         }
         activityIndicator.hidesWhenStopped = true
+        
+        scrollView.snp.makeConstraints({ make in
+            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalTo(addedButton.snp.top).offset(-spacingBetweenViews)
+        })
     }
     
     // MARK: - Selectors
@@ -193,4 +204,17 @@ extension AddManufacturerViewController: ImagePickerViewDelegate {
     func didCancel() {
         
     } 
+}
+
+extension AddManufacturerViewController {
+    var imageHeightRelativeToWidth: CGFloat { 0.5 }
+    
+    var heightContentView: CGFloat {
+        topSpacingFromSuperview +
+        nameTextFieldView.heightView +
+        countryTextFieldView.heightView +
+        descriptionView.heightView +
+        view.frame.width * imageHeightRelativeToWidth +
+        spacingBetweenViews * 4
+    }
 }

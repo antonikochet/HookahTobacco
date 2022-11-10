@@ -25,7 +25,7 @@ class AddTextView: UIView {
         }
     }
     
-    private var heightView: CGFloat {
+    var heightView: CGFloat {
         heightTextView +
         label.font.lineHeight +
         8
