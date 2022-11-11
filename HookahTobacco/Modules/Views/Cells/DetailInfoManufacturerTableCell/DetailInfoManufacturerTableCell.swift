@@ -90,6 +90,7 @@ final class DetailInfoManufacturerTableCell: UITableViewCell {
             make.top.equalTo(countryLabel.snp.bottom).offset(16)
             make.leading.trailing.equalToSuperview().inset(16)
             make.height.equalTo(0)
+            make.bottom.equalToSuperview()
         }
     }
     

@@ -149,7 +149,8 @@ extension AddManufacturerInteractor: AddManufacturerInteractorInputProtocol {
         var enterManufacturer = Manufacturer(name: data.name,
                                              country: data.country,
                                              description: data.description ?? "",
-                                             nameImage: "")
+                                             nameImage: "",
+                                             link: data.link)
         dispatchGroup = DispatchGroup()
         if isEditing {
             guard let manufacturer = manufacturer else { return }
@@ -211,13 +212,15 @@ extension AddManufacturerInteractor: AddManufacturerInteractorInputProtocol {
             let pManufacturer = AddManufacturerEntity.Manufacturer(
                                     name: manufacturer.name,
                                     country: manufacturer.country,
-                                    description: manufacturer.description)
+                                    description: manufacturer.description,
+                                    link: manufacturer.link)
             presenter.initialDataForPresentation(pManufacturer, isEditing: isEditing)
         } else {
             let pManufacturer = AddManufacturerEntity.Manufacturer(
                                     name: "",
                                     country: "",
-                                    description: "")
+                                    description: "",
+                                    link: "")
             presenter.initialDataForPresentation(pManufacturer, isEditing: isEditing)
             presenter.initialImage(nil)
         }

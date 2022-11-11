@@ -70,6 +70,7 @@ fileprivate extension Manufacturer {
         self.country = data[NamedFireStore.Documents.Manufacturer.country] as? String ?? ""
         self.description = data[NamedFireStore.Documents.Manufacturer.description] as? String ?? ""
         self.nameImage = data[NamedFireStore.Documents.Manufacturer.image] as? String ?? ""
+        self.link = data[NamedFireStore.Documents.Manufacturer.link] as? String ?? ""
     }
 }
 

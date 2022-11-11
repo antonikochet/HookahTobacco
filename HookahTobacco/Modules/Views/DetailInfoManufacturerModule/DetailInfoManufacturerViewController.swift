@@ -20,6 +20,7 @@ protocol DetailInfoManufacturerViewOutputProtocol: AnyObject {
     var nameManufacturer: String? { get }
     var tobaccoNumberOfRows: Int { get }
     var detailViewModelCell: DetailInfoManufacturerCellViewModelProtocol? { get }
+    var linkToManufacturerWebside: String? { get }
     func tobaccoViewModelCell(at row: Int) -> TobaccoListCellViewModel
     var isTobaccosEmpty: Bool { get }
     func viewDidLoad()
@@ -30,8 +31,11 @@ class DetailInfoManufacturerViewController: UIViewController {
     var presenter: DetailInfoManufacturerViewOutputProtocol!
     
     // MARK: - Private properties
+    private var detailCellHeight: CGFloat = 0
+    
+    // MARK: - Private UI
     private var tableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .plain)
+        let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.separatorStyle = .none
         tableView.register(DetailInfoManufacturerTableCell.self,
                            forCellReuseIdentifier: DetailInfoManufacturerTableCell.identifier)
@@ -76,7 +80,10 @@ extension DetailInfoManufacturerViewController: DetailInfoManufacturerViewInputP
     }
     
     func updateRow(at index: Int) {
-        tableView.reloadRows(at: [IndexPath(row: index, section: 1)], with: .none)
+        let indexPath = IndexPath(row: index, section: 1)
+        if tableView.indexPathsForVisibleRows?.contains(indexPath) ?? false {
+            tableView.reloadRows(at: [indexPath], with: .none)
+        }
     }
 }
 
@@ -125,6 +132,13 @@ extension DetailInfoManufacturerViewController: UITableViewDataSource {
             default: return nil
         }
     }
+    
+    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        switch section {
+            case 1: return presenter.linkToManufacturerWebside
+            default: return nil
+        }
+    }
 }
 
 // MARK: - UITableViewDelegate implementation
@@ -132,9 +146,12 @@ extension DetailInfoManufacturerViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
             case 0:
-                if let cell = tableView.cellForRow(at: indexPath) as? DetailInfoManufacturerTableCell {
-                    return cell.heightCell
-                } else { return tableView.frame.height * 0.5 }
+                if detailCellHeight == 0,
+                   let cell = tableView.cellForRow(at: indexPath) as? DetailInfoManufacturerTableCell {
+                    detailCellHeight = cell.heightCell
+                }
+                if detailCellHeight == 0 { return tableView.frame.height * 0.5 }
+                return detailCellHeight
             case 1:
                 return presenter.isTobaccosEmpty ? EmptyCell.heightCell : tableView.frame.height / 6
             default:
@@ -153,5 +170,9 @@ extension DetailInfoManufacturerViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 30
     }
 }

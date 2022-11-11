@@ -17,6 +17,7 @@ class DetailInfoManufacturerPresenter {
     
     //MARK: - Private properties
     private var nameManufacturerTitle: String?
+    private var linkToManufacturer: String?
     private var detailInfoManufacturerViewModel: DetailInfoManufacturerCellViewModelProtocol?
     private var tobaccoViewModels: [TobaccoListCellViewModel] = []
     
@@ -33,6 +34,7 @@ extension DetailInfoManufacturerPresenter: DetailInfoManufacturerInteractorOutpu
             iconImage: manufacturer.image
         )
         nameManufacturerTitle = manufacturer.name
+        linkToManufacturer = manufacturer.link
         view.showData()
     }
     
@@ -76,6 +78,10 @@ extension DetailInfoManufacturerPresenter: DetailInfoManufacturerViewOutputProto
     
     var detailViewModelCell: DetailInfoManufacturerCellViewModelProtocol? {
         detailInfoManufacturerViewModel
+    }
+    
+    var linkToManufacturerWebside: String? {
+        linkToManufacturer != nil && !linkToManufacturer!.isEmpty ? "Сайт производителя: \(linkToManufacturer!)" : nil
     }
     
     func tobaccoViewModelCell(at row: Int) -> TobaccoListCellViewModel {

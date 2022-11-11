@@ -14,12 +14,14 @@ struct AddManufacturerEntity {
         let name: String?
         let country: String?
         let description: String?
+        let link: String?
     }
     
     struct Manufacturer {
         let name: String
         let country: String
         let description: String?
+        let link: String?
     }
     
     struct ViewModel {
@@ -27,5 +29,6 @@ struct AddManufacturerEntity {
         let country: String
         let description: String
         let textButton: String
+        let link: String
     }
 }

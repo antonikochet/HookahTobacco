@@ -42,7 +42,8 @@ extension AddManufacturerPresenter: AddManufacturerInteractorOutputProtocol {
                             name: manufacturer.name,
                             country: manufacturer.country,
                             description: manufacturer.description ?? "",
-                            textButton: isEditing ? "Изменить производителя" : "Добавить производителя")
+                            textButton: isEditing ? "Изменить производителя" : "Добавить производителя",
+                            link: manufacturer.link ?? "")
         view.setupContent(viewModel)
     }
     
@@ -72,9 +73,11 @@ extension AddManufacturerPresenter: AddManufacturerViewOutputProtocol {
             return
         }
         
-        let data = AddManufacturerEntity.Manufacturer(name: name,
-                                country: country,
-                                description: enteredData.description)
+        let data = AddManufacturerEntity.Manufacturer(
+                        name: name,
+                        country: country,
+                        description: enteredData.description,
+                        link: enteredData.link)
         
         view.showLoading()
         interactor.didEnterDataManufacturer(data)

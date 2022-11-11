@@ -36,6 +36,8 @@ final class AddManufacturerViewController: HTScrollContentViewController {
     
     private let descriptionView = AddTextView()
     
+    private let linkTextFieldView = AddTextFieldView()
+    
     private let imagePickerView = ImageButtonPickerView()
 
     private let activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView(style: .large)
@@ -79,7 +81,7 @@ final class AddManufacturerViewController: HTScrollContentViewController {
         nameTextFieldView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(topSpacingFromSuperview)
             make.height.equalTo(nameTextFieldView.heightView)
-            make.leading.trailing.equalTo(view).inset(sideSpacingConstraint)
+            make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
         }
         
         contentScrollView.addSubview(countryTextFieldView)
@@ -89,13 +91,23 @@ final class AddManufacturerViewController: HTScrollContentViewController {
         countryTextFieldView.snp.makeConstraints { make in
             make.top.equalTo(nameTextFieldView.snp.bottom).offset(spacingBetweenViews)
             make.height.equalTo(countryTextFieldView.heightView)
-            make.leading.trailing.equalTo(view).inset(sideSpacingConstraint)
+            make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
         }
         
         contentScrollView.addSubview(descriptionView)
         descriptionView.setupView(textLabel: "Описание производителя (не обязательно)")
         descriptionView.snp.makeConstraints { make in
             make.top.equalTo(countryTextFieldView.snp.bottom).offset(spacingBetweenViews)
+            make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
+        }
+        
+        contentScrollView.addSubview(linkTextFieldView)
+        linkTextFieldView.setupView(textLabel: "Ссылка на сайт производител (не обяз.)",
+                                    placeholder: "Введите ссылку",
+                                    delegate: self)
+        linkTextFieldView.snp.makeConstraints { make in
+            make.top.equalTo(descriptionView.snp.bottom).inset(-spacingBetweenViews)
+            make.height.equalTo(linkTextFieldView.heightView)
             make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
         }
         
@@ -109,7 +121,7 @@ final class AddManufacturerViewController: HTScrollContentViewController {
         
         contentScrollView.addSubview(imagePickerView)
         imagePickerView.snp.makeConstraints { make in
-            make.top.equalTo(descriptionView.snp.bottom).inset(-spacingBetweenViews)
+            make.top.equalTo(linkTextFieldView.snp.bottom).inset(-spacingBetweenViews)
             make.centerX.equalToSuperview()
             make.bottom.equalToSuperview().inset(spacingBetweenViews)
             make.width.equalTo(imagePickerView.snp.height)
@@ -133,7 +145,8 @@ final class AddManufacturerViewController: HTScrollContentViewController {
     private func touchAddedButton() {
         let entity = AddManufacturerEntity.EnterData(name: nameTextFieldView.text,
                                                      country: countryTextFieldView.text,
-                                                     description: descriptionView.text)
+                                                     description: descriptionView.text,
+                                                     link: linkTextFieldView.text)
         
         presenter.pressedAddButton(with: entity)
     }
@@ -214,7 +227,8 @@ extension AddManufacturerViewController {
         nameTextFieldView.heightView +
         countryTextFieldView.heightView +
         descriptionView.heightView +
+        linkTextFieldView.heightView +
         view.frame.width * imageHeightRelativeToWidth +
-        spacingBetweenViews * 4
+        spacingBetweenViews * 5
     }
 }

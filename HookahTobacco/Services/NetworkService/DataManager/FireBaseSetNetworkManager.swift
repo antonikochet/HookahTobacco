@@ -70,7 +70,8 @@ fileprivate extension Manufacturer {
             NamedFireStore.Documents.Manufacturer.name : self.name,
             NamedFireStore.Documents.Manufacturer.country : self.country,
             NamedFireStore.Documents.Manufacturer.description: self.description,
-            NamedFireStore.Documents.Manufacturer.image: self.nameImage
+            NamedFireStore.Documents.Manufacturer.image: self.nameImage,
+            NamedFireStore.Documents.Manufacturer.link: self.link ?? ""
         ]
     }
 }

@@ -27,6 +27,7 @@ struct NamedFireStore {
             static let country = "country"
             static let description = "description"
             static let image = "image"
+            static let link = "link"
         }
         
         struct Tobacco {
