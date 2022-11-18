@@ -119,15 +119,17 @@ class AppRouter: AppRouterProtocol {
     }
     
     func dismissView(animated: Bool, completion: (() -> Void)? = nil) {
-        //TODO: реализовать метод AppRouterProtocol.dismissView
-        fatalError("Закрытие окна не реализовано. реализовать метод dismissView")
+        guard let navigationController = receiveContainer() else { return }
+        navigationController.dismiss(animated: true)
+        completion?()
     }
     
     func presentViewModally(module: ModuleProtocol.Type, moduleData data: DataModuleProtocol? = nil) {
-//        guard let module = receiveModule(module, data),
-//              let view = module.createModule(self) else { return }
-        //TODO: реализовать метод AppRouterProtocol.presentViewModally
-        fatalError("Открытие модального окна не реализовано. реализовать метод presentViewModally")
+        guard let module = receiveModule(module, data),
+              let view = module.createModule(self),
+              let navigationController = receiveContainer() else { return }
+        view.modalPresentationStyle = .pageSheet
+        navigationController.present(view, animated: true)
     }
     
     

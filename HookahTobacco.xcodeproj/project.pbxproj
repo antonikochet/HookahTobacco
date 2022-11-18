@@ -15,11 +15,29 @@
 		B90A791E2899E2C200B90193 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B90A791C2899E2C200B90193 /* LaunchScreen.storyboard */; };
 		B90A792D289A8C2200B90193 /* Tobacco.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90A792C289A8C2200B90193 /* Tobacco.swift */; };
 		B90FB1332901857100881D56 /* FireStorageSetImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90FB1322901857100881D56 /* FireStorageSetImageManager.swift */; };
+		B94306C12920181100EADFA0 /* Taste.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94306C02920181100EADFA0 /* Taste.swift */; };
+		B94306C92920277E00EADFA0 /* AddTastesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94306C42920277E00EADFA0 /* AddTastesPresenter.swift */; };
+		B94306CA2920277E00EADFA0 /* AddTastesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94306C52920277E00EADFA0 /* AddTastesRouter.swift */; };
+		B94306CB2920277E00EADFA0 /* AddTastesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94306C62920277E00EADFA0 /* AddTastesViewController.swift */; };
+		B94306CC2920277E00EADFA0 /* AddTastesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94306C72920277E00EADFA0 /* AddTastesInteractor.swift */; };
+		B94306D329204EE700EADFA0 /* AddTastesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94306D229204EE700EADFA0 /* AddTastesTableViewCell.swift */; };
+		B94306D6292053BA00EADFA0 /* TasteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94306D5292053BA00EADFA0 /* TasteCollectionViewCell.swift */; };
 		B948D83628CD286400E35884 /* SetDataBaseNetworkingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B948D83528CD286400E35884 /* SetDataBaseNetworkingProtocol.swift */; };
 		B94B7717290C239E002C5660 /* extention + UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94B7716290C239E002C5660 /* extention + UIButton.swift */; };
 		B94B771A290C2738002C5660 /* AddTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94B7719290C2738002C5660 /* AddTextView.swift */; };
 		B94B771C290C3785002C5660 /* AddPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94B771B290C3785002C5660 /* AddPickerView.swift */; };
+		B94E17B9292126DD0008CB73 /* AddTastesModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E17B7292126DD0008CB73 /* AddTastesModule.swift */; };
+		B94E17BA292126DD0008CB73 /* AddTastesAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E17B8292126DD0008CB73 /* AddTastesAssembly.swift */; };
 		B9567C92291C4BC300CF6176 /* ImageButtonPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9567C91291C4BC300CF6176 /* ImageButtonPickerView.swift */; };
+		B9631C4A2921AB7100BBC09B /* TasteCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9631C492921AB7100BBC09B /* TasteCollectionView.swift */; };
+		B9631C4C2921ACBE00BBC09B /* TasteCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9631C4B2921ACBE00BBC09B /* TasteCollectionViewLayout.swift */; };
+		B9631C4E2922487500BBC09B /* extention + UIEdgeInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9631C4D2922487500BBC09B /* extention + UIEdgeInsets.swift */; };
+		B9631C552923E9EE00BBC09B /* AddTastePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9631C502923E9EE00BBC09B /* AddTastePresenter.swift */; };
+		B9631C562923E9EE00BBC09B /* AddTasteRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9631C512923E9EE00BBC09B /* AddTasteRouter.swift */; };
+		B9631C572923E9EE00BBC09B /* AddTasteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9631C522923E9EE00BBC09B /* AddTasteViewController.swift */; };
+		B9631C582923E9EE00BBC09B /* AddTasteInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9631C532923E9EE00BBC09B /* AddTasteInteractor.swift */; };
+		B9631C5D292400FB00BBC09B /* AddTasteModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9631C5B292400FB00BBC09B /* AddTasteModule.swift */; };
+		B9631C5E292400FB00BBC09B /* AddTasteAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9631C5C292400FB00BBC09B /* AddTasteAssembly.swift */; };
 		B9677CF228D8917000EF9FC6 /* extention + UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9677CF128D8917000EF9FC6 /* extention + UIViewController.swift */; };
 		B9677CF428D89D4000EF9FC6 /* NamedFireStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9677CF328D89D4000EF9FC6 /* NamedFireStore.swift */; };
 		B97181572911254100E5DB28 /* DetailInfoManufacturerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97181552911254100E5DB28 /* DetailInfoManufacturerModule.swift */; };
@@ -117,11 +135,29 @@
 		B90A791F2899E2C200B90193 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B90A792C289A8C2200B90193 /* Tobacco.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tobacco.swift; sourceTree = "<group>"; };
 		B90FB1322901857100881D56 /* FireStorageSetImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStorageSetImageManager.swift; sourceTree = "<group>"; };
+		B94306C02920181100EADFA0 /* Taste.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Taste.swift; sourceTree = "<group>"; };
+		B94306C42920277E00EADFA0 /* AddTastesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTastesPresenter.swift; sourceTree = "<group>"; usesTabs = 0; };
+		B94306C52920277E00EADFA0 /* AddTastesRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTastesRouter.swift; sourceTree = "<group>"; };
+		B94306C62920277E00EADFA0 /* AddTastesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTastesViewController.swift; sourceTree = "<group>"; };
+		B94306C72920277E00EADFA0 /* AddTastesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTastesInteractor.swift; sourceTree = "<group>"; };
+		B94306D229204EE700EADFA0 /* AddTastesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTastesTableViewCell.swift; sourceTree = "<group>"; };
+		B94306D5292053BA00EADFA0 /* TasteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasteCollectionViewCell.swift; sourceTree = "<group>"; };
 		B948D83528CD286400E35884 /* SetDataBaseNetworkingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetDataBaseNetworkingProtocol.swift; sourceTree = "<group>"; };
 		B94B7716290C239E002C5660 /* extention + UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extention + UIButton.swift"; sourceTree = "<group>"; };
 		B94B7719290C2738002C5660 /* AddTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTextView.swift; sourceTree = "<group>"; };
 		B94B771B290C3785002C5660 /* AddPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPickerView.swift; sourceTree = "<group>"; };
+		B94E17B7292126DD0008CB73 /* AddTastesModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTastesModule.swift; sourceTree = "<group>"; };
+		B94E17B8292126DD0008CB73 /* AddTastesAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTastesAssembly.swift; sourceTree = "<group>"; };
 		B9567C91291C4BC300CF6176 /* ImageButtonPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageButtonPickerView.swift; sourceTree = "<group>"; };
+		B9631C492921AB7100BBC09B /* TasteCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasteCollectionView.swift; sourceTree = "<group>"; };
+		B9631C4B2921ACBE00BBC09B /* TasteCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasteCollectionViewLayout.swift; sourceTree = "<group>"; };
+		B9631C4D2922487500BBC09B /* extention + UIEdgeInsets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extention + UIEdgeInsets.swift"; sourceTree = "<group>"; };
+		B9631C502923E9EE00BBC09B /* AddTastePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTastePresenter.swift; sourceTree = "<group>"; };
+		B9631C512923E9EE00BBC09B /* AddTasteRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTasteRouter.swift; sourceTree = "<group>"; };
+		B9631C522923E9EE00BBC09B /* AddTasteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTasteViewController.swift; sourceTree = "<group>"; };
+		B9631C532923E9EE00BBC09B /* AddTasteInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTasteInteractor.swift; sourceTree = "<group>"; };
+		B9631C5B292400FB00BBC09B /* AddTasteModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTasteModule.swift; sourceTree = "<group>"; };
+		B9631C5C292400FB00BBC09B /* AddTasteAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTasteAssembly.swift; sourceTree = "<group>"; };
 		B9677CF128D8917000EF9FC6 /* extention + UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extention + UIViewController.swift"; sourceTree = "<group>"; };
 		B9677CF328D89D4000EF9FC6 /* NamedFireStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamedFireStore.swift; sourceTree = "<group>"; };
 		B97181552911254100E5DB28 /* DetailInfoManufacturerModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfoManufacturerModule.swift; sourceTree = "<group>"; };
@@ -252,6 +288,7 @@
 			children = (
 				B90A792C289A8C2200B90193 /* Tobacco.swift */,
 				B9D6055828D4CB590058D19E /* Manufacturer.swift */,
+				B94306C02920181100EADFA0 /* Taste.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -314,8 +351,46 @@
 				B9A4708228D2B84500CA6FAA /* extention + UIFont.swift */,
 				B9677CF128D8917000EF9FC6 /* extention + UIViewController.swift */,
 				B94B7716290C239E002C5660 /* extention + UIButton.swift */,
+				B9631C4D2922487500BBC09B /* extention + UIEdgeInsets.swift */,
 			);
 			path = Extentions;
+			sourceTree = "<group>";
+		};
+		B94306C329201F7B00EADFA0 /* AddTastesModule */ = {
+			isa = PBXGroup;
+			children = (
+				B94306C42920277E00EADFA0 /* AddTastesPresenter.swift */,
+				B94306C52920277E00EADFA0 /* AddTastesRouter.swift */,
+				B94306C62920277E00EADFA0 /* AddTastesViewController.swift */,
+				B94306C72920277E00EADFA0 /* AddTastesInteractor.swift */,
+			);
+			path = AddTastesModule;
+			sourceTree = "<group>";
+		};
+		B94306D029204EA400EADFA0 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				B94306D129204EB700EADFA0 /* AddTastesTableViewCell */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		B94306D129204EB700EADFA0 /* AddTastesTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				B94306D229204EE700EADFA0 /* AddTastesTableViewCell.swift */,
+			);
+			path = AddTastesTableViewCell;
+			sourceTree = "<group>";
+		};
+		B94306D42920539000EADFA0 /* TasteCollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				B9631C492921AB7100BBC09B /* TasteCollectionView.swift */,
+				B9631C4B2921ACBE00BBC09B /* TasteCollectionViewLayout.swift */,
+				B94306D5292053BA00EADFA0 /* TasteCollectionViewCell.swift */,
+			);
+			path = TasteCollectionView;
 			sourceTree = "<group>";
 		};
 		B948D83428CD284900E35884 /* NetworkService */ = {
@@ -328,6 +403,15 @@
 			path = NetworkService;
 			sourceTree = "<group>";
 		};
+		B94E17B62921268C0008CB73 /* AddTastes */ = {
+			isa = PBXGroup;
+			children = (
+				B94E17B7292126DD0008CB73 /* AddTastesModule.swift */,
+				B94E17B8292126DD0008CB73 /* AddTastesAssembly.swift */,
+			);
+			path = AddTastes;
+			sourceTree = "<group>";
+		};
 		B95699AB28F709C000D9E584 /* ManufacturerListModule */ = {
 			isa = PBXGroup;
 			children = (
@@ -338,6 +422,26 @@
 				B9E8DA4628F77A8300CCA034 /* ManufacturerListEntity.swift */,
 			);
 			path = ManufacturerListModule;
+			sourceTree = "<group>";
+		};
+		B9631C4F2923E9CE00BBC09B /* AddTasteModule */ = {
+			isa = PBXGroup;
+			children = (
+				B9631C502923E9EE00BBC09B /* AddTastePresenter.swift */,
+				B9631C512923E9EE00BBC09B /* AddTasteRouter.swift */,
+				B9631C522923E9EE00BBC09B /* AddTasteViewController.swift */,
+				B9631C532923E9EE00BBC09B /* AddTasteInteractor.swift */,
+			);
+			path = AddTasteModule;
+			sourceTree = "<group>";
+		};
+		B9631C5A292400E400BBC09B /* AddTaste */ = {
+			isa = PBXGroup;
+			children = (
+				B9631C5B292400FB00BBC09B /* AddTasteModule.swift */,
+				B9631C5C292400FB00BBC09B /* AddTasteAssembly.swift */,
+			);
+			path = AddTaste;
 			sourceTree = "<group>";
 		};
 		B97181542911252100E5DB28 /* DetailInfoManufacturer */ = {
@@ -398,6 +502,7 @@
 		B992985D28DC965600C4E80F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B94306D42920539000EADFA0 /* TasteCollectionView */,
 				B9DBE934290B0C07004D7B97 /* ImagePickerView.swift */,
 				B9567C91291C4BC300CF6176 /* ImageButtonPickerView.swift */,
 				B9A4708528D2BB6400CA6FAA /* AddTextFieldView.swift */,
@@ -479,6 +584,9 @@
 		B9D705F928E3A6730079AD23 /* AdminViews */ = {
 			isa = PBXGroup;
 			children = (
+				B94306D029204EA400EADFA0 /* Cells */,
+				B9631C4F2923E9CE00BBC09B /* AddTasteModule */,
+				B94306C329201F7B00EADFA0 /* AddTastesModule */,
 				B98E1DEB28F0DBAA00964B8F /* AdminMenuModule */,
 				B98E1DDE28F08D2800964B8F /* AddTobaccoModule */,
 				B98E1DCF28F0810D00964B8F /* LoginModule */,
@@ -497,6 +605,8 @@
 				B9E7ACB028F492D000A3D7E5 /* Login */,
 				B9E7ACA728F4673400A3D7E5 /* AdminMenu */,
 				B9E7ACA328F454B500A3D7E5 /* AddTobacco */,
+				B94E17B62921268C0008CB73 /* AddTastes */,
+				B9631C5A292400E400BBC09B /* AddTaste */,
 				B9EB024828F35B5F00B3B6DA /* ModuleProtocol.swift */,
 			);
 			path = Modules;
@@ -746,15 +856,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B94E17B9292126DD0008CB73 /* AddTastesModule.swift in Sources */,
+				B94306D6292053BA00EADFA0 /* TasteCollectionViewCell.swift in Sources */,
+				B94306C12920181100EADFA0 /* Taste.swift in Sources */,
 				B9E7ACAF28F46AFB00A3D7E5 /* AdminMenuAssembly.swift in Sources */,
 				B9EE2378291023F00098E4E0 /* DetailInfoManufacturerViewController.swift in Sources */,
 				B9E8DA4C28F77A8300CCA034 /* ManufacturerListEntity.swift in Sources */,
 				B98E1DE528F08D4400964B8F /* AddTobaccoPresenter.swift in Sources */,
 				B98E1DEA28F08D4400964B8F /* AddTobaccoEntity.swift in Sources */,
+				B9631C4C2921ACBE00BBC09B /* TasteCollectionViewLayout.swift in Sources */,
 				B9ED9104290989EF00DC3A6D /* TobaccoListViewController.swift in Sources */,
 				B98E1DD628F0812500964B8F /* LoginPresenter.swift in Sources */,
 				B9E7A98628FEF9D700D711B4 /* GetImageDataBaseProtocol.swift in Sources */,
 				B9DBE512290DE2C3005B185C /* HTNavigationControllerAssembly.swift in Sources */,
+				B94306C92920277E00EADFA0 /* AddTastesPresenter.swift in Sources */,
 				B98E1DB428F04A0F00964B8F /* AddManufacturerInteractor.swift in Sources */,
 				B9E8DA4828F77A8300CCA034 /* ManufacturerListRouter.swift in Sources */,
 				B98E1DD728F0812500964B8F /* LoginRouter.swift in Sources */,
@@ -762,6 +877,7 @@
 				B9E7A98828FEFA9500D711B4 /* FireStorageGetImageManager.swift in Sources */,
 				B98E1DF228F0DBCF00964B8F /* AdminMenuPresenter.swift in Sources */,
 				B90A79122899E2BF00B90193 /* AppDelegate.swift in Sources */,
+				B9631C5E292400FB00BBC09B /* AddTasteAssembly.swift in Sources */,
 				B9E8DA5028F7827900CCA034 /* ManufacturerListModule.swift in Sources */,
 				B9567C92291C4BC300CF6176 /* ImageButtonPickerView.swift in Sources */,
 				B9B358CC291169E2001D178F /* EmptyCell.swift in Sources */,
@@ -770,6 +886,7 @@
 				B9E7A98C28FF15DF00D711B4 /* SetImageDataBaseProtocol.swift in Sources */,
 				B9ED9105290989EF00DC3A6D /* TobaccoListInteractor.swift in Sources */,
 				B9EE2379291023F00098E4E0 /* DetailInfoManufacturerInteractor.swift in Sources */,
+				B9631C4E2922487500BBC09B /* extention + UIEdgeInsets.swift in Sources */,
 				B9EB024128F31B6300B3B6DA /* ServiceAssembly.swift in Sources */,
 				B9DBE50B290DD8B1005B185C /* HTTabBarController.swift in Sources */,
 				B9C9ECFF29129F09000A359B /* FirebaseHandlerErrors.swift in Sources */,
@@ -779,9 +896,11 @@
 				B9EB024B28F3604E00B3B6DA /* AddTobaccoModule.swift in Sources */,
 				B9EB024928F35B5F00B3B6DA /* ModuleProtocol.swift in Sources */,
 				B9D6057428D53C350058D19E /* FireBaseAuthService.swift in Sources */,
+				B9631C562923E9EE00BBC09B /* AddTasteRouter.swift in Sources */,
 				B9EE2377291023F00098E4E0 /* DetailInfoManufacturerRouter.swift in Sources */,
 				B9E7ACB328F492ED00A3D7E5 /* LoginModule.swift in Sources */,
 				B9E7ACB428F492ED00A3D7E5 /* LoginAssembly.swift in Sources */,
+				B94306CC2920277E00EADFA0 /* AddTastesInteractor.swift in Sources */,
 				B9C7825A28ECE25800DBF8C6 /* AuthServiceProtocol.swift in Sources */,
 				B9C9ECFD29129E00000A359B /* NetworkError.swift in Sources */,
 				B98E1DB628F04A0F00964B8F /* AddManufacturerEntity.swift in Sources */,
@@ -790,9 +909,11 @@
 				B9ED9106290989EF00DC3A6D /* TobaccoListEntity.swift in Sources */,
 				B98E1DF528F0DBCF00964B8F /* AdminMenuInteractor.swift in Sources */,
 				B9ED910929098AA000DC3A6D /* TobaccoListCell.swift in Sources */,
+				B9631C5D292400FB00BBC09B /* AddTasteModule.swift in Sources */,
 				B9D6055928D4CB590058D19E /* Manufacturer.swift in Sources */,
 				B9D6055B28D4CF610058D19E /* FireBaseSetNetworkManager.swift in Sources */,
 				B9ED9102290989EF00DC3A6D /* TobaccoListPresenter.swift in Sources */,
+				B94306D329204EE700EADFA0 /* AddTastesTableViewCell.swift in Sources */,
 				B9A4708328D2B84500CA6FAA /* extention + UIFont.swift in Sources */,
 				B98E1DE828F08D4400964B8F /* AddTobaccoInteractor.swift in Sources */,
 				B90FB1332901857100881D56 /* FireStorageSetImageManager.swift in Sources */,
@@ -801,12 +922,15 @@
 				B9EB024728F3252500B3B6DA /* AddTobaccoAssembly.swift in Sources */,
 				B9EE237A291023F00098E4E0 /* DetailInfoManufacturerEntity.swift in Sources */,
 				B98E1DD928F0812500964B8F /* LoginInteractor.swift in Sources */,
+				B94306CA2920277E00EADFA0 /* AddTastesRouter.swift in Sources */,
 				B90A79142899E2BF00B90193 /* SceneDelegate.swift in Sources */,
 				B9E7ACB928F495B300A3D7E5 /* AddManufacturerAssembly.swift in Sources */,
+				B9631C4A2921AB7100BBC09B /* TasteCollectionView.swift in Sources */,
 				B9DBE50E290DE11F005B185C /* HTNavigationController.swift in Sources */,
 				B9E8DA4A28F77A8300CCA034 /* ManufacturerListInteractor.swift in Sources */,
 				B9EE237D29102B710098E4E0 /* DetailInfoManufacturerTableCell.swift in Sources */,
 				B94B7717290C239E002C5660 /* extention + UIButton.swift in Sources */,
+				B94306CB2920277E00EADFA0 /* AddTastesViewController.swift in Sources */,
 				B9E8DA5128F7827900CCA034 /* ManufacturerListAssembly.swift in Sources */,
 				B90A792D289A8C2200B90193 /* Tobacco.swift in Sources */,
 				B9074144290F041B00499674 /* HTTabBarControllerAssembly.swift in Sources */,
@@ -820,19 +944,23 @@
 				B97181572911254100E5DB28 /* DetailInfoManufacturerModule.swift in Sources */,
 				B9A4708628D2BB6400CA6FAA /* AddTextFieldView.swift in Sources */,
 				B9EE2376291023F00098E4E0 /* DetailInfoManufacturerPresenter.swift in Sources */,
+				B94E17BA292126DD0008CB73 /* AddTastesAssembly.swift in Sources */,
 				B98E1DF428F0DBCF00964B8F /* AdminMenuViewController.swift in Sources */,
 				B9E7AC9E28F4337100A3D7E5 /* AppRouter.swift in Sources */,
 				B94B771A290C2738002C5660 /* AddTextView.swift in Sources */,
+				B9631C582923E9EE00BBC09B /* AddTasteInteractor.swift in Sources */,
 				B98E1DB328F04A0F00964B8F /* AddManufacturerViewController.swift in Sources */,
 				B9677CF228D8917000EF9FC6 /* extention + UIViewController.swift in Sources */,
 				B9E7ACA128F4528000A3D7E5 /* RouterProtocol.swift in Sources */,
 				B98E1DE728F08D4400964B8F /* AddTobaccoViewController.swift in Sources */,
 				B9E8DA5728F783B400CCA034 /* ManufacturerListTableViewCell.swift in Sources */,
+				B9631C572923E9EE00BBC09B /* AddTasteViewController.swift in Sources */,
 				B9E7ACAE28F46AFB00A3D7E5 /* AdminMenuModule.swift in Sources */,
 				B9E8DA4728F77A8300CCA034 /* ManufacturerListPresenter.swift in Sources */,
 				B98E1DB228F04A0F00964B8F /* AddManufacturerRouter.swift in Sources */,
 				B98E1DD828F0812500964B8F /* LoginViewController.swift in Sources */,
 				B94B771C290C3785002C5660 /* AddPickerView.swift in Sources */,
+				B9631C552923E9EE00BBC09B /* AddTastePresenter.swift in Sources */,
 				B98E1DB128F04A0F00964B8F /* AddManufacturerPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -11,4 +11,6 @@ protocol GetDataBaseNetworkingProtocol {
     func getManufacturers(completion: @escaping (Result<[Manufacturer], NetworkError>) -> Void)
     func getTobaccos(for manufacturer: Manufacturer, completion: @escaping (Result<[Tobacco], NetworkError>) -> Void)
     func getAllTobaccos(completion: @escaping (Result<[Tobacco], NetworkError>) -> Void)
+    func getAllTastes(completion: @escaping (Result<[Taste], NetworkError>) -> Void)
+//    func getTastes(ids: [Int], completion: @escaping (Result<[Taste], NetworkError>) -> Void)
 }

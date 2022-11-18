@@ -10,6 +10,7 @@ import UIKit
 extension UIButton {
     
     static func createAppBigButton(_ text: String? = nil,
+                                   image: UIImage? = nil,
                                    titleColol: UIColor = .white,
                                    backgroundColor: UIColor = .orange,
                                    adjustsFontSize: Bool = true,
@@ -17,8 +18,10 @@ extension UIButton {
                                    fontSise: CGFloat = 20) -> UIButton {
         let button = UIButton()
         button.setTitle(text, for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemOrange
+        button.setTitleColor(titleColol, for: .normal)
+        button.setImage(image, for: .normal)
+        button.tintColor = titleColol
+        button.backgroundColor = backgroundColor
         button.titleLabel?.adjustsFontSizeToFitWidth = adjustsFontSize
         button.titleLabel?.minimumScaleFactor = minimumScaleFactor
         button.titleLabel?.font = UIFont.appFont(size: fontSise, weight: .bold)

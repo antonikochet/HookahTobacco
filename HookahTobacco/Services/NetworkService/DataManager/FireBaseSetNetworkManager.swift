@@ -62,6 +62,30 @@ class FireBaseSetNetworkManager: SetDataBaseNetworkingProtocol {
         }
         
     }
+    
+    func addTaste(_ taste: Taste, completion: setDBNetworingCompletion?) {
+        let data = taste.formatterToDataFireStore()
+        let uid = String(taste.id)
+        let docRef = db.collection(NamedFireStore.Collections.tastes).document(uid)
+        docRef.setData(data) { [weak self] error in
+            guard let self = self else { return }
+            if let error = error { completion?(self.handlerErrors.handlerError(error)) }
+            else { completion?(nil) }
+        }
+    }
+    
+    func setTaste(_ taste: Taste, completion: setDBNetworingCompletion?) {
+        let data = taste.formatterToDataFireStore()
+        let uid = String(taste.id)
+        db.collection(NamedFireStore.Collections.tastes)
+            .document(uid)
+            .setData(data,
+                     merge: true) { [weak self] error in
+                guard let self = self else { return }
+                if let error = error { completion?(self.handlerErrors.handlerError(error)) }
+                else { completion?(nil) }
+            }
+    }
 }
 
 fileprivate extension Manufacturer {
@@ -84,6 +108,15 @@ fileprivate extension Tobacco {
             NamedFireStore.Documents.Tobacco.nameManufacturer : self.nameManufacturer,
             NamedFireStore.Documents.Tobacco.taste : self.taste,
             NamedFireStore.Documents.Tobacco.description : self.description
+        ]
+    }
+}
+
+fileprivate extension Taste {
+    func formatterToDataFireStore() -> [String: Any] {
+        return [
+            NamedFireStore.Documents.Taste.taste : self.taste,
+            NamedFireStore.Documents.Taste.type : self.typeTaste
         ]
     }
 }

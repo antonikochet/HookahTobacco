@@ -60,6 +60,20 @@ class FireBaseGetNetworkManager: GetDataBaseNetworkingProtocol {
             }
         }
     }
+    
+    func getAllTastes(completion: @escaping (Result<[Taste], NetworkError>) -> Void) {
+        db.collection(NamedFireStore.Collections.tastes).getDocuments { [weak self] snapshot, error in
+            guard let self = self else { return }
+            if let error = error {
+                completion(.failure(self.handlerErrors.handlerError(error)))
+            } else {
+                if let snapshot = snapshot {
+                    let tastes = snapshot.documents.compactMap { Taste($0.data(), uid: $0.documentID) }
+                    completion(.success(tastes))
+                }
+            }
+        }
+    }
 }
 
 
@@ -78,9 +92,22 @@ fileprivate extension Tobacco {
     init(_ data: [String: Any], uid: String? ) {
         self.uid = uid
         self.name = data[NamedFireStore.Documents.Tobacco.name] as? String ?? ""
-        self.taste = data[NamedFireStore.Documents.Tobacco.taste] as? [String] ?? []
+        self.taste = data[NamedFireStore.Documents.Tobacco.taste] as? [Int] ?? []
         self.idManufacturer = data[NamedFireStore.Documents.Tobacco.idManufacturer] as? String ?? ""
         self.nameManufacturer = data[NamedFireStore.Documents.Tobacco.nameManufacturer] as? String ?? ""
         self.description = data[NamedFireStore.Documents.Tobacco.description] as? String ?? ""
+    }
+}
+
+fileprivate extension Taste {
+    init?(_ data: [String: Any], uid: String?) {
+        guard let uid = uid,
+              let id = Int(uid),
+              let taste = data[NamedFireStore.Documents.Taste.taste] as? String,
+              let typeTaste = data[NamedFireStore.Documents.Taste.type] as? String else { return nil }
+        self.id = id
+        self.taste = taste
+        self.typeTaste = typeTaste
+        
     }
 }

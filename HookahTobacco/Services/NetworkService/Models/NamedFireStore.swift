@@ -13,6 +13,7 @@ struct NamedFireStore {
         static let manufacturers = "manufacturers"
         static let `system` = "system"
         static let tobaccos = "tobaccos"
+        static let tastes = "tastes"
     }
     
     struct Documents {
@@ -36,6 +37,11 @@ struct NamedFireStore {
             static let idManufacturer = "idManufacturer"
             static let nameManufacturer = "nameManufacturer"
             static let description = "description"
+        }
+        
+        struct Taste {
+            static let taste = "taste"
+            static let type = "type"
         }
     }
 }

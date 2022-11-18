@@ -17,4 +17,9 @@ extension String {
                                      context: nil)
         return ceil(size.height)
     }
+    
+    func sizeOfString(usingFont font: UIFont) -> CGSize {
+        let fontAttributes = [NSAttributedString.Key.font: font]
+        return self.size(withAttributes: fontAttributes)
+    }
 }
