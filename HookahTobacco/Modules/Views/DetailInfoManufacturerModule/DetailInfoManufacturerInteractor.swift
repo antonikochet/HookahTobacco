@@ -16,10 +16,10 @@ protocol DetailInfoManufacturerInteractorInputProtocol: AnyObject {
 
 protocol DetailInfoManufacturerInteractorOutputProtocol: AnyObject {
     func initialDataForPresentation(_ manufacturer: Manufacturer)
-    func receivedTobacco(with tobaccos: [Tobacco])
+    func receivedTobacco(with tobaccos: [DetailInfoManufacturerEntity.Tobacco])
     func receivedError(with code: Int, and message: String)
     func receivedError(with message: String)
-    func receivedUpdate(for tobacco: Tobacco, at index: Int)
+    func receivedUpdate(for tobacco: DetailInfoManufacturerEntity.Tobacco, at index: Int)
 }
 
 class DetailInfoManufacturerInteractor {
@@ -33,6 +33,7 @@ class DetailInfoManufacturerInteractor {
     // MARK: - Private properties
     private var manufacturer: Manufacturer
     private var tobaccos: [Tobacco] = []
+    private var tastes: Dictionary<Int, Taste> = [:]
     
     // MARK: - Initializers
     init(_ manufacturer: Manufacturer,
@@ -41,21 +42,44 @@ class DetailInfoManufacturerInteractor {
         self.manufacturer = manufacturer
         self.getDataManager = getDataManager
         self.getImageManager = getImageManager
+        receiveTastes()
         receiveTobacco()
     }
     
     // MARK: - Private methods
+    private func createTobaccoForPresenter(_ tobacco: Tobacco) -> DetailInfoManufacturerEntity.Tobacco {
+        let tasty = tobacco.taste
+            .compactMap { tastes[$0] }
+        return DetailInfoManufacturerEntity.Tobacco(name: tobacco.name,
+                                             tasty: tasty,
+                                             nameManufacturer: tobacco.nameManufacturer,
+                                             image: tobacco.image)
+    }
+    
     private func receiveTobacco() {
         getDataManager.getTobaccos(for: manufacturer) { [weak self] result in
             guard let self = self else { return }
             switch result {
                 case .success(let tobaccos):
                     self.tobaccos = tobaccos
-                    self.presenter.receivedTobacco(with: tobaccos)
+                    let pTobaccos = tobaccos.map { self.createTobaccoForPresenter($0) }
+                    self.presenter.receivedTobacco(with: pTobaccos)
                     self.receiveImageTobaccos(tobaccos)
                 case .failure(let error):
                     let err = error as NSError
                     self.presenter.receivedError(with: err.code, and: err.localizedDescription)
+            }
+        }
+    }
+    
+    private func receiveTastes() {
+        getDataManager.getAllTastes { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+                case .success(let data):
+                    self.tastes = Dictionary(uniqueKeysWithValues: data.map { ($0.id, $0) })
+                case .failure(let error):
+                    self.presenter.receivedError(with: error.localizedDescription)
             }
         }
     }
@@ -72,7 +96,7 @@ class DetailInfoManufacturerInteractor {
                         var mTobacco = tobacco
                         mTobacco.image = image
                         self.tobaccos[index] = mTobacco
-                        self.presenter.receivedUpdate(for: mTobacco, at: index)
+                        self.presenter.receivedUpdate(for: self.createTobaccoForPresenter(mTobacco), at: index)
                     case .failure(let error):
                         let err = error as NSError
                         self.presenter.receivedError(with: err.code, and: err.localizedDescription)

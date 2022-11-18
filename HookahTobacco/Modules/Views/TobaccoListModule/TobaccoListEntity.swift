@@ -10,5 +10,10 @@
 import Foundation
 
 struct TobaccoListEntity {
-    
+    struct Tobacco {
+        let name: String
+        let nameManufacturer: String
+        let tasty: [Taste]
+        let image: Data?
+    }
 }

@@ -14,6 +14,8 @@ protocol AddTobaccoInteractorInputProtocol: AnyObject {
     func didSelectedManufacturer(_ name: String)
     func didSelectMainImage(with fileURL: URL)
     func receiveStartingDataView()
+    func receiveTastesForEditing()
+    func receivedNewSelectedTastes(_ tastes: [Taste])
 }
 
 protocol AddTobaccoInteractorOutputProtocol: AnyObject {
@@ -24,6 +26,8 @@ protocol AddTobaccoInteractorOutputProtocol: AnyObject {
     func initialDataForPresentation(_ tobacco: AddTobaccoEntity.Tobacco, isEditing: Bool)
     func initialSelectedManufacturer(_ name: String?)
     func initialMainImage(_ image: Data?)
+    func initialTastes(_ tastes: [Taste])
+    func receivedTastesForEditing(_ tastes: SelectedTastes)
 }
 
 class AddTobaccoInteractor {
@@ -42,6 +46,8 @@ class AddTobaccoInteractor {
     }
     private var selectedManufacturer: Manufacturer?
     private var tobacco: Tobacco?
+    private var tastes: SelectedTastes = [:]
+    private var allTastes: SelectedTastes = [:]
     private var isEditing: Bool
     private var mainImageFileURL: URL?
     private var editingMainImage: Data?
@@ -58,6 +64,7 @@ class AddTobaccoInteractor {
         self.setDataManager = setDataManager
         self.setImageManager = setImageManager
         getManufacturers()
+        getAllTastes()
     }
     
     private func getManufacturers() {
@@ -72,6 +79,19 @@ class AddTobaccoInteractor {
                     self.presenter.receivedError(with: err.code, and: err.localizedDescription)
             }
         })
+    }
+    
+    private func getAllTastes() {
+        getDataManager.getAllTastes { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+                case .success(let data):
+                    self.allTastes = Dictionary(uniqueKeysWithValues: data.map( { ($0.id, $0) }))
+                    self.initialTastes()
+                case .failure(let error):
+                    self.presenter.receivedError(with: 0, and: error.localizedDescription)
+            }
+        }
     }
     
     private func addTobacco(_ tobacco: Tobacco, by imageFileURL: URL) {
@@ -100,6 +120,7 @@ class AddTobaccoInteractor {
                 self.presenter.receivedError(with: err.code, and: err.localizedDescription)
             } else {
                 self.presenter.receivedSuccessAddition()
+                self.successAdded()
             }
         })
     }
@@ -158,6 +179,25 @@ class AddTobaccoInteractor {
         selectedManufacturer = manufacturer
         presenter.initialSelectedManufacturer(manufacturer.name)
     }
+    
+    private func initialTastes() {
+        guard let tobacco = tobacco else { return }
+        tastes = Dictionary(uniqueKeysWithValues: tobacco.taste.compactMap {
+            if let taste = allTastes[$0] {
+                return ($0, taste)
+            } else {
+                return nil
+            }
+        })
+        presenter.initialTastes(Array(tastes.values))
+    }
+    
+    private func successAdded() {
+        selectedManufacturer = nil
+        tobacco = nil
+        mainImageFileURL = nil
+        editingMainImage = nil
+    }
 }
 
 extension AddTobaccoInteractor: AddTobaccoInteractorInputProtocol {
@@ -169,10 +209,11 @@ extension AddTobaccoInteractor: AddTobaccoInteractorInputProtocol {
         }
         var tobacco = Tobacco(uid: tobacco?.uid,
                               name: data.name,
-                              taste: data.tastes,
+                              taste: Array(tastes.keys),
                               idManufacturer: uid,
                               nameManufacturer: selectManufacturer.name,
-                              description: data.description)
+                              description: data.description,
+                              image: tobacco?.image)
         if isEditing {
             dispatchGroup = DispatchGroup()
             setTobacco(tobacco)
@@ -209,14 +250,12 @@ extension AddTobaccoInteractor: AddTobaccoInteractorInputProtocol {
     func receiveStartingDataView() {
         var pTobacco = AddTobaccoEntity.Tobacco(
                         name: "",
-                        tastes: [],
                         description: "")
         var manufacturer: Manufacturer? = nil
         if isEditing,
            let tobacco = tobacco {
             pTobacco = AddTobaccoEntity.Tobacco(
                         name: tobacco.name,
-                        tastes: tobacco.taste,
                         description: tobacco.description)
             manufacturer = receiveSelectedManufacturer(by: tobacco.idManufacturer)
             if manufacturer != nil {
@@ -228,5 +267,14 @@ extension AddTobaccoInteractor: AddTobaccoInteractorInputProtocol {
                                              isEditing: isEditing)
         presenter.initialSelectedManufacturer(manufacturer?.name)
         presenter.initialMainImage(editingMainImage)
+    }
+    
+    func receiveTastesForEditing() {
+        presenter.receivedTastesForEditing(tastes)
+    }
+    
+    func receivedNewSelectedTastes(_ tastes: [Taste]) {
+        self.tastes = Dictionary(uniqueKeysWithValues: tastes.map { ($0.id, $0) })
+        presenter.initialTastes(tastes)
     }
 }

@@ -15,6 +15,13 @@ struct DetailInfoManufacturerEntity {
         var description: String
         var iconImage: Data?
     }
+    
+    struct Tobacco {
+        let name: String
+        let tasty: [Taste]
+        let nameManufacturer: String
+        let image: Data?
+    }
 }
 
 

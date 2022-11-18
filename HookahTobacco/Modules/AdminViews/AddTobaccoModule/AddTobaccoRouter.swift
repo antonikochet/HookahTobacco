@@ -12,6 +12,7 @@ import UIKit
 protocol AddTobaccoRouterProtocol: RouterProtocol {
     func dismissView()
     func dismissView(with changedData: Tobacco)
+    func showAddTastesView(_ tastes: SelectedTastes, outputModule: AddTastesOutputModule?)
 }
 
 protocol AddTobaccoOutputModule: AnyObject {
@@ -33,5 +34,13 @@ class AddTobaccoRouter: AddTobaccoRouterProtocol {
     func dismissView(with changedData: Tobacco) {
         delegate?.sendChangedTobacco(changedData)
         appRouter.popViewConroller(animated: true, completion: nil)
+    }
+    
+    func showAddTastesView(_ tastes: SelectedTastes, outputModule: AddTastesOutputModule?) {
+        let data = AddTastesDataModule(selectedTastes: tastes,
+                                       outputModule: outputModule)
+        appRouter.pushViewController(module: AddTastesModule.self,
+                                     moduleData: data,
+                                     animateDisplay: true)
     }
 }

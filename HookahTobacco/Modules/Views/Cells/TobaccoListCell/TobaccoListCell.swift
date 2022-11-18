@@ -25,6 +25,8 @@ class TobaccoListCell: UITableViewCell {
             manufacturerLabel.text = viewModel?.manufacturerName
             if let image = viewModel?.image {
                 tobaccoImageView.image = UIImage(data: image)
+            } else {
+                tobaccoImageView.image = nil
             }
         }
     }

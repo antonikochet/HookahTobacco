@@ -12,19 +12,16 @@ import Foundation
 struct AddTobaccoEntity {
     struct EnteredData {
         let name: String?
-        let tastes: String?
         let description: String?
     }
     
     struct Tobacco {
         let name: String
-        let tastes: [String]
         let description: String
     }
     
     struct ViewModel {
         let name: String
-        let tastes: String
         let description: String
         let textButton: String
     }

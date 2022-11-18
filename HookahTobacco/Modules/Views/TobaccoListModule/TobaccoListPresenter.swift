@@ -19,18 +19,22 @@ class TobaccoListPresenter {
     private var viewModels: [TobaccoListCellViewModel] = []
     
     // MARK: - Private methods
-    private func createViewModel(_ data: Tobacco) -> TobaccoListCellViewModel {
-        let taste = data.taste.joined(separator: ", ")
-        return TobaccoListCellViewModel(name: data.name,
-                                        tasty: taste,
-                                        manufacturerName: data.nameManufacturer,
-                                        image: data.image)
+    private func createViewModel(_ data: TobaccoListEntity.Tobacco) -> TobaccoListCellViewModel {
+        let taste = data.tasty
+            .map { $0.taste }
+            .joined(separator: ", ")
+        return TobaccoListCellViewModel(
+            name: data.name,
+            tasty: taste,
+            manufacturerName: data.nameManufacturer,
+            image: data.image
+        )
     }
 }
 
 // MARK: - InteractorOutputProtocol implementation
 extension TobaccoListPresenter: TobaccoListInteractorOutputProtocol {
-    func receivedSuccess(_ data: [Tobacco]) {
+    func receivedSuccess(_ data: [TobaccoListEntity.Tobacco]) {
         viewModels = data.map { createViewModel($0) }
         view.showData()
     }
@@ -43,7 +47,7 @@ extension TobaccoListPresenter: TobaccoListInteractorOutputProtocol {
         view.showErrorAlert(with: message)
     }
     
-    func receivedUpdate(for data: Tobacco, at index: Int) {
+    func receivedUpdate(for data: TobaccoListEntity.Tobacco, at index: Int) {
         let viewModel = createViewModel(data)
         viewModels[index] = viewModel
         view.updateRow(at: index)

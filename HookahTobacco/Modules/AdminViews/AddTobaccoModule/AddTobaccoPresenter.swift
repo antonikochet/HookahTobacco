@@ -10,13 +10,17 @@
 import Foundation
 
 class AddTobaccoPresenter {
+    // MARK: - Public properties
     weak var view: AddTobaccoViewInputProtocol!
     var interactor: AddTobaccoInteractorInputProtocol!
     var router: AddTobaccoRouterProtocol!
-    
+
+    // MARK: - Private properties
     private var manufacturerSelectItems: [String] = ["-"]
+    private var tasteViewModels: [TasteCollectionCellViewModel] = []
 }
 
+// MARK: - InteractorOutputProtocol implementation
 extension AddTobaccoPresenter: AddTobaccoInteractorOutputProtocol {
     func receivedSuccessAddition() {
         view.hideLoading()
@@ -40,15 +44,13 @@ extension AddTobaccoPresenter: AddTobaccoInteractorOutputProtocol {
     }
     
     func initialDataForPresentation(_ tobacco: AddTobaccoEntity.Tobacco, isEditing: Bool) {
-        let tastes = tobacco.tastes.joined(separator: ", ")
         let textButton = isEditing ? "Изменить табак" : "Добавить табак"
         let viewModel = AddTobaccoEntity.ViewModel(
                             name: tobacco.name,
-                            tastes: tastes,
                             description: tobacco.description,
                             textButton: textButton)
         view.setupContent(viewModel)
-}
+    }
     
     func initialSelectedManufacturer(_ name: String?) {
         if let name = name,
@@ -65,27 +67,27 @@ extension AddTobaccoPresenter: AddTobaccoInteractorOutputProtocol {
                           : "Добавить изображение")
         view.setupMainImage(image, textButton: textButton)
     }
+
+    func receivedTastesForEditing(_ tastes: SelectedTastes) {
+        router.showAddTastesView(tastes, outputModule: self)
+    }
+    
+    func initialTastes(_ tastes: [Taste]) {
+        tasteViewModels = tastes.map { TasteCollectionCellViewModel(taste: $0.taste) }
+        view.setupTastes()
+    }
 }
 
+// MARK: - AddTobaccoViewOutputProtocol implementation
 extension AddTobaccoPresenter: AddTobaccoViewOutputProtocol {
     func pressedButtonAdded(with data: AddTobaccoEntity.EnteredData) {
         guard let name = data.name, !name.isEmpty else {
             view.showAlertError(with: "Название табака не введено, поле является обязательным!")
             return
         }
-        guard let tastes = data.tastes, !tastes.isEmpty else {
-            view.showAlertError(with: "Вкусы табака отсутсвуют, поле является обязательным!")
-            return
-        }
         
-        let taste = tastes.replacingOccurrences(of: "\\s*",
-                                          with: "",
-                                          options: [.regularExpression])
-                            .split(separator: ",")
-                            .map { String($0) }
         let description = data.description ?? ""
         let tobaccoInteractor = AddTobaccoEntity.Tobacco(name: name,
-                                                         tastes: taste,
                                                          description: description)
         view.showLoading()
         interactor.sendNewTobaccoToServer(tobaccoInteractor)
@@ -115,5 +117,24 @@ extension AddTobaccoPresenter: AddTobaccoViewOutputProtocol {
     
     func viewDidLoad() {
         interactor.receiveStartingDataView()
+    }
+    
+    var tasteNumberOfRows: Int {
+        tasteViewModels.count
+    }
+    
+    func getTasteViewModel(by index: Int) -> TasteCollectionCellViewModel {
+        tasteViewModels[index]
+    }
+    
+    func didTouchSelectedTastes() {
+        interactor.receiveTastesForEditing()
+    }
+}
+
+// MARK: - AddTastesOutputModule implementation
+extension AddTobaccoPresenter: AddTastesOutputModule {
+    func sendSelectedTastes(_ tastes: [Taste]) {
+        interactor.receivedNewSelectedTastes(tastes)
     }
 }

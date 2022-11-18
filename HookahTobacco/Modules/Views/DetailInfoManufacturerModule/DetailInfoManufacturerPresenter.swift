@@ -38,10 +38,10 @@ extension DetailInfoManufacturerPresenter: DetailInfoManufacturerInteractorOutpu
         view.showData()
     }
     
-    func receivedTobacco(with tobaccos: [Tobacco]) {
+    func receivedTobacco(with tobaccos: [DetailInfoManufacturerEntity.Tobacco]) {
         tobaccoViewModels = tobaccos.map {
             TobaccoListCellViewModel(name: $0.name,
-                                     tasty: $0.taste.joined(separator: ", "),
+                                     tasty: $0.tasty.map { $0.taste }.joined(separator: ", "),
                                      manufacturerName: $0.nameManufacturer,
                                      image: $0.image)
         }
@@ -56,9 +56,9 @@ extension DetailInfoManufacturerPresenter: DetailInfoManufacturerInteractorOutpu
         view.showAlertError(with: message)
     }
     
-    func receivedUpdate(for tobacco: Tobacco, at index: Int) {
+    func receivedUpdate(for tobacco: DetailInfoManufacturerEntity.Tobacco, at index: Int) {
         let viewModel = TobaccoListCellViewModel(name: tobacco.name,
-                                                 tasty: tobacco.taste.joined(separator: ", "),
+                                                 tasty: tobacco.tasty.map { $0.taste }.joined(separator: ", "),
                                                  manufacturerName: "",
                                                  image: tobacco.image)
         tobaccoViewModels[index] = viewModel
