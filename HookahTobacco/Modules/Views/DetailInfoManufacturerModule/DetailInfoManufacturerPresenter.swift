@@ -10,22 +10,33 @@
 import Foundation
 
 class DetailInfoManufacturerPresenter {
-    //MARK: - Public properties
+    // MARK: - Public properties
     weak var view: DetailInfoManufacturerViewInputProtocol!
     var interactor: DetailInfoManufacturerInteractorInputProtocol!
     var router: DetailInfoManufacturerRouterProtocol!
-    
-    //MARK: - Private properties
+
+    // MARK: - Private properties
     private var nameManufacturerTitle: String?
     private var linkToManufacturer: String?
     private var detailInfoManufacturerViewModel: DetailInfoManufacturerCellViewModelProtocol?
     private var tobaccoViewModels: [TobaccoListCellViewModel] = []
-    
-    //MARK: - Private methods
-    
+
+    // MARK: - Private methods
+    private func createTobaccoViewModel(
+        _ tobacco: DetailInfoManufacturerEntity.Tobacco
+    ) -> TobaccoListCellViewModel {
+        TobaccoListCellViewModel(
+            name: tobacco.name,
+            tasty: tobacco.tasty
+                .map { $0.taste }
+                .joined(separator: ", "),
+            manufacturerName: "",
+            image: tobacco.image
+        )
+    }
 }
 
-//MARK: - InteractorOutputProtocol implementation
+// MARK: - InteractorOutputProtocol implementation
 extension DetailInfoManufacturerPresenter: DetailInfoManufacturerInteractorOutputProtocol {
     func initialDataForPresentation(_ manufacturer: Manufacturer) {
         detailInfoManufacturerViewModel = DetailInfoManufacturerEntity.CellViewModel(
@@ -37,61 +48,55 @@ extension DetailInfoManufacturerPresenter: DetailInfoManufacturerInteractorOutpu
         linkToManufacturer = manufacturer.link
         view.showData()
     }
-    
+
     func receivedTobacco(with tobaccos: [DetailInfoManufacturerEntity.Tobacco]) {
         tobaccoViewModels = tobaccos.map {
-            TobaccoListCellViewModel(name: $0.name,
-                                     tasty: $0.tasty.map { $0.taste }.joined(separator: ", "),
-                                     manufacturerName: $0.nameManufacturer,
-                                     image: $0.image)
+            createTobaccoViewModel($0)
         }
         view.showData()
     }
-    
+
     func receivedError(with code: Int, and message: String) {
         view.showAlertError(with: "Code \(code). \(message)")
     }
-    
+
     func receivedError(with message: String) {
         view.showAlertError(with: message)
     }
-    
+
     func receivedUpdate(for tobacco: DetailInfoManufacturerEntity.Tobacco, at index: Int) {
-        let viewModel = TobaccoListCellViewModel(name: tobacco.name,
-                                                 tasty: tobacco.tasty.map { $0.taste }.joined(separator: ", "),
-                                                 manufacturerName: "",
-                                                 image: tobacco.image)
+        let viewModel = createTobaccoViewModel(tobacco)
         tobaccoViewModels[index] = viewModel
         view.updateRow(at: index)
     }
 }
 
-//MARK: - ViewOutputProtocol implementation
+// MARK: - ViewOutputProtocol implementation
 extension DetailInfoManufacturerPresenter: DetailInfoManufacturerViewOutputProtocol {
     var nameManufacturer: String? {
         nameManufacturerTitle
     }
-    
+
     var tobaccoNumberOfRows: Int {
         tobaccoViewModels.count
     }
-    
+
     var detailViewModelCell: DetailInfoManufacturerCellViewModelProtocol? {
         detailInfoManufacturerViewModel
     }
-    
+
     var linkToManufacturerWebside: String? {
         linkToManufacturer != nil && !linkToManufacturer!.isEmpty ? "Сайт производителя: \(linkToManufacturer!)" : nil
     }
-    
+
     func tobaccoViewModelCell(at row: Int) -> TobaccoListCellViewModel {
         tobaccoViewModels[row]
     }
-    
+
     func viewDidLoad() {
         interactor.receiveStartingDataView()
     }
-    
+
     var isTobaccosEmpty: Bool {
         tobaccoViewModels.isEmpty
     }

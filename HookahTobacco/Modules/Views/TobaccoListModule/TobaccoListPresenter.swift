@@ -39,10 +39,6 @@ extension TobaccoListPresenter: TobaccoListInteractorOutputProtocol {
         view.showData()
     }
     
-    func receivedError(with code: Int, and message: String) {
-        view.showErrorAlert(with: "Code - \(code). \(message)")
-    }
-    
     func receivedError(with message: String) {
         view.showErrorAlert(with: message)
     }

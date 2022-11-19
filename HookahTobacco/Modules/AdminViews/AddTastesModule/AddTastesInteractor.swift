@@ -40,15 +40,21 @@ class AddTastesInteractor {
     private let getDataManager: GetDataBaseNetworkingProtocol
 
     // MARK: - Private properties
-    private var selectedTastes: SelectedTastes
+    private var selectedTastes: SelectedTastes {
+        didSet {
+            sortedSelectedTastes = Array(selectedTastes.values.sorted(by: { $0.id < $1.id }))
+        }
+    }
     private var allTastes: [Taste] = []
     private var filterTastes: [Taste] = []
+    private var sortedSelectedTastes: [Taste]
 
     // MARK: - Initializers
     init(selectedTastes: SelectedTastes,
          getDataManager: GetDataBaseNetworkingProtocol) {
         self.selectedTastes = selectedTastes
         self.getDataManager = getDataManager
+        self.sortedSelectedTastes = Array(selectedTastes.values.sorted(by: { $0.id < $1.id }))
     }
 
     // MARK: - Private methods
@@ -58,22 +64,18 @@ class AddTastesInteractor {
             switch result {
                 case .success(let data):
                     self.allTastes = data.sorted(by: { $0.id < $1.id })
-                    self.presenter.initialAllTastes(self.allTastes, with: self.sortedSelectedTastes())
+                    self.presenter.initialAllTastes(self.allTastes, with: self.sortedSelectedTastes)
                 case .failure(let error):
                     self.presenter.receivedError(with: error.localizedDescription)
             }
         }
-    }
-    
-    private func sortedSelectedTastes() -> [Taste] {
-        return Array(selectedTastes.values.sorted(by: { $0.id < $1.id }))
     }
 }
 // MARK: - InputProtocol implementation 
 extension AddTastesInteractor: AddTastesInteractorInputProtocol {
     func receiveStartingDataView() {
         receiveAllTastes()
-        presenter.initialSelectedTastes(sortedSelectedTastes())
+        presenter.initialSelectedTastes(sortedSelectedTastes)
     }
 
     func receiveDataForAdd() {
@@ -97,7 +99,7 @@ extension AddTastesInteractor: AddTastesInteractorInputProtocol {
         } else {
             selectedTastes.updateValue(taste, forKey: taste.id)
         }
-        presenter.updateData(by: index, with: taste, and: sortedSelectedTastes())
+        presenter.updateData(by: index, with: taste, and: sortedSelectedTastes)
     }
     
     func addTaste(_ taste: Taste) {
@@ -106,7 +108,7 @@ extension AddTastesInteractor: AddTastesInteractorInputProtocol {
         } else {
             allTastes.append(taste)
         }
-        presenter.initialAllTastes(allTastes, with: sortedSelectedTastes())
+        presenter.initialAllTastes(allTastes, with: sortedSelectedTastes)
     }
     
     func receiveSelectedTastes() {
@@ -116,17 +118,18 @@ extension AddTastesInteractor: AddTastesInteractorInputProtocol {
     func performSearch(with text: String) {
         guard !text.isEmpty else {
             filterTastes = []
+            presenter.initialAllTastes(allTastes, with: sortedSelectedTastes)
             return
         }
         let lcText = text.lowercased()
         filterTastes = allTastes
             .filter { $0.taste.lowercased().contains(lcText) }
-        presenter.initialAllTastes(filterTastes, with: sortedSelectedTastes())
+        presenter.initialAllTastes(filterTastes, with: sortedSelectedTastes)
     }
     
     func endSearch() {
         filterTastes = []
         presenter.initialAllTastes(allTastes,
-                                   with: sortedSelectedTastes())
+                                   with: sortedSelectedTastes)
     }
 }

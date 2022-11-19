@@ -28,6 +28,7 @@ class TasteCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.font = tasteFont
         label.lineBreakMode = .byWordWrapping
+        label.textColor = textLabelColor
         return label
     }()
     
@@ -44,7 +45,7 @@ class TasteCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Setups
     private func setup() {
-        backgroundColor = .green
+        backgroundColor = Self.cellBackgroundColor
         addSubview(tasteLabel)
         tasteLabel.snp.makeConstraints { make in
             make.edges.equalToSuperview().inset(Self.paddingLabel)
@@ -56,5 +57,8 @@ class TasteCollectionViewCell: UICollectionViewCell {
 extension TasteCollectionViewCell {
     static let tasteFont: UIFont = UIFont.appFont(size: 16, weight: .medium)
     static let paddingLabel: UIEdgeInsets = UIEdgeInsets(horizontal: 8, vertical: 4)
-    static let cornerRadiusCell: CGFloat = 12
+    static private let cornerRadiusCell: CGFloat = 12
+    
+    static private let cellBackgroundColor: UIColor = .systemGreen
+    static private let textLabelColor: UIColor = .black
 }

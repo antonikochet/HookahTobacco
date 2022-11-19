@@ -24,6 +24,7 @@ class AddTobaccoPresenter {
 extension AddTobaccoPresenter: AddTobaccoInteractorOutputProtocol {
     func receivedSuccessAddition() {
         view.hideLoading()
+        tasteViewModels = []
         view.showSuccessViewAlert(true)
     }
     
@@ -33,9 +34,9 @@ extension AddTobaccoPresenter: AddTobaccoInteractorOutputProtocol {
         router.dismissView(with: changedData)
     }
     
-    func receivedError(with code: Int, and message: String) {
+    func receivedError(with message: String) {
         view.hideLoading()
-        view.showAlertError(with: "Code - \(code). \(message)")
+        view.showAlertError(with: message)
     }
     
     func showNameManufacturersForSelect(_ names: [String]) {

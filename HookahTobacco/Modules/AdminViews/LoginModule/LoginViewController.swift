@@ -59,6 +59,7 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         title = "Log in"
         view.backgroundColor = .white
+        overrideUserInterfaceStyle = .light
         setupSubviews()
     }
     

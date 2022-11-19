@@ -33,13 +33,11 @@ class AddTextView: UIView {
     
     private let label: UILabel = {
         let label = UILabel()
-        label.textColor = .black
         return label
     }()
     
     private let textView: UITextView = {
         let text = UITextView()
-        text.textColor = .black
         text.backgroundColor = UIColor(white: 0.95, alpha: 0.8)
         text.font = UIFont.appFont(size: 17, weight: .regular)
         return text

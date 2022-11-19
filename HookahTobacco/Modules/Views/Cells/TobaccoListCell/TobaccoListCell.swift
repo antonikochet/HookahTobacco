@@ -40,7 +40,6 @@ class TobaccoListCell: UITableViewCell {
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.appFont(size: 20, weight: .bold)
-        label.textColor = .black
         label.numberOfLines = 2
         return label
     }()
@@ -48,7 +47,6 @@ class TobaccoListCell: UITableViewCell {
     private let tastyLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.appFont(size: 16, weight: .medium)
-        label.textColor = .black
         label.numberOfLines = 0
         return label
     }()
@@ -56,7 +54,6 @@ class TobaccoListCell: UITableViewCell {
     private let manufacturerLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.appFont(size: 20, weight: .bold)
-        label.textColor = .black
         label.textAlignment = .right
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.8

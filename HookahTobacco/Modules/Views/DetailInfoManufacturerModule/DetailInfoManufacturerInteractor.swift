@@ -17,7 +17,6 @@ protocol DetailInfoManufacturerInteractorInputProtocol: AnyObject {
 protocol DetailInfoManufacturerInteractorOutputProtocol: AnyObject {
     func initialDataForPresentation(_ manufacturer: Manufacturer)
     func receivedTobacco(with tobaccos: [DetailInfoManufacturerEntity.Tobacco])
-    func receivedError(with code: Int, and message: String)
     func receivedError(with message: String)
     func receivedUpdate(for tobacco: DetailInfoManufacturerEntity.Tobacco, at index: Int)
 }
@@ -66,8 +65,7 @@ class DetailInfoManufacturerInteractor {
                     self.presenter.receivedTobacco(with: pTobaccos)
                     self.receiveImageTobaccos(tobaccos)
                 case .failure(let error):
-                    let err = error as NSError
-                    self.presenter.receivedError(with: err.code, and: err.localizedDescription)
+                    self.presenter.receivedError(with: error.localizedDescription)
             }
         }
     }
@@ -98,8 +96,7 @@ class DetailInfoManufacturerInteractor {
                         self.tobaccos[index] = mTobacco
                         self.presenter.receivedUpdate(for: self.createTobaccoForPresenter(mTobacco), at: index)
                     case .failure(let error):
-                        let err = error as NSError
-                        self.presenter.receivedError(with: err.code, and: err.localizedDescription)
+                        self.presenter.receivedError(with: error.localizedDescription)
                 }
             }
         }

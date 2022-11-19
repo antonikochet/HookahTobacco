@@ -23,7 +23,6 @@ class AddTextFieldView: UIView {
     //MARK: private properties UI
     private let label: UILabel = {
         let label = UILabel()
-        label.textColor = .black
         return label
     }()
     
@@ -52,7 +51,10 @@ class AddTextFieldView: UIView {
     //MARK: public methods
     func setupView(textLabel: String, placeholder: String, delegate: UITextFieldDelegate? = nil) {
         label.text = textLabel
-        textField.placeholder = placeholder
+        textField.attributedPlaceholder = NSAttributedString(
+            string: placeholder,
+            attributes: [.foregroundColor : UIColor(white: 0.15, alpha: 0.6)]
+        )
         textField.delegate = delegate
     }
     

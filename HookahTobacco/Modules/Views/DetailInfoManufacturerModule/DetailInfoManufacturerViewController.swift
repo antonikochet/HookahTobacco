@@ -163,7 +163,6 @@ extension DetailInfoManufacturerViewController: UITableViewDelegate {
         if section == 1,
            let header = view as? UITableViewHeaderFooterView {
             header.textLabel!.font = UIFont.systemFont(ofSize: 24.0, weight: .medium)
-            header.textLabel!.textColor = .black
             header.textLabel!.numberOfLines = 1
         }
     }

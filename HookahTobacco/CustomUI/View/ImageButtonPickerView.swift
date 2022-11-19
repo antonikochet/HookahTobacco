@@ -33,7 +33,6 @@ class ImageButtonPickerView: UIView {
         button.setImage(UIImage(systemName: "xmark")?
                                 .withRenderingMode(.alwaysTemplate),
                         for: .normal)
-        button.tintColor = .black
         button.backgroundColor = .systemGray2
         button.alpha = 0.6
         return button

@@ -32,9 +32,9 @@ extension AddManufacturerPresenter: AddManufacturerInteractorOutputProtocol {
         }
     }
     
-    func receivedError(with code: Int, and message: String) {
+    func receivedError(with message: String) {
         view.hideLoading()
-        view.showAlertError(with: "Code - \(code). \(message)")
+        view.showAlertError(with: message)
     }
     
     func initialDataForPresentation(_ manufacturer: AddManufacturerEntity.Manufacturer, isEditing: Bool) {

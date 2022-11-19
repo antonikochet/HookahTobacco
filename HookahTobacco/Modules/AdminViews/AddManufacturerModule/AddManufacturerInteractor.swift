@@ -18,7 +18,7 @@ protocol AddManufacturerInteractorInputProtocol {
 protocol AddManufacturerInteractorOutputProtocol: AnyObject {
     func receivedSuccessAddition()
     func receivedSuccessEditing(with changedData: Manufacturer)
-    func receivedError(with code: Int, and message: String)
+    func receivedError(with message: String)
     func initialDataForPresentation(_ manufacturer: AddManufacturerEntity.Manufacturer, isEditing: Bool)
     func initialImage(_ image: Data?)
 }
@@ -106,8 +106,7 @@ class AddManufacturerInteractor {
                     self.editingImage = image
                     self.presenter.initialImage(image)
                 case .failure(let error):
-                    let err = error as NSError
-                    self.presenter.receivedError(with: err.code, and: err.localizedDescription)
+                    self.presenter.receivedError(with: error.localizedDescription)
             }
         }
     }
@@ -189,8 +188,8 @@ extension AddManufacturerInteractor: AddManufacturerInteractorInputProtocol {
                 for error in self.receivedErrors {
                     print(error)
                 }
-                let error = self.receivedErrors.last! as NSError
-                self.presenter.receivedError(with: error.code, and: error.localizedDescription)
+                let error = self.receivedErrors.last!
+                self.presenter.receivedError(with: error.localizedDescription)
                 self.receivedErrors.removeAll()
             }
         }

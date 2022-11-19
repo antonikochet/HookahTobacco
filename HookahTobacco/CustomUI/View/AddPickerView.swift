@@ -29,7 +29,6 @@ class AddPickerView: UIView {
     //MARK: private properties
     private let label: UILabel = {
         let label = UILabel()
-        label.textColor = .black
         return label
     }()
     
@@ -39,7 +38,6 @@ class AddPickerView: UIView {
     
     private let textField: UITextField = {
         let textField = UITextField()
-        textField.textColor = .black
         textField.borderStyle = .roundedRect
         textField.textAlignment = .center
         textField.backgroundColor = UIColor(white: 0.95, alpha: 0.8)

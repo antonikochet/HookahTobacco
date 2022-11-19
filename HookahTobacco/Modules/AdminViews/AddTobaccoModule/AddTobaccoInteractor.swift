@@ -21,7 +21,7 @@ protocol AddTobaccoInteractorInputProtocol: AnyObject {
 protocol AddTobaccoInteractorOutputProtocol: AnyObject {
     func receivedSuccessAddition()
     func receivedSuccessEditing(with changedData: Tobacco)
-    func receivedError(with code: Int, and message: String)
+    func receivedError(with message: String)
     func showNameManufacturersForSelect(_ names: [String])
     func initialDataForPresentation(_ tobacco: AddTobaccoEntity.Tobacco, isEditing: Bool)
     func initialSelectedManufacturer(_ name: String?)
@@ -75,8 +75,7 @@ class AddTobaccoInteractor {
                     self.manufacturers = data
                     self.initialSelectedManufacturer()
                 case .failure(let error):
-                   let err = error as NSError
-                    self.presenter.receivedError(with: err.code, and: err.localizedDescription)
+                    self.presenter.receivedError(with: error.localizedDescription)
             }
         })
     }
@@ -89,7 +88,7 @@ class AddTobaccoInteractor {
                     self.allTastes = Dictionary(uniqueKeysWithValues: data.map( { ($0.id, $0) }))
                     self.initialTastes()
                 case .failure(let error):
-                    self.presenter.receivedError(with: 0, and: error.localizedDescription)
+                    self.presenter.receivedError(with: error.localizedDescription)
             }
         }
     }
@@ -103,8 +102,7 @@ class AddTobaccoInteractor {
                     mutableTobacco.uid = uid
                     self.addImage(tobacco: mutableTobacco, by: imageFileURL)
                 case .failure(let error):
-                    let err = error as NSError
-                    self.presenter.receivedError(with: err.code, and: err.localizedDescription)
+                    self.presenter.receivedError(with: error.localizedDescription)
             }
         }
     }
@@ -116,8 +114,7 @@ class AddTobaccoInteractor {
                                                   type: .main)
         setImageManager.addImage(by: fileURL, for: named, completion: { error in
             if let error = error {
-                let err = error as NSError
-                self.presenter.receivedError(with: err.code, and: err.localizedDescription)
+                self.presenter.receivedError(with: error.localizedDescription)
             } else {
                 self.presenter.receivedSuccessAddition()
                 self.successAdded()
@@ -195,6 +192,7 @@ class AddTobaccoInteractor {
     private func successAdded() {
         selectedManufacturer = nil
         tobacco = nil
+        tastes.removeAll()
         mainImageFileURL = nil
         editingMainImage = nil
     }
@@ -204,7 +202,7 @@ extension AddTobaccoInteractor: AddTobaccoInteractorInputProtocol {
     func sendNewTobaccoToServer(_ data: AddTobaccoEntity.Tobacco) {
         guard let selectManufacturer = selectedManufacturer,
               let uid = selectManufacturer.uid else {
-            presenter.receivedError(with: -1, and: "Не выбран производитель для табака!")
+            presenter.receivedError(with: "Не выбран производитель для табака!")
             return
         }
         var tobacco = Tobacco(uid: tobacco?.uid,
@@ -226,13 +224,14 @@ extension AddTobaccoInteractor: AddTobaccoInteractorInputProtocol {
                 if self.receivedErrorAtEditing.isEmpty {
                     self.presenter.receivedSuccessEditing(with: tobacco)
                 } else {
-                    let error = self.receivedErrorAtEditing.first! as NSError
-                    self.presenter.receivedError(with: error.code, and: error.localizedDescription)
+                    // TODO: исправить данный вывод ошибок
+                    let error = self.receivedErrorAtEditing.first!
+                    self.presenter.receivedError(with: error.localizedDescription)
                 }
             }
         } else {
             guard let imageFileURL = mainImageFileURL else {
-                presenter.receivedError(with: -1, and: "Изображение не было выбрано для табака!")
+                presenter.receivedError(with: "Изображение не было выбрано для табака!")
                 return
             }
             addTobacco(tobacco, by: imageFileURL)

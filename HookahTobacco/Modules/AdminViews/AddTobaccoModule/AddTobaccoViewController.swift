@@ -59,6 +59,7 @@ final class AddTobaccoViewController: HTScrollContentViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        overrideUserInterfaceStyle = .light
         
         setupSubviews()
         presenter.viewDidLoad()
@@ -187,6 +188,7 @@ extension AddTobaccoViewController: AddTobaccoViewInputProtocol {
             changeManufacturerPickerView(by: 0)
             nameView.becomeFirstResponderTextField()
             imagePickerView.image = nil
+            tasteCollectionView.reloadData()
         }
     }
     

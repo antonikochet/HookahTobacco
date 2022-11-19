@@ -47,7 +47,7 @@ class EmptyCell: UITableViewCell {
     private let iconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = .black
+        imageView.tintColor = .label
         imageView.image = UIImage(systemName: "magnifyingglass.circle")?.withRenderingMode(.alwaysTemplate)
         return imageView
     }()

@@ -35,11 +35,11 @@ class AddTastesViewController: UIViewController {
     var presenter: AddTastesViewOutputProtocol!
 
     // MARK: - UI properties
-    private let searchViewController = UISearchController(searchResultsController: nil)
+    private let searchBar = UISearchBar()
     private let tasteCollectionView = TasteCollectionView()
     
     private let tableView: UITableView = {
-        let tableView = UITableView()
+        let tableView = UITableView(frame: .zero, style: .plain)
         tableView.register(AddTastesTableViewCell.self,
                            forCellReuseIdentifier: AddTastesTableViewCell.identifier)
         return tableView
@@ -53,9 +53,8 @@ class AddTastesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Добавление вкусов"
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         
-        setupSearchController()
         setupNavigationItem()
         setupSubviews()
         presenter.viewDidLoad()
@@ -64,16 +63,7 @@ class AddTastesViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         addButton.createCornerRadius()
     }
-    // MARK: - Setups
-    private func setupSearchController() {
-        definesPresentationContext = true
-        searchViewController.searchResultsUpdater = self
-        searchViewController.hidesNavigationBarDuringPresentation = false
-        searchViewController.searchBar.sizeToFit()
-        tableView.tableHeaderView = searchViewController.searchBar
-        searchViewController.searchBar.delegate = self
-    }
-    
+    // MARK: - Setups    
     private func setupSubviews() {
         view.addSubview(tasteCollectionView)
         tasteCollectionView.snp.makeConstraints { make in
@@ -82,9 +72,17 @@ class AddTastesViewController: UIViewController {
         }
         tasteCollectionView.tasteDelegate = self
         
+        view.addSubview(searchBar)
+        searchBar.delegate = self
+        searchBar.placeholder = "Фильтр вкусов"
+        searchBar.snp.makeConstraints { make in
+            make.top.equalTo(tasteCollectionView.snp.bottom).offset(8)
+            make.leading.trailing.equalToSuperview()
+        }
+        
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(tasteCollectionView.snp.bottom).offset(spacingBetweenViews)
+            make.top.equalTo(searchBar.snp.bottom).offset(spacingBetweenViews)
             make.leading.trailing.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
@@ -149,7 +147,29 @@ extension AddTastesViewController: UISearchResultsUpdating {
 // MARK: - UISearchBarDelegate implementation
 extension AddTastesViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(false, animated: true)
+        searchBar.text = ""
+        view.endEditing(true)
         presenter.didEndSearch()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let text = searchBar.text else { return }
+        view.endEditing(true)
+        presenter.didStartSearch(with: text)
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(true, animated: true)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        presenter.didStartSearch(with: searchText)
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(false, animated: true)
+        view.endEditing(true)
     }
 }
 

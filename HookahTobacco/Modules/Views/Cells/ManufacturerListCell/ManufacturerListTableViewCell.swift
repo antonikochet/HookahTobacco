@@ -17,7 +17,6 @@ class ManufacturerListTableViewCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont.appFont(size: 24, weight: .bold)
         label.textAlignment = .left
-        label.textColor = .black
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.6
         label.numberOfLines = 1
@@ -28,7 +27,6 @@ class ManufacturerListTableViewCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont.appFont(size: 18, weight: .medium)
         label.textAlignment = .left
-        label.textColor = .black
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.6
         label.numberOfLines = 1
@@ -37,6 +35,7 @@ class ManufacturerListTableViewCell: UITableViewCell {
     
     private let imageManufacturerView: UIImageView = {
         let imageView = UIImageView()
+        imageView.tintColor = .label
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()

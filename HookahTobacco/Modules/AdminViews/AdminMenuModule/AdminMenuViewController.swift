@@ -35,7 +35,7 @@ class AdminMenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Меню"
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         
         setupSubviews()
         setupRightButtonNavigationBar()

@@ -18,7 +18,6 @@ protocol TobaccoListInteractorInputProtocol: AnyObject {
 
 protocol TobaccoListInteractorOutputProtocol: AnyObject {
     func receivedSuccess(_ data: [TobaccoListEntity.Tobacco])
-    func receivedError(with code: Int, and message: String)
     func receivedError(with message: String)
     func receivedUpdate(for data: TobaccoListEntity.Tobacco, at index: Int)
     func receivedDataForShowDetail(_ tobacco: Tobacco)

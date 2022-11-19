@@ -53,6 +53,7 @@ final class AddManufacturerViewController: HTScrollContentViewController {
         super.viewDidLoad()
     
         view.backgroundColor = .white
+        overrideUserInterfaceStyle = .light
         presenter.viewDidLoad()
         setupSubviews()
     }
@@ -173,6 +174,7 @@ extension AddManufacturerViewController: AddManufacturerViewInputProtocol {
         nameTextFieldView.text = viewModel.name
         countryTextFieldView.text = viewModel.country
         descriptionView.text = viewModel.description
+        linkTextFieldView.text = viewModel.link
         addedButton.setTitle(viewModel.textButton, for: .normal)
     }
     

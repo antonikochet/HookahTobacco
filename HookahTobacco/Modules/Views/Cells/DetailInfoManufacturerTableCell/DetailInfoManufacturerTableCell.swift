@@ -36,6 +36,8 @@ final class DetailInfoManufacturerTableCell: UITableViewCell {
     //MARK: - Private properties
     private let iconImage: UIImageView = {
         let imageView = UIImageView()
+        imageView.backgroundColor = .label
+        
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
