@@ -33,9 +33,9 @@ protocol AddTobaccoInteractorOutputProtocol: AnyObject {
 class AddTobaccoInteractor {
     weak var presenter: AddTobaccoInteractorOutputProtocol!
     
-    private var getDataManager: GetDataBaseNetworkingProtocol
-    private var setDataManager: SetDataBaseNetworkingProtocol
-    private var setImageManager: SetImageDataBaseProtocol
+    private var getDataManager: GetDataNetworkingServiceProtocol
+    private var setDataManager: SetDataNetworkingServiceProtocol
+    private var setImageManager: SetImageNetworkingServiceProtocol
     
     private var manufacturers: [Manufacturer]? {
         didSet {
@@ -55,9 +55,9 @@ class AddTobaccoInteractor {
     private var receivedErrorAtEditing: [Error] = []
     
     init(_ tobacco: Tobacco? = nil,
-         getDataManager: GetDataBaseNetworkingProtocol,
-         setDataManager: SetDataBaseNetworkingProtocol,
-         setImageManager: SetImageDataBaseProtocol) {
+         getDataManager: GetDataNetworkingServiceProtocol,
+         setDataManager: SetDataNetworkingServiceProtocol,
+         setImageManager: SetImageNetworkingServiceProtocol) {
         isEditing = tobacco != nil
         self.tobacco = tobacco
         self.getDataManager = getDataManager

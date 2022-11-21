@@ -29,8 +29,8 @@ class TobaccoListInteractor {
     weak var presenter: TobaccoListInteractorOutputProtocol!
     
     // MARK: - Dependency
-    private var getDataManager: GetDataBaseNetworkingProtocol
-    private var getImageManager: GetImageDataBaseProtocol
+    private var getDataManager: GetDataNetworkingServiceProtocol
+    private var getImageManager: GetImageNetworkingServiceProtocol
     
     // MARK: - Private properties
     private var tobaccos: [Tobacco] = []
@@ -39,8 +39,8 @@ class TobaccoListInteractor {
     
     // MARK: - Initializers
     init(_ isAdminModel: Bool,
-         getDataManager: GetDataBaseNetworkingProtocol,
-         getImageManager: GetImageDataBaseProtocol) {
+         getDataManager: GetDataNetworkingServiceProtocol,
+         getImageManager: GetImageNetworkingServiceProtocol) {
         self.isAdminMode = isAdminModel
         self.getDataManager = getDataManager
         self.getImageManager = getImageManager

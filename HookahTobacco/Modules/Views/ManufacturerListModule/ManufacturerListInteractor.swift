@@ -29,8 +29,8 @@ class ManufacturerListInteractor {
     weak var presenter: ManufacturerListInteractorOutputProtocol!
     
     // MARK: - Dependency
-    private var getDataManager: GetDataBaseNetworkingProtocol
-    private var getImageManager: GetImageDataBaseProtocol
+    private var getDataManager: GetDataNetworkingServiceProtocol
+    private var getImageManager: GetImageNetworkingServiceProtocol
     
     // MARK: - Private properties
     private var manufacturers: [Manufacturer] = []
@@ -38,8 +38,8 @@ class ManufacturerListInteractor {
     
     // MARK: - Initializers
     init(_ isAdminMode: Bool,
-         getDataManager: GetDataBaseNetworkingProtocol,
-         getImageManager: GetImageDataBaseProtocol) {
+         getDataManager: GetDataNetworkingServiceProtocol,
+         getImageManager: GetImageNetworkingServiceProtocol) {
         self.isAdminMode = isAdminMode
         self.getDataManager = getDataManager
         self.getImageManager = getImageManager
@@ -67,7 +67,7 @@ class ManufacturerListInteractor {
     private func receiveImage(for manufacturer: Manufacturer, at index: Int) {
         let imageName = manufacturer.nameImage
         guard !imageName.isEmpty else { return }
-        getImageManager.getImage(for: .manufacturerImage(name: imageName)) { [weak self] result in
+        getImageManager.getImage(for: NamedFireStorage.manufacturerImage(name: imageName)) { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 switch result {

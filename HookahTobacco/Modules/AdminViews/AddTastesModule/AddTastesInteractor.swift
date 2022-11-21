@@ -37,7 +37,7 @@ class AddTastesInteractor {
     weak var presenter: AddTastesInteractorOutputProtocol!
 
     // MARK: - Dependency
-    private let getDataManager: GetDataBaseNetworkingProtocol
+    private let getDataManager: GetDataNetworkingServiceProtocol
 
     // MARK: - Private properties
     private var selectedTastes: SelectedTastes {
@@ -51,7 +51,7 @@ class AddTastesInteractor {
 
     // MARK: - Initializers
     init(selectedTastes: SelectedTastes,
-         getDataManager: GetDataBaseNetworkingProtocol) {
+         getDataManager: GetDataNetworkingServiceProtocol) {
         self.selectedTastes = selectedTastes
         self.getDataManager = getDataManager
         self.sortedSelectedTastes = Array(selectedTastes.values.sorted(by: { $0.id < $1.id }))

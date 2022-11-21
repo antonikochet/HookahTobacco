@@ -26,8 +26,8 @@ class DetailInfoManufacturerInteractor {
     weak var presenter: DetailInfoManufacturerInteractorOutputProtocol!
     
     // MARK: - Dependency
-    private var getDataManager: GetDataBaseNetworkingProtocol
-    private var getImageManager: GetImageDataBaseProtocol
+    private var getDataManager: GetDataNetworkingServiceProtocol
+    private var getImageManager: GetImageNetworkingServiceProtocol
     
     // MARK: - Private properties
     private var manufacturer: Manufacturer
@@ -36,8 +36,8 @@ class DetailInfoManufacturerInteractor {
     
     // MARK: - Initializers
     init(_ manufacturer: Manufacturer,
-         getDataManager: GetDataBaseNetworkingProtocol,
-         getImageManager: GetImageDataBaseProtocol) {
+         getDataManager: GetDataNetworkingServiceProtocol,
+         getImageManager: GetImageNetworkingServiceProtocol) {
         self.manufacturer = manufacturer
         self.getDataManager = getDataManager
         self.getImageManager = getImageManager

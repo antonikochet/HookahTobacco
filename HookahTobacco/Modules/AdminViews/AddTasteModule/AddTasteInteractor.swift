@@ -25,7 +25,7 @@ class AddTasteInteractor {
     weak var presenter: AddTasteInteractorOutputProtocol!
 
     // MARK: - Dependency
-    private let setDataManager: SetDataBaseNetworkingProtocol
+    private let setDataManager: SetDataNetworkingServiceProtocol
 
     // MARK: - Private properties
     private var taste: Taste?
@@ -38,7 +38,7 @@ class AddTasteInteractor {
     // MARK: - Initializers
     init(_ taste: Taste?,
          allIdsTaste: Set<Int>,
-         setDataManager: SetDataBaseNetworkingProtocol) {
+         setDataManager: SetDataNetworkingServiceProtocol) {
         self.isEditing = taste != nil
         self.taste = taste
         self.allIdsTaste = allIdsTaste

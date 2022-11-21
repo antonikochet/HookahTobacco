@@ -20,10 +20,10 @@ class AddManufacturerAssembly: Assembly {
         
         container.register(AddManufacturerInteractorInputProtocol.self) { (r, manufacturer: Manufacturer?) in
             //here resolve dependency injection
-            let setNetworkManager = r.resolve(SetDataBaseNetworkingProtocol.self)!
-            let setImageManager = r.resolve(SetImageDataBaseProtocol.self)!
+            let setNetworkManager = r.resolve(SetDataNetworkingServiceProtocol.self)!
+            let setImageManager = r.resolve(SetImageNetworkingServiceProtocol.self)!
             if let manufacturer = manufacturer {
-                let getImageManager = r.resolve(GetImageDataBaseProtocol.self)!
+                let getImageManager = r.resolve(GetImageNetworkingServiceProtocol.self)!
                 return AddManufacturerInteractor(manufacturer,
                                                  setNetworkManager: setNetworkManager,
                                                  setImageManager: setImageManager,

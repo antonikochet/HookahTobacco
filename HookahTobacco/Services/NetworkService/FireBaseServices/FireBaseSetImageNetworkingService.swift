@@ -1,5 +1,5 @@
 //
-//  FileStorageSetManager.swift
+//  FireBaseSetImageNetworkingService.swift
 //  HookahTobacco
 //
 //  Created by антон кочетков on 20.10.2022.
@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseStorage
 
-class FireStorageSetImageManager: SetImageDataBaseProtocol {
+class FireBaseSetImageNetworkingService: SetImageNetworkingServiceProtocol {
     private let storage = Storage.storage()
     private var handlerErrors: NetworkHandlerErrors
     
@@ -16,7 +16,7 @@ class FireStorageSetImageManager: SetImageDataBaseProtocol {
         self.handlerErrors = handlerErrors
     }
     
-    func addImage(by fileURL: URL, for image: NamedFireStorage, completion: @escaping Completion) {
+    func addImage(by fileURL: URL, for image: ImageNetworkingDataProtocol, completion: @escaping Completion) {
         let path = image.path
         let storageRef = storage.reference()
         let imageRef = storageRef.child(path)
@@ -31,7 +31,7 @@ class FireStorageSetImageManager: SetImageDataBaseProtocol {
 //        fatalError("not implemented func setImage(_: Data,...)")
 //    }
     
-    func setImage(_ urlFile: URL, for type: NamedFireStorage, completion: @escaping Completion) {
+    func setImage(_ urlFile: URL, for type: ImageNetworkingDataProtocol, completion: @escaping Completion) {
         let path = type.path
         let storageRef = storage.reference()
         let imageRef = storageRef.child(path)
@@ -41,7 +41,7 @@ class FireStorageSetImageManager: SetImageDataBaseProtocol {
         }
     }
     
-    func setImage(from oldImage: NamedFireStorage, to newURL: URL, for newImage: NamedFireStorage, completion: @escaping Completion) {
+    func setImage(from oldImage: ImageNetworkingDataProtocol, to newURL: URL, for newImage: ImageNetworkingDataProtocol, completion: @escaping Completion) {
         var deleteError: NetworkError? = nil
         let oldPath = oldImage.path
         let oldRef = storage.reference(withPath: oldPath)
@@ -59,7 +59,7 @@ class FireStorageSetImageManager: SetImageDataBaseProtocol {
         }
     }
     
-    func setImageName(from oldImage: NamedFireStorage, to newImage: NamedFireStorage, completion: @escaping Completion) {
+    func setImageName(from oldImage: ImageNetworkingDataProtocol, to newImage: ImageNetworkingDataProtocol, completion: @escaping Completion) {
         let oldPath = oldImage.path
         let oldRef = storage.reference(withPath: oldPath)
         

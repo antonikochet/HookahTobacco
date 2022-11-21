@@ -22,8 +22,8 @@ class DetailInfoManufacturerAssembly: Assembly {
         container.register(DetailInfoManufacturerInteractorInputProtocol.self) { (r,
                                                                                   manufacturer: Manufacturer) in
             //here resolve dependency injection
-            let getDataManager = r.resolve(GetDataBaseNetworkingProtocol.self)!
-            let getImageManager = r.resolve(GetImageDataBaseProtocol.self)!
+            let getDataManager = r.resolve(GetDataNetworkingServiceProtocol.self)!
+            let getImageManager = r.resolve(GetImageNetworkingServiceProtocol.self)!
             
             return DetailInfoManufacturerInteractor(manufacturer,
                                                     getDataManager: getDataManager,

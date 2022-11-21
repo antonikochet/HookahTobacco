@@ -27,9 +27,9 @@ class AddManufacturerInteractor {
     
     weak var presenter: AddManufacturerInteractorOutputProtocol!
     
-    private var setNetworkManager: SetDataBaseNetworkingProtocol
-    private var setImageManager: SetImageDataBaseProtocol
-    private var getImageManager: GetImageDataBaseProtocol?
+    private var setNetworkManager: SetDataNetworkingServiceProtocol
+    private var setImageManager: SetImageNetworkingServiceProtocol
+    private var getImageManager: GetImageNetworkingServiceProtocol?
     
     private var imageFileURL: URL?
     private var manufacturer: Manufacturer?
@@ -40,8 +40,8 @@ class AddManufacturerInteractor {
     private var receivedErrors: [Error] = []
     
     // init for add manufacturer
-    init(setNetworkManager: SetDataBaseNetworkingProtocol,
-         setImageManager: SetImageDataBaseProtocol) {
+    init(setNetworkManager: SetDataNetworkingServiceProtocol,
+         setImageManager: SetImageNetworkingServiceProtocol) {
         self.setNetworkManager = setNetworkManager
         self.setImageManager = setImageManager
         self.isEditing = false
@@ -49,9 +49,9 @@ class AddManufacturerInteractor {
     
     // init for edit manufacturer
     init(_ manufacturer: Manufacturer,
-         setNetworkManager: SetDataBaseNetworkingProtocol,
-         setImageManager: SetImageDataBaseProtocol,
-         getImageManager: GetImageDataBaseProtocol) {
+         setNetworkManager: SetDataNetworkingServiceProtocol,
+         setImageManager: SetImageNetworkingServiceProtocol,
+         getImageManager: GetImageNetworkingServiceProtocol) {
         self.manufacturer = manufacturer
         self.setNetworkManager = setNetworkManager
         self.setImageManager = setImageManager
@@ -62,7 +62,7 @@ class AddManufacturerInteractor {
     //MARK: methods for adding manufacturer data
     private func addImageToServer(with fileURL: URL, _ nameFile: String) {
         dispatchGroup.enter()
-        setImageManager.addImage(by: fileURL, for: .manufacturerImage(name: nameFile)) { [weak self] error in
+        setImageManager.addImage(by: fileURL, for: NamedFireStorage.manufacturerImage(name: nameFile)) { [weak self] error in
             guard let self = self else { return }
             if let error = error { self.receivedErrors.append(error) }
             self.dispatchGroup.leave()
@@ -113,8 +113,8 @@ class AddManufacturerInteractor {
     
     private func setNameImage(oldName: String, newName: String) {
         dispatchGroup.enter()
-        setImageManager.setImageName(from: .manufacturerImage(name: oldName),
-                                     to: .manufacturerImage(name: newName)) { [weak self] error in
+        setImageManager.setImageName(from: NamedFireStorage.manufacturerImage(name: oldName),
+                                     to: NamedFireStorage.manufacturerImage(name: newName)) { [weak self] error in
             guard let self = self else { return }
             if let error = error { self.receivedErrors.append(error) }
             self.dispatchGroup.leave()
@@ -124,9 +124,9 @@ class AddManufacturerInteractor {
     private func setImage(with newURL: URL, from oldName: String, to newName: String) {
         dispatchGroup.enter()
         editingImage = try? Data(contentsOf: newURL)
-        setImageManager.setImage(from: .manufacturerImage(name: oldName),
+        setImageManager.setImage(from: NamedFireStorage.manufacturerImage(name: oldName),
                                  to: newURL,
-                                 for: .manufacturerImage(name: newName)) { [weak self] error in
+                                 for: NamedFireStorage.manufacturerImage(name: newName)) { [weak self] error in
             guard let self = self else { return }
             if let error = error  { self.receivedErrors.append(error) }
             self.dispatchGroup.leave()

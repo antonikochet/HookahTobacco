@@ -10,7 +10,7 @@ import UIKit
 extension AppRouter {
     func registerServices() {
         apply(assemblies: [
-            ServiceAssembly()
+            FireBaseNetworkingServicesAssembly()
         ])
     }
     

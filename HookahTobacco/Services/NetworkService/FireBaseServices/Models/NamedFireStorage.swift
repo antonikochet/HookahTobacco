@@ -11,7 +11,7 @@ enum TobaccoImageType: String {
     case main
 }
 
-enum NamedFireStorage {
+enum NamedFireStorage: ImageNetworkingDataProtocol {
     case manufacturerImage(name: String)
     case tobaccoImage(manufacturer: String, uid: String, type: TobaccoImageType)
     

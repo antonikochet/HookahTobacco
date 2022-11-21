@@ -1,5 +1,5 @@
 //
-//  FireStorageGetImageManager.swift
+//  FireBaseGetImageNetworingService.swift
 //  HookahTobacco
 //
 //  Created by антон кочетков on 18.10.2022.
@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseStorage
 
-class FireStorageGetImageManager: GetImageDataBaseProtocol {
+class FireBaseGetImageNetworingService: GetImageNetworkingServiceProtocol {
     private let storage = Storage.storage()
     private var handlerErrors: NetworkHandlerErrors
     
@@ -16,7 +16,7 @@ class FireStorageGetImageManager: GetImageDataBaseProtocol {
         self.handlerErrors = handlerErrors
     }
     
-    func getImage(for type: NamedFireStorage,
+    func getImage(for type: ImageNetworkingDataProtocol,
                   completion: @escaping (Result<Data, NetworkError>) -> Void) {
         let storageRef = storage.reference()
         let path = type.path

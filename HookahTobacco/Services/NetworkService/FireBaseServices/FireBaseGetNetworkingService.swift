@@ -1,5 +1,5 @@
 //
-//  FireBaseGetNetworkManager.swift
+//  FireBaseGetNetworkingService.swift
 //  HookahTobacco
 //
 //  Created by антон кочетков on 29.09.2022.
@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseFirestore
 
-class FireBaseGetNetworkManager: GetDataBaseNetworkingProtocol {
+class FireBaseGetNetworkingService: GetDataNetworkingServiceProtocol {
     private var db = Firestore.firestore()
     private var handlerErrors: NetworkHandlerErrors
     

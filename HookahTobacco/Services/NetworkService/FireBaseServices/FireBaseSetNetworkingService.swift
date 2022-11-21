@@ -1,5 +1,5 @@
 //
-//  FireBaseSettingNetworkManager.swift
+//  FireBaseSetNetworkingService.swift
 //  HookahTobacco
 //
 //  Created by антон кочетков on 16.09.2022.
@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseFirestore
 
-class FireBaseSetNetworkManager: SetDataBaseNetworkingProtocol {
+class FireBaseSetNetworkingService: SetDataNetworkingServiceProtocol {
     private var db = Firestore.firestore()
     private var handlerErrors: NetworkHandlerErrors
     
@@ -16,7 +16,7 @@ class FireBaseSetNetworkManager: SetDataBaseNetworkingProtocol {
         self.handlerErrors = handlerErrors
     }
     
-    func addManufacturer(_ manufacturer: Manufacturer, completion: setDBNetworingCompletion?) {
+    func addManufacturer(_ manufacturer: Manufacturer, completion: SetDataNetworingCompletion?) {
         let data = manufacturer.formatterToDataFireStore()
         db.collection(NamedFireStore.Collections.manufacturers).addDocument(data: data) { [weak self] error in
             guard let self = self else { return }
@@ -25,7 +25,7 @@ class FireBaseSetNetworkManager: SetDataBaseNetworkingProtocol {
         }
     }
     
-    func setManufacturer(_ newManufacturer: Manufacturer, completion: setDBNetworingCompletion?) {
+    func setManufacturer(_ newManufacturer: Manufacturer, completion: SetDataNetworingCompletion?) {
         if let uid = newManufacturer.uid {
             db.collection(NamedFireStore.Collections.manufacturers)
                 .document(uid)
@@ -49,7 +49,7 @@ class FireBaseSetNetworkManager: SetDataBaseNetworkingProtocol {
         }
     }
     
-    func setTobacco(_ newTobacco: Tobacco, completion: setDBNetworingCompletion?) {
+    func setTobacco(_ newTobacco: Tobacco, completion: SetDataNetworingCompletion?) {
         if let uid = newTobacco.uid {
             db.collection(NamedFireStore.Collections.tobaccos)
                 .document(uid)
@@ -63,7 +63,7 @@ class FireBaseSetNetworkManager: SetDataBaseNetworkingProtocol {
         
     }
     
-    func addTaste(_ taste: Taste, completion: setDBNetworingCompletion?) {
+    func addTaste(_ taste: Taste, completion: SetDataNetworingCompletion?) {
         let data = taste.formatterToDataFireStore()
         let uid = String(taste.id)
         let docRef = db.collection(NamedFireStore.Collections.tastes).document(uid)
@@ -74,7 +74,7 @@ class FireBaseSetNetworkManager: SetDataBaseNetworkingProtocol {
         }
     }
     
-    func setTaste(_ taste: Taste, completion: setDBNetworingCompletion?) {
+    func setTaste(_ taste: Taste, completion: SetDataNetworingCompletion?) {
         let data = taste.formatterToDataFireStore()
         let uid = String(taste.id)
         db.collection(NamedFireStore.Collections.tastes)

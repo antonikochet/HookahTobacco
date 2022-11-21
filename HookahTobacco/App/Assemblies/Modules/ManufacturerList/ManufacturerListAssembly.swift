@@ -20,8 +20,8 @@ class ManufacturerListAssembly: Assembly {
         
         container.register(ManufacturerListInteractorInputProtocol.self) { (r, isAdminMode: Bool) in
             //here resolve dependency injection
-            let getDataManager = r.resolve(GetDataBaseNetworkingProtocol.self)!
-            let getImageManager = r.resolve(GetImageDataBaseProtocol.self)!
+            let getDataManager = r.resolve(GetDataNetworkingServiceProtocol.self)!
+            let getImageManager = r.resolve(GetImageNetworkingServiceProtocol.self)!
             
             return ManufacturerListInteractor(isAdminMode,
                                               getDataManager: getDataManager,
