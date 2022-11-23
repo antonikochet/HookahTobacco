@@ -43,5 +43,9 @@ struct NamedFireStore {
             static let taste = "taste"
             static let type = "type"
         }
+        
+        struct System {
+            static let versionDB = "versionDB"
+        }
     }
 }

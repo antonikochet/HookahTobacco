@@ -12,6 +12,7 @@ extension AppRouter {
         apply(assemblies: [
             FireBaseNetworkingServicesAssembly(),
             RealmDataBaseServiresAssembly(),
+            UserDefaultsServiceAssembly(),
         ])
     }
     

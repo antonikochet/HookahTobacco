@@ -65,7 +65,7 @@ class FireBaseSetNetworkingService: SetDataNetworkingServiceProtocol {
     
     func addTaste(_ taste: Taste, completion: SetDataNetworingCompletion?) {
         let data = taste.formatterToDataFireStore()
-        let uid = String(taste.id)
+        let uid = String(taste.uid)
         let docRef = db.collection(NamedFireStore.Collections.tastes).document(uid)
         docRef.setData(data) { [weak self] error in
             guard let self = self else { return }
@@ -76,7 +76,7 @@ class FireBaseSetNetworkingService: SetDataNetworkingServiceProtocol {
     
     func setTaste(_ taste: Taste, completion: SetDataNetworingCompletion?) {
         let data = taste.formatterToDataFireStore()
-        let uid = String(taste.id)
+        let uid = String(taste.uid)
         db.collection(NamedFireStore.Collections.tastes)
             .document(uid)
             .setData(data,

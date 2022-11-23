@@ -9,15 +9,15 @@ import Foundation
 import FirebaseFirestore
 
 class FireBaseGetNetworkingService: GetDataNetworkingServiceProtocol {
-    private var db = Firestore.firestore()
+    private var firestore = Firestore.firestore()
     private var handlerErrors: NetworkHandlerErrors
-    
+
     init(handlerErrors: NetworkHandlerErrors) {
         self.handlerErrors = handlerErrors
     }
-    
+
     func getManufacturers(completion: @escaping (Result<[Manufacturer], NetworkError>) -> Void) {
-        db.collection(NamedFireStore.Collections.manufacturers).getDocuments { [weak self] snapshot, error in
+        firestore.collection(NamedFireStore.Collections.manufacturers).getDocuments { [weak self] snapshot, error in
             guard let self = self else { return }
             if let error = error {
                 completion(.failure(self.handlerErrors.handlerError(error)))
@@ -29,10 +29,10 @@ class FireBaseGetNetworkingService: GetDataNetworkingServiceProtocol {
             }
         }
     }
-    
+
     func getTobaccos(for manufacturer: Manufacturer, completion: @escaping (Result<[Tobacco], NetworkError>) -> Void) {
         guard let uid = manufacturer.uid else { return }
-        db.collection(NamedFireStore.Collections.tobaccos)
+        firestore.collection(NamedFireStore.Collections.tobaccos)
             .whereField(NamedFireStore.Documents.Tobacco.idManufacturer, isEqualTo: uid)
             .getDocuments { [weak self] snapshot, error in
                 guard let self = self else { return }
@@ -46,9 +46,9 @@ class FireBaseGetNetworkingService: GetDataNetworkingServiceProtocol {
                 }
             }
     }
-    
+
     func getAllTobaccos(completion: @escaping (Result<[Tobacco], NetworkError>) -> Void) {
-        db.collection(NamedFireStore.Collections.tobaccos).getDocuments { [weak self] snapshot, error in
+        firestore.collection(NamedFireStore.Collections.tobaccos).getDocuments { [weak self] snapshot, error in
             guard let self = self else { return }
             if let error = error {
                 completion(.failure(self.handlerErrors.handlerError(error)))
@@ -60,9 +60,9 @@ class FireBaseGetNetworkingService: GetDataNetworkingServiceProtocol {
             }
         }
     }
-    
+
     func getAllTastes(completion: @escaping (Result<[Taste], NetworkError>) -> Void) {
-        db.collection(NamedFireStore.Collections.tastes).getDocuments { [weak self] snapshot, error in
+        firestore.collection(NamedFireStore.Collections.tastes).getDocuments { [weak self] snapshot, error in
             guard let self = self else { return }
             if let error = error {
                 completion(.failure(self.handlerErrors.handlerError(error)))
@@ -74,8 +74,24 @@ class FireBaseGetNetworkingService: GetDataNetworkingServiceProtocol {
             }
         }
     }
-}
 
+    func getDataBaseVersion(completion: @escaping (Result<Int, NetworkError>) -> Void) {
+        firestore.collection(NamedFireStore.Collections.system).getDocuments { [weak self] snapshot, error in
+            guard let self = self else { return }
+            if let error = error {
+                completion(.failure(self.handlerErrors.handlerError(error)))
+            } else {
+                guard let data = snapshot?.documents.first,
+                      let versionDB = data.data()[NamedFireStore.Documents.System.versionDB] as? Int
+                else {
+                    completion(.failure(.dataNotFound("Версия базы данных не была получена")))
+                    return
+                }
+                completion(.success(versionDB))
+            }
+        }
+    }
+}
 
 fileprivate extension Manufacturer {
     init(_ data: [String: Any], uid: String?) {
@@ -105,9 +121,8 @@ fileprivate extension Taste {
               let id = Int(uid),
               let taste = data[NamedFireStore.Documents.Taste.taste] as? String,
               let typeTaste = data[NamedFireStore.Documents.Taste.type] as? String else { return nil }
-        self.id = id
+        self.uid = id
         self.taste = taste
         self.typeTaste = typeTaste
-        
     }
 }

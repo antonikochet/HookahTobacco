@@ -13,4 +13,5 @@ protocol GetDataNetworkingServiceProtocol {
     func getAllTobaccos(completion: @escaping (Result<[Tobacco], NetworkError>) -> Void)
     func getAllTastes(completion: @escaping (Result<[Taste], NetworkError>) -> Void)
 //    func getTastes(ids: [Int], completion: @escaping (Result<[Taste], NetworkError>) -> Void)
+    func getDataBaseVersion(completion: @escaping (Result<Int, NetworkError>) -> Void)
 }
