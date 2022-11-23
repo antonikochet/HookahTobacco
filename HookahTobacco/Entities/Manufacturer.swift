@@ -8,6 +8,7 @@
 import Foundation
 
 struct Manufacturer {
+    var id: String?
     var uid: String?
     let name: String
     let country: String

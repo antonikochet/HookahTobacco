@@ -8,17 +8,18 @@
 import Foundation
 
 struct Taste {
-    let id: Int
+    var id: String = ""
+    let uid: Int
     let taste: String
     let typeTaste: String
 }
 
 extension Taste: Hashable {
     static func ==(_ lhs: Taste, rhs: Taste) -> Bool {
-        lhs.id == rhs.id
+        lhs.uid == rhs.uid
     }
 
     func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
+        hasher.combine(uid)
     }
 }
