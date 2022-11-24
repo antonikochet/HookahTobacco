@@ -29,8 +29,8 @@ class TobaccoListInteractor {
     weak var presenter: TobaccoListInteractorOutputProtocol!
     
     // MARK: - Dependency
-    private var getDataManager: GetDataNetworkingServiceProtocol
-    private var getImageManager: GetImageNetworkingServiceProtocol
+    private var getDataManager: DataManagerProtocol
+    private var getImageManager: ImageManagerProtocol
     
     // MARK: - Private properties
     private var tobaccos: [Tobacco] = []
@@ -39,8 +39,8 @@ class TobaccoListInteractor {
     
     // MARK: - Initializers
     init(_ isAdminModel: Bool,
-         getDataManager: GetDataNetworkingServiceProtocol,
-         getImageManager: GetImageNetworkingServiceProtocol) {
+         getDataManager: DataManagerProtocol,
+         getImageManager: ImageManagerProtocol) {
         self.isAdminMode = isAdminModel
         self.getDataManager = getDataManager
         self.getImageManager = getImageManager
@@ -58,7 +58,7 @@ class TobaccoListInteractor {
     }
     
     private func getTobacco() {
-        getDataManager.getAllTobaccos { [weak self] result in
+        getDataManager.receiveData(typeData: Tobacco.self) { [weak self] result in
             guard let self = self else { return }
             switch result {
                 case .success(let data):
@@ -76,11 +76,11 @@ class TobaccoListInteractor {
     }
     
     private func receiveTastes() {
-        getDataManager.getAllTastes { [weak self] result in
+        getDataManager.receiveData(typeData: Taste.self) { [weak self] result in
             guard let self = self else { return }
             switch result {
                 case .success(let data):
-                    self.tastes = Dictionary(uniqueKeysWithValues: data.map { ($0.id, $0) })
+                    self.tastes = Dictionary(uniqueKeysWithValues: data.map { ($0.uid, $0) })
                 case .failure(let error):
                     self.presenter.receivedError(with: error.localizedDescription)
             }
@@ -89,9 +89,9 @@ class TobaccoListInteractor {
     
     private func getImage(for tobacco: Tobacco, with index: Int) {
         guard let uid = tobacco.uid else { return }
-        let named = NamedFireStorage.tobaccoImage(manufacturer: tobacco.nameManufacturer,
-                                                  uid: uid,
-                                                  type: .main)
+        let named = NamedImageManager.tobaccoImage(manufacturer: tobacco.nameManufacturer,
+                                                   uid: uid,
+                                                   type: .main)
         getImageManager.getImage(for: named) { [weak self] result in
             guard let self = self else { return }
             switch result {

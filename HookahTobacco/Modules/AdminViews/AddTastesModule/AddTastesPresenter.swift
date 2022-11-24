@@ -22,7 +22,7 @@ class AddTastesPresenter {
     // MARK: - Private methods
     private func createTasteViewModel(_ taste: Taste, isSelect: Bool) -> AddTastesTableCellViewModel {
         AddTastesTableCellViewModel(taste: taste.taste,
-                                    id: String(taste.id),
+                                    id: String(taste.uid),
                                     typeTaste: taste.typeTaste,
                                     isSelect: isSelect)
     }
@@ -42,9 +42,9 @@ extension AddTastesPresenter: AddTastesInteractorOutputProtocol {
     }
 
     func initialAllTastes(_ tastes: [Taste], with selectedTastes: [Taste]) {
-        let selectedIdTastes: Set<Int> = Set(selectedTastes.map { $0.id })
+        let selectedIdTastes: Set<Int> = Set(selectedTastes.map { $0.uid })
         allTastesViewModel = tastes.map { taste in
-            return createTasteViewModel(taste, isSelect: selectedIdTastes.contains(taste.id))
+            return createTasteViewModel(taste, isSelect: selectedIdTastes.contains(taste.uid))
         }
         view.setupContent()
     }
@@ -54,8 +54,8 @@ extension AddTastesPresenter: AddTastesInteractorOutputProtocol {
     }
     
     func updateData(by index: Int, with taste: Taste, and selectedTastes: [Taste]) {
-        let selectedIdTastes = Set(selectedTastes.map { $0.id })
-        allTastesViewModel[index] = createTasteViewModel(taste, isSelect: selectedIdTastes.contains(taste.id))
+        let selectedIdTastes = Set(selectedTastes.map { $0.uid })
+        allTastesViewModel[index] = createTasteViewModel(taste, isSelect: selectedIdTastes.contains(taste.uid))
         selectedViewModels = selectedTastes.map {
             createSelectedTasteViewModel($0)
         }

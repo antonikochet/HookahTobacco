@@ -26,8 +26,8 @@ class DetailInfoManufacturerInteractor {
     weak var presenter: DetailInfoManufacturerInteractorOutputProtocol!
     
     // MARK: - Dependency
-    private var getDataManager: GetDataNetworkingServiceProtocol
-    private var getImageManager: GetImageNetworkingServiceProtocol
+    private var getDataManager: DataManagerProtocol
+    private var getImageManager: ImageManagerProtocol
     
     // MARK: - Private properties
     private var manufacturer: Manufacturer
@@ -36,8 +36,8 @@ class DetailInfoManufacturerInteractor {
     
     // MARK: - Initializers
     init(_ manufacturer: Manufacturer,
-         getDataManager: GetDataNetworkingServiceProtocol,
-         getImageManager: GetImageNetworkingServiceProtocol) {
+         getDataManager: DataManagerProtocol,
+         getImageManager: ImageManagerProtocol) {
         self.manufacturer = manufacturer
         self.getDataManager = getDataManager
         self.getImageManager = getImageManager
@@ -56,26 +56,30 @@ class DetailInfoManufacturerInteractor {
     }
     
     private func receiveTobacco() {
-        getDataManager.getTobaccos(for: manufacturer) { [weak self] result in
+        getDataManager.receiveTobaccos(for: manufacturer) { [weak self] result in
             guard let self = self else { return }
             switch result {
                 case .success(let tobaccos):
                     self.tobaccos = tobaccos
                     let pTobaccos = tobaccos.map { self.createTobaccoForPresenter($0) }
-                    self.presenter.receivedTobacco(with: pTobaccos)
+                    DispatchQueue.main.async {
+                        self.presenter.receivedTobacco(with: pTobaccos)
+                    }
                     self.receiveImageTobaccos(tobaccos)
                 case .failure(let error):
-                    self.presenter.receivedError(with: error.localizedDescription)
+                    DispatchQueue.main.async {
+                        self.presenter.receivedError(with: error.localizedDescription)
+                    }
             }
         }
     }
     
     private func receiveTastes() {
-        getDataManager.getAllTastes { [weak self] result in
+        getDataManager.receiveData(typeData: Taste.self) { [weak self] result in
             guard let self = self else { return }
             switch result {
                 case .success(let data):
-                    self.tastes = Dictionary(uniqueKeysWithValues: data.map { ($0.id, $0) })
+                    self.tastes = Dictionary(uniqueKeysWithValues: data.map { ($0.uid, $0) })
                 case .failure(let error):
                     self.presenter.receivedError(with: error.localizedDescription)
             }
@@ -84,9 +88,9 @@ class DetailInfoManufacturerInteractor {
     
     private func receiveImageTobaccos(_ tobaccos: [Tobacco]) {
         tobaccos.enumerated().forEach { index, tobacco in
-            let named = NamedFireStorage.tobaccoImage(manufacturer: tobacco.nameManufacturer,
-                                                      uid: tobacco.uid!,
-                                                      type: .main)
+            let named = NamedImageManager.tobaccoImage(manufacturer: tobacco.nameManufacturer,
+                                                       uid: tobacco.uid!,
+                                                       type: .main)
             getImageManager.getImage(for: named) { [weak self] result in
                 guard let self = self else { return }
                 switch result {
@@ -94,9 +98,13 @@ class DetailInfoManufacturerInteractor {
                         var mTobacco = tobacco
                         mTobacco.image = image
                         self.tobaccos[index] = mTobacco
-                        self.presenter.receivedUpdate(for: self.createTobaccoForPresenter(mTobacco), at: index)
+                        DispatchQueue.main.async {
+                            self.presenter.receivedUpdate(for: self.createTobaccoForPresenter(mTobacco), at: index)
+                        }
                     case .failure(let error):
-                        self.presenter.receivedError(with: error.localizedDescription)
+                        DispatchQueue.main.async {
+                            self.presenter.receivedError(with: error.localizedDescription)
+                        }
                 }
             }
         }

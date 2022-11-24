@@ -23,6 +23,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         router.registerContainerControllers()
         router.assembleContainers()
         
+        let dataManager = router.resolver.resolve(DataManager.self)!
+        dataManager.start()
+        
         window?.makeKeyAndVisible()
     }
 }

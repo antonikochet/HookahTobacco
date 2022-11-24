@@ -13,6 +13,8 @@ extension AppRouter {
             FireBaseNetworkingServicesAssembly(),
             RealmDataBaseServiresAssembly(),
             UserDefaultsServiceAssembly(),
+            ImageServiceAssembly(),
+            DataManagerAssembly()
         ])
     }
     

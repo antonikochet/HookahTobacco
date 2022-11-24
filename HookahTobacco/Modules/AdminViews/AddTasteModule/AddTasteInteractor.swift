@@ -74,21 +74,21 @@ extension AddTasteInteractor: AddTasteInteractorInputProtocol {
         if let taste = taste {
             presenter.initialData(taste: taste)
         } else {
-            let taste = Taste(id: id, taste: "", typeTaste: "")
+            let taste = Taste(uid: id, taste: "", typeTaste: "")
             presenter.initialData(taste: taste)
         }
     }
     
     func addTaste(taste: String, type: String) {
         if isEditing {
-            if let id = self.taste?.id {
-                let taste = Taste(id: id,
+            if let id = self.taste?.uid {
+                let taste = Taste(uid: id,
                                   taste: taste,
                                   typeTaste: type)
                 editTaste(taste)
             }
         } else {
-            let taste = Taste(id: id, taste: taste, typeTaste: type)
+            let taste = Taste(uid: id, taste: taste, typeTaste: type)
             addTaste(taste)
         }
     }

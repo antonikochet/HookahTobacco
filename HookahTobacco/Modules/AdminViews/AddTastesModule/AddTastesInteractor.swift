@@ -42,7 +42,7 @@ class AddTastesInteractor {
     // MARK: - Private properties
     private var selectedTastes: SelectedTastes {
         didSet {
-            sortedSelectedTastes = Array(selectedTastes.values.sorted(by: { $0.id < $1.id }))
+            sortedSelectedTastes = Array(selectedTastes.values.sorted(by: { $0.uid < $1.uid }))
         }
     }
     private var allTastes: [Taste] = []
@@ -54,7 +54,7 @@ class AddTastesInteractor {
          getDataManager: GetDataNetworkingServiceProtocol) {
         self.selectedTastes = selectedTastes
         self.getDataManager = getDataManager
-        self.sortedSelectedTastes = Array(selectedTastes.values.sorted(by: { $0.id < $1.id }))
+        self.sortedSelectedTastes = Array(selectedTastes.values.sorted(by: { $0.uid < $1.uid }))
     }
 
     // MARK: - Private methods
@@ -63,7 +63,7 @@ class AddTastesInteractor {
             guard let self = self else { return }
             switch result {
                 case .success(let data):
-                    self.allTastes = data.sorted(by: { $0.id < $1.id })
+                    self.allTastes = data.sorted(by: { $0.uid < $1.uid })
                     self.presenter.initialAllTastes(self.allTastes, with: self.sortedSelectedTastes)
                 case .failure(let error):
                     self.presenter.receivedError(with: error.localizedDescription)
@@ -79,13 +79,13 @@ extension AddTastesInteractor: AddTastesInteractorInputProtocol {
     }
 
     func receiveDataForAdd() {
-        let allIdsTaste = Set(allTastes.map { $0.id })
+        let allIdsTaste = Set(allTastes.map { $0.uid })
         presenter.receivedDataForAdd(allIdsTaste)
     }
 
     func receiveDataForEdit(by taste: String) {
         guard let taste = allTastes.first(where: { $0.taste == taste }) else { return }
-        let allIdsTaste = Set(allTastes.map { $0.id })
+        let allIdsTaste = Set(allTastes.map { $0.uid })
         presenter.receivedDataForEdit(editTaste: taste,
                                       allIdsTaste: allIdsTaste)
     }
@@ -94,16 +94,16 @@ extension AddTastesInteractor: AddTastesInteractorInputProtocol {
         let slctTastes = filterTastes.isEmpty ? allTastes : filterTastes
         guard let index = slctTastes.firstIndex(where: { $0.taste == taste }) else { return }
         let taste = slctTastes[index]
-        if selectedTastes[taste.id] != nil {
-            selectedTastes.removeValue(forKey: taste.id)
+        if selectedTastes[taste.uid] != nil {
+            selectedTastes.removeValue(forKey: taste.uid)
         } else {
-            selectedTastes.updateValue(taste, forKey: taste.id)
+            selectedTastes.updateValue(taste, forKey: taste.uid)
         }
         presenter.updateData(by: index, with: taste, and: sortedSelectedTastes)
     }
     
     func addTaste(_ taste: Taste) {
-        if let index = allTastes.firstIndex(where: { $0.id == taste.id }) {
+        if let index = allTastes.firstIndex(where: { $0.uid == taste.uid }) {
             allTastes[index] = taste
         } else {
             allTastes.append(taste)

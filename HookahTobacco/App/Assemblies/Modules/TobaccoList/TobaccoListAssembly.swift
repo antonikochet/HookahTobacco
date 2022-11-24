@@ -20,8 +20,8 @@ class TobaccoListAssembly: Assembly {
         
         container.register(TobaccoListInteractorInputProtocol.self) { (r, isAdminMode: Bool) in
             //here resolve dependency injection
-            let getDataManager = r.resolve(GetDataNetworkingServiceProtocol.self)!
-            let getImageManager = r.resolve(GetImageNetworkingServiceProtocol.self)!
+            let getDataManager = r.resolve(DataManagerProtocol.self)!
+            let getImageManager = r.resolve(ImageManagerProtocol.self)!
             
             return TobaccoListInteractor(isAdminMode,
                                          getDataManager: getDataManager,

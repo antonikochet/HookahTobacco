@@ -85,7 +85,7 @@ class AddTobaccoInteractor {
             guard let self = self else { return }
             switch result {
                 case .success(let data):
-                    self.allTastes = Dictionary(uniqueKeysWithValues: data.map( { ($0.id, $0) }))
+                    self.allTastes = Dictionary(uniqueKeysWithValues: data.map( { ($0.uid, $0) }))
                     self.initialTastes()
                 case .failure(let error):
                     self.presenter.receivedError(with: error.localizedDescription)
@@ -273,7 +273,7 @@ extension AddTobaccoInteractor: AddTobaccoInteractorInputProtocol {
     }
     
     func receivedNewSelectedTastes(_ tastes: [Taste]) {
-        self.tastes = Dictionary(uniqueKeysWithValues: tastes.map { ($0.id, $0) })
+        self.tastes = Dictionary(uniqueKeysWithValues: tastes.map { ($0.uid, $0) })
         presenter.initialTastes(tastes)
     }
 }

@@ -35,6 +35,7 @@ extension ManufacturerRealmObject {
         newValues["id"] = self.id
         newValues["uid"] = manufacturer.uid
         newValues["name"] = manufacturer.name
+        newValues["country"] = manufacturer.country
         newValues["descriptionManufacturer"] = manufacturer.description
         newValues["nameImage"] = manufacturer.nameImage
         newValues["link"] = manufacturer.link
