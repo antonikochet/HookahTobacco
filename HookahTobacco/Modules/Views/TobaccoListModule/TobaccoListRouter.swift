@@ -22,7 +22,10 @@ class TobaccoListRouter: TobaccoListRouterProtocol {
     }
     
     func showDetail(for data: Tobacco) {
-        
+        let tData = DetailTobaccoDataModule(tobacco: data)
+        appRouter.pushViewController(module: DetailTobaccoModule.self,
+                                     moduleData: tData,
+                                     animateDisplay: true)
     }
     
     func showAddTobacco(_ data: Tobacco, delegate: AddTobaccoOutputModule?) {

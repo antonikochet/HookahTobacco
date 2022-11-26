@@ -11,12 +11,13 @@ import UIKit
 
 class AdminMenuModule: ModuleProtocol {
     private var data: DataModuleProtocol?
-    
+
     required init(_ data: DataModuleProtocol? = nil) {
         self.data = data
     }
-    
+
     func createModule(_ appRouter: AppRouterProtocol) -> UIViewController? {
-        return appRouter.resolver.resolve(AdminMenuViewController.self, argument: appRouter)
+        let dependency = AdminManuDependency(appRouter: appRouter)
+        return appRouter.resolver.resolve(AdminMenuViewController.self, argument: dependency)
     }
 }

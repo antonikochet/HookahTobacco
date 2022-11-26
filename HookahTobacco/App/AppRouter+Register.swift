@@ -25,11 +25,13 @@ extension AppRouter {
         registerModule(AddManufacturerAssembly(), AddManufacturerModule.nameModule) { AddManufacturerModule($0) }
         registerModule(ManufacturerListAssembly(), ManufacturerListModule.nameModule) { ManufacturerListModule($0) }
         registerModule(TobaccoListAssembly(), TobaccoListModule.nameModule) { TobaccoListModule($0) }
-        registerModule(DetailInfoManufacturerAssembly(), DetailInfoManufacturerModule.nameModule) { DetailInfoManufacturerModule($0) }
+        registerModule(DetailInfoManufacturerAssembly(),
+                       DetailInfoManufacturerModule.nameModule) { DetailInfoManufacturerModule($0) }
         registerModule(AddTastesAssembly(), AddTastesModule.nameModule) { AddTastesModule($0) }
         registerModule(AddTasteAssembly(), AddTasteModule.nameModule) { AddTasteModule($0) }
+        registerModule(DetailTobaccoAssembly(), DetailTobaccoModule.nameModule) { DetailTobaccoModule($0) }
     }
-    
+
     func registerContainerControllers() {
         apply(assemblies: [
             HTNavigationControllerAssembly(),
@@ -38,17 +40,17 @@ extension AppRouter {
     }
     
     func assembleContainers() {
-        //First container
+        // First container
         let manufacturerListTabBar = TabBarItemContent(title: "Производители",
                                                        image: UIImage(systemName: "note"))
         let manufactureListContainer = (ManufacturerListModule.self, manufacturerListTabBar)
         
-        //second container
+        // second container
         let tobaccoListTabBar = TabBarItemContent(title: "Табаки",
                                                   image: UIImage(systemName: "leaf"))
         let tobaccoListContainer = (TobaccoListModule.self, tobaccoListTabBar)
-        
-        //third container
+
+        // third container
         let TabBarProfile = TabBarItemContent(title: "Профиль",
                                               image: UIImage(systemName: "person"))
         let profileContainer: (ModuleProtocol.Type, TabBarItemProtocol)
@@ -57,13 +59,11 @@ extension AppRouter {
         } else {
             profileContainer = (LoginModule.self, TabBarProfile)
         }
-        
-        
+
         startAppPresent([
             manufactureListContainer,
             tobaccoListContainer,
-            profileContainer,
-            
+            profileContainer
         ])
     }
 }

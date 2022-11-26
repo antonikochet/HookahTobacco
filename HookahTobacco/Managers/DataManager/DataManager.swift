@@ -136,36 +136,24 @@ class DataManager {
             dispatchGroup.wait()
             if oldVersion != -1 {
                 dispatchGroup.enter()
-                queue.async {
-                    self.dataBaseService.update(entities: taste) { dispatchGroup.leave()
-                    } failure: { error in print(error); dispatchGroup.leave() }
-                }
+                self.dataBaseService.update(entities: taste) { dispatchGroup.leave()
+                } failure: { error in print(error); dispatchGroup.leave() }
                 dispatchGroup.enter()
-                queue.async {
-                    self.dataBaseService.update(entities: tobaccos) { dispatchGroup.leave()
-                    } failure: { error in print(error); dispatchGroup.leave() }
-                }
+                self.dataBaseService.update(entities: tobaccos) { dispatchGroup.leave()
+                } failure: { error in print(error); dispatchGroup.leave() }
                 dispatchGroup.enter()
-                queue.async {
-                    self.dataBaseService.update(entities: manufacturers) { dispatchGroup.leave()
-                    } failure: { error in print(error); dispatchGroup.leave() }
-                }
+                self.dataBaseService.update(entities: manufacturers) { dispatchGroup.leave()
+                } failure: { error in print(error); dispatchGroup.leave() }
             } else {
                 dispatchGroup.enter()
-                queue.async {
-                    self.dataBaseService.add(entities: taste) { dispatchGroup.leave()
-                    } failure: { error in print(error); dispatchGroup.leave() }
-                }
+                self.dataBaseService.add(entities: taste) { dispatchGroup.leave()
+                } failure: { error in print(error); dispatchGroup.leave() }
                 dispatchGroup.enter()
-                queue.async {
-                    self.dataBaseService.add(entities: tobaccos) { dispatchGroup.leave()
-                    } failure: { error in print(error); dispatchGroup.leave() }
-                }
+                self.dataBaseService.add(entities: tobaccos) { dispatchGroup.leave()
+                } failure: { error in print(error); dispatchGroup.leave() }
                 dispatchGroup.enter()
-                queue.async {
-                    self.dataBaseService.add(entities: manufacturers) { dispatchGroup.leave()
-                    } failure: { error in print(error); dispatchGroup.leave() }
-                }
+                self.dataBaseService.add(entities: manufacturers) { dispatchGroup.leave()
+                } failure: { error in print(error); dispatchGroup.leave() }
             }
             dispatchGroup.wait()
             self.userDefaultsService.setDataBaseVersion(self.remoteDBVersion)
@@ -272,6 +260,30 @@ extension DataManager: DataManagerProtocol {
                 completion?(.success(tobaccos))
             case .failure(let error):
                 completion?(.failure(error))
+            }
+        }
+    }
+
+    func receiveTastes(at ids: [Int], completion: ReceiveDataManagerCompletion<Taste>?) {
+        if isSynchronized || isOfflineMode {
+            dataBaseService.read(type: Taste.self) { tastes in
+                let setIds = Set(ids)
+                let needTastes = tastes.filter { setIds.contains($0.uid) }
+                completion?(.success(needTastes))
+            } failure: { error in
+                completion?(.failure(error))
+            }
+
+        } else {
+            getDataNetworkingService.getAllTastes { result in
+                switch result {
+                case .success(let tastes):
+                    let setIds = Set(ids)
+                    let needTastes = tastes.filter { setIds.contains($0.uid) }
+                    completion?(.success(needTastes))
+                case .failure(let error):
+                    completion?(.failure(error))
+                }
             }
         }
     }

@@ -15,34 +15,39 @@ protocol AdminMenuRouterProtocol: RouterProtocol {
     func showManufacturerListModule()
     func showTobaccoListModule()
     func showLoginModule()
+    func showAlert()
 }
 
 class AdminMenuRouter: AdminMenuRouterProtocol {
     var appRouter: AppRouterProtocol
-    
+
     required init(_ appRouter: AppRouterProtocol) {
         self.appRouter = appRouter
     }
-    
+
     func showAddManufacturerModule() {
         appRouter.pushViewController(module: AddManufacturerModule.self, moduleData: nil, animateDisplay: true)
     }
-    
+
     func showAddTobaccoModule() {
         appRouter.pushViewController(module: AddTobaccoModule.self, moduleData: nil, animateDisplay: true)
     }
-    
+
     func showManufacturerListModule() {
         let data = ManufacturerListDataModile(isAdminMode: true)
         appRouter.pushViewController(module: ManufacturerListModule.self, moduleData: data, animateDisplay: true)
     }
-    
+
     func showTobaccoListModule() {
         let data = TobaccoListDataModile(isAdminMode: true)
         appRouter.pushViewController(module: TobaccoListModule.self, moduleData: data, animateDisplay: true)
     }
-    
+
     func showLoginModule() {
         appRouter.presentView(module: LoginModule.self, moduleData: nil, animated: true)
+    }
+
+    func showAlert() {
+        print("Версия была увеличена")
     }
 }

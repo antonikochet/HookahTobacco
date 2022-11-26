@@ -15,4 +15,5 @@ protocol SetDataNetworkingServiceProtocol {
     func setTobacco(_ newTobacco: Tobacco, completion: SetDataNetworingCompletion?)
     func addTaste(_ taste: Taste, completion: SetDataNetworingCompletion?)
     func setTaste(_ taste: Taste, completion: SetDataNetworingCompletion?)
+    func setDBVersion(_ newVersion: Int, completion: SetDataNetworingCompletion?)
 }
