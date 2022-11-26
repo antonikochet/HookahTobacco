@@ -18,7 +18,7 @@ class HTTabBarControllerAssembly: Assembly {
     func assemble(container: Container) {
         container.register(HTTabBarController.self) { (r, dependency: HTTabBarControllerDependency) in
             let tabBar = HTTabBarController()
-            
+
             let containers = dependency.containers.map { item -> HTNavigationController in
                 let dependency = HTNavigationControllerDependency(appRouter: dependency.appRouter,
                                                                   module: item.module,

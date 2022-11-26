@@ -56,7 +56,7 @@ class AddTasteInteractor {
             }
         }
     }
-    
+
     private func editTaste(_ taste: Taste) {
         setDataManager.setTaste(taste) { [weak self] error in
             guard let self = self else { return }
@@ -78,7 +78,7 @@ extension AddTasteInteractor: AddTasteInteractorInputProtocol {
             presenter.initialData(taste: taste)
         }
     }
-    
+
     func addTaste(taste: String, type: String) {
         if isEditing {
             if let id = self.taste?.uid {

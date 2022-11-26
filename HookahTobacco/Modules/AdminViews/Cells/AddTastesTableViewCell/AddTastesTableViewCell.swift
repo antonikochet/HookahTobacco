@@ -26,10 +26,10 @@ class AddTastesTableViewCell: UITableViewCell {
             updateContentCell()
         }
     }
-    //MARK: - Private properties
+    // MARK: - Private properties
     private var checkmarkWidthConstraint: Constraint?
-    
-    //MARK: - Private UI
+
+    // MARK: - Private UI
     private let idLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.appFont(size: 18, weight: .regular)
@@ -60,35 +60,35 @@ class AddTastesTableViewCell: UITableViewCell {
         return imageView
     }()
 
-    //MARK: - Init
+    // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setup()
     }
-    
-    //MARK: - Setup
+
+    // MARK: - Setup
     private func setup() {
         selectionStyle = .none
         backgroundColor = .clear
-        
+
         contentView.addSubview(idLabel)
         idLabel.snp.makeConstraints { make in
             make.leading.top.bottom.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.15)
         }
-        
+
         contentView.addSubview(tasteLabel)
         tasteLabel.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview()
             make.leading.equalTo(idLabel.snp.trailing)
             make.width.equalToSuperview().multipliedBy(0.5)
         }
-        
+
         contentView.addSubview(checkmarkImageView)
         checkmarkImageView.snp.makeConstraints { make in
             make.height.equalToSuperview().inset(4)
@@ -104,16 +104,18 @@ class AddTastesTableViewCell: UITableViewCell {
             make.trailing.equalTo(checkmarkImageView.snp.leading).inset(-4)
         }
     }
-    
-    //MARK: - Private methods
+
+    // MARK: - Private methods
     private func updateContentCell() {
         if let viewModel = viewModel {
             idLabel.text = viewModel.id
             tasteLabel.text = viewModel.taste
             typeTasteLabel.text = viewModel.typeTaste
-            checkmarkImageView.image = viewModel.isSelect ? UIImage(systemName: "checkmark.circle.fill")?.withRenderingMode(.alwaysTemplate) : nil
+            let checkmarkImage = UIImage(systemName: "checkmark.circle.fill")?
+                                    .withRenderingMode(.alwaysTemplate)
+            checkmarkImageView.image = viewModel.isSelect ? checkmarkImage : nil
             checkmarkWidthConstraint?.isActive = viewModel.isSelect
         }
     }
-    
+
 }

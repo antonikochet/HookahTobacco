@@ -10,9 +10,9 @@ import UIKit
 struct TabBarItemContent: TabBarItemProtocol {
     var title: String
     var image: UIImage?
-    var selectedImage: UIImage? = nil
+    var selectedImage: UIImage?
 }
 
 class HTTabBarController: UITabBarController {
-    
+
 }

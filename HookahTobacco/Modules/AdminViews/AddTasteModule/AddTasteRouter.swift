@@ -20,11 +20,11 @@ protocol AddTasteOutputModule: AnyObject {
 class AddTasteRouter: AddTasteRouterProtocol {
     private var appRouter: AppRouterProtocol
     weak var outputModule: AddTasteOutputModule?
-    
+
     required init(_ appRouter: AppRouterProtocol) {
         self.appRouter = appRouter
     }
-    
+
     func dismissView(_ newTaste: Taste) {
         appRouter.dismissView(animated: true) {
             self.outputModule?.sendTaste(newTaste)

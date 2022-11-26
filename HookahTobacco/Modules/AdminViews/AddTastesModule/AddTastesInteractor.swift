@@ -9,7 +9,7 @@
 
 import Foundation
 
-typealias SelectedTastes = Dictionary<Int, Taste>
+typealias SelectedTastes = [Int: Taste]
 
 protocol AddTastesInteractorInputProtocol: AnyObject {
     func receiveStartingDataView()
@@ -19,7 +19,7 @@ protocol AddTastesInteractorInputProtocol: AnyObject {
     func addTaste(_ taste: Taste)
     func receiveSelectedTastes()
     func performSearch(with text: String)
-    func endSearch() 
+    func endSearch()
 }
 
 protocol AddTastesInteractorOutputProtocol: AnyObject {
@@ -62,11 +62,11 @@ class AddTastesInteractor {
         getDataManager.getAllTastes { [weak self] result in
             guard let self = self else { return }
             switch result {
-                case .success(let data):
-                    self.allTastes = data.sorted(by: { $0.uid < $1.uid })
-                    self.presenter.initialAllTastes(self.allTastes, with: self.sortedSelectedTastes)
-                case .failure(let error):
-                    self.presenter.receivedError(with: error.localizedDescription)
+            case .success(let data):
+                self.allTastes = data.sorted(by: { $0.uid < $1.uid })
+                self.presenter.initialAllTastes(self.allTastes, with: self.sortedSelectedTastes)
+            case .failure(let error):
+                self.presenter.receivedError(with: error.localizedDescription)
             }
         }
     }
@@ -101,7 +101,7 @@ extension AddTastesInteractor: AddTastesInteractorInputProtocol {
         }
         presenter.updateData(by: index, with: taste, and: sortedSelectedTastes)
     }
-    
+
     func addTaste(_ taste: Taste) {
         if let index = allTastes.firstIndex(where: { $0.uid == taste.uid }) {
             allTastes[index] = taste
@@ -110,11 +110,11 @@ extension AddTastesInteractor: AddTastesInteractorInputProtocol {
         }
         presenter.initialAllTastes(allTastes, with: sortedSelectedTastes)
     }
-    
+
     func receiveSelectedTastes() {
         presenter.receivedSelectedTastes(Array(selectedTastes.values))
     }
-    
+
     func performSearch(with text: String) {
         guard !text.isEmpty else {
             filterTastes = []
@@ -126,7 +126,7 @@ extension AddTastesInteractor: AddTastesInteractorInputProtocol {
             .filter { $0.taste.lowercased().contains(lcText) }
         presenter.initialAllTastes(filterTastes, with: sortedSelectedTastes)
     }
-    
+
     func endSearch() {
         filterTastes = []
         presenter.initialAllTastes(allTastes,

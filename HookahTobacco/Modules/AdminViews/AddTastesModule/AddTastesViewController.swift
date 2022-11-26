@@ -37,7 +37,7 @@ class AddTastesViewController: UIViewController {
     // MARK: - UI properties
     private let searchBar = UISearchBar()
     private let tasteCollectionView = TasteCollectionView()
-    
+
     private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.register(AddTastesTableViewCell.self,
@@ -54,7 +54,7 @@ class AddTastesViewController: UIViewController {
         super.viewDidLoad()
         navigationItem.title = "Добавление вкусов"
         view.backgroundColor = .systemBackground
-        
+
         setupNavigationItem()
         setupSubviews()
         presenter.viewDidLoad()
@@ -71,7 +71,7 @@ class AddTastesViewController: UIViewController {
             make.leading.trailing.equalToSuperview().inset(spacingBetweenViews)
         }
         tasteCollectionView.tasteDelegate = self
-        
+
         view.addSubview(searchBar)
         searchBar.delegate = self
         searchBar.placeholder = "Фильтр вкусов"
@@ -79,7 +79,7 @@ class AddTastesViewController: UIViewController {
             make.top.equalTo(tasteCollectionView.snp.bottom).offset(8)
             make.leading.trailing.equalToSuperview()
         }
-        
+
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.top.equalTo(searchBar.snp.bottom).offset(spacingBetweenViews)
@@ -88,7 +88,7 @@ class AddTastesViewController: UIViewController {
         }
         tableView.dataSource = self
         tableView.delegate = self
-        
+
         view.addSubview(addButton)
         addButton.snp.makeConstraints { make in
             make.size.equalTo(50)
@@ -97,11 +97,16 @@ class AddTastesViewController: UIViewController {
         }
         addButton.addTarget(self, action: #selector(didTouchAddButton), for: .touchUpInside)
     }
-    
+
     private func setupNavigationItem() {
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(didTouchDoneButton))
+        let doneButton = UIBarButtonItem(
+            barButtonSystemItem: .done,
+            target: self,
+            action: #selector(didTouchDoneButton)
+        )
         navigationItem.rightBarButtonItem = doneButton
     }
+
     // MARK: - Private methods
 
     // MARK: - Selectors
@@ -109,7 +114,7 @@ class AddTastesViewController: UIViewController {
     private func didTouchAddButton() {
         presenter.didTouchAdd()
     }
-    
+
     @objc
     private func didTouchDoneButton() {
         presenter.selectedTastesDone()
@@ -126,7 +131,7 @@ extension AddTastesViewController: AddTastesViewInputProtocol {
     func showError(with message: String) {
         showAlertError(title: "Ошибка", message: message)
     }
-    
+
     func updateRowAndSelect(by index: Int) {
         let indexPath = IndexPath(row: index, section: 0)
         if tableView.indexPathsForVisibleRows?.contains(indexPath) ?? false {
@@ -152,21 +157,21 @@ extension AddTastesViewController: UISearchBarDelegate {
         view.endEditing(true)
         presenter.didEndSearch()
     }
-    
+
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let text = searchBar.text else { return }
         view.endEditing(true)
         presenter.didStartSearch(with: text)
     }
-    
+
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(true, animated: true)
     }
-    
+
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         presenter.didStartSearch(with: searchText)
     }
-    
+
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(false, animated: true)
         view.endEditing(true)
@@ -179,13 +184,15 @@ extension AddTastesViewController: UITableViewDataSource {
         return presenter.tastesNumberOfRows
     }
 
+    // swiftlint: disable force_cast
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: AddTastesTableViewCell.identifier,
                                                  for: indexPath) as! AddTastesTableViewCell
         cell.viewModel = presenter.getViewModel(by: indexPath.row)
         return cell
     }
-    
+    // swiftlint: enable force_cast
+
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
@@ -196,8 +203,11 @@ extension AddTastesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter.didSelectTaste(by: indexPath.row)
     }
-    
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+
+    func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
         let edit = UIContextualAction(style: .normal, title: "Изменить") { [weak self] (_, _, completionHandler) in
             self?.presenter.didEditingTaste(by: indexPath.row)
             completionHandler(true)
@@ -206,7 +216,7 @@ extension AddTastesViewController: UITableViewDelegate {
         let configuration = UISwipeActionsConfiguration(actions: [edit])
         return configuration
     }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
@@ -221,8 +231,8 @@ extension AddTastesViewController: TasteCollectionViewDelegate {
     var numberOfRows: Int {
         presenter.selectedNumberOfRows
     }
-    
+
     func didSelectTaste(at index: Int) {
-        
+
     }
 }

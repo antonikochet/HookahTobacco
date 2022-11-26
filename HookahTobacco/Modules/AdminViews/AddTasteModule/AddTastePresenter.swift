@@ -10,44 +10,43 @@
 import Foundation
 
 class AddTastePresenter {
-    //MARK: - Public properties
+    // MARK: - Public properties
     weak var view: AddTasteViewInputProtocol!
     var interactor: AddTasteInteractorInputProtocol!
     var router: AddTasteRouterProtocol!
 
-    //MARK: - Private properties
+    // MARK: - Private properties
 
-    //MARK: - Private methods
-    
+    // MARK: - Private methods
+
 }
 
-//MARK: - InteractorOutputProtocol implementation
+// MARK: - InteractorOutputProtocol implementation
 extension AddTastePresenter: AddTasteInteractorOutputProtocol {
     func initialData(taste: Taste) {
         view.setupContent(id: String(taste.uid),
                           taste: taste.taste,
                           type: taste.typeTaste)
     }
-    
+
     func receivedSuccess(_ taste: Taste) {
         view.showSuccess()
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             self.router.dismissView(taste)
         }
-        
     }
-    
+
     func receivedError(with message: String) {
         view.showError(with: message)
     }
 }
 
-//MARK: - ViewOutputProtocol implementation
+// MARK: - ViewOutputProtocol implementation
 extension AddTastePresenter: AddTasteViewOutputProtocol {
     func viewDidLoad() {
         interactor.setupContent()
     }
-    
+
     func didTouchAdded(taste: String?, type: String?) {
         guard let taste = taste, !taste.isEmpty else {
             view.showError(with: "Название вкуса не введено")

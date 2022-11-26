@@ -8,14 +8,11 @@
 import UIKit
 
 class HTNavigationController: UINavigationController {
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //setup navigationBar
-        
+        // setup navigationBar
     }
-    
+
     func setupTabBarItem(with title: String,
                          image: UIImage?,
                          selectedImage: UIImage?) {

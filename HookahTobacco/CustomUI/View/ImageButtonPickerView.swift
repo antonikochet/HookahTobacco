@@ -11,14 +11,14 @@ import SnapKit
 class ImageButtonPickerView: UIView {
     // MARK: - Public properties
     weak var delegate: ImagePickerViewDelegate?
-    
+
     var image: UIImage? {
         didSet {
             imageView.image = image
             imageView.backgroundColor = image != nil ? .clear : .systemGray5
         }
     }
-    
+
     // MARK: - Private properties
     private let imageView: UIImageView = {
         let imageView = UIImageView()
@@ -27,7 +27,7 @@ class ImageButtonPickerView: UIView {
         imageView.isUserInteractionEnabled = true
         return imageView
     }()
-    
+
     private let removeButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "xmark")?
@@ -37,25 +37,25 @@ class ImageButtonPickerView: UIView {
         button.alpha = 0.6
         return button
     }()
-    
+
     // MARK: - Initializers
     init() {
         super.init(frame: .zero)
         setup()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setup()
     }
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
         removeButton.createCornerRadius()
         imageView.layer.cornerRadius = 8
         imageView.clipsToBounds = true
     }
-    
+
     // MARK: - Setups
     private func setup() {
         addSubview(imageView)
@@ -64,7 +64,7 @@ class ImageButtonPickerView: UIView {
         }
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(touchOnImage))
         imageView.addGestureRecognizer(tapGesture)
-        
+
         addSubview(removeButton)
         removeButton.snp.makeConstraints { make in
             make.centerX.equalTo(imageView.snp.trailing)
@@ -73,14 +73,14 @@ class ImageButtonPickerView: UIView {
         }
         removeButton.addTarget(self, action: #selector(touchRemoveButton), for: .touchUpInside)
     }
-    
+
     // MARK: - Selectors
     @objc private func touchOnImage() {
         let imagePickerView = UIImagePickerController()
         imagePickerView.delegate = self
         delegate?.present(imagePickerView)
     }
-    
+
     @objc private func touchRemoveButton() {
         image = nil
     }
@@ -88,7 +88,10 @@ class ImageButtonPickerView: UIView {
 
 // MARK: - UIImagePickerControllerDelegate implementation
 extension ImageButtonPickerView: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    func imagePickerController(
+        _ picker: UIImagePickerController,
+        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
+    ) {
         guard let imageFileURL = info[.imageURL] as? URL else {
             return
         }
@@ -97,7 +100,7 @@ extension ImageButtonPickerView: UIImagePickerControllerDelegate & UINavigationC
             self.delegate?.didSelectedImage(by: imageFileURL)
         }
     }
-    
+
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true) {
             self.delegate?.didCancel()

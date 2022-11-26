@@ -22,11 +22,12 @@ struct HTNavigationControllerDependency {
 
 class HTNavigationControllerAssembly: Assembly {
     func assemble(container: Container) {
-        container.register(HTNavigationController.self) {
-                (r, dependency: HTNavigationControllerDependency) in
-            
+        container.register(
+            HTNavigationController.self
+        ) { (_, dependency: HTNavigationControllerDependency) in
+
             let rootVC = dependency.module.createModule(dependency.appRouter)!
-            
+
             let navContoller = HTNavigationController(rootViewController: rootVC)
             navContoller.setupTabBarItem(with: dependency.tabBarItem.title,
                                          image: dependency.tabBarItem.image,

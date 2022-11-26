@@ -17,7 +17,7 @@ protocol TasteCollectionViewDelegate: AnyObject {
 class TasteCollectionView: UICollectionView {
     // MARK: - Public properties
     weak var tasteDelegate: TasteCollectionViewDelegate!
-    
+
     // MARK: - Init
     init() {
         let layout = TasteCollectionViewLayout()
@@ -59,15 +59,20 @@ extension TasteCollectionView: TasteCollectionViewLayoutDelegate {
 
 // MARK: - UICollectionViewDataSource implementation
 extension TasteCollectionView: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
         tasteDelegate.numberOfRows
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TasteCollectionViewCell.identifier, for: indexPath) as! TasteCollectionViewCell
+    // swiftlint: disable force_cast
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TasteCollectionViewCell.identifier,
+                                                      for: indexPath) as! TasteCollectionViewCell
         cell.viewModel = tasteDelegate.getItem(at: indexPath.row)
         return cell
     }
+    // swiftlint: enable force_cast
 }
 
 // MARK: - UICollectionViewDelegate implementation

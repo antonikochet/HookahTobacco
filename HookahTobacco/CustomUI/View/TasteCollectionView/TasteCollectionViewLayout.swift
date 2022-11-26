@@ -14,7 +14,7 @@ protocol TasteCollectionViewLayoutDelegate: AnyObject {
 class TasteCollectionViewLayout: UICollectionViewLayout {
     // MARK: - Public properties
     var interItemSpacing: CGFloat = 0
-    
+
     weak var delegate: TasteCollectionViewLayoutDelegate?
 
     // MARK: - Private properties
@@ -25,16 +25,16 @@ class TasteCollectionViewLayout: UICollectionViewLayout {
         let insets = collectionView.contentInset
         return collectionView.bounds.width - (insets.left + insets.right)
     }
-    
+
     // MARK: - override Properties
     override var collectionViewContentSize: CGSize {
         CGSize(width: contentWidth, height: layoutHeight)
     }
-    
+
     // MARK: - override Methods
     override func prepare() {
         super.prepare()
-        
+
         layoutHeight = 0.0
         itemCache.removeAll()
         guard let collectionView = collectionView else { return }
@@ -51,7 +51,7 @@ class TasteCollectionViewLayout: UICollectionViewLayout {
                 layoutWidthIterator = 0.0
                 layoutHeight += itemSize.height + interItemSpacing
             }
-            
+
             let frame = CGRect(x: layoutWidthIterator + interItemSpacing,
                                y: layoutHeight,
                                width: itemSize.width,
@@ -63,18 +63,16 @@ class TasteCollectionViewLayout: UICollectionViewLayout {
         }
         layoutHeight += itemSize.height
     }
-    
-    override func layoutAttributesForElements(in rect: CGRect)-> [UICollectionViewLayoutAttributes]? {
+
+    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         super.layoutAttributesForElements(in: rect)
 
         var visibleLayoutAttributes: [UICollectionViewLayoutAttributes] = []
-        
-        for attributes in itemCache {
-            if attributes.frame.intersects(rect) {
-                visibleLayoutAttributes.append(attributes)
-            }
+
+        for attributes in itemCache where attributes.frame.intersects(rect) {
+            visibleLayoutAttributes.append(attributes)
         }
-        
+
         return visibleLayoutAttributes
     }
 

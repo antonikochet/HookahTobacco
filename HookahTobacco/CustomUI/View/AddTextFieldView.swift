@@ -9,23 +9,23 @@ import UIKit
 import SnapKit
 
 class AddTextFieldView: UIView {
-    
-    //MARK: public properties
+
+    // MARK: public properties
     var text: String? {
         get { textField.text }
         set { textField.text = newValue }
     }
-    
+
     var heightView: CGFloat {
         label.font.lineHeight + 8 + 31
     }
-    
-    //MARK: private properties UI
+
+    // MARK: private properties UI
     private let label: UILabel = {
         let label = UILabel()
         return label
     }()
-    
+
     private let textField: UITextField = {
         let text = UITextField()
         text.textColor = .black
@@ -36,42 +36,42 @@ class AddTextFieldView: UIView {
         text.backgroundColor = UIColor(white: 0.95, alpha: 0.8)
         return text
     }()
-    
-    //MARK: init
+
+    // MARK: init
     init() {
         super.init(frame: .zero)
         setupSubviews()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupSubviews()
     }
-    
-    //MARK: public methods
+
+    // MARK: public methods
     func setupView(textLabel: String, placeholder: String, delegate: UITextFieldDelegate? = nil) {
         label.text = textLabel
         textField.attributedPlaceholder = NSAttributedString(
             string: placeholder,
-            attributes: [.foregroundColor : UIColor(white: 0.15, alpha: 0.6)]
+            attributes: [.foregroundColor: UIColor(white: 0.15, alpha: 0.6)]
         )
         textField.delegate = delegate
     }
-    
+
     func isMyTextField(_ textField: UITextField) -> Bool {
         textField == self.textField
     }
-    
+
     @discardableResult
     func becomeFirstResponderTextField() -> Bool {
         textField.becomeFirstResponder()
     }
-    
-    //MARK: private methods
+
+    // MARK: private methods
     private func setupSubviews() {
         addSubview(label)
         addSubview(textField)
-        
+
         label.snp.makeConstraints { make in
             make.top.equalTo(snp.top)
             make.leading.trailing.equalTo(self)

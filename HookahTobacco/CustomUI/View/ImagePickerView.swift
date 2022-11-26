@@ -16,34 +16,34 @@ protocol ImagePickerViewDelegate: AnyObject {
 
 class ImagePickerView: UIView {
     weak var delegate: ImagePickerViewDelegate?
-    
+
     var textButton: String = "Добавить изображение" {
         didSet { selectImageButton.setTitle(textButton, for: .normal) }
     }
-    
+
     var image: UIImage? {
         didSet {
             updateImageView(image == nil)
             imageView.image = image
         }
     }
-    
+
     var imageHeight: CGFloat = 100
-    
+
     var viewWithoutImageHeight: CGFloat {
         heightButton + constraintBetweenButtonAndImage
     }
-    
+
     private var currectImageHeight: CGFloat {
-        get { image != nil ? imageHeight : 0 }
+        image != nil ? imageHeight : 0
     }
-    
+
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
-    
+
     private let selectImageButton: UIButton = {
         let button = UIButton()
         button.setTitleColor(.white, for: .normal)
@@ -53,22 +53,22 @@ class ImagePickerView: UIView {
         button.titleLabel?.font = UIFont.appFont(size: 17, weight: .bold)
         return button
     }()
-    
+
     init() {
         super.init(frame: .zero)
         setup()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setup()
     }
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
         selectImageButton.createCornerRadius()
     }
-    
+
     private func setup() {
         addSubview(selectImageButton)
         selectImageButton.snp.makeConstraints { make in
@@ -78,7 +78,7 @@ class ImagePickerView: UIView {
             make.height.equalTo(heightButton)
         }
         selectImageButton.addTarget(self, action: #selector(touchSelectImageButton), for: .touchUpInside)
-        
+
         addSubview(imageView)
         imageView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
@@ -86,18 +86,18 @@ class ImagePickerView: UIView {
             make.bottom.equalTo(selectImageButton.snp.top).inset(-constraintBetweenButtonAndImage)
             make.width.equalTo(imageView.snp.height)
         }
-        
+
         snp.makeConstraints { make in
             make.height.equalTo(heightView)
         }
     }
-    
+
     private func updateImageView(_ isHidden: Bool) {
         snp.updateConstraints { make in
             make.height.equalTo(heightView)
         }
     }
-    
+
     @objc
     private func touchSelectImageButton() {
         let imagePickerView = UIImagePickerController()
@@ -107,8 +107,10 @@ class ImagePickerView: UIView {
 }
 
 extension ImagePickerView: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
+    func imagePickerController(
+        _ picker: UIImagePickerController,
+        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
+    ) {
         guard let imageFileURL = info[.imageURL] as? URL else {
             return
         }
@@ -118,7 +120,7 @@ extension ImagePickerView: UIImagePickerControllerDelegate & UINavigationControl
             self.textButton = "Изменить изображение"
         }
     }
-    
+
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true) {
             self.delegate?.didCancel()

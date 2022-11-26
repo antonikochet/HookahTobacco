@@ -16,26 +16,26 @@ protocol AddPickerViewDelegate: AnyObject {
 }
 
 class AddPickerView: UIView {
-    //MARK: public properties
+    // MARK: public properties
     weak var delegate: AddPickerViewDelegate?
-    
+
     var text: String? {
         get { textField.text }
         set { textField.text = newValue }
     }
-    
+
     var pickerViewHeight: CGFloat = 120
-    
-    //MARK: private properties
+
+    // MARK: private properties
     private let label: UILabel = {
         let label = UILabel()
         return label
     }()
-    
+
     var viewHeight: CGFloat {
         label.font.lineHeight + 16 + 31
     }
-    
+
     private let textField: UITextField = {
         let textField = UITextField()
         textField.borderStyle = .roundedRect
@@ -43,33 +43,33 @@ class AddPickerView: UIView {
         textField.backgroundColor = UIColor(white: 0.95, alpha: 0.8)
         return textField
     }()
-    
+
     private let pickerView = UIPickerView()
-       
-    //MARK: init
+
+    // MARK: init
     init() {
         super.init(frame: .zero)
         setup()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setup()
     }
-    
-    //MARK: public methods
+
+    // MARK: public methods
     func setupView(text: String) {
         label.text = text
     }
-    
-    //MARK: private methods
+
+    // MARK: private methods
     private func setup() {
         addSubview(label)
         label.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
             make.height.equalTo(label.font.lineHeight)
         }
-        
+
         addSubview(textField)
         textField.delegate = self
         textField.snp.makeConstraints { make in
@@ -77,7 +77,7 @@ class AddPickerView: UIView {
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(31)
         }
-        
+
         addSubview(pickerView)
         pickerView.delegate = self
         pickerView.dataSource = self
@@ -86,12 +86,12 @@ class AddPickerView: UIView {
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(0)
         }
-        
+
         snp.makeConstraints { make in
             make.height.equalTo(viewHeight)
         }
     }
-    
+
     private func showSelectedManufacturer() {
         guard let title = textField.text,
               let index = delegate?.receiveIndex(for: title) else { return }
@@ -120,7 +120,7 @@ extension AddPickerView: UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return delegate?.pickerNumberOfRows ?? 0
     }
@@ -130,7 +130,7 @@ extension AddPickerView: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return delegate?.receiveRow(by: row)
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         delegate?.didSelected(by: row)
         text = delegate?.receiveRow(by: row)

@@ -15,14 +15,14 @@ struct NamedFireStore {
         static let tobaccos = "tobaccos"
         static let tastes = "tastes"
     }
-    
+    // swiftlint: disable nesting
     struct Documents {
         struct User {
             static let firstName = "firstName"
             static let lastName = "lastName"
             static let isAdmin = "isAdmin"
         }
-        
+
         struct Manufacturer {
             static let name = "name"
             static let country = "country"
@@ -30,7 +30,7 @@ struct NamedFireStore {
             static let image = "image"
             static let link = "link"
         }
-        
+
         struct Tobacco {
             static let name = "name"
             static let taste = "taste"
@@ -38,14 +38,15 @@ struct NamedFireStore {
             static let nameManufacturer = "nameManufacturer"
             static let description = "description"
         }
-        
+
         struct Taste {
             static let taste = "taste"
             static let type = "type"
         }
-        
+
         struct System {
             static let versionDB = "versionDB"
         }
     }
+    // swiftlint: enable nesting
 }

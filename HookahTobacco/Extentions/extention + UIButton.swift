@@ -8,7 +8,6 @@
 import UIKit
 
 extension UIButton {
-    
     static func createAppBigButton(_ text: String? = nil,
                                    image: UIImage? = nil,
                                    titleColol: UIColor = .white,
@@ -27,7 +26,7 @@ extension UIButton {
         button.titleLabel?.font = UIFont.appFont(size: fontSise, weight: .bold)
         return button
     }
-    
+
     func createCornerRadius() {
         layer.cornerRadius = frame.height / 2
         clipsToBounds = true

@@ -14,14 +14,14 @@ extension UIEdgeInsets {
                   bottom: padding,
                   right: padding)
     }
-    
+
     init(left: CGFloat, right: CGFloat) {
         self.init(top: 0,
                   left: left,
                   bottom: 0,
                   right: right)
     }
-    
+
     init(horizontal: CGFloat, vertical: CGFloat) {
         self.init(top: vertical,
                   left: horizontal,

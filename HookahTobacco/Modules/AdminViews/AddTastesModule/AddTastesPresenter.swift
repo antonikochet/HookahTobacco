@@ -26,7 +26,7 @@ class AddTastesPresenter {
                                     typeTaste: taste.typeTaste,
                                     isSelect: isSelect)
     }
-    
+
     private func createSelectedTasteViewModel(_ taste: Taste) -> TasteCollectionCellViewModel {
         TasteCollectionCellViewModel(taste: taste.taste)
     }
@@ -48,11 +48,11 @@ extension AddTastesPresenter: AddTastesInteractorOutputProtocol {
         }
         view.setupContent()
     }
-    
+
     func receivedError(with message: String) {
         view.showError(with: message)
     }
-    
+
     func updateData(by index: Int, with taste: Taste, and selectedTastes: [Taste]) {
         let selectedIdTastes = Set(selectedTastes.map { $0.uid })
         allTastesViewModel[index] = createTasteViewModel(taste, isSelect: selectedIdTastes.contains(taste.uid))
@@ -73,7 +73,7 @@ extension AddTastesPresenter: AddTastesInteractorOutputProtocol {
                             allIdsTaste: allIdsTaste,
                             outputModule: self)
     }
-    
+
     func receivedSelectedTastes(_ selectedTastes: [Taste]) {
         router.dismissView(newSelectedTastes: selectedTastes)
     }
@@ -84,7 +84,7 @@ extension AddTastesPresenter: AddTastesViewOutputProtocol {
     func viewDidLoad() {
         interactor.receiveStartingDataView()
     }
-    
+
     var selectedNumberOfRows: Int {
         selectedViewModels.count
     }
@@ -92,7 +92,7 @@ extension AddTastesPresenter: AddTastesViewOutputProtocol {
     func getSelectedViewModel(by index: Int) -> TasteCollectionCellViewModel {
         selectedViewModels[index]
     }
-    
+
     var tastesNumberOfRows: Int {
         allTastesViewModel.count
     }
@@ -100,29 +100,29 @@ extension AddTastesPresenter: AddTastesViewOutputProtocol {
     func getViewModel(by index: Int) -> AddTastesTableCellViewModel {
         allTastesViewModel[index]
     }
-    
+
     func didSelectTaste(by index: Int) {
         let viewModel = allTastesViewModel[index]
         interactor.selectedTaste(by: viewModel.taste)
     }
-    
+
     func didTouchAdd() {
         interactor.receiveDataForAdd()
     }
-    
+
     func selectedTastesDone() {
         interactor.receiveSelectedTastes()
     }
-    
+
     func didEditingTaste(by index: Int) {
         let viewModel = allTastesViewModel[index]
         interactor.receiveDataForEdit(by: viewModel.taste)
     }
-    
+
     func didStartSearch(with text: String) {
         interactor.performSearch(with: text)
     }
-    
+
     func didEndSearch() {
         interactor.endSearch()
     }
