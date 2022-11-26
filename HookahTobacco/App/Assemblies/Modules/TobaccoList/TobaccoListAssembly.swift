@@ -10,42 +10,51 @@
 import Foundation
 import Swinject
 
+struct TobaccoListDependency {
+    var appRouter: AppRouterProtocol
+    var isAdminMode: Bool
+}
+
 class TobaccoListAssembly: Assembly {
     func assemble(container: Container) {
-        
-        container.register(TobaccoListRouterProtocol.self) { (r, appRouter: AppRouterProtocol) in
-            let router = TobaccoListRouter(appRouter)
+        container.register(TobaccoListRouterProtocol.self) { (_, dependency: TobaccoListDependency) in
+            let router = TobaccoListRouter(dependency.appRouter)
             return router
         }
-        
-        container.register(TobaccoListInteractorInputProtocol.self) { (r, isAdminMode: Bool) in
-            //here resolve dependency injection
-            let getDataManager = r.resolve(DataManagerProtocol.self)!
-            let getImageManager = r.resolve(ImageManagerProtocol.self)!
-            
-            return TobaccoListInteractor(isAdminMode,
+
+        container.register(TobaccoListInteractorInputProtocol.self) { (resolver, dependency: TobaccoListDependency) in
+            // here resolve dependency injection
+            let getDataManager = resolver.resolve(DataManagerProtocol.self)!
+            let getImageManager = resolver.resolve(ImageManagerProtocol.self)!
+            let updateDataManager = resolver.resolve(UpdateDataManagerObserverProtocol.self)!
+
+            return TobaccoListInteractor(dependency.isAdminMode,
                                          getDataManager: getDataManager,
-                                         getImageManager: getImageManager)
+                                         getImageManager: getImageManager,
+                                         updateDataManager: updateDataManager)
         }
-        
-        container.register(TobaccoListViewOutputProtocol.self) { r in
+
+        container.register(TobaccoListViewOutputProtocol.self) { _ in
             let presenter = TobaccoListPresenter()
             return presenter
         }
-        
-        container.register(TobaccoListViewController.self) { (r, appRouter: AppRouterProtocol, isAdminMode: Bool) in
+
+        // swiftlint: disable force_cast
+        container.register(TobaccoListViewController.self) { (resolver, dependency: TobaccoListDependency) in
             let view = TobaccoListViewController()
-            let presenter = r.resolve(TobaccoListViewOutputProtocol.self) as! TobaccoListPresenter
-            let interactor = r.resolve(TobaccoListInteractorInputProtocol.self, argument: isAdminMode) as! TobaccoListInteractor
-            let router = r.resolve(TobaccoListRouterProtocol.self, argument: appRouter)!
-            
+            let presenter = resolver.resolve(TobaccoListViewOutputProtocol.self) as! TobaccoListPresenter
+            let interactor = resolver.resolve(TobaccoListInteractorInputProtocol.self,
+                                              argument: dependency) as! TobaccoListInteractor
+            let router = resolver.resolve(TobaccoListRouterProtocol.self, argument: dependency)!
+
             view.presenter = presenter
             presenter.view = view
             presenter.interactor = interactor
             interactor.presenter = presenter
-            
+
             presenter.router = router
             return view
         }
+        // swiftlint: enable force_cast
     }
 }

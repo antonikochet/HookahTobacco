@@ -22,6 +22,12 @@ class DataManager {
             definitionDataSynchronization()
         }
     }
+    private let usedTypes: [Any.Type] = [
+        Manufacturer.self,
+        Tobacco.self,
+        Taste.self
+    ]
+    private var subscribers: [String: [DataManagerSubscriberProtocol]]
 
     private let imageWorkingQueue = DispatchQueue(label: "ru.HookahTobacco.DataManager.getImage")
 
@@ -50,6 +56,9 @@ class DataManager {
         self.dataBaseService = dataBaseService
         self.imageService = imageService
         self.userDefaultsService = userDefaultsService
+        subscribers = Dictionary(uniqueKeysWithValues: usedTypes.map {
+            (String(describing: $0.self), [DataManagerSubscriberProtocol]())
+        })
     }
 
     // MARK: - Public methods
@@ -158,6 +167,9 @@ class DataManager {
             dispatchGroup.wait()
             self.userDefaultsService.setDataBaseVersion(self.remoteDBVersion)
             self.isSynchronized = true
+            self.notifySubscribers(with: Taste.self, newState: .update(taste))
+            self.notifySubscribers(with: Tobacco.self, newState: .update(tobaccos))
+            self.notifySubscribers(with: Manufacturer.self, newState: .update(manufacturers))
         }
     }
 
@@ -237,6 +249,14 @@ class DataManager {
             }
         }
     }
+
+    private func notifySubscribers<T>(with type: T.Type, newState: NewStateType<[T]>) {
+        let nameType = String(describing: type.self)
+        print("Пришло обновление для типа: \(type.self)")
+        if let subscribers = subscribers[nameType] {
+            subscribers.forEach { $0.notify(for: type, newState: newState) }
+        }
+    }
 }
 
 // MARK: - DataManagerProtocol implementation
@@ -307,6 +327,33 @@ extension DataManager: ImageManagerProtocol {
             } else {
                 self.receiveImageFromNetwork(for: type, completion: completion)
             }
+        }
+    }
+}
+
+// MARK: - UpdateDataManagerObserverProtocol implementation
+extension DataManager: UpdateDataManagerObserverProtocol {
+    func subscribe<T>(to type: T.Type, subscriber: DataManagerSubscriberProtocol) {
+        let nameType = String(describing: type.self)
+        if subscribers[nameType] != nil {
+            subscribers[nameType]?.append(subscriber)
+            print("Подписчик \(subscriber) был успешно добавлен в подписки на обновления для типа: \(type.self)")
+        } else {
+            print("Передан неверный тип \(type.self) для подписки")
+        }
+    }
+
+    func unsubscribe<T>(to type: T.Type, subscriber: DataManagerSubscriberProtocol) {
+        let nameType = String(describing: type.self)
+        if subscribers[nameType] != nil {
+            if let index = subscribers[nameType]?.firstIndex(where: { $0 === subscriber }) {
+                subscribers[nameType]?.remove(at: index)
+                print("Подписчик был удален из подписок на обновления для типа: \(type.self)")
+            } else {
+                print("Переданный подписчик отсутствует в подписках типа: \(type.self)")
+            }
+        } else {
+            print("Передан неверный тип для отписки на UpdateDataManagerObserverProtocol типа: \(type.self)")
         }
     }
 }

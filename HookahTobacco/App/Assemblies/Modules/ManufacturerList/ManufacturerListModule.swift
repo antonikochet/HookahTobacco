@@ -15,16 +15,16 @@ struct ManufacturerListDataModile: DataModuleProtocol {
 
 class ManufacturerListModule: ModuleProtocol {
     private var data: DataModuleProtocol?
-    
+
     required init(_ data: DataModuleProtocol? = nil) {
         self.data = data
     }
-    
+
     func createModule(_ appRouter: AppRouterProtocol) -> UIViewController? {
-        var isAdminMode = false
+        var dependency = ManufacturerListDependency(appRouter: appRouter, isAdminMode: false)
         if let data = data as? ManufacturerListDataModile {
-            isAdminMode = data.isAdminMode
+            dependency.isAdminMode = data.isAdminMode
         }
-        return appRouter.resolver.resolve(ManufacturerListViewController.self, arguments: appRouter, isAdminMode)
+        return appRouter.resolver.resolve(ManufacturerListViewController.self, argument: dependency)
     }
 }

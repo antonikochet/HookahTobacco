@@ -27,18 +27,18 @@ protocol ManufacturerListViewOutputProtocol: AnyObject {
 class ManufacturerListViewController: UIViewController {
     // MARK: - Public properties
     var presenter: ManufacturerListViewOutputProtocol!
-    
+
     // MARK: - Private properties
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(ManufacturerListTableViewCell.self,
                            forCellReuseIdentifier: ManufacturerListTableViewCell.identifier)
-        
+
         return tableView
     }()
-    
+
     private let refreshControl = UIRefreshControl()
-    
+
     // MARK: - Live Cycle ViewController
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +46,7 @@ class ManufacturerListViewController: UIViewController {
         setupSubviews()
         presenter.viewDidLoad()
     }
-    
+
     // MARK: - Setups
     private func setupSubviews() {
         view.addSubview(tableView)
@@ -56,12 +56,12 @@ class ManufacturerListViewController: UIViewController {
             make.edges.equalToSuperview()
         }
         tableView.refreshControl = refreshControl
-        
+
         refreshControl.addTarget(self, action: #selector(refreshTableView), for: .valueChanged)
     }
-    
+
     // MARK: - Private methods
-    
+
     // MARK: - Selectors
     @objc private func refreshTableView() {
         presenter.didStartingRefreshView()
@@ -71,16 +71,22 @@ class ManufacturerListViewController: UIViewController {
 // MARK: - ViewInputProtocol implementation
 extension ManufacturerListViewController: ManufacturerListViewInputProtocol {
     func showError(with message: String) {
-        showAlertError(title: "Ошибка", message: message)
+        DispatchQueue.main.async {
+            self.showAlertError(title: "Ошибка", message: message)
+        }
     }
-    
+
     func showData() {
-        tableView.reloadData()
-        refreshControl.endRefreshing()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            self.refreshControl.endRefreshing()
+        }
     }
-    
+
     func showRow(_ row: Int) {
-        tableView.reloadRows(at: [IndexPath(row: row, section: 0)], with: .none)
+        DispatchQueue.main.async {
+            self.tableView.reloadRows(at: [IndexPath(row: row, section: 0)], with: .none)
+        }
     }
 }
 
@@ -89,13 +95,16 @@ extension ManufacturerListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.numberOfRows
     }
-    
+
+    // swiftlint: disable force_cast
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ManufacturerListTableViewCell.identifier, for: indexPath) as! ManufacturerListTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: ManufacturerListTableViewCell.identifier,
+                                                 for: indexPath) as! ManufacturerListTableViewCell
         let viewModel = presenter.getViewModel(by: indexPath.row)
         cell.setCell(name: viewModel.name, country: viewModel.country, image: viewModel.image)
         return cell
     }
+    // swiftlint: enable force_cast
 }
 
 // MARK: - UITableViewDelegate implementation
@@ -103,7 +112,7 @@ extension ManufacturerListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return tableView.frame.height / 8
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter.didTouchForElement(by: indexPath.row)
     }

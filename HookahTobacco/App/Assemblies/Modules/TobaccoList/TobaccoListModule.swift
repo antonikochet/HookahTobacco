@@ -15,16 +15,16 @@ struct TobaccoListDataModile: DataModuleProtocol {
 
 class TobaccoListModule: ModuleProtocol {
     private var data: DataModuleProtocol?
-    
+
     required init(_ data: DataModuleProtocol? = nil) {
         self.data = data
     }
-    
+
     func createModule(_ appRouter: AppRouterProtocol) -> UIViewController? {
-        var isAdminMode = false
+        var dependency = TobaccoListDependency(appRouter: appRouter, isAdminMode: false)
         if let data = data as? TobaccoListDataModile {
-            isAdminMode = data.isAdminMode
+            dependency.isAdminMode = data.isAdminMode
         }
-        return appRouter.resolver.resolve(TobaccoListViewController.self, arguments: appRouter, isAdminMode)
+        return appRouter.resolver.resolve(TobaccoListViewController.self, argument: dependency)
     }
 }

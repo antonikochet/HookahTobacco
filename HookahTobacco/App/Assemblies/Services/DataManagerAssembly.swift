@@ -27,5 +27,8 @@ class DataManagerAssembly: Assembly {
         container.register(ImageManagerProtocol.self) { resolver in
             resolver.resolve(DataManager.self)!
         }
+        container.register(UpdateDataManagerObserverProtocol.self) { resolver in
+            resolver.resolve(DataManager.self)!
+        }
     }
 }
