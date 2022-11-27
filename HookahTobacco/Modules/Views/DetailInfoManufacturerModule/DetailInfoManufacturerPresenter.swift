@@ -56,12 +56,8 @@ extension DetailInfoManufacturerPresenter: DetailInfoManufacturerInteractorOutpu
         view.showData()
     }
 
-    func receivedError(with code: Int, and message: String) {
-        view.showAlertError(with: "Code \(code). \(message)")
-    }
-
     func receivedError(with message: String) {
-        view.showAlertError(with: message)
+        router.showError(with: message)
     }
 
     func receivedUpdate(for tobacco: DetailInfoManufacturerEntity.Tobacco, at index: Int) {

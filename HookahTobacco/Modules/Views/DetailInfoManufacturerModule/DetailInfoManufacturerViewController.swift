@@ -11,7 +11,6 @@ import UIKit
 import SnapKit
 
 protocol DetailInfoManufacturerViewInputProtocol: AnyObject {
-    func showAlertError(with message: String)
     func showData()
     func updateRow(at index: Int)
 }
@@ -29,10 +28,10 @@ protocol DetailInfoManufacturerViewOutputProtocol: AnyObject {
 class DetailInfoManufacturerViewController: UIViewController {
     // MARK: - Public properties
     var presenter: DetailInfoManufacturerViewOutputProtocol!
-    
+
     // MARK: - Private properties
     private var detailCellHeight: CGFloat = 0
-    
+
     // MARK: - Private UI
     private var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -45,14 +44,14 @@ class DetailInfoManufacturerViewController: UIViewController {
                            forCellReuseIdentifier: EmptyCell.identifier)
         return tableView
     }()
-    
+
     // MARK: - Life Cycle ViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSubviews()
         presenter.viewDidLoad()
     }
-    
+
     // MARK: - Setups
     private func setupSubviews() {
         view.addSubview(tableView)
@@ -63,22 +62,18 @@ class DetailInfoManufacturerViewController: UIViewController {
         }
     }
     // MARK: - Private methods
-    
+
     // MARK: - Selectors
-    
+
 }
 
 // MARK: - ViewInputProtocol implementation
 extension DetailInfoManufacturerViewController: DetailInfoManufacturerViewInputProtocol {
-    func showAlertError(with message: String) {
-        showAlertError(title: "Ошибка", message: message)
-    }
-    
     func showData() {
         navigationItem.title = presenter.nameManufacturer
         tableView.reloadData()
     }
-    
+
     func updateRow(at index: Int) {
         let indexPath = IndexPath(row: index, section: 1)
         if tableView.indexPathsForVisibleRows?.contains(indexPath) ?? false {
@@ -92,51 +87,53 @@ extension DetailInfoManufacturerViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-            case 0: return 1
-            case 1: return presenter.isTobaccosEmpty ? 1 : presenter.tobaccoNumberOfRows
-            default: return 0
+        case 0: return 1
+        case 1: return presenter.isTobaccosEmpty ? 1 : presenter.tobaccoNumberOfRows
+        default: return 0
         }
     }
-    
+
+    // swiftlint: disable force_cast
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
-            case 0:
-                let cell = tableView.dequeueReusableCell(withIdentifier: DetailInfoManufacturerTableCell.identifier,
-                                                         for: indexPath) as! DetailInfoManufacturerTableCell
-                cell.viewModel = presenter.detailViewModelCell
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: DetailInfoManufacturerTableCell.identifier,
+                                                     for: indexPath) as! DetailInfoManufacturerTableCell
+            cell.viewModel = presenter.detailViewModelCell
+            return cell
+        case 1:
+            if !presenter.isTobaccosEmpty {
+                let cell = tableView.dequeueReusableCell(withIdentifier: TobaccoListCell.identifier,
+                                                         for: indexPath) as! TobaccoListCell
+                cell.viewModel = presenter.tobaccoViewModelCell(at: indexPath.row)
                 return cell
-            case 1:
-                if !presenter.isTobaccosEmpty {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: TobaccoListCell.identifier,
-                                                             for: indexPath) as! TobaccoListCell
-                    cell.viewModel = presenter.tobaccoViewModelCell(at: indexPath.row)
-                    return cell
-                } else {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: EmptyCell.identifier,
-                                                             for: indexPath) as! EmptyCell
-                    cell.title = "Упс... Список табаков пуст"
-                    cell.descriptionText = "В базу данных еще не внесли табаки производителя..."
-                    return cell
-                }
-            default:
-                return UITableViewCell()
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: EmptyCell.identifier,
+                                                         for: indexPath) as! EmptyCell
+                cell.title = "Упс... Список табаков пуст"
+                cell.descriptionText = "В базу данных еще не внесли табаки производителя..."
+                return cell
+            }
+        default:
+            return UITableViewCell()
         }
     }
-    
+    // swiftlint: enable force_cast
+
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
-            case 1: return presenter.isTobaccosEmpty ? nil : "Табаки производителя"
-            default: return nil
+        case 1: return presenter.isTobaccosEmpty ? nil : "Табаки производителя"
+        default: return nil
         }
     }
-    
+
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         switch section {
-            case 1: return presenter.linkToManufacturerWebside
-            default: return nil
+        case 1: return presenter.linkToManufacturerWebside
+        default: return nil
         }
     }
 }
@@ -145,20 +142,20 @@ extension DetailInfoManufacturerViewController: UITableViewDataSource {
 extension DetailInfoManufacturerViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
-            case 0:
-                if detailCellHeight == 0,
-                   let cell = tableView.cellForRow(at: indexPath) as? DetailInfoManufacturerTableCell {
-                    detailCellHeight = cell.heightCell
-                }
-                if detailCellHeight == 0 { return tableView.frame.height * 0.5 }
-                return detailCellHeight
-            case 1:
-                return presenter.isTobaccosEmpty ? EmptyCell.heightCell : tableView.frame.height / 6
-            default:
-                return 0
+        case 0:
+            if detailCellHeight == 0,
+               let cell = tableView.cellForRow(at: indexPath) as? DetailInfoManufacturerTableCell {
+                detailCellHeight = cell.heightCell
+            }
+            if detailCellHeight == 0 { return tableView.frame.height * 0.5 }
+            return detailCellHeight
+        case 1:
+            return presenter.isTobaccosEmpty ? EmptyCell.heightCell : tableView.frame.height / 6
+        default:
+            return 0
         }
     }
-    
+
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         if section == 1,
            let header = view as? UITableViewHeaderFooterView {
@@ -166,11 +163,11 @@ extension DetailInfoManufacturerViewController: UITableViewDelegate {
             header.textLabel!.numberOfLines = 1
         }
     }
-    
+
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40
     }
-    
+
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 30
     }

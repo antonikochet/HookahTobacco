@@ -11,7 +11,6 @@ import UIKit
 import SnapKit
 
 protocol ManufacturerListViewInputProtocol: AnyObject {
-    func showError(with message: String)
     func showData()
     func showRow(_ row: Int)
 }
@@ -70,12 +69,6 @@ class ManufacturerListViewController: UIViewController {
 
 // MARK: - ViewInputProtocol implementation
 extension ManufacturerListViewController: ManufacturerListViewInputProtocol {
-    func showError(with message: String) {
-        DispatchQueue.main.async {
-            self.showAlertError(title: "Ошибка", message: message)
-        }
-    }
-
     func showData() {
         DispatchQueue.main.async {
             self.tableView.reloadData()

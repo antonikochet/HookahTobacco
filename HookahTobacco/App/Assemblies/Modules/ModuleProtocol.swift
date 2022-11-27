@@ -14,7 +14,7 @@ protocol ModuleProtocol {
 }
 
 protocol DataModuleProtocol {
-    
+
 }
 
 extension ModuleProtocol {

@@ -9,14 +9,18 @@
 
 import UIKit
 
-protocol DetailInfoManufacturerRouterProtocol : RouterProtocol {
-    
+protocol DetailInfoManufacturerRouterProtocol: RouterProtocol {
+    func showError(with message: String)
 }
 
 class DetailInfoManufacturerRouter: DetailInfoManufacturerRouterProtocol {
     private var appRouter: AppRouterProtocol
-    
+
     required init(_ appRouter: AppRouterProtocol) {
         self.appRouter = appRouter
+    }
+
+    func showError(with message: String) {
+        appRouter.presentAlert(type: .error(message: message), completion: nil)
     }
 }

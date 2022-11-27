@@ -12,8 +12,6 @@ import SnapKit
 
 protocol AddTasteViewInputProtocol: AnyObject {
     func setupContent(id: String?, taste: String?, type: String?)
-    func showSuccess()
-    func showError(with message: String)
 }
 
 protocol AddTasteViewOutputProtocol: AnyObject {
@@ -96,14 +94,6 @@ extension AddTasteViewController: AddTasteViewInputProtocol {
         idTextFieldView.text = id
         tasteTextFieldView.text = taste
         typeTextFieldView.text = type
-    }
-
-    func showSuccess() {
-        showSuccessView(duration: 0.3, delay: 2)
-    }
-
-    func showError(with message: String) {
-        showAlertError(title: "Ошибка", message: message)
     }
 }
 

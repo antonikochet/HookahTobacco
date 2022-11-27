@@ -13,7 +13,6 @@ import SnapKit
 protocol TobaccoListViewInputProtocol: AnyObject {
     func showData()
     func updateRow(at index: Int)
-    func showErrorAlert(with message: String)
 }
 
 protocol TobaccoListViewOutputProtocol: AnyObject {
@@ -79,12 +78,6 @@ extension TobaccoListViewController: TobaccoListViewInputProtocol {
     func updateRow(at index: Int) {
         DispatchQueue.main.async {
             self.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .none)
-        }
-    }
-    
-    func showErrorAlert(with message: String) {
-        DispatchQueue.main.async {
-            self.showAlertError(title: "Ошибка", message: message)
         }
     }
 }

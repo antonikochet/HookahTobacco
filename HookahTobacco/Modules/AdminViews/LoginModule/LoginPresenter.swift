@@ -19,23 +19,25 @@ extension LoginPresenter: LoginInteractorOutputProtocol {
     func receivedSuccessWhileLogin() {
         router.presentAddMenuView()
     }
-    
+
     func receivedErrorLogin(with message: String) {
-        view.showAlertError(with: message)
+        router.showError(with: message)
     }
 }
 
 extension LoginPresenter: LoginViewOutputProtocol {
     func pressedButtonLogin(with login: String?, and password: String?) {
         guard let email = login, !email.isEmpty else {
-            view.showAlertForUnspecifiedField(with: "Ошибка", message: "email не введен", error: .login)
+            router.showError(with: "Логин не введен!")
+            view.showEmptyField(field: .login)
             return
         }
         guard let pass = password, !pass.isEmpty else {
-            view.showAlertForUnspecifiedField(with: "Ошибка", message: "пароль не введен", error: .password)
+            router.showError(with: "Пароль не введен!")
+            view.showEmptyField(field: .password)
             return
         }
-        
+
         interactor.userLoginSystem(with: email, and: pass)
     }
 }

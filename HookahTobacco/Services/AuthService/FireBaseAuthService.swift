@@ -20,29 +20,29 @@ struct FBUser {
 class FireBaseAuthService: AuthServiceProtocol {
     typealias User = FBUser
     
-    //TODO: возможно убрать одиночку
+    // TODO: возможно убрать одиночку
     static let shared = FireBaseAuthService(handlerErrors: FireBaseHandlerErrors())
-    
+
     private var auth = Auth.auth()
     private var db = Firestore.firestore()
     private var _currectUser: FBUser?
     private var handlerErrors: NetworkHandlerErrors
-    
+
     private init(handlerErrors: NetworkHandlerErrors) {
         self.handlerErrors = handlerErrors
         getUserInfo()
     }
     
-    //MARK: public methods and properties
-    
+    // MARK: - Public methods and properties
+
     var isUserLoggerIn: Bool {
         auth.currentUser != nil
     }
-    
+
     var currectUser: FBUser? {
         _currectUser
     }
-    
+
     func login(with email: String, password: String, completion: AuthServiceCompletion?) {
         auth.signIn(withEmail: email, password: password) { [weak self] result, error in
             guard let self = self else { return }
@@ -58,7 +58,7 @@ class FireBaseAuthService: AuthServiceProtocol {
             }
         }
     }
-    
+
     func logout(completion: AuthServiceCompletion?) {
         do {
             try auth.signOut()
@@ -67,8 +67,8 @@ class FireBaseAuthService: AuthServiceProtocol {
             completion?(self.handlerErrors.handlerError(error))
         }
     }
-    
-    //MARK: private methods and properties
+
+    // MARK: - private methods and properties
     private func getUserInfo() {
         guard let user = auth.currentUser else {
             self._currectUser = nil
@@ -88,13 +88,13 @@ class FireBaseAuthService: AuthServiceProtocol {
     }
 }
 
-//TODO: возможно переделать init FBUser
+// TODO: возможно переделать init FBUser
 fileprivate extension FBUser {
     init(uid: String, email: String? = nil, data: [String: Any]? = nil) {
         let isAdmin = data?[NamedFireStore.Documents.User.isAdmin] as? Bool
         let firstName = data?[NamedFireStore.Documents.User.firstName] as? String
         let lastName = data?[NamedFireStore.Documents.User.lastName] as? String
-        
+
         self.uid = uid
         self.email = email
         self.firstName = firstName

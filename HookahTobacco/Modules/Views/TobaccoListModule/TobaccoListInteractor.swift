@@ -74,8 +74,8 @@ class TobaccoListInteractor {
             switch result {
             case .success(let data):
                 self.tobaccos = data
-                self.getImagesTobacco()
                 self.presenter.receivedSuccess(data.map { self.createTobaccoForPresenter($0) })
+                self.getImagesTobacco()
             case .failure(let error):
                 self.presenter.receivedError(with: error.localizedDescription)
             }

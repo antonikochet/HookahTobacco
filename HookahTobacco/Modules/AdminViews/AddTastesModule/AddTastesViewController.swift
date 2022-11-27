@@ -12,7 +12,6 @@ import SnapKit
 
 protocol AddTastesViewInputProtocol: AnyObject {
     func setupContent()
-    func showError(with message: String)
     func updateRowAndSelect(by index: Int)
 }
 
@@ -126,10 +125,6 @@ extension AddTastesViewController: AddTastesViewInputProtocol {
     func setupContent() {
         tableView.reloadData()
         tasteCollectionView.reloadData()
-    }
-
-    func showError(with message: String) {
-        showAlertError(title: "Ошибка", message: message)
     }
 
     func updateRowAndSelect(by index: Int) {

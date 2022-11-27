@@ -15,7 +15,7 @@ struct Taste {
 }
 
 extension Taste: Hashable {
-    static func ==(_ lhs: Taste, rhs: Taste) -> Bool {
+    static func == (_ lhs: Taste, rhs: Taste) -> Bool {
         lhs.uid == rhs.uid
     }
 

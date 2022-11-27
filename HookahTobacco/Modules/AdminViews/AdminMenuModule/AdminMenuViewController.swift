@@ -11,7 +11,6 @@ import UIKit
 import SnapKit
 
 protocol AdminMenuViewInputProtocol: AnyObject {
-    func showError(with title: String, and message: String)
 }
 
 protocol AdminMenuViewOutputProtocol: AnyObject {
@@ -101,9 +100,7 @@ class AdminMenuViewController: UIViewController {
 
 // MARK: - AdminMenuViewInputProtocol implementation
 extension AdminMenuViewController: AdminMenuViewInputProtocol {
-    func showError(with title: String, and message: String) {
-        showAlertError(title: title, message: message)
-    }
+
 }
 
 // MARK: - extension UIButton

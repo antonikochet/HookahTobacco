@@ -35,9 +35,9 @@ class DetailTobaccoPresenter {
 // MARK: - InteractorOutputProtocol implementation
 extension DetailTobaccoPresenter: DetailTobaccoInteractorOutputProtocol {
     func receivedError(with message: String) {
-        view.showError(with: message)
+        router.showError(with: message)
     }
-    
+
     func initialDataForPresentation(_ tobacco: DetailTobaccoEntity.Tobacco) {
         let viewModel = createViewModel(tobacco)
         tasteViewModels = tobacco.tastes.map { createTasteViewModel($0) }
@@ -51,11 +51,11 @@ extension DetailTobaccoPresenter: DetailTobaccoViewOutputProtocol {
     var tasteNumberOfRows: Int {
         tasteViewModels.count
     }
-    
+
     func getTasteViewModel(at index: Int) -> TasteCollectionCellViewModel {
         tasteViewModels[index]
     }
-    
+
     func viewDidLoad() {
         interactor.receiveStartingDataView()
     }

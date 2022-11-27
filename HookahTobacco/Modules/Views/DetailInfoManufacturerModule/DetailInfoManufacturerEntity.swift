@@ -23,5 +23,3 @@ struct DetailInfoManufacturerEntity {
         let image: Data?
     }
 }
-
-

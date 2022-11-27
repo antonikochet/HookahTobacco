@@ -11,8 +11,7 @@ import UIKit
 import SnapKit
 
 protocol AddTobaccoViewInputProtocol: AnyObject {
-    func showAlertError(with message: String)
-    func showSuccessViewAlert(_ isClear: Bool)
+    func clearView()
     func setupContent(_ viewModel: AddTobaccoEntity.ViewModel)
     func setupTastes()
     func setupSelectedManufacturer(_ index: Int)
@@ -171,20 +170,13 @@ final class AddTobaccoViewController: HTScrollContentViewController {
 
 // MARK: - ViewInputProtocol implementation
 extension AddTobaccoViewController: AddTobaccoViewInputProtocol {
-    func showAlertError(with message: String) {
-        showAlertError(title: "Ошибка", message: message)
-    }
-
-    func showSuccessViewAlert(_ isClear: Bool) {
-        showSuccessView(duration: 0.3, delay: 2.0)
-        if isClear {
-            nameView.text = ""
-            descriptionView.text = ""
-            changeManufacturerPickerView(by: 0)
-            nameView.becomeFirstResponderTextField()
-            imagePickerView.image = nil
-            tasteCollectionView.reloadData()
-        }
+    func clearView() {
+        nameView.text = ""
+        descriptionView.text = ""
+        changeManufacturerPickerView(by: 0)
+        nameView.becomeFirstResponderTextField()
+        imagePickerView.image = nil
+        tasteCollectionView.reloadData()
     }
 
     func setupContent(_ viewModel: AddTobaccoEntity.ViewModel) {

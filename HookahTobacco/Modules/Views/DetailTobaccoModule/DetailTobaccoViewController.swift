@@ -13,7 +13,6 @@ import SnapKit
 protocol DetailTobaccoViewInputProtocol: AnyObject {
     func setupContent(_ viewModel: DetailTobaccoEntity.ViewModel)
     func setupTasteView()
-    func showError(with message: String)
 }
 
 protocol DetailTobaccoViewOutputProtocol: AnyObject {
@@ -69,7 +68,7 @@ class DetailTobaccoViewController: HTScrollContentViewController {
         label.numberOfLines = 1
         return label
     }()
-    
+
     // MARK: - ViewController Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -146,10 +145,6 @@ extension DetailTobaccoViewController: DetailTobaccoViewInputProtocol {
 
     func setupTasteView() {
         tasteCollectionView.reloadData()
-    }
-
-    func showError(with message: String) {
-        showAlertError(title: "Ошибка", message: message)
     }
 }
 

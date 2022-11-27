@@ -16,8 +16,7 @@ enum LoginField {
 }
 
 protocol LoginViewInputProtocol: AnyObject {
-    func showAlertForUnspecifiedField(with title: String, message: String, error field: LoginField)
-    func showAlertError(with message: String)
+    func showEmptyField(field: LoginField)
 }
 
 protocol LoginViewOutputProtocol {
@@ -27,7 +26,7 @@ protocol LoginViewOutputProtocol {
 class LoginViewController: UIViewController {
 
     var presenter: LoginViewOutputProtocol!
-    
+
     private let emailTextField: UITextField = {
         let text = UITextField()
         text.textColor = .black
@@ -40,7 +39,7 @@ class LoginViewController: UIViewController {
         text.backgroundColor = UIColor(white: 0.95, alpha: 0.8)
         return text
     }()
-    
+
     private let passwordTextField: UITextField = {
         let text = UITextField()
         text.textColor = .black
@@ -52,9 +51,9 @@ class LoginViewController: UIViewController {
         text.backgroundColor = UIColor(white: 0.95, alpha: 0.8)
         return text
     }()
-    
+
     private let loginButton: UIButton = UIButton.createAppBigButton("Войти / Log in", fontSise: 25)
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Log in"
@@ -62,20 +61,20 @@ class LoginViewController: UIViewController {
         overrideUserInterfaceStyle = .light
         setupSubviews()
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
+
         loginButton.layer.cornerRadius = loginButton.frame.height / 2
         loginButton.clipsToBounds = true
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        
+
         view.endEditing(true)
     }
-    
+
     private func setupSubviews() {
         view.addSubview(emailTextField)
         emailTextField.delegate = self
@@ -83,14 +82,14 @@ class LoginViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(56)
             make.leading.trailing.equalTo(view).inset(32)
         }
-        
+
         view.addSubview(passwordTextField)
         passwordTextField.delegate = self
         passwordTextField.snp.makeConstraints { make in
             make.top.equalTo(emailTextField.snp.bottom).offset(24)
             make.leading.trailing.equalTo(view).inset(32)
         }
-        
+
         view.addSubview(loginButton)
         loginButton.snp.makeConstraints { make in
             make.top.equalTo(passwordTextField.snp.bottom).offset(32)
@@ -99,7 +98,7 @@ class LoginViewController: UIViewController {
         }
         loginButton.addTarget(self, action: #selector(touchLoginButton), for: .touchUpInside)
     }
-    
+
     @objc
     private func touchLoginButton() {
         presenter.pressedButtonLogin(with: emailTextField.text, and: passwordTextField.text)
@@ -107,19 +106,13 @@ class LoginViewController: UIViewController {
 }
 
 extension LoginViewController: LoginViewInputProtocol {
-    func showAlertForUnspecifiedField(with title: String, message: String, error field: LoginField) {
-        showAlertError(title: title, message: message) {
-            switch field {
-                case .login:
-                    self.emailTextField.becomeFirstResponder()
-                case .password:
-                    self.passwordTextField.becomeFirstResponder()
-            }
+    func showEmptyField(field: LoginField) {
+        switch field {
+        case .login:
+            self.emailTextField.becomeFirstResponder()
+        case .password:
+            self.passwordTextField.becomeFirstResponder()
         }
-    }
-    
-    func showAlertError(with message: String) {
-        showAlertError(title: "Ошибка", message: message)
     }
 }
 

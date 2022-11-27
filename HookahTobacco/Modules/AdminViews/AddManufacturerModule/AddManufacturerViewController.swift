@@ -11,8 +11,7 @@ import UIKit
 import SnapKit
 
 protocol AddManufacturerViewInputProtocol: AnyObject {
-    func showAlertError(with message: String)
-    func showSuccessViewAlert(_ isClear: Bool)
+    func clearView()
     func setupContent(_ viewModel: AddManufacturerEntity.ViewModel)
     func setupImageManufacturer(_ image: Data?, textButton: String)
     func showLoading()
@@ -150,19 +149,12 @@ final class AddManufacturerViewController: HTScrollContentViewController {
 
 // MARK: - ViewInputProtocol implementation
 extension AddManufacturerViewController: AddManufacturerViewInputProtocol {
-    func showAlertError(with message: String) {
-        showAlertError(title: "Ошибка", message: message)
-    }
-
-    func showSuccessViewAlert(_ isClear: Bool) {
-        showSuccessView(duration: 0.3, delay: 2.0)
-        if isClear {
-            nameTextFieldView.text = ""
-            countryTextFieldView.text = ""
-            descriptionView.text = ""
-            imagePickerView.image = nil
-            nameTextFieldView.becomeFirstResponderTextField()
-        }
+    func clearView() {
+        nameTextFieldView.text = ""
+        countryTextFieldView.text = ""
+        descriptionView.text = ""
+        imagePickerView.image = nil
+        nameTextFieldView.becomeFirstResponderTextField()
     }
 
     func setupContent(_ viewModel: AddManufacturerEntity.ViewModel) {

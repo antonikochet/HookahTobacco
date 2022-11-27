@@ -15,7 +15,8 @@ protocol AdminMenuRouterProtocol: RouterProtocol {
     func showManufacturerListModule()
     func showTobaccoListModule()
     func showLoginModule()
-    func showAlert()
+    func showError(with message: String)
+    func showSuccess(delay: Double)
 }
 
 class AdminMenuRouter: AdminMenuRouterProtocol {
@@ -47,7 +48,11 @@ class AdminMenuRouter: AdminMenuRouterProtocol {
         appRouter.presentView(module: LoginModule.self, moduleData: nil, animated: true)
     }
 
-    func showAlert() {
-        print("Версия была увеличена")
+    func showError(with message: String) {
+        appRouter.presentAlert(type: .error(message: message), completion: nil)
+    }
+
+    func showSuccess(delay: Double) {
+        appRouter.presentAlert(type: .success(delay: delay), completion: nil)
     }
 }

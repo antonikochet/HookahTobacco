@@ -30,14 +30,14 @@ extension AddTastePresenter: AddTasteInteractorOutputProtocol {
     }
 
     func receivedSuccess(_ taste: Taste) {
-        view.showSuccess()
+        router.showSuccess(delay: 2.0)
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             self.router.dismissView(taste)
         }
     }
 
     func receivedError(with message: String) {
-        view.showError(with: message)
+        router.showError(with: message)
     }
 }
 
@@ -49,11 +49,11 @@ extension AddTastePresenter: AddTasteViewOutputProtocol {
 
     func didTouchAdded(taste: String?, type: String?) {
         guard let taste = taste, !taste.isEmpty else {
-            view.showError(with: "Название вкуса не введено")
+            router.showError(with: "Название вкуса не введено")
             return
         }
         guard let type = type, !type.isEmpty else {
-            view.showError(with: "Тип вкуса не введен")
+            router.showError(with: "Тип вкуса не введен")
             return
         }
         interactor.addTaste(taste: taste, type: type)

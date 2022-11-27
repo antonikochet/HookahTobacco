@@ -14,10 +14,10 @@ class ManufacturerListPresenter {
     weak var view: ManufacturerListViewInputProtocol!
     var interactor: ManufacturerListInteractorInputProtocol!
     var router: ManufacturerListRouterProtocol!
-    
+
     // MARK: - Private properties
     private var viewModels: [ManufacturerListEntity.ViewModel] = []
-    
+
     // MARK: - Private methods
     private func createViewModel(for manufacturer: Manufacturer) -> ManufacturerListEntity.ViewModel {
         return ManufacturerListEntity.ViewModel(name: manufacturer.name,
@@ -32,21 +32,21 @@ extension ManufacturerListPresenter: ManufacturerListInteractorOutputProtocol {
         viewModels = data.map { createViewModel(for: $0) }
         view.showData()
     }
-    
+
     func receivedError(with message: String) {
-        view.showError(with: message)
+        router.showError(with: message)
     }
-    
+
     func receivedUpdate(for manufacturer: Manufacturer, at index: Int) {
         let newViewModel = createViewModel(for: manufacturer)
         viewModels[index] = newViewModel
         view.showRow(index)
     }
-    
+
     func receivedDataForShowDetail(_ manudacturer: Manufacturer) {
         router.showDetail(for: manudacturer)
     }
-    
+
     func receivedDataForEditing(_ manufacturer: Manufacturer) {
         router.showAddManufacturer(manufacturer, delegate: self)
     }
@@ -57,19 +57,19 @@ extension ManufacturerListPresenter: ManufacturerListViewOutputProtocol {
     var numberOfRows: Int {
         viewModels.count
     }
-    
+
     func getViewModel(by row: Int) -> ManufacturerListEntity.ViewModel {
         viewModels[row]
     }
-    
+
     func viewDidLoad() {
         interactor.startReceiveData()
     }
-    
+
     func didTouchForElement(by row: Int) {
         interactor.receiveDataForShowDetail(by: row)
     }
-    
+
     func didStartingRefreshView() {
         interactor.updateData()
     }

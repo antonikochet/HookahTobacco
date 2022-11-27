@@ -10,39 +10,46 @@ import Swinject
 
 protocol AppRouterProtocol {
     var resolver: Resolver { get }
-    
-    func pushViewController(module: ModuleProtocol.Type, moduleData data: DataModuleProtocol?, animateDisplay: Bool)
-    func pushViewController(module: ModuleProtocol.Type, moduleData data: DataModuleProtocol?, animateDisplay: Bool, completion:(() -> Void)?)
-    func popViewConroller(animated: Bool, completion:(() -> Void)?)
-    
+
+    func pushViewController(module: ModuleProtocol.Type,
+                            moduleData data: DataModuleProtocol?,
+                            animateDisplay: Bool)
+    func pushViewController(module: ModuleProtocol.Type,
+                            moduleData data: DataModuleProtocol?,
+                            animateDisplay: Bool,
+                            completion: (() -> Void)?)
+    func popViewConroller(animated: Bool, completion: (() -> Void)?)
+
     func presentView(module: ModuleProtocol.Type, moduleData data: DataModuleProtocol?, animated: Bool)
-    func dismissView(animated: Bool, completion:(() -> Void)?)
-    
+    func dismissView(animated: Bool, completion: (() -> Void)?)
+
     func presentViewModally(module: ModuleProtocol.Type, moduleData data: DataModuleProtocol?)
+
+    func presentAlert(type: AlertFactory.AlertType, completion: (() -> Void)?)
 }
 
 class AppRouter: AppRouterProtocol {
     private var assembler: Assembler
     private var registerModule: [String: (DataModuleProtocol?) -> ModuleProtocol]
     var appWindow: UIWindow
-    
+
     init(_ window: UIWindow) {
         assembler = Assembler()
         registerModule = [:]
         self.appWindow = window
     }
-    
+
     func apply(assemblies: [Assembly]) {
         assembler.apply(assemblies: assemblies)
     }
-    
+
     func registerModule(_ assembly: Assembly,
                         _ nameModule: String,
                         _ createModuleClosure: @escaping (DataModuleProtocol?) -> ModuleProtocol) {
         assembler.apply(assembly: assembly)
         registerModule.updateValue(createModuleClosure, forKey: nameModule)
     }
-    
+
     func startAppPresent(_ containers: [(module: ModuleProtocol.Type,
                                          tabBarItem: TabBarItemProtocol)]) {
         var createdContainers: [(module: ModuleProtocol,
@@ -52,21 +59,21 @@ class AppRouter: AppRouterProtocol {
                 createdContainers.append((module, $0.tabBarItem))
             }
         }
-        
+
         let dependency = HTTabBarControllerDependency(appRouter: self,
                                                       containers: createdContainers)
         let tabBar = resolver.resolve(HTTabBarController.self,
                                       argument: dependency)
         appWindow.rootViewController = tabBar
     }
-    
+
     private func receiveContainer() -> HTNavigationController? {
         guard let tabBar = appWindow.rootViewController as? HTTabBarController,
               let navController = tabBar.selectedViewController as? HTNavigationController
         else { return nil }
         return navController
     }
-    
+
     private func receiveModule(_ module: ModuleProtocol.Type,
                                _ data: DataModuleProtocol? = nil) -> ModuleProtocol? {
         if let constructor = registerModule[module.nameModule] {
@@ -76,12 +83,12 @@ class AppRouter: AppRouterProtocol {
             return nil
         }
     }
-    
-    //MARK: AppRouterProtocol
+
+    // MARK: - AppRouterProtocol
     var resolver: Resolver {
         assembler.resolver
     }
-    
+
     func pushViewController(module: ModuleProtocol.Type,
                             moduleData data: DataModuleProtocol? = nil,
                             animateDisplay: Bool) {
@@ -90,7 +97,7 @@ class AppRouter: AppRouterProtocol {
                            animateDisplay: animateDisplay,
                            completion: nil)
     }
-    
+
     func pushViewController(module: ModuleProtocol.Type,
                             moduleData data: DataModuleProtocol? = nil,
                             animateDisplay: Bool,
@@ -101,14 +108,14 @@ class AppRouter: AppRouterProtocol {
         navigationController.pushViewController(view, animated: animateDisplay)
         completion?()
     }
-    
+
     func popViewConroller(animated: Bool,
-                          completion:(() -> Void)? = nil) {
+                          completion: (() -> Void)? = nil) {
         guard let navigationController = receiveContainer() else { return }
         navigationController.popViewController(animated: animated)
         completion?()
     }
-    
+
     func presentView(module: ModuleProtocol.Type,
                      moduleData data: DataModuleProtocol? = nil,
                      animated: Bool) {
@@ -117,13 +124,13 @@ class AppRouter: AppRouterProtocol {
               let navigationController = receiveContainer() else { return }
         navigationController.setViewControllers([view], animated: animated)
     }
-    
+
     func dismissView(animated: Bool, completion: (() -> Void)? = nil) {
         guard let navigationController = receiveContainer() else { return }
         navigationController.dismiss(animated: true)
         completion?()
     }
-    
+
     func presentViewModally(module: ModuleProtocol.Type, moduleData data: DataModuleProtocol? = nil) {
         guard let module = receiveModule(module, data),
               let view = module.createModule(self),
@@ -131,6 +138,9 @@ class AppRouter: AppRouterProtocol {
         view.modalPresentationStyle = .pageSheet
         navigationController.present(view, animated: true)
     }
-    
-    
+
+    func presentAlert(type: AlertFactory.AlertType, completion: (() -> Void)?) {
+        guard let viewController = appWindow.rootViewController else { return }
+        AlertFactory.shared.showAlert(type, from: viewController, completion: completion)
+    }
 }

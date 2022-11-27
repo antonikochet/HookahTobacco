@@ -18,7 +18,7 @@ class AdminMenuPresenter {
 // MARK: - AdminMenuInteractorOutputProtocol implementation
 extension AdminMenuPresenter: AdminMenuInteractorOutputProtocol {
     func receiveError(with message: String) {
-        view.showError(with: "Ошибка", and: message)
+        router.showError(with: message)
     }
 
     func receiveSuccessLogout() {
@@ -26,7 +26,7 @@ extension AdminMenuPresenter: AdminMenuInteractorOutputProtocol {
     }
 
     func showAlert() {
-        router.showAlert()
+        router.showSuccess(delay: 2.0)
     }
 }
 
