@@ -10,20 +10,26 @@
 import Foundation
 import Swinject
 
+struct AddManufacturerDependency {
+    var appRouter: AppRouterProtocol
+    var manufacturer: Manufacturer?
+    var delegate: AddManufacturerOutputModule?
+}
+
 class AddManufacturerAssembly: Assembly {
     func assemble(container: Container) {
-        
-        container.register(AddManufacturerRouterProtocol.self) { (r, appRouter: AppRouterProtocol) in
-            let router = AddManufacturerRouter(appRouter)
+        container.register(AddManufacturerRouterProtocol.self) { (_, dependency: AddManufacturerDependency) in
+            let router = AddManufacturerRouter(dependency.appRouter)
             return router
         }
-        
-        container.register(AddManufacturerInteractorInputProtocol.self) { (r, manufacturer: Manufacturer?) in
-            //here resolve dependency injection
-            let setNetworkManager = r.resolve(SetDataNetworkingServiceProtocol.self)!
-            let setImageManager = r.resolve(SetImageNetworkingServiceProtocol.self)!
-            if let manufacturer = manufacturer {
-                let getImageManager = r.resolve(GetImageNetworkingServiceProtocol.self)!
+
+        container.register(AddManufacturerInteractorInputProtocol.self
+        ) { (resolver, dependency: AddManufacturerDependency) in
+            // here resolve dependency injection
+            let setNetworkManager = resolver.resolve(SetDataNetworkingServiceProtocol.self)!
+            let setImageManager = resolver.resolve(SetImageNetworkingServiceProtocol.self)!
+            if let manufacturer = dependency.manufacturer {
+                let getImageManager = resolver.resolve(GetImageNetworkingServiceProtocol.self)!
                 return AddManufacturerInteractor(manufacturer,
                                                  setNetworkManager: setNetworkManager,
                                                  setImageManager: setImageManager,
@@ -32,27 +38,32 @@ class AddManufacturerAssembly: Assembly {
             return AddManufacturerInteractor(setNetworkManager: setNetworkManager,
                                              setImageManager: setImageManager)
         }
-        
-        container.register(AddManufacturerViewOutputProtocol.self) { r in
+
+        container.register(AddManufacturerViewOutputProtocol.self) { _ in
             let presenter = AddManufacturerPresenter()
             return presenter
         }
-        
-        container.register(AddManufacturerViewController.self) { (r, appRouter: AppRouterProtocol, manufacturer: Manufacturer?, delegate: AddManufacturerOutputModule?) in
+
+        // swiftlint: disable force_cast
+        container.register(AddManufacturerViewController.self
+        ) { (resolver, dependency: AddManufacturerDependency) in
             let view = AddManufacturerViewController()
-            let presenter = r.resolve(AddManufacturerViewOutputProtocol.self) as! AddManufacturerPresenter
-            let interactor = r.resolve(AddManufacturerInteractorInputProtocol.self, argument: manufacturer) as! AddManufacturerInteractor
-            let router = r.resolve(AddManufacturerRouterProtocol.self, argument: appRouter) as! AddManufacturerRouter
-            
+            let presenter = resolver.resolve(AddManufacturerViewOutputProtocol.self) as! AddManufacturerPresenter
+            let interactor = resolver.resolve(AddManufacturerInteractorInputProtocol.self,
+                                              argument: dependency) as! AddManufacturerInteractor
+            let router = resolver.resolve(AddManufacturerRouterProtocol.self,
+                                          argument: dependency) as! AddManufacturerRouter
+
             view.presenter = presenter
             presenter.view = view
             presenter.interactor = interactor
             interactor.presenter = presenter
-            
+
             presenter.router = router
-            
-            router.delegate = delegate
+
+            router.delegate = dependency.delegate
             return view
         }
+        // swiftlint: enable force_cast
     }
 }

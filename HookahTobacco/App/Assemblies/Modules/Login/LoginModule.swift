@@ -11,16 +11,13 @@ import UIKit
 
 class LoginModule: ModuleProtocol {
     private var data: DataModuleProtocol?
-    
+
     required init(_ data: DataModuleProtocol? = nil) {
         self.data = data
     }
-    
-    static var nameModule: String {
-        String(describing: self)
-    }
-    
+
     func createModule(_ appRouter: AppRouterProtocol) -> UIViewController? {
-        return appRouter.resolver.resolve(LoginViewController.self, argument: appRouter)
+        let dependency = LoginDependency(appRouter: appRouter)
+        return appRouter.resolver.resolve(LoginViewController.self, argument: dependency)
     }
 }

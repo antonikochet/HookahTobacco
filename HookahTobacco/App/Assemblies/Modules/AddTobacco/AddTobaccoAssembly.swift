@@ -8,44 +8,52 @@
 import Foundation
 import Swinject
 
+struct AddTobaccoDependency {
+    var appRouter: AppRouterProtocol
+    var tobacco: Tobacco?
+    var delegate: AddTobaccoOutputModule?
+}
+
 class AddTobaccoAssembly: Assembly {
     func assemble(container: Container) {
-        
-        container.register(AddTobaccoRouterProtocol.self) { (r, appAssembler: AppRouterProtocol) in
-            let router = AddTobaccoRouter(appAssembler)
+        container.register(AddTobaccoRouterProtocol.self) { (_, dependency: AddTobaccoDependency) in
+            let router = AddTobaccoRouter(dependency.appRouter)
             return router
         }
-        
-        container.register(AddTobaccoInteractorInputProtocol.self) { (r, tobacco: Tobacco?) in
-            let getDataManager = r.resolve(GetDataNetworkingServiceProtocol.self)!
-            let setDataManager = r.resolve(SetDataNetworkingServiceProtocol.self)!
-            let setImageManager = r.resolve(SetImageNetworkingServiceProtocol.self)!
-            return AddTobaccoInteractor(tobacco,
+
+        container.register(AddTobaccoInteractorInputProtocol.self) { (resolver, dependency: AddTobaccoDependency) in
+            let getDataManager = resolver.resolve(GetDataNetworkingServiceProtocol.self)!
+            let setDataManager = resolver.resolve(SetDataNetworkingServiceProtocol.self)!
+            let setImageManager = resolver.resolve(SetImageNetworkingServiceProtocol.self)!
+            return AddTobaccoInteractor(dependency.tobacco,
                                         getDataManager: getDataManager,
                                         setDataManager: setDataManager,
                                         setImageManager: setImageManager)
         }
-        
-        container.register(AddTobaccoViewOutputProtocol.self) { r in
+
+        container.register(AddTobaccoViewOutputProtocol.self) { _ in
             let presenter = AddTobaccoPresenter()
             return presenter
         }
-        
-        container.register(AddTobaccoViewController.self) { (r, appRouter: AppRouterProtocol, tobacco: Tobacco?, delegate: AddTobaccoOutputModule?) in
+
+        // swiftlint: disable force_cast
+        container.register(AddTobaccoViewController.self) { (resolver, dependency: AddTobaccoDependency) in
             let view = AddTobaccoViewController()
-            let presenter = r.resolve(AddTobaccoViewOutputProtocol.self) as! AddTobaccoPresenter
-            let interactor = r.resolve(AddTobaccoInteractorInputProtocol.self, argument: tobacco) as! AddTobaccoInteractor
-            let router = r.resolve(AddTobaccoRouterProtocol.self, argument: appRouter) as! AddTobaccoRouter
-            
+            let presenter = resolver.resolve(AddTobaccoViewOutputProtocol.self) as! AddTobaccoPresenter
+            let interactor = resolver.resolve(AddTobaccoInteractorInputProtocol.self,
+                                              argument: dependency) as! AddTobaccoInteractor
+            let router = resolver.resolve(AddTobaccoRouterProtocol.self, argument: dependency) as! AddTobaccoRouter
+
             view.presenter = presenter
             presenter.view = view
             presenter.interactor = interactor
             interactor.presenter = presenter
-            
+
             presenter.router = router
-            
-            router.delegate = delegate
+
+            router.delegate = dependency.delegate
             return view
         }
+        // swiftlint: enable force_cast
     }
 }

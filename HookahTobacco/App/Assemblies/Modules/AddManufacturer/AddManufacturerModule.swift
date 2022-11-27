@@ -11,27 +11,28 @@ import UIKit
 
 struct AddManufacturerDataModule: DataModuleProtocol {
     let editingManufacturer: Manufacturer
-    var delegate: AddManufacturerOutputModule? = nil
+    var delegate: AddManufacturerOutputModule?
 }
 
 class AddManufacturerModule: ModuleProtocol {
     private var data: DataModuleProtocol?
-    
+
     required init(_ data: DataModuleProtocol? = nil) {
         self.data = data
     }
-    
+
     static var nameModule: String {
         String(describing: self)
     }
-    
+
     func createModule(_ appRouter: AppRouterProtocol) -> UIViewController? {
-        var manufacturer: Manufacturer? = nil
-        var delegate: AddManufacturerOutputModule? = nil
+        var dependency = AddManufacturerDependency(appRouter: appRouter,
+                                                   manufacturer: nil,
+                                                   delegate: nil)
         if let data = data as? AddManufacturerDataModule {
-            manufacturer = data.editingManufacturer
-            delegate = data.delegate
+            dependency.manufacturer = data.editingManufacturer
+            dependency.delegate = data.delegate
         }
-        return appRouter.resolver.resolve(AddManufacturerViewController.self, arguments: appRouter, manufacturer, delegate)
+        return appRouter.resolver.resolve(AddManufacturerViewController.self, argument: dependency)
     }
 }

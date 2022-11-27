@@ -15,21 +15,18 @@ struct DetailTobaccoDataModule: DataModuleProtocol {
 
 class DetailTobaccoModule: ModuleProtocol {
     private var data: DataModuleProtocol?
-    
+
     required init(_ data: DataModuleProtocol? = nil) {
         self.data = data
     }
 
     func createModule(_ appRouter: AppRouterProtocol) -> UIViewController? {
-        var dependency = DetailTobaccoDependency(
-            appRouter: appRouter,
-            tobacco: Tobacco(name: "", taste: [], idManufacturer: "", nameManufacturer: "", description: ""))
         if let data = data as? DetailTobaccoDataModule {
-            dependency.tobacco = data.tobacco
-        } else {
-            print("В DetailTobaccoModule не были переданы необходимые данные")
+            let dependency = DetailTobaccoDependency(appRouter: appRouter, tobacco: data.tobacco)
+            return appRouter.resolver.resolve(DetailTobaccoViewController.self,
+                                              argument: dependency)
         }
-        return appRouter.resolver.resolve(DetailTobaccoViewController.self,
-                                          argument: dependency)
+        print("В DetailTobaccoModule не были переданы необходимые данные")
+        return nil
     }
 }

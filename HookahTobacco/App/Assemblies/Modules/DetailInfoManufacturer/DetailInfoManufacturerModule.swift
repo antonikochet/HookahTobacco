@@ -15,16 +15,17 @@ struct DetailInfoManufacturerDataModule: DataModuleProtocol {
 
 class DetailInfoManufacturerModule: ModuleProtocol {
     private var data: DataModuleProtocol?
-    
+
     required init(_ data: DataModuleProtocol? = nil) {
         self.data = data
     }
-    
+
     func createModule(_ appRouter: AppRouterProtocol) -> UIViewController? {
         if let data = data as? DetailInfoManufacturerDataModule {
+            let dependency = DetailInfoManufacturerDependency(appRouter: appRouter,
+                                                              manufacturer: data.manufacturer)
             return appRouter.resolver.resolve(DetailInfoManufacturerViewController.self,
-                                              arguments: appRouter,
-                                              data.manufacturer)
+                                              argument: dependency)
         }
         print("В модуль DetailInfoManufacturerModule не были переданны данные необходимые для показа модуля")
         return nil
