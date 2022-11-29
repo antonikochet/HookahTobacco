@@ -9,7 +9,7 @@ import RealmSwift
 
 class TasteRealmObject: Object {
     @Persisted(primaryKey: true) var id: ObjectId
-    @Persisted var uid: Int = -1
+    @Persisted var uid: String = ""
     @Persisted var taste: String = ""
     @Persisted var type: String = ""
 //    @Persisted(originProperty: "taste") var tobaccos: LinkingObjects<TobaccoRealmObject>

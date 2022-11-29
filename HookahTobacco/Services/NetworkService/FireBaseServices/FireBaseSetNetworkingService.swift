@@ -50,32 +50,30 @@ class FireBaseSetNetworkingService: SetDataNetworkingServiceProtocol {
     }
 
     func setTobacco(_ newTobacco: Tobacco, completion: SetDataNetworingCompletion?) {
-        if let uid = newTobacco.uid {
-            db.collection(NamedFireStore.Collections.tobaccos)
-                .document(uid)
-                .setData(newTobacco.formatterToDataFireStore(),
-                         merge: true) { [weak self] error in
-                    guard let self = self else { return }
-                    if let error = error { completion?(self.handlerErrors.handlerError(error))
-                    } else { completion?(nil)}
-                }
-        }
+        db.collection(NamedFireStore.Collections.tobaccos)
+            .document(newTobacco.uid)
+            .setData(newTobacco.formatterToDataFireStore(),
+                     merge: true) { [weak self] error in
+                guard let self = self else { return }
+                if let error = error { completion?(self.handlerErrors.handlerError(error))
+                } else { completion?(nil)}
+            }
     }
 
-    func addTaste(_ taste: Taste, completion: SetDataNetworingCompletion?) {
+    func addTaste(_ taste: Taste, completion: ((Result<String, NetworkError>) -> Void)?) {
         let data = taste.formatterToDataFireStore()
-        let uid = String(taste.uid)
-        let docRef = db.collection(NamedFireStore.Collections.tastes).document(uid)
+        let docRef = db.collection(NamedFireStore.Collections.tastes).document()
+        let uidDoc = docRef.documentID
         docRef.setData(data) { [weak self] error in
             guard let self = self else { return }
-            if let error = error { completion?(self.handlerErrors.handlerError(error))
-            } else { completion?(nil) }
+            if let error = error { completion?(.failure(self.handlerErrors.handlerError(error)))
+            } else { completion?(.success(uidDoc)) }
         }
     }
 
     func setTaste(_ taste: Taste, completion: SetDataNetworingCompletion?) {
         let data = taste.formatterToDataFireStore()
-        let uid = String(taste.uid)
+        let uid = taste.uid
         db.collection(NamedFireStore.Collections.tastes)
             .document(uid)
             .setData(data,
@@ -117,7 +115,7 @@ fileprivate extension Tobacco {
             NamedFireStore.Documents.Tobacco.name: self.name,
             NamedFireStore.Documents.Tobacco.idManufacturer: self.idManufacturer,
             NamedFireStore.Documents.Tobacco.nameManufacturer: self.nameManufacturer,
-            NamedFireStore.Documents.Tobacco.taste: self.taste,
+            NamedFireStore.Documents.Tobacco.taste: self.tastes.map { $0.uid },
             NamedFireStore.Documents.Tobacco.description: self.description
         ]
     }

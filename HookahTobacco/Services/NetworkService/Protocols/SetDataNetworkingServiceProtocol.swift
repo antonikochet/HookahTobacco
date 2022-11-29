@@ -13,7 +13,7 @@ protocol SetDataNetworkingServiceProtocol {
     func setManufacturer(_ newManufacturer: Manufacturer, completion: SetDataNetworingCompletion?)
     func addTobacco(_ tobacco: Tobacco, completion: ((Result<String, NetworkError>) -> Void)?)
     func setTobacco(_ newTobacco: Tobacco, completion: SetDataNetworingCompletion?)
-    func addTaste(_ taste: Taste, completion: SetDataNetworingCompletion?)
+    func addTaste(_ taste: Taste, completion: ((Result<String, NetworkError>) -> Void)?)
     func setTaste(_ taste: Taste, completion: SetDataNetworingCompletion?)
     func setDBVersion(_ newVersion: Int, completion: SetDataNetworingCompletion?)
 }

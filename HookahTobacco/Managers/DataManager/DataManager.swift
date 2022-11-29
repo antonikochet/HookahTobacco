@@ -27,7 +27,7 @@ class DataManager {
         Tobacco.self,
         Taste.self
     ]
-    private var subscribers: [String: [DataManagerSubscriberProtocol]]
+    private var subscribers: [String: [WeakSubject]]
 
     private let imageWorkingQueue = DispatchQueue(label: "ru.HookahTobacco.DataManager.getImage")
 
@@ -57,7 +57,7 @@ class DataManager {
         self.imageService = imageService
         self.userDefaultsService = userDefaultsService
         subscribers = Dictionary(uniqueKeysWithValues: usedTypes.map {
-            (String(describing: $0.self), [DataManagerSubscriberProtocol]())
+            (String(describing: $0.self), [WeakSubject]())
         })
     }
 
@@ -254,7 +254,7 @@ class DataManager {
         let nameType = String(describing: type.self)
         print("Пришло обновление для типа: \(type.self)")
         if let subscribers = subscribers[nameType] {
-            subscribers.forEach { $0.notify(for: type, newState: newState) }
+            subscribers.forEach { $0.value?.notify(for: type, newState: newState) }
         }
     }
 }
@@ -284,7 +284,7 @@ extension DataManager: DataManagerProtocol {
         }
     }
 
-    func receiveTastes(at ids: [Int], completion: ReceiveDataManagerCompletion<Taste>?) {
+    func receiveTastes(at ids: [String], completion: ReceiveDataManagerCompletion<Taste>?) {
         if isSynchronized || isOfflineMode {
             dataBaseService.read(type: Taste.self) { tastes in
                 let setIds = Set(ids)
@@ -336,7 +336,7 @@ extension DataManager: UpdateDataManagerObserverProtocol {
     func subscribe<T>(to type: T.Type, subscriber: DataManagerSubscriberProtocol) {
         let nameType = String(describing: type.self)
         if subscribers[nameType] != nil {
-            subscribers[nameType]?.append(subscriber)
+            subscribers[nameType]?.append(WeakSubject(subscriber))
             print("Подписчик \(subscriber) был успешно добавлен в подписки на обновления для типа: \(type.self)")
         } else {
             print("Передан неверный тип \(type.self) для подписки")
@@ -346,7 +346,7 @@ extension DataManager: UpdateDataManagerObserverProtocol {
     func unsubscribe<T>(to type: T.Type, subscriber: DataManagerSubscriberProtocol) {
         let nameType = String(describing: type.self)
         if subscribers[nameType] != nil {
-            if let index = subscribers[nameType]?.firstIndex(where: { $0 === subscriber }) {
+            if let index = subscribers[nameType]?.firstIndex(where: { return $0.value == nil }) {
                 subscribers[nameType]?.remove(at: index)
                 print("Подписчик был удален из подписок на обновления для типа: \(type.self)")
             } else {

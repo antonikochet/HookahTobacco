@@ -10,7 +10,7 @@
 import UIKit
 
 protocol AddTastesRouterProtocol: RouterProtocol {
-    func showAddTaste(taste: Taste?, allIdsTaste: Set<Int>, outputModule: AddTasteOutputModule)
+    func showAddTaste(taste: Taste?, outputModule: AddTasteOutputModule)
     func dismissView(newSelectedTastes: [Taste])
     func showError(with message: String)
 }
@@ -27,9 +27,8 @@ class AddTastesRouter: AddTastesRouterProtocol {
         self.appRouter = appRouter
     }
 
-    func showAddTaste(taste: Taste?, allIdsTaste: Set<Int>, outputModule: AddTasteOutputModule) {
+    func showAddTaste(taste: Taste?, outputModule: AddTasteOutputModule) {
         let data = AddTasteDataModule(taste: taste,
-                                      allIdsTaste: allIdsTaste,
                                       outputModule: outputModule)
         appRouter.presentViewModally(module: AddTasteModule.self, moduleData: data)
     }

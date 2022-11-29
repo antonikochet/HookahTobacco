@@ -137,7 +137,7 @@ class RealmDataBaseService {
             dict.forEach { (object, tobacco) in
                 let taste = wrapperdValue.compactMap { tasteObject -> TasteRealmObject? in
                     guard let taste = tasteObject as? TasteRealmObject else { return nil }
-                    return tobacco.taste.contains(taste.uid) ? taste : nil
+                    return tobacco.tastes.contains(where: { $0.uid == taste.uid }) ? taste : nil
                 }
                 object.taste.removeAll()
                 object.taste.append(objectsIn: taste)

@@ -9,11 +9,10 @@
 
 import Foundation
 
-typealias SelectedTastes = [Int: Taste]
+typealias SelectedTastes = [String: Taste]
 
 protocol AddTastesInteractorInputProtocol: AnyObject {
     func receiveStartingDataView()
-    func receiveDataForAdd()
     func receiveDataForEdit(by taste: String)
     func selectedTaste(by taste: String)
     func addTaste(_ taste: Taste)
@@ -27,8 +26,7 @@ protocol AddTastesInteractorOutputProtocol: AnyObject {
     func initialAllTastes(_ tastes: [Taste], with selectedTastes: [Taste])
     func receivedError(with message: String)
     func updateData(by index: Int, with taste: Taste, and selectedTastes: [Taste])
-    func receivedDataForAdd(_ allIdsTaste: Set<Int>)
-    func receivedDataForEdit(editTaste: Taste, allIdsTaste: Set<Int>)
+    func receivedDataForEdit(editTaste: Taste)
     func receivedSelectedTastes(_ selectedTastes: [Taste])
 }
 
@@ -54,7 +52,7 @@ class AddTastesInteractor {
          getDataManager: GetDataNetworkingServiceProtocol) {
         self.selectedTastes = selectedTastes
         self.getDataManager = getDataManager
-        self.sortedSelectedTastes = Array(selectedTastes.values.sorted(by: { $0.uid < $1.uid }))
+        self.sortedSelectedTastes = Array(selectedTastes.values.sorted(by: { $0.taste < $1.taste }))
     }
 
     // MARK: - Private methods
@@ -63,7 +61,7 @@ class AddTastesInteractor {
             guard let self = self else { return }
             switch result {
             case .success(let data):
-                self.allTastes = data.sorted(by: { $0.uid < $1.uid })
+                self.allTastes = data.sorted(by: { $0.taste < $1.taste })
                 self.presenter.initialAllTastes(self.allTastes, with: self.sortedSelectedTastes)
             case .failure(let error):
                 self.presenter.receivedError(with: error.localizedDescription)
@@ -78,16 +76,9 @@ extension AddTastesInteractor: AddTastesInteractorInputProtocol {
         presenter.initialSelectedTastes(sortedSelectedTastes)
     }
 
-    func receiveDataForAdd() {
-        let allIdsTaste = Set(allTastes.map { $0.uid })
-        presenter.receivedDataForAdd(allIdsTaste)
-    }
-
     func receiveDataForEdit(by taste: String) {
         guard let taste = allTastes.first(where: { $0.taste == taste }) else { return }
-        let allIdsTaste = Set(allTastes.map { $0.uid })
-        presenter.receivedDataForEdit(editTaste: taste,
-                                      allIdsTaste: allIdsTaste)
+        presenter.receivedDataForEdit(editTaste: taste)
     }
 
     func selectedTaste(by taste: String) {

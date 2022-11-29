@@ -29,30 +29,27 @@ class AddTasteInteractor {
 
     // MARK: - Private properties
     private var taste: Taste?
-    private var allIdsTaste: Set<Int>
     private var isEditing: Bool
-    private var id: Int {
-        (allIdsTaste.max() ?? -2) + 1
-    }
 
     // MARK: - Initializers
     init(_ taste: Taste?,
-         allIdsTaste: Set<Int>,
          setDataManager: SetDataNetworkingServiceProtocol) {
         self.isEditing = taste != nil
         self.taste = taste
-        self.allIdsTaste = allIdsTaste
         self.setDataManager = setDataManager
     }
 
     // MARK: - Private methods
     private func addTaste(_ taste: Taste) {
-        setDataManager.addTaste(taste) { [weak self] error in
+        setDataManager.addTaste(taste) { [weak self] result in
             guard let self = self else { return }
-            if let error = error {
+            switch result {
+            case .success(let uid):
+                var mTaste = taste
+                mTaste.uid = uid
+                self.presenter.receivedSuccess(mTaste)
+            case .failure(let error):
                 self.presenter.receivedError(with: error.localizedDescription)
-            } else {
-                self.presenter.receivedSuccess(taste)
             }
         }
     }
@@ -74,21 +71,19 @@ extension AddTasteInteractor: AddTasteInteractorInputProtocol {
         if let taste = taste {
             presenter.initialData(taste: taste)
         } else {
-            let taste = Taste(uid: id, taste: "", typeTaste: "")
+            let taste = Taste(uid: "", taste: "", typeTaste: "")
             presenter.initialData(taste: taste)
         }
     }
 
     func addTaste(taste: String, type: String) {
         if isEditing {
-            if let id = self.taste?.uid {
-                let taste = Taste(uid: id,
-                                  taste: taste,
-                                  typeTaste: type)
-                editTaste(taste)
-            }
+            let taste = Taste(uid: self.taste?.uid ?? "",
+                              taste: taste,
+                              typeTaste: type)
+            editTaste(taste)
         } else {
-            let taste = Taste(uid: id, taste: taste, typeTaste: type)
+            let taste = Taste(uid: "", taste: taste, typeTaste: type)
             addTaste(taste)
         }
     }

@@ -9,7 +9,7 @@ import Foundation
 
 struct Taste {
     var id: String = ""
-    let uid: Int
+    var uid: String = ""
     let taste: String
     let typeTaste: String
 }

@@ -27,38 +27,19 @@ class DetailTobaccoInteractor {
 
     // MARK: - Private properties
     private var tobacco: Tobacco
-    private var tastes: [Taste] = []
 
     // MARK: - Initializers
     init(_ tobacco: Tobacco,
          getDataManager: DataManagerProtocol) {
         self.tobacco = tobacco
         self.getDataManager = getDataManager
-        receiveTastes()
     }
 
     // MARK: - Private methods
-    private func receiveTastes() {
-        getDataManager.receiveTastes(at: tobacco.taste) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let tastes):
-                self.tastes = tastes
-                DispatchQueue.main.async {
-                    self.presenter.initialDataForPresentation(self.createDataForPresentation())
-                }
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    self.presenter.receivedError(with: error.localizedDescription)
-                }
-            }
-        }
-    }
-
     private func createDataForPresentation() -> DetailTobaccoEntity.Tobacco {
         DetailTobaccoEntity.Tobacco(name: tobacco.name,
                                     image: tobacco.image,
-                                    tastes: tastes,
+                                    tastes: tobacco.tastes,
                                     nameManufacturer: tobacco.nameManufacturer,
                                     description: tobacco.description)
     }

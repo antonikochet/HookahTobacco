@@ -42,7 +42,7 @@ extension AddTastesPresenter: AddTastesInteractorOutputProtocol {
     }
 
     func initialAllTastes(_ tastes: [Taste], with selectedTastes: [Taste]) {
-        let selectedIdTastes: Set<Int> = Set(selectedTastes.map { $0.uid })
+        let selectedIdTastes: Set<String> = Set(selectedTastes.map { $0.uid })
         allTastesViewModel = tastes.map { taste in
             return createTasteViewModel(taste, isSelect: selectedIdTastes.contains(taste.uid))
         }
@@ -62,15 +62,8 @@ extension AddTastesPresenter: AddTastesInteractorOutputProtocol {
         view.updateRowAndSelect(by: index)
     }
 
-    func receivedDataForAdd(_ allIdsTaste: Set<Int>) {
-        router.showAddTaste(taste: nil,
-                            allIdsTaste: allIdsTaste,
-                            outputModule: self)
-    }
-
-    func receivedDataForEdit(editTaste: Taste, allIdsTaste: Set<Int>) {
+    func receivedDataForEdit(editTaste: Taste) {
         router.showAddTaste(taste: editTaste,
-                            allIdsTaste: allIdsTaste,
                             outputModule: self)
     }
 
@@ -107,7 +100,7 @@ extension AddTastesPresenter: AddTastesViewOutputProtocol {
     }
 
     func didTouchAdd() {
-        interactor.receiveDataForAdd()
+        router.showAddTaste(taste: nil, outputModule: self)
     }
 
     func selectedTastesDone() {

@@ -11,7 +11,7 @@ import UIKit
 import SnapKit
 
 protocol AddTasteViewInputProtocol: AnyObject {
-    func setupContent(id: String?, taste: String?, type: String?)
+    func setupContent(taste: String?, type: String?)
 }
 
 protocol AddTasteViewOutputProtocol: AnyObject {
@@ -24,7 +24,6 @@ class AddTasteViewController: UIViewController {
     var presenter: AddTasteViewOutputProtocol!
 
     // MARK: - UI properties
-    private let idTextFieldView = AddTextFieldView()
     private let tasteTextFieldView = AddTextFieldView()
     private let typeTextFieldView = AddTextFieldView()
     private let addButton = UIButton.createAppBigButton("Добавить вкус")
@@ -44,22 +43,12 @@ class AddTasteViewController: UIViewController {
     private func setupSubviews() {
         view.backgroundColor = .systemBackground
 
-        view.addSubview(idTextFieldView)
-        idTextFieldView.isUserInteractionEnabled = false
-        idTextFieldView.setupView(textLabel: "Id вкуса",
-                                  placeholder: "",
-                                  delegate: self)
-        idTextFieldView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(topSpacingFromSuperview)
-            make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
-        }
-
         view.addSubview(tasteTextFieldView)
         tasteTextFieldView.setupView(textLabel: "Вкус",
                                      placeholder: "Введите вкус",
                                      delegate: self)
         tasteTextFieldView.snp.makeConstraints { make in
-            make.top.equalTo(idTextFieldView.snp.bottom).offset(spacingBetweenViews)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(spacingBetweenViews)
             make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
         }
 
@@ -90,8 +79,7 @@ class AddTasteViewController: UIViewController {
 
 // MARK: - ViewInputProtocol implementation
 extension AddTasteViewController: AddTasteViewInputProtocol {
-    func setupContent(id: String?, taste: String?, type: String?) {
-        idTextFieldView.text = id
+    func setupContent(taste: String?, type: String?) {
         tasteTextFieldView.text = taste
         typeTextFieldView.text = type
     }
@@ -99,13 +87,6 @@ extension AddTasteViewController: AddTasteViewInputProtocol {
 
 // MARK: - UITextFieldDelegate implementation
 extension AddTasteViewController: UITextFieldDelegate {
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        if idTextFieldView.isMyTextField(textField) {
-            view.endEditing(true)
-        }
-        return true
-    }
-
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if tasteTextFieldView.isMyTextField(textField) {
             return typeTextFieldView.becomeFirstResponderTextField()

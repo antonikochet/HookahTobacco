@@ -14,10 +14,10 @@ enum VarietyTobaccoLeaf: String {
 }
 
 struct Tobacco {
-    var id: String?
-    var uid: String?
+    var id: String = ""
+    var uid: String = ""
     let name: String
-    let taste: [Int]
+    let tastes: [Taste]
     let idManufacturer: String
     let nameManufacturer: String
     let description: String

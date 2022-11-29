@@ -70,14 +70,18 @@ class DetailInfoManufacturerViewController: UIViewController {
 // MARK: - ViewInputProtocol implementation
 extension DetailInfoManufacturerViewController: DetailInfoManufacturerViewInputProtocol {
     func showData() {
-        navigationItem.title = presenter.nameManufacturer
-        tableView.reloadData()
+        DispatchQueue.main.async {
+            self.navigationItem.title = self.presenter.nameManufacturer
+            self.tableView.reloadData()
+        }
     }
 
     func updateRow(at index: Int) {
-        let indexPath = IndexPath(row: index, section: 1)
-        if tableView.indexPathsForVisibleRows?.contains(indexPath) ?? false {
-            tableView.reloadRows(at: [indexPath], with: .none)
+        DispatchQueue.main.async {
+            let indexPath = IndexPath(row: index, section: 1)
+            if self.tableView.indexPathsForVisibleRows?.contains(indexPath) ?? false {
+                self.tableView.reloadRows(at: [indexPath], with: .none)
+            }
         }
     }
 }

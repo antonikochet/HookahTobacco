@@ -7,11 +7,12 @@
 
 import Foundation
 
+typealias GetDataNetworkingServiceCompletion<T> = (Result<T, NetworkError>) -> Void
+
 protocol GetDataNetworkingServiceProtocol {
-    func getManufacturers(completion: @escaping (Result<[Manufacturer], NetworkError>) -> Void)
-    func getTobaccos(for manufacturer: Manufacturer, completion: @escaping (Result<[Tobacco], NetworkError>) -> Void)
-    func getAllTobaccos(completion: @escaping (Result<[Tobacco], NetworkError>) -> Void)
-    func getAllTastes(completion: @escaping (Result<[Taste], NetworkError>) -> Void)
-//    func getTastes(ids: [Int], completion: @escaping (Result<[Taste], NetworkError>) -> Void)
-    func getDataBaseVersion(completion: @escaping (Result<Int, NetworkError>) -> Void)
+    func getManufacturers(completion: GetDataNetworkingServiceCompletion<[Manufacturer]>?)
+    func getTobaccos(for manufacturer: Manufacturer, completion: GetDataNetworkingServiceCompletion<[Tobacco]>?)
+    func getAllTobaccos(completion: GetDataNetworkingServiceCompletion<[Tobacco]>?)
+    func getAllTastes(completion: GetDataNetworkingServiceCompletion<[Taste]>?)
+    func getDataBaseVersion(completion: GetDataNetworkingServiceCompletion<Int>?)
 }

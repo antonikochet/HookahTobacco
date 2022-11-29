@@ -25,7 +25,7 @@ class TobaccoRealmObject: Object {
 extension TobaccoRealmObject {
     convenience init(_ tobacco: Tobacco) {
         self.init()
-        self.uid = tobacco.uid ?? ""
+        self.uid = tobacco.uid
         self.name = tobacco.name
         self.descriptionTobacco = tobacco.description
         self.uidManufacturer = tobacco.idManufacturer
@@ -43,7 +43,7 @@ extension TobaccoRealmObject {
         newValues["descriptionTobacco"] = tobacco.description
         isChange = self.uidManufacturer != tobacco.idManufacturer ? true : isChange
         newValues["uidManufacturer"] = tobacco.idManufacturer
-        isChange = Set(self.taste.map({ $0.uid })) != Set(tobacco.taste) ? true : isChange
+        isChange = Set(self.taste.map { $0.convertToEntity() }) != Set(tobacco.tastes) ? true : isChange
         newValues["taste"] = [TasteRealmObject]()
 
         return isChange ? newValues : nil
@@ -53,7 +53,7 @@ extension TobaccoRealmObject {
         Tobacco(id: self.id.stringValue,
                 uid: self.uid,
                 name: self.name,
-                taste: self.taste.map { $0.uid },
+                tastes: self.taste.map { $0.convertToEntity() },
                 idManufacturer: self.uidManufacturer,
                 nameManufacturer: self.nameManufacturer ?? "",
                 description: self.descriptionTobacco,

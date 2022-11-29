@@ -24,8 +24,7 @@ class AddTastePresenter {
 // MARK: - InteractorOutputProtocol implementation
 extension AddTastePresenter: AddTasteInteractorOutputProtocol {
     func initialData(taste: Taste) {
-        view.setupContent(id: String(taste.uid),
-                          taste: taste.taste,
+        view.setupContent(taste: taste.taste,
                           type: taste.typeTaste)
     }
 

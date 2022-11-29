@@ -35,7 +35,6 @@ class TobaccoListInteractor {
 
     // MARK: - Private properties
     private var tobaccos: [Tobacco] = []
-    private var tastes: [Int: Taste] = [:]
     private var isAdminMode: Bool
 
     // MARK: - Initializers
@@ -49,22 +48,17 @@ class TobaccoListInteractor {
         self.getImageManager = getImageManager
         self.updateDataManager = updateDataManager
         self.updateDataManager.subscribe(to: Tobacco.self, subscriber: self)
-        self.updateDataManager.subscribe(to: Taste.self, subscriber: self)
-        receiveTastes()
     }
 
     deinit {
         self.updateDataManager.unsubscribe(to: Tobacco.self, subscriber: self)
-        self.updateDataManager.unsubscribe(to: Taste.self, subscriber: self)
     }
 
     // MARK: - Private methods
     private func createTobaccoForPresenter(_ tobacco: Tobacco) -> TobaccoListEntity.Tobacco {
-        let tasty = tobacco.taste
-            .compactMap { tastes[$0] }
         return TobaccoListEntity.Tobacco(name: tobacco.name,
                                          nameManufacturer: tobacco.nameManufacturer,
-                                         tasty: tasty,
+                                         tasty: tobacco.tastes,
                                          image: tobacco.image)
     }
 
@@ -82,22 +76,10 @@ class TobaccoListInteractor {
         }
     }
 
-    private func receiveTastes() {
-        getDataManager.receiveData(typeData: Taste.self) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let data):
-                self.tastes = Dictionary(uniqueKeysWithValues: data.map { ($0.uid, $0) })
-            case .failure(let error):
-                self.presenter.receivedError(with: error.localizedDescription)
-            }
-        }
-    }
-
     private func getImage(for tobacco: Tobacco, with index: Int) {
-        guard let uid = tobacco.uid else { return }
+        guard !tobacco.uid.isEmpty else { return }
         let named = NamedImageManager.tobaccoImage(manufacturer: tobacco.nameManufacturer,
-                                                   uid: uid,
+                                                   uid: tobacco.uid,
                                                    type: .main)
         getImageManager.getImage(for: named) { [weak self] result in
             guard let self = self else { return }
@@ -154,8 +136,6 @@ extension TobaccoListInteractor: DataManagerSubscriberProtocol {
                 tobaccos = newTobacco
                 presenter.receivedSuccess(newTobacco.map { createTobaccoForPresenter($0) })
                 getImagesTobacco()
-            } else if let newTaste = data as? [Taste] {
-                tastes = Dictionary(uniqueKeysWithValues: newTaste.map { ($0.uid, $0) })
             }
         case .error(let error):
                 presenter.receivedError(with: error.localizedDescription)
