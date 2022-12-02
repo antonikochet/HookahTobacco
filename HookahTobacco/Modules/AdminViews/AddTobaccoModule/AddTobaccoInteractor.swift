@@ -12,6 +12,7 @@ import Foundation
 protocol AddTobaccoInteractorInputProtocol: AnyObject {
     func sendNewTobaccoToServer(_ data: AddTobaccoEntity.Tobacco)
     func didSelectedManufacturer(_ name: String)
+    func didSelectedTobaccoLine(_ name: String)
     func didSelectMainImage(with fileURL: URL)
     func receiveStartingDataView()
     func receiveTastesForEditing()
@@ -23,8 +24,10 @@ protocol AddTobaccoInteractorOutputProtocol: AnyObject {
     func receivedSuccessEditing(with changedData: Tobacco)
     func receivedError(with message: String)
     func showNameManufacturersForSelect(_ names: [String])
+    func showNameTobaccoLinesForSelect(_ names: [String])
     func initialDataForPresentation(_ tobacco: AddTobaccoEntity.Tobacco, isEditing: Bool)
     func initialSelectedManufacturer(_ name: String?)
+    func initialSelectedTobaccoLine(_ name: String?)
     func initialMainImage(_ image: Data?)
     func initialTastes(_ tastes: [Taste])
     func receivedTastesForEditing(_ tastes: SelectedTastes)
@@ -45,6 +48,7 @@ class AddTobaccoInteractor {
         }
     }
     private var selectedManufacturer: Manufacturer?
+    private var selectedTobaccoLine: TobaccoLine?
     private var tobacco: Tobacco?
     private var tastes: SelectedTastes = [:]
     private var allTastes: SelectedTastes = [:]
@@ -60,6 +64,7 @@ class AddTobaccoInteractor {
          setImageManager: SetImageNetworkingServiceProtocol) {
         isEditing = tobacco != nil
         self.tobacco = tobacco
+        self.selectedTobaccoLine = tobacco?.line
         self.getDataManager = getDataManager
         self.setDataManager = setDataManager
         self.setImageManager = setImageManager
@@ -174,6 +179,8 @@ class AddTobaccoInteractor {
               let manufacturer = receiveSelectedManufacturer(by: tobacco.idManufacturer) else { return }
         selectedManufacturer = manufacturer
         presenter.initialSelectedManufacturer(manufacturer.name)
+        presenter.showNameTobaccoLinesForSelect(manufacturer.lines.map { $0.name })
+        presenter.initialSelectedTobaccoLine(selectedTobaccoLine?.name)
     }
 
     private func initialTastes() {
@@ -184,6 +191,7 @@ class AddTobaccoInteractor {
 
     private func successAdded() {
         selectedManufacturer = nil
+        selectedTobaccoLine = nil
         tobacco = nil
         tastes.removeAll()
         mainImageFileURL = nil
@@ -194,16 +202,22 @@ class AddTobaccoInteractor {
 extension AddTobaccoInteractor: AddTobaccoInteractorInputProtocol {
     func sendNewTobaccoToServer(_ data: AddTobaccoEntity.Tobacco) {
         guard let selectManufacturer = selectedManufacturer,
-              let uid = selectManufacturer.uid else {
+              !selectManufacturer.uid.isEmpty else {
             presenter.receivedError(with: "Не выбран производитель для табака!")
+            return
+        }
+        guard let selectTobaccoLine = selectedTobaccoLine,
+              !selectTobaccoLine.uid.isEmpty else {
+            presenter.receivedError(with: "Не выбрана линейка табака!")
             return
         }
         var tobacco = Tobacco(uid: tobacco?.uid ?? "",
                               name: data.name,
                               tastes: Array(tastes.values),
-                              idManufacturer: uid,
+                              idManufacturer: selectManufacturer.uid,
                               nameManufacturer: selectManufacturer.name,
                               description: data.description,
+                              line: selectTobaccoLine,
                               image: tobacco?.image)
         if isEditing {
             dispatchGroup = DispatchGroup()
@@ -233,6 +247,11 @@ extension AddTobaccoInteractor: AddTobaccoInteractorInputProtocol {
 
     func didSelectedManufacturer(_ name: String) {
         selectedManufacturer = manufacturers?.first(where: { name == $0.name })
+        presenter.showNameTobaccoLinesForSelect(selectedManufacturer?.lines.map { $0.name } ?? [])
+    }
+
+    func didSelectedTobaccoLine(_ name: String) {
+        selectedTobaccoLine = selectedManufacturer?.lines.first(where: { name == $0.name })
     }
 
     func didSelectMainImage(with fileURL: URL) {
@@ -258,6 +277,7 @@ extension AddTobaccoInteractor: AddTobaccoInteractorInputProtocol {
         presenter.initialDataForPresentation(pTobacco,
                                              isEditing: isEditing)
         presenter.initialSelectedManufacturer(manufacturer?.name)
+        presenter.initialSelectedTobaccoLine(selectedTobaccoLine?.name)
         presenter.initialMainImage(editingMainImage)
     }
 

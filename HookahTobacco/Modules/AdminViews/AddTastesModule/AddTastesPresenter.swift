@@ -28,7 +28,7 @@ class AddTastesPresenter {
     }
 
     private func createSelectedTasteViewModel(_ taste: Taste) -> TasteCollectionCellViewModel {
-        TasteCollectionCellViewModel(taste: taste.taste)
+        TasteCollectionCellViewModel(label: taste.taste)
     }
 }
 

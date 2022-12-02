@@ -22,6 +22,7 @@ class FireBaseGetNetworkingService {
         case is Manufacturer.Type: return NamedFireStore.Collections.manufacturers
         case is Tobacco.Type:      return NamedFireStore.Collections.tobaccos
         case is Taste.Type:        return NamedFireStore.Collections.tastes
+        case is TobaccoLine.Type:  return NamedFireStore.Collections.tobaccoLines
         default:                   return nil
         }
     }
@@ -40,10 +41,30 @@ class FireBaseGetNetworkingService {
 extension FireBaseGetNetworkingService: GetDataNetworkingServiceProtocol {
     func getManufacturers(completion: GetDataNetworkingServiceCompletion<[Manufacturer]>?) {
         workingQueue.async {
+            let dispathGroup = DispatchGroup()
+            var tobaccoLines: [String: TobaccoLine]?
+            dispathGroup.enter()
+            self.getAllTobaccoLines { result in
+                switch result {
+                case .success(let data):
+                        tobaccoLines = Dictionary(uniqueKeysWithValues: data.map { ($0.uid, $0) })
+                case .failure(let error):
+                    completion?(.failure(error))
+                }
+                dispathGroup.leave()
+            }
+            dispathGroup.wait()
+            guard let tobaccoLines = tobaccoLines else { return }
             self.receiveData(type: Manufacturer.self) { result in
                 switch result {
                 case .success(let snapshot):
-                    let manufacturers = snapshot.documents.compactMap { Manufacturer($0.data(), uid: $0.documentID) }
+                    let manufacturers = snapshot.documents.compactMap { document -> Manufacturer? in
+                        var dict = document.data()
+                        let uidTobaccoLines = dict[NamedFireStore.Documents.Manufacturer.lines] as? [String] ?? []
+                        let tobaccoLines = uidTobaccoLines.compactMap { tobaccoLines[$0] }
+                        dict.updateValue(tobaccoLines, forKey: NamedFireStore.Documents.Manufacturer.lines)
+                        return Manufacturer(dict, uid: document.documentID)
+                    }
                     completion?(.success(manufacturers))
                 case .failure(let error): completion?(.failure(error))
                 }
@@ -52,17 +73,17 @@ extension FireBaseGetNetworkingService: GetDataNetworkingServiceProtocol {
     }
 
     func getTobaccos(for manufacturer: Manufacturer, completion: GetDataNetworkingServiceCompletion<[Tobacco]>?) {
-        guard let uid = manufacturer.uid else { return }
+        guard !manufacturer.uid.isEmpty else { return }
         workingQueue.async {
             self.firestore.collection(NamedFireStore.Collections.tobaccos)
-                .whereField(NamedFireStore.Documents.Tobacco.idManufacturer, isEqualTo: uid)
+                .whereField(NamedFireStore.Documents.Tobacco.idManufacturer, isEqualTo: manufacturer.uid)
                 .getDocuments { [weak self] snapshot, error in
                     guard let self = self else { return }
                     if let error = error {
                         completion?(.failure(self.handlerErrors.handlerError(error)))
                     } else {
                         if let snapshot = snapshot {
-                            let tobaccos = snapshot.documents.map { Tobacco($0.data(), uid: $0.documentID) }
+                            let tobaccos = snapshot.documents.compactMap { Tobacco($0.data(), uid: $0.documentID) }
                             completion?(.success(tobaccos))
                         }
                     }
@@ -74,11 +95,22 @@ extension FireBaseGetNetworkingService: GetDataNetworkingServiceProtocol {
         workingQueue.async {
             let dispathGroup = DispatchGroup()
             var tastes: [String: Taste]?
+            var lines: [String: TobaccoLine]?
             dispathGroup.enter()
             self.getAllTastes { result in
                 switch result {
                 case .success(let data):
                         tastes = Dictionary(uniqueKeysWithValues: data.map { ($0.uid, $0) })
+                case .failure(let error):
+                    completion?(.failure(error))
+                }
+                dispathGroup.leave()
+            }
+            dispathGroup.enter()
+            self.getAllTobaccoLines { result in
+                switch result {
+                case .success(let data):
+                        lines = Dictionary(uniqueKeysWithValues: data.map { ($0.uid, $0) })
                 case .failure(let error):
                     completion?(.failure(error))
                 }
@@ -93,7 +125,10 @@ extension FireBaseGetNetworkingService: GetDataNetworkingServiceProtocol {
                         var dict = document.data()
                         let strTaste = dict[NamedFireStore.Documents.Tobacco.taste] as? [String] ?? []
                         let taste = strTaste.compactMap { tastes[$0] }
-                        dict.updateValue(taste, forKey: NamedFireStore.Documents.Taste.taste)
+                        let strLine = dict[NamedFireStore.Documents.Tobacco.line] as? String
+                        let line = strLine != nil ? lines?[strLine!] : nil
+                        dict.updateValue(taste, forKey: NamedFireStore.Documents.Tobacco.taste)
+                        dict.updateValue(line as Any, forKey: NamedFireStore.Documents.Tobacco.line)
                         return Tobacco(dict, uid: document.documentID)
                     }
                     completion?(.success(tobaccos))
@@ -108,6 +143,17 @@ extension FireBaseGetNetworkingService: GetDataNetworkingServiceProtocol {
             switch result {
             case .success(let snapshot):
                 let tastes = snapshot.documents.compactMap { Taste($0.data(), uid: $0.documentID) }
+                completion?(.success(tastes))
+            case .failure(let error): completion?(.failure(error))
+            }
+        }
+    }
+
+    func getAllTobaccoLines(completion: GetDataNetworkingServiceCompletion<[TobaccoLine]>?) {
+        receiveData(type: TobaccoLine.self) { result in
+            switch result {
+            case .success(let snapshot):
+                let tastes = snapshot.documents.compactMap { TobaccoLine($0.data(), uid: $0.documentID) }
                 completion?(.success(tastes))
             case .failure(let error): completion?(.failure(error))
             }
@@ -129,37 +175,5 @@ extension FireBaseGetNetworkingService: GetDataNetworkingServiceProtocol {
                 completion?(.success(versionDB))
             }
         }
-    }
-}
-
-fileprivate extension Manufacturer {
-    init(_ data: [String: Any], uid: String?) {
-        self.uid = uid
-        self.name = data[NamedFireStore.Documents.Manufacturer.name] as? String ?? ""
-        self.country = data[NamedFireStore.Documents.Manufacturer.country] as? String ?? ""
-        self.description = data[NamedFireStore.Documents.Manufacturer.description] as? String ?? ""
-        self.nameImage = data[NamedFireStore.Documents.Manufacturer.image] as? String ?? ""
-        self.link = data[NamedFireStore.Documents.Manufacturer.link] as? String ?? ""
-    }
-}
-
-fileprivate extension Tobacco {
-    init(_ data: [String: Any], uid: String) {
-        self.uid = uid
-        self.name = data[NamedFireStore.Documents.Tobacco.name] as? String ?? ""
-        self.tastes = data[NamedFireStore.Documents.Tobacco.taste] as? [Taste] ?? []
-        self.idManufacturer = data[NamedFireStore.Documents.Tobacco.idManufacturer] as? String ?? ""
-        self.nameManufacturer = data[NamedFireStore.Documents.Tobacco.nameManufacturer] as? String ?? ""
-        self.description = data[NamedFireStore.Documents.Tobacco.description] as? String ?? ""
-    }
-}
-
-fileprivate extension Taste {
-    init?(_ data: [String: Any], uid: String) {
-        guard let taste = data[NamedFireStore.Documents.Taste.taste] as? String,
-              let typeTaste = data[NamedFireStore.Documents.Taste.type] as? String else { return nil }
-        self.uid = uid
-        self.taste = taste
-        self.typeTaste = typeTaste
     }
 }

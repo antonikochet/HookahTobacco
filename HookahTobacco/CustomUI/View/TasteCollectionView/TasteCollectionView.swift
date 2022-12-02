@@ -24,13 +24,15 @@ class TasteCollectionView: UICollectionView {
         layout.interItemSpacing = 8
         super.init(frame: .zero, collectionViewLayout: layout)
         layout.delegate = self
-        delegate = self
         dataSource = self
         showsVerticalScrollIndicator = false
         showsHorizontalScrollIndicator = false
         isScrollEnabled = false
         register(TasteCollectionViewCell.self,
                  forCellWithReuseIdentifier: TasteCollectionViewCell.identifier)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        addGestureRecognizer(tap)
+        isUserInteractionEnabled = true
         snp.makeConstraints { $0.height.equalTo(0) }
     }
 
@@ -44,13 +46,20 @@ class TasteCollectionView: UICollectionView {
             snp.updateConstraints { $0.height.equalTo(contentSize.height) }
         }
     }
+
+    // MARK: - Selectors
+    @objc private func handleTap(_ sender: UITapGestureRecognizer) {
+        if let indexPath = indexPathForItem(at: sender.location(in: self)) {
+            tasteDelegate.didSelectTaste(at: indexPath.row)
+        }
+    }
 }
 
 // MARK: - TasteCollectionViewLayoutDelegate implementation
 extension TasteCollectionView: TasteCollectionViewLayoutDelegate {
     func collectionView(_ collectionView: UICollectionView, sizeForTasteAtIndexPath indexPath: IndexPath) -> CGSize {
         let viewModel = tasteDelegate.getItem(at: indexPath.row)
-        let size = viewModel.taste.sizeOfString(usingFont: TasteCollectionViewCell.tasteFont)
+        let size = viewModel.label.sizeOfString(usingFont: TasteCollectionViewCell.tasteFont)
         let paddings = TasteCollectionViewCell.paddingLabel
         return CGSize(width: paddings.left + size.width + paddings.right,
                       height: paddings.top + size.height + paddings.bottom)
@@ -73,11 +82,4 @@ extension TasteCollectionView: UICollectionViewDataSource {
         return cell
     }
     // swiftlint: enable force_cast
-}
-
-// MARK: - UICollectionViewDelegate implementation
-extension TasteCollectionView: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        tasteDelegate.didSelectTaste(at: indexPath.row)
-    }
 }

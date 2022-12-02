@@ -100,6 +100,7 @@ class DataManager {
             guard let self = self else { return }
             var manufacturers: [Manufacturer] = []
             var tobaccos: [Tobacco] = []
+            var tobaccoLines: [TobaccoLine] = []
             var taste: [Taste] = []
 
             let dispatchGroup = DispatchGroup()
@@ -111,6 +112,18 @@ class DataManager {
                     switch result {
                     case .success(let data):
                         manufacturers = data
+                    case .failure(let error):
+                        print(error.localizedDescription)
+                    }
+                    dispatchGroup.leave()
+                }
+            }
+            dispatchGroup.enter()
+            queue.async {
+                self.getDataNetworkingService.getAllTobaccoLines { result in
+                    switch result {
+                    case .success(let data):
+                        tobaccoLines = data
                     case .failure(let error):
                         print(error.localizedDescription)
                     }
@@ -151,6 +164,9 @@ class DataManager {
                 self.dataBaseService.update(entities: tobaccos) { dispatchGroup.leave()
                 } failure: { error in print(error); dispatchGroup.leave() }
                 dispatchGroup.enter()
+                self.dataBaseService.update(entities: tobaccoLines) { dispatchGroup.leave()
+                } failure: { error in print(error); dispatchGroup.leave() }
+                dispatchGroup.enter()
                 self.dataBaseService.update(entities: manufacturers) { dispatchGroup.leave()
                 } failure: { error in print(error); dispatchGroup.leave() }
             } else {
@@ -159,6 +175,9 @@ class DataManager {
                 } failure: { error in print(error); dispatchGroup.leave() }
                 dispatchGroup.enter()
                 self.dataBaseService.add(entities: tobaccos) { dispatchGroup.leave()
+                } failure: { error in print(error); dispatchGroup.leave() }
+                dispatchGroup.enter()
+                self.dataBaseService.add(entities: tobaccoLines) { dispatchGroup.leave()
                 } failure: { error in print(error); dispatchGroup.leave() }
                 dispatchGroup.enter()
                 self.dataBaseService.add(entities: manufacturers) { dispatchGroup.leave()
@@ -221,6 +240,15 @@ class DataManager {
                 switch result {
                 case .success(let tastes):
                     completion?(.success(tastes as! [T]))
+                case .failure(let error):
+                    completion?(.failure(error))
+                }
+            }
+        case is TobaccoLine.Type:
+            getDataNetworkingService.getAllTobaccoLines { result in
+                switch result {
+                case .success(let tobaccoLines):
+                    completion?(.success(tobaccoLines as! [T]))
                 case .failure(let error):
                     completion?(.failure(error))
                 }

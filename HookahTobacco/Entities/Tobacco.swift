@@ -7,12 +7,6 @@
 
 import Foundation
 
-enum VarietyTobaccoLeaf: String {
-    case burley = "Берли"
-    case virginia = "Вирджиния"
-    case tea = "Чайный"
-}
-
 struct Tobacco {
     var id: String = ""
     var uid: String = ""
@@ -21,12 +15,6 @@ struct Tobacco {
     let idManufacturer: String
     let nameManufacturer: String
     let description: String
+    let line: TobaccoLine
     var image: Data?
-//    let variety: VarietyTobaccoLeaf
-    //грамовка
-    //крепкость
-    //тип вкуса
-    //вкус переделать на структуру
-    //серия (опционально)
-    
 }

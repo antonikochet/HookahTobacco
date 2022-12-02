@@ -14,12 +14,12 @@ struct AddTobaccoEntity {
         let name: String?
         let description: String?
     }
-    
+
     struct Tobacco {
         let name: String
         let description: String
     }
-    
+
     struct ViewModel {
         let name: String
         let description: String

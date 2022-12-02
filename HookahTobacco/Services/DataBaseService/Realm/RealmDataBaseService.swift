@@ -15,7 +15,8 @@ class RealmDataBaseService {
     private var usedType: [(enity: Any.Type, realm: Object.Type)] = [
         (Manufacturer.self, ManufacturerRealmObject.self),
         (Tobacco.self, TobaccoRealmObject.self),
-        (Taste.self, TasteRealmObject.self)
+        (Taste.self, TasteRealmObject.self),
+        (TobaccoLine.self, TobaccoLineRealmObject.self)
     ]
 
     // MARK: - Initialization
@@ -45,6 +46,8 @@ class RealmDataBaseService {
             return TobaccoRealmObject(entity)
         } else if let entity = entity as? Taste {
             return TasteRealmObject(entity)
+        } else if let entity = entity as? TobaccoLine {
+            return TobaccoLineRealmObject(entity)
         } else {
             return nil
         }
@@ -63,8 +66,12 @@ class RealmDataBaseService {
         if let entity = entity as? Taste,
            let object = object as? TasteRealmObject,
            let newValuesDict = object.update(entity) {
-            print(newValuesDict)
             return TasteRealmObject(value: newValuesDict)
+        } else
+        if let entity = entity as? TobaccoLine,
+           let object = object as? TobaccoLineRealmObject,
+           let newValuesDict = object.update(entity) {
+            return TobaccoLineRealmObject(value: newValuesDict)
         } else {
             return nil
         }
@@ -81,6 +88,10 @@ class RealmDataBaseService {
         if let entity = entity as? Taste,
            let object = object as? TasteRealmObject {
             return entity.uid == object.uid
+        } else
+        if let entity = entity as? TobaccoLine,
+           let object = object as? TobaccoLineRealmObject {
+            return entity.uid == object.uid
         } else {
             return false
         }
@@ -92,6 +103,8 @@ class RealmDataBaseService {
             return object.convertToEntity() as? T
         } else if let object = object as? TasteRealmObject {
             return object.convertToEntity() as? T
+        } else if let object = object as? TobaccoLineRealmObject {
+            return object.convertToEntity() as? T
         } else {
             return nil
         }
@@ -102,8 +115,11 @@ class RealmDataBaseService {
         switch T.Element.self {
         case is Manufacturer.Type:
             settingUpLinksBetweenManufacturerAndTobacco(objects: objects)
+            settingUpLinksBetweenTobaccoLinesAndManufacturer(entities, realmObjects: objects)
         case is Tobacco.Type:
             settingUpLinksBetweenTobaccoAndTaste(entities, realmObjects: objects)
+        case is TobaccoLine.Type:
+            settingUpLinksBetweenTobaccoLinesAndTobacco(realmObjects: objects)
         default:
             break
         }
@@ -141,6 +157,50 @@ class RealmDataBaseService {
                 }
                 object.taste.removeAll()
                 object.taste.append(objectsIn: taste)
+            }
+        }
+    }
+    private func settingUpLinksBetweenTobaccoLinesAndManufacturer<T: Sequence>(_ objects: T, realmObjects: [Object]) {
+        guard let manufacturers = objects as? [Manufacturer],
+              let realmObjects = realmObjects as? [ManufacturerRealmObject] else { return }
+        let filterManufacturers = manufacturers.filter { !$0.lines.isEmpty }
+        let dict = Dictionary(uniqueKeysWithValues:
+            filterManufacturers.compactMap({ manufacturer -> (ManufacturerRealmObject, Manufacturer)? in
+            guard let ob = realmObjects.first(where: { $0.uid == manufacturer.uid }) else { return nil }
+            return (ob, manufacturer)
+        }))
+        realmProvider.read(type: TobaccoLineRealmObject.self) { threadSafeObject in
+            guard let wrapperdValue = threadSafeObject.wrappedValue else { return }
+            dict.forEach { (object, manufacturer) in
+                let tobaccoLines = wrapperdValue.compactMap { tobaccoLineObject -> TobaccoLineRealmObject? in
+                    guard let tobaccoLineObject = tobaccoLineObject as? TobaccoLineRealmObject else { return nil }
+                    return manufacturer.lines
+                                .contains(where: { $0.uid == tobaccoLineObject.uid }) ? tobaccoLineObject : nil
+                }
+                object.lines.removeAll()
+                object.lines.append(objectsIn: tobaccoLines)
+            }
+        }
+    }
+    private func settingUpLinksBetweenTobaccoLinesAndTobacco(realmObjects: [Object]) {
+        guard let realmObjects = realmObjects as? [TobaccoLineRealmObject] else { return }
+        realmProvider.read(type: TobaccoRealmObject.self) { threadSafeObject in
+            guard let wrapperdValue = threadSafeObject.wrappedValue else { return }
+            var dict: [String: [TobaccoRealmObject]] = [:]
+            wrapperdValue.forEach { object in
+                guard let tobacco = object as? TobaccoRealmObject else { return }
+                let uid = tobacco.uidTobaccoLine
+                if dict[uid] != nil {
+                    dict[uid]?.append(tobacco)
+                } else {
+                    dict[uid] = [tobacco]
+                }
+            }
+            realmObjects.forEach { object in
+                if let array = dict[object.uid] {
+                    object.tobaccos.removeAll()
+                    object.tobaccos.append(objectsIn: array)
+                }
             }
         }
     }

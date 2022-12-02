@@ -9,10 +9,10 @@ import UIKit
 import SnapKit
 
 protocol AddPickerViewDelegate: AnyObject {
-    var pickerNumberOfRows: Int { get }
-    func receiveRow(by row: Int) -> String
-    func didSelected(by row: Int)
-    func receiveIndex(for title: String) -> Int
+    func receiveNumberOfRows(_ pickerView: AddPickerView) -> Int
+    func receiveRow(_ pickerView: AddPickerView, by row: Int) -> String
+    func didSelected(_ pickerView: AddPickerView, by row: Int)
+    func receiveIndex(_ pickerView: AddPickerView, for title: String) -> Int
 }
 
 class AddPickerView: UIView {
@@ -62,6 +62,24 @@ class AddPickerView: UIView {
         label.text = text
     }
 
+    func showView() {
+        pickerView.snp.updateConstraints { make in
+            make.height.equalTo(pickerViewHeight)
+        }
+        snp.updateConstraints { make in
+            make.height.equalTo(viewHeight + pickerViewHeight)
+        }
+    }
+
+    func hideView() {
+        pickerView.snp.updateConstraints { make in
+            make.height.equalTo(0)
+        }
+        snp.updateConstraints { make in
+            make.height.equalTo(viewHeight)
+        }
+    }
+
     // MARK: private methods
     private func setup() {
         addSubview(label)
@@ -92,9 +110,9 @@ class AddPickerView: UIView {
         }
     }
 
-    private func showSelectedManufacturer() {
+    private func showSelected() {
         guard let title = textField.text,
-              let index = delegate?.receiveIndex(for: title) else { return }
+              let index = delegate?.receiveIndex(self, for: title) else { return }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             self.pickerView.selectRow(index, inComponent: 0, animated: true)
         }
@@ -103,16 +121,12 @@ class AddPickerView: UIView {
 
 extension AddPickerView: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        if textField == self.textField {
-            pickerView.snp.updateConstraints { make in
-                make.height.equalTo(pickerViewHeight)
-            }
-            snp.updateConstraints { make in
-                make.height.equalTo(viewHeight + pickerViewHeight)
-            }
-            showSelectedManufacturer()
-            textField.endEditing(true)
+        if textField == self.textField,
+           delegate?.receiveNumberOfRows(self) ?? 0 > 1 {
+            showView()
+            showSelected()
         }
+        textField.endEditing(true)
     }
 }
 
@@ -122,23 +136,18 @@ extension AddPickerView: UIPickerViewDataSource {
     }
 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return delegate?.pickerNumberOfRows ?? 0
+        return delegate?.receiveNumberOfRows(self) ?? 0
     }
 }
 
 extension AddPickerView: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return delegate?.receiveRow(by: row)
+        return delegate?.receiveRow(self, by: row)
     }
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        delegate?.didSelected(by: row)
-        text = delegate?.receiveRow(by: row)
-        self.pickerView.snp.updateConstraints { make in
-            make.height.equalTo(0)
-        }
-        snp.updateConstraints { make in
-            make.height.equalTo(viewHeight)
-        }
+        delegate?.didSelected(self, by: row)
+        text = delegate?.receiveRow(self, by: row)
+        hideView()
     }
 }

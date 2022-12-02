@@ -15,18 +15,24 @@ protocol AddTobaccoViewInputProtocol: AnyObject {
     func setupContent(_ viewModel: AddTobaccoEntity.ViewModel)
     func setupTastes()
     func setupSelectedManufacturer(_ index: Int)
+    func setupSelectedTobaccoLine(_ index: Int)
     func setupMainImage(_ image: Data?, textButton: String)
     func showLoading()
     func hideLoading()
 }
 
+enum AddPicketType {
+    case manufacturer
+    case tobaccoLine
+}
+
 protocol AddTobaccoViewOutputProtocol: AnyObject {
     func pressedButtonAdded(with data: AddTobaccoEntity.EnteredData)
-    func didSelectedManufacturer(by index: Int)
+    func didSelected(by index: Int, type: AddPicketType)
     func didSelectMainImage(with imageURL: URL)
-    var numberOfRows: Int { get }
-    func receiveRow(by index: Int) -> String
-    func receiveIndexRow(for title: String) -> Int
+    func numbreOfRows(type: AddPicketType) -> Int
+    func receiveRow(by index: Int, type: AddPicketType) -> String
+    func receiveIndexRow(for title: String, type: AddPicketType) -> Int
     func viewDidLoad()
     var tasteNumberOfRows: Int { get }
     func getTasteViewModel(by index: Int) -> TasteCollectionCellViewModel
@@ -44,8 +50,11 @@ final class AddTobaccoViewController: HTScrollContentViewController {
         tasteCollectionView.contentSize.height +
         tasteButton.frame.height +
         descriptionView.heightView +
+        tobaccoLinePickerView.viewHeight +
         view.frame.width * imageHeightRelativeToWidth +
-        spacingBetweenViews * (tasteButton.isHidden ? 5 : 6)
+        spacingBetweenViews * (6 +
+                               (tasteButton.isHidden ? 0 : 1)
+        )
     }
 
     // MARK: - UI properties
@@ -54,6 +63,7 @@ final class AddTobaccoViewController: HTScrollContentViewController {
     private let tasteCollectionView = TasteCollectionView()
     private let tasteButton = UIButton.createAppBigButton("Добавить вкусы")
     private let descriptionView = AddTextView()
+    private let tobaccoLinePickerView = AddPickerView()
     private let imagePickerView = ImageButtonPickerView()
     private let addedButton = UIButton.createAppBigButton()
     private let activityIndicator = UIActivityIndicatorView(style: .large)
@@ -72,6 +82,12 @@ final class AddTobaccoViewController: HTScrollContentViewController {
         super.viewDidLayoutSubviews()
         addedButton.createCornerRadius()
         tasteButton.createCornerRadius()
+    }
+
+    override func hideViewTapped() {
+        super.hideViewTapped()
+        manufacturerPickerView.hideView()
+        tobaccoLinePickerView.hideView()
     }
 
     // MARK: - Setups
@@ -120,6 +136,14 @@ final class AddTobaccoViewController: HTScrollContentViewController {
             make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
         }
 
+        contentScrollView.addSubview(tobaccoLinePickerView)
+        tobaccoLinePickerView.setupView(text: "Выбрать линейку табака")
+        tobaccoLinePickerView.delegate = self
+        tobaccoLinePickerView.snp.makeConstraints { make in
+            make.top.equalTo(descriptionView.snp.bottom).offset(spacingBetweenViews)
+            make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
+        }
+
         view.addSubview(addedButton)
         addedButton.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
@@ -130,7 +154,7 @@ final class AddTobaccoViewController: HTScrollContentViewController {
 
         contentScrollView.addSubview(imagePickerView)
         imagePickerView.snp.makeConstraints { make in
-            make.top.equalTo(descriptionView.snp.bottom).inset(-spacingBetweenViews)
+            make.top.equalTo(tobaccoLinePickerView.snp.bottom).inset(-spacingBetweenViews)
             make.centerX.equalToSuperview()
             make.bottom.equalToSuperview().inset(spacingBetweenViews)
             make.width.equalTo(imagePickerView.snp.height)
@@ -150,7 +174,11 @@ final class AddTobaccoViewController: HTScrollContentViewController {
 
     // MARK: - Private methods
     private func changeManufacturerPickerView(by row: Int) {
-        manufacturerPickerView.text = presenter.receiveRow(by: row)
+        manufacturerPickerView.text = presenter.receiveRow(by: row, type: .manufacturer)
+    }
+
+    private func changeTobaccoLinePickerView(by row: Int) {
+        tobaccoLinePickerView.text = presenter.receiveRow(by: row, type: .tobaccoLine)
     }
 
     // MARK: - Selectors
@@ -174,6 +202,7 @@ extension AddTobaccoViewController: AddTobaccoViewInputProtocol {
         nameView.text = ""
         descriptionView.text = ""
         changeManufacturerPickerView(by: 0)
+        changeTobaccoLinePickerView(by: 0)
         nameView.becomeFirstResponderTextField()
         imagePickerView.image = nil
         tasteCollectionView.reloadData()
@@ -194,6 +223,10 @@ extension AddTobaccoViewController: AddTobaccoViewInputProtocol {
 
     func setupSelectedManufacturer(_ index: Int) {
         changeManufacturerPickerView(by: index)
+    }
+
+    func setupSelectedTobaccoLine(_ index: Int) {
+        changeTobaccoLinePickerView(by: index)
     }
 
     func setupMainImage(_ image: Data?, textButton: String) {
@@ -239,20 +272,39 @@ extension AddTobaccoViewController: ImagePickerViewDelegate {
 
 // MARK: - AddPickerViewDelegate implementation
 extension AddTobaccoViewController: AddPickerViewDelegate {
-    var pickerNumberOfRows: Int {
-        presenter.numberOfRows
+    func receiveNumberOfRows(_ pickerView: AddPickerView) -> Int {
+        if pickerView === manufacturerPickerView {
+            return presenter.numbreOfRows(type: .manufacturer)
+        } else if pickerView === tobaccoLinePickerView {
+            return presenter.numbreOfRows(type: .tobaccoLine)
+        }
+        return 0
     }
 
-    func receiveRow(by row: Int) -> String {
-        presenter.receiveRow(by: row)
+    func receiveRow(_ pickerView: AddPickerView, by row: Int) -> String {
+        if pickerView === manufacturerPickerView {
+            return presenter.receiveRow(by: row, type: .manufacturer)
+        } else if pickerView === tobaccoLinePickerView {
+            return presenter.receiveRow(by: row, type: .tobaccoLine)
+        }
+        return ""
     }
 
-    func didSelected(by row: Int) {
-        presenter.didSelectedManufacturer(by: row)
+    func didSelected(_ pickerView: AddPickerView, by row: Int) {
+        if pickerView === manufacturerPickerView {
+            presenter.didSelected(by: row, type: .manufacturer)
+        } else if pickerView === tobaccoLinePickerView {
+            presenter.didSelected(by: row, type: .tobaccoLine)
+        }
     }
 
-    func receiveIndex(for title: String) -> Int {
-        presenter.receiveIndexRow(for: title)
+    func receiveIndex(_ pickerView: AddPickerView, for title: String) -> Int {
+        if pickerView === manufacturerPickerView {
+            return presenter.receiveIndexRow(for: title, type: .manufacturer)
+        } else if pickerView === tobaccoLinePickerView {
+            return presenter.receiveIndexRow(for: title, type: .tobaccoLine)
+        }
+        return -1
     }
 }
 

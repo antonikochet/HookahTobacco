@@ -18,6 +18,7 @@ class AddTobaccoPresenter {
     // MARK: - Private properties
     private var manufacturerSelectItems: [String] = ["-"]
     private var tasteViewModels: [TasteCollectionCellViewModel] = []
+    private var tobaccoLinesSelectItems: [String] = ["Отсутствует"]
 }
 
 // MARK: - InteractorOutputProtocol implementation
@@ -45,6 +46,17 @@ extension AddTobaccoPresenter: AddTobaccoInteractorOutputProtocol {
         manufacturerSelectItems.insert("-", at: 0)
     }
 
+    func showNameTobaccoLinesForSelect(_ names: [String]) {
+        tobaccoLinesSelectItems = names
+        if names.isEmpty {
+            tobaccoLinesSelectItems.insert("Отсутствует", at: 0)
+            initialSelectedTobaccoLine("Отсутствует")
+        } else {
+            tobaccoLinesSelectItems.insert("-", at: 0)
+            initialSelectedTobaccoLine("-")
+        }
+    }
+
     func initialDataForPresentation(_ tobacco: AddTobaccoEntity.Tobacco, isEditing: Bool) {
         let textButton = isEditing ? "Изменить табак" : "Добавить табак"
         let viewModel = AddTobaccoEntity.ViewModel(
@@ -63,6 +75,15 @@ extension AddTobaccoPresenter: AddTobaccoInteractorOutputProtocol {
         }
     }
 
+    func initialSelectedTobaccoLine(_ name: String?) {
+        if let name = name,
+           let index = tobaccoLinesSelectItems.firstIndex(of: name) {
+            view.setupSelectedTobaccoLine(index)
+        } else {
+            view.setupSelectedTobaccoLine(0)
+        }
+    }
+
     func initialMainImage(_ image: Data?) {
         let textButton = (image != nil
                           ? "Изменить изображение"
@@ -75,7 +96,7 @@ extension AddTobaccoPresenter: AddTobaccoInteractorOutputProtocol {
     }
 
     func initialTastes(_ tastes: [Taste]) {
-        tasteViewModels = tastes.map { TasteCollectionCellViewModel(taste: $0.taste) }
+        tasteViewModels = tastes.map { TasteCollectionCellViewModel(label: $0.taste) }
         view.setupTastes()
     }
 }
@@ -95,26 +116,48 @@ extension AddTobaccoPresenter: AddTobaccoViewOutputProtocol {
         interactor.sendNewTobaccoToServer(tobaccoInteractor)
     }
 
-    func didSelectedManufacturer(by index: Int) {
-        guard !manufacturerSelectItems.isEmpty else { return }
-        interactor.didSelectedManufacturer(manufacturerSelectItems[index])
+    func didSelected(by index: Int, type: AddPicketType) {
+        switch type {
+        case .manufacturer:
+            guard !manufacturerSelectItems.isEmpty else { return }
+            interactor.didSelectedManufacturer(manufacturerSelectItems[index])
+        case .tobaccoLine:
+            guard !tobaccoLinesSelectItems.isEmpty else { return }
+            interactor.didSelectedTobaccoLine(tobaccoLinesSelectItems[index])
+        }
     }
 
     func didSelectMainImage(with imageURL: URL) {
         interactor.didSelectMainImage(with: imageURL)
     }
 
-    var numberOfRows: Int {
-        manufacturerSelectItems.count
+    func numbreOfRows(type: AddPicketType) -> Int {
+        switch type {
+        case .manufacturer:
+            return manufacturerSelectItems.count
+        case .tobaccoLine:
+            return tobaccoLinesSelectItems.count
+        }
     }
 
-    func receiveRow(by index: Int) -> String {
-        manufacturerSelectItems[index]
+    func receiveRow(by index: Int, type: AddPicketType) -> String {
+        switch type {
+        case .manufacturer:
+            return manufacturerSelectItems[index]
+        case .tobaccoLine:
+            return tobaccoLinesSelectItems[index]
+        }
     }
 
-    func receiveIndexRow(for title: String) -> Int {
-        guard let index = manufacturerSelectItems.firstIndex(of: title) else { return 0 }
-        return index
+    func receiveIndexRow(for title: String, type: AddPicketType) -> Int {
+        switch type {
+        case .manufacturer:
+            guard let index = manufacturerSelectItems.firstIndex(of: title) else { return 0 }
+            return index
+        case .tobaccoLine:
+            guard let index = tobaccoLinesSelectItems.firstIndex(of: title) else { return 0 }
+            return index
+        }
     }
 
     func viewDidLoad() {

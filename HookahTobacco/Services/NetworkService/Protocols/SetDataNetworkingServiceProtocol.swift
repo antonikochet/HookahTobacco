@@ -9,11 +9,14 @@ import Foundation
 
 protocol SetDataNetworkingServiceProtocol {
     typealias SetDataNetworingCompletion = (NetworkError?) -> Void
+    typealias AddDataNetworkingCompletion = (Result<String, NetworkError>) -> Void
     func addManufacturer(_ manufacturer: Manufacturer, completion: SetDataNetworingCompletion?)
     func setManufacturer(_ newManufacturer: Manufacturer, completion: SetDataNetworingCompletion?)
-    func addTobacco(_ tobacco: Tobacco, completion: ((Result<String, NetworkError>) -> Void)?)
+    func addTobacco(_ tobacco: Tobacco, completion: AddDataNetworkingCompletion?)
     func setTobacco(_ newTobacco: Tobacco, completion: SetDataNetworingCompletion?)
-    func addTaste(_ taste: Taste, completion: ((Result<String, NetworkError>) -> Void)?)
+    func addTaste(_ taste: Taste, completion: AddDataNetworkingCompletion?)
     func setTaste(_ taste: Taste, completion: SetDataNetworingCompletion?)
+    func addTobaccoLine(_ tobaccoLine: TobaccoLine, completion: AddDataNetworkingCompletion?)
+    func setTobaccoLine(_ tobaccoLine: TobaccoLine, completion: SetDataNetworingCompletion?)
     func setDBVersion(_ newVersion: Int, completion: SetDataNetworingCompletion?)
 }

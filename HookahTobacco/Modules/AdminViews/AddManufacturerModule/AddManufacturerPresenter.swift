@@ -10,14 +10,45 @@
 import Foundation
 
 class AddManufacturerPresenter {
+    // MARK: - Public properties
     weak var view: AddManufacturerViewInputProtocol!
     var interactor: AddManufacturerInteractorInputProtocol!
     var router: AddManufacturerRouterProtocol!
 
+    // MARK: - Private properties
     private var viewModel: AddManufacturerEntity.ViewModel?
+    private var tobaccoLinesViewModels: [TasteCollectionCellViewModel] = []
+    private var tobaccoLineViewModel: AddTobaccoLineViewViewModelProtocol?
+    private var editingTobaccoLineIndex: Int?
     private var isImage: Bool = false
+
+    // MARK: - Private methods
+    private func createTobaccoLineViewModel(_ tobaccoLine: TobaccoLine?,
+                                            selectedTobaccoTypeIndex: Int
+    ) -> AddTobaccoLineViewViewModelProtocol {
+        if let tobaccoLine = tobaccoLine {
+            return AddManufacturerEntity.TobaccoLineModel(
+                name: tobaccoLine.name,
+                packetingFormats: tobaccoLine.packetingFormat
+                    .map { String($0) }
+                    .joined(separator: ", "),
+                tobaccoTypes: TobaccoType.allCases.map { $0.name },
+                selectedTobaccoTypeIndex: selectedTobaccoTypeIndex,
+                description: tobaccoLine.description,
+                isBase: tobaccoLine.isBase)
+        } else {
+            return AddManufacturerEntity.TobaccoLineModel(
+                name: "",
+                packetingFormats: "",
+                tobaccoTypes: TobaccoType.allCases.map { $0.name },
+                selectedTobaccoTypeIndex: selectedTobaccoTypeIndex,
+                description: "",
+                isBase: false)
+        }
+    }
 }
 
+// MARK: - InteractorOutputProtocol implementation
 extension AddManufacturerPresenter: AddManufacturerInteractorOutputProtocol {
     func receivedSuccessAddition() {
         view.hideLoading()
@@ -57,8 +88,19 @@ extension AddManufacturerPresenter: AddManufacturerInteractorOutputProtocol {
             isImage = false
         }
     }
+
+    func initialTobaccoLines(_ lines: [TobaccoLine]) {
+        tobaccoLinesViewModels = lines.map { TasteCollectionCellViewModel(label: $0.name) }
+        view.setupTobaccoLines()
+    }
+
+    func initialTobaccoLine(_ line: TobaccoLine) {
+        tobaccoLineViewModel = createTobaccoLineViewModel(line, selectedTobaccoTypeIndex: line.tobaccoType.rawValue)
+        view.showTobaccoLineView()
+    }
 }
 
+// MARK: - ViewOutputProtocol implementation
 extension AddManufacturerPresenter: AddManufacturerViewOutputProtocol {
     func pressedAddButton(with enteredData: AddManufacturerEntity.EnterData) {
         guard let name = enteredData.name, !name.isEmpty else {
@@ -91,5 +133,66 @@ extension AddManufacturerPresenter: AddManufacturerViewOutputProtocol {
 
     func viewDidLoad() {
         interactor.receiveStartingDataView()
+    }
+
+    func getTobaccoLineViewModel(at index: Int) -> TasteCollectionCellViewModel {
+        tobaccoLinesViewModels[index]
+    }
+
+    func getTobaccoLineViewModel() -> AddTobaccoLineViewViewModelProtocol {
+        tobaccoLineViewModel ?? createTobaccoLineViewModel(nil, selectedTobaccoTypeIndex: -1)
+    }
+
+    var tobaccoLineNumberOfRows: Int {
+        tobaccoLinesViewModels.count
+    }
+
+    func returnTobaccoLine(name: String?,
+                           packetingFormats: String?,
+                           selectedTobaccoTypeIndex: Int,
+                           description: String?,
+                           isBase: Bool) {
+        guard var name = name else { return }
+        if isBase {
+            name = "Base"
+        } else if name.isEmpty {
+            router.showError(with: "Имя линейки табака не введено")
+            return
+        }
+        guard let packetingFormats = packetingFormats,
+              !packetingFormats.isEmpty else {
+            router.showError(with: "Не введен вес упаковок в линейке")
+            return
+        }
+        guard selectedTobaccoTypeIndex != -1 else {
+            router.showError(with: "Не выбран тип табака")
+            return
+        }
+        guard let description = description, !description.isEmpty else {
+            router.showError(with: "Описание линейки табака не введено")
+            return
+        }
+        let intPF = packetingFormats.replacingOccurrences(of: "\\s*",
+                                                          with: "",
+                                                          options: [.regularExpression])
+                                    .split(separator: ",")
+                                    .compactMap { Int($0) }
+        let tobaccoLine = AddManufacturerEntity.TobaccoLine(name: name,
+                                                            packetingFormats: intPF,
+                                                            selectedTobaccoTypeIndex: selectedTobaccoTypeIndex,
+                                                            description: description,
+                                                            isBase: isBase)
+        view.receivedResultAddTobaccoLine(isResult: true)
+        interactor.didEnterTobaccoLine(tobaccoLine, index: editingTobaccoLineIndex)
+        editingTobaccoLineIndex = nil
+    }
+
+    func pressedEditingTobaccoLine(at index: Int) {
+        editingTobaccoLineIndex = index
+        interactor.receiveEditingTobaccoLine(at: index)
+    }
+
+    func pressedCloseEditingTobaccoLine() {
+        editingTobaccoLineIndex = nil
     }
 }

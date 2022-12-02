@@ -9,17 +9,17 @@ import UIKit
 import SnapKit
 
 struct TasteCollectionCellViewModel {
-    let taste: String
+    let label: String
 }
 
 class TasteCollectionViewCell: UICollectionViewCell {
     // MARK: - Static properties
-    static let identifier = NSStringFromClass(AddTastesTableViewCell.self)
+    static let identifier = NSStringFromClass(TasteCollectionViewCell.self)
 
     // MARK: - Public properties
     var viewModel: TasteCollectionCellViewModel! {
         didSet {
-            tasteLabel.text = viewModel.taste
+            tasteLabel.text = viewModel.label
         }
     }
 
@@ -45,12 +45,12 @@ class TasteCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Setups
     private func setup() {
-        backgroundColor = Self.cellBackgroundColor
-        addSubview(tasteLabel)
+        contentView.backgroundColor = Self.cellBackgroundColor
+        contentView.addSubview(tasteLabel)
         tasteLabel.snp.makeConstraints { make in
             make.edges.equalToSuperview().inset(Self.paddingLabel)
         }
-        layer.cornerRadius = Self.cornerRadiusCell
+        contentView.layer.cornerRadius = Self.cornerRadiusCell
     }
 }
 

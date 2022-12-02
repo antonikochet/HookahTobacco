@@ -14,6 +14,7 @@ struct NamedFireStore {
         static let `system` = "system"
         static let tobaccos = "tobaccos"
         static let tastes = "tastes"
+        static let tobaccoLines = "tobaccoLines"
     }
     // swiftlint: disable nesting
     struct Documents {
@@ -29,6 +30,7 @@ struct NamedFireStore {
             static let description = "description"
             static let image = "image"
             static let link = "link"
+            static let lines = "lines"
         }
 
         struct Tobacco {
@@ -37,11 +39,20 @@ struct NamedFireStore {
             static let idManufacturer = "idManufacturer"
             static let nameManufacturer = "nameManufacturer"
             static let description = "description"
+            static let line = "line"
         }
 
         struct Taste {
             static let taste = "taste"
             static let type = "type"
+        }
+
+        struct TobaccoLine {
+            static let name = "name"
+            static let packetingFormat = "packetingFormat"
+            static let tobaccoType = "tobaccoType"
+            static let description = "description"
+            static let isBaseLine = "isBaseLine"
         }
 
         struct System {

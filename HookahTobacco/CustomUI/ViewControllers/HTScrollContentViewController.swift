@@ -72,7 +72,7 @@ class HTScrollContentViewController: UIViewController {
     }
 
     // MARK: - Selectors
-    @objc private func hideViewTapped() {
+    @objc func hideViewTapped() {
         view.endEditing(true)
     }
 }

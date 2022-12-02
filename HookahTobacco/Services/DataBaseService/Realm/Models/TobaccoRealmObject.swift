@@ -13,9 +13,10 @@ class TobaccoRealmObject: Object {
     @Persisted var name: String = ""
     @Persisted var descriptionTobacco: String = ""
     @Persisted var uidManufacturer: String = ""
+    @Persisted var uidTobaccoLine: String = ""
     @Persisted(originProperty: "tobaccos") var manufacturer: LinkingObjects<ManufacturerRealmObject>
     @Persisted var taste: List<TasteRealmObject>
-    // image
+    @Persisted(originProperty: "tobaccos") var line: LinkingObjects<TobaccoLineRealmObject>
 
     var nameManufacturer: String? {
         manufacturer.first?.name
@@ -29,6 +30,7 @@ extension TobaccoRealmObject {
         self.name = tobacco.name
         self.descriptionTobacco = tobacco.description
         self.uidManufacturer = tobacco.idManufacturer
+        self.uidTobaccoLine = tobacco.line.uid
     }
 
     func update(_ tobacco: Tobacco) -> [String: Any]? {
@@ -45,6 +47,8 @@ extension TobaccoRealmObject {
         newValues["uidManufacturer"] = tobacco.idManufacturer
         isChange = Set(self.taste.map { $0.convertToEntity() }) != Set(tobacco.tastes) ? true : isChange
         newValues["taste"] = [TasteRealmObject]()
+        isChange = self.uidTobaccoLine != tobacco.line.uid ? true : isChange
+        newValues["uidTobaccoLine"] = tobacco.line.uid
 
         return isChange ? newValues : nil
     }
@@ -57,6 +61,7 @@ extension TobaccoRealmObject {
                 idManufacturer: self.uidManufacturer,
                 nameManufacturer: self.nameManufacturer ?? "",
                 description: self.descriptionTobacco,
+                line: self.line.first(where: { $0.uid == self.uidTobaccoLine })!.convertToEntity(),
                 image: nil)
     }
 }

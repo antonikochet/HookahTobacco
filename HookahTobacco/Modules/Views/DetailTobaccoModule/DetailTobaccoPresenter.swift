@@ -20,7 +20,7 @@ class DetailTobaccoPresenter {
 
     // MARK: - Private methods
     private func createTasteViewModel(_ taste: Taste) -> TasteCollectionCellViewModel {
-        TasteCollectionCellViewModel(taste: taste.taste)
+        TasteCollectionCellViewModel(label: taste.taste)
     }
 
     private func createViewModel(_ tobacco: DetailTobaccoEntity.Tobacco) -> DetailTobaccoEntity.ViewModel {

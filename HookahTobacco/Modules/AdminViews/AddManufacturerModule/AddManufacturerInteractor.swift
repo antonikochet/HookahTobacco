@@ -13,6 +13,8 @@ protocol AddManufacturerInteractorInputProtocol {
     func didEnterDataManufacturer(_ data: AddManufacturerEntity.Manufacturer)
     func didSelectImage(with urlFile: URL)
     func receiveStartingDataView()
+    func didEnterTobaccoLine(_ data: AddManufacturerEntity.TobaccoLine, index: Int?)
+    func receiveEditingTobaccoLine(at index: Int)
 }
 
 protocol AddManufacturerInteractorOutputProtocol: AnyObject {
@@ -21,24 +23,27 @@ protocol AddManufacturerInteractorOutputProtocol: AnyObject {
     func receivedError(with message: String)
     func initialDataForPresentation(_ manufacturer: AddManufacturerEntity.Manufacturer, isEditing: Bool)
     func initialImage(_ image: Data?)
+    func initialTobaccoLines(_ lines: [TobaccoLine])
+    func initialTobaccoLine(_ line: TobaccoLine)
 }
 
 class AddManufacturerInteractor {
-    
+
     weak var presenter: AddManufacturerInteractorOutputProtocol!
-    
+
     private var setNetworkManager: SetDataNetworkingServiceProtocol
     private var setImageManager: SetImageNetworkingServiceProtocol
     private var getImageManager: GetImageNetworkingServiceProtocol?
-    
+
     private var imageFileURL: URL?
     private var manufacturer: Manufacturer?
+    private var tobaccoLines: [TobaccoLine] = []
     private let isEditing: Bool
     private var editingImage: Data?
-    
+
     private var dispatchGroup = DispatchGroup()
     private var receivedErrors: [Error] = []
-    
+
     // init for add manufacturer
     init(setNetworkManager: SetDataNetworkingServiceProtocol,
          setImageManager: SetImageNetworkingServiceProtocol) {
@@ -46,7 +51,7 @@ class AddManufacturerInteractor {
         self.setImageManager = setImageManager
         self.isEditing = false
     }
-    
+
     // init for edit manufacturer
     init(_ manufacturer: Manufacturer,
          setNetworkManager: SetDataNetworkingServiceProtocol,
@@ -57,18 +62,37 @@ class AddManufacturerInteractor {
         self.setImageManager = setImageManager
         self.getImageManager = getImageManager
         self.isEditing = true
+        self.tobaccoLines = manufacturer.lines
     }
-    
-    //MARK: methods for adding manufacturer data
+
+    // MARK: - methods for adding manufacturer data
     private func addImageToServer(with fileURL: URL, _ nameFile: String) {
         dispatchGroup.enter()
-        setImageManager.addImage(by: fileURL, for: NamedFireStorage.manufacturerImage(name: nameFile)) { [weak self] error in
+        setImageManager.addImage(by: fileURL,
+                                 for: NamedFireStorage.manufacturerImage(name: nameFile)
+        ) { [weak self] error in
             guard let self = self else { return }
             if let error = error { self.receivedErrors.append(error) }
             self.dispatchGroup.leave()
         }
     }
-    
+
+    private func addTobaccoLine(_ tobaccoLines: TobaccoLine, index: Int) {
+        if tobaccoLines.uid.isEmpty {
+            setNetworkManager.addTobaccoLine(tobaccoLines) { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .success(let uid):
+                    var mtl = tobaccoLines
+                    mtl.uid = uid
+                    self.tobaccoLines[index] = mtl
+                case .failure(let error):
+                    self.presenter.receivedError(with: error.localizedDescription)
+                }
+            }
+        }
+    }
+
     private func addManufacturerToServer(_ manufacturer: Manufacturer) {
         dispatchGroup.enter()
         setNetworkManager.addManufacturer(manufacturer) { [weak self] error in
@@ -77,40 +101,40 @@ class AddManufacturerInteractor {
             self.dispatchGroup.leave()
         }
     }
-    
+
     private func extractingImageFormat(from url: URL) -> String {
         let absolutePath = url.absoluteString.lowercased()
         if absolutePath.hasSuffix("jpg") || absolutePath.hasSuffix("jpeg") {
             return "jpg"
-        } else if absolutePath.hasSuffix("png"){
+        } else if absolutePath.hasSuffix("png") {
             return "png"
         } else {
-            //TODO: придумать обход ошибки
+            // TODO: - придумать обход ошибки
            fatalError("Выбран неверный формат изображения для производителей")
         }
     }
-    
+
     private func createNameImageFile(with fileURL: URL, for manufacturer: Manufacturer) -> String {
         let formatImage = extractingImageFormat(from: fileURL)
         return "\(manufacturer.name).\(formatImage)"
     }
-    
-    //MARK: methods for changing manufacturer data
+
+    // MARK: - methods for changing manufacturer data
     private func receiveImage(for manufacturer: Manufacturer) {
         let nameImage = manufacturer.nameImage
         let type = NamedFireStorage.manufacturerImage(name: nameImage)
         getImageManager?.getImage(for: type) { [weak self] result in
             guard let self = self else { return }
             switch result {
-                case .success(let image):
-                    self.editingImage = image
-                    self.presenter.initialImage(image)
-                case .failure(let error):
-                    self.presenter.receivedError(with: error.localizedDescription)
+            case .success(let image):
+                self.editingImage = image
+                self.presenter.initialImage(image)
+            case .failure(let error):
+                self.presenter.receivedError(with: error.localizedDescription)
             }
         }
     }
-    
+
     private func setNameImage(oldName: String, newName: String) {
         dispatchGroup.enter()
         setImageManager.setImageName(from: NamedFireStorage.manufacturerImage(name: oldName),
@@ -120,7 +144,7 @@ class AddManufacturerInteractor {
             self.dispatchGroup.leave()
         }
     }
-    
+
     private func setImage(with newURL: URL, from oldName: String, to newName: String) {
         dispatchGroup.enter()
         editingImage = try? Data(contentsOf: newURL)
@@ -128,11 +152,11 @@ class AddManufacturerInteractor {
                                  to: newURL,
                                  for: NamedFireStorage.manufacturerImage(name: newName)) { [weak self] error in
             guard let self = self else { return }
-            if let error = error  { self.receivedErrors.append(error) }
+            if let error = error { self.receivedErrors.append(error) }
             self.dispatchGroup.leave()
         }
     }
-    
+
     private func setManufacturer(_ new: Manufacturer) {
         dispatchGroup.enter()
         setNetworkManager.setManufacturer(new) { [weak self] error in
@@ -141,15 +165,27 @@ class AddManufacturerInteractor {
             self.dispatchGroup.leave()
         }
     }
+
+    private func setTobaccoLine(_ tobaccoLines: TobaccoLine) {
+        setNetworkManager.setTobaccoLine(tobaccoLines) { [weak self] error in
+            guard let self = self else { return }
+            if let error = error { self.presenter.receivedError(with: error.localizedDescription) }
+        }
+    }
 }
 
 extension AddManufacturerInteractor: AddManufacturerInteractorInputProtocol {
     func didEnterDataManufacturer(_ data: AddManufacturerEntity.Manufacturer) {
+        guard !tobaccoLines.isEmpty else {
+            presenter.receivedError(with: "У производителя должна быть хотя бы одна базовая линейка!")
+            return
+        }
         var enterManufacturer = Manufacturer(name: data.name,
                                              country: data.country,
                                              description: data.description ?? "",
                                              nameImage: "",
-                                             link: data.link)
+                                             link: data.link,
+                                             lines: tobaccoLines)
         dispatchGroup = DispatchGroup()
         if isEditing {
             guard let manufacturer = manufacturer else { return }
@@ -174,7 +210,7 @@ extension AddManufacturerInteractor: AddManufacturerInteractorInputProtocol {
             addImageToServer(with: fileURL, nameFile)
             addManufacturerToServer(enterManufacturer)
         }
-        
+
         dispatchGroup.notify(queue: .main) {
             if self.receivedErrors.isEmpty {
                 if self.isEditing {
@@ -184,7 +220,7 @@ extension AddManufacturerInteractor: AddManufacturerInteractorInputProtocol {
                     self.presenter.receivedSuccessAddition()
                 }
             } else {
-                //TODO: исправить данный вывод ошибок
+                // TODO: - исправить данный вывод ошибок
                 for error in self.receivedErrors {
                     print(error)
                 }
@@ -194,11 +230,11 @@ extension AddManufacturerInteractor: AddManufacturerInteractorInputProtocol {
             }
         }
     }
-    
+
     func didSelectImage(with urlFile: URL) {
         imageFileURL = urlFile
     }
-    
+
     func receiveStartingDataView() {
         if isEditing {
             guard let manufacturer = manufacturer else { return }
@@ -223,5 +259,36 @@ extension AddManufacturerInteractor: AddManufacturerInteractorInputProtocol {
             presenter.initialDataForPresentation(pManufacturer, isEditing: isEditing)
             presenter.initialImage(nil)
         }
+        presenter.initialTobaccoLines(tobaccoLines)
+    }
+
+    func didEnterTobaccoLine(_ data: AddManufacturerEntity.TobaccoLine, index: Int?) {
+        if let index = index {
+            let tobaccoLine = tobaccoLines[index]
+            let newTobaccoLine = TobaccoLine(id: tobaccoLine.id,
+                                             uid: tobaccoLine.uid,
+                                             name: data.name,
+                                             packetingFormat: data.packetingFormats,
+                                             tobaccoType: TobaccoType(rawValue: data.selectedTobaccoTypeIndex)!,
+                                             description: data.description,
+                                             isBase: data.isBase)
+            setTobaccoLine(newTobaccoLine)
+            tobaccoLines[index] = newTobaccoLine
+        } else {
+            let tobaccoLine = TobaccoLine(name: data.name,
+                                          packetingFormat: data.packetingFormats,
+                                          tobaccoType: TobaccoType(rawValue: data.selectedTobaccoTypeIndex)!,
+                                          description: data.description,
+                                          isBase: data.isBase)
+            tobaccoLines = []
+            tobaccoLines.append(tobaccoLine)
+            addTobaccoLine(tobaccoLine, index: tobaccoLines.count - 1)
+        }
+        presenter.initialTobaccoLines(tobaccoLines)
+    }
+
+    func receiveEditingTobaccoLine(at index: Int) {
+        guard index < tobaccoLines.count else { return }
+        presenter.initialTobaccoLine(tobaccoLines[index])
     }
 }

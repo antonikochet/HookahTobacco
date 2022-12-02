@@ -14,15 +14,15 @@ class ManufacturerRealmObject: Object {
     @Persisted var country: String = ""
     @Persisted var descriptionManufacturer: String = ""
     @Persisted var nameImage: String = ""
-//    @Persisted var linkImage: String?
     @Persisted var link: String?
     @Persisted var tobaccos: List<TobaccoRealmObject>
+    @Persisted var lines: List<TobaccoLineRealmObject>
 }
 
 extension ManufacturerRealmObject {
     convenience init(_ manufacturer: Manufacturer) {
         self.init()
-        self.uid = manufacturer.uid ?? ""
+        self.uid = manufacturer.uid
         self.name = manufacturer.name
         self.country = manufacturer.country
         self.descriptionManufacturer = manufacturer.description
@@ -44,13 +44,16 @@ extension ManufacturerRealmObject {
     }
 
     func convertToEntity() -> Manufacturer {
-        Manufacturer(id: id.stringValue,
-                     uid: uid,
-                     name: name,
-                     country: country,
-                     description: descriptionManufacturer,
-                     nameImage: nameImage,
-                     image: nil,
-                     link: link)
+        Manufacturer(
+            id: id.stringValue,
+            uid: uid,
+            name: name,
+            country: country,
+            description: descriptionManufacturer,
+            nameImage: nameImage,
+            image: nil,
+            link: link,
+            lines: Array(lines.map { $0.convertToEntity() })
+        )
     }
 }

@@ -17,7 +17,7 @@ class FireBaseSetNetworkingService: SetDataNetworkingServiceProtocol {
     }
 
     func addManufacturer(_ manufacturer: Manufacturer, completion: SetDataNetworingCompletion?) {
-        let data = manufacturer.formatterToDataFireStore()
+        let data = manufacturer.formatterToData()
         db.collection(NamedFireStore.Collections.manufacturers).addDocument(data: data) { [weak self] error in
             guard let self = self else { return }
             if let error = error { completion?(self.handlerErrors.handlerError(error))
@@ -26,10 +26,10 @@ class FireBaseSetNetworkingService: SetDataNetworkingServiceProtocol {
     }
 
     func setManufacturer(_ newManufacturer: Manufacturer, completion: SetDataNetworingCompletion?) {
-        if let uid = newManufacturer.uid {
+        if !newManufacturer.uid.isEmpty {
             db.collection(NamedFireStore.Collections.manufacturers)
-                .document(uid)
-                .setData(newManufacturer.formatterToDataFireStore(),
+                .document(newManufacturer.uid)
+                .setData(newManufacturer.formatterToData(),
                          merge: true) { [weak self] error in
                     guard let self = self else { return }
                     if let error = error { completion?(self.handlerErrors.handlerError(error))
@@ -39,7 +39,7 @@ class FireBaseSetNetworkingService: SetDataNetworkingServiceProtocol {
     }
 
     func addTobacco(_ tobacco: Tobacco, completion: ((Result<String, NetworkError>) -> Void)?) {
-        let data = tobacco.formatterToDataFireStore()
+        let data = tobacco.formatterToData()
         let docRef = db.collection(NamedFireStore.Collections.tobaccos).document()
         let uidDoc = docRef.documentID
         docRef.setData(data) { [weak self] error in
@@ -52,7 +52,7 @@ class FireBaseSetNetworkingService: SetDataNetworkingServiceProtocol {
     func setTobacco(_ newTobacco: Tobacco, completion: SetDataNetworingCompletion?) {
         db.collection(NamedFireStore.Collections.tobaccos)
             .document(newTobacco.uid)
-            .setData(newTobacco.formatterToDataFireStore(),
+            .setData(newTobacco.formatterToData(),
                      merge: true) { [weak self] error in
                 guard let self = self else { return }
                 if let error = error { completion?(self.handlerErrors.handlerError(error))
@@ -61,7 +61,7 @@ class FireBaseSetNetworkingService: SetDataNetworkingServiceProtocol {
     }
 
     func addTaste(_ taste: Taste, completion: ((Result<String, NetworkError>) -> Void)?) {
-        let data = taste.formatterToDataFireStore()
+        let data = taste.formatterToData()
         let docRef = db.collection(NamedFireStore.Collections.tastes).document()
         let uidDoc = docRef.documentID
         docRef.setData(data) { [weak self] error in
@@ -72,9 +72,33 @@ class FireBaseSetNetworkingService: SetDataNetworkingServiceProtocol {
     }
 
     func setTaste(_ taste: Taste, completion: SetDataNetworingCompletion?) {
-        let data = taste.formatterToDataFireStore()
+        let data = taste.formatterToData()
         let uid = taste.uid
         db.collection(NamedFireStore.Collections.tastes)
+            .document(uid)
+            .setData(data,
+                     merge: true) { [weak self] error in
+                guard let self = self else { return }
+                if let error = error { completion?(self.handlerErrors.handlerError(error))
+                } else { completion?(nil) }
+            }
+    }
+
+    func addTobaccoLine(_ tobaccoLine: TobaccoLine, completion: AddDataNetworkingCompletion?) {
+        let data = tobaccoLine.formatterToData()
+        let docRef = db.collection(NamedFireStore.Collections.tobaccoLines).document()
+        let uidDoc = docRef.documentID
+        docRef.setData(data) { [weak self] error in
+            guard let self = self else { return }
+            if let error = error { completion?(.failure(self.handlerErrors.handlerError(error)))
+            } else { completion?(.success(uidDoc)) }
+        }
+    }
+
+    func setTobaccoLine(_ tobaccoLine: TobaccoLine, completion: SetDataNetworingCompletion?) {
+        let data = tobaccoLine.formatterToData()
+        let uid = tobaccoLine.uid
+        db.collection(NamedFireStore.Collections.tobaccoLines)
             .document(uid)
             .setData(data,
                      merge: true) { [weak self] error in
@@ -94,38 +118,5 @@ class FireBaseSetNetworkingService: SetDataNetworkingServiceProtocol {
                 if let error = error { completion?(self.handlerErrors.handlerError(error))
                 } else { completion?(nil) }
             }
-    }
-}
-
-fileprivate extension Manufacturer {
-    func formatterToDataFireStore() -> [String: Any] {
-        return [
-            NamedFireStore.Documents.Manufacturer.name: self.name,
-            NamedFireStore.Documents.Manufacturer.country: self.country,
-            NamedFireStore.Documents.Manufacturer.description: self.description,
-            NamedFireStore.Documents.Manufacturer.image: self.nameImage,
-            NamedFireStore.Documents.Manufacturer.link: self.link ?? ""
-        ]
-    }
-}
-
-fileprivate extension Tobacco {
-    func formatterToDataFireStore() -> [String: Any] {
-        return [
-            NamedFireStore.Documents.Tobacco.name: self.name,
-            NamedFireStore.Documents.Tobacco.idManufacturer: self.idManufacturer,
-            NamedFireStore.Documents.Tobacco.nameManufacturer: self.nameManufacturer,
-            NamedFireStore.Documents.Tobacco.taste: self.tastes.map { $0.uid },
-            NamedFireStore.Documents.Tobacco.description: self.description
-        ]
-    }
-}
-
-fileprivate extension Taste {
-    func formatterToDataFireStore() -> [String: Any] {
-        return [
-            NamedFireStore.Documents.Taste.taste: self.taste,
-            NamedFireStore.Documents.Taste.type: self.typeTaste
-        ]
     }
 }

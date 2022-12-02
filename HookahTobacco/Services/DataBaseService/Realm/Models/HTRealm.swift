@@ -18,7 +18,8 @@ class HTRealm: HTRealmProtocol {
     var realmTypes: [Object.Type] = [
         ManufacturerRealmObject.self,
         TobaccoRealmObject.self,
-        TasteRealmObject.self
+        TasteRealmObject.self,
+        TobaccoLineRealmObject.self
     ]
 
     var realmVersion: UInt64 {
