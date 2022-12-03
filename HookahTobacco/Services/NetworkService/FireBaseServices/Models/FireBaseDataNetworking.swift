@@ -85,17 +85,22 @@ extension TobaccoLine: DataNetworkingServiceProtocol {
         self.name = name
         self.packetingFormat = packetingFormat
         self.tobaccoType = TobaccoType(rawValue: data[NamedFireStore.Documents.TobaccoLine.tobaccoType] as? Int ?? 0)!
+        self.tobaccoLeafType = (data[NamedFireStore.Documents.TobaccoLine.tobaccoLeafType] as? [Int])?
+                                    .compactMap { VarietyTobaccoLeaf(rawValue: $0) }
         self.description = description
         self.isBase = isBase
     }
 
     func formatterToData() -> [String: Any] {
-        return [
-            NamedFireStore.Documents.TobaccoLine.name: self.name,
-            NamedFireStore.Documents.TobaccoLine.packetingFormat: self.packetingFormat,
-            NamedFireStore.Documents.TobaccoLine.tobaccoType: self.tobaccoType.rawValue,
-            NamedFireStore.Documents.TobaccoLine.description: self.description,
-            NamedFireStore.Documents.TobaccoLine.isBaseLine: self.isBase
-        ]
+        var dict = [String: Any]()
+        dict[NamedFireStore.Documents.TobaccoLine.name] = name
+        dict[NamedFireStore.Documents.TobaccoLine.packetingFormat] = packetingFormat
+        dict[NamedFireStore.Documents.TobaccoLine.tobaccoType] = tobaccoType.rawValue
+        if let tobaccoLeafType = tobaccoLeafType {
+            dict[NamedFireStore.Documents.TobaccoLine.tobaccoLeafType] = tobaccoLeafType.map { $0.rawValue }
+        }
+        dict[NamedFireStore.Documents.TobaccoLine.description] = description
+        dict[NamedFireStore.Documents.TobaccoLine.isBaseLine] = isBase
+        return dict
     }
 }

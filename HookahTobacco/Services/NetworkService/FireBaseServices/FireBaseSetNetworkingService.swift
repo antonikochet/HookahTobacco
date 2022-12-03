@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseFirestore
 
-class FireBaseSetNetworkingService: SetDataNetworkingServiceProtocol {
+class FireBaseSetNetworkingService {
     private var db = Firestore.firestore()
     private var handlerErrors: NetworkHandlerErrors
 
@@ -16,96 +16,41 @@ class FireBaseSetNetworkingService: SetDataNetworkingServiceProtocol {
         self.handlerErrors = handlerErrors
     }
 
-    func addManufacturer(_ manufacturer: Manufacturer, completion: SetDataNetworingCompletion?) {
-        let data = manufacturer.formatterToData()
-        db.collection(NamedFireStore.Collections.manufacturers).addDocument(data: data) { [weak self] error in
+    private func definePathCollection(type: DataNetworkingServiceProtocol) -> String? {
+        switch type.self {
+        case is Manufacturer: return NamedFireStore.Collections.manufacturers
+        case is Tobacco:      return NamedFireStore.Collections.tobaccos
+        case is Taste:        return NamedFireStore.Collections.tastes
+        case is TobaccoLine:  return NamedFireStore.Collections.tobaccoLines
+        default:              return nil
+        }
+    }
+}
+
+extension FireBaseSetNetworkingService: SetDataNetworkingServiceProtocol {
+    func addData<T: DataNetworkingServiceProtocol>(_ data: T, completion: AddDataNetworkingCompletion?) {
+        guard let pathCollection = definePathCollection(type: data.self) else { return }
+        let docRef = db.collection(pathCollection).document()
+        let uidDoc = docRef.documentID
+        docRef.setData(data.formatterToData()) { [weak self] error in
             guard let self = self else { return }
-            if let error = error { completion?(self.handlerErrors.handlerError(error))
-            } else { completion?(nil)}
+            if let error = error { completion?(.failure(self.handlerErrors.handlerError(error)))
+            } else { completion?(.success(uidDoc)) }
         }
     }
 
-    func setManufacturer(_ newManufacturer: Manufacturer, completion: SetDataNetworingCompletion?) {
-        if !newManufacturer.uid.isEmpty {
-            db.collection(NamedFireStore.Collections.manufacturers)
-                .document(newManufacturer.uid)
-                .setData(newManufacturer.formatterToData(),
+    func setData<T: DataNetworkingServiceProtocol>(_ data: T, completion: SetDataNetworingCompletion?) {
+        guard let pathCollection = definePathCollection(type: data.self) else { return }
+        if !data.uid.isEmpty {
+            db.collection(pathCollection)
+                .document(data.uid)
+                .setData(data.formatterToData(),
                          merge: true) { [weak self] error in
                     guard let self = self else { return }
                     if let error = error { completion?(self.handlerErrors.handlerError(error))
                     } else { completion?(nil)}
                 }
         }
-    }
-
-    func addTobacco(_ tobacco: Tobacco, completion: ((Result<String, NetworkError>) -> Void)?) {
-        let data = tobacco.formatterToData()
-        let docRef = db.collection(NamedFireStore.Collections.tobaccos).document()
-        let uidDoc = docRef.documentID
-        docRef.setData(data) { [weak self] error in
-            guard let self = self else { return }
-            if let error = error { completion?(.failure(self.handlerErrors.handlerError(error)))
-            } else { completion?(.success(uidDoc))}
-        }
-    }
-
-    func setTobacco(_ newTobacco: Tobacco, completion: SetDataNetworingCompletion?) {
-        db.collection(NamedFireStore.Collections.tobaccos)
-            .document(newTobacco.uid)
-            .setData(newTobacco.formatterToData(),
-                     merge: true) { [weak self] error in
-                guard let self = self else { return }
-                if let error = error { completion?(self.handlerErrors.handlerError(error))
-                } else { completion?(nil)}
-            }
-    }
-
-    func addTaste(_ taste: Taste, completion: ((Result<String, NetworkError>) -> Void)?) {
-        let data = taste.formatterToData()
-        let docRef = db.collection(NamedFireStore.Collections.tastes).document()
-        let uidDoc = docRef.documentID
-        docRef.setData(data) { [weak self] error in
-            guard let self = self else { return }
-            if let error = error { completion?(.failure(self.handlerErrors.handlerError(error)))
-            } else { completion?(.success(uidDoc)) }
-        }
-    }
-
-    func setTaste(_ taste: Taste, completion: SetDataNetworingCompletion?) {
-        let data = taste.formatterToData()
-        let uid = taste.uid
-        db.collection(NamedFireStore.Collections.tastes)
-            .document(uid)
-            .setData(data,
-                     merge: true) { [weak self] error in
-                guard let self = self else { return }
-                if let error = error { completion?(self.handlerErrors.handlerError(error))
-                } else { completion?(nil) }
-            }
-    }
-
-    func addTobaccoLine(_ tobaccoLine: TobaccoLine, completion: AddDataNetworkingCompletion?) {
-        let data = tobaccoLine.formatterToData()
-        let docRef = db.collection(NamedFireStore.Collections.tobaccoLines).document()
-        let uidDoc = docRef.documentID
-        docRef.setData(data) { [weak self] error in
-            guard let self = self else { return }
-            if let error = error { completion?(.failure(self.handlerErrors.handlerError(error)))
-            } else { completion?(.success(uidDoc)) }
-        }
-    }
-
-    func setTobaccoLine(_ tobaccoLine: TobaccoLine, completion: SetDataNetworingCompletion?) {
-        let data = tobaccoLine.formatterToData()
-        let uid = tobaccoLine.uid
-        db.collection(NamedFireStore.Collections.tobaccoLines)
-            .document(uid)
-            .setData(data,
-                     merge: true) { [weak self] error in
-                guard let self = self else { return }
-                if let error = error { completion?(self.handlerErrors.handlerError(error))
-                } else { completion?(nil) }
-            }
     }
 
     func setDBVersion(_ newVersion: Int, completion: SetDataNetworingCompletion?) {

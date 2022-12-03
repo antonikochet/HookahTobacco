@@ -24,26 +24,36 @@ class AddManufacturerPresenter {
 
     // MARK: - Private methods
     private func createTobaccoLineViewModel(_ tobaccoLine: TobaccoLine?,
-                                            selectedTobaccoTypeIndex: Int
+                                            selectedTobaccoTypeIndex: Int,
+                                            selectedTobaccoLeafIndexs: [Int]
     ) -> AddTobaccoLineViewViewModelProtocol {
         if let tobaccoLine = tobaccoLine {
             return AddManufacturerEntity.TobaccoLineModel(
                 name: tobaccoLine.name,
-                packetingFormats: tobaccoLine.packetingFormat
-                    .map { String($0) }
-                    .joined(separator: ", "),
-                tobaccoTypes: TobaccoType.allCases.map { $0.name },
-                selectedTobaccoTypeIndex: selectedTobaccoTypeIndex,
-                description: tobaccoLine.description,
-                isBase: tobaccoLine.isBase)
+                paramTobacco: AddManufacturerEntity.ParamTobaccoModel(
+                    packetingFormats: tobaccoLine.packetingFormat
+                        .map { String($0) }
+                        .joined(separator: ", "),
+                    tobaccoTypes: TobaccoType.allCases.map { $0.name },
+                    selectedTobaccoTypeIndex: selectedTobaccoTypeIndex,
+                    isBaseLine: tobaccoLine.isBase,
+                    tobaccoLeafTypes: VarietyTobaccoLeaf.allCases.map { $0.name },
+                    selectedTobaccoLeafTypeIndex: selectedTobaccoLeafIndexs),
+                description: tobaccoLine.description
+            )
         } else {
             return AddManufacturerEntity.TobaccoLineModel(
                 name: "",
-                packetingFormats: "",
-                tobaccoTypes: TobaccoType.allCases.map { $0.name },
-                selectedTobaccoTypeIndex: selectedTobaccoTypeIndex,
-                description: "",
-                isBase: false)
+                paramTobacco: AddManufacturerEntity.ParamTobaccoModel(
+                    packetingFormats: "",
+                    tobaccoTypes: TobaccoType.allCases.map { $0.name },
+                    selectedTobaccoTypeIndex: selectedTobaccoTypeIndex,
+                    isBaseLine: false,
+                    tobaccoLeafTypes: VarietyTobaccoLeaf.allCases.map { $0.name },
+                    selectedTobaccoLeafTypeIndex: selectedTobaccoLeafIndexs
+                ),
+                description: ""
+            )
         }
     }
 }
@@ -95,7 +105,10 @@ extension AddManufacturerPresenter: AddManufacturerInteractorOutputProtocol {
     }
 
     func initialTobaccoLine(_ line: TobaccoLine) {
-        tobaccoLineViewModel = createTobaccoLineViewModel(line, selectedTobaccoTypeIndex: line.tobaccoType.rawValue)
+        tobaccoLineViewModel = createTobaccoLineViewModel(
+            line,
+            selectedTobaccoTypeIndex: line.tobaccoType.rawValue,
+            selectedTobaccoLeafIndexs: line.tobaccoLeafType?.map { $0.rawValue } ?? [])
         view.showTobaccoLineView()
     }
 }
@@ -140,48 +153,52 @@ extension AddManufacturerPresenter: AddManufacturerViewOutputProtocol {
     }
 
     func getTobaccoLineViewModel() -> AddTobaccoLineViewViewModelProtocol {
-        tobaccoLineViewModel ?? createTobaccoLineViewModel(nil, selectedTobaccoTypeIndex: -1)
+        tobaccoLineViewModel ?? createTobaccoLineViewModel(nil,
+                                                           selectedTobaccoTypeIndex: -1,
+                                                           selectedTobaccoLeafIndexs: [])
     }
 
     var tobaccoLineNumberOfRows: Int {
         tobaccoLinesViewModels.count
     }
 
-    func returnTobaccoLine(name: String?,
-                           packetingFormats: String?,
-                           selectedTobaccoTypeIndex: Int,
-                           description: String?,
-                           isBase: Bool) {
-        guard var name = name else { return }
-        if isBase {
+    func returnTobaccoLine(_ viewModel: TobaccoLineViewModelProtocol) {
+        var name = viewModel.name
+        if viewModel.isBase {
             name = "Base"
         } else if name.isEmpty {
             router.showError(with: "Имя линейки табака не введено")
             return
         }
-        guard let packetingFormats = packetingFormats,
-              !packetingFormats.isEmpty else {
+        guard !viewModel.packetingFormats.isEmpty else {
             router.showError(with: "Не введен вес упаковок в линейке")
             return
         }
-        guard selectedTobaccoTypeIndex != -1 else {
+        guard viewModel.selectedTobaccoTypeIndex != -1 else {
             router.showError(with: "Не выбран тип табака")
             return
         }
-        guard let description = description, !description.isEmpty else {
+        guard !viewModel.description.isEmpty else {
             router.showError(with: "Описание линейки табака не введено")
             return
         }
-        let intPF = packetingFormats.replacingOccurrences(of: "\\s*",
-                                                          with: "",
-                                                          options: [.regularExpression])
-                                    .split(separator: ",")
-                                    .compactMap { Int($0) }
-        let tobaccoLine = AddManufacturerEntity.TobaccoLine(name: name,
-                                                            packetingFormats: intPF,
-                                                            selectedTobaccoTypeIndex: selectedTobaccoTypeIndex,
-                                                            description: description,
-                                                            isBase: isBase)
+        guard viewModel.selectedTobaccoTypeIndex == 0, !viewModel.selectedTobaccoLeafTypeIndexs.isEmpty else {
+            router.showError(with: "Сорта табаков не выбраны для линейки")
+            return
+        }
+        let intPF = viewModel.packetingFormats.replacingOccurrences(of: "\\s*",
+                                                                    with: "",
+                                                                    options: [.regularExpression])
+                                                .split(separator: ",")
+                                                .compactMap { Int($0) }
+        let tobaccoLine = AddManufacturerEntity.TobaccoLine(
+            name: name,
+            packetingFormats: intPF,
+            selectedTobaccoTypeIndex: viewModel.selectedTobaccoTypeIndex,
+            description: viewModel.description,
+            isBase: viewModel.isBase,
+            selectedTobaccoLeafTypeIndexs: viewModel.selectedTobaccoLeafTypeIndexs
+        )
         view.receivedResultAddTobaccoLine(isResult: true)
         interactor.didEnterTobaccoLine(tobaccoLine, index: editingTobaccoLineIndex)
         editingTobaccoLineIndex = nil

@@ -1,27 +1,22 @@
 //
-//  AddSegmentedControlView.swift
+//  AddMultiSegmentedControlView.swift
 //  HookahTobacco
 //
-//  Created by антон кочетков on 01.12.2022.
+//  Created by антон кочетков on 03.12.2022.
 //
 
 import UIKit
+import MultiSelectSegmentedControl
 import SnapKit
 
-protocol AddSegmentedControlViewDelegate: AnyObject {
-    func didTouchSegmentedControl(_ view: AddSegmentedControlView, touchIndex: Int)
-}
-
-class AddSegmentedControlView: UIView {
+class AddMultiSegmentedControlView: UIView {
     // MARK: - Public properties
-    weak var delegate: AddSegmentedControlViewDelegate?
-
-    var selectedIndex: Int {
+    var selectedIndex: [Int] {
         get {
-            segmentedControl.selectedSegmentIndex
+            Array(segmentedControl.selectedSegmentIndexes)
         }
         set {
-            segmentedControl.selectedSegmentIndex = newValue
+            segmentedControl.selectedSegmentIndexes = IndexSet(newValue)
         }
     }
 
@@ -35,15 +30,8 @@ class AddSegmentedControlView: UIView {
     private let topMargin: CGFloat = 8.0
 
     // MARK: - Private UI
-    private let label: UILabel = {
-        let label = UILabel()
-        return label
-    }()
-
-    private let segmentedControl: UISegmentedControl = {
-        let segmentControl = UISegmentedControl()
-        return segmentControl
-    }()
+    private let label = UILabel()
+    private let segmentedControl = MultiSelectSegmentedControl()
 
     // MARK: - Initializers
     init() {
@@ -61,7 +49,6 @@ class AddSegmentedControlView: UIView {
         addSubview(label)
         addSubview(segmentedControl)
 
-        segmentedControl.addTarget(self, action: #selector(didTouchSegment), for: .valueChanged)
         label.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
         }
@@ -71,10 +58,10 @@ class AddSegmentedControlView: UIView {
             make.leading.trailing.bottom.equalToSuperview()
             make.height.equalTo(heightSegmentedControl)
         }
-    }
 
-    @objc private func didTouchSegment() {
-        delegate?.didTouchSegmentedControl(self, touchIndex: segmentedControl.selectedSegmentIndex)
+        snp.makeConstraints { make in
+            make.height.equalTo(heightView)
+        }
     }
 
     // MARK: - Public methods
@@ -85,5 +72,20 @@ class AddSegmentedControlView: UIView {
             segmentedControl.insertSegment(withTitle: title, at: index, animated: true)
         }
         segmentedControl.selectedSegmentIndex = -1
+    }
+
+    func showView() {
+        isHidden = false
+        snp.updateConstraints { make in
+            make.height.equalTo(heightView)
+        }
+    }
+
+    func hideView() {
+        segmentedControl.selectedSegmentIndexes = []
+        isHidden = true
+        snp.updateConstraints { make in
+            make.height.equalTo(0)
+        }
     }
 }

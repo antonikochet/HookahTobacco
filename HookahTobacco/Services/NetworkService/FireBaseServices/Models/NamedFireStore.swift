@@ -53,6 +53,7 @@ struct NamedFireStore {
             static let tobaccoType = "tobaccoType"
             static let description = "description"
             static let isBaseLine = "isBaseLine"
+            static let tobaccoLeafType = "tobaccoLeafType"
         }
 
         struct System {

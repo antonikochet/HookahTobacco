@@ -14,6 +14,7 @@ class TobaccoLineRealmObject: Object {
     @Persisted var name: String = ""
     @Persisted var packetingFormat: MutableSet<Int>
     @Persisted var tobaccoType: TobaccoTypeRealmObject = .none
+    @Persisted var tobaccoLeafType: MutableSet<VarietyTobaccoLeafRealmObjects>
     @Persisted var descriptionTL: String = ""
     @Persisted var isBaseLine: Bool = false
     @Persisted var tobaccos: List<TobaccoRealmObject>
@@ -26,6 +27,9 @@ extension TobaccoLineRealmObject {
         self.name = tobaccoLine.name
         self.packetingFormat.insert(objectsIn: tobaccoLine.packetingFormat)
         self.tobaccoType.update(tobaccoLine.tobaccoType)
+        self.tobaccoLeafType.insert(objectsIn:
+                                        tobaccoLine.tobaccoLeafType?
+                                        .compactMap { VarietyTobaccoLeafRealmObjects(rawValue: $0.rawValue) } ?? [])
         self.descriptionTL = tobaccoLine.description
         self.isBaseLine = tobaccoLine.isBase
     }
@@ -39,7 +43,7 @@ extension TobaccoLineRealmObject {
         newValues["tobaccoType"] = tobaccoLine.tobaccoType.rawValue
         newValues["descriptionTL"] = tobaccoLine.description
         newValues["isBaseLine"] = tobaccoLine.isBase
-
+        newValues["tobaccoLeafType"] = tobaccoLine.tobaccoLeafType?.map { $0.rawValue } ?? []
         return newValues
     }
 
@@ -49,6 +53,7 @@ extension TobaccoLineRealmObject {
                     name: self.name,
                     packetingFormat: self.packetingFormat.map { $0 },
                     tobaccoType: TobaccoType(rawValue: self.tobaccoType.rawValue)!,
+                    tobaccoLeafType: self.tobaccoLeafType.compactMap { VarietyTobaccoLeaf(rawValue: $0.rawValue) },
                     description: self.descriptionTL,
                     isBase: self.isBaseLine)
     }

@@ -99,7 +99,7 @@ class AddTobaccoInteractor {
     }
 
     private func addTobacco(_ tobacco: Tobacco, by imageFileURL: URL) {
-        setDataManager.addTobacco(tobacco) { [weak self] result in
+        setDataManager.addData(tobacco) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let uid):
@@ -129,7 +129,7 @@ class AddTobaccoInteractor {
 
     private func setTobacco(_ tobacco: Tobacco) {
         dispatchGroup.enter()
-        setDataManager.setTobacco(tobacco) { [weak self] error in
+        setDataManager.setData(tobacco) { [weak self] error in
             guard let self = self else { return }
             if let error = error {
                 self.receivedErrorAtEditing.append(error)

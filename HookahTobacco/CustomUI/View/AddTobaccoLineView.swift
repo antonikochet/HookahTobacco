@@ -10,19 +10,31 @@ import SnapKit
 
 protocol AddTobaccoLineViewViewModelProtocol {
     var name: String? { get }
-    var packetingFormats: String? { get }
-    var tobaccoTypes: [String] { get }
-    var selectedTobaccoTypeIndex: Int { get }
+    var paramTobacco: AddParamTobaccoViewModelProtocol { get }
     var description: String? { get }
+}
+
+protocol TobaccoLineViewModelProtocol {
+    var name: String { get }
+    var packetingFormats: String { get }
+    var selectedTobaccoTypeIndex: Int { get }
+    var description: String { get }
     var isBase: Bool { get }
+    var selectedTobaccoLeafTypeIndexs: [Int] { get }
+
+}
+
+struct AddTobaccoLineViewModel: TobaccoLineViewModelProtocol {
+    var name: String
+    var packetingFormats: String
+    var selectedTobaccoTypeIndex: Int
+    var description: String
+    var isBase: Bool
+    var selectedTobaccoLeafTypeIndexs: [Int]
 }
 
 protocol AddTobaccoLineViewDelegate: AnyObject {
-    func didTouchDone(name: String,
-                      packetingFormats: String,
-                      selectedTobaccoTypeIndex: Int,
-                      description: String,
-                      isBase: Bool)
+    func didTouchDone(_ viewModel: TobaccoLineViewModelProtocol)
     func didTouchClose()
 }
 
@@ -67,15 +79,13 @@ class AddTobaccoLineView: UIView {
         super.layoutSubviews()
         closeButton.createCornerRadius()
         doneButton.createCornerRadius()
+        snp.updateConstraints { $0.height.equalTo(isHidden ? 0 : heightView) }
     }
 
     // MARK: Public methods
     func setupView(_ viewModel: AddTobaccoLineViewViewModelProtocol) {
         nameView.text = viewModel.name
-        paramTobaccoView.setupView(packetingFormats: viewModel.packetingFormats ?? "",
-                                   tobaccoTypes: viewModel.tobaccoTypes,
-                                   selectedTobaccoTypeIndex: viewModel.selectedTobaccoTypeIndex,
-                                   isBaseLine: viewModel.isBase)
+        paramTobaccoView.setupView(viewModel.paramTobacco)
         descriptionView.text = viewModel.description
     }
 
@@ -151,11 +161,13 @@ class AddTobaccoLineView: UIView {
 
     // MARK: - Selectors
     @objc private func touchDone() {
-        delegate?.didTouchDone(name: nameView.text ?? "",
-                               packetingFormats: paramTobaccoView.packetingFormatsText ?? "",
-                               selectedTobaccoTypeIndex: paramTobaccoView.selectedTobaccoTypeIndex,
-                               description: descriptionView.text ?? "",
-                               isBase: paramTobaccoView.isOn)
+        delegate?.didTouchDone(AddTobaccoLineViewModel(
+            name: nameView.text ?? "",
+            packetingFormats: paramTobaccoView.packetingFormatsText ?? "",
+            selectedTobaccoTypeIndex: paramTobaccoView.selectedTobaccoTypeIndex,
+            description: descriptionView.text ?? "",
+            isBase: paramTobaccoView.isOn,
+            selectedTobaccoLeafTypeIndexs: paramTobaccoView.selectedTobaccoLeafTypeIndexs))
     }
 
     @objc private func touchClose() {

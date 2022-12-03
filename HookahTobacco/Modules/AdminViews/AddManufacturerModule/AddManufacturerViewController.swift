@@ -28,9 +28,7 @@ protocol AddManufacturerViewOutputProtocol {
     func getTobaccoLineViewModel(at index: Int) -> TasteCollectionCellViewModel
     func getTobaccoLineViewModel() -> AddTobaccoLineViewViewModelProtocol
     var tobaccoLineNumberOfRows: Int { get }
-    func returnTobaccoLine(name: String?, packetingFormats: String?,
-                           selectedTobaccoTypeIndex: Int, description: String?,
-                           isBase: Bool)
+    func returnTobaccoLine(_ viewModel: TobaccoLineViewModelProtocol)
     func pressedEditingTobaccoLine(at index: Int)
     func pressedCloseEditingTobaccoLine()
 }
@@ -297,16 +295,8 @@ extension AddManufacturerViewController: TasteCollectionViewDelegate {
 }
 
 extension AddManufacturerViewController: AddTobaccoLineViewDelegate {
-    func didTouchDone(name: String,
-                      packetingFormats: String,
-                      selectedTobaccoTypeIndex: Int,
-                      description: String,
-                      isBase: Bool) {
-        presenter.returnTobaccoLine(name: name,
-                                    packetingFormats: packetingFormats,
-                                    selectedTobaccoTypeIndex: selectedTobaccoTypeIndex,
-                                    description: description,
-                                    isBase: isBase)
+    func didTouchDone(_ viewModel: TobaccoLineViewModelProtocol) {
+        presenter.returnTobaccoLine(viewModel)
     }
 
     func didTouchClose() {

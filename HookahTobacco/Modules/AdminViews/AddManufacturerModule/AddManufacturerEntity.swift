@@ -30,6 +30,7 @@ struct AddManufacturerEntity {
         let selectedTobaccoTypeIndex: Int
         let description: String
         let isBase: Bool
+        let selectedTobaccoLeafTypeIndexs: [Int]
     }
 
     struct ViewModel {
@@ -42,10 +43,16 @@ struct AddManufacturerEntity {
 
     struct TobaccoLineModel: AddTobaccoLineViewViewModelProtocol {
         var name: String?
-        var packetingFormats: String?
+        var paramTobacco: AddParamTobaccoViewModelProtocol
+        var description: String?
+    }
+
+    struct ParamTobaccoModel: AddParamTobaccoViewModelProtocol {
+        var packetingFormats: String
         var tobaccoTypes: [String]
         var selectedTobaccoTypeIndex: Int
-        var description: String?
-        var isBase: Bool
+        var isBaseLine: Bool
+        var tobaccoLeafTypes: [String]
+        var selectedTobaccoLeafTypeIndex: [Int]
     }
 }

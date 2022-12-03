@@ -41,7 +41,7 @@ class AddTasteInteractor {
 
     // MARK: - Private methods
     private func addTaste(_ taste: Taste) {
-        setDataManager.addTaste(taste) { [weak self] result in
+        setDataManager.addData(taste) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let uid):
@@ -55,7 +55,7 @@ class AddTasteInteractor {
     }
 
     private func editTaste(_ taste: Taste) {
-        setDataManager.setTaste(taste) { [weak self] error in
+        setDataManager.setData(taste) { [weak self] error in
             guard let self = self else { return }
             if let error = error {
                 self.presenter.receivedError(with: error.localizedDescription)

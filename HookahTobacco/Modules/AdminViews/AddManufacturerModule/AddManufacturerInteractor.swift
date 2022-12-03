@@ -79,7 +79,7 @@ class AddManufacturerInteractor {
 
     private func addTobaccoLine(_ tobaccoLines: TobaccoLine, index: Int) {
         if tobaccoLines.uid.isEmpty {
-            setNetworkManager.addTobaccoLine(tobaccoLines) { [weak self] result in
+            setNetworkManager.addData(tobaccoLines) { [weak self] result in
                 guard let self = self else { return }
                 switch result {
                 case .success(let uid):
@@ -95,10 +95,14 @@ class AddManufacturerInteractor {
 
     private func addManufacturerToServer(_ manufacturer: Manufacturer) {
         dispatchGroup.enter()
-        setNetworkManager.addManufacturer(manufacturer) { [weak self] error in
+        setNetworkManager.addData(manufacturer) { [weak self] result in
             guard let self = self else { return }
-            if let error = error { self.receivedErrors.append(error) }
-            self.dispatchGroup.leave()
+            switch result {
+            case .success:
+                    break
+            case .failure(let error):
+                self.presenter.receivedError(with: error.localizedDescription)
+            }
         }
     }
 
@@ -159,7 +163,7 @@ class AddManufacturerInteractor {
 
     private func setManufacturer(_ new: Manufacturer) {
         dispatchGroup.enter()
-        setNetworkManager.setManufacturer(new) { [weak self] error in
+        setNetworkManager.setData(new) { [weak self] error in
             guard let self = self else { return }
             if let error = error { self.receivedErrors.append(error) }
             self.dispatchGroup.leave()
@@ -167,7 +171,7 @@ class AddManufacturerInteractor {
     }
 
     private func setTobaccoLine(_ tobaccoLines: TobaccoLine) {
-        setNetworkManager.setTobaccoLine(tobaccoLines) { [weak self] error in
+        setNetworkManager.setData(tobaccoLines) { [weak self] error in
             guard let self = self else { return }
             if let error = error { self.presenter.receivedError(with: error.localizedDescription) }
         }
@@ -263,6 +267,9 @@ extension AddManufacturerInteractor: AddManufacturerInteractorInputProtocol {
     }
 
     func didEnterTobaccoLine(_ data: AddManufacturerEntity.TobaccoLine, index: Int?) {
+        let tobaccoLeafTypes = (data.selectedTobaccoLeafTypeIndexs.isEmpty ? nil :
+                                data.selectedTobaccoLeafTypeIndexs
+                                    .compactMap { VarietyTobaccoLeaf(rawValue: $0) })
         if let index = index {
             let tobaccoLine = tobaccoLines[index]
             let newTobaccoLine = TobaccoLine(id: tobaccoLine.id,
@@ -270,6 +277,7 @@ extension AddManufacturerInteractor: AddManufacturerInteractorInputProtocol {
                                              name: data.name,
                                              packetingFormat: data.packetingFormats,
                                              tobaccoType: TobaccoType(rawValue: data.selectedTobaccoTypeIndex)!,
+                                             tobaccoLeafType: tobaccoLeafTypes,
                                              description: data.description,
                                              isBase: data.isBase)
             setTobaccoLine(newTobaccoLine)
@@ -278,6 +286,7 @@ extension AddManufacturerInteractor: AddManufacturerInteractorInputProtocol {
             let tobaccoLine = TobaccoLine(name: data.name,
                                           packetingFormat: data.packetingFormats,
                                           tobaccoType: TobaccoType(rawValue: data.selectedTobaccoTypeIndex)!,
+                                          tobaccoLeafType: tobaccoLeafTypes,
                                           description: data.description,
                                           isBase: data.isBase)
             tobaccoLines = []

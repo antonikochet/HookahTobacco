@@ -22,3 +22,21 @@ enum TobaccoTypeRealmObject: Int, PersistableEnum {
         }
     }
 }
+
+enum VarietyTobaccoLeafRealmObjects: Int, PersistableEnum {
+    case none = -1
+    case burley = 0
+    case virginia = 1
+    case oriental = 2
+
+    mutating func update(_ tobaccoType: VarietyTobaccoLeaf) {
+        switch tobaccoType {
+        case .burley:
+            self = .burley
+        case .virginia:
+            self = .virginia
+        case .oriental:
+            self = .oriental
+        }
+    }
+}
