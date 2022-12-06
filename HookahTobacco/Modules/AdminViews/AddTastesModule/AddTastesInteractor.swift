@@ -57,7 +57,7 @@ class AddTastesInteractor {
 
     // MARK: - Private methods
     private func receiveAllTastes() {
-        getDataManager.getAllTastes { [weak self] result in
+        getDataManager.receiveData(type: Taste.self) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let data):

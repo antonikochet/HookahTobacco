@@ -14,10 +14,11 @@ extension AppRouter {
             RealmDataBaseServiresAssembly(),
             UserDefaultsServiceAssembly(),
             ImageServiceAssembly(),
-            DataManagerAssembly()
+            DataManagerAssembly(),
+            ImageManagerAssembly()
         ])
     }
-    
+
     func registerAppModules() {
         registerModule(AddTobaccoAssembly(), AddTobaccoModule.nameModule) { AddTobaccoModule($0) }
         registerModule(AdminMenuAssembly(), AdminMenuModule.nameModule) { AdminMenuModule($0) }
@@ -38,13 +39,13 @@ extension AppRouter {
             HTTabBarControllerAssembly()
         ])
     }
-    
+
     func assembleContainers() {
         // First container
         let manufacturerListTabBar = TabBarItemContent(title: "Производители",
                                                        image: UIImage(systemName: "note"))
         let manufactureListContainer = (ManufacturerListModule.self, manufacturerListTabBar)
-        
+
         // second container
         let tobaccoListTabBar = TabBarItemContent(title: "Табаки",
                                                   image: UIImage(systemName: "leaf"))

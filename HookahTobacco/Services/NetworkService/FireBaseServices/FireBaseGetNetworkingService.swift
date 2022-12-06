@@ -27,24 +27,12 @@ class FireBaseGetNetworkingService {
         }
     }
 
-    private func receiveData<T>(type: T.Type, completion: ((Result<QuerySnapshot, NetworkError>) -> Void)?) {
-        guard let pathCollection = definePathCollection(type: type) else { return }
-        firestore.collection(pathCollection).getDocuments { [weak self] snapshot, error in
-            guard let self = self else { return }
-            if let error = error { completion?(.failure(self.handlerErrors.handlerError(error)))
-            } else if let snapshot = snapshot { completion?(.success(snapshot))
-            } else { completion?(.failure(.unknownDataError(pathCollection))) }
-        }
-    }
-}
-
-extension FireBaseGetNetworkingService: GetDataNetworkingServiceProtocol {
-    func getManufacturers(completion: GetDataNetworkingServiceCompletion<[Manufacturer]>?) {
+    private func receiceManufacturers(completion: GetDataNetworkingServiceCompletion<[Manufacturer]>?) {
         workingQueue.async {
             let dispathGroup = DispatchGroup()
             var tobaccoLines: [String: TobaccoLine]?
             dispathGroup.enter()
-            self.getAllTobaccoLines { result in
+            self.receiveData(type: TobaccoLine.self) { result in
                 switch result {
                 case .success(let data):
                         tobaccoLines = Dictionary(uniqueKeysWithValues: data.map { ($0.uid, $0) })
@@ -55,7 +43,7 @@ extension FireBaseGetNetworkingService: GetDataNetworkingServiceProtocol {
             }
             dispathGroup.wait()
             guard let tobaccoLines = tobaccoLines else { return }
-            self.receiveData(type: Manufacturer.self) { result in
+            self.request(type: Manufacturer.self) { result in
                 switch result {
                 case .success(let snapshot):
                     let manufacturers = snapshot.documents.compactMap { document -> Manufacturer? in
@@ -69,6 +57,100 @@ extension FireBaseGetNetworkingService: GetDataNetworkingServiceProtocol {
                 case .failure(let error): completion?(.failure(error))
                 }
             }
+        }
+    }
+    private func receiveTobaccos(completion: GetDataNetworkingServiceCompletion<[Tobacco]>?) {
+        workingQueue.async {
+            let dispathGroup = DispatchGroup()
+            var tastes: [String: Taste]?
+            var lines: [String: TobaccoLine]?
+            dispathGroup.enter()
+            self.receiveData(type: Taste.self) { result in
+                switch result {
+                case .success(let data):
+                        tastes = Dictionary(uniqueKeysWithValues: data.map { ($0.uid, $0) })
+                case .failure(let error):
+                    completion?(.failure(error))
+                }
+                dispathGroup.leave()
+            }
+            dispathGroup.enter()
+            self.receiveData(type: TobaccoLine.self) { result in
+                switch result {
+                case .success(let data):
+                        lines = Dictionary(uniqueKeysWithValues: data.map { ($0.uid, $0) })
+                case .failure(let error):
+                    completion?(.failure(error))
+                }
+                dispathGroup.leave()
+            }
+            dispathGroup.wait()
+            guard let tastes = tastes else { return }
+            self.request(type: Tobacco.self) { result in
+                switch result {
+                case .success(let snapshot):
+                    let tobaccos = snapshot.documents.compactMap { document -> Tobacco? in
+                        var dict = document.data()
+                        let strTaste = dict[NamedFireStore.Documents.Tobacco.taste] as? [String] ?? []
+                        let taste = strTaste.compactMap { tastes[$0] }
+                        let strLine = dict[NamedFireStore.Documents.Tobacco.line] as? String
+                        let line = strLine != nil ? lines?[strLine!] : nil
+                        dict.updateValue(taste, forKey: NamedFireStore.Documents.Tobacco.taste)
+                        dict.updateValue(line as Any, forKey: NamedFireStore.Documents.Tobacco.line)
+                        return Tobacco(dict, uid: document.documentID)
+                    }
+                    completion?(.success(tobaccos))
+                case .failure(let error): completion?(.failure(error))
+                }
+            }
+        }
+    }
+    private func receiveTastes(completion: GetDataNetworkingServiceCompletion<[Taste]>?) {
+        request(type: Taste.self) { result in
+            switch result {
+            case .success(let snapshot):
+                let tastes = snapshot.documents.compactMap { Taste($0.data(), uid: $0.documentID) }
+                completion?(.success(tastes))
+            case .failure(let error): completion?(.failure(error))
+            }
+        }
+    }
+    private func receiveTobaccoLines(completion: GetDataNetworkingServiceCompletion<[TobaccoLine]>?) {
+        request(type: TobaccoLine.self) { result in
+            switch result {
+            case .success(let snapshot):
+                let tastes = snapshot.documents.compactMap { TobaccoLine($0.data(), uid: $0.documentID) }
+                completion?(.success(tastes))
+            case .failure(let error): completion?(.failure(error))
+            }
+        }
+    }
+
+    private func request<T>(type: T.Type, completion: ((Result<QuerySnapshot, NetworkError>) -> Void)?) {
+        guard let pathCollection = definePathCollection(type: type) else { return }
+        firestore.collection(pathCollection).getDocuments { [weak self] snapshot, error in
+            guard let self = self else { return }
+            if let error = error { completion?(.failure(self.handlerErrors.handlerError(error)))
+            } else if let snapshot = snapshot { completion?(.success(snapshot))
+            } else { completion?(.failure(.unknownDataError(pathCollection))) }
+        }
+    }
+}
+
+extension FireBaseGetNetworkingService: GetDataNetworkingServiceProtocol {
+    func receiveData<T: DataNetworkingServiceProtocol>(
+        type: T.Type,
+        completion: GetDataNetworkingServiceCompletion<[T]>?) {
+        switch type.self {
+        case is Manufacturer.Type:
+            receiceManufacturers(completion: completion as? GetDataNetworkingServiceCompletion<[Manufacturer]>)
+        case is Tobacco.Type:
+            receiveTobaccos(completion: completion as? GetDataNetworkingServiceCompletion<[Tobacco]>)
+        case is Taste.Type:
+            receiveTastes(completion: completion as? GetDataNetworkingServiceCompletion<[Taste]>)
+        case is TobaccoLine.Type:
+            receiveTobaccoLines(completion: completion as? GetDataNetworkingServiceCompletion<[TobaccoLine]>)
+        default: completion?(.failure(.dataNotFound("Тип \(type) не может быть использован для получения данных")))
         }
     }
 
@@ -91,77 +173,9 @@ extension FireBaseGetNetworkingService: GetDataNetworkingServiceProtocol {
         }
     }
 
-    func getAllTobaccos(completion: GetDataNetworkingServiceCompletion<[Tobacco]>?) {
-        workingQueue.async {
-            let dispathGroup = DispatchGroup()
-            var tastes: [String: Taste]?
-            var lines: [String: TobaccoLine]?
-            dispathGroup.enter()
-            self.getAllTastes { result in
-                switch result {
-                case .success(let data):
-                        tastes = Dictionary(uniqueKeysWithValues: data.map { ($0.uid, $0) })
-                case .failure(let error):
-                    completion?(.failure(error))
-                }
-                dispathGroup.leave()
-            }
-            dispathGroup.enter()
-            self.getAllTobaccoLines { result in
-                switch result {
-                case .success(let data):
-                        lines = Dictionary(uniqueKeysWithValues: data.map { ($0.uid, $0) })
-                case .failure(let error):
-                    completion?(.failure(error))
-                }
-                dispathGroup.leave()
-            }
-            dispathGroup.wait()
-            guard let tastes = tastes else { return }
-            self.receiveData(type: Tobacco.self) { result in
-                switch result {
-                case .success(let snapshot):
-                    let tobaccos = snapshot.documents.compactMap { document -> Tobacco? in
-                        var dict = document.data()
-                        let strTaste = dict[NamedFireStore.Documents.Tobacco.taste] as? [String] ?? []
-                        let taste = strTaste.compactMap { tastes[$0] }
-                        let strLine = dict[NamedFireStore.Documents.Tobacco.line] as? String
-                        let line = strLine != nil ? lines?[strLine!] : nil
-                        dict.updateValue(taste, forKey: NamedFireStore.Documents.Tobacco.taste)
-                        dict.updateValue(line as Any, forKey: NamedFireStore.Documents.Tobacco.line)
-                        return Tobacco(dict, uid: document.documentID)
-                    }
-                    completion?(.success(tobaccos))
-                case .failure(let error): completion?(.failure(error))
-                }
-            }
-        }
-    }
-
-    func getAllTastes(completion: GetDataNetworkingServiceCompletion<[Taste]>?) {
-        receiveData(type: Taste.self) { result in
-            switch result {
-            case .success(let snapshot):
-                let tastes = snapshot.documents.compactMap { Taste($0.data(), uid: $0.documentID) }
-                completion?(.success(tastes))
-            case .failure(let error): completion?(.failure(error))
-            }
-        }
-    }
-
-    func getAllTobaccoLines(completion: GetDataNetworkingServiceCompletion<[TobaccoLine]>?) {
-        receiveData(type: TobaccoLine.self) { result in
-            switch result {
-            case .success(let snapshot):
-                let tastes = snapshot.documents.compactMap { TobaccoLine($0.data(), uid: $0.documentID) }
-                completion?(.success(tastes))
-            case .failure(let error): completion?(.failure(error))
-            }
-        }
-    }
-
     func getDataBaseVersion(completion: GetDataNetworkingServiceCompletion<Int>?) {
-        firestore.collection(NamedFireStore.Collections.system).getDocuments { [weak self] snapshot, error in
+        firestore.collection(NamedFireStore.Collections.system)
+                 .getDocuments(source: .server) { [weak self] snapshot, error in
             guard let self = self else { return }
             if let error = error {
                 completion?(.failure(self.handlerErrors.handlerError(error)))

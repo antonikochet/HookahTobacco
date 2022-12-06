@@ -13,9 +13,7 @@ class DataManagerAssembly: Assembly {
         container.register(DataManager.self) { resolver in
             DataManager.init(
                 getDataNetworkingService: resolver.resolve(GetDataNetworkingServiceProtocol.self)!,
-                getImageNetworingService: resolver.resolve(GetImageNetworkingServiceProtocol.self)!,
                 dataBaseService: resolver.resolve(DataBaseServiceProtocol.self)!,
-                imageService: resolver.resolve(ImageServiceProtocol.self)!,
                 userDefaultsService: resolver.resolve(UserDefaultsServiceProtocol.self)!
             )
         }
@@ -24,10 +22,7 @@ class DataManagerAssembly: Assembly {
         container.register(DataManagerProtocol.self) { resolver in
             resolver.resolve(DataManager.self)!
         }
-        container.register(ImageManagerProtocol.self) { resolver in
-            resolver.resolve(DataManager.self)!
-        }
-        container.register(UpdateDataManagerObserverProtocol.self) { resolver in
+        container.register(ObserverProtocol.self) { resolver in
             resolver.resolve(DataManager.self)!
         }
     }

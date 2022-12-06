@@ -31,7 +31,7 @@ class TobaccoListInteractor {
     // MARK: - Dependency
     private var getDataManager: DataManagerProtocol
     private var getImageManager: ImageManagerProtocol
-    private var updateDataManager: UpdateDataManagerObserverProtocol
+    private var updateDataManager: ObserverProtocol
 
     // MARK: - Private properties
     private var tobaccos: [Tobacco] = []
@@ -41,7 +41,7 @@ class TobaccoListInteractor {
     init(_ isAdminModel: Bool,
          getDataManager: DataManagerProtocol,
          getImageManager: ImageManagerProtocol,
-         updateDataManager: UpdateDataManagerObserverProtocol
+         updateDataManager: ObserverProtocol
     ) {
         self.isAdminMode = isAdminModel
         self.getDataManager = getDataManager
@@ -127,10 +127,10 @@ extension TobaccoListInteractor: TobaccoListInteractorInputProtocol {
     }
 }
 
-    // MARK: - DataManagerSubscriberProtocol implementation
-extension TobaccoListInteractor: DataManagerSubscriberProtocol {
-    func notify<T>(for type: T.Type, newState: NewStateType<[T]>) {
-        switch newState {
+    // MARK: - UpdateDataSubscriberProtocol implementation
+extension TobaccoListInteractor: UpdateDataSubscriberProtocol {
+    func notify<T>(for type: T.Type, notification: UpdateDataNotification<[T]>) {
+        switch notification {
         case .update(let data):
             if let newTobacco = data as? [Tobacco] {
                 tobaccos = newTobacco

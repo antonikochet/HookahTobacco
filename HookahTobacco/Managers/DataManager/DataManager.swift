@@ -11,8 +11,9 @@ class DataManager {
     // MARK: - Private properties
     private var isSynchronized: Bool = false {
         didSet {
-// FIXME: добавить функцию по синхрониции которая будет выполняться при изменение синхронизации
-            print("Статус синхронизации данных был изменен на \(isSynchronized ? "синхронизировано" : "не синхронизировано")")
+            if isSynchronized {
+                notifySystemSubscribers(.successMessage("Данные были синхронизированны", 8.0))
+            }
         }
     }
     private var isOfflineMode: Bool = true
@@ -25,36 +26,27 @@ class DataManager {
     private let usedTypes: [Any.Type] = [
         Manufacturer.self,
         Tobacco.self,
-        Taste.self
+        Taste.self,
+        SystemNotificationType.self
     ]
     private var subscribers: [String: [WeakSubject]]
 
-    private let imageWorkingQueue = DispatchQueue(label: "ru.HookahTobacco.DataManager.getImage")
-
     // MARK: - Dependency Network
     private let getDataNetworkingService: GetDataNetworkingServiceProtocol
-    private let getImageNetworingService: GetImageNetworkingServiceProtocol
 
     // MARK: - Dependency DataBase
     private let dataBaseService: DataBaseServiceProtocol
-
-    // MARK: - Dependency Image
-    private let imageService: ImageServiceProtocol
 
     // MARK: - Dependency UserDefaults
     private let userDefaultsService: UserDefaultsServiceProtocol
 
     // MARK: - Initializers
     init(getDataNetworkingService: GetDataNetworkingServiceProtocol,
-         getImageNetworingService: GetImageNetworkingServiceProtocol,
          dataBaseService: DataBaseServiceProtocol,
-         imageService: ImageServiceProtocol,
          userDefaultsService: UserDefaultsServiceProtocol
     ) {
         self.getDataNetworkingService = getDataNetworkingService
-        self.getImageNetworingService = getImageNetworingService
         self.dataBaseService = dataBaseService
-        self.imageService = imageService
         self.userDefaultsService = userDefaultsService
         subscribers = Dictionary(uniqueKeysWithValues: usedTypes.map {
             (String(describing: $0.self), [WeakSubject]())
@@ -81,11 +73,17 @@ class DataManager {
     private func definitionDataSynchronization() {
         let localDBVersion = userDefaultsService.getDataBaseVersion()
         if remoteDBVersion == -1 && localDBVersion == -1 {
-            // FIXME: - Когда будут делаться подписки сделать повторный запрос и уведомление пользователя о ошибки
-            fatalError("Приложение запущено первый раз и нет доступа к сети")
+            notifySystemSubscribers(.errorMessage("""
+                Приложение запущено в первый раз и в данный момент не имеет доступа к сети.
+                Проверте сетевое подключение и перезагрузите приложение!
+                """, 12.0))
         } else if remoteDBVersion == -1 {
             isOfflineMode = true
             isSynchronized = false
+            notifySystemSubscribers(.errorMessage("""
+                Обновление данные не состоялось, нет подключения к сети!
+                Приложение работает в оффлайн режиме!
+                """, 10.0))
             return
         }
         if localDBVersion == remoteDBVersion {
@@ -108,48 +106,48 @@ class DataManager {
                                       attributes: .concurrent)
             dispatchGroup.enter()
             queue.async {
-                self.getDataNetworkingService.getManufacturers { result in
+                self.getDataNetworkingService.receiveData(type: Manufacturer.self) { result in
                     switch result {
                     case .success(let data):
                         manufacturers = data
                     case .failure(let error):
-                        print(error.localizedDescription)
+                        self.notifySystemSubscribers(.errorMessage(error.localizedDescription, 8.0))
                     }
                     dispatchGroup.leave()
                 }
             }
             dispatchGroup.enter()
             queue.async {
-                self.getDataNetworkingService.getAllTobaccoLines { result in
+                self.getDataNetworkingService.receiveData(type: TobaccoLine.self) { result in
                     switch result {
                     case .success(let data):
                         tobaccoLines = data
                     case .failure(let error):
-                        print(error.localizedDescription)
+                        self.notifySystemSubscribers(.errorMessage(error.localizedDescription, 8.0))
                     }
                     dispatchGroup.leave()
                 }
             }
             dispatchGroup.enter()
             queue.async {
-                self.getDataNetworkingService.getAllTobaccos { result in
+                self.getDataNetworkingService.receiveData(type: Tobacco.self) { result in
                     switch result {
                     case .success(let data):
                         tobaccos = data
                     case .failure(let error):
-                        print(error.localizedDescription)
+                        self.notifySystemSubscribers(.errorMessage(error.localizedDescription, 8.0))
                     }
                     dispatchGroup.leave()
                 }
             }
             dispatchGroup.enter()
             queue.async {
-                self.getDataNetworkingService.getAllTastes { result in
+                self.getDataNetworkingService.receiveData(type: Taste.self) { result in
                     switch result {
                     case .success(let data):
                         taste = data
                     case .failure(let error):
-                        print(error.localizedDescription)
+                        self.notifySystemSubscribers(.errorMessage(error.localizedDescription, 8.0))
                     }
                     dispatchGroup.leave()
                 }
@@ -212,83 +210,44 @@ class DataManager {
         }
         return named
     }
-    // swiftlint:disable force_cast
+
     // MARK: - Private Methods for working with network
     private func receiveDataFromNetwork<T>(typeData: T.Type,
-                                           completion: ReceiveDataManagerCompletion<T>?) {
-        switch typeData {
-        case is Manufacturer.Type:
-            getDataNetworkingService.getManufacturers { result in
-                switch result {
-                case .success(let manufacturers):
-                    completion?(.success(manufacturers as! [T]))
-                case .failure(let error):
-                    completion?(.failure(error))
-                }
-            }
-        case is Tobacco.Type:
-            getDataNetworkingService.getAllTobaccos { result in
-                switch result {
-                case .success(let tobaccos):
-                    completion?(.success(tobaccos as! [T]))
-                case .failure(let error):
-                    completion?(.failure(error))
-                }
-            }
-        case is Taste.Type:
-            getDataNetworkingService.getAllTastes { result in
-                switch result {
-                case .success(let tastes):
-                    completion?(.success(tastes as! [T]))
-                case .failure(let error):
-                    completion?(.failure(error))
-                }
-            }
-        case is TobaccoLine.Type:
-            getDataNetworkingService.getAllTobaccoLines { result in
-                switch result {
-                case .success(let tobaccoLines):
-                    completion?(.success(tobaccoLines as! [T]))
-                case .failure(let error):
-                    completion?(.failure(error))
-                }
-            }
-        default: return
-        }
-    }
-    // swiftlint:enable force_cast
-
-    private func receiveImageFromNetwork(for type: NamedImageManager,
-                                         completion: @escaping (Result<Data, Error>) -> Void) {
-        let named = convertNamedImageInNamedImageNetwork(from: type)
-        getImageNetworingService.getImage(for: named) { [weak self] result in
-            guard let self = self else { return }
+                                           completion: ReceiveDataManagerCompletion<T>?
+    ) where T: DataNetworkingServiceProtocol {
+        getDataNetworkingService.receiveData(type: typeData) { result in
             switch result {
-            case .success(let image):
-                let named = self.convertNamedImageInImageService(from: type)
-                do {
-                    _ = try self.imageService.saveImage(image, for: named)
-                } catch {
-                    print(error)
-                }
-                completion(.success(image))
+            case .success(let data):
+                completion?(.success(data))
             case .failure(let error):
-                completion(.failure(error))
+                completion?(.failure(error))
             }
         }
     }
 
-    private func notifySubscribers<T>(with type: T.Type, newState: NewStateType<[T]>) {
+    private func notifySubscribers<T>(with type: T.Type, newState: UpdateDataNotification<[T]>) {
         let nameType = String(describing: type.self)
         print("Пришло обновление для типа: \(type.self)")
         if let subscribers = subscribers[nameType] {
-            subscribers.forEach { $0.value?.notify(for: type, newState: newState) }
+            subscribers.forEach {
+                ($0.value as? UpdateDataSubscriberProtocol)?.notify(for: type, notification: newState)
+            }
+        }
+    }
+    private func notifySystemSubscribers(_ notification: SystemNotification) {
+        let nameType = String(describing: SystemNotificationType.self)
+        print("Пришло системное оповещение")
+        if let subscribers = subscribers[nameType] {
+            DispatchQueue.main.async {
+                subscribers.forEach { ($0.value as? SystemSubscriberProtocol)?.notify(notification) }
+            }
         }
     }
 }
 
 // MARK: - DataManagerProtocol implementation
 extension DataManager: DataManagerProtocol {
+    // swiftlint:disable force_cast
     func receiveData<T>(typeData: T.Type, completion: ReceiveDataManagerCompletion<T>?) {
         if isSynchronized || isOfflineMode {
             dataBaseService.read(type: typeData) { data in
@@ -297,11 +256,14 @@ extension DataManager: DataManagerProtocol {
                 completion?(.failure(error))
             }
         } else {
-            receiveDataFromNetwork(typeData: typeData, completion: completion)
+            guard let typeData = typeData as? DataNetworkingServiceProtocol.Type else { return }
+            receiveData(typeData: typeData as! T.Type, completion: completion)
         }
     }
+    // swiftlint:enable force_cast
 
     func receiveTobaccos(for manufacturer: Manufacturer, completion: ReceiveDataManagerCompletion<Tobacco>?) {
+        // TODO: - убрать отсюда получение табака из сети и сделать получение из бд
         getDataNetworkingService.getTobaccos(for: manufacturer) { result in
             switch result {
             case .success(let tobaccos):
@@ -323,7 +285,7 @@ extension DataManager: DataManagerProtocol {
             }
 
         } else {
-            getDataNetworkingService.getAllTastes { result in
+            getDataNetworkingService.receiveData(type: Taste.self) { result in
                 switch result {
                 case .success(let tastes):
                     let setIds = Set(ids)
@@ -337,31 +299,9 @@ extension DataManager: DataManagerProtocol {
     }
 }
 
-// MARK: - ImageManagerProtocol implementation
-extension DataManager: ImageManagerProtocol {
-    func getImage(for type: NamedImageManager, completion: @escaping (Result<Data, Error>) -> Void) {
-        imageWorkingQueue.async {
-            if self.isSynchronized || self.isOfflineMode {
-                do {
-                    let named = self.convertNamedImageInImageService(from: type)
-                    completion(.success(try self.imageService.receiveImage(for: named)))
-                } catch {
-                    if self.isOfflineMode {
-                        completion(.failure(error))
-                    } else {
-                        self.receiveImageFromNetwork(for: type, completion: completion)
-                    }
-                }
-            } else {
-                self.receiveImageFromNetwork(for: type, completion: completion)
-            }
-        }
-    }
-}
-
-// MARK: - UpdateDataManagerObserverProtocol implementation
-extension DataManager: UpdateDataManagerObserverProtocol {
-    func subscribe<T>(to type: T.Type, subscriber: DataManagerSubscriberProtocol) {
+// MARK: - ObserverProtocol implementation
+extension DataManager: ObserverProtocol {
+    func subscribe<T>(to type: T.Type, subscriber: SubscriberProtocol) {
         let nameType = String(describing: type.self)
         if subscribers[nameType] != nil {
             subscribers[nameType]?.append(WeakSubject(subscriber))
@@ -371,7 +311,7 @@ extension DataManager: UpdateDataManagerObserverProtocol {
         }
     }
 
-    func unsubscribe<T>(to type: T.Type, subscriber: DataManagerSubscriberProtocol) {
+    func unsubscribe<T>(to type: T.Type, subscriber: SubscriberProtocol) {
         let nameType = String(describing: type.self)
         if subscribers[nameType] != nil {
             if let index = subscribers[nameType]?.firstIndex(where: { return $0.value == nil }) {
@@ -381,7 +321,7 @@ extension DataManager: UpdateDataManagerObserverProtocol {
                 print("Переданный подписчик отсутствует в подписках типа: \(type.self)")
             }
         } else {
-            print("Передан неверный тип для отписки на UpdateDataManagerObserverProtocol типа: \(type.self)")
+            print("Передан неверный тип для отписки на ObserverProtocol типа: \(type.self)")
         }
     }
 }

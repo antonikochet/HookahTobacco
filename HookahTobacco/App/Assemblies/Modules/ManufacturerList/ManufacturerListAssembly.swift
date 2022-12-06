@@ -28,7 +28,7 @@ class ManufacturerListAssembly: Assembly {
             // here resolve dependency injection
             let getDataManager = resolver.resolve(DataManagerProtocol.self)!
             let getImageManager = resolver.resolve(ImageManagerProtocol.self)!
-            let updateDataManager = resolver.resolve(UpdateDataManagerObserverProtocol.self)!
+            let updateDataManager = resolver.resolve(ObserverProtocol.self)!
 
             return ManufacturerListInteractor(dependency.isAdminMode,
                                               getDataManager: getDataManager,

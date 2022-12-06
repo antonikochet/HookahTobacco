@@ -12,6 +12,8 @@ struct AlertFactory {
     enum AlertType {
         case success(delay: Double)
         case error(message: String)
+        case systemSuccess(message: String, delay: Double)
+        case systemError(message: String, delay: Double)
     }
 
     // MARK: - singleton
@@ -26,8 +28,15 @@ struct AlertFactory {
         switch type {
         case .success(let delay):
             showSuccessAlert(.success, delay: delay, from: viewController)
+            completion?()
         case .error(let message):
-            showErrorAlert(with: message, from: viewController)
+            showErrorAlert(with: message, from: viewController, completion: completion)
+        case .systemSuccess(let message, let delay):
+            showSystemNotification(.success(message: message), delay: delay, from: viewController)
+            completion?()
+        case .systemError(let message, let delay):
+            showSystemNotification(.error(message: message), delay: delay, from: viewController)
+            completion?()
         }
     }
 
@@ -50,11 +59,13 @@ struct AlertFactory {
                                   delay: Double,
                                   from viewController: UIViewController) {
         let alert = PopupAlertView.createView(superview: viewController.view)
-        switch type {
-        case .success:
-            alert.show(type, delay: delay)
-        case .error:
-            alert.show(type, delay: delay)
-        }
+        alert.show(type, delay: delay)
+    }
+
+    private func showSystemNotification(_ type: PopupNotificationView.NotificationType,
+                                        delay: Double,
+                                        from viewController: UIViewController) {
+        let notificationView = PopupNotificationView.createView(superview: viewController.view)
+        notificationView.show(type, delay: delay)
     }
 }

@@ -73,7 +73,7 @@ class AddTobaccoInteractor {
     }
 
     private func getManufacturers() {
-        getDataManager.getManufacturers(completion: { [weak self] result in
+        getDataManager.receiveData(type: Manufacturer.self) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let data):
@@ -82,11 +82,11 @@ class AddTobaccoInteractor {
             case .failure(let error):
                 self.presenter.receivedError(with: error.localizedDescription)
             }
-        })
+        }
     }
 
     private func getAllTastes() {
-        getDataManager.getAllTastes { [weak self] result in
+        getDataManager.receiveData(type: Taste.self) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let data):
