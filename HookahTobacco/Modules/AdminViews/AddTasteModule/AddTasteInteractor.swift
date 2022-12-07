@@ -25,7 +25,7 @@ class AddTasteInteractor {
     weak var presenter: AddTasteInteractorOutputProtocol!
 
     // MARK: - Dependency
-    private let setDataManager: SetDataNetworkingServiceProtocol
+    private let setDataManager: AdminDataManagerProtocol
 
     // MARK: - Private properties
     private var taste: Taste?
@@ -33,7 +33,7 @@ class AddTasteInteractor {
 
     // MARK: - Initializers
     init(_ taste: Taste?,
-         setDataManager: SetDataNetworkingServiceProtocol) {
+         setDataManager: AdminDataManagerProtocol) {
         self.isEditing = taste != nil
         self.taste = taste
         self.setDataManager = setDataManager
@@ -44,10 +44,8 @@ class AddTasteInteractor {
         setDataManager.addData(taste) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success(let uid):
-                var mTaste = taste
-                mTaste.uid = uid
-                self.presenter.receivedSuccess(mTaste)
+            case .success(let newTaste):
+                self.presenter.receivedSuccess(newTaste)
             case .failure(let error):
                 self.presenter.receivedError(with: error.localizedDescription)
             }

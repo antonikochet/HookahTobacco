@@ -8,14 +8,14 @@
 import Foundation
 
 class ImageManager {
-    // MARK: - Private properties
-    private let imageWorkingQueue = DispatchQueue(label: "ru.HookahTobacco.DataManager.getImage")
+    // MARK: - Public properties
+    let imageWorkingQueue = DispatchQueue(label: "ru.HookahTobacco.DataManager.getImage")
 
     // MARK: - Dependency Network
     private let getImageNetworingService: GetImageNetworkingServiceProtocol
 
     // MARK: - Dependency Image
-    private let imageService: ImageServiceProtocol
+    let imageService: ImageServiceProtocol
 
     // MARK: - Initializers
     init(getImageNetworingService: GetImageNetworkingServiceProtocol,
@@ -24,8 +24,8 @@ class ImageManager {
         self.imageService = imageService
     }
 
-    // MARK: - Private methods
-    private func convertNamedImageInNamedImageNetwork(from type: NamedImageManager) -> NamedFireStorage {
+    // MARK: - Public methods
+    func convertNamedImageInNamedImageNetwork(from type: NamedImageManager) -> NamedFireStorage {
         var named: NamedFireStorage
         switch type {
         case .manufacturerImage(let nameImage):
@@ -36,7 +36,7 @@ class ImageManager {
         return named
     }
 
-    private func convertNamedImageInImageService(from type: NamedImageManager) -> NamedImage {
+    func convertNamedImageInImageService(from type: NamedImageManager) -> NamedImage {
         var named: NamedImage
         switch type {
         case .manufacturerImage(let nameImage):
@@ -47,6 +47,7 @@ class ImageManager {
         return named
     }
 
+    // MARK: - Private methods
     private func receiveImageFromNetwork(for type: NamedImageManager,
                                          completion: @escaping (Result<Data, Error>) -> Void) {
         let named = convertNamedImageInNamedImageNetwork(from: type)

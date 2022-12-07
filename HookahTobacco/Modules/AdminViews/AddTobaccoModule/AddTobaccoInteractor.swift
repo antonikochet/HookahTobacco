@@ -37,8 +37,8 @@ class AddTobaccoInteractor {
     weak var presenter: AddTobaccoInteractorOutputProtocol!
 
     private var getDataManager: GetDataNetworkingServiceProtocol
-    private var setDataManager: SetDataNetworkingServiceProtocol
-    private var setImageManager: SetImageNetworkingServiceProtocol
+    private var setDataManager: AdminDataManagerProtocol
+    private var setImageManager: AdminImageManagerProtocol
 
     private var manufacturers: [Manufacturer]? {
         didSet {
@@ -60,8 +60,8 @@ class AddTobaccoInteractor {
 
     init(_ tobacco: Tobacco? = nil,
          getDataManager: GetDataNetworkingServiceProtocol,
-         setDataManager: SetDataNetworkingServiceProtocol,
-         setImageManager: SetImageNetworkingServiceProtocol) {
+         setDataManager: AdminDataManagerProtocol,
+         setImageManager: AdminImageManagerProtocol) {
         isEditing = tobacco != nil
         self.tobacco = tobacco
         self.selectedTobaccoLine = tobacco?.line
@@ -102,10 +102,8 @@ class AddTobaccoInteractor {
         setDataManager.addData(tobacco) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success(let uid):
-                var mutableTobacco = tobacco
-                mutableTobacco.uid = uid
-                self.addImage(tobacco: mutableTobacco, by: imageFileURL)
+            case .success(let newTobacco):
+                self.addImage(tobacco: newTobacco, by: imageFileURL)
             case .failure(let error):
                 self.presenter.receivedError(with: error.localizedDescription)
             }
@@ -114,9 +112,9 @@ class AddTobaccoInteractor {
 
     private func addImage(tobacco: Tobacco, by fileURL: URL) {
         guard !tobacco.uid.isEmpty else { return }
-        let named = NamedFireStorage.tobaccoImage(manufacturer: tobacco.nameManufacturer,
-                                                  uid: tobacco.uid,
-                                                  type: .main)
+        let named = NamedImageManager.tobaccoImage(manufacturer: tobacco.nameManufacturer,
+                                                   uid: tobacco.uid,
+                                                   type: .main)
         setImageManager.addImage(by: fileURL, for: named, completion: { error in
             if let error = error {
                 self.presenter.receivedError(with: error.localizedDescription)
@@ -142,12 +140,12 @@ class AddTobaccoInteractor {
         guard !tobacco.uid.isEmpty,
               let oldNameManufacturer = self.tobacco?.nameManufacturer else { return }
         dispatchGroup.enter()
-        let oldNamed = NamedFireStorage.tobaccoImage(manufacturer: oldNameManufacturer,
-                                                     uid: tobacco.uid,
-                                                     type: .main)
-        let newNamed = NamedFireStorage.tobaccoImage(manufacturer: tobacco.nameManufacturer,
-                                                     uid: tobacco.uid,
-                                                     type: .main)
+        let oldNamed = NamedImageManager.tobaccoImage(manufacturer: oldNameManufacturer,
+                                                      uid: tobacco.uid,
+                                                      type: .main)
+        let newNamed = NamedImageManager.tobaccoImage(manufacturer: tobacco.nameManufacturer,
+                                                      uid: tobacco.uid,
+                                                      type: .main)
         if let newURL = newURL {
             editingMainImage = try? Data(contentsOf: newURL)
             setImageManager.setImage(from: oldNamed, to: newURL, for: newNamed) { [weak self] error in

@@ -11,11 +11,7 @@ import Swinject
 class DataManagerAssembly: Assembly {
     func assemble(container: Container) {
         container.register(DataManager.self) { resolver in
-            DataManager.init(
-                getDataNetworkingService: resolver.resolve(GetDataNetworkingServiceProtocol.self)!,
-                dataBaseService: resolver.resolve(DataBaseServiceProtocol.self)!,
-                userDefaultsService: resolver.resolve(UserDefaultsServiceProtocol.self)!
-            )
+            resolver.resolve(AdminDataManager.self)!
         }
         .inObjectScope(.container)
 

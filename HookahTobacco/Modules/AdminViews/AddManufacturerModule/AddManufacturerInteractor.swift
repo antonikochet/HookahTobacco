@@ -31,8 +31,8 @@ class AddManufacturerInteractor {
 
     weak var presenter: AddManufacturerInteractorOutputProtocol!
 
-    private var setNetworkManager: SetDataNetworkingServiceProtocol
-    private var setImageManager: SetImageNetworkingServiceProtocol
+    private var setDataManager: AdminDataManagerProtocol
+    private var setImageManager: AdminImageManagerProtocol
     private var getImageManager: GetImageNetworkingServiceProtocol?
 
     private var imageFileURL: URL?
@@ -45,20 +45,20 @@ class AddManufacturerInteractor {
     private var receivedErrors: [Error] = []
 
     // init for add manufacturer
-    init(setNetworkManager: SetDataNetworkingServiceProtocol,
-         setImageManager: SetImageNetworkingServiceProtocol) {
-        self.setNetworkManager = setNetworkManager
+    init(setDataManager: AdminDataManagerProtocol,
+         setImageManager: AdminImageManagerProtocol) {
+        self.setDataManager = setDataManager
         self.setImageManager = setImageManager
         self.isEditing = false
     }
 
     // init for edit manufacturer
     init(_ manufacturer: Manufacturer,
-         setNetworkManager: SetDataNetworkingServiceProtocol,
-         setImageManager: SetImageNetworkingServiceProtocol,
+         setDataManager: AdminDataManagerProtocol,
+         setImageManager: AdminImageManagerProtocol,
          getImageManager: GetImageNetworkingServiceProtocol) {
         self.manufacturer = manufacturer
-        self.setNetworkManager = setNetworkManager
+        self.setDataManager = setDataManager
         self.setImageManager = setImageManager
         self.getImageManager = getImageManager
         self.isEditing = true
@@ -69,7 +69,7 @@ class AddManufacturerInteractor {
     private func addImageToServer(with fileURL: URL, _ nameFile: String) {
         dispatchGroup.enter()
         setImageManager.addImage(by: fileURL,
-                                 for: NamedFireStorage.manufacturerImage(name: nameFile)
+                                 for: NamedImageManager.manufacturerImage(nameImage: nameFile)
         ) { [weak self] error in
             guard let self = self else { return }
             if let error = error { self.receivedErrors.append(error) }
@@ -79,13 +79,11 @@ class AddManufacturerInteractor {
 
     private func addTobaccoLine(_ tobaccoLines: TobaccoLine, index: Int) {
         if tobaccoLines.uid.isEmpty {
-            setNetworkManager.addData(tobaccoLines) { [weak self] result in
+            setDataManager.addData(tobaccoLines) { [weak self] result in
                 guard let self = self else { return }
                 switch result {
-                case .success(let uid):
-                    var mtl = tobaccoLines
-                    mtl.uid = uid
-                    self.tobaccoLines[index] = mtl
+                case .success(let newTobaccoLine):
+                    self.tobaccoLines[index] = newTobaccoLine
                 case .failure(let error):
                     self.presenter.receivedError(with: error.localizedDescription)
                 }
@@ -95,14 +93,15 @@ class AddManufacturerInteractor {
 
     private func addManufacturerToServer(_ manufacturer: Manufacturer) {
         dispatchGroup.enter()
-        setNetworkManager.addData(manufacturer) { [weak self] result in
+        setDataManager.addData(manufacturer) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success:
-                    break
+                break
             case .failure(let error):
                 self.presenter.receivedError(with: error.localizedDescription)
             }
+            self.dispatchGroup.leave()
         }
     }
 
@@ -141,8 +140,8 @@ class AddManufacturerInteractor {
 
     private func setNameImage(oldName: String, newName: String) {
         dispatchGroup.enter()
-        setImageManager.setImageName(from: NamedFireStorage.manufacturerImage(name: oldName),
-                                     to: NamedFireStorage.manufacturerImage(name: newName)) { [weak self] error in
+        setImageManager.setImageName(from: NamedImageManager.manufacturerImage(nameImage: oldName),
+                                     to: NamedImageManager.manufacturerImage(nameImage: newName)) { [weak self] error in
             guard let self = self else { return }
             if let error = error { self.receivedErrors.append(error) }
             self.dispatchGroup.leave()
@@ -152,9 +151,9 @@ class AddManufacturerInteractor {
     private func setImage(with newURL: URL, from oldName: String, to newName: String) {
         dispatchGroup.enter()
         editingImage = try? Data(contentsOf: newURL)
-        setImageManager.setImage(from: NamedFireStorage.manufacturerImage(name: oldName),
+        setImageManager.setImage(from: NamedImageManager.manufacturerImage(nameImage: oldName),
                                  to: newURL,
-                                 for: NamedFireStorage.manufacturerImage(name: newName)) { [weak self] error in
+                                 for: NamedImageManager.manufacturerImage(nameImage: newName)) { [weak self] error in
             guard let self = self else { return }
             if let error = error { self.receivedErrors.append(error) }
             self.dispatchGroup.leave()
@@ -163,7 +162,7 @@ class AddManufacturerInteractor {
 
     private func setManufacturer(_ new: Manufacturer) {
         dispatchGroup.enter()
-        setNetworkManager.setData(new) { [weak self] error in
+        setDataManager.setData(new) { [weak self] error in
             guard let self = self else { return }
             if let error = error { self.receivedErrors.append(error) }
             self.dispatchGroup.leave()
@@ -171,7 +170,7 @@ class AddManufacturerInteractor {
     }
 
     private func setTobaccoLine(_ tobaccoLines: TobaccoLine) {
-        setNetworkManager.setData(tobaccoLines) { [weak self] error in
+        setDataManager.setData(tobaccoLines) { [weak self] error in
             guard let self = self else { return }
             if let error = error { self.presenter.receivedError(with: error.localizedDescription) }
         }

@@ -7,10 +7,12 @@
 
 import Foundation
 
-typealias ReceiveDataManagerCompletion<T> = (Result<[T], Error>) -> Void
+typealias DataManagerType = DataNetworkingServiceProtocol
 
 protocol DataManagerProtocol {
-    func receiveData<T>(typeData: T.Type, completion: ReceiveDataManagerCompletion<T>?)
+    typealias ReceiveDataManagerCompletion<T> = (Result<[T], Error>) -> Void
+
+    func receiveData<T: DataManagerType>(typeData: T.Type, completion: ReceiveDataManagerCompletion<T>?)
     func receiveTobaccos(for manufacturer: Manufacturer, completion: ReceiveDataManagerCompletion<Tobacco>?)
     func receiveTastes(at ids: [String], completion: ReceiveDataManagerCompletion<Taste>?)
 }

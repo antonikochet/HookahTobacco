@@ -35,7 +35,7 @@ class DataManager {
     private let getDataNetworkingService: GetDataNetworkingServiceProtocol
 
     // MARK: - Dependency DataBase
-    private let dataBaseService: DataBaseServiceProtocol
+    let dataBaseService: DataBaseServiceProtocol
 
     // MARK: - Dependency UserDefaults
     private let userDefaultsService: UserDefaultsServiceProtocol
@@ -225,7 +225,8 @@ class DataManager {
         }
     }
 
-    private func notifySubscribers<T>(with type: T.Type, newState: UpdateDataNotification<[T]>) {
+    // MARK: - Notification subscribers methods
+    func notifySubscribers<T>(with type: T.Type, newState: UpdateDataNotification<[T]>) {
         let nameType = String(describing: type.self)
         print("Пришло обновление для типа: \(type.self)")
         if let subscribers = subscribers[nameType] {
@@ -234,7 +235,7 @@ class DataManager {
             }
         }
     }
-    private func notifySystemSubscribers(_ notification: SystemNotification) {
+    func notifySystemSubscribers(_ notification: SystemNotification) {
         let nameType = String(describing: SystemNotificationType.self)
         print("Пришло системное оповещение")
         if let subscribers = subscribers[nameType] {
@@ -247,8 +248,7 @@ class DataManager {
 
 // MARK: - DataManagerProtocol implementation
 extension DataManager: DataManagerProtocol {
-    // swiftlint:disable force_cast
-    func receiveData<T>(typeData: T.Type, completion: ReceiveDataManagerCompletion<T>?) {
+    func receiveData<T: DataManagerType>(typeData: T.Type, completion: ReceiveDataManagerCompletion<T>?) {
         if isSynchronized || isOfflineMode {
             dataBaseService.read(type: typeData) { data in
                 completion?(.success(data))
@@ -256,11 +256,9 @@ extension DataManager: DataManagerProtocol {
                 completion?(.failure(error))
             }
         } else {
-            guard let typeData = typeData as? DataNetworkingServiceProtocol.Type else { return }
-            receiveData(typeData: typeData as! T.Type, completion: completion)
+            receiveDataFromNetwork(typeData: typeData, completion: completion)
         }
     }
-    // swiftlint:enable force_cast
 
     func receiveTobaccos(for manufacturer: Manufacturer, completion: ReceiveDataManagerCompletion<Tobacco>?) {
         // TODO: - убрать отсюда получение табака из сети и сделать получение из бд

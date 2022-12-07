@@ -12,4 +12,5 @@ enum ImageError: Error {
     case directoryNotFound
     case imagesDirectoryNotFound
     case failedCreateDirectory(directory: String)
+    case failedSaveImage
 }

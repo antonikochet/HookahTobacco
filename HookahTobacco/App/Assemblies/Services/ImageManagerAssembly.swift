@@ -11,10 +11,7 @@ import Swinject
 class ImageManagerAssembly: Assembly {
     func assemble(container: Container) {
         container.register(ImageManager.self) { resolver in
-            ImageManager(
-                getImageNetworingService: resolver.resolve(GetImageNetworkingServiceProtocol.self)!,
-                imageService: resolver.resolve(ImageServiceProtocol.self)!
-            )
+            resolver.resolve(AdminImageManager.self)!
         }
         .inObjectScope(.container)
 

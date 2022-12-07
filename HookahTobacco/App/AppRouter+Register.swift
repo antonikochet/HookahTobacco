@@ -14,7 +14,9 @@ extension AppRouter {
             RealmDataBaseServiresAssembly(),
             UserDefaultsServiceAssembly(),
             ImageServiceAssembly(),
+            AdminDataManagerAssembly(),
             DataManagerAssembly(),
+            AdminImageManagerAssembly(),
             ImageManagerAssembly()
         ])
     }
