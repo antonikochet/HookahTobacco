@@ -1,5 +1,5 @@
 //
-//  NamedImage.swift
+//  NamedImageStorage.swift
 //  HookahTobacco
 //
 //  Created by антон кочетков on 24.11.2022.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum NamedImage: ImageServiceDataProtocol {
+enum NamedImageStorage: ImageStorageServiceDataProtocol {
     case manufacturer(nameImage: String)
     case tobacco(manufacturer: String, uid: String, type: TobaccoImageType)
 

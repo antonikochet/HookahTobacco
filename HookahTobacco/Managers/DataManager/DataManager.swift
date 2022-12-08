@@ -200,13 +200,13 @@ class DataManager {
         }
         return named
     }
-    private func convertNamedImageInImageService(from type: NamedImageManager) -> NamedImage {
-        var named: NamedImage
+    private func convertNamedImageInImageService(from type: NamedImageManager) -> NamedImageStorage {
+        var named: NamedImageStorage
         switch type {
         case .manufacturerImage(let nameImage):
-            named = NamedImage.manufacturer(nameImage: nameImage)
+            named = NamedImageStorage.manufacturer(nameImage: nameImage)
         case .tobaccoImage(let manufacturer, let uid, let type):
-            named = NamedImage.tobacco(manufacturer: manufacturer, uid: uid, type: type)
+            named = NamedImageStorage.tobacco(manufacturer: manufacturer, uid: uid, type: type)
         }
         return named
     }

@@ -62,6 +62,8 @@ class AddManufacturerPresenter {
 extension AddManufacturerPresenter: AddManufacturerInteractorOutputProtocol {
     func receivedSuccessAddition() {
         view.hideLoading()
+        tobaccoLinesViewModels = []
+        tobaccoLineViewModel = nil
         view.clearView()
         router.showSuccess(delay: 2.0)
     }
@@ -182,7 +184,8 @@ extension AddManufacturerPresenter: AddManufacturerViewOutputProtocol {
             router.showError(with: "Описание линейки табака не введено")
             return
         }
-        guard viewModel.selectedTobaccoTypeIndex == 0, !viewModel.selectedTobaccoLeafTypeIndexs.isEmpty else {
+        if viewModel.selectedTobaccoTypeIndex == TobaccoType.tobacco.rawValue,
+           viewModel.selectedTobaccoLeafTypeIndexs.isEmpty {
             router.showError(with: "Сорта табаков не выбраны для линейки")
             return
         }

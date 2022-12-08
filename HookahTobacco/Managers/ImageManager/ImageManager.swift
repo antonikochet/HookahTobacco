@@ -15,11 +15,11 @@ class ImageManager {
     private let getImageNetworingService: GetImageNetworkingServiceProtocol
 
     // MARK: - Dependency Image
-    let imageService: ImageServiceProtocol
+    let imageService: ImageStorageServiceProtocol
 
     // MARK: - Initializers
     init(getImageNetworingService: GetImageNetworkingServiceProtocol,
-         imageService: ImageServiceProtocol) {
+         imageService: ImageStorageServiceProtocol) {
         self.getImageNetworingService = getImageNetworingService
         self.imageService = imageService
     }
@@ -36,13 +36,13 @@ class ImageManager {
         return named
     }
 
-    func convertNamedImageInImageService(from type: NamedImageManager) -> NamedImage {
-        var named: NamedImage
+    func convertNamedImageInImageService(from type: NamedImageManager) -> NamedImageStorage {
+        var named: NamedImageStorage
         switch type {
         case .manufacturerImage(let nameImage):
-            named = NamedImage.manufacturer(nameImage: nameImage)
+            named = NamedImageStorage.manufacturer(nameImage: nameImage)
         case .tobaccoImage(let manufacturer, let uid, let type):
-            named = NamedImage.tobacco(manufacturer: manufacturer, uid: uid, type: type)
+            named = NamedImageStorage.tobacco(manufacturer: manufacturer, uid: uid, type: type)
         }
         return named
     }

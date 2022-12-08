@@ -87,12 +87,12 @@
 		B981CBA82930DBAD00705422 /* DetailTobaccoEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B981CBA32930DBAD00705422 /* DetailTobaccoEntity.swift */; };
 		B981CBAC293120EF00705422 /* DetailTobaccoModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B981CBAA293120EF00705422 /* DetailTobaccoModule.swift */; };
 		B981CBAD293120EF00705422 /* DetailTobaccoAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B981CBAB293120EF00705422 /* DetailTobaccoAssembly.swift */; };
-		B982803F292FA32900BF3A93 /* ImageServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B982803E292FA32900BF3A93 /* ImageServiceProtocol.swift */; };
-		B9828041292FA3BA00BF3A93 /* SandboxImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9828040292FA3BA00BF3A93 /* SandboxImageService.swift */; };
-		B9828045292FA40E00BF3A93 /* ImageError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9828044292FA40E00BF3A93 /* ImageError.swift */; };
-		B9828048292FB95600BF3A93 /* NamedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9828047292FB95600BF3A93 /* NamedImage.swift */; };
-		B982804A292FB97C00BF3A93 /* ImageServiceDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9828049292FB97C00BF3A93 /* ImageServiceDataProtocol.swift */; };
-		B982804C292FD4EB00BF3A93 /* ImageServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B982804B292FD4EB00BF3A93 /* ImageServiceAssembly.swift */; };
+		B982803F292FA32900BF3A93 /* ImageStorageServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B982803E292FA32900BF3A93 /* ImageStorageServiceProtocol.swift */; };
+		B9828041292FA3BA00BF3A93 /* SandboxImageStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9828040292FA3BA00BF3A93 /* SandboxImageStorageService.swift */; };
+		B9828045292FA40E00BF3A93 /* ImageStorageError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9828044292FA40E00BF3A93 /* ImageStorageError.swift */; };
+		B9828048292FB95600BF3A93 /* NamedImageStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9828047292FB95600BF3A93 /* NamedImageStorage.swift */; };
+		B982804A292FB97C00BF3A93 /* ImageStorageServiceDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9828049292FB97C00BF3A93 /* ImageStorageServiceDataProtocol.swift */; };
+		B982804C292FD4EB00BF3A93 /* ImageStorageServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B982804B292FD4EB00BF3A93 /* ImageStorageServiceAssembly.swift */; };
 		B989B87129338CD6007ECC59 /* AlertFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B989B87029338CD6007ECC59 /* AlertFactory.swift */; };
 		B989B87329339668007ECC59 /* PopupAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B989B87229339668007ECC59 /* PopupAlertView.swift */; };
 		B98E1DB128F04A0F00964B8F /* AddManufacturerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DAB28F04A0F00964B8F /* AddManufacturerPresenter.swift */; };
@@ -266,12 +266,12 @@
 		B981CBA32930DBAD00705422 /* DetailTobaccoEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTobaccoEntity.swift; sourceTree = "<group>"; };
 		B981CBAA293120EF00705422 /* DetailTobaccoModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTobaccoModule.swift; sourceTree = "<group>"; };
 		B981CBAB293120EF00705422 /* DetailTobaccoAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTobaccoAssembly.swift; sourceTree = "<group>"; };
-		B982803E292FA32900BF3A93 /* ImageServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageServiceProtocol.swift; sourceTree = "<group>"; };
-		B9828040292FA3BA00BF3A93 /* SandboxImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SandboxImageService.swift; sourceTree = "<group>"; };
-		B9828044292FA40E00BF3A93 /* ImageError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageError.swift; sourceTree = "<group>"; };
-		B9828047292FB95600BF3A93 /* NamedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamedImage.swift; sourceTree = "<group>"; };
-		B9828049292FB97C00BF3A93 /* ImageServiceDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageServiceDataProtocol.swift; sourceTree = "<group>"; };
-		B982804B292FD4EB00BF3A93 /* ImageServiceAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageServiceAssembly.swift; sourceTree = "<group>"; };
+		B982803E292FA32900BF3A93 /* ImageStorageServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStorageServiceProtocol.swift; sourceTree = "<group>"; };
+		B9828040292FA3BA00BF3A93 /* SandboxImageStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SandboxImageStorageService.swift; sourceTree = "<group>"; };
+		B9828044292FA40E00BF3A93 /* ImageStorageError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStorageError.swift; sourceTree = "<group>"; };
+		B9828047292FB95600BF3A93 /* NamedImageStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamedImageStorage.swift; sourceTree = "<group>"; };
+		B9828049292FB97C00BF3A93 /* ImageStorageServiceDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStorageServiceDataProtocol.swift; sourceTree = "<group>"; };
+		B982804B292FD4EB00BF3A93 /* ImageStorageServiceAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStorageServiceAssembly.swift; sourceTree = "<group>"; };
 		B989B87029338CD6007ECC59 /* AlertFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertFactory.swift; sourceTree = "<group>"; };
 		B989B87229339668007ECC59 /* PopupAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupAlertView.swift; sourceTree = "<group>"; };
 		B98E1DAB28F04A0F00964B8F /* AddManufacturerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddManufacturerPresenter.swift; sourceTree = "<group>"; };
@@ -466,7 +466,7 @@
 				B9D6057228D53BFD0058D19E /* AuthService */,
 				B948D83428CD284900E35884 /* NetworkService */,
 				B97D05B22929642800F4629B /* DataBaseService */,
-				B982803C292FA2CE00BF3A93 /* ImageService */,
+				B982803C292FA2CE00BF3A93 /* ImageStorageService */,
 				B97EE9F4292BB3C90090B344 /* UserDefaultsService */,
 			);
 			path = Services;
@@ -697,7 +697,7 @@
 			children = (
 				B9EB024028F31B6300B3B6DA /* FireBaseNetworkingServicesAssembly.swift */,
 				B97EE9EF292BA1480090B344 /* RealmDataBaseServiresAssembly.swift */,
-				B982804B292FD4EB00BF3A93 /* ImageServiceAssembly.swift */,
+				B982804B292FD4EB00BF3A93 /* ImageStorageServiceAssembly.swift */,
 				B97EE9F8292BBEE10090B344 /* UserDefaultsServiceAssembly.swift */,
 				B97EE9ED292BA0710090B344 /* DataManagerAssembly.swift */,
 				B938A51B2940F1E900145EF0 /* AdminDataManagerAssembly.swift */,
@@ -745,21 +745,21 @@
 			path = DetailTobacco;
 			sourceTree = "<group>";
 		};
-		B982803C292FA2CE00BF3A93 /* ImageService */ = {
+		B982803C292FA2CE00BF3A93 /* ImageStorageService */ = {
 			isa = PBXGroup;
 			children = (
 				B982803D292FA30000BF3A93 /* Protocols */,
 				B9828043292FA3FB00BF3A93 /* Models */,
 				B9828042292FA3E800BF3A93 /* Sandbox */,
 			);
-			path = ImageService;
+			path = ImageStorageService;
 			sourceTree = "<group>";
 		};
 		B982803D292FA30000BF3A93 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				B982803E292FA32900BF3A93 /* ImageServiceProtocol.swift */,
-				B9828049292FB97C00BF3A93 /* ImageServiceDataProtocol.swift */,
+				B982803E292FA32900BF3A93 /* ImageStorageServiceProtocol.swift */,
+				B9828049292FB97C00BF3A93 /* ImageStorageServiceDataProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -767,8 +767,8 @@
 		B9828042292FA3E800BF3A93 /* Sandbox */ = {
 			isa = PBXGroup;
 			children = (
-				B9828040292FA3BA00BF3A93 /* SandboxImageService.swift */,
-				B9828047292FB95600BF3A93 /* NamedImage.swift */,
+				B9828040292FA3BA00BF3A93 /* SandboxImageStorageService.swift */,
+				B9828047292FB95600BF3A93 /* NamedImageStorage.swift */,
 			);
 			path = Sandbox;
 			sourceTree = "<group>";
@@ -776,7 +776,7 @@
 		B9828043292FA3FB00BF3A93 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				B9828044292FA40E00BF3A93 /* ImageError.swift */,
+				B9828044292FA40E00BF3A93 /* ImageStorageError.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1241,7 +1241,7 @@
 				B94306C12920181100EADFA0 /* Taste.swift in Sources */,
 				B949D7AB293D15900019BEFC /* SystemSubscriberProtocol.swift in Sources */,
 				B9E7ACAF28F46AFB00A3D7E5 /* AdminMenuAssembly.swift in Sources */,
-				B9828048292FB95600BF3A93 /* NamedImage.swift in Sources */,
+				B9828048292FB95600BF3A93 /* NamedImageStorage.swift in Sources */,
 				B9EE2378291023F00098E4E0 /* DetailInfoManufacturerViewController.swift in Sources */,
 				B9E8DA4C28F77A8300CCA034 /* ManufacturerListEntity.swift in Sources */,
 				B98E1DE528F08D4400964B8F /* AddTobaccoPresenter.swift in Sources */,
@@ -1256,9 +1256,9 @@
 				B9DBE512290DE2C3005B185C /* HTNavigationControllerAssembly.swift in Sources */,
 				B94306C92920277E00EADFA0 /* AddTastesPresenter.swift in Sources */,
 				B9B30A1E2932602A00204913 /* UpdateDataSubscriberProtocol.swift in Sources */,
-				B9828041292FA3BA00BF3A93 /* SandboxImageService.swift in Sources */,
+				B9828041292FA3BA00BF3A93 /* SandboxImageStorageService.swift in Sources */,
 				B98E1DB428F04A0F00964B8F /* AddManufacturerInteractor.swift in Sources */,
-				B9828045292FA40E00BF3A93 /* ImageError.swift in Sources */,
+				B9828045292FA40E00BF3A93 /* ImageStorageError.swift in Sources */,
 				B9E8DA4828F77A8300CCA034 /* ManufacturerListRouter.swift in Sources */,
 				B98E1DD728F0812500964B8F /* LoginRouter.swift in Sources */,
 				B938A52329411F0000145EF0 /* AdminImageManagerAssembly.swift in Sources */,
@@ -1289,7 +1289,7 @@
 				B9B30A1C29325FFF00204913 /* ObserverProtocol.swift in Sources */,
 				B9F77A2128E500040089D80C /* FireBaseGetNetworkingService.swift in Sources */,
 				B9E98A9229107BC000E1389B /* extention + String.swift in Sources */,
-				B982804A292FB97C00BF3A93 /* ImageServiceDataProtocol.swift in Sources */,
+				B982804A292FB97C00BF3A93 /* ImageStorageServiceDataProtocol.swift in Sources */,
 				B9EB024B28F3604E00B3B6DA /* AddTobaccoModule.swift in Sources */,
 				B981CBAD293120EF00705422 /* DetailTobaccoAssembly.swift in Sources */,
 				B9EB024928F35B5F00B3B6DA /* ModuleProtocol.swift in Sources */,
@@ -1308,7 +1308,7 @@
 				B9C9ECFD29129E00000A359B /* NetworkError.swift in Sources */,
 				B98E1DB628F04A0F00964B8F /* AddManufacturerEntity.swift in Sources */,
 				B9ED9103290989EF00DC3A6D /* TobaccoListRouter.swift in Sources */,
-				B982804C292FD4EB00BF3A93 /* ImageServiceAssembly.swift in Sources */,
+				B982804C292FD4EB00BF3A93 /* ImageStorageServiceAssembly.swift in Sources */,
 				B98E1DF328F0DBCF00964B8F /* AdminMenuRouter.swift in Sources */,
 				B9ED9106290989EF00DC3A6D /* TobaccoListEntity.swift in Sources */,
 				B98E1DF528F0DBCF00964B8F /* AdminMenuInteractor.swift in Sources */,
@@ -1395,7 +1395,7 @@
 				B9E8DA4728F77A8300CCA034 /* ManufacturerListPresenter.swift in Sources */,
 				B98E1DB228F04A0F00964B8F /* AddManufacturerRouter.swift in Sources */,
 				B98182A3292A6CBD00DEA9F0 /* HTRealm.swift in Sources */,
-				B982803F292FA32900BF3A93 /* ImageServiceProtocol.swift in Sources */,
+				B982803F292FA32900BF3A93 /* ImageStorageServiceProtocol.swift in Sources */,
 				B98E1DD828F0812500964B8F /* LoginViewController.swift in Sources */,
 				B94B771C290C3785002C5660 /* AddPickerView.swift in Sources */,
 				B9631C552923E9EE00BBC09B /* AddTastePresenter.swift in Sources */,

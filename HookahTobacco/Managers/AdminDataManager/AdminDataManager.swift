@@ -25,11 +25,12 @@ class AdminDataManager: DataManager {
     }
 
     private func notifySubscribers<T>(_ type: T.Type) {
-        dataBaseService.read(type: type, completion: { [weak self] data in
-            guard let self = self else { return }
-            self.notifySubscribers(with: type, newState: .update(data))
-        }, failure: nil)
-
+        DispatchQueue.global(qos: .utility).asyncAfter(wallDeadline: .now() + 2.0) {
+            self.dataBaseService.read(type: type, completion: { [weak self] data in
+                guard let self = self else { return }
+                self.notifySubscribers(with: type, newState: .update(data))
+            }, failure: nil)
+        }
     }
 
     private func addDataViaNetwork<T>(

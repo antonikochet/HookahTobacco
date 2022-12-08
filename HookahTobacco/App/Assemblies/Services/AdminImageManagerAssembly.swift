@@ -14,7 +14,7 @@ class AdminImageManagerAssembly: Assembly {
             AdminImageManager(
                 setImageNetworingService: resolver.resolve(SetImageNetworkingServiceProtocol.self)!,
                 getImageNetworingService: resolver.resolve(GetImageNetworkingServiceProtocol.self)!,
-                imageService: resolver.resolve(ImageServiceProtocol.self)!)
+                imageService: resolver.resolve(ImageStorageServiceProtocol.self)!)
         }
         .inObjectScope(.container)
 

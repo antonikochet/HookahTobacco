@@ -14,7 +14,7 @@ class AdminImageManager: ImageManager {
     // MARK: - Initializers
     init(setImageNetworingService: SetImageNetworkingServiceProtocol,
          getImageNetworingService: GetImageNetworkingServiceProtocol,
-         imageService: ImageServiceProtocol) {
+         imageService: ImageStorageServiceProtocol) {
         self.setImageNetworingService = setImageNetworingService
         super.init(getImageNetworingService: getImageNetworingService,
                    imageService: imageService)
@@ -38,7 +38,7 @@ extension AdminImageManager: AdminImageManagerProtocol {
                     _ = try self.imageService.saveImage(data, for: named)
                     completion?(nil)
                 } catch {
-                    completion?(ImageError.failedSaveImage)
+                    completion?(ImageStorageError.failedSaveImage)
                 }
             }
         }
@@ -57,13 +57,14 @@ extension AdminImageManager: AdminImageManagerProtocol {
                 completion?(error)
             } else {
                 do {
-//                    let oldNamed = self.convertNamedImageInImageService(from: oldImage)
+                    let oldNamed = self.convertNamedImageInImageService(from: oldImage)
                     let newNamed = self.convertNamedImageInImageService(from: newImage)
                     let image = try Data(contentsOf: newURL)
-                    // FIXME: - добавить метод удаления старого изоражения
+                    _ = try self.imageService.deleteImage(for: oldNamed)
                     _ = try self.imageService.saveImage(image, for: newNamed)
+                    completion?(nil)
                 } catch {
-                    completion?(ImageError.failedSaveImage)
+                    completion?(ImageStorageError.failedSaveImage)
                 }
             }
         }
@@ -84,11 +85,11 @@ extension AdminImageManager: AdminImageManagerProtocol {
                     let oldNamed = self.convertNamedImageInImageService(from: oldImage)
                     let newNamed = self.convertNamedImageInImageService(from: newImage)
                     let image = try self.imageService.receiveImage(for: oldNamed)
-                    // FIXME: - добавить метод удаления старого изображения
+                    _ = try self.imageService.deleteImage(for: oldNamed)
                     _ = try self.imageService.saveImage(image, for: newNamed)
                     completion?(nil)
                 } catch {
-                    completion?(ImageError.failedSaveImage)
+                    completion?(ImageStorageError.failedSaveImage)
                 }
             }
         }
