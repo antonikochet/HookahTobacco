@@ -41,6 +41,7 @@ class DetailTobaccoInteractor {
                                     image: tobacco.image,
                                     tastes: tobacco.tastes,
                                     nameManufacturer: tobacco.nameManufacturer,
+                                    line: tobacco.line,
                                     description: tobacco.description)
     }
 }

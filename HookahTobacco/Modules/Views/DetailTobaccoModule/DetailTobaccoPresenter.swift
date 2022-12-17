@@ -25,10 +25,20 @@ class DetailTobaccoPresenter {
 
     private func createViewModel(_ tobacco: DetailTobaccoEntity.Tobacco) -> DetailTobaccoEntity.ViewModel {
         let description = !tobacco.description.isEmpty ? "Описание: \(tobacco.description)" : nil
-        return DetailTobaccoEntity.ViewModel(image: tobacco.image,
-                                      name: tobacco.name,
-                                      nameManufacturer: tobacco.nameManufacturer,
-                                      description: description)
+        let packetingFormat = tobacco.line.packetingFormat.compactMap { "\($0) гр." }.joined(separator: ", ")
+        let tobaccoLeafType = (tobacco.line.tobaccoType.rawValue == TobaccoType.tobacco.rawValue ?
+                               tobacco.line.tobaccoLeafType?.map { $0.name }.joined(separator: ", ") :
+                                nil)
+        return DetailTobaccoEntity.ViewModel(
+            image: tobacco.image,
+            name: tobacco.name,
+            nameManufacturer: tobacco.nameManufacturer,
+            description: description,
+            nameLine: tobacco.line.isBase ? nil : "Название линейки: \(tobacco.line.name)",
+            packetingFormat: "Формат фасовки табака: \(packetingFormat)",
+            tobaccoType: "Тип табака: \(tobacco.line.tobaccoType.name)",
+            tobaccoLeafType: tobaccoLeafType != nil ? "Типы листа: \(tobaccoLeafType!)" : nil
+        )
     }
 }
 

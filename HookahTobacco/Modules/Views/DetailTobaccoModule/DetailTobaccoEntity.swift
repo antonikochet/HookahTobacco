@@ -15,6 +15,7 @@ struct DetailTobaccoEntity {
         let image: Data?
         let tastes: [Taste]
         let nameManufacturer: String
+        let line: TobaccoLine
         let description: String
     }
 
@@ -23,5 +24,9 @@ struct DetailTobaccoEntity {
         let name: String
         let nameManufacturer: String
         let description: String?
+        let nameLine: String?
+        let packetingFormat: String
+        let tobaccoType: String
+        let tobaccoLeafType: String?
     }
 }
