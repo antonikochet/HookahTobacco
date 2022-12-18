@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import FirebaseAuth
 import FirebaseFirestore
 import FirebaseStorage
 
@@ -18,21 +17,9 @@ struct FireBaseHandlerErrors: NetworkHandlerErrors {
     func handlerError(_ error: Error) -> NetworkError {
         let nsError = error as NSError
 
-        if let authError = handlerAuthError(nsError) { return authError
-        } else if let storeError = handlerFireStoreError(nsError) { return storeError
+        if let storeError = handlerFireStoreError(nsError) { return storeError
         } else if let storageError = handlerStorageError(error) { return storageError
         } else { return .unknownError(nsError) }
-    }
-
-    private func handlerAuthError(_ nsError: NSError) -> NetworkError? {
-        switch nsError.code {
-        case AuthErrorCode.wrongPassword.rawValue:          return .wrongPassword
-        case AuthErrorCode.invalidEmail.rawValue:           return .invalidEmail
-        case AuthErrorCode.userDisabled.rawValue:           return .userDisabled
-        case AuthErrorCode.userNotFound.rawValue:           return .userNotFound
-
-        default:                                            return nil
-        }
     }
 
     private func handlerFireStoreError(_ nsError: NSError) -> NetworkError? {

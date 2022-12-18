@@ -19,19 +19,28 @@ protocol LoginInteractorOutputProtocol: AnyObject {
 }
 
 class LoginInteractor {
+    // MARK: - Public properties
     weak var presenter: LoginInteractorOutputProtocol!
+
+    // MARK: - Dependency
+    private let authService: AuthServiceProtocol
+
+    // MARK: - Private properties
+
+    // MARK: - Initializers
+    init(authService: AuthServiceProtocol) {
+        self.authService = authService
+    }
 }
 
 extension LoginInteractor: LoginInteractorInputProtocol {
     func userLoginSystem(with login: String, and password: String) {
-        //TODO: убрать зависимость FireBaseAuthService из LoginInteractor.userLoginSystem
-        FireBaseAuthService.shared.login(with: login, password: password) { [weak self] error in
+        authService.login(with: login, password: password) { [weak self] error in
             guard let self = self else { return }
             if error == nil {
                 self.presenter.receivedSuccessWhileLogin()
             } else {
                 self.presenter.receivedErrorLogin(with: "Ошибка входа. \(error!.localizedDescription)")
-                //TODO: написать ошибку входа в LoginInteractor.userLoginSystem
             }
         }
     }

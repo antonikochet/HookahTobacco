@@ -11,6 +11,7 @@ extension AppRouter {
     func registerServices() {
         apply(assemblies: [
             FireBaseNetworkingServicesAssembly(),
+            FirebaseAuthServiceAssembly(),
             RealmDataBaseServiresAssembly(),
             UserDefaultsServiceAssembly(),
             ImageStorageServiceAssembly(),
@@ -57,7 +58,7 @@ extension AppRouter {
         let TabBarProfile = TabBarItemContent(title: "Профиль",
                                               image: UIImage(systemName: "person"))
         let profileContainer: (ModuleProtocol.Type, TabBarItemProtocol)
-        if FireBaseAuthService.shared.isUserLoggerIn {
+        if FirebaseAuthService.shared.isUserLoggerIn {
             profileContainer = (AdminMenuModule.self, TabBarProfile)
         } else {
             profileContainer = (LoginModule.self, TabBarProfile)

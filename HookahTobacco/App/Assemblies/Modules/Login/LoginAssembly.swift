@@ -21,10 +21,10 @@ class LoginAssembly: Assembly {
             return router
         }
 
-        container.register(LoginInteractorInputProtocol.self) { _ in
+        container.register(LoginInteractorInputProtocol.self) { resolver in
             // here resolve dependency injection
-
-            return LoginInteractor()
+            let authService = resolver.resolve(AuthServiceProtocol.self)!
+            return LoginInteractor(authService: authService)
         }
 
         container.register(LoginViewOutputProtocol.self) { _ in

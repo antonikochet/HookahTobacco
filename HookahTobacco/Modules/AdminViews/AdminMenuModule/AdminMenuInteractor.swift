@@ -41,14 +41,14 @@ class AdminMenuInteractor {
 // MARK: - AdminMenuInteractorInputProtocol implementation
 extension AdminMenuInteractor: AdminMenuInteractorInputProtocol {
     func logout() {
-        FireBaseAuthService.shared.logout { [weak self] error in
+        FirebaseAuthService.shared.logout { [weak self] error in
             guard let self = self else { return }
-            if let error = error {
-                let nserror = error as NSError
-                self.presenter.receiveError(with: "Выйти из пользователя не вышло, причина: \(nserror.userInfo)")
-            } else {
-                self.presenter.receiveSuccessLogout()
+            if let error {
+                self.presenter.receiveError(with:
+                    "Выйти из пользователя не вышло, причина: \(error.localizedDescription)")
+                return
             }
+            self.presenter.receiveSuccessLogout()
         }
     }
 
