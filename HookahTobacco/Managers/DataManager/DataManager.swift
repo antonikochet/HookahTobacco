@@ -184,9 +184,15 @@ class DataManager {
             dispatchGroup.wait()
             self.userDefaultsService.setDataBaseVersion(self.remoteDBVersion)
             self.isSynchronized = true
-            self.notifySubscribers(with: Taste.self, newState: .update(taste))
-            self.notifySubscribers(with: Tobacco.self, newState: .update(tobaccos))
-            self.notifySubscribers(with: Manufacturer.self, newState: .update(manufacturers))
+            self.dataBaseService.read(type: Taste.self, completion: {
+                self.notifySubscribers(with: Taste.self, newState: .update($0))
+            }, failure: nil)
+            self.dataBaseService.read(type: Tobacco.self, completion: {
+                self.notifySubscribers(with: Tobacco.self, newState: .update($0))
+            }, failure: nil)
+            self.dataBaseService.read(type: Manufacturer.self, completion: {
+                self.notifySubscribers(with: Manufacturer.self, newState: .update($0))
+            }, failure: nil)
         }
     }
 
@@ -261,13 +267,21 @@ extension DataManager: DataManagerProtocol {
     }
 
     func receiveTobaccos(for manufacturer: Manufacturer, completion: ReceiveDataManagerCompletion<Tobacco>?) {
-        // TODO: - убрать отсюда получение табака из сети и сделать получение из бд
-        getDataNetworkingService.getTobaccos(for: manufacturer) { result in
-            switch result {
-            case .success(let tobaccos):
-                completion?(.success(tobaccos))
-            case .failure(let error):
+        if isSynchronized || isOfflineMode {
+            dataBaseService.read(type: Tobacco.self) { tobacco in
+                let manufacturerTobaccos = tobacco.filter { $0.idManufacturer == manufacturer.uid }
+                completion?(.success(manufacturerTobaccos))
+            } failure: { error in
                 completion?(.failure(error))
+            }
+        } else {
+            getDataNetworkingService.getTobaccos(for: manufacturer) { result in
+                switch result {
+                case .success(let tobaccos):
+                    completion?(.success(tobaccos))
+                case .failure(let error):
+                    completion?(.failure(error))
+                }
             }
         }
     }
