@@ -104,6 +104,42 @@ extension FirebaseAuthService: AuthServiceProtocol {
     }
 }
 
+// MARK: - RegistrationServiceProtocol implementation
+extension FirebaseAuthService: RegistrationServiceProtocol {
+    func registration(email: String, password: String, completion: RegistrationServiceCompletion?) {
+        auth.createUser(withEmail: email, password: password) { [weak self] authResult, error in
+            guard let self = self else { return }
+            if let error {
+                completion?(self.handlerErrors.handlerError(error))
+                return
+            }
+            if let user = authResult?.user {
+                self._currectUser = FBUser(user: user)
+                completion?(nil)
+            }
+        }
+    }
+
+    func sendRegistrationUserData(firstName: String, lastName: String, photo: Data?,
+                                  completion: RegistrationServiceCompletion?) {
+        guard let uid = _currectUser?.uid else { return }
+        let data: [String: Any] = [
+            NamedFireStore.Documents.User.firstName: firstName,
+            NamedFireStore.Documents.User.lastName: lastName
+        ]
+        db.collection(NamedFireStore.Collections.users)
+            .document(uid)
+            .setData(data) { [weak self] error in
+                guard let self = self else { return }
+                if let error {
+                    completion?(self.handlerErrors.handlerError(error))
+                    return
+                }
+            completion?(nil)
+        }
+    }
+}
+
 fileprivate extension FBUser {
     init?(user: User, data: [String: Any]? = nil) {
         let isAdmin = data?[NamedFireStore.Documents.User.isAdmin] as? Bool

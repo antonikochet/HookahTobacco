@@ -121,8 +121,15 @@
 		B9B30A1C29325FFF00204913 /* ObserverProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B30A1B29325FFF00204913 /* ObserverProtocol.swift */; };
 		B9B30A1E2932602A00204913 /* UpdateDataSubscriberProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B30A1D2932602A00204913 /* UpdateDataSubscriberProtocol.swift */; };
 		B9B358CC291169E2001D178F /* EmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B358CB291169E2001D178F /* EmptyCell.swift */; };
+		B9BA7947295B9CE7009188D6 /* RegistrationModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BA7945295B9CE7009188D6 /* RegistrationModule.swift */; };
+		B9BA7948295B9CE7009188D6 /* RegistrationAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BA7946295B9CE7009188D6 /* RegistrationAssembly.swift */; };
 		B9C7825A28ECE25800DBF8C6 /* AuthServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C7825928ECE25800DBF8C6 /* AuthServiceProtocol.swift */; };
+		B9C925F7294F53720085BB02 /* RegistrationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C925F2294F53720085BB02 /* RegistrationPresenter.swift */; };
+		B9C925F8294F53720085BB02 /* RegistrationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C925F3294F53720085BB02 /* RegistrationRouter.swift */; };
+		B9C925F9294F53720085BB02 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C925F4294F53720085BB02 /* RegistrationViewController.swift */; };
+		B9C925FA294F53720085BB02 /* RegistrationInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C925F5294F53720085BB02 /* RegistrationInteractor.swift */; };
 		B9C925FF294F6C4B0085BB02 /* FirebaseAuthServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C925FE294F6C4B0085BB02 /* FirebaseAuthServiceAssembly.swift */; };
+		B9C92601294F6DB20085BB02 /* RegistrationServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C92600294F6DB20085BB02 /* RegistrationServiceProtocol.swift */; };
 		B9C92609294F77570085BB02 /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C92608294F77570085BB02 /* AuthError.swift */; };
 		B9C9260C294F78140085BB02 /* AuthHandlerErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C9260B294F78140085BB02 /* AuthHandlerErrors.swift */; };
 		B9C9260E294F784E0085BB02 /* FirebaseAuthHandlerErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C9260D294F784E0085BB02 /* FirebaseAuthHandlerErrors.swift */; };
@@ -304,8 +311,15 @@
 		B9B30A1B29325FFF00204913 /* ObserverProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserverProtocol.swift; sourceTree = "<group>"; };
 		B9B30A1D2932602A00204913 /* UpdateDataSubscriberProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateDataSubscriberProtocol.swift; sourceTree = "<group>"; };
 		B9B358CB291169E2001D178F /* EmptyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCell.swift; sourceTree = "<group>"; };
+		B9BA7945295B9CE7009188D6 /* RegistrationModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationModule.swift; sourceTree = "<group>"; };
+		B9BA7946295B9CE7009188D6 /* RegistrationAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationAssembly.swift; sourceTree = "<group>"; };
 		B9C7825928ECE25800DBF8C6 /* AuthServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServiceProtocol.swift; sourceTree = "<group>"; };
+		B9C925F2294F53720085BB02 /* RegistrationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationPresenter.swift; sourceTree = "<group>"; };
+		B9C925F3294F53720085BB02 /* RegistrationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationRouter.swift; sourceTree = "<group>"; };
+		B9C925F4294F53720085BB02 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
+		B9C925F5294F53720085BB02 /* RegistrationInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationInteractor.swift; sourceTree = "<group>"; };
 		B9C925FE294F6C4B0085BB02 /* FirebaseAuthServiceAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthServiceAssembly.swift; sourceTree = "<group>"; };
+		B9C92600294F6DB20085BB02 /* RegistrationServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationServiceProtocol.swift; sourceTree = "<group>"; };
 		B9C92608294F77570085BB02 /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
 		B9C9260B294F78140085BB02 /* AuthHandlerErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthHandlerErrors.swift; sourceTree = "<group>"; };
 		B9C9260D294F784E0085BB02 /* FirebaseAuthHandlerErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthHandlerErrors.swift; sourceTree = "<group>"; };
@@ -894,10 +908,49 @@
 			path = TobaccoListModule;
 			sourceTree = "<group>";
 		};
+		B9BA7943295B9C90009188D6 /* AuthorizationAndRegistration */ = {
+			isa = PBXGroup;
+			children = (
+				B9E7ACB028F492D000A3D7E5 /* Login */,
+				B9BA7944295B9CB0009188D6 /* Registration */,
+			);
+			path = AuthorizationAndRegistration;
+			sourceTree = "<group>";
+		};
+		B9BA7944295B9CB0009188D6 /* Registration */ = {
+			isa = PBXGroup;
+			children = (
+				B9BA7945295B9CE7009188D6 /* RegistrationModule.swift */,
+				B9BA7946295B9CE7009188D6 /* RegistrationAssembly.swift */,
+			);
+			path = Registration;
+			sourceTree = "<group>";
+		};
+		B9C925F0294F52D20085BB02 /* AuthorizationAndRegistration */ = {
+			isa = PBXGroup;
+			children = (
+				B98E1DCF28F0810D00964B8F /* LoginModule */,
+				B9C925F1294F53230085BB02 /* RegistrationModule */,
+			);
+			path = AuthorizationAndRegistration;
+			sourceTree = "<group>";
+		};
+		B9C925F1294F53230085BB02 /* RegistrationModule */ = {
+			isa = PBXGroup;
+			children = (
+				B9C925F2294F53720085BB02 /* RegistrationPresenter.swift */,
+				B9C925F3294F53720085BB02 /* RegistrationRouter.swift */,
+				B9C925F4294F53720085BB02 /* RegistrationViewController.swift */,
+				B9C925F5294F53720085BB02 /* RegistrationInteractor.swift */,
+			);
+			path = RegistrationModule;
+			sourceTree = "<group>";
+		};
 		B9C92604294F71BF0085BB02 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
 				B9C7825928ECE25800DBF8C6 /* AuthServiceProtocol.swift */,
+				B9C92600294F6DB20085BB02 /* RegistrationServiceProtocol.swift */,
 				B9C9260B294F78140085BB02 /* AuthHandlerErrors.swift */,
 			);
 			path = Protocols;
@@ -979,7 +1032,6 @@
 				B94306C329201F7B00EADFA0 /* AddTastesModule */,
 				B98E1DEB28F0DBAA00964B8F /* AdminMenuModule */,
 				B98E1DDE28F08D2800964B8F /* AddTobaccoModule */,
-				B98E1DCF28F0810D00964B8F /* LoginModule */,
 				B98E1DAA28F049E500964B8F /* AddManufacturerModule */,
 			);
 			path = AdminViews;
@@ -992,12 +1044,12 @@
 				B9ED910A2909D24500DC3A6D /* TobaccoList */,
 				B9E8DA4D28F7825200CCA034 /* ManufacturerList */,
 				B9E7ACB528F4959500A3D7E5 /* AddManufacturer */,
-				B9E7ACB028F492D000A3D7E5 /* Login */,
 				B9E7ACA728F4673400A3D7E5 /* AdminMenu */,
 				B9E7ACA328F454B500A3D7E5 /* AddTobacco */,
 				B94E17B62921268C0008CB73 /* AddTastes */,
 				B9631C5A292400E400BBC09B /* AddTaste */,
 				B981CBA9293120CD00705422 /* DetailTobacco */,
+				B9BA7943295B9C90009188D6 /* AuthorizationAndRegistration */,
 				B9EB024828F35B5F00B3B6DA /* ModuleProtocol.swift */,
 			);
 			path = Modules;
@@ -1056,6 +1108,7 @@
 				B95699AB28F709C000D9E584 /* ManufacturerListModule */,
 				B9B7274629096C5A00EB7323 /* TobaccoListModule */,
 				B981CB9E2930DB8500705422 /* DetailTobaccoModule */,
+				B9C925F0294F52D20085BB02 /* AuthorizationAndRegistration */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1282,6 +1335,7 @@
 				B9E8DA4C28F77A8300CCA034 /* ManufacturerListEntity.swift in Sources */,
 				B98E1DE528F08D4400964B8F /* AddTobaccoPresenter.swift in Sources */,
 				B98E1DEA28F08D4400964B8F /* AddTobaccoEntity.swift in Sources */,
+				B9C925F7294F53720085BB02 /* RegistrationPresenter.swift in Sources */,
 				B989B87329339668007ECC59 /* PopupAlertView.swift in Sources */,
 				B9631C4C2921ACBE00BBC09B /* TasteCollectionViewLayout.swift in Sources */,
 				B9ED9104290989EF00DC3A6D /* TobaccoListViewController.swift in Sources */,
@@ -1314,6 +1368,7 @@
 				B9ED910E2909D26100DC3A6D /* TobaccoListAssembly.swift in Sources */,
 				B9E7A98C28FF15DF00D711B4 /* SetImageNetworkingServiceProtocol.swift in Sources */,
 				B9ED9105290989EF00DC3A6D /* TobaccoListInteractor.swift in Sources */,
+				B9C925F8294F53720085BB02 /* RegistrationRouter.swift in Sources */,
 				B9EE2379291023F00098E4E0 /* DetailInfoManufacturerInteractor.swift in Sources */,
 				B9631C4E2922487500BBC09B /* extention + UIEdgeInsets.swift in Sources */,
 				B9EB024128F31B6300B3B6DA /* FireBaseNetworkingServicesAssembly.swift in Sources */,
@@ -1330,6 +1385,7 @@
 				B9EB024B28F3604E00B3B6DA /* AddTobaccoModule.swift in Sources */,
 				B981CBAD293120EF00705422 /* DetailTobaccoAssembly.swift in Sources */,
 				B9EB024928F35B5F00B3B6DA /* ModuleProtocol.swift in Sources */,
+				B9C925F9294F53720085BB02 /* RegistrationViewController.swift in Sources */,
 				B989B87129338CD6007ECC59 /* AlertFactory.swift in Sources */,
 				B981B52929391DA600A02D9F /* TobaccoTypeRealmObject.swift in Sources */,
 				B9D6057428D53C350058D19E /* FirebaseAuthService.swift in Sources */,
@@ -1371,6 +1427,7 @@
 				B9EE237A291023F00098E4E0 /* DetailInfoManufacturerEntity.swift in Sources */,
 				B9781D30293A2FF500654567 /* FireBaseDataNetworking.swift in Sources */,
 				B98E1DD928F0812500964B8F /* LoginInteractor.swift in Sources */,
+				B9C92601294F6DB20085BB02 /* RegistrationServiceProtocol.swift in Sources */,
 				B98182A9292AE19600DEA9F0 /* RealmDataBaseService.swift in Sources */,
 				B98EE1F12936DB5800F97E1A /* TobaccoLineRealmObject.swift in Sources */,
 				B94306CA2920277E00EADFA0 /* AddTastesRouter.swift in Sources */,
@@ -1400,6 +1457,7 @@
 				B949D7AD293D2D0F0019BEFC /* PopupNotificationView.swift in Sources */,
 				B9ED910D2909D26100DC3A6D /* TobaccoListModule.swift in Sources */,
 				B97EE9E9292B8DAF0090B344 /* ImageNetworkingDataProtocol.swift in Sources */,
+				B9BA7947295B9CE7009188D6 /* RegistrationModule.swift in Sources */,
 				B9781D32293A45A800654567 /* AddSwitchView.swift in Sources */,
 				B9E7ACB828F495B300A3D7E5 /* AddManufacturerModule.swift in Sources */,
 				B9E7A98E28FF16CC00D711B4 /* NamedFireStorage.swift in Sources */,
@@ -1422,10 +1480,12 @@
 				B9C92609294F77570085BB02 /* AuthError.swift in Sources */,
 				B98E1DB328F04A0F00964B8F /* AddManufacturerViewController.swift in Sources */,
 				B981CBA72930DBAD00705422 /* DetailTobaccoInteractor.swift in Sources */,
+				B9C925FA294F53720085BB02 /* RegistrationInteractor.swift in Sources */,
 				B9677CF228D8917000EF9FC6 /* extention + UIViewController.swift in Sources */,
 				B9E7ACA128F4528000A3D7E5 /* RouterProtocol.swift in Sources */,
 				B98E1DE728F08D4400964B8F /* AddTobaccoViewController.swift in Sources */,
 				B981CBA62930DBAD00705422 /* DetailTobaccoViewController.swift in Sources */,
+				B9BA7948295B9CE7009188D6 /* RegistrationAssembly.swift in Sources */,
 				B9E8DA5728F783B400CCA034 /* ManufacturerListTableViewCell.swift in Sources */,
 				B981CBAC293120EF00705422 /* DetailTobaccoModule.swift in Sources */,
 				B9631C572923E9EE00BBC09B /* AddTasteViewController.swift in Sources */,
@@ -1490,7 +1550,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
