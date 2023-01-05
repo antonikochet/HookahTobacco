@@ -10,7 +10,7 @@
 import UIKit
 
 protocol LoginRouterProtocol: RouterProtocol {
-    func presentAddMenuView()
+    func showProfileView()
     func showError(with message: String)
 }
 
@@ -21,8 +21,8 @@ class LoginRouter: LoginRouterProtocol {
         self.appRouter = appRouter
     }
 
-    func presentAddMenuView() {
-        appRouter.presentView(module: AdminMenuModule.self, moduleData: nil, animated: true)
+    func showProfileView() {
+        appRouter.presentView(module: ProfileModule.self, moduleData: nil, animated: true)
     }
 
     func showError(with message: String) {

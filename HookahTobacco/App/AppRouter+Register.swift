@@ -35,6 +35,7 @@ extension AppRouter {
         registerModule(AddTasteAssembly(), AddTasteModule.nameModule) { AddTasteModule($0) }
         registerModule(DetailTobaccoAssembly(), DetailTobaccoModule.nameModule) { DetailTobaccoModule($0) }
         registerModule(RegistrationAssembly(), RegistrationModule.nameModule) { RegistrationModule($0) }
+        registerModule(ProfileAssembly(), ProfileModule.nameModule) { ProfileModule($0) }
     }
 
     func registerContainerControllers() {
@@ -58,12 +59,7 @@ extension AppRouter {
         // third container
         let TabBarProfile = TabBarItemContent(title: "Профиль",
                                               image: UIImage(systemName: "person"))
-        let profileContainer: (ModuleProtocol.Type, TabBarItemProtocol)
-        if FirebaseAuthService.shared.isUserLoggerIn {
-            profileContainer = (AdminMenuModule.self, TabBarProfile)
-        } else {
-            profileContainer = (LoginModule.self, TabBarProfile)
-        }
+        let profileContainer = (ProfileModule.self, TabBarProfile)
 
         startAppPresent([
             manufactureListContainer,

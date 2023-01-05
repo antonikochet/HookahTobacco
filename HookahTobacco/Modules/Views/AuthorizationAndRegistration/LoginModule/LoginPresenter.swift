@@ -17,7 +17,7 @@ class LoginPresenter {
 
 extension LoginPresenter: LoginInteractorOutputProtocol {
     func receivedSuccessWhileLogin() {
-        router.presentAddMenuView()
+        router.showProfileView()
     }
 
     func receivedErrorLogin(with message: String) {

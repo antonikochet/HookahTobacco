@@ -17,6 +17,14 @@
 		B90FB1332901857100881D56 /* FireBaseSetImageNetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90FB1322901857100881D56 /* FireBaseSetImageNetworkingService.swift */; };
 		B91AF09C293F8B9C004CCC8A /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91AF09B293F8B9C004CCC8A /* ImageManager.swift */; };
 		B91AF09E293FA801004CCC8A /* ImageManagerAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91AF09D293FA800004CCC8A /* ImageManagerAssembly.swift */; };
+		B92A46A82966F9DC0006B787 /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A46A32966F9DC0006B787 /* ProfilePresenter.swift */; };
+		B92A46A92966F9DC0006B787 /* ProfileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A46A42966F9DC0006B787 /* ProfileRouter.swift */; };
+		B92A46AA2966F9DC0006B787 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A46A62966F9DC0006B787 /* ProfileViewController.swift */; };
+		B92A46AB2966F9DC0006B787 /* ProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A46A72966F9DC0006B787 /* ProfileInteractor.swift */; };
+		B92A46AD2966FA430006B787 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A46AC2966FA430006B787 /* ProfileTableViewCell.swift */; };
+		B92A46AF29672ACC0006B787 /* ButtonProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A46AE29672ACC0006B787 /* ButtonProfileTableViewCell.swift */; };
+		B92A46B32967313B0006B787 /* ProfileModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A46B12967313B0006B787 /* ProfileModule.swift */; };
+		B92A46B42967313B0006B787 /* ProfileAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A46B22967313B0006B787 /* ProfileAssembly.swift */; };
 		B938A5182940DAFF00145EF0 /* AdminDataManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B938A5172940DAFF00145EF0 /* AdminDataManagerProtocol.swift */; };
 		B938A51A2940DB2500145EF0 /* AdminDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B938A5192940DB2500145EF0 /* AdminDataManager.swift */; };
 		B938A51C2940F1E900145EF0 /* AdminDataManagerAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B938A51B2940F1E900145EF0 /* AdminDataManagerAssembly.swift */; };
@@ -147,6 +155,7 @@
 		B9D6056828D4FED20058D19E /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = B9D6056728D4FED20058D19E /* FirebaseStorage */; };
 		B9D6056C28D508800058D19E /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = B9D6056B28D508800058D19E /* SnapKit */; };
 		B9D6057428D53C350058D19E /* FirebaseAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D6057328D53C350058D19E /* FirebaseAuthService.swift */; };
+		B9D6DA3F2966206000B142AC /* TableKit in Frameworks */ = {isa = PBXBuildFile; productRef = B9D6DA3E2966206000B142AC /* TableKit */; };
 		B9DBE50B290DD8B1005B185C /* HTTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DBE50A290DD8B1005B185C /* HTTabBarController.swift */; };
 		B9DBE50E290DE11F005B185C /* HTNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DBE50D290DE11F005B185C /* HTNavigationController.swift */; };
 		B9DBE512290DE2C3005B185C /* HTNavigationControllerAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DBE511290DE2C3005B185C /* HTNavigationControllerAssembly.swift */; };
@@ -209,6 +218,14 @@
 		B90FB1322901857100881D56 /* FireBaseSetImageNetworkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseSetImageNetworkingService.swift; sourceTree = "<group>"; };
 		B91AF09B293F8B9C004CCC8A /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		B91AF09D293FA800004CCC8A /* ImageManagerAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManagerAssembly.swift; sourceTree = "<group>"; };
+		B92A46A32966F9DC0006B787 /* ProfilePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
+		B92A46A42966F9DC0006B787 /* ProfileRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileRouter.swift; sourceTree = "<group>"; };
+		B92A46A62966F9DC0006B787 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		B92A46A72966F9DC0006B787 /* ProfileInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileInteractor.swift; sourceTree = "<group>"; };
+		B92A46AC2966FA430006B787 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
+		B92A46AE29672ACC0006B787 /* ButtonProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonProfileTableViewCell.swift; sourceTree = "<group>"; };
+		B92A46B12967313B0006B787 /* ProfileModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModule.swift; sourceTree = "<group>"; };
+		B92A46B22967313B0006B787 /* ProfileAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAssembly.swift; sourceTree = "<group>"; };
 		B938A5172940DAFF00145EF0 /* AdminDataManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminDataManagerProtocol.swift; sourceTree = "<group>"; };
 		B938A5192940DB2500145EF0 /* AdminDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminDataManager.swift; sourceTree = "<group>"; };
 		B938A51B2940F1E900145EF0 /* AdminDataManagerAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminDataManagerAssembly.swift; sourceTree = "<group>"; };
@@ -386,6 +403,7 @@
 			files = (
 				B97D05B12929639200F4629B /* RealmSwift in Frameworks */,
 				B97D05AF2929639200F4629B /* Realm in Frameworks */,
+				B9D6DA3F2966206000B142AC /* TableKit in Frameworks */,
 				B9D6056428D4FED20058D19E /* FirebaseAuth in Frameworks */,
 				B9EB023B28F3159A00B3B6DA /* Swinject in Frameworks */,
 				B9D6056C28D508800058D19E /* SnapKit in Frameworks */,
@@ -513,6 +531,36 @@
 				B9631C4D2922487500BBC09B /* extention + UIEdgeInsets.swift */,
 			);
 			path = Extentions;
+			sourceTree = "<group>";
+		};
+		B92A46A22966F9DC0006B787 /* ProfileModule */ = {
+			isa = PBXGroup;
+			children = (
+				B92A46A52966F9DC0006B787 /* Cell */,
+				B92A46A32966F9DC0006B787 /* ProfilePresenter.swift */,
+				B92A46A42966F9DC0006B787 /* ProfileRouter.swift */,
+				B92A46A62966F9DC0006B787 /* ProfileViewController.swift */,
+				B92A46A72966F9DC0006B787 /* ProfileInteractor.swift */,
+			);
+			path = ProfileModule;
+			sourceTree = "<group>";
+		};
+		B92A46A52966F9DC0006B787 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				B92A46AC2966FA430006B787 /* ProfileTableViewCell.swift */,
+				B92A46AE29672ACC0006B787 /* ButtonProfileTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		B92A46B0296731100006B787 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				B92A46B12967313B0006B787 /* ProfileModule.swift */,
+				B92A46B22967313B0006B787 /* ProfileAssembly.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		B938A5162940DAD400145EF0 /* AdminDataManager */ = {
@@ -1040,6 +1088,7 @@
 		B9E7AC9F28F4518C00A3D7E5 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				B92A46B0296731100006B787 /* Profile */,
 				B97181542911252100E5DB28 /* DetailInfoManufacturer */,
 				B9ED910A2909D24500DC3A6D /* TobaccoList */,
 				B9E8DA4D28F7825200CCA034 /* ManufacturerList */,
@@ -1109,6 +1158,7 @@
 				B9B7274629096C5A00EB7323 /* TobaccoListModule */,
 				B981CB9E2930DB8500705422 /* DetailTobaccoModule */,
 				B9C925F0294F52D20085BB02 /* AuthorizationAndRegistration */,
+				B92A46A22966F9DC0006B787 /* ProfileModule */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1221,6 +1271,7 @@
 				B97D05AE2929639200F4629B /* Realm */,
 				B97D05B02929639200F4629B /* RealmSwift */,
 				B9D2D2A6293B805100F2F591 /* MultiSelectSegmentedControl */,
+				B9D6DA3E2966206000B142AC /* TableKit */,
 			);
 			productName = HookahTobacco;
 			productReference = B90A790E2899E2BF00B90193 /* HookahTobacco.app */;
@@ -1256,6 +1307,7 @@
 				B9EB023928F3159A00B3B6DA /* XCRemoteSwiftPackageReference "Swinject" */,
 				B97D05AD2929639200F4629B /* XCRemoteSwiftPackageReference "realm-swift" */,
 				B9D2D2A5293B805100F2F591 /* XCRemoteSwiftPackageReference "MultiSelectSegmentedControl" */,
+				B9D6DA3C2965ECB200B142AC /* XCRemoteSwiftPackageReference "TableKit" */,
 			);
 			productRefGroup = B90A790F2899E2BF00B90193 /* Products */;
 			projectDirPath = "";
@@ -1391,6 +1443,7 @@
 				B9D6057428D53C350058D19E /* FirebaseAuthService.swift in Sources */,
 				B981CBA52930DBAD00705422 /* DetailTobaccoRouter.swift in Sources */,
 				B9631C562923E9EE00BBC09B /* AddTasteRouter.swift in Sources */,
+				B92A46AF29672ACC0006B787 /* ButtonProfileTableViewCell.swift in Sources */,
 				B9EE2377291023F00098E4E0 /* DetailInfoManufacturerRouter.swift in Sources */,
 				B9E7ACB328F492ED00A3D7E5 /* LoginModule.swift in Sources */,
 				B9E7ACB428F492ED00A3D7E5 /* LoginAssembly.swift in Sources */,
@@ -1418,6 +1471,7 @@
 				B9A4708328D2B84500CA6FAA /* extention + UIFont.swift in Sources */,
 				B98E1DE828F08D4400964B8F /* AddTobaccoInteractor.swift in Sources */,
 				B90FB1332901857100881D56 /* FireBaseSetImageNetworkingService.swift in Sources */,
+				B92A46AD2966FA430006B787 /* ProfileTableViewCell.swift in Sources */,
 				B981CBA42930DBAD00705422 /* DetailTobaccoPresenter.swift in Sources */,
 				B938A5212941135D00145EF0 /* AdminImageManager.swift in Sources */,
 				B97181582911254100E5DB28 /* DetailInfoManufacturerAssembly.swift in Sources */,
@@ -1433,6 +1487,7 @@
 				B94306CA2920277E00EADFA0 /* AddTastesRouter.swift in Sources */,
 				B9D2D2A9293B808F00F2F591 /* AddMultiSegmentedControlView.swift in Sources */,
 				B9818299292A55B900DEA9F0 /* DataBaseServiceProtocol.swift in Sources */,
+				B92A46AA2966F9DC0006B787 /* ProfileViewController.swift in Sources */,
 				B90A79142899E2BF00B90193 /* SceneDelegate.swift in Sources */,
 				B9E7ACB928F495B300A3D7E5 /* AddManufacturerAssembly.swift in Sources */,
 				B9631C4A2921AB7100BBC09B /* TasteCollectionView.swift in Sources */,
@@ -1444,6 +1499,7 @@
 				B94B7717290C239E002C5660 /* extention + UIButton.swift in Sources */,
 				B938E69A29363FF100993A4C /* AddTobaccoLineView.swift in Sources */,
 				B98182A1292A6BDB00DEA9F0 /* HTRealmProtocol.swift in Sources */,
+				B92A46B42967313B0006B787 /* ProfileAssembly.swift in Sources */,
 				B938A51A2940DB2500145EF0 /* AdminDataManager.swift in Sources */,
 				B938A51C2940F1E900145EF0 /* AdminDataManagerAssembly.swift in Sources */,
 				B97D05B82929928000F4629B /* ManufacturerRealmObject.swift in Sources */,
@@ -1453,6 +1509,7 @@
 				B90A792D289A8C2200B90193 /* Tobacco.swift in Sources */,
 				B9074144290F041B00499674 /* HTTabBarControllerAssembly.swift in Sources */,
 				B9677CF428D89D4000EF9FC6 /* NamedFireStore.swift in Sources */,
+				B92A46B32967313B0006B787 /* ProfileModule.swift in Sources */,
 				B9E8DA4928F77A8300CCA034 /* ManufacturerListViewController.swift in Sources */,
 				B949D7AD293D2D0F0019BEFC /* PopupNotificationView.swift in Sources */,
 				B9ED910D2909D26100DC3A6D /* TobaccoListModule.swift in Sources */,
@@ -1468,6 +1525,7 @@
 				B98E1DE628F08D4400964B8F /* AddTobaccoRouter.swift in Sources */,
 				B97181572911254100E5DB28 /* DetailInfoManufacturerModule.swift in Sources */,
 				B9A4708628D2BB6400CA6FAA /* AddTextFieldView.swift in Sources */,
+				B92A46AB2966F9DC0006B787 /* ProfileInteractor.swift in Sources */,
 				B9EE2376291023F00098E4E0 /* DetailInfoManufacturerPresenter.swift in Sources */,
 				B94E17BA292126DD0008CB73 /* AddTastesAssembly.swift in Sources */,
 				B97EE9E5292B71CD0090B344 /* ImageManagerProtocol.swift in Sources */,
@@ -1479,6 +1537,7 @@
 				B9631C582923E9EE00BBC09B /* AddTasteInteractor.swift in Sources */,
 				B9C92609294F77570085BB02 /* AuthError.swift in Sources */,
 				B98E1DB328F04A0F00964B8F /* AddManufacturerViewController.swift in Sources */,
+				B92A46A82966F9DC0006B787 /* ProfilePresenter.swift in Sources */,
 				B981CBA72930DBAD00705422 /* DetailTobaccoInteractor.swift in Sources */,
 				B9C925FA294F53720085BB02 /* RegistrationInteractor.swift in Sources */,
 				B9677CF228D8917000EF9FC6 /* extention + UIViewController.swift in Sources */,
@@ -1498,6 +1557,7 @@
 				B98E1DD828F0812500964B8F /* LoginViewController.swift in Sources */,
 				B94B771C290C3785002C5660 /* AddPickerView.swift in Sources */,
 				B9C925FF294F6C4B0085BB02 /* FirebaseAuthServiceAssembly.swift in Sources */,
+				B92A46A92966F9DC0006B787 /* ProfileRouter.swift in Sources */,
 				B9631C552923E9EE00BBC09B /* AddTastePresenter.swift in Sources */,
 				B98E1DB128F04A0F00964B8F /* AddManufacturerPresenter.swift in Sources */,
 			);
@@ -1744,6 +1804,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		B9D6DA3C2965ECB200B142AC /* XCRemoteSwiftPackageReference "TableKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/maxsokolov/TableKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		B9EB023928F3159A00B3B6DA /* XCRemoteSwiftPackageReference "Swinject" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Swinject/Swinject.git";
@@ -1794,6 +1862,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B9D6056928D4FFDA0058D19E /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		B9D6DA3E2966206000B142AC /* TableKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B9D6DA3C2965ECB200B142AC /* XCRemoteSwiftPackageReference "TableKit" */;
+			productName = TableKit;
 		};
 		B9EB023A28F3159A00B3B6DA /* Swinject */ = {
 			isa = XCSwiftPackageProductDependency;
