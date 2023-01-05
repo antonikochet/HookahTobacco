@@ -10,110 +10,110 @@
 import UIKit
 import SnapKit
 
-enum LoginField {
-    case login
-    case password
-}
-
 protocol LoginViewInputProtocol: AnyObject {
-    func showEmptyField(field: LoginField)
 }
 
 protocol LoginViewOutputProtocol {
     func pressedButtonLogin(with login: String?, and password: String?)
+    func pressedButtonRegistration()
 }
 
 class LoginViewController: UIViewController {
-
+    // MARK: - Public properties
     var presenter: LoginViewOutputProtocol!
 
-    private let emailTextField: UITextField = {
-        let text = UITextField()
-        text.textColor = .black
-        text.borderStyle = .roundedRect
-        text.clearButtonMode = .whileEditing
-        text.keyboardType = .emailAddress
-        text.placeholder = "email"
-        text.textContentType = .emailAddress
-        text.autocapitalizationType = .none
-        text.backgroundColor = UIColor(white: 0.95, alpha: 0.8)
-        return text
-    }()
+    // MARK: - UI properties
+    private let emailTextField = UITextField()
+    private let passwordTextField = UITextField()
+    private let loginButton = UIButton.createAppBigButton(.loginButtonText, fontSise: 25)
+    private let registrationButton = UIButton()
 
-    private let passwordTextField: UITextField = {
-        let text = UITextField()
-        text.textColor = .black
-        text.borderStyle = .roundedRect
-        text.clearButtonMode = .whileEditing
-        text.textContentType = .password
-        text.placeholder = "password"
-        text.isSecureTextEntry = true
-        text.backgroundColor = UIColor(white: 0.95, alpha: 0.8)
-        return text
-    }()
-
-    private let loginButton: UIButton = UIButton.createAppBigButton("Войти / Log in", fontSise: 25)
-
+    // MARK: - ViewController Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Log in"
-        view.backgroundColor = .white
+        setupUI()
+    }
+
+    // MARK: - Setups
+    private func setupUI() {
+        setupScreen()
+        setupEmailTextField()
+        setupPasswordTextField()
+        setupLoginButton()
+        setupRegistrationButton()
+    }
+
+    private func setupScreen() {
+        title = .title
+        view.backgroundColor = Colors.View.background
         overrideUserInterfaceStyle = .light
-        setupSubviews()
     }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-
-        loginButton.layer.cornerRadius = loginButton.frame.height / 2
-        loginButton.clipsToBounds = true
-    }
-
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-
-        view.endEditing(true)
-    }
-
-    private func setupSubviews() {
-        view.addSubview(emailTextField)
+    private func setupEmailTextField() {
+        emailTextField.textColor = Colors.TextField.text
+        emailTextField.borderStyle = .roundedRect
+        emailTextField.clearButtonMode = .whileEditing
+        emailTextField.keyboardType = .emailAddress
+        emailTextField.placeholder = .emailPlaceholder
+        emailTextField.textContentType = .emailAddress
+        emailTextField.autocapitalizationType = .none
+        emailTextField.backgroundColor = Colors.TextField.background
         emailTextField.delegate = self
+        view.addSubview(emailTextField)
         emailTextField.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(56)
-            make.leading.trailing.equalTo(view).inset(32)
+            make.leading.trailing.equalToSuperview().inset(LayoutValues.TextField.horizPadding)
+            make.height.equalTo(LayoutValues.TextField.height)
         }
-
-        view.addSubview(passwordTextField)
+    }
+    private func setupPasswordTextField() {
+        passwordTextField.textColor = Colors.TextField.text
+        passwordTextField.borderStyle = .roundedRect
+        passwordTextField.clearButtonMode = .whileEditing
+        passwordTextField.textContentType = .password
+        passwordTextField.placeholder = .passwordPlaceholder
+        passwordTextField.isSecureTextEntry = true
+        passwordTextField.backgroundColor = Colors.TextField.background
         passwordTextField.delegate = self
+        view.addSubview(passwordTextField)
         passwordTextField.snp.makeConstraints { make in
-            make.top.equalTo(emailTextField.snp.bottom).offset(24)
-            make.leading.trailing.equalTo(view).inset(32)
+            make.centerY.equalToSuperview()
+            make.top.equalTo(emailTextField.snp.bottom).offset(LayoutValues.TextField.top)
+            make.leading.trailing.equalToSuperview().inset(LayoutValues.TextField.horizPadding)
+            make.height.equalTo(LayoutValues.TextField.height)
         }
-
+    }
+    private func setupLoginButton() {
         view.addSubview(loginButton)
+        loginButton.layer.cornerRadius = LayoutValues.LoginButtom.cornerRadius
         loginButton.snp.makeConstraints { make in
-            make.top.equalTo(passwordTextField.snp.bottom).offset(32)
-            make.leading.trailing.equalTo(view).inset(48)
-            make.height.equalTo(60)
+            make.top.equalTo(passwordTextField.snp.bottom).offset(LayoutValues.LoginButtom.top)
+            make.leading.trailing.equalToSuperview().inset(LayoutValues.LoginButtom.horizPadding)
+            make.height.equalTo(LayoutValues.LoginButtom.height)
         }
         loginButton.addTarget(self, action: #selector(touchLoginButton), for: .touchUpInside)
     }
+    private func setupRegistrationButton() {
+        registrationButton.setTitle(.registrationButtonText, for: .normal)
+        registrationButton.setTitleColor(Colors.RegistrationButton.text, for: .normal)
+        registrationButton.backgroundColor = Colors.RegistrationButton.background
+        registrationButton.titleLabel?.font = Fonts.registrationButtonText
 
-    @objc
-    private func touchLoginButton() {
+        view.addSubview(registrationButton)
+        registrationButton.snp.makeConstraints { make in
+            make.top.equalTo(loginButton.snp.bottom).offset(LayoutValues.RegistrationButton.top)
+            make.centerX.equalToSuperview()
+        }
+        registrationButton.addTarget(self, action: #selector(touchRegistrationButton), for: .touchUpInside)
+    }
+
+    @objc private func touchLoginButton() {
         presenter.pressedButtonLogin(with: emailTextField.text, and: passwordTextField.text)
+    }
+    @objc private func touchRegistrationButton() {
+        presenter.pressedButtonRegistration()
     }
 }
 
 extension LoginViewController: LoginViewInputProtocol {
-    func showEmptyField(field: LoginField) {
-        switch field {
-        case .login:
-            self.emailTextField.becomeFirstResponder()
-        case .password:
-            self.passwordTextField.becomeFirstResponder()
-        }
-    }
 }
 
 extension LoginViewController: UITextFieldDelegate {
@@ -127,4 +127,44 @@ extension LoginViewController: UITextFieldDelegate {
         }
         return false
     }
+}
+
+private extension String {
+    static let loginButtonText = "Войти / Log in"
+    static let title = "Log in"
+    static let emailPlaceholder = "email"
+    static let passwordPlaceholder = "password"
+    static let registrationButtonText = "Регистрация"
+}
+private struct LayoutValues {
+    struct TextField {
+        static let top: CGFloat = 24.0
+        static let horizPadding: CGFloat = 32.0
+        static let height: CGFloat = 40.0
+    }
+    struct LoginButtom {
+        static let top: CGFloat = 36.0
+        static let horizPadding: CGFloat = 48.0
+        static let height: CGFloat = 50.0
+        static let cornerRadius: CGFloat = height / 2.0
+    }
+    struct RegistrationButton {
+        static let top: CGFloat = 48.0
+    }
+}
+private struct Colors {
+    struct View {
+        static let background: UIColor = .white
+    }
+    struct TextField {
+        static let text: UIColor = .black
+        static let background: UIColor = UIColor(white: 0.95, alpha: 0.8)
+    }
+    struct RegistrationButton {
+        static let text: UIColor = .systemBlue
+        static let background: UIColor = .clear
+    }
+}
+private struct Fonts {
+    static let registrationButtonText = UIFont.appFont(size: 18, weight: .medium)
 }
