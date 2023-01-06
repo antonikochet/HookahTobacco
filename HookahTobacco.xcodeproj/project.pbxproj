@@ -125,6 +125,7 @@
 		B98EE1F12936DB5800F97E1A /* TobaccoLineRealmObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98EE1F02936DB5800F97E1A /* TobaccoLineRealmObject.swift */; };
 		B9A4708328D2B84500CA6FAA /* extention + UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A4708228D2B84500CA6FAA /* extention + UIFont.swift */; };
 		B9A4708628D2BB6400CA6FAA /* AddTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A4708528D2BB6400CA6FAA /* AddTextFieldView.swift */; };
+		B9A66BCB296897F600B6D6E7 /* AnonymousInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A66BCA296897F600B6D6E7 /* AnonymousInfoTableViewCell.swift */; };
 		B9ACB678291D15AE001D65CE /* HTScrollContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ACB677291D15AE001D65CE /* HTScrollContentViewController.swift */; };
 		B9B30A1C29325FFF00204913 /* ObserverProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B30A1B29325FFF00204913 /* ObserverProtocol.swift */; };
 		B9B30A1E2932602A00204913 /* UpdateDataSubscriberProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B30A1D2932602A00204913 /* UpdateDataSubscriberProtocol.swift */; };
@@ -324,6 +325,7 @@
 		B98EE1F02936DB5800F97E1A /* TobaccoLineRealmObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TobaccoLineRealmObject.swift; sourceTree = "<group>"; };
 		B9A4708228D2B84500CA6FAA /* extention + UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extention + UIFont.swift"; sourceTree = "<group>"; };
 		B9A4708528D2BB6400CA6FAA /* AddTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTextFieldView.swift; sourceTree = "<group>"; };
+		B9A66BCA296897F600B6D6E7 /* AnonymousInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnonymousInfoTableViewCell.swift; sourceTree = "<group>"; };
 		B9ACB677291D15AE001D65CE /* HTScrollContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTScrollContentViewController.swift; sourceTree = "<group>"; };
 		B9B30A1B29325FFF00204913 /* ObserverProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserverProtocol.swift; sourceTree = "<group>"; };
 		B9B30A1D2932602A00204913 /* UpdateDataSubscriberProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateDataSubscriberProtocol.swift; sourceTree = "<group>"; };
@@ -550,6 +552,7 @@
 			children = (
 				B92A46AC2966FA430006B787 /* ProfileTableViewCell.swift */,
 				B92A46AE29672ACC0006B787 /* ButtonProfileTableViewCell.swift */,
+				B9A66BCA296897F600B6D6E7 /* AnonymousInfoTableViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1511,6 +1514,7 @@
 				B9677CF428D89D4000EF9FC6 /* NamedFireStore.swift in Sources */,
 				B92A46B32967313B0006B787 /* ProfileModule.swift in Sources */,
 				B9E8DA4928F77A8300CCA034 /* ManufacturerListViewController.swift in Sources */,
+				B9A66BCB296897F600B6D6E7 /* AnonymousInfoTableViewCell.swift in Sources */,
 				B949D7AD293D2D0F0019BEFC /* PopupNotificationView.swift in Sources */,
 				B9ED910D2909D26100DC3A6D /* TobaccoListModule.swift in Sources */,
 				B97EE9E9292B8DAF0090B344 /* ImageNetworkingDataProtocol.swift in Sources */,

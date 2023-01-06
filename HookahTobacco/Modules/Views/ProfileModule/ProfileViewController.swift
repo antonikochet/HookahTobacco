@@ -18,6 +18,7 @@ protocol ProfileViewInputProtocol: AnyObject {
 
 protocol ProfileViewOutputProtocol: AnyObject {
     func viewDidLoad()
+    func viewWillAppear()
     func pressedLogoutButton()
 }
 
@@ -35,6 +36,11 @@ final class ProfileViewController: UIViewController {
 
         setupUI()
         presenter.viewDidLoad()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        presenter.viewWillAppear()
     }
 
     // MARK: - Setups

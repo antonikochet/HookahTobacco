@@ -11,13 +11,13 @@ import UIKit
 
 class ProfileModule: ModuleProtocol {
     private var data: DataModuleProtocol?
-    
+
     required init(_ data: DataModuleProtocol? = nil) {
         self.data = data
     }
-    
+
     func createModule(_ appRouter: AppRouterProtocol) -> UIViewController? {
-        var dependency = ProfileDependency(appRouter: appRouter)
+        let dependency = ProfileDependency(appRouter: appRouter)
 //        if let data = data as? ProfileDataModule { }
         return appRouter.resolver.resolve(ProfileViewController.self,
                                           argument: dependency)

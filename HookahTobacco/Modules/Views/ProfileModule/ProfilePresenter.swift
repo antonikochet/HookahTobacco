@@ -29,6 +29,8 @@ final class ProfilePresenter {
         if let firstName = user.firstName,
            let lastName = user.lastName {
             name = "\(firstName) \(lastName)"
+        } else if user.isAnonymous {
+            name = "Anonymous-\(user.uid.prefix(6))"
         }
         let profileItem = ProfileTableViewCellItem(photo: nil, name: name)
         let profileCell = TableRow<ProfileTableViewCell>(item: profileItem)
@@ -36,6 +38,9 @@ final class ProfilePresenter {
 
         // registration button if user is anonymous
         if user.isAnonymous {
+            let anonymousInfoItem = AnonymousInfoTableViewCellItem(text: .anonymousInfoText)
+            let anonymousInfoCell = TableRow<AnonymousInfoTableViewCell>(item: anonymousInfoItem)
+            rows.append(anonymousInfoCell)
             let registrationAnonymousItem = ButtonProfileTableViewCellItem(
                 text: "Зарегистрировать аккаунт"
             ) { [weak self] in
@@ -92,13 +97,22 @@ extension ProfilePresenter: ProfileInteractorOutputProtocol {
 // MARK: - ViewOutputProtocol implementation
 extension ProfilePresenter: ProfileViewOutputProtocol {
     func viewDidLoad() {
-        view.showSpinner()
         let tableView = view.getTableView()
         tableDirector = TableDirector(tableView: tableView, cellHeightCalculator: nil)
+    }
+
+    func viewWillAppear() {
+        view.showSpinner()
         interactor.receiveProfileInfo()
     }
 
     func pressedLogoutButton() {
         interactor.logout()
     }
+}
+
+private extension String {
+    static let anonymousInfoText = """
+    Ваш аккаунт является анонимным, для сохранения удаленно любимых табаков необходимо зарегистрироваться!
+    """
 }

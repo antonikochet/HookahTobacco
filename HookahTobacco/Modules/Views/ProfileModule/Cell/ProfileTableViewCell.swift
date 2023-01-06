@@ -46,23 +46,25 @@ final class ProfileTableViewCell: UITableViewCell, ConfigurableCell {
     }
 
     private func setupPhotoView() {
+        photoView.contentMode = .scaleAspectFit
+        photoView.tintColor = Colors.defaultPhoto
         contentView.addSubview(photoView)
         photoView.snp.makeConstraints { make in
             make.top.leading.bottom.equalToSuperview().inset(LayoutValues.PhotoView.padding)
             make.size.equalTo(LayoutValues.PhotoView.size)
         }
-        photoView.contentMode = .scaleAspectFit
     }
 
     private func setupNameLabel() {
-        contentView.addSubview(nameLabel)
-        nameLabel.snp.makeConstraints { make in
-            make.leading.equalTo(photoView.snp.trailing).offset(LayoutValues.NameLabel.leading)
-            make.top.trailing.bottom.equalToSuperview().inset(LayoutValues.NameLabel.padding)
-        }
         nameLabel.textColor = Colors.nameText
         nameLabel.font = Fonts.name
         nameLabel.numberOfLines = 1
+        contentView.addSubview(nameLabel)
+        nameLabel.snp.makeConstraints { make in
+            make.leading.equalTo(photoView.snp.trailing).offset(LayoutValues.NameLabel.leading)
+            make.top.trailing.equalToSuperview().inset(LayoutValues.NameLabel.padding)
+            make.height.equalTo(Fonts.name.lineHeight)
+        }
     }
 
     // MARK: - ConfigurableCell
@@ -90,13 +92,14 @@ private struct LayoutValues {
     }
     struct NameLabel {
         static let leading: CGFloat = 16.0
-        static let padding: CGFloat = 8.0
+        static let padding: CGFloat = 16.0
     }
 }
 private struct Images {
     static let defaultPhoto = UIImage(systemName: "person.circle.fill")!
 }
 private struct Colors {
+    static let defaultPhoto = UIColor(white: 0.75, alpha: 1.0)
     static let nameText: UIColor = .label
 }
 private struct Fonts {
