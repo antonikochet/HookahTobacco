@@ -8,6 +8,7 @@
 //
 
 import Foundation
+import TableKit
 
 class ManufacturerListPresenter {
     // MARK: - Public properties
@@ -16,21 +17,58 @@ class ManufacturerListPresenter {
     var router: ManufacturerListRouterProtocol!
 
     // MARK: - Private properties
-    private var viewModels: [ManufacturerListEntity.ViewModel] = []
+    private var tableDirector: TableDirector!
 
     // MARK: - Private methods
-    private func createViewModel(for manufacturer: Manufacturer) -> ManufacturerListEntity.ViewModel {
-        return ManufacturerListEntity.ViewModel(name: manufacturer.name,
-                                                country: manufacturer.country,
-                                                image: manufacturer.image)
+    private func createItem(for manufacturer: Manufacturer) -> ManufacturerListTableViewCellItem {
+        ManufacturerListTableViewCellItem(name: manufacturer.name,
+                                          country: manufacturer.country,
+                                          image: manufacturer.image)
+    }
+    private func createRow(at item: ManufacturerListTableViewCellItem) -> Row {
+        TableRow<ManufacturerListTableViewCell>(item: item).on(.click) { [weak self] options in
+            self?.interactor.receiveDataForShowDetail(by: options.indexPath.row)
+        }
+    }
+
+    private func setupContentView(_ manufacturers: [Manufacturer]) {
+        tableDirector.clear()
+        var rows: [Row] = []
+
+        for manufacturer in manufacturers {
+            let item = createItem(for: manufacturer)
+            let row = createRow(at: item)
+            rows.append(row)
+        }
+
+        let section = TableSection(rows: rows)
+        section.headerHeight = 0.0
+        section.footerHeight = 0.0
+        tableDirector += section
+        reloadData()
+    }
+
+    private func updateContentView(_ manufacturer: Manufacturer, at index: Int) {
+        let item = createItem(for: manufacturer)
+        let indexPath = IndexPath(row: index, section: 0)
+        let row = createRow(at: item)
+        DispatchQueue.main.async { [weak self] in
+            self?.tableDirector.reloadRow(at: indexPath, with: row)
+        }
+    }
+
+    private func reloadData() {
+        DispatchQueue.main.async { [weak self] in
+            self?.tableDirector.reload()
+        }
     }
 }
 
 // MARK: - InteractorOutputProtocol implementation
 extension ManufacturerListPresenter: ManufacturerListInteractorOutputProtocol {
     func receivedManufacturersSuccess(with data: [Manufacturer]) {
-        viewModels = data.map { createViewModel(for: $0) }
-        view.showData()
+        setupContentView(data)
+        view.endRefreshing()
     }
 
     func receivedError(with message: String) {
@@ -38,9 +76,7 @@ extension ManufacturerListPresenter: ManufacturerListInteractorOutputProtocol {
     }
 
     func receivedUpdate(for manufacturer: Manufacturer, at index: Int) {
-        let newViewModel = createViewModel(for: manufacturer)
-        viewModels[index] = newViewModel
-        view.showRow(index)
+        updateContentView(manufacturer, at: index)
     }
 
     func receivedDataForShowDetail(_ manudacturer: Manufacturer) {
@@ -54,20 +90,12 @@ extension ManufacturerListPresenter: ManufacturerListInteractorOutputProtocol {
 
 // MARK: - ViewOutputProtocol implementation
 extension ManufacturerListPresenter: ManufacturerListViewOutputProtocol {
-    var numberOfRows: Int {
-        viewModels.count
-    }
-
-    func getViewModel(by row: Int) -> ManufacturerListEntity.ViewModel {
-        viewModels[row]
-    }
-
     func viewDidLoad() {
+        let tableView = view.getTableView()
+        let cellHeightCalculator = ManufacturerListCellHeightCalculator(tableView: tableView, countCellInView: 8)
+        tableDirector = TableDirector(tableView: tableView,
+                                      cellHeightCalculator: cellHeightCalculator)
         interactor.startReceiveData()
-    }
-
-    func didTouchForElement(by row: Int) {
-        interactor.receiveDataForShowDetail(by: row)
     }
 
     func didStartingRefreshView() {
