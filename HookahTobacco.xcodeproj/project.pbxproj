@@ -1036,6 +1036,14 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		B9CA93A02969D6C000F258F3 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				B9ED910829098AA000DC3A6D /* TobaccoListCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		B9D6055728D4CB490058D19E /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -1183,7 +1191,6 @@
 			children = (
 				B9B358CA291169C4001D178F /* EmptyCell */,
 				B9EE237B29102A0E0098E4E0 /* DetailInfoManufacturerTableCell */,
-				B9ED910729098A8400DC3A6D /* TobaccoListCell */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1210,14 +1217,6 @@
 				B9DBE511290DE2C3005B185C /* HTNavigationControllerAssembly.swift */,
 			);
 			path = Assemblies;
-			sourceTree = "<group>";
-		};
-		B9ED910729098A8400DC3A6D /* TobaccoListCell */ = {
-			isa = PBXGroup;
-			children = (
-				B9ED910829098AA000DC3A6D /* TobaccoListCell.swift */,
-			);
-			path = TobaccoListCell;
 			sourceTree = "<group>";
 		};
 		B9ED910A2909D24500DC3A6D /* TobaccoList */ = {

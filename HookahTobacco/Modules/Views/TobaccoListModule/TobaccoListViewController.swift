@@ -11,15 +11,12 @@ import UIKit
 import SnapKit
 
 protocol TobaccoListViewInputProtocol: AnyObject {
-    func showData()
-    func updateRow(at index: Int)
+    func getTableView() -> UITableView
+    func endRefreshing()
 }
 
 protocol TobaccoListViewOutputProtocol: AnyObject {
-    var numberOfRows: Int { get }
-    func cellViewModel(at index: Int) -> TobaccoListCellViewModel
     func viewDidLoad()
-    func didTouchForElement(by index: Int)
     func didStartingRefreshView()
 }
 
@@ -28,36 +25,36 @@ class TobaccoListViewController: UIViewController {
     var presenter: TobaccoListViewOutputProtocol!
 
     // MARK: - Private properties
-    private let tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.register(TobaccoListCell.self, forCellReuseIdentifier: TobaccoListCell.identifier)
-        return tableView
-    }()
-
+    private let tableView = UITableView()
     private let refreshControl = UIRefreshControl()
 
-    // MARK: - Live Cycle ViewController
+    // MARK: - ViewController Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setup()
+        setupUI()
         presenter.viewDidLoad()
     }
 
     // MARK: - Setups
-    private func setup() {
+    private func setupUI() {
+        setupScreen()
+        setupTableView()
+    }
+
+    private func setupScreen() {
         navigationItem.title = "Табаки"
+        view.backgroundColor = .clear
+    }
+    private func setupTableView() {
+        tableView.refreshControl = refreshControl
 
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.refreshControl = refreshControl
 
         refreshControl.addTarget(self, action: #selector(refreshTableView), for: .valueChanged)
     }
-
     // MARK: - Private methods
 
     // MARK: - Selectors
@@ -68,44 +65,13 @@ class TobaccoListViewController: UIViewController {
 
 // MARK: - ViewInputProtocol implementation
 extension TobaccoListViewController: TobaccoListViewInputProtocol {
-    func showData() {
+    func getTableView() -> UITableView {
+        tableView
+    }
+
+    func endRefreshing() {
         DispatchQueue.main.async {
-            self.tableView.reloadData()
             self.refreshControl.endRefreshing()
         }
-    }
-
-    func updateRow(at index: Int) {
-        DispatchQueue.main.async {
-            self.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .none)
-        }
-    }
-}
-
-// MARK: - UITableViewDataSource implementation
-extension TobaccoListViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.numberOfRows
-    }
-
-    // swiftlint: disable force_cast
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TobaccoListCell.identifier,
-                                                 for: indexPath) as! TobaccoListCell
-        let viewModel = presenter.cellViewModel(at: indexPath.row)
-        cell.viewModel = viewModel
-        return cell
-    }
-    // swiftlint: enable force_cast
-}
-
-// MARK: - UITableViewDelegate implementation
-extension TobaccoListViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return tableView.frame.height / 6
-    }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter.didTouchForElement(by: indexPath.row)
     }
 }
