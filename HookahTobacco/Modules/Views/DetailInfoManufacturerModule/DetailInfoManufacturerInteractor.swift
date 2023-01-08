@@ -15,9 +15,9 @@ protocol DetailInfoManufacturerInteractorInputProtocol: AnyObject {
 
 protocol DetailInfoManufacturerInteractorOutputProtocol: AnyObject {
     func initialDataForPresentation(_ manufacturer: Manufacturer)
-    func receivedTobacco(with tobaccos: [DetailInfoManufacturerEntity.Tobacco])
+    func receivedTobacco(with tobaccos: [Tobacco])
     func receivedError(with message: String)
-    func receivedUpdate(for tobacco: DetailInfoManufacturerEntity.Tobacco, at index: Int)
+    func receivedUpdate(for tobacco: Tobacco, at index: Int)
 }
 
 class DetailInfoManufacturerInteractor {
@@ -43,21 +43,13 @@ class DetailInfoManufacturerInteractor {
     }
 
     // MARK: - Private methods
-    private func createTobaccoForPresenter(_ tobacco: Tobacco) -> DetailInfoManufacturerEntity.Tobacco {
-        return DetailInfoManufacturerEntity.Tobacco(name: tobacco.name,
-                                                    tasty: tobacco.tastes,
-                                                    nameManufacturer: tobacco.nameManufacturer,
-                                                    image: tobacco.image)
-    }
-
     private func receiveTobacco() {
         getDataManager.receiveTobaccos(for: manufacturer) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let tobaccos):
                 self.tobaccos = tobaccos
-                let pTobaccos = tobaccos.map { self.createTobaccoForPresenter($0) }
-                self.presenter.receivedTobacco(with: pTobaccos)
+                self.presenter.receivedTobacco(with: tobaccos)
                 self.receiveImageTobaccos(tobaccos)
             case .failure(let error):
                 self.presenter.receivedError(with: error.localizedDescription)
@@ -77,7 +69,7 @@ class DetailInfoManufacturerInteractor {
                     var mTobacco = tobacco
                     mTobacco.image = image
                     self.tobaccos[index] = mTobacco
-                    self.presenter.receivedUpdate(for: self.createTobaccoForPresenter(mTobacco), at: index)
+                    self.presenter.receivedUpdate(for: mTobacco, at: index)
                 case .failure(let error):
                     self.presenter.receivedError(with: error.localizedDescription)
                 }
