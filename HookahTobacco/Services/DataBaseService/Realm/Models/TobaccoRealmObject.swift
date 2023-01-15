@@ -14,6 +14,7 @@ class TobaccoRealmObject: Object {
     @Persisted var descriptionTobacco: String = ""
     @Persisted var uidManufacturer: String = ""
     @Persisted var uidTobaccoLine: String = ""
+    @Persisted var isFavorite: Bool = false
     @Persisted(originProperty: "tobaccos") var manufacturer: LinkingObjects<ManufacturerRealmObject>
     @Persisted var taste: List<TasteRealmObject>
     @Persisted(originProperty: "tobaccos") var line: LinkingObjects<TobaccoLineRealmObject>
@@ -50,6 +51,11 @@ extension TobaccoRealmObject {
         isChange = self.uidTobaccoLine != tobacco.line.uid ? true : isChange
         newValues["uidTobaccoLine"] = tobacco.line.uid
 
+        if tobacco.isFavoriteChanged {
+            isChange = true
+            newValues["isFavorite"] = tobacco.isFavorite
+        }
+
         return isChange ? newValues : nil
     }
 
@@ -62,6 +68,7 @@ extension TobaccoRealmObject {
                 nameManufacturer: self.nameManufacturer ?? "",
                 description: self.descriptionTobacco,
                 line: self.line.first(where: { $0.uid == self.uidTobaccoLine })!.convertToEntity(),
+                isFavorite: self.isFavorite,
                 image: nil)
     }
 }

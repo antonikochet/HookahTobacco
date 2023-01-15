@@ -9,19 +9,41 @@ import UIKit
 import SnapKit
 import TableKit
 
-struct TobaccoListTableCellItem {
+final class TobaccoListTableCellItem {
     let name: String
     let tasty: String
     let manufacturerName: String
+    var isFavorite: Bool
     let image: Data?
+
+    var favoriteAction: ((TobaccoListTableCellItem) -> Void)?
+
+    init(name: String,
+         tasty: String,
+         manufacturerName: String,
+         isFavorite: Bool,
+         image: Data? = nil,
+         favoriteAction: ((TobaccoListTableCellItem) -> Void)? = nil) {
+        self.name = name
+        self.tasty = tasty
+        self.manufacturerName = manufacturerName
+        self.isFavorite = isFavorite
+        self.image = image
+        self.favoriteAction = favoriteAction
+    }
 }
 
 final class TobaccoListCell: UITableViewCell, ConfigurableCell {
+    // MARK: - Private properties
+    private var item: TobaccoListTableCellItem?
+
     // MARK: - UI properties
     private let tobaccoImageView = UIImageView()
     private let nameLabel = UILabel()
     private let tastyLabel = UILabel()
     private let manufacturerLabel = UILabel()
+    private let favoriteView = UIView()
+    private let favoriteButton = UIButton()
 
     // MARK: - Initializers
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -38,6 +60,7 @@ final class TobaccoListCell: UITableViewCell, ConfigurableCell {
     private func setupUI() {
         setupCell()
         setupTobaccoImageView()
+        setupFavoriteButton()
         setupNameLabel()
         setupTastyLabel()
         setupManufacturerLabel()
@@ -60,12 +83,14 @@ final class TobaccoListCell: UITableViewCell, ConfigurableCell {
     private func setupNameLabel() {
         nameLabel.font = Fonts.name
         nameLabel.numberOfLines = 2
+        nameLabel.lineBreakMode = .byWordWrapping
 
         contentView.addSubview(nameLabel)
         nameLabel.snp.makeConstraints { make in
             make.leading.equalTo(tobaccoImageView.snp.trailing).offset(LayoutValues.NameLabel.left)
-            make.top.trailing.equalToSuperview().inset(LayoutValues.NameLabel.padding)
-            make.height.equalTo(Fonts.name.lineHeight * 2.5)
+            make.top.equalToSuperview().offset(LayoutValues.NameLabel.padding)
+            make.trailing.equalTo(favoriteView.snp.leading).inset(LayoutValues.NameLabel.padding)
+            make.height.equalTo(LayoutValues.NameLabel.height)
         }
     }
     private func setupTastyLabel() {
@@ -92,6 +117,24 @@ final class TobaccoListCell: UITableViewCell, ConfigurableCell {
             make.trailing.bottom.equalToSuperview().inset(LayoutValues.ManufacturerLabel.padding)
         }
     }
+    private func setupFavoriteButton() {
+        contentView.addSubview(favoriteView)
+        favoriteView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(LayoutValues.FavoriteView.top)
+            make.trailing.equalToSuperview().inset(LayoutValues.FavoriteView.trailing)
+            make.size.equalTo(LayoutValues.FavoriteView.size)
+        }
+
+        favoriteButton.setImage(Images.notFavorite, for: .normal)
+        favoriteButton.tintColor = Colors.FavoriteButton.notFavorire
+        favoriteButton.addTarget(self, action: #selector(pressedFavoriteButton), for: .touchUpInside)
+
+        favoriteView.addSubview(favoriteButton)
+        favoriteButton.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
+            make.size.equalTo(LayoutValues.FavoriteButton.size)
+        }
+    }
 
     // MARK: - Override methods
     override func prepareForReuse() {
@@ -104,18 +147,30 @@ final class TobaccoListCell: UITableViewCell, ConfigurableCell {
 
     // MARK: - ConfigurableCell
     func configure(with item: TobaccoListTableCellItem) {
+        self.item = item
         nameLabel.text = item.name
         tastyLabel.text = item.tasty
         manufacturerLabel.text = item.manufacturerName
+        configureFavoriteButton(isFavorite: item.isFavorite)
         if let image = item.image {
             tobaccoImageView.image = UIImage(data: image)
         } else {
             tobaccoImageView.image = nil
         }
     }
+    private func configureFavoriteButton(isFavorite: Bool) {
+        favoriteButton.setImage(isFavorite ? Images.favorite : Images.notFavorite, for: .normal)
+        favoriteButton.tintColor = isFavorite ? Colors.FavoriteButton.favorite : Colors.FavoriteButton.notFavorire
+    }
 
     static var estimatedHeight: CGFloat? {
         LayoutValues.Cell.estimatedHeight
+    }
+
+    // MARK: - Selectors
+    @objc private func pressedFavoriteButton() {
+        guard let item else { return }
+        item.favoriteAction?(item)
     }
 }
 
@@ -130,19 +185,36 @@ private struct LayoutValues {
     struct NameLabel {
         static let left: CGFloat = 16.0
         static let padding: CGFloat = 8.0
+        static let height: CGFloat = Fonts.name.lineHeight * 2.0
     }
     struct ManufacturerLabel {
         static let left: CGFloat = 16.0
         static let padding: CGFloat = 8.0
     }
+    struct FavoriteView {
+        static let trailing: CGFloat = 16.0
+        static let top: CGFloat = 8.0
+        static let size: CGFloat = 24.0
+    }
+    struct FavoriteButton {
+        static let size: CGFloat = 24.0
+    }
+}
+private struct Images {
+    static let favorite = UIImage(systemName: "heart.fill")!
+    static let notFavorite = UIImage(systemName: "heart")!
 }
 private struct Colors {
     struct Cell {
         static let background: UIColor = .clear
     }
+    struct FavoriteButton {
+        static let favorite = UIColor.systemRed
+        static let notFavorire = UIColor(white: 0.6, alpha: 1.0)
+    }
 }
 private struct Fonts {
     static let name = UIFont.appFont(size: 20, weight: .bold)
-    static let tasty = UIFont.appFont(size: 16, weight: .bold)
-    static let manufacturerName = UIFont.appFont(size: 20, weight: .bold)
+    static let tasty = UIFont.appFont(size: 14, weight: .medium)
+    static let manufacturerName = UIFont.appFont(size: 18, weight: .semibold)
 }

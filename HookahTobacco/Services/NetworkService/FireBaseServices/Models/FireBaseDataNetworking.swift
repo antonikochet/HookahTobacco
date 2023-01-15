@@ -44,6 +44,7 @@ extension Tobacco: DataNetworkingServiceProtocol {
         self.nameManufacturer = nameManufacturer
         self.description = data[NamedFireStore.Documents.Tobacco.description] as? String ?? ""
         self.line = line
+        self.isFavorite = false
     }
 
     func formatterToData() -> [String: Any] {

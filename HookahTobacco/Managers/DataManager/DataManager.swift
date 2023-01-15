@@ -196,30 +196,9 @@ class DataManager {
         }
     }
 
-    private func convertNamedImageInNamedImageNetwork(from type: NamedImageManager) -> NamedFireStorage {
-        var named: NamedFireStorage
-        switch type {
-        case .manufacturerImage(let nameImage):
-            named = NamedFireStorage.manufacturerImage(name: nameImage)
-        case .tobaccoImage(let manufacturer, let uid, let type):
-            named = NamedFireStorage.tobaccoImage(manufacturer: manufacturer, uid: uid, type: type)
-        }
-        return named
-    }
-    private func convertNamedImageInImageService(from type: NamedImageManager) -> NamedImageStorage {
-        var named: NamedImageStorage
-        switch type {
-        case .manufacturerImage(let nameImage):
-            named = NamedImageStorage.manufacturer(nameImage: nameImage)
-        case .tobaccoImage(let manufacturer, let uid, let type):
-            named = NamedImageStorage.tobacco(manufacturer: manufacturer, uid: uid, type: type)
-        }
-        return named
-    }
-
     // MARK: - Private Methods for working with network
     private func receiveDataFromNetwork<T>(typeData: T.Type,
-                                           completion: ReceiveDataManagerCompletion<T>?
+                                           completion: ReceiveCompletion<T>?
     ) where T: DataNetworkingServiceProtocol {
         getDataNetworkingService.receiveData(type: typeData) { result in
             switch result {
@@ -254,7 +233,7 @@ class DataManager {
 
 // MARK: - DataManagerProtocol implementation
 extension DataManager: DataManagerProtocol {
-    func receiveData<T: DataManagerType>(typeData: T.Type, completion: ReceiveDataManagerCompletion<T>?) {
+    func receiveData<T: DataManagerType>(typeData: T.Type, completion: ReceiveCompletion<T>?) {
         if isSynchronized || isOfflineMode {
             dataBaseService.read(type: typeData) { data in
                 completion?(.success(data))
@@ -266,7 +245,7 @@ extension DataManager: DataManagerProtocol {
         }
     }
 
-    func receiveTobaccos(for manufacturer: Manufacturer, completion: ReceiveDataManagerCompletion<Tobacco>?) {
+    func receiveTobaccos(for manufacturer: Manufacturer, completion: ReceiveCompletion<Tobacco>?) {
         if isSynchronized || isOfflineMode {
             dataBaseService.read(type: Tobacco.self) { tobacco in
                 let manufacturerTobaccos = tobacco.filter { $0.idManufacturer == manufacturer.uid }
@@ -286,7 +265,7 @@ extension DataManager: DataManagerProtocol {
         }
     }
 
-    func receiveTastes(at ids: [String], completion: ReceiveDataManagerCompletion<Taste>?) {
+    func receiveTastes(at ids: [String], completion: ReceiveCompletion<Taste>?) {
         if isSynchronized || isOfflineMode {
             dataBaseService.read(type: Taste.self) { tastes in
                 let setIds = Set(ids)
@@ -307,6 +286,15 @@ extension DataManager: DataManagerProtocol {
                     completion?(.failure(error))
                 }
             }
+        }
+    }
+
+    func updateFavorite(for tobacco: Tobacco, completion: Completion?) {
+        dataBaseService.update(entity: tobacco) {
+            completion?(nil)
+            // TODO: - добавить отправку данных на сервер для зарегистрированных пользователей
+        } failure: { error in
+            completion?(error)
         }
     }
 }

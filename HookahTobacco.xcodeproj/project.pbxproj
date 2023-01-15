@@ -195,7 +195,6 @@
 		B9ED9103290989EF00DC3A6D /* TobaccoListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ED90FE290989EF00DC3A6D /* TobaccoListRouter.swift */; };
 		B9ED9104290989EF00DC3A6D /* TobaccoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ED90FF290989EF00DC3A6D /* TobaccoListViewController.swift */; };
 		B9ED9105290989EF00DC3A6D /* TobaccoListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ED9100290989EF00DC3A6D /* TobaccoListInteractor.swift */; };
-		B9ED9106290989EF00DC3A6D /* TobaccoListEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ED9101290989EF00DC3A6D /* TobaccoListEntity.swift */; };
 		B9ED910929098AA000DC3A6D /* TobaccoListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ED910829098AA000DC3A6D /* TobaccoListCell.swift */; };
 		B9ED910D2909D26100DC3A6D /* TobaccoListModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ED910B2909D26100DC3A6D /* TobaccoListModule.swift */; };
 		B9ED910E2909D26100DC3A6D /* TobaccoListAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ED910C2909D26100DC3A6D /* TobaccoListAssembly.swift */; };
@@ -388,7 +387,6 @@
 		B9ED90FE290989EF00DC3A6D /* TobaccoListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TobaccoListRouter.swift; sourceTree = "<group>"; };
 		B9ED90FF290989EF00DC3A6D /* TobaccoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TobaccoListViewController.swift; sourceTree = "<group>"; };
 		B9ED9100290989EF00DC3A6D /* TobaccoListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TobaccoListInteractor.swift; sourceTree = "<group>"; };
-		B9ED9101290989EF00DC3A6D /* TobaccoListEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TobaccoListEntity.swift; sourceTree = "<group>"; };
 		B9ED910829098AA000DC3A6D /* TobaccoListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TobaccoListCell.swift; sourceTree = "<group>"; };
 		B9ED910B2909D26100DC3A6D /* TobaccoListModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TobaccoListModule.swift; sourceTree = "<group>"; };
 		B9ED910C2909D26100DC3A6D /* TobaccoListAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TobaccoListAssembly.swift; sourceTree = "<group>"; };
@@ -950,7 +948,6 @@
 				B9ED90FE290989EF00DC3A6D /* TobaccoListRouter.swift */,
 				B9ED90FF290989EF00DC3A6D /* TobaccoListViewController.swift */,
 				B9ED9100290989EF00DC3A6D /* TobaccoListInteractor.swift */,
-				B9ED9101290989EF00DC3A6D /* TobaccoListEntity.swift */,
 			);
 			path = TobaccoListModule;
 			sourceTree = "<group>";
@@ -1446,7 +1443,6 @@
 				B9ED9103290989EF00DC3A6D /* TobaccoListRouter.swift in Sources */,
 				B982804C292FD4EB00BF3A93 /* ImageStorageServiceAssembly.swift in Sources */,
 				B98E1DF328F0DBCF00964B8F /* AdminMenuRouter.swift in Sources */,
-				B9ED9106290989EF00DC3A6D /* TobaccoListEntity.swift in Sources */,
 				B98E1DF528F0DBCF00964B8F /* AdminMenuInteractor.swift in Sources */,
 				B9ED910929098AA000DC3A6D /* TobaccoListCell.swift in Sources */,
 				B9631C5D292400FB00BBC09B /* AddTasteModule.swift in Sources */,

@@ -14,12 +14,13 @@ protocol TobaccoListInteractorInputProtocol: AnyObject {
     func receiveDataForShowDetail(by index: Int)
     func receivedDataFromOutside(_ data: Tobacco)
     func updateData()
+    func updateFavorite(by index: Int)
 }
 
 protocol TobaccoListInteractorOutputProtocol: AnyObject {
-    func receivedSuccess(_ data: [TobaccoListEntity.Tobacco])
+    func receivedSuccess(_ data: [Tobacco])
     func receivedError(with message: String)
-    func receivedUpdate(for data: TobaccoListEntity.Tobacco, at index: Int)
+    func receivedUpdate(for data: Tobacco, at index: Int)
     func receivedDataForShowDetail(_ tobacco: Tobacco)
     func receivedDataForEditing(_ tobacco: Tobacco)
 }
@@ -55,20 +56,13 @@ class TobaccoListInteractor {
     }
 
     // MARK: - Private methods
-    private func createTobaccoForPresenter(_ tobacco: Tobacco) -> TobaccoListEntity.Tobacco {
-        return TobaccoListEntity.Tobacco(name: tobacco.name,
-                                         nameManufacturer: tobacco.nameManufacturer,
-                                         tasty: tobacco.tastes,
-                                         image: tobacco.image)
-    }
-
     private func getTobacco() {
         getDataManager.receiveData(typeData: Tobacco.self) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let data):
                 self.tobaccos = data
-                self.presenter.receivedSuccess(data.map { self.createTobaccoForPresenter($0) })
+                self.presenter.receivedSuccess(data)
                 self.getImagesTobacco()
             case .failure(let error):
                 self.presenter.receivedError(with: error.localizedDescription)
@@ -88,7 +82,7 @@ class TobaccoListInteractor {
                 var mutableTobacco = tobacco
                 mutableTobacco.image = image
                 self.tobaccos[index] = mutableTobacco
-                self.presenter.receivedUpdate(for: self.createTobaccoForPresenter(mutableTobacco), at: index)
+                self.presenter.receivedUpdate(for: mutableTobacco, at: index)
             case .failure(let error):
                 self.presenter.receivedError(with: error.localizedDescription)
             }
@@ -119,11 +113,27 @@ extension TobaccoListInteractor: TobaccoListInteractorInputProtocol {
     func receivedDataFromOutside(_ data: Tobacco) {
         guard let index = tobaccos.firstIndex(where: { $0.uid == data.uid }) else { return }
         tobaccos[index] = data
-        presenter.receivedUpdate(for: createTobaccoForPresenter(data), at: index)
+        presenter.receivedUpdate(for: data, at: index)
     }
 
     func updateData() {
         getTobacco()
+    }
+
+    func updateFavorite(by index: Int) {
+        guard index < tobaccos.count else { return }
+        var tobacco = tobaccos[index]
+        tobacco.isFavoriteChanged = true
+        tobacco.isFavorite.toggle()
+        getDataManager.updateFavorite(for: tobacco) { [weak self] error in
+            guard let self = self else { return }
+            if let error {
+                self.presenter?.receivedError(with: error.localizedDescription)
+                return
+            }
+            self.tobaccos[index].isFavorite.toggle()
+            self.presenter.receivedUpdate(for: self.tobaccos[index], at: index)
+        }
     }
 }
 
@@ -134,7 +144,7 @@ extension TobaccoListInteractor: UpdateDataSubscriberProtocol {
         case .update(let data):
             if let newTobacco = data as? [Tobacco] {
                 tobaccos = newTobacco
-                presenter.receivedSuccess(newTobacco.map { createTobaccoForPresenter($0) })
+                presenter.receivedSuccess(newTobacco)
                 getImagesTobacco()
             }
         case .error(let error):

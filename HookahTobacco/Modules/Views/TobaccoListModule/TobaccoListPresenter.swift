@@ -17,20 +17,26 @@ class TobaccoListPresenter {
     var router: TobaccoListRouterProtocol!
 
     // MARK: - Private properties
-//    private var viewModels: [TobaccoListCellViewModel] = []
-    private var tableDirector: TableDirector!
+    private var tobaccoItems: [TobaccoListTableCellItem] = []
+    private var tableDirector: TableDirector?
 
     // MARK: - Private methods
-    private func createItem(for tobacco: TobaccoListEntity.Tobacco) -> TobaccoListTableCellItem {
-        let taste = tobacco.tasty
+    private func createItem(for tobacco: Tobacco) -> TobaccoListTableCellItem {
+        let taste = tobacco.tastes
             .map { $0.taste }
             .joined(separator: ", ")
-        return TobaccoListTableCellItem(
+        let item = TobaccoListTableCellItem(
             name: tobacco.name,
             tasty: taste,
             manufacturerName: tobacco.nameManufacturer,
+            isFavorite: tobacco.isFavorite,
             image: tobacco.image
         )
+        item.favoriteAction = { [weak self] item in
+            guard let index = self?.tobaccoItems.firstIndex(where: { $0 === item }) else { return }
+            self?.interactor.updateFavorite(by: index)
+        }
+        return item
     }
     private func createRow(at item: TobaccoListTableCellItem) -> Row {
         TableRow<TobaccoListCell>(item: item).on(.click) { [weak self] options in
@@ -38,12 +44,15 @@ class TobaccoListPresenter {
         }
     }
 
-    private func setupContentView(_ tobaccos: [TobaccoListEntity.Tobacco]) {
+    private func setupContentView(_ tobaccos: [Tobacco]) {
+        guard let tableDirector else { return }
         tableDirector.clear()
+        tobaccoItems.removeAll()
         var rows: [Row] = []
 
         for tobacco in tobaccos {
             let item = createItem(for: tobacco)
+            tobaccoItems.append(item)
             let row = createRow(at: item)
             rows.append(row)
         }
@@ -55,25 +64,26 @@ class TobaccoListPresenter {
         reloadData()
     }
 
-    private func updateContentView(_ tobacco: TobaccoListEntity.Tobacco, at index: Int) {
+    private func updateContentView(_ tobacco: Tobacco, at index: Int) {
         let item = createItem(for: tobacco)
         let indexPath = IndexPath(row: index, section: 0)
+        tobaccoItems[index] = item
         let row = createRow(at: item)
         DispatchQueue.main.async { [weak self] in
-            self?.tableDirector.reloadRow(at: indexPath, with: row)
+            self?.tableDirector?.reloadRow(at: indexPath, with: row)
         }
     }
 
     private func reloadData() {
         DispatchQueue.main.async { [weak self] in
-            self?.tableDirector.reload()
+            self?.tableDirector?.reload()
         }
     }
 }
 
 // MARK: - InteractorOutputProtocol implementation
 extension TobaccoListPresenter: TobaccoListInteractorOutputProtocol {
-    func receivedSuccess(_ data: [TobaccoListEntity.Tobacco]) {
+    func receivedSuccess(_ data: [Tobacco]) {
         setupContentView(data)
         view.endRefreshing()
     }
@@ -82,7 +92,7 @@ extension TobaccoListPresenter: TobaccoListInteractorOutputProtocol {
         router.showError(with: message)
     }
 
-    func receivedUpdate(for data: TobaccoListEntity.Tobacco, at index: Int) {
+    func receivedUpdate(for data: Tobacco, at index: Int) {
         updateContentView(data, at: index)
     }
 
