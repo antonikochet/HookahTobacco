@@ -11,6 +11,7 @@ import Foundation
 
 protocol DetailInfoManufacturerInteractorInputProtocol: AnyObject {
     func receiveStartingDataView()
+    func updateFavorite(by index: Int)
 }
 
 protocol DetailInfoManufacturerInteractorOutputProtocol: AnyObject {
@@ -82,5 +83,21 @@ class DetailInfoManufacturerInteractor {
 extension DetailInfoManufacturerInteractor: DetailInfoManufacturerInteractorInputProtocol {
     func receiveStartingDataView() {
         presenter.initialDataForPresentation(manufacturer)
+    }
+
+    func updateFavorite(by index: Int) {
+        guard index < tobaccos.count else { return }
+        var tobacco = tobaccos[index]
+        tobacco.isFavoriteChanged = true
+        tobacco.isFavorite.toggle()
+        getDataManager.updateFavorite(for: tobacco) { [weak self] error in
+            guard let self = self else { return }
+            if let error {
+                self.presenter?.receivedError(with: error.localizedDescription)
+                return
+            }
+            self.tobaccos[index].isFavorite.toggle()
+            self.presenter.receivedUpdate(for: self.tobaccos[index], at: index)
+        }
     }
 }

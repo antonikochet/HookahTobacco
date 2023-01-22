@@ -22,6 +22,7 @@ class DetailInfoManufacturerPresenter {
     private var tableDirector: TableDirector!
     private var lineTobaccos: [String: [Tobacco]] = [:]
     private var linesSection: [TobaccoLine] = []
+    private var tobaccos: [Tobacco] = []
 
     // MARK: - Private methods
     private func createDetailInfoManufacturerItem(
@@ -35,14 +36,20 @@ class DetailInfoManufacturerPresenter {
         )
     }
     private func createTobaccoItem(for tobacco: Tobacco) -> TobaccoListTableCellItem {
-        TobaccoListTableCellItem(
+        let item = TobaccoListTableCellItem(
             name: tobacco.name,
             tasty: tobacco.tastes
                 .map { $0.taste }
                 .joined(separator: ", "),
             manufacturerName: "",
+            isFavorite: tobacco.isFavorite,
             image: tobacco.image
         )
+        item.favoriteAction = { [weak self] item in
+            guard let index = self?.tobaccos.firstIndex(where: { $0.name == item.name }) else { return }
+            self?.interactor.updateFavorite(by: index)
+        }
+        return item
     }
     private func createTobaccoRow(at item: TobaccoListTableCellItem) -> Row {
         TableRow<TobaccoListCell>(item: item)
@@ -118,6 +125,9 @@ class DetailInfoManufacturerPresenter {
     }
 
     private func updateTobaccoContentView(for tobacco: Tobacco) {
+        if let index = tobaccos.firstIndex(where: { $0.id == tobacco.id }) {
+            tobaccos[index] = tobacco
+        }
         let line = tobacco.line.name
         guard let index = lineTobaccos[line]?.firstIndex(where: { $0.id == tobacco.id }),
               let section = linesSection.firstIndex(where: { $0.name == line }) else { return }
@@ -143,6 +153,7 @@ extension DetailInfoManufacturerPresenter: DetailInfoManufacturerInteractorOutpu
     }
 
     func receivedTobacco(with tobaccos: [Tobacco]) {
+        self.tobaccos = tobaccos
         let tobaccoDict = Dictionary(grouping: tobaccos) { tobacco in
             tobacco.line.name
         }
