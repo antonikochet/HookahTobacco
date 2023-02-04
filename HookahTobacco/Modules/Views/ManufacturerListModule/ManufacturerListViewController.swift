@@ -13,6 +13,8 @@ import SnapKit
 protocol ManufacturerListViewInputProtocol: AnyObject {
     func getTableView() -> UITableView
     func endRefreshing()
+    func showProgressView()
+    func hideProgressView()
 }
 
 protocol ManufacturerListViewOutputProtocol: AnyObject {
@@ -27,18 +29,20 @@ class ManufacturerListViewController: UIViewController {
     // MARK: - UI properties
     private let tableView = UITableView()
     private let refreshControl = UIRefreshControl()
+    private let activityIndicator = UIActivityIndicatorView(style: .large)
 
     // MARK: - ViewController Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
+        setup()
         presenter.viewDidLoad()
     }
 
     // MARK: - Setups
-    private func setupUI() {
+    private func setup() {
         setupScreen()
         setupTableView()
+        setupActivityIndicator()
     }
 
     private func setupScreen() {
@@ -54,6 +58,16 @@ class ManufacturerListViewController: UIViewController {
 
         refreshControl.addTarget(self, action: #selector(refreshTableView), for: .valueChanged)
     }
+    private func setupActivityIndicator() {
+        view.addSubview(activityIndicator)
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.isHidden = true
+
+        activityIndicator.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
+        }
+    }
+    
     // MARK: - Private methods
 
     // MARK: - Selectors
@@ -71,6 +85,16 @@ extension ManufacturerListViewController: ManufacturerListViewInputProtocol {
     func endRefreshing() {
         DispatchQueue.main.async {
             self.refreshControl.endRefreshing()
+        }
+    }
+
+    func showProgressView() {
+        activityIndicator.startAnimating()
+    }
+
+    func hideProgressView() {
+        DispatchQueue.main.async {
+            self.activityIndicator.stopAnimating()
         }
     }
 }

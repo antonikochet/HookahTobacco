@@ -13,6 +13,8 @@ import SnapKit
 protocol TobaccoListViewInputProtocol: AnyObject {
     func getTableView() -> UITableView
     func endRefreshing()
+    func showProgressView()
+    func hideProgressView()
 }
 
 protocol TobaccoListViewOutputProtocol: AnyObject {
@@ -27,22 +29,24 @@ class TobaccoListViewController: UIViewController {
     // MARK: - Private properties
     private let tableView = UITableView()
     private let refreshControl = UIRefreshControl()
+    private let activityIndicator = UIActivityIndicatorView(style: .large)
 
     // MARK: - ViewController Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
+        setup()
         presenter.viewDidLoad()
     }
 
     // MARK: - Setups
-    private func setupUI() {
+    private func setup() {
         setupScreen()
         setupTableView()
+        setupActivityIndicator()
     }
 
     private func setupScreen() {
-        navigationItem.title = "Табаки"
+        navigationItem.title = .title
         view.backgroundColor = .clear
     }
     private func setupTableView() {
@@ -55,6 +59,16 @@ class TobaccoListViewController: UIViewController {
 
         refreshControl.addTarget(self, action: #selector(refreshTableView), for: .valueChanged)
     }
+    private func setupActivityIndicator() {
+        view.addSubview(activityIndicator)
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.isHidden = true
+
+        activityIndicator.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
+        }
+    }
+
     // MARK: - Private methods
 
     // MARK: - Selectors
@@ -74,4 +88,18 @@ extension TobaccoListViewController: TobaccoListViewInputProtocol {
             self.refreshControl.endRefreshing()
         }
     }
+
+    func showProgressView() {
+        activityIndicator.startAnimating()
+    }
+
+    func hideProgressView() {
+        DispatchQueue.main.async {
+            self.activityIndicator.stopAnimating()
+        }
+    }
+}
+
+private extension String {
+    static let title = "Табаки"
 }

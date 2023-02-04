@@ -85,10 +85,12 @@ class TobaccoListPresenter {
 extension TobaccoListPresenter: TobaccoListInteractorOutputProtocol {
     func receivedSuccess(_ data: [Tobacco]) {
         setupContentView(data)
+        view.hideProgressView()
         view.endRefreshing()
     }
 
     func receivedError(with message: String) {
+        view.hideProgressView()
         router.showError(with: message)
     }
 
@@ -110,6 +112,7 @@ extension TobaccoListPresenter: TobaccoListViewOutputProtocol {
     func viewDidLoad() {
         let tableView = view.getTableView()
         tableDirector = TableDirector(tableView: tableView)
+        view.showProgressView()
         interactor.startReceiveData()
     }
 
