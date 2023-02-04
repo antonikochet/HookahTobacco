@@ -23,21 +23,29 @@ class DetailTobaccoPresenter {
         TasteCollectionCellViewModel(label: taste.taste)
     }
 
-    private func createViewModel(_ tobacco: DetailTobaccoEntity.Tobacco) -> DetailTobaccoEntity.ViewModel {
-        let description = !tobacco.description.isEmpty ? "Описание: \(tobacco.description)" : nil
-        let packetingFormat = tobacco.line.packetingFormat.compactMap { "\($0) гр." }.joined(separator: ", ")
+    private func createViewModel(_ tobacco: Tobacco) -> DetailTobaccoViewModel {
+        let description = !tobacco.description.isEmpty ? .description + tobacco.description : nil
+        let packetingFormat = tobacco.line.packetingFormat.compactMap { String($0) + .gram }
+                                                          .joined(separator: ", ")
         let tobaccoLeafType = (tobacco.line.tobaccoType.rawValue == TobaccoType.tobacco.rawValue ?
                                tobacco.line.tobaccoLeafType?.map { $0.name }.joined(separator: ", ") :
                                 nil)
-        return DetailTobaccoEntity.ViewModel(
+        var info: [DescriptionStackViewItem] = []
+        if !tobacco.line.isBase {
+            info.append(DescriptionStackViewItem(name: .nameOfLine, description: tobacco.line.name))
+        }
+        info.append(DescriptionStackViewItem(name: .packagingFormat, description: packetingFormat))
+        info.append(DescriptionStackViewItem(name: .tobaccoType, description: tobacco.line.tobaccoType.name))
+        if let tobaccoLeafType {
+            info.append(DescriptionStackViewItem(name: .tobaccoLeafType, description: tobaccoLeafType))
+        }
+
+        return DetailTobaccoViewModel(
             image: tobacco.image,
             name: tobacco.name,
             nameManufacturer: tobacco.nameManufacturer,
             description: description,
-            nameLine: tobacco.line.isBase ? nil : "Название линейки: \(tobacco.line.name)",
-            packetingFormat: "Формат фасовки табака: \(packetingFormat)",
-            tobaccoType: "Тип табака: \(tobacco.line.tobaccoType.name)",
-            tobaccoLeafType: tobaccoLeafType != nil ? "Типы листа: \(tobaccoLeafType!)" : nil
+            info: info
         )
     }
 }
@@ -48,7 +56,7 @@ extension DetailTobaccoPresenter: DetailTobaccoInteractorOutputProtocol {
         router.showError(with: message)
     }
 
-    func initialDataForPresentation(_ tobacco: DetailTobaccoEntity.Tobacco) {
+    func initialDataForPresentation(_ tobacco: Tobacco) {
         let viewModel = createViewModel(tobacco)
         tasteViewModels = tobacco.tastes.map { createTasteViewModel($0) }
         view.setupContent(viewModel)
@@ -69,4 +77,13 @@ extension DetailTobaccoPresenter: DetailTobaccoViewOutputProtocol {
     func viewDidLoad() {
         interactor.receiveStartingDataView()
     }
+}
+
+private extension String {
+    static let description = "Описание: "
+    static let gram = " гр."
+    static let nameOfLine = "Название линейки"
+    static let packagingFormat = "Формат фасовки табака"
+    static let tobaccoType = "Тип табака"
+    static let tobaccoLeafType = "Типы листа"
 }

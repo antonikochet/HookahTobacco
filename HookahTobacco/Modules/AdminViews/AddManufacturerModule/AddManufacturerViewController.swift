@@ -37,19 +37,6 @@ final class AddManufacturerViewController: HTScrollContentViewController {
     // MARK: - Public properties
     var presenter: AddManufacturerViewOutputProtocol!
 
-    override var contentViewHeight: CGFloat {
-        topSpacingFromSuperview +
-        nameTextFieldView.heightView +
-        countryTextFieldView.heightView +
-        descriptionView.heightView +
-        linkTextFieldView.heightView +
-        tobaccoLineCollectionView.contentSize.height +
-        addTobaccoLineButton.frame.height +
-        (addTobaccoLineView.isHidden ? 0 : addTobaccoLineView.heightView) +
-        view.frame.width * imageHeightRelativeToWidth +
-        spacingBetweenViews * 7
-    }
-
     // MARK: - UI properties
     private let nameTextFieldView = AddTextFieldView()
     private let countryTextFieldView = AddTextFieldView()
@@ -139,7 +126,10 @@ final class AddManufacturerViewController: HTScrollContentViewController {
             make.top.equalTo(tobaccoLineBotttomView.snp.bottom).offset(spacingBetweenViews)
             make.centerX.equalToSuperview()
             make.bottom.equalToSuperview().inset(spacingBetweenViews)
-            make.width.equalTo(imagePickerView.snp.height)
+            make.width.greaterThanOrEqualToSuperview().dividedBy(3)
+            make.width.lessThanOrEqualToSuperview().dividedBy(2)
+            make.height.equalTo(imagePickerView.snp.width)
+            make.bottom.equalToSuperview().inset(16.0)
         }
         imagePickerView.delegate = self
 

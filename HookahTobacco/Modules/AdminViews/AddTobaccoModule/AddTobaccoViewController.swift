@@ -43,20 +43,6 @@ final class AddTobaccoViewController: HTScrollContentViewController {
     // MARK: - Public properties
     var presenter: AddTobaccoViewOutputProtocol!
 
-    override var contentViewHeight: CGFloat {
-        topSpacingFromSuperview +
-        nameView.heightView +
-        manufacturerPickerView.viewHeight +
-        tasteCollectionView.contentSize.height +
-        tasteButton.frame.height +
-        descriptionView.heightView +
-        tobaccoLinePickerView.viewHeight +
-        view.frame.width * imageHeightRelativeToWidth +
-        spacingBetweenViews * (6 +
-                               (tasteButton.isHidden ? 0 : 1)
-        )
-    }
-
     // MARK: - UI properties
     private let nameView = AddTextFieldView()
     private let manufacturerPickerView = AddPickerView()
@@ -157,7 +143,10 @@ final class AddTobaccoViewController: HTScrollContentViewController {
             make.top.equalTo(tobaccoLinePickerView.snp.bottom).inset(-spacingBetweenViews)
             make.centerX.equalToSuperview()
             make.bottom.equalToSuperview().inset(spacingBetweenViews)
-            make.width.equalTo(imagePickerView.snp.height)
+            make.width.greaterThanOrEqualToSuperview().dividedBy(3)
+            make.width.lessThanOrEqualToSuperview().dividedBy(2)
+            make.height.equalTo(imagePickerView.snp.width)
+            make.bottom.equalToSuperview().inset(16.0)
         }
         imagePickerView.delegate = self
 

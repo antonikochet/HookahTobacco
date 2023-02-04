@@ -9,11 +9,6 @@ import UIKit
 import SnapKit
 
 class HTScrollContentViewController: UIViewController {
-    // MARK: - Public Properties
-    var contentViewHeight: CGFloat {
-        0
-    }
-
     // MARK: - Public UI
     let contentScrollView = UIView()
 
@@ -22,9 +17,7 @@ class HTScrollContentViewController: UIViewController {
 
     // MARK: - ViewController Lifecycle
     override func viewDidLayoutSubviews() {
-        contentScrollView.snp.updateConstraints { make in
-            make.height.equalTo(contentViewHeight)
-        }
+        contentScrollView.invalidateIntrinsicContentSize()
     }
 
     // MARK: - Setups
@@ -35,7 +28,6 @@ class HTScrollContentViewController: UIViewController {
         contentScrollView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
             make.width.equalToSuperview()
-            make.height.equalTo(contentViewHeight)
         }
 
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideViewTapped))

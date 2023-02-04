@@ -14,7 +14,7 @@ protocol DetailTobaccoInteractorInputProtocol: AnyObject {
 }
 
 protocol DetailTobaccoInteractorOutputProtocol: AnyObject {
-    func initialDataForPresentation(_ tobacco: DetailTobaccoEntity.Tobacco)
+    func initialDataForPresentation(_ tobacco: Tobacco)
     func receivedError(with message: String)
 }
 
@@ -36,19 +36,11 @@ class DetailTobaccoInteractor {
     }
 
     // MARK: - Private methods
-    private func createDataForPresentation() -> DetailTobaccoEntity.Tobacco {
-        DetailTobaccoEntity.Tobacco(name: tobacco.name,
-                                    image: tobacco.image,
-                                    tastes: tobacco.tastes,
-                                    nameManufacturer: tobacco.nameManufacturer,
-                                    line: tobacco.line,
-                                    description: tobacco.description)
-    }
 }
 
 // MARK: - InputProtocol implementation 
 extension DetailTobaccoInteractor: DetailTobaccoInteractorInputProtocol {
     func receiveStartingDataView() {
-        presenter.initialDataForPresentation(createDataForPresentation())
+        presenter.initialDataForPresentation(tobacco)
     }
 }
