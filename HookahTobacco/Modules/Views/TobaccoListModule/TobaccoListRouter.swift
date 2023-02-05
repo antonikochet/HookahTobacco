@@ -13,6 +13,7 @@ protocol TobaccoListRouterProtocol: RouterProtocol {
     func showDetail(for data: Tobacco)
     func showAddTobacco(_ data: Tobacco, delegate: AddTobaccoOutputModule?)
     func showError(with message: String)
+    func showMessage(with message: String)
 }
 
 class TobaccoListRouter: TobaccoListRouterProtocol {
@@ -38,5 +39,9 @@ class TobaccoListRouter: TobaccoListRouterProtocol {
 
     func showError(with message: String) {
         appRouter.presentAlert(type: .error(message: message), completion: nil)
+    }
+
+    func showMessage(with message: String) {
+        appRouter.presentAlert(type: .systemSuccess(message: message, delay: 5), completion: nil)
     }
 }

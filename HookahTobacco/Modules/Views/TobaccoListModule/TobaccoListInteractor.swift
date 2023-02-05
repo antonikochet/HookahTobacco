@@ -15,6 +15,7 @@ protocol TobaccoListInteractorInputProtocol: AnyObject {
     func receivedDataFromOutside(_ data: Tobacco)
     func updateData()
     func updateFavorite(by index: Int)
+    func updateWantBuy(by index: Int)
 }
 
 protocol TobaccoListInteractorOutputProtocol: AnyObject {
@@ -23,6 +24,7 @@ protocol TobaccoListInteractorOutputProtocol: AnyObject {
     func receivedUpdate(for data: Tobacco, at index: Int)
     func receivedDataForShowDetail(_ tobacco: Tobacco)
     func receivedDataForEditing(_ tobacco: Tobacco)
+    func showMessageUser(_ message: String)
 }
 
 class TobaccoListInteractor {
@@ -123,16 +125,37 @@ extension TobaccoListInteractor: TobaccoListInteractorInputProtocol {
     func updateFavorite(by index: Int) {
         guard index < tobaccos.count else { return }
         var tobacco = tobaccos[index]
-        tobacco.isFavoriteChanged = true
+        tobacco.isFlagsChanged = true
         tobacco.isFavorite.toggle()
         getDataManager.updateFavorite(for: tobacco) { [weak self] error in
             guard let self = self else { return }
             if let error {
-                self.presenter?.receivedError(with: error.localizedDescription)
+                self.presenter.receivedError(with: error.localizedDescription)
                 return
             }
             self.tobaccos[index].isFavorite.toggle()
             self.presenter.receivedUpdate(for: self.tobaccos[index], at: index)
+        }
+    }
+
+    func updateWantBuy(by index: Int) {
+        guard index < tobaccos.count else { return }
+        var tobacco = tobaccos[index]
+        tobacco.isFlagsChanged = true
+        tobacco.isWantBuy.toggle()
+        getDataManager.updateFavorite(for: tobacco) { [weak self] error in
+            guard let self = self else { return }
+            if let error {
+                self.presenter.receivedError(with: error.localizedDescription)
+                return
+            }
+            self.tobaccos[index].isWantBuy.toggle()
+            self.presenter.receivedUpdate(for: self.tobaccos[index], at: index)
+            if self.tobaccos[index].isWantBuy {
+                self.presenter.showMessageUser("Вы добавили табак в список \"Хочу купить\"")
+            } else {
+                self.presenter.showMessageUser("Вы убрали табак из списока \"Хочу купить\"")
+            }
         }
     }
 }

@@ -30,11 +30,17 @@ class TobaccoListPresenter {
             tasty: taste,
             manufacturerName: tobacco.nameManufacturer,
             isFavorite: tobacco.isFavorite,
+            isWantBuy: tobacco.isWantBuy,
+            isShowWantBuyButton: true,
             image: tobacco.image
         )
         item.favoriteAction = { [weak self] item in
             guard let index = self?.tobaccoItems.firstIndex(where: { $0 === item }) else { return }
             self?.interactor.updateFavorite(by: index)
+        }
+        item.wantBuyAction = { [weak self] item in
+            guard let index = self?.tobaccoItems.firstIndex(where: { $0 === item }) else { return }
+            self?.interactor.updateWantBuy(by: index)
         }
         return item
     }
@@ -91,8 +97,10 @@ extension TobaccoListPresenter: TobaccoListInteractorOutputProtocol {
     }
 
     func receivedError(with message: String) {
-        view.hideProgressView()
-        router.showError(with: message)
+        DispatchQueue.main.async {
+            self.view.hideProgressView()
+            self.router.showError(with: message)
+        }
     }
 
     func receivedUpdate(for data: Tobacco, at index: Int) {
@@ -105,6 +113,12 @@ extension TobaccoListPresenter: TobaccoListInteractorOutputProtocol {
 
     func receivedDataForEditing(_ tobacco: Tobacco) {
         router.showAddTobacco(tobacco, delegate: self)
+    }
+
+    func showMessageUser(_ message: String) {
+        DispatchQueue.main.async {
+            self.router.showMessage(with: message)
+        }
     }
 }
 

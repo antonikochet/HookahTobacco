@@ -217,6 +217,7 @@ extension AddTobaccoInteractor: AddTobaccoInteractorInputProtocol {
                               description: data.description,
                               line: selectTobaccoLine,
                               isFavorite: false,
+                              isWantBuy: false,
                               image: tobacco?.image)
         if isEditing {
             dispatchGroup = DispatchGroup()

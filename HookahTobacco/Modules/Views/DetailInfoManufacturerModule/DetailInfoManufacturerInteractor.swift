@@ -88,7 +88,7 @@ extension DetailInfoManufacturerInteractor: DetailInfoManufacturerInteractorInpu
     func updateFavorite(by index: Int) {
         guard index < tobaccos.count else { return }
         var tobacco = tobaccos[index]
-        tobacco.isFavoriteChanged = true
+        tobacco.isFlagsChanged = true
         tobacco.isFavorite.toggle()
         getDataManager.updateFavorite(for: tobacco) { [weak self] error in
             guard let self = self else { return }

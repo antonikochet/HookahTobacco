@@ -14,22 +14,31 @@ final class TobaccoListTableCellItem {
     let tasty: String
     let manufacturerName: String
     var isFavorite: Bool
+    var isWantBuy: Bool
+    var isShowWantBuyButton: Bool
     let image: Data?
 
     var favoriteAction: ((TobaccoListTableCellItem) -> Void)?
+    var wantBuyAction: ((TobaccoListTableCellItem) -> Void)?
 
     init(name: String,
          tasty: String,
          manufacturerName: String,
          isFavorite: Bool,
+         isWantBuy: Bool,
+         isShowWantBuyButton: Bool,
          image: Data? = nil,
-         favoriteAction: ((TobaccoListTableCellItem) -> Void)? = nil) {
+         favoriteAction: ((TobaccoListTableCellItem) -> Void)? = nil,
+         wantBuyAction: ((TobaccoListTableCellItem) -> Void)? = nil) {
         self.name = name
         self.tasty = tasty
         self.manufacturerName = manufacturerName
         self.isFavorite = isFavorite
+        self.isWantBuy = isWantBuy
+        self.isShowWantBuyButton = isShowWantBuyButton
         self.image = image
         self.favoriteAction = favoriteAction
+        self.wantBuyAction = wantBuyAction
     }
 }
 
@@ -44,6 +53,7 @@ final class TobaccoListCell: UITableViewCell, ConfigurableCell {
     private let manufacturerLabel = UILabel()
     private let favoriteView = UIView()
     private let favoriteButton = UIButton()
+    private let wantButButton = UIButton()
 
     // MARK: - Initializers
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -61,6 +71,7 @@ final class TobaccoListCell: UITableViewCell, ConfigurableCell {
         setupCell()
         setupTobaccoImageView()
         setupFavoriteButton()
+        setupWantBuyButton()
         setupNameLabel()
         setupTastyLabel()
         setupManufacturerLabel()
@@ -126,13 +137,25 @@ final class TobaccoListCell: UITableViewCell, ConfigurableCell {
         }
 
         favoriteButton.setImage(Images.notFavorite, for: .normal)
-        favoriteButton.tintColor = Colors.FavoriteButton.notFavorire
+        favoriteButton.tintColor = Colors.FavoriteButton.notPress
         favoriteButton.addTarget(self, action: #selector(pressedFavoriteButton), for: .touchUpInside)
 
         favoriteView.addSubview(favoriteButton)
         favoriteButton.snp.makeConstraints { make in
             make.centerX.centerY.equalToSuperview()
             make.size.equalTo(LayoutValues.FavoriteButton.size)
+        }
+    }
+    private func setupWantBuyButton() {
+        wantButButton.setImage(Images.notWantBuy, for: .normal)
+        wantButButton.tintColor = Colors.WantBuyButton.notPress
+        wantButButton.addTarget(self, action: #selector(pressedWantBuyButton), for: .touchUpInside)
+
+        contentView.addSubview(wantButButton)
+        wantButButton.snp.makeConstraints { make in
+            make.top.equalTo(favoriteView.snp.bottom).offset(LayoutValues.WantBuyButton.top)
+            make.trailing.equalToSuperview().inset(LayoutValues.WantBuyButton.trailing)
+            make.size.equalTo(LayoutValues.WantBuyButton.size)
         }
     }
 
@@ -152,6 +175,7 @@ final class TobaccoListCell: UITableViewCell, ConfigurableCell {
         tastyLabel.text = item.tasty
         manufacturerLabel.text = item.manufacturerName
         configureFavoriteButton(isFavorite: item.isFavorite)
+        configureWantBuyButton(with: item)
         if let image = item.image {
             tobaccoImageView.image = UIImage(data: image)
         } else {
@@ -160,7 +184,12 @@ final class TobaccoListCell: UITableViewCell, ConfigurableCell {
     }
     private func configureFavoriteButton(isFavorite: Bool) {
         favoriteButton.setImage(isFavorite ? Images.favorite : Images.notFavorite, for: .normal)
-        favoriteButton.tintColor = isFavorite ? Colors.FavoriteButton.favorite : Colors.FavoriteButton.notFavorire
+        favoriteButton.tintColor = isFavorite ? Colors.FavoriteButton.press : Colors.FavoriteButton.notPress
+    }
+    private func configureWantBuyButton(with item: TobaccoListTableCellItem) {
+        wantButButton.isHidden = !item.isShowWantBuyButton
+        wantButButton.setImage(item.isWantBuy ? Images.wantBuy : Images.notWantBuy, for: .normal)
+        wantButButton.tintColor = item.isWantBuy ? Colors.WantBuyButton.press : Colors.WantBuyButton.notPress
     }
 
     static var estimatedHeight: CGFloat? {
@@ -171,6 +200,11 @@ final class TobaccoListCell: UITableViewCell, ConfigurableCell {
     @objc private func pressedFavoriteButton() {
         guard let item else { return }
         item.favoriteAction?(item)
+    }
+
+    @objc private func pressedWantBuyButton() {
+        guard let item else { return }
+        item.wantBuyAction?(item)
     }
 }
 
@@ -199,18 +233,29 @@ private struct LayoutValues {
     struct FavoriteButton {
         static let size: CGFloat = 24.0
     }
+    struct WantBuyButton {
+        static let trailing: CGFloat = 16.0
+        static let top: CGFloat = 16.0
+        static let size: CGFloat = 24.0
+    }
 }
 private struct Images {
     static let favorite = UIImage(systemName: "heart.fill")!
     static let notFavorite = UIImage(systemName: "heart")!
+    static let notWantBuy = UIImage(systemName: "basket")!
+    static let wantBuy = UIImage(systemName: "basket.fill")!
 }
 private struct Colors {
     struct Cell {
         static let background: UIColor = .clear
     }
     struct FavoriteButton {
-        static let favorite = UIColor.systemRed
-        static let notFavorire = UIColor(white: 0.6, alpha: 1.0)
+        static let press = UIColor.systemRed
+        static let notPress = UIColor(white: 0.6, alpha: 1.0)
+    }
+    struct WantBuyButton {
+        static let press = UIColor.systemOrange
+        static let notPress = UIColor(white: 0.6, alpha: 1.0)
     }
 }
 private struct Fonts {

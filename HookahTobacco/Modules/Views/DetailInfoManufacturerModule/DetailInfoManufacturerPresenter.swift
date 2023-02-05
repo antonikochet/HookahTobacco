@@ -44,6 +44,8 @@ class DetailInfoManufacturerPresenter {
                 .joined(separator: ", "),
             manufacturerName: "",
             isFavorite: tobacco.isFavorite,
+            isWantBuy: tobacco.isWantBuy,
+            isShowWantBuyButton: false,
             image: tobacco.image
         )
         item.favoriteAction = { [weak self] item in
