@@ -23,6 +23,7 @@ class DetailInfoManufacturerPresenter {
     private var lineTobaccos: [String: [Tobacco]] = [:]
     private var linesSection: [TobaccoLine] = []
     private var tobaccos: [Tobacco] = []
+    private var hidesSectionTobacco: [String: Bool] = [:]
 
     // MARK: - Private methods
     private func createDetailInfoManufacturerItem(
@@ -102,20 +103,31 @@ class DetailInfoManufacturerPresenter {
     private func setupTobaccoSection(_ tobaccos: [String: [Tobacco]]) -> TableSection {
         var sections: [TableSection] = []
         linesSection.removeAll()
-        for (line, tbcs) in tobaccos {
-            linesSection.append(tbcs.first!.line)
+        for (_, tbcs) in tobaccos {
+            let line = tbcs.first!.line
+            linesSection.append(line)
+            guard let isHideRows = hidesSectionTobacco[line.name] else { continue }
             var rows: [Row] = []
-            for tobacco in tbcs {
-                let item = createTobaccoItem(for: tobacco)
-                let row = createTobaccoRow(at: item)
-                rows.append(row)
+            if !isHideRows {
+                rows = tbcs.map { createTobaccoRow(at: createTobaccoItem(for: $0)) }
             }
             let section = TableSection(rows: rows)
             DispatchQueue.main.async {
-                let header = DetailInfoManufacturerTobaccoLineTableViewHeaderView(frame: .zero)
-                header.text = tobaccos.count > 1 ? line : .baseLineName
+                let header = DetailManufacturerLineHeaderView()
+                let viewModel = DetailManufacturerLineHeaderViewModel(
+                    name: tobaccos.count > 1 ? line.name : .baseLineName,
+                    description: line.description,
+                    isHideTobacco: isHideRows) { [weak self] nameLine in
+                        guard let self = self else { return }
+                        self.hidesSectionTobacco[self.lineTobaccos.count > 1 ? nameLine : .base]?.toggle()
+                        self.setupContentView(nil, self.lineTobaccos)
+                    }
+                header.configure(with: viewModel)
                 section.headerView = header
-                section.headerHeight = 40.0
+                section.headerHeight = DetailManufacturerLineHeaderCalculator.calculateHeightView(
+                    width: self.tableDirector.tableView!.frame.width,
+                    with: viewModel
+                )
             }
             sections.append(section)
         }
@@ -158,6 +170,7 @@ extension DetailInfoManufacturerPresenter: DetailInfoManufacturerInteractorOutpu
             tobacco.line.name
         }
         lineTobaccos = tobaccoDict
+        hidesSectionTobacco = Dictionary(uniqueKeysWithValues: tobaccoDict.keys.map({ ($0, false) }))
         setupContentView(nil, tobaccoDict)
     }
 
@@ -184,4 +197,5 @@ private extension String {
     static let emptyDescription = "В базу данных еще не внесли табаки производителя..."
     static let linkManufacturer = "Сайт производителя: "
     static let baseLineName = "Табаки производителя"
+    static let base = "Base"
 }

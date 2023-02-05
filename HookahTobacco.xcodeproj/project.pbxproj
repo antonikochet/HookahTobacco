@@ -133,7 +133,7 @@
 		B9BA7947295B9CE7009188D6 /* RegistrationModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BA7945295B9CE7009188D6 /* RegistrationModule.swift */; };
 		B9BA7948295B9CE7009188D6 /* RegistrationAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BA7946295B9CE7009188D6 /* RegistrationAssembly.swift */; };
 		B9C7825A28ECE25800DBF8C6 /* AuthServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C7825928ECE25800DBF8C6 /* AuthServiceProtocol.swift */; };
-		B9C7B958296AE1C700D5A78B /* DetailInfoManufacturerTobaccoLineTableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C7B957296AE1C700D5A78B /* DetailInfoManufacturerTobaccoLineTableViewHeaderView.swift */; };
+		B9C7B958296AE1C700D5A78B /* DetailManufacturerLineHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C7B957296AE1C700D5A78B /* DetailManufacturerLineHeaderView.swift */; };
 		B9C925F7294F53720085BB02 /* RegistrationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C925F2294F53720085BB02 /* RegistrationPresenter.swift */; };
 		B9C925F8294F53720085BB02 /* RegistrationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C925F3294F53720085BB02 /* RegistrationRouter.swift */; };
 		B9C925F9294F53720085BB02 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C925F4294F53720085BB02 /* RegistrationViewController.swift */; };
@@ -333,7 +333,7 @@
 		B9BA7945295B9CE7009188D6 /* RegistrationModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationModule.swift; sourceTree = "<group>"; };
 		B9BA7946295B9CE7009188D6 /* RegistrationAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationAssembly.swift; sourceTree = "<group>"; };
 		B9C7825928ECE25800DBF8C6 /* AuthServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServiceProtocol.swift; sourceTree = "<group>"; };
-		B9C7B957296AE1C700D5A78B /* DetailInfoManufacturerTobaccoLineTableViewHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfoManufacturerTobaccoLineTableViewHeaderView.swift; sourceTree = "<group>"; };
+		B9C7B957296AE1C700D5A78B /* DetailManufacturerLineHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailManufacturerLineHeaderView.swift; sourceTree = "<group>"; };
 		B9C925F2294F53720085BB02 /* RegistrationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationPresenter.swift; sourceTree = "<group>"; };
 		B9C925F3294F53720085BB02 /* RegistrationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationRouter.swift; sourceTree = "<group>"; };
 		B9C925F4294F53720085BB02 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
@@ -1039,7 +1039,7 @@
 			children = (
 				B9B358CB291169E2001D178F /* EmptyTableCell.swift */,
 				B9EE237C29102B710098E4E0 /* DetailInfoManufacturerTableCell.swift */,
-				B9C7B957296AE1C700D5A78B /* DetailInfoManufacturerTobaccoLineTableViewHeaderView.swift */,
+				B9C7B957296AE1C700D5A78B /* DetailManufacturerLineHeaderView.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1542,7 +1542,7 @@
 				B98182A3292A6CBD00DEA9F0 /* HTRealm.swift in Sources */,
 				B982803F292FA32900BF3A93 /* ImageStorageServiceProtocol.swift in Sources */,
 				B98E1DD828F0812500964B8F /* LoginViewController.swift in Sources */,
-				B9C7B958296AE1C700D5A78B /* DetailInfoManufacturerTobaccoLineTableViewHeaderView.swift in Sources */,
+				B9C7B958296AE1C700D5A78B /* DetailManufacturerLineHeaderView.swift in Sources */,
 				B94B771C290C3785002C5660 /* AddPickerView.swift in Sources */,
 				B9C925FF294F6C4B0085BB02 /* FirebaseAuthServiceAssembly.swift in Sources */,
 				B92A46A92966F9DC0006B787 /* ProfileRouter.swift in Sources */,
