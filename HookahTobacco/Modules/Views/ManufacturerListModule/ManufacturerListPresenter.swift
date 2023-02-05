@@ -17,7 +17,7 @@ class ManufacturerListPresenter {
     var router: ManufacturerListRouterProtocol!
 
     // MARK: - Private properties
-    private var tableDirector: TableDirector!
+    private var tableDirector: TableDirector?
 
     // MARK: - Private methods
     private func createItem(for manufacturer: Manufacturer) -> ManufacturerListTableViewCellItem {
@@ -32,6 +32,7 @@ class ManufacturerListPresenter {
     }
 
     private func setupContentView(_ manufacturers: [Manufacturer]) {
+        guard let tableDirector else { return }
         tableDirector.clear()
         var rows: [Row] = []
 
@@ -53,13 +54,13 @@ class ManufacturerListPresenter {
         let indexPath = IndexPath(row: index, section: 0)
         let row = createRow(at: item)
         DispatchQueue.main.async { [weak self] in
-            self?.tableDirector.reloadRow(at: indexPath, with: row)
+            self?.tableDirector?.reloadRow(at: indexPath, with: row)
         }
     }
 
     private func reloadData() {
         DispatchQueue.main.async { [weak self] in
-            self?.tableDirector.reload()
+            self?.tableDirector?.reload()
         }
     }
 }

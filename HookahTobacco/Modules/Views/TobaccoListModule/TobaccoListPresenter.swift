@@ -65,6 +65,7 @@ class TobaccoListPresenter {
     }
 
     private func updateContentView(_ tobacco: Tobacco, at index: Int) {
+        guard tobaccoItems.count > index else { return }
         let item = createItem(for: tobacco)
         let indexPath = IndexPath(row: index, section: 0)
         tobaccoItems[index] = item
