@@ -40,7 +40,7 @@ class AdminMenuRouter: AdminMenuRouterProtocol {
     }
 
     func showTobaccoListModule() {
-        let data = TobaccoListDataModile(isAdminMode: true)
+        let data = TobaccoListDataModile(isAdminMode: true, filter: .none)
         appRouter.pushViewController(module: TobaccoListModule.self, moduleData: data, animateDisplay: true)
     }
 

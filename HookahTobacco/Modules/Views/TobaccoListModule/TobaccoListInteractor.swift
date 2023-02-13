@@ -9,6 +9,12 @@
 
 import Foundation
 
+enum TobaccoListFilters {
+    case none
+    case favorite
+    case wantBuy
+}
+
 protocol TobaccoListInteractorInputProtocol: AnyObject {
     func startReceiveData()
     func receiveDataForShowDetail(by index: Int)
@@ -25,6 +31,7 @@ protocol TobaccoListInteractorOutputProtocol: AnyObject {
     func receivedDataForShowDetail(_ tobacco: Tobacco)
     func receivedDataForEditing(_ tobacco: Tobacco)
     func showMessageUser(_ message: String)
+    func removeTobacco(at index: Int)
 }
 
 class TobaccoListInteractor {
@@ -39,14 +46,17 @@ class TobaccoListInteractor {
     // MARK: - Private properties
     private var tobaccos: [Tobacco] = []
     private var isAdminMode: Bool
+    private var filter: TobaccoListFilters
 
     // MARK: - Initializers
     init(_ isAdminModel: Bool,
+         filter: TobaccoListFilters,
          getDataManager: DataManagerProtocol,
          getImageManager: ImageManagerProtocol,
          updateDataManager: ObserverProtocol
     ) {
         self.isAdminMode = isAdminModel
+        self.filter = filter
         self.getDataManager = getDataManager
         self.getImageManager = getImageManager
         self.updateDataManager = updateDataManager
@@ -63,8 +73,8 @@ class TobaccoListInteractor {
             guard let self = self else { return }
             switch result {
             case .success(let data):
-                self.tobaccos = data
-                self.presenter.receivedSuccess(data)
+                self.tobaccos = self.receiveFiltersData(data)
+                self.presenter.receivedSuccess(self.tobaccos)
                 self.getImagesTobacco()
             case .failure(let error):
                 self.presenter.receivedError(with: error.localizedDescription)
@@ -94,6 +104,17 @@ class TobaccoListInteractor {
     private func getImagesTobacco() {
         for (index, tobacco) in tobaccos.enumerated() {
             getImage(for: tobacco, with: index)
+        }
+    }
+
+    private func receiveFiltersData(_ tobaccos: [Tobacco]) -> [Tobacco] {
+        switch filter {
+        case .none:
+            return tobaccos
+        case .favorite:
+            return tobaccos.filter { $0.isFavorite }
+        case .wantBuy:
+            return tobaccos.filter { $0.isWantBuy }
         }
     }
 }
@@ -133,8 +154,13 @@ extension TobaccoListInteractor: TobaccoListInteractorInputProtocol {
                 self.presenter.receivedError(with: error.localizedDescription)
                 return
             }
-            self.tobaccos[index].isFavorite.toggle()
-            self.presenter.receivedUpdate(for: self.tobaccos[index], at: index)
+            if self.filter != .favorite {
+                self.tobaccos[index].isFavorite.toggle()
+                self.presenter.receivedUpdate(for: self.tobaccos[index], at: index)
+            } else {
+                self.tobaccos.remove(at: index)
+                self.presenter.removeTobacco(at: index)
+            }
         }
     }
 
@@ -149,12 +175,18 @@ extension TobaccoListInteractor: TobaccoListInteractorInputProtocol {
                 self.presenter.receivedError(with: error.localizedDescription)
                 return
             }
-            self.tobaccos[index].isWantBuy.toggle()
-            self.presenter.receivedUpdate(for: self.tobaccos[index], at: index)
-            if self.tobaccos[index].isWantBuy {
-                self.presenter.showMessageUser("Вы добавили табак в список \"Хочу купить\"")
+            if self.filter != .wantBuy {
+                self.tobaccos[index].isWantBuy.toggle()
+                self.presenter.receivedUpdate(for: self.tobaccos[index], at: index)
+                if self.tobaccos[index].isWantBuy {
+                    self.presenter.showMessageUser("Вы добавили табак в список \"Хочу купить\"")
+                } else {
+                    self.presenter.showMessageUser("Вы убрали табак из списка \"Хочу купить\"")
+                }
             } else {
-                self.presenter.showMessageUser("Вы убрали табак из списока \"Хочу купить\"")
+                self.tobaccos.remove(at: index)
+                self.presenter.removeTobacco(at: index)
+                self.presenter.showMessageUser("Вы убрали табак из списка \"Хочу купить\"")
             }
         }
     }
@@ -166,8 +198,8 @@ extension TobaccoListInteractor: UpdateDataSubscriberProtocol {
         switch notification {
         case .update(let data):
             if let newTobacco = data as? [Tobacco] {
-                tobaccos = newTobacco
-                presenter.receivedSuccess(newTobacco)
+                tobaccos = receiveFiltersData(newTobacco)
+                presenter.receivedSuccess(tobaccos)
                 getImagesTobacco()
             }
         case .error(let error):

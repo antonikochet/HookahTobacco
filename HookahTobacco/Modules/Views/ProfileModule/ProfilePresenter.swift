@@ -59,6 +59,20 @@ final class ProfilePresenter {
             rows.append(adminButtonCell)
         }
 
+        // button for show tobacco list with filter: favorite
+        let favoriteItem = ButtonProfileTableViewCellItem(text: "Мне нравится") { [weak self] in
+            self?.router.showFavoriteList()
+        }
+        let favoriteRow = TableRow<ButtonProfileTableViewCell>(item: favoriteItem)
+        rows.append(favoriteRow)
+
+        // button for show tobacco list with filter: wantToBuy
+        let wantToBuyItem = ButtonProfileTableViewCellItem(text: "Хочу купить") { [weak self] in
+            self?.router.showWantToBuyList()
+        }
+        let wantToBuyRow = TableRow<ButtonProfileTableViewCell>(item: wantToBuyItem)
+        rows.append(wantToBuyRow)
+
         let section = TableSection(rows: rows)
         section.headerHeight = 0.0
         section.footerHeight = 0.0

@@ -120,6 +120,14 @@ extension TobaccoListPresenter: TobaccoListInteractorOutputProtocol {
             self.router.showMessage(with: message)
         }
     }
+
+    func removeTobacco(at index: Int) {
+        guard let tableDirector,
+              let firstSection = tableDirector.sections.first else { return }
+        firstSection.delete(rowAt: index)
+        tobaccoItems.remove(at: index)
+        reloadData()
+    }
 }
 
 // MARK: - ViewOutputProtocol implementation
