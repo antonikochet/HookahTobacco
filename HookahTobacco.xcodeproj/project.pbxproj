@@ -15,6 +15,10 @@
 		B90A791B2899E2C200B90193 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B90A791A2899E2C200B90193 /* Assets.xcassets */; };
 		B90A791E2899E2C200B90193 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B90A791C2899E2C200B90193 /* LaunchScreen.storyboard */; };
 		B90A792D289A8C2200B90193 /* Tobacco.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90A792C289A8C2200B90193 /* Tobacco.swift */; };
+		B90B671529A034FB004460C8 /* ApiServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90B671429A034FB004460C8 /* ApiServices.swift */; };
+		B90B671729A03EB5004460C8 /* ApiNetworkingServicesAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90B671629A03EB5004460C8 /* ApiNetworkingServicesAssembly.swift */; };
+		B90B671929A0425C004460C8 /* GetTobaccosManufacturerRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90B671829A0425C004460C8 /* GetTobaccosManufacturerRequest.swift */; };
+		B90B671D29A049D0004460C8 /* GlobalConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90B671C29A049D0004460C8 /* GlobalConstant.swift */; };
 		B90FB1332901857100881D56 /* FireBaseSetImageNetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90FB1322901857100881D56 /* FireBaseSetImageNetworkingService.swift */; };
 		B91AF09C293F8B9C004CCC8A /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91AF09B293F8B9C004CCC8A /* ImageManager.swift */; };
 		B91AF09E293FA801004CCC8A /* ImageManagerAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91AF09D293FA800004CCC8A /* ImageManagerAssembly.swift */; };
@@ -50,6 +54,10 @@
 		B94E17B9292126DD0008CB73 /* AddTastesModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E17B7292126DD0008CB73 /* AddTastesModule.swift */; };
 		B94E17BA292126DD0008CB73 /* AddTastesAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E17B8292126DD0008CB73 /* AddTastesAssembly.swift */; };
 		B9567C92291C4BC300CF6176 /* ImageButtonPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9567C91291C4BC300CF6176 /* ImageButtonPickerView.swift */; };
+		B96181BE299EC0CE00249A7E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = B96181BD299EC0CE00249A7E /* Alamofire */; };
+		B96181C1299EC12900249A7E /* NetworkingProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96181C0299EC12900249A7E /* NetworkingProviderProtocol.swift */; };
+		B96181C3299ECCE400249A7E /* ApiRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96181C2299ECCE400249A7E /* ApiRequest.swift */; };
+		B96181C6299EDA0D00249A7E /* NetworkingProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96181C5299EDA0D00249A7E /* NetworkingProvider.swift */; };
 		B9631C4A2921AB7100BBC09B /* TasteCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9631C492921AB7100BBC09B /* TasteCollectionView.swift */; };
 		B9631C4C2921ACBE00BBC09B /* TasteCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9631C4B2921ACBE00BBC09B /* TasteCollectionViewLayout.swift */; };
 		B9631C4E2922487500BBC09B /* extention + UIEdgeInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9631C4D2922487500BBC09B /* extention + UIEdgeInsets.swift */; };
@@ -217,6 +225,10 @@
 		B90A791D2899E2C200B90193 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B90A791F2899E2C200B90193 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B90A792C289A8C2200B90193 /* Tobacco.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tobacco.swift; sourceTree = "<group>"; };
+		B90B671429A034FB004460C8 /* ApiServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiServices.swift; sourceTree = "<group>"; };
+		B90B671629A03EB5004460C8 /* ApiNetworkingServicesAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiNetworkingServicesAssembly.swift; sourceTree = "<group>"; };
+		B90B671829A0425C004460C8 /* GetTobaccosManufacturerRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTobaccosManufacturerRequest.swift; sourceTree = "<group>"; };
+		B90B671C29A049D0004460C8 /* GlobalConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConstant.swift; sourceTree = "<group>"; };
 		B90FB1322901857100881D56 /* FireBaseSetImageNetworkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseSetImageNetworkingService.swift; sourceTree = "<group>"; };
 		B91AF09B293F8B9C004CCC8A /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		B91AF09D293FA800004CCC8A /* ImageManagerAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManagerAssembly.swift; sourceTree = "<group>"; };
@@ -252,6 +264,9 @@
 		B94E17B7292126DD0008CB73 /* AddTastesModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTastesModule.swift; sourceTree = "<group>"; };
 		B94E17B8292126DD0008CB73 /* AddTastesAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTastesAssembly.swift; sourceTree = "<group>"; };
 		B9567C91291C4BC300CF6176 /* ImageButtonPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageButtonPickerView.swift; sourceTree = "<group>"; };
+		B96181C0299EC12900249A7E /* NetworkingProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingProviderProtocol.swift; sourceTree = "<group>"; };
+		B96181C2299ECCE400249A7E /* ApiRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiRequest.swift; sourceTree = "<group>"; };
+		B96181C5299EDA0D00249A7E /* NetworkingProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingProvider.swift; sourceTree = "<group>"; };
 		B9631C492921AB7100BBC09B /* TasteCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasteCollectionView.swift; sourceTree = "<group>"; };
 		B9631C4B2921ACBE00BBC09B /* TasteCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasteCollectionViewLayout.swift; sourceTree = "<group>"; };
 		B9631C4D2922487500BBC09B /* extention + UIEdgeInsets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extention + UIEdgeInsets.swift"; sourceTree = "<group>"; };
@@ -408,6 +423,7 @@
 				B9D6DA3F2966206000B142AC /* TableKit in Frameworks */,
 				B9D6056428D4FED20058D19E /* FirebaseAuth in Frameworks */,
 				B9EB023B28F3159A00B3B6DA /* Swinject in Frameworks */,
+				B96181BE299EC0CE00249A7E /* Alamofire in Frameworks */,
 				B9D6056C28D508800058D19E /* SnapKit in Frameworks */,
 				B9C9ECFB29128F2F000A359B /* FirebaseCrashlytics in Frameworks */,
 				B9D6056628D4FED20058D19E /* FirebaseFirestoreSwift in Frameworks */,
@@ -466,6 +482,7 @@
 				B9D6056028D4F1410058D19E /* GoogleService-Info.plist */,
 				B90A791A2899E2C200B90193 /* Assets.xcassets */,
 				B90A791C2899E2C200B90193 /* LaunchScreen.storyboard */,
+				B90B671C29A049D0004460C8 /* GlobalConstant.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -498,6 +515,7 @@
 				B90A792E289C2ABE00B90193 /* Services */,
 				B97EE9DF292B6FDF0090B344 /* Managers */,
 				B9027E08290FF775002E3C3A /* Resources */,
+				B90B671A29A04951004460C8 /* Supporting Files */,
 			);
 			path = HookahTobacco;
 			sourceTree = "<group>";
@@ -512,6 +530,29 @@
 				B97EE9F4292BB3C90090B344 /* UserDefaultsService */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		B90B671329A033DA004460C8 /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				B90B671829A0425C004460C8 /* GetTobaccosManufacturerRequest.swift */,
+			);
+			path = Requests;
+			sourceTree = "<group>";
+		};
+		B90B671A29A04951004460C8 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B90B671B29A04971004460C8 /* Configurations */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B90B671B29A04971004460C8 /* Configurations */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Configurations;
 			sourceTree = "<group>";
 		};
 		B91AF09A293F8B5E004CCC8A /* ImageManager */ = {
@@ -627,6 +668,7 @@
 			children = (
 				B9D6055E28D4CFD50058D19E /* Protocols */,
 				B9D6055728D4CB490058D19E /* Models */,
+				B96181B7299EB57900249A7E /* ApiServices */,
 				B9D6055F28D4CFE20058D19E /* FireBaseServices */,
 			);
 			path = NetworkService;
@@ -651,6 +693,34 @@
 				B9E8DA4428F77A8300CCA034 /* ManufacturerListInteractor.swift */,
 			);
 			path = ManufacturerListModule;
+			sourceTree = "<group>";
+		};
+		B96181B7299EB57900249A7E /* ApiServices */ = {
+			isa = PBXGroup;
+			children = (
+				B90B671429A034FB004460C8 /* ApiServices.swift */,
+				B90B671329A033DA004460C8 /* Requests */,
+				B96181BF299EC10C00249A7E /* NetworkingProvider */,
+			);
+			path = ApiServices;
+			sourceTree = "<group>";
+		};
+		B96181BF299EC10C00249A7E /* NetworkingProvider */ = {
+			isa = PBXGroup;
+			children = (
+				B96181C4299ED9B100249A7E /* Protocol */,
+				B96181C5299EDA0D00249A7E /* NetworkingProvider.swift */,
+			);
+			path = NetworkingProvider;
+			sourceTree = "<group>";
+		};
+		B96181C4299ED9B100249A7E /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				B96181C2299ECCE400249A7E /* ApiRequest.swift */,
+				B96181C0299EC12900249A7E /* NetworkingProviderProtocol.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		B9631C4F2923E9CE00BBC09B /* AddTasteModule */ = {
@@ -770,6 +840,7 @@
 			isa = PBXGroup;
 			children = (
 				B9EB024028F31B6300B3B6DA /* FireBaseNetworkingServicesAssembly.swift */,
+				B90B671629A03EB5004460C8 /* ApiNetworkingServicesAssembly.swift */,
 				B9C925FE294F6C4B0085BB02 /* FirebaseAuthServiceAssembly.swift */,
 				B97EE9EF292BA1480090B344 /* RealmDataBaseServiresAssembly.swift */,
 				B982804B292FD4EB00BF3A93 /* ImageStorageServiceAssembly.swift */,
@@ -1259,6 +1330,7 @@
 				B97D05B02929639200F4629B /* RealmSwift */,
 				B9D2D2A6293B805100F2F591 /* MultiSelectSegmentedControl */,
 				B9D6DA3E2966206000B142AC /* TableKit */,
+				B96181BD299EC0CE00249A7E /* Alamofire */,
 			);
 			productName = HookahTobacco;
 			productReference = B90A790E2899E2BF00B90193 /* HookahTobacco.app */;
@@ -1295,6 +1367,7 @@
 				B97D05AD2929639200F4629B /* XCRemoteSwiftPackageReference "realm-swift" */,
 				B9D2D2A5293B805100F2F591 /* XCRemoteSwiftPackageReference "MultiSelectSegmentedControl" */,
 				B9D6DA3C2965ECB200B142AC /* XCRemoteSwiftPackageReference "TableKit" */,
+				B96181BC299EC0CD00249A7E /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = B90A790F2899E2BF00B90193 /* Products */;
 			projectDirPath = "";
@@ -1368,6 +1441,7 @@
 				B94306D6292053BA00EADFA0 /* TasteCollectionViewCell.swift in Sources */,
 				B94306C12920181100EADFA0 /* Taste.swift in Sources */,
 				B949D7AB293D15900019BEFC /* SystemSubscriberProtocol.swift in Sources */,
+				B96181C6299EDA0D00249A7E /* NetworkingProvider.swift in Sources */,
 				B9E7ACAF28F46AFB00A3D7E5 /* AdminMenuAssembly.swift in Sources */,
 				B9828048292FB95600BF3A93 /* NamedImageStorage.swift in Sources */,
 				B9EE2378291023F00098E4E0 /* DetailInfoManufacturerViewController.swift in Sources */,
@@ -1390,6 +1464,7 @@
 				B9828045292FA40E00BF3A93 /* ImageStorageError.swift in Sources */,
 				B9E8DA4828F77A8300CCA034 /* ManufacturerListRouter.swift in Sources */,
 				B98E1DD728F0812500964B8F /* LoginRouter.swift in Sources */,
+				B96181C3299ECCE400249A7E /* ApiRequest.swift in Sources */,
 				B938A52329411F0000145EF0 /* AdminImageManagerAssembly.swift in Sources */,
 				B9027E05290FF613002E3C3A /* AppRouter+Register.swift in Sources */,
 				B9E7A98828FEFA9500D711B4 /* FireBaseGetImageNetworingService.swift in Sources */,
@@ -1452,6 +1527,7 @@
 				B9D6055B28D4CF610058D19E /* FireBaseSetNetworkingService.swift in Sources */,
 				B97EE9F6292BB3E50090B344 /* UserDefaultsServiceProtocol.swift in Sources */,
 				B9ED9102290989EF00DC3A6D /* TobaccoListPresenter.swift in Sources */,
+				B90B671D29A049D0004460C8 /* GlobalConstant.swift in Sources */,
 				B94306D329204EE700EADFA0 /* AddTastesTableViewCell.swift in Sources */,
 				B97EE9E3292B70790090B344 /* DataManagerProtocol.swift in Sources */,
 				B9A4708328D2B84500CA6FAA /* extention + UIFont.swift in Sources */,
@@ -1487,6 +1563,7 @@
 				B92A46B42967313B0006B787 /* ProfileAssembly.swift in Sources */,
 				B938A51A2940DB2500145EF0 /* AdminDataManager.swift in Sources */,
 				B938A51C2940F1E900145EF0 /* AdminDataManagerAssembly.swift in Sources */,
+				B90B671929A0425C004460C8 /* GetTobaccosManufacturerRequest.swift in Sources */,
 				B97D05B82929928000F4629B /* ManufacturerRealmObject.swift in Sources */,
 				B94306CB2920277E00EADFA0 /* AddTastesViewController.swift in Sources */,
 				B9E8DA5128F7827900CCA034 /* ManufacturerListAssembly.swift in Sources */,
@@ -1495,11 +1572,13 @@
 				B9074144290F041B00499674 /* HTTabBarControllerAssembly.swift in Sources */,
 				B9677CF428D89D4000EF9FC6 /* NamedFireStore.swift in Sources */,
 				B92A46B32967313B0006B787 /* ProfileModule.swift in Sources */,
+				B90B671729A03EB5004460C8 /* ApiNetworkingServicesAssembly.swift in Sources */,
 				B9E8DA4928F77A8300CCA034 /* ManufacturerListViewController.swift in Sources */,
 				B9A66BCB296897F600B6D6E7 /* AnonymousInfoTableViewCell.swift in Sources */,
 				B949D7AD293D2D0F0019BEFC /* PopupNotificationView.swift in Sources */,
 				B9ED910D2909D26100DC3A6D /* TobaccoListModule.swift in Sources */,
 				B97EE9E9292B8DAF0090B344 /* ImageNetworkingDataProtocol.swift in Sources */,
+				B90B671529A034FB004460C8 /* ApiServices.swift in Sources */,
 				B9BA7947295B9CE7009188D6 /* RegistrationModule.swift in Sources */,
 				B9781D32293A45A800654567 /* AddSwitchView.swift in Sources */,
 				B9E7ACB828F495B300A3D7E5 /* AddManufacturerModule.swift in Sources */,
@@ -1543,6 +1622,7 @@
 				B982803F292FA32900BF3A93 /* ImageStorageServiceProtocol.swift in Sources */,
 				B98E1DD828F0812500964B8F /* LoginViewController.swift in Sources */,
 				B9C7B958296AE1C700D5A78B /* DetailManufacturerLineHeaderView.swift in Sources */,
+				B96181C1299EC12900249A7E /* NetworkingProviderProtocol.swift in Sources */,
 				B94B771C290C3785002C5660 /* AddPickerView.swift in Sources */,
 				B9C925FF294F6C4B0085BB02 /* FirebaseAuthServiceAssembly.swift in Sources */,
 				B92A46A92966F9DC0006B787 /* ProfileRouter.swift in Sources */,
@@ -1760,6 +1840,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		B96181BC299EC0CD00249A7E /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		B97D05AD2929639200F4629B /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift.git";
@@ -1811,6 +1899,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		B96181BD299EC0CE00249A7E /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B96181BC299EC0CD00249A7E /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
 		B97D05AE2929639200F4629B /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B97D05AD2929639200F4629B /* XCRemoteSwiftPackageReference "realm-swift" */;
