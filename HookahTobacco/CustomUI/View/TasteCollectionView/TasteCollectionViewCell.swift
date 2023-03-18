@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import IVCollectionKit
 
 struct TasteCollectionCellViewModel {
     let label: String
@@ -24,13 +25,7 @@ class TasteCollectionViewCell: UICollectionViewCell {
     }
 
     // MARK: - Private UI
-    private let tasteLabel: UILabel = {
-        let label = UILabel()
-        label.font = tasteFont
-        label.lineBreakMode = .byWordWrapping
-        label.textColor = textLabelColor
-        return label
-    }()
+    private let tasteLabel = UILabel()
 
     // MARK: - Init
     override init(frame: CGRect) {
@@ -45,20 +40,61 @@ class TasteCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Setups
     private func setup() {
-        contentView.backgroundColor = Self.cellBackgroundColor
+        setupCell()
+        setupTasteLabel()
+    }
+    private func setupCell() {
+        contentView.backgroundColor = Colors.Cell.background
+        contentView.layer.cornerRadius = LayoutValues.Cell.cornerRadius
+    }
+    private func setupTasteLabel() {
+        tasteLabel.font = Fonts.taste
+        tasteLabel.lineBreakMode = .byWordWrapping
+        tasteLabel.textColor = Colors.TasteLabel.text
+
         contentView.addSubview(tasteLabel)
         tasteLabel.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(Self.paddingLabel)
+            make.edges.equalToSuperview().inset(LayoutValues.TasteLabel.padding)
         }
-        contentView.layer.cornerRadius = Self.cornerRadiusCell
+    }
+}
+
+extension TasteCollectionViewCell: ConfigurableCollectionItem {
+    func configure(item: TasteCollectionCellViewModel) {
+        tasteLabel.text = item.label
+    }
+
+    static func estimatedSize(item: TasteCollectionCellViewModel,
+                              boundingSize: CGSize,
+                              in section: AbstractCollectionSection) -> CGSize {
+        CGSize(width: 40,
+               height: LayoutValues.TasteLabel.padding.top +
+                       Fonts.taste.lineHeight +
+                       LayoutValues.TasteLabel.padding.bottom)
     }
 }
 
 extension TasteCollectionViewCell {
-    static let tasteFont: UIFont = UIFont.appFont(size: 16, weight: .medium)
-    static let paddingLabel: UIEdgeInsets = UIEdgeInsets(horizontal: 8, vertical: 4)
-    static private let cornerRadiusCell: CGFloat = 12
+    static let tasteFont = Fonts.taste
+    static let paddingLabel = LayoutValues.TasteLabel.padding
+}
 
-    static private let cellBackgroundColor: UIColor = .systemGreen
-    static private let textLabelColor: UIColor = .black
+private struct LayoutValues {
+    struct Cell {
+        static let cornerRadius: CGFloat = 12.0
+    }
+    struct TasteLabel {
+        static let padding = UIEdgeInsets(horizontal: 8, vertical: 4)
+    }
+}
+private struct Colors {
+    struct Cell {
+        static let background = UIColor(red: 153/255, green: 255/255, blue: 153/255, alpha: 0.7)
+    }
+    struct TasteLabel {
+        static let text = UIColor.black
+    }
+}
+private struct Fonts {
+    static let taste = UIFont.appFont(size: 16, weight: .medium)
 }

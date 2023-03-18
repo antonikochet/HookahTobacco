@@ -8,23 +8,16 @@
 import UIKit
 import SnapKit
 
-protocol TasteCollectionViewDelegate: AnyObject {
-    func getItem(at index: Int) -> TasteCollectionCellViewModel
-    var numberOfRows: Int { get }
-    func didSelectTaste(at index: Int)
-}
-
 class TasteCollectionView: UICollectionView {
     // MARK: - Public properties
-    weak var tasteDelegate: TasteCollectionViewDelegate!
-
+    var getItem: ((Int) -> TasteCollectionCellViewModel?)?
+    var didSelect: ((Int) -> Void)?
     // MARK: - Init
     init() {
         let layout = TasteCollectionViewLayout()
         layout.interItemSpacing = 8
         super.init(frame: .zero, collectionViewLayout: layout)
         layout.delegate = self
-        dataSource = self
         showsVerticalScrollIndicator = false
         showsHorizontalScrollIndicator = false
         isScrollEnabled = false
@@ -50,7 +43,7 @@ class TasteCollectionView: UICollectionView {
     // MARK: - Selectors
     @objc private func handleTap(_ sender: UITapGestureRecognizer) {
         if let indexPath = indexPathForItem(at: sender.location(in: self)) {
-            tasteDelegate.didSelectTaste(at: indexPath.row)
+            didSelect?(indexPath.row)
         }
     }
 }
@@ -58,28 +51,10 @@ class TasteCollectionView: UICollectionView {
 // MARK: - TasteCollectionViewLayoutDelegate implementation
 extension TasteCollectionView: TasteCollectionViewLayoutDelegate {
     func collectionView(_ collectionView: UICollectionView, sizeForTasteAtIndexPath indexPath: IndexPath) -> CGSize {
-        let viewModel = tasteDelegate.getItem(at: indexPath.row)
+        guard let viewModel = getItem?(indexPath.row) else { return .zero }
         let size = viewModel.label.sizeOfString(usingFont: TasteCollectionViewCell.tasteFont)
         let paddings = TasteCollectionViewCell.paddingLabel
         return CGSize(width: paddings.left + size.width + paddings.right,
                       height: paddings.top + size.height + paddings.bottom)
     }
-}
-
-// MARK: - UICollectionViewDataSource implementation
-extension TasteCollectionView: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView,
-                        numberOfItemsInSection section: Int) -> Int {
-        tasteDelegate.numberOfRows
-    }
-
-    // swiftlint: disable force_cast
-    func collectionView(_ collectionView: UICollectionView,
-                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TasteCollectionViewCell.identifier,
-                                                      for: indexPath) as! TasteCollectionViewCell
-        cell.viewModel = tasteDelegate.getItem(at: indexPath.row)
-        return cell
-    }
-    // swiftlint: enable force_cast
 }
