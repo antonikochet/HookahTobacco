@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 
 struct TobaccosManufacturerResponse: Decodable {
-//    let tobaccos: [Tobacco]
+    let tobaccos: [Tobacco]
 }
 
 struct GetTobaccosManufacturerRequest: ApiRequest {

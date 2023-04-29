@@ -16,11 +16,23 @@ final class ApiServices {
     }
 }
 
+// MARK: - private methods for get requests
+
+private extension ApiServices {
+    func receiveManufacturer(completion: GetDataNetworkingServiceCompletion<[Manufacturer]>?) {
+        
+    }
+}
+
+// MARK: - GetDataNetworkingServiceProtocol
 extension ApiServices: GetDataNetworkingServiceProtocol {
     func receiveData<T>(type: T.Type,
                         completion: GetDataNetworkingServiceCompletion<[T]>?
     ) where T: DataNetworkingServiceProtocol {
-        fatalError("receiveData")
+        switch type {
+            case is Manufacturer.Type: receiveManufacturer(completion: completion as? GetDataNetworkingServiceCompletion<[Manufacturer]>)
+            default: break
+        }
     }
 
     func getTobaccos(for manufacturer: Manufacturer, completion: GetDataNetworkingServiceCompletion<[Tobacco]>?) {
