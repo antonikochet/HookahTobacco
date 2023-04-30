@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3802046229FE6A7C000193A1 /* ApiHandlerErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3802046129FE6A7C000193A1 /* ApiHandlerErrors.swift */; };
+		3802046429FE6AB8000193A1 /* NetworkHandlerErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3802046329FE6AB8000193A1 /* NetworkHandlerErrors.swift */; };
+		3802046729FE6D1A000193A1 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3802046629FE6D1A000193A1 /* ApiError.swift */; };
 		B9027E05290FF613002E3C3A /* AppRouter+Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9027E04290FF613002E3C3A /* AppRouter+Register.swift */; };
 		B902AE3B29F4031500BF6AD6 /* GetManufacturerRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B902AE3A29F4031500BF6AD6 /* GetManufacturerRequest.swift */; };
 		B902AE3E29F405EA00BF6AD6 /* Manufacturer+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B902AE3D29F405EA00BF6AD6 /* Manufacturer+Codable.swift */; };
@@ -229,6 +232,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3802046129FE6A7C000193A1 /* ApiHandlerErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiHandlerErrors.swift; sourceTree = "<group>"; };
+		3802046329FE6AB8000193A1 /* NetworkHandlerErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHandlerErrors.swift; sourceTree = "<group>"; };
+		3802046629FE6D1A000193A1 /* ApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
 		B9027E04290FF613002E3C3A /* AppRouter+Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppRouter+Register.swift"; sourceTree = "<group>"; };
 		B902AE3A29F4031500BF6AD6 /* GetManufacturerRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetManufacturerRequest.swift; sourceTree = "<group>"; };
 		B902AE3D29F405EA00BF6AD6 /* Manufacturer+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Manufacturer+Codable.swift"; sourceTree = "<group>"; };
@@ -464,6 +470,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3802046529FE6D06000193A1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3802046629FE6D1A000193A1 /* ApiError.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		B9027E02290FEF0D002E3C3A /* CustomUI */ = {
 			isa = PBXGroup;
 			children = (
@@ -750,6 +764,8 @@
 			isa = PBXGroup;
 			children = (
 				B90B671429A034FB004460C8 /* ApiServices.swift */,
+				3802046129FE6A7C000193A1 /* ApiHandlerErrors.swift */,
+				3802046529FE6D06000193A1 /* Models */,
 				B902AE3C29F405AF00BF6AD6 /* Entities extenstions */,
 				B90B671329A033DA004460C8 /* Requests */,
 				B96181BF299EC10C00249A7E /* NetworkingProvider */,
@@ -1184,6 +1200,7 @@
 				B9E7A98B28FF15DF00D711B4 /* SetImageNetworkingServiceProtocol.swift */,
 				B97EE9E8292B8DAF0090B344 /* ImageNetworkingDataProtocol.swift */,
 				B98EE1EE2936CC7400F97E1A /* DataNetworkingServiceProtocol.swift */,
+				3802046329FE6AB8000193A1 /* NetworkHandlerErrors.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -1511,6 +1528,7 @@
 				B94306C12920181100EADFA0 /* Taste.swift in Sources */,
 				B949D7AB293D15900019BEFC /* SystemSubscriberProtocol.swift in Sources */,
 				B902AE3E29F405EA00BF6AD6 /* Manufacturer+Codable.swift in Sources */,
+				3802046229FE6A7C000193A1 /* ApiHandlerErrors.swift in Sources */,
 				B96181C6299EDA0D00249A7E /* NetworkingProvider.swift in Sources */,
 				B9E7ACAF28F46AFB00A3D7E5 /* AdminMenuAssembly.swift in Sources */,
 				B9828048292FB95600BF3A93 /* NamedImageStorage.swift in Sources */,
@@ -1609,6 +1627,7 @@
 				B9A4708328D2B84500CA6FAA /* extention + UIFont.swift in Sources */,
 				B98E1DE828F08D4400964B8F /* AddTobaccoInteractor.swift in Sources */,
 				B90FB1332901857100881D56 /* FireBaseSetImageNetworkingService.swift in Sources */,
+				3802046429FE6AB8000193A1 /* NetworkHandlerErrors.swift in Sources */,
 				B92A46AD2966FA430006B787 /* ProfileTableViewCell.swift in Sources */,
 				B981CBA42930DBAD00705422 /* DetailTobaccoPresenter.swift in Sources */,
 				B938A5212941135D00145EF0 /* AdminImageManager.swift in Sources */,
@@ -1644,6 +1663,7 @@
 				B9D6E93329FDC974001D44D5 /* TasteType+Extension.swift in Sources */,
 				B97D05B82929928000F4629B /* ManufacturerRealmObject.swift in Sources */,
 				B94306CB2920277E00EADFA0 /* AddTastesViewController.swift in Sources */,
+				3802046729FE6D1A000193A1 /* ApiError.swift in Sources */,
 				B9E8DA5128F7827900CCA034 /* ManufacturerListAssembly.swift in Sources */,
 				B91AF09E293FA801004CCC8A /* ImageManagerAssembly.swift in Sources */,
 				B90A792D289A8C2200B90193 /* Tobacco.swift in Sources */,

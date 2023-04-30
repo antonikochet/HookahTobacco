@@ -9,10 +9,6 @@ import Foundation
 import FirebaseFirestore
 import FirebaseStorage
 
-protocol NetworkHandlerErrors {
-    func handlerError(_ error: Error) -> NetworkError
-}
-
 struct FireBaseHandlerErrors: NetworkHandlerErrors {
     func handlerError(_ error: Error) -> NetworkError {
         let nsError = error as NSError
