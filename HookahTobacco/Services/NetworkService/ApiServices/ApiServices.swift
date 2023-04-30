@@ -41,6 +41,7 @@ private extension ApiServices {
             case .success(let data):
                 completion?(.success(data))
             case .failure(let error):
+                print("‼️‼️‼️\n\(error)\n‼️‼️‼️")
                 let apiError = handleApiError(response.data, error: error)
                 completion?(.failure(self.handlerErrors.handlerError(apiError ?? error)))
             }

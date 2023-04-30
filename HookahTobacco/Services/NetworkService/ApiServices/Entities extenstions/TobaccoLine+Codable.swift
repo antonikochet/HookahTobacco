@@ -20,9 +20,9 @@ extension TobaccoLine: Decodable {
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        uid = try container.decode(String.self, forKey: .uid)
+        uid = String(try container.decode(Int.self, forKey: .uid))
         name = try container.decode(String.self, forKey: .name)
-        packetingFormat = try container.decode([Int].self, forKey: .packetingFormat)
+        packetingFormat = try container.decode(String.self, forKey: .packetingFormat).split(separator: ",").compactMap { Int($0) } 
         tobaccoType = try container.decode(TobaccoType.self, forKey: .tobaccoType)
         tobaccoLeafType = try container.decode([VarietyTobaccoLeaf]?.self, forKey: .tobaccoLeafType)
         description = try container.decode(String.self, forKey: .description)

@@ -57,9 +57,9 @@ extension AppRouter {
         let tobaccoListContainer = (TobaccoListModule.self, tobaccoListTabBar)
 
         // third container
-        let TabBarProfile = TabBarItemContent(title: "Профиль",
+        let tabBarProfile = TabBarItemContent(title: "Профиль",
                                               image: UIImage(systemName: "person"))
-        let profileContainer = (ProfileModule.self, TabBarProfile)
+        let profileContainer = (ProfileModule.self, tabBarProfile)
 
         startAppPresent([
             manufactureListContainer,

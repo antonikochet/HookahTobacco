@@ -22,7 +22,7 @@ extension Country: DataNetworkingServiceProtocol {
 extension Country: Decodable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        uid = try container.decode(String.self, forKey: .uid)
+        uid = String(try container.decode(Int.self, forKey: .uid))
         name = try container.decode(String.self, forKey: .name)
     }
     

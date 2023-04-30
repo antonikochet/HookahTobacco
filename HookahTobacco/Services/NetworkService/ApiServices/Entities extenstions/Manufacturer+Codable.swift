@@ -10,12 +10,12 @@ import Foundation
 extension Manufacturer: Decodable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        uid = try container.decode(String.self, forKey: .uid)
+        uid = String(try container.decode(Int.self, forKey: .uid))
         name = try container.decode(String.self, forKey: .name)
         country = try container.decode(String.self, forKey: .country)
         description = try container.decode(String.self, forKey: .description)
         link = try container.decode(String.self, forKey: .link)
-        nameImage = try container.decode(String.self, forKey: .nameImage)
+        nameImage = try container.decode(URL.self, forKey: .nameImage).pathComponents.dropFirst().joined(separator: "/")
         lines = try container.decode([TobaccoLine].self, forKey: .lines)
     }
     
@@ -25,7 +25,7 @@ extension Manufacturer: Decodable {
         case country
         case description
         case link
-        case nameImage = "url_image"
+        case nameImage = "image_url"
         case lines = "tobacco_lines"
     }
 }

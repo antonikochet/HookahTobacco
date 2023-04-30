@@ -234,7 +234,7 @@ class DataManager {
 // MARK: - DataManagerProtocol implementation
 extension DataManager: DataManagerProtocol {
     func receiveData<T: DataManagerType>(typeData: T.Type, completion: ReceiveCompletion<T>?) {
-        if isSynchronized || isOfflineMode {
+        if isSynchronized && isOfflineMode {
             dataBaseService.read(type: typeData) { data in
                 completion?(.success(data))
             } failure: { error in
@@ -246,7 +246,7 @@ extension DataManager: DataManagerProtocol {
     }
 
     func receiveTobaccos(for manufacturer: Manufacturer, completion: ReceiveCompletion<Tobacco>?) {
-        if isSynchronized || isOfflineMode {
+        if isSynchronized && isOfflineMode {
             dataBaseService.read(type: Tobacco.self) { tobacco in
                 let manufacturerTobaccos = tobacco.filter { $0.idManufacturer == manufacturer.uid }
                 completion?(.success(manufacturerTobaccos))
@@ -266,7 +266,7 @@ extension DataManager: DataManagerProtocol {
     }
 
     func receiveTastes(at ids: [String], completion: ReceiveCompletion<Taste>?) {
-        if isSynchronized || isOfflineMode {
+        if isSynchronized && isOfflineMode {
             dataBaseService.read(type: Taste.self) { tastes in
                 let setIds = Set(ids)
                 let needTastes = tastes.filter { setIds.contains($0.uid) }

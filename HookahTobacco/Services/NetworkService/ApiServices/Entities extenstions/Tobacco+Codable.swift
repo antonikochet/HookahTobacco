@@ -8,7 +8,7 @@
 import Foundation
 
 private struct ManufacturerForTobacco: Decodable {
-    let id: String
+    let id: Int
     let name: String
     
     enum CodingKeys: String, CodingKey {
@@ -20,11 +20,11 @@ private struct ManufacturerForTobacco: Decodable {
 extension Tobacco: Decodable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        uid = try container.decode(String.self, forKey: .uid)
+        uid = String(try container.decode(Int.self, forKey: .uid))
         name = try container.decode(String.self, forKey: .name)
         tastes = try container.decode([Taste].self, forKey: .tastes)
         let manufacturer = try container.decode(ManufacturerForTobacco.self, forKey: .manufacturer)
-        idManufacturer = manufacturer.id
+        idManufacturer = String(manufacturer.id)
         nameManufacturer = manufacturer.name
         description = try container.decode(String.self, forKey: .description)
         line = try container.decode(TobaccoLine.self, forKey: .line)
@@ -37,7 +37,7 @@ extension Tobacco: Decodable {
         case name
         case tastes
         case manufacturer
-        case description
+        case description = "desctiption"
         case line
     }
 }
