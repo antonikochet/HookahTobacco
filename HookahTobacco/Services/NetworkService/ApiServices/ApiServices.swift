@@ -98,8 +98,20 @@ extension ApiServices: GetDataNetworkingServiceProtocol {
 
 // MARK: - GetImageNetworkingServiceProtocol
 extension ApiServices: GetImageNetworkingServiceProtocol {
-    func getImage(for type: ImageNetworkingDataProtocol, completion: @escaping (Result<Data, NetworkError>) -> Void) {
-        fatalError("no implementation\(#function)")
+    func getImage(for url: String, completion: @escaping (Result<Data, NetworkError>) -> Void) {
+        apiProvider.getImage(url) { response in
+            switch response.result {
+            case .success(let data):
+                if let data {
+                    completion(.success(data))
+                } else {
+                    completion(.failure(.unknownDataError("photo on \(url)")))
+                }
+            case .failure(let error):
+                let apiError = self.handleApiError(response.data, error: error)
+                completion(.failure(self.handlerErrors.handlerError(apiError ?? error)))
+            }
+        }
     }
 }
 

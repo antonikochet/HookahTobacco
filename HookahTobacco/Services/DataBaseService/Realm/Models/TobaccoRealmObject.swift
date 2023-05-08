@@ -70,6 +70,7 @@ extension TobaccoRealmObject {
                 nameManufacturer: self.nameManufacturer ?? "",
                 description: self.descriptionTobacco,
                 line: self.line.first(where: { $0.uid == self.uidTobaccoLine })!.convertToEntity(),
+                imageURL: "",
                 isFavorite: self.isFavorite,
                 isWantBuy: self.isWantBuy,
                 image: nil)

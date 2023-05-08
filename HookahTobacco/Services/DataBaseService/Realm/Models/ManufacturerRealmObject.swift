@@ -13,7 +13,7 @@ class ManufacturerRealmObject: Object {
     @Persisted var name: String = ""
     @Persisted var country: String = ""
     @Persisted var descriptionManufacturer: String = ""
-    @Persisted var nameImage: String = ""
+    @Persisted var urlImage: String = ""
     @Persisted var link: String?
     @Persisted var tobaccos: List<TobaccoRealmObject>
     @Persisted var lines: List<TobaccoLineRealmObject>
@@ -26,7 +26,7 @@ extension ManufacturerRealmObject {
         self.name = manufacturer.name
         self.country = manufacturer.country
         self.descriptionManufacturer = manufacturer.description
-        self.nameImage = manufacturer.nameImage
+        self.urlImage = manufacturer.urlImage
         self.link = manufacturer.link
     }
 
@@ -37,7 +37,7 @@ extension ManufacturerRealmObject {
         newValues["name"] = manufacturer.name
         newValues["country"] = manufacturer.country
         newValues["descriptionManufacturer"] = manufacturer.description
-        newValues["nameImage"] = manufacturer.nameImage
+        newValues["urlImage"] = manufacturer.urlImage
         newValues["link"] = manufacturer.link
         newValues["tobaccos"] = [TobaccoRealmObject]()
         return newValues
@@ -50,7 +50,7 @@ extension ManufacturerRealmObject {
             name: name,
             country: country,
             description: descriptionManufacturer,
-            nameImage: nameImage,
+            urlImage: urlImage,
             image: nil,
             link: link,
             lines: Array(lines.map { $0.convertToEntity() })

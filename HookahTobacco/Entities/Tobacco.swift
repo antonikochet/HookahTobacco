@@ -16,6 +16,7 @@ struct Tobacco {
     let nameManufacturer: String
     let description: String
     let line: TobaccoLine
+    let imageURL: String
     var isFavorite: Bool
     var isWantBuy: Bool
     var image: Data?

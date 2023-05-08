@@ -15,6 +15,8 @@ extension VarietyTobaccoLeaf: Decodable {
     
 }
 
+extension TobaccoLine: DataNetworkingServiceProtocol { }
+
 extension TobaccoLine: Decodable {
     
     

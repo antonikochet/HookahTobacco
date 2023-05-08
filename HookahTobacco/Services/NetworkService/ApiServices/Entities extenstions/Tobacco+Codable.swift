@@ -17,6 +17,8 @@ private struct ManufacturerForTobacco: Decodable {
     }
 }
 
+extension Tobacco: DataNetworkingServiceProtocol { }
+
 extension Tobacco: Decodable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -28,6 +30,7 @@ extension Tobacco: Decodable {
         nameManufacturer = manufacturer.name
         description = try container.decode(String.self, forKey: .description)
         line = try container.decode(TobaccoLine.self, forKey: .line)
+        imageURL = try container.decode(URL.self, forKey: .imageURL).absoluteString
         isFavorite = false
         isWantBuy = false
     }
@@ -38,6 +41,7 @@ extension Tobacco: Decodable {
         case tastes
         case manufacturer
         case description = "desctiption"
+        case imageURL = "image_url"
         case line
     }
 }

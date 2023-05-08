@@ -43,4 +43,11 @@ final class NetworkingProvider: NetworkingProviderProtocol {
                        completion(result)
                    }
     }
+
+    func getImage(_ url: String, completion: @escaping Completion<Data?>) {
+        guard let url = URL(string: url) else { return }
+        AF.request(url).response { result in
+            completion(result)
+        }
+    }
 }

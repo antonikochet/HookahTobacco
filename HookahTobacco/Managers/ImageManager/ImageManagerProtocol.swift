@@ -9,9 +9,9 @@ import Foundation
 
 enum NamedImageManager {
     case manufacturerImage(nameImage: String)
-    case tobaccoImage(manufacturer: String, uid: String, type: TobaccoImageType)
+    case tobaccoImage(manufacturer: String, name: String)
 }
 
 protocol ImageManagerProtocol {
-    func getImage(for type: NamedImageManager, completion: @escaping (Result<Data, Error>) -> Void)
+    func getImage(for url: String, completion: @escaping (Result<Data, Error>) -> Void)
 }

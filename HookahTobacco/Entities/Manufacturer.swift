@@ -13,7 +13,7 @@ struct Manufacturer {
     let name: String
     let country: String
     let description: String
-    var nameImage: String
+    var urlImage: String
     var image: Data?
     let link: String?
     let lines: [TobaccoLine]

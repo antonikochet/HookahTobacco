@@ -72,9 +72,9 @@ class ManufacturerListInteractor {
     }
 
     private func receiveImage(for manufacturer: Manufacturer, at index: Int) {
-        let imageName = manufacturer.nameImage
-        guard !imageName.isEmpty else { return }
-        getImageManager.getImage(for: NamedImageManager.manufacturerImage(nameImage: imageName)) { [weak self] result in
+        let urlImage = manufacturer.urlImage
+        guard !urlImage.isEmpty else { return }
+        getImageManager.getImage(for: urlImage) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let data):

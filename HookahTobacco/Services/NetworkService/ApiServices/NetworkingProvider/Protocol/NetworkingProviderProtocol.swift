@@ -14,4 +14,6 @@ protocol NetworkingProviderProtocol {
     func sendRequest<Request>(_ request: Request,
                               completion: @escaping Completion<Request.Response>
     ) where Request: ApiRequest
+    func getImage(_ url: String,
+                  completion: @escaping Completion<Data?>)
 }

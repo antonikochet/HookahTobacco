@@ -27,7 +27,6 @@
 		B90B671529A034FB004460C8 /* ApiServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90B671429A034FB004460C8 /* ApiServices.swift */; };
 		B90B671729A03EB5004460C8 /* ApiNetworkingServicesAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90B671629A03EB5004460C8 /* ApiNetworkingServicesAssembly.swift */; };
 		B90B671D29A049D0004460C8 /* GlobalConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90B671C29A049D0004460C8 /* GlobalConstant.swift */; };
-		B90FB1332901857100881D56 /* FireBaseSetImageNetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90FB1322901857100881D56 /* FireBaseSetImageNetworkingService.swift */; };
 		B91AF09C293F8B9C004CCC8A /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91AF09B293F8B9C004CCC8A /* ImageManager.swift */; };
 		B91AF09E293FA801004CCC8A /* ImageManagerAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91AF09D293FA800004CCC8A /* ImageManagerAssembly.swift */; };
 		B92A46A82966F9DC0006B787 /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A46A32966F9DC0006B787 /* ProfilePresenter.swift */; };
@@ -79,7 +78,6 @@
 		B9677CF428D89D4000EF9FC6 /* NamedFireStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9677CF328D89D4000EF9FC6 /* NamedFireStore.swift */; };
 		B97181572911254100E5DB28 /* DetailInfoManufacturerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97181552911254100E5DB28 /* DetailInfoManufacturerModule.swift */; };
 		B97181582911254100E5DB28 /* DetailInfoManufacturerAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97181562911254100E5DB28 /* DetailInfoManufacturerAssembly.swift */; };
-		B9781D30293A2FF500654567 /* FireBaseDataNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9781D2F293A2FF500654567 /* FireBaseDataNetworking.swift */; };
 		B9781D32293A45A800654567 /* AddSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9781D31293A45A700654567 /* AddSwitchView.swift */; };
 		B97D05AF2929639200F4629B /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = B97D05AE2929639200F4629B /* Realm */; };
 		B97D05B12929639200F4629B /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B97D05B02929639200F4629B /* RealmSwift */; };
@@ -161,13 +159,11 @@
 		B9C9260E294F784E0085BB02 /* FirebaseAuthHandlerErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C9260D294F784E0085BB02 /* FirebaseAuthHandlerErrors.swift */; };
 		B9C9ECFB29128F2F000A359B /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = B9C9ECFA29128F2F000A359B /* FirebaseCrashlytics */; };
 		B9C9ECFD29129E00000A359B /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C9ECFC29129E00000A359B /* NetworkError.swift */; };
-		B9C9ECFF29129F09000A359B /* FirebaseHandlerErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C9ECFE29129F09000A359B /* FirebaseHandlerErrors.swift */; };
 		B9CA939D2969C01C00F258F3 /* extension + TableKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CA939C2969C01C00F258F3 /* extension + TableKit.swift */; };
 		B9CA939F2969CE5600F258F3 /* ManufacturerListCellHeightCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CA939E2969CE5500F258F3 /* ManufacturerListCellHeightCalculator.swift */; };
 		B9D2D2A7293B805100F2F591 /* MultiSelectSegmentedControl in Frameworks */ = {isa = PBXBuildFile; productRef = B9D2D2A6293B805100F2F591 /* MultiSelectSegmentedControl */; };
 		B9D2D2A9293B808F00F2F591 /* AddMultiSegmentedControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D2D2A8293B808F00F2F591 /* AddMultiSegmentedControlView.swift */; };
 		B9D6055928D4CB590058D19E /* Manufacturer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D6055828D4CB590058D19E /* Manufacturer.swift */; };
-		B9D6055B28D4CF610058D19E /* FireBaseSetNetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D6055A28D4CF610058D19E /* FireBaseSetNetworkingService.swift */; };
 		B9D6055D28D4CFA70058D19E /* GetDataNetworkingServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D6055C28D4CFA70058D19E /* GetDataNetworkingServiceProtocol.swift */; };
 		B9D6056128D4F1410058D19E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B9D6056028D4F1410058D19E /* GoogleService-Info.plist */; };
 		B9D6056428D4FED20058D19E /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B9D6056328D4FED20058D19E /* FirebaseAuth */; settings = {ATTRIBUTES = (Required, ); }; };
@@ -192,9 +188,7 @@
 		B9E0FABB292EC520008807BC /* DataBaseHandlerErrorsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E0FABA292EC520008807BC /* DataBaseHandlerErrorsProtocol.swift */; };
 		B9E0FABD292EC57E008807BC /* RealmHandlerErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E0FABC292EC57E008807BC /* RealmHandlerErrors.swift */; };
 		B9E7A98628FEF9D700D711B4 /* GetImageNetworkingServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7A98528FEF9D700D711B4 /* GetImageNetworkingServiceProtocol.swift */; };
-		B9E7A98828FEFA9500D711B4 /* FireBaseGetImageNetworingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7A98728FEFA9500D711B4 /* FireBaseGetImageNetworingService.swift */; };
 		B9E7A98C28FF15DF00D711B4 /* SetImageNetworkingServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7A98B28FF15DF00D711B4 /* SetImageNetworkingServiceProtocol.swift */; };
-		B9E7A98E28FF16CC00D711B4 /* NamedFireStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7A98D28FF16CC00D711B4 /* NamedFireStorage.swift */; };
 		B9E7AC9E28F4337100A3D7E5 /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7AC9D28F4337100A3D7E5 /* AppRouter.swift */; };
 		B9E7ACA128F4528000A3D7E5 /* RouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7ACA028F4528000A3D7E5 /* RouterProtocol.swift */; };
 		B9E7ACAE28F46AFB00A3D7E5 /* AdminMenuModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7ACAC28F46AFB00A3D7E5 /* AdminMenuModule.swift */; };
@@ -212,7 +206,6 @@
 		B9E8DA5728F783B400CCA034 /* ManufacturerListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E8DA5628F783B400CCA034 /* ManufacturerListTableViewCell.swift */; };
 		B9E98A9229107BC000E1389B /* extention + String.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E98A9129107BC000E1389B /* extention + String.swift */; };
 		B9EB023B28F3159A00B3B6DA /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = B9EB023A28F3159A00B3B6DA /* Swinject */; };
-		B9EB024128F31B6300B3B6DA /* FireBaseNetworkingServicesAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EB024028F31B6300B3B6DA /* FireBaseNetworkingServicesAssembly.swift */; };
 		B9EB024728F3252500B3B6DA /* AddTobaccoAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EB024628F3252500B3B6DA /* AddTobaccoAssembly.swift */; };
 		B9EB024928F35B5F00B3B6DA /* ModuleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EB024828F35B5F00B3B6DA /* ModuleProtocol.swift */; };
 		B9EB024B28F3604E00B3B6DA /* AddTobaccoModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EB024A28F3604E00B3B6DA /* AddTobaccoModule.swift */; };
@@ -228,7 +221,6 @@
 		B9EE2378291023F00098E4E0 /* DetailInfoManufacturerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EE2373291023F00098E4E0 /* DetailInfoManufacturerViewController.swift */; };
 		B9EE2379291023F00098E4E0 /* DetailInfoManufacturerInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EE2374291023F00098E4E0 /* DetailInfoManufacturerInteractor.swift */; };
 		B9EE237D29102B710098E4E0 /* DetailInfoManufacturerTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EE237C29102B710098E4E0 /* DetailInfoManufacturerTableCell.swift */; };
-		B9F77A2128E500040089D80C /* FireBaseGetNetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F77A2028E500040089D80C /* FireBaseGetNetworkingService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -254,7 +246,6 @@
 		B90B671429A034FB004460C8 /* ApiServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiServices.swift; sourceTree = "<group>"; };
 		B90B671629A03EB5004460C8 /* ApiNetworkingServicesAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiNetworkingServicesAssembly.swift; sourceTree = "<group>"; };
 		B90B671C29A049D0004460C8 /* GlobalConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConstant.swift; sourceTree = "<group>"; };
-		B90FB1322901857100881D56 /* FireBaseSetImageNetworkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseSetImageNetworkingService.swift; sourceTree = "<group>"; };
 		B91AF09B293F8B9C004CCC8A /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		B91AF09D293FA800004CCC8A /* ImageManagerAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManagerAssembly.swift; sourceTree = "<group>"; };
 		B92A46A32966F9DC0006B787 /* ProfilePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
@@ -305,7 +296,6 @@
 		B9677CF328D89D4000EF9FC6 /* NamedFireStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamedFireStore.swift; sourceTree = "<group>"; };
 		B97181552911254100E5DB28 /* DetailInfoManufacturerModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfoManufacturerModule.swift; sourceTree = "<group>"; };
 		B97181562911254100E5DB28 /* DetailInfoManufacturerAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfoManufacturerAssembly.swift; sourceTree = "<group>"; };
-		B9781D2F293A2FF500654567 /* FireBaseDataNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseDataNetworking.swift; sourceTree = "<group>"; };
 		B9781D31293A45A700654567 /* AddSwitchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSwitchView.swift; sourceTree = "<group>"; };
 		B97D05B72929928000F4629B /* ManufacturerRealmObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManufacturerRealmObject.swift; sourceTree = "<group>"; };
 		B97D05B92929979300F4629B /* TobaccoRealmObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TobaccoRealmObject.swift; sourceTree = "<group>"; };
@@ -384,12 +374,10 @@
 		B9C9260B294F78140085BB02 /* AuthHandlerErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthHandlerErrors.swift; sourceTree = "<group>"; };
 		B9C9260D294F784E0085BB02 /* FirebaseAuthHandlerErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthHandlerErrors.swift; sourceTree = "<group>"; };
 		B9C9ECFC29129E00000A359B /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
-		B9C9ECFE29129F09000A359B /* FirebaseHandlerErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseHandlerErrors.swift; sourceTree = "<group>"; };
 		B9CA939C2969C01C00F258F3 /* extension + TableKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extension + TableKit.swift"; sourceTree = "<group>"; };
 		B9CA939E2969CE5500F258F3 /* ManufacturerListCellHeightCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManufacturerListCellHeightCalculator.swift; sourceTree = "<group>"; };
 		B9D2D2A8293B808F00F2F591 /* AddMultiSegmentedControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMultiSegmentedControlView.swift; sourceTree = "<group>"; };
 		B9D6055828D4CB590058D19E /* Manufacturer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manufacturer.swift; sourceTree = "<group>"; };
-		B9D6055A28D4CF610058D19E /* FireBaseSetNetworkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseSetNetworkingService.swift; sourceTree = "<group>"; };
 		B9D6055C28D4CFA70058D19E /* GetDataNetworkingServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDataNetworkingServiceProtocol.swift; sourceTree = "<group>"; };
 		B9D6056028D4F1410058D19E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B9D6057328D53C350058D19E /* FirebaseAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthService.swift; sourceTree = "<group>"; };
@@ -410,9 +398,7 @@
 		B9E0FABA292EC520008807BC /* DataBaseHandlerErrorsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseHandlerErrorsProtocol.swift; sourceTree = "<group>"; };
 		B9E0FABC292EC57E008807BC /* RealmHandlerErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmHandlerErrors.swift; sourceTree = "<group>"; };
 		B9E7A98528FEF9D700D711B4 /* GetImageNetworkingServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetImageNetworkingServiceProtocol.swift; sourceTree = "<group>"; };
-		B9E7A98728FEFA9500D711B4 /* FireBaseGetImageNetworingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseGetImageNetworingService.swift; sourceTree = "<group>"; };
 		B9E7A98B28FF15DF00D711B4 /* SetImageNetworkingServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetImageNetworkingServiceProtocol.swift; sourceTree = "<group>"; };
-		B9E7A98D28FF16CC00D711B4 /* NamedFireStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamedFireStorage.swift; sourceTree = "<group>"; };
 		B9E7AC9D28F4337100A3D7E5 /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
 		B9E7ACA028F4528000A3D7E5 /* RouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterProtocol.swift; sourceTree = "<group>"; };
 		B9E7ACAC28F46AFB00A3D7E5 /* AdminMenuModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminMenuModule.swift; sourceTree = "<group>"; };
@@ -429,7 +415,6 @@
 		B9E8DA4F28F7827900CCA034 /* ManufacturerListAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManufacturerListAssembly.swift; sourceTree = "<group>"; };
 		B9E8DA5628F783B400CCA034 /* ManufacturerListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManufacturerListTableViewCell.swift; sourceTree = "<group>"; };
 		B9E98A9129107BC000E1389B /* extention + String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "extention + String.swift"; sourceTree = "<group>"; };
-		B9EB024028F31B6300B3B6DA /* FireBaseNetworkingServicesAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseNetworkingServicesAssembly.swift; sourceTree = "<group>"; };
 		B9EB024628F3252500B3B6DA /* AddTobaccoAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTobaccoAssembly.swift; sourceTree = "<group>"; };
 		B9EB024828F35B5F00B3B6DA /* ModuleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleProtocol.swift; sourceTree = "<group>"; };
 		B9EB024A28F3604E00B3B6DA /* AddTobaccoModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTobaccoModule.swift; sourceTree = "<group>"; };
@@ -445,7 +430,6 @@
 		B9EE2373291023F00098E4E0 /* DetailInfoManufacturerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfoManufacturerViewController.swift; sourceTree = "<group>"; };
 		B9EE2374291023F00098E4E0 /* DetailInfoManufacturerInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfoManufacturerInteractor.swift; sourceTree = "<group>"; };
 		B9EE237C29102B710098E4E0 /* DetailInfoManufacturerTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfoManufacturerTableCell.swift; sourceTree = "<group>"; };
-		B9F77A2028E500040089D80C /* FireBaseGetNetworkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBaseGetNetworkingService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -888,9 +872,7 @@
 		B97EE9EA292B90650090B344 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				B9781D2F293A2FF500654567 /* FireBaseDataNetworking.swift */,
 				B9677CF328D89D4000EF9FC6 /* NamedFireStore.swift */,
-				B9E7A98D28FF16CC00D711B4 /* NamedFireStorage.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -907,7 +889,6 @@
 		B97EE9FA292BBF1B0090B344 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				B9EB024028F31B6300B3B6DA /* FireBaseNetworkingServicesAssembly.swift */,
 				B90B671629A03EB5004460C8 /* ApiNetworkingServicesAssembly.swift */,
 				B9C925FE294F6C4B0085BB02 /* FirebaseAuthServiceAssembly.swift */,
 				B97EE9EF292BA1480090B344 /* RealmDataBaseServiresAssembly.swift */,
@@ -1209,11 +1190,6 @@
 			isa = PBXGroup;
 			children = (
 				B97EE9EA292B90650090B344 /* Models */,
-				B9D6055A28D4CF610058D19E /* FireBaseSetNetworkingService.swift */,
-				B9F77A2028E500040089D80C /* FireBaseGetNetworkingService.swift */,
-				B9E7A98728FEFA9500D711B4 /* FireBaseGetImageNetworingService.swift */,
-				B90FB1322901857100881D56 /* FireBaseSetImageNetworkingService.swift */,
-				B9C9ECFE29129F09000A359B /* FirebaseHandlerErrors.swift */,
 			);
 			path = FireBaseServices;
 			sourceTree = "<group>";
@@ -1555,7 +1531,6 @@
 				B96181C3299ECCE400249A7E /* ApiRequest.swift in Sources */,
 				B938A52329411F0000145EF0 /* AdminImageManagerAssembly.swift in Sources */,
 				B9027E05290FF613002E3C3A /* AppRouter+Register.swift in Sources */,
-				B9E7A98828FEFA9500D711B4 /* FireBaseGetImageNetworingService.swift in Sources */,
 				B91AF09C293F8B9C004CCC8A /* ImageManager.swift in Sources */,
 				B98E1DF228F0DBCF00964B8F /* AdminMenuPresenter.swift in Sources */,
 				B97EE9EE292BA0710090B344 /* DataManagerAssembly.swift in Sources */,
@@ -1572,15 +1547,12 @@
 				B9C925F8294F53720085BB02 /* RegistrationRouter.swift in Sources */,
 				B9EE2379291023F00098E4E0 /* DetailInfoManufacturerInteractor.swift in Sources */,
 				B9631C4E2922487500BBC09B /* extention + UIEdgeInsets.swift in Sources */,
-				B9EB024128F31B6300B3B6DA /* FireBaseNetworkingServicesAssembly.swift in Sources */,
 				B98182A6292ADBFF00DEA9F0 /* RealmProviderProtocol.swift in Sources */,
 				B9DBE50B290DD8B1005B185C /* HTTabBarController.swift in Sources */,
-				B9C9ECFF29129F09000A359B /* FirebaseHandlerErrors.swift in Sources */,
 				B97D05BA2929979300F4629B /* TobaccoRealmObject.swift in Sources */,
 				B9D6055D28D4CFA70058D19E /* GetDataNetworkingServiceProtocol.swift in Sources */,
 				B902AE4029F408B300BF6AD6 /* TobaccoLine+Codable.swift in Sources */,
 				B9B30A1C29325FFF00204913 /* ObserverProtocol.swift in Sources */,
-				B9F77A2128E500040089D80C /* FireBaseGetNetworkingService.swift in Sources */,
 				B9E98A9229107BC000E1389B /* extention + String.swift in Sources */,
 				B982804A292FB97C00BF3A93 /* ImageStorageServiceDataProtocol.swift in Sources */,
 				B9EB024B28F3604E00B3B6DA /* AddTobaccoModule.swift in Sources */,
@@ -1617,7 +1589,6 @@
 				B9D6055928D4CB590058D19E /* Manufacturer.swift in Sources */,
 				B97EE9F3292BB3C30090B344 /* UserDefaultsService.swift in Sources */,
 				B981B5252938DD3700A02D9F /* AddParamTobaccoView.swift in Sources */,
-				B9D6055B28D4CF610058D19E /* FireBaseSetNetworkingService.swift in Sources */,
 				B902AE4429F40AE100BF6AD6 /* GetTobaccoRequest.swift in Sources */,
 				B97EE9F6292BB3E50090B344 /* UserDefaultsServiceProtocol.swift in Sources */,
 				B9ED9102290989EF00DC3A6D /* TobaccoListPresenter.swift in Sources */,
@@ -1626,7 +1597,6 @@
 				B97EE9E3292B70790090B344 /* DataManagerProtocol.swift in Sources */,
 				B9A4708328D2B84500CA6FAA /* extention + UIFont.swift in Sources */,
 				B98E1DE828F08D4400964B8F /* AddTobaccoInteractor.swift in Sources */,
-				B90FB1332901857100881D56 /* FireBaseSetImageNetworkingService.swift in Sources */,
 				3802046429FE6AB8000193A1 /* NetworkHandlerErrors.swift in Sources */,
 				B92A46AD2966FA430006B787 /* ProfileTableViewCell.swift in Sources */,
 				B981CBA42930DBAD00705422 /* DetailTobaccoPresenter.swift in Sources */,
@@ -1635,7 +1605,6 @@
 				B948D83628CD286400E35884 /* SetDataNetworkingServiceProtocol.swift in Sources */,
 				B938A51F2941134100145EF0 /* AdminImageManagerProtocol.swift in Sources */,
 				B9EB024728F3252500B3B6DA /* AddTobaccoAssembly.swift in Sources */,
-				B9781D30293A2FF500654567 /* FireBaseDataNetworking.swift in Sources */,
 				B98E1DD928F0812500964B8F /* LoginInteractor.swift in Sources */,
 				B9C92601294F6DB20085BB02 /* RegistrationServiceProtocol.swift in Sources */,
 				B98182A9292AE19600DEA9F0 /* RealmDataBaseService.swift in Sources */,
@@ -1683,7 +1652,6 @@
 				B9BA7947295B9CE7009188D6 /* RegistrationModule.swift in Sources */,
 				B9781D32293A45A800654567 /* AddSwitchView.swift in Sources */,
 				B9E7ACB828F495B300A3D7E5 /* AddManufacturerModule.swift in Sources */,
-				B9E7A98E28FF16CC00D711B4 /* NamedFireStorage.swift in Sources */,
 				B9CA939D2969C01C00F258F3 /* extension + TableKit.swift in Sources */,
 				B9DBE935290B0C07004D7B97 /* ImagePickerView.swift in Sources */,
 				B981829C292A568100DEA9F0 /* DataBaseError.swift in Sources */,

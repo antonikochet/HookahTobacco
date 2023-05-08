@@ -7,17 +7,7 @@
 
 import Foundation
 
-extension TasteType: DataNetworkingServiceProtocol {
-    init?(_ data: [String : Any], uid: String) {
-        self.name = ""
-    }
-    
-    func formatterToData() -> [String : Any] {
-        [:]
-    }
-    
-    
-}
+extension TasteType: DataNetworkingServiceProtocol { }
 
 extension TasteType: Decodable {
     init(from decoder: Decoder) throws {

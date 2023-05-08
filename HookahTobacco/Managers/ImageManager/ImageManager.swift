@@ -25,41 +25,37 @@ class ImageManager {
     }
 
     // MARK: - Public methods
-    func convertNamedImageInNamedImageNetwork(from type: NamedImageManager) -> NamedFireStorage {
-        var named: NamedFireStorage
-        switch type {
-        case .manufacturerImage(let nameImage):
-            named = NamedFireStorage.manufacturerImage(name: nameImage)
-        case .tobaccoImage(let manufacturer, let uid, let type):
-            named = NamedFireStorage.tobaccoImage(manufacturer: manufacturer, uid: uid, type: type)
-        }
-        return named
-    }
-
-    func convertNamedImageInImageService(from type: NamedImageManager) -> NamedImageStorage {
-        var named: NamedImageStorage
-        switch type {
-        case .manufacturerImage(let nameImage):
-            named = NamedImageStorage.manufacturer(nameImage: nameImage)
-        case .tobaccoImage(let manufacturer, let uid, let type):
-            named = NamedImageStorage.tobacco(manufacturer: manufacturer, uid: uid, type: type)
+    func convertNamedImageInImageService(from url: String) -> NamedImageStorage? {
+        var named: NamedImageStorage?
+        if let url = URL(string: url) {
+            let pathComponents = url.pathComponents
+            if pathComponents.contains(where: { $0 == "tobaccos" }) {
+                if let manufacturer = pathComponents.dropLast().last,
+                   let nameFile = pathComponents.last {
+                    named = NamedImageStorage.tobacco(manufacturer: manufacturer, name: nameFile)
+                }
+            } else {
+                if let nameFile = pathComponents.last {
+                    named = NamedImageStorage.manufacturer(nameImage: nameFile)
+                }
+            }
         }
         return named
     }
 
     // MARK: - Private methods
-    private func receiveImageFromNetwork(for type: NamedImageManager,
+    private func receiveImageFromNetwork(for url: String,
                                          completion: @escaping (Result<Data, Error>) -> Void) {
-        let named = convertNamedImageInNamedImageNetwork(from: type)
-        getImageNetworingService.getImage(for: named) { [weak self] result in
+        getImageNetworingService.getImage(for: url) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let image):
-                let named = self.convertNamedImageInImageService(from: type)
-                do {
-                    _ = try self.imageService.saveImage(image, for: named)
-                } catch {
-                    print(error)
+                if let named = self.convertNamedImageInImageService(from: url) {
+//                    do {
+//                        _ = try self.imageService.saveImage(image, for: named)
+//                    } catch {
+//                        print(error)
+//                    }
                 }
                 completion(.success(image))
             case .failure(let error):
@@ -71,13 +67,16 @@ class ImageManager {
 
 // MARK: - ImageManagerProtocol implementation
 extension ImageManager: ImageManagerProtocol {
-    func getImage(for type: NamedImageManager, completion: @escaping (Result<Data, Error>) -> Void) {
+    func getImage(for url: String, completion: @escaping (Result<Data, Error>) -> Void) {
         imageWorkingQueue.async {
             do {
-                let named = self.convertNamedImageInImageService(from: type)
-                completion(.success(try self.imageService.receiveImage(for: named)))
+                if let named = self.convertNamedImageInImageService(from: url) {
+                    completion(.success(try self.imageService.receiveImage(for: named)))
+                } else {
+                    self.receiveImageFromNetwork(for: url, completion: completion)
+                }
             } catch {
-                self.receiveImageFromNetwork(for: type, completion: completion)
+                self.receiveImageFromNetwork(for: url, completion: completion)
             }
         }
     }

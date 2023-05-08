@@ -83,11 +83,7 @@ class TobaccoListInteractor {
     }
 
     private func getImage(for tobacco: Tobacco, with index: Int) {
-        guard !tobacco.uid.isEmpty else { return }
-        let named = NamedImageManager.tobaccoImage(manufacturer: tobacco.nameManufacturer,
-                                                   uid: tobacco.uid,
-                                                   type: .main)
-        getImageManager.getImage(for: named) { [weak self] result in
+        getImageManager.getImage(for: tobacco.imageURL) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let image):

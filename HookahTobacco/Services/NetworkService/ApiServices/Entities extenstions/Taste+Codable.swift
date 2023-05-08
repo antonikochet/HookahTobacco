@@ -7,6 +7,8 @@
 
 import Foundation
 
+extension Taste: DataNetworkingServiceProtocol { }
+
 extension Taste: Decodable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)

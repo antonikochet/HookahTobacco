@@ -8,5 +8,5 @@
 import Foundation
 
 protocol ImageNetworkingDataProtocol {
-    var path: String { get }
+    var url: String { get }
 }

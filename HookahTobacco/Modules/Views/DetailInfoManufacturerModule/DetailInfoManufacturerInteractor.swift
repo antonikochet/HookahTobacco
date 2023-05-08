@@ -60,10 +60,7 @@ class DetailInfoManufacturerInteractor {
 
     private func receiveImageTobaccos(_ tobaccos: [Tobacco]) {
         tobaccos.enumerated().forEach { index, tobacco in
-            let named = NamedImageManager.tobaccoImage(manufacturer: tobacco.nameManufacturer,
-                                                       uid: tobacco.uid,
-                                                       type: .main)
-            getImageManager.getImage(for: named) { [weak self] result in
+            getImageManager.getImage(for: tobacco.imageURL) { [weak self] result in
                 guard let self = self else { return }
                 switch result {
                 case .success(let image):

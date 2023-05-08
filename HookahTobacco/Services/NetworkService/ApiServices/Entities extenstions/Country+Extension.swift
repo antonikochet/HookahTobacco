@@ -7,17 +7,7 @@
 
 import Foundation
 
-extension Country: DataNetworkingServiceProtocol {
-    init?(_ data: [String : Any], uid: String) {
-        self.name = ""
-    }
-    
-    func formatterToData() -> [String : Any] {
-        [:]
-    }
-    
-    
-}
+extension Country: DataNetworkingServiceProtocol { }
 
 extension Country: Decodable {
     init(from decoder: Decoder) throws {

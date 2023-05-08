@@ -7,6 +7,8 @@
 
 import Foundation
 
+extension Manufacturer: DataNetworkingServiceProtocol { }
+
 extension Manufacturer: Decodable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -15,7 +17,7 @@ extension Manufacturer: Decodable {
         country = try container.decode(String.self, forKey: .country)
         description = try container.decode(String.self, forKey: .description)
         link = try container.decode(String.self, forKey: .link)
-        nameImage = try container.decode(URL.self, forKey: .nameImage).pathComponents.dropFirst().joined(separator: "/")
+        urlImage = try container.decode(URL.self, forKey: .nameImage).absoluteString
         lines = try container.decode([TobaccoLine].self, forKey: .lines)
     }
     
