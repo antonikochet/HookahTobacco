@@ -12,6 +12,7 @@ extension Taste: DataNetworkingServiceProtocol { }
 extension Taste: Decodable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = String(try container.decode(Int.self, forKey: .uid))
         uid = String(try container.decode(Int.self, forKey: .uid))
         taste = try container.decode(String.self, forKey: .taste)
         let tasteTypes = try container.decode([TasteType].self, forKey: .typeTaste)

@@ -6,15 +6,17 @@
 //
 
 import Foundation
+import Moya
+import Alamofire
 
 final class ApiServices {
 
-    private let apiProvider: NetworkingProviderProtocol
+    private let provider: MoyaProvider<MultiTarget>
     private let handlerErrors: NetworkHandlerErrors
 
-    init(apiProvider: NetworkingProviderProtocol,
+    init(provider: MoyaProvider<MultiTarget>,
          handlerErrors: NetworkHandlerErrors) {
-        self.apiProvider = apiProvider
+        self.provider = provider
         self.handlerErrors = handlerErrors
     }
 
@@ -26,24 +28,52 @@ final class ApiServices {
         apiError.url = afError.url?.absoluteString
         return apiError
     }
+
+    private func showError(_ line: String) {
+        #if DEBUG
+        print("‼️‼️‼️\n\(line)\n‼️‼️‼️")
+        #endif
+    }
 }
 
 // MARK: - private methods for get requests
 
 private extension ApiServices {
-    func receiveData<T>(
-        for request: T,
-        completion: GetDataNetworkingServiceCompletion<T.Response>?
-    ) where T: ApiRequest {
-        apiProvider.sendRequest(request) { [weak self] response in
+    func sendRequest<T: Decodable>(
+        object: T.Type,
+        target: TargetType,
+        completion: GetDataNetworkingServiceCompletion<T>?
+    ) {
+        provider.request(object: object, target: MultiTarget(target)) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case let .success(response):
+                do {
+                    let data = try response.map(T.self)
+                    completion?(.success(data))
+                } catch {
+                    self.showError("\(error)")
+                    let networkingError = self.handlerErrors.handlerError(error)
+                    completion?(.failure(networkingError))
+                }
+            case let .failure(error):
+                self.showError("\(error)")
+                let networkingError = self.handlerErrors.handlerError(error)
+                completion?(.failure(networkingError))
+            }
+        }
+    }
+
+    func getImage(_ url: String, completion: ((Result<Data?, NetworkError>) -> Void)?) {
+        AF.request(url).response { [weak self] response in
             guard let self else { return }
             switch response.result {
-            case .success(let data):
+            case let .success(data):
                 completion?(.success(data))
-            case .failure(let error):
-                print("‼️‼️‼️\n\(error)\n‼️‼️‼️")
-                let apiError = handleApiError(response.data, error: error)
-                completion?(.failure(self.handlerErrors.handlerError(apiError ?? error)))
+            case let .failure(error):
+                self.showError("\(error)")
+                let apiError = self.handlerErrors.handlerError(error)
+                completion?(.failure(apiError))
             }
         }
     }
@@ -56,95 +86,107 @@ extension ApiServices: GetDataNetworkingServiceProtocol {
     ) where T: DataNetworkingServiceProtocol {
         switch type {
         case is Manufacturer.Type:
-            receiveData(for: GetManufacturerRequest(),
+            sendRequest(object: [Manufacturer].self,
+                        target: Api.Manufacturer.list,
                         completion: completion as? GetDataNetworkingServiceCompletion<[Manufacturer]>)
         case is Tobacco.Type:
-            receiveData(for: GetTobaccoRequest(),
+            sendRequest(object: [Tobacco].self,
+                        target: Api.Tobacco.list,
                         completion: completion as? GetDataNetworkingServiceCompletion<[Tobacco]>)
         case is Taste.Type:
-            receiveData(for: GetTasteRequest(),
+            sendRequest(object: [Taste].self,
+                        target: Api.Taste.list,
                         completion: completion as? GetDataNetworkingServiceCompletion<[Taste]>)
         case is TobaccoLine.Type:
-            receiveData(for: GetTobaccoLineRequest(),
+            sendRequest(object: [TobaccoLine].self,
+                        target: Api.TobaccoLine.list,
                         completion: completion as? GetDataNetworkingServiceCompletion<[TobaccoLine]>)
         case is TasteType.Type:
-            receiveData(for: GetTasteTypeRequest(),
+            sendRequest(object: [TasteType].self,
+                        target: Api.TasteType.list,
                         completion: completion as? GetDataNetworkingServiceCompletion<[TasteType]>)
         case is Country.Type:
-            receiveData(for: GetCountryRequest(),
+            sendRequest(object: [Country].self,
+                        target: Api.Country.list,
                         completion: completion as? GetDataNetworkingServiceCompletion<[Country]>)
         default: break
         }
     }
 
     func getTobaccos(for manufacturer: Manufacturer, completion: GetDataNetworkingServiceCompletion<[Tobacco]>?) {
-        let request = GetTobaccosManufacturerRequest(idManufacurer: manufacturer.uid)
-        apiProvider.sendRequest(request) { [weak self] response in
-            guard let self else { return }
-            switch response.result {
-            case .success(let tobaccoResponse):
-                completion?(.success(tobaccoResponse.tobaccos))
-            case .failure(let error):
-                let apiError = self.handleApiError(response.data, error: error)
-                completion?(.failure(self.handlerErrors.handlerError(apiError ?? error)))
+        let target = Api.Manufacturer.tobaccos(id: manufacturer.uid)
+        sendRequest(object: TobaccosManufacturerResponse.self, target: target) { result in
+            switch result {
+            case let .success(data):
+                completion?(.success(data.tobaccos))
+            case let .failure(error):
+                completion?(.failure(error))
             }
         }
     }
 
     func getDataBaseVersion(completion: GetDataNetworkingServiceCompletion<Int>?) {
-        fatalError("no implementation\(#function)")
+        completion?(.success(1))
     }
 }
 
 // MARK: - GetImageNetworkingServiceProtocol
 extension ApiServices: GetImageNetworkingServiceProtocol {
     func getImage(for url: String, completion: @escaping (Result<Data, NetworkError>) -> Void) {
-        apiProvider.getImage(url) { response in
-            switch response.result {
-            case .success(let data):
+        getImage(url) { result in
+            switch result {
+            case let .success(data):
                 if let data {
                     completion(.success(data))
                 } else {
                     completion(.failure(.unknownDataError("photo on \(url)")))
                 }
-            case .failure(let error):
-                let apiError = self.handleApiError(response.data, error: error)
-                completion(.failure(self.handlerErrors.handlerError(apiError ?? error)))
+            case let .failure(error):
+                completion(.failure(error))
             }
         }
     }
 }
 
 // MARK: - SetDataNetworkingServiceProtocol
+
 extension ApiServices: SetDataNetworkingServiceProtocol {
-    func addData<T>(_ data: T, completion: AddDataNetworkingCompletion?) where T : DataNetworkingServiceProtocol {
+    func addData<T>(_ data: T, completion: AddDataNetworkingCompletion<T>?) where T: DataNetworkingServiceProtocol {
+        switch data.self {
+        case is Manufacturer.Type:
+            sendRequest(object: Manufacturer.self,
+                        target: Api.Manufacturer.create,
+                        completion: completion as? AddDataNetworkingCompletion)
+        default:
+            break
+        }
+    }
+
+    func setData<T>(_ data: T, completion: SetDataNetworingCompletion?) where T: DataNetworkingServiceProtocol {
         fatalError("no implementation\(#function)")
     }
-    
-    func setData<T>(_ data: T, completion: SetDataNetworingCompletion?) where T : DataNetworkingServiceProtocol {
-        fatalError("no implementation\(#function)")
-    }
-    
+
     func setDBVersion(_ newVersion: Int, completion: SetDataNetworingCompletion?) {
         fatalError("no implementation\(#function)")
     }
-    
-    
 }
 
 // MARK: - SetImageNetworkingServiceProtocol
-extension ApiServices: SetImageNetworkingServiceProtocol {
-    func addImage(by fileURL: URL, for image: ImageNetworkingDataProtocol, completion: @escaping Completion) {
-        fatalError("no implementation\(#function)")
-    }
-    
-    func setImage(from oldImage: ImageNetworkingDataProtocol, to newURL: URL, for newImage: ImageNetworkingDataProtocol, completion: @escaping Completion) {
-        fatalError("no implementation\(#function)")
-    }
-    
-    func setImageName(from oldImage: ImageNetworkingDataProtocol, to newImage: ImageNetworkingDataProtocol, completion: @escaping Completion) {
-        fatalError("no implementation\(#function)")
-    }
-    
-    
-}
+// extension ApiServices: SetImageNetworkingServiceProtocol {
+//    func addImage(by fileURL: URL, for image: ImageNetworkingDataProtocol, completion: @escaping Completion) {
+//        fatalError("no implementation\(#function)")
+//    }
+//
+//    func setImage(from oldImage: ImageNetworkingDataProtocol,
+//                  to newURL: URL,
+//                  for newImage: ImageNetworkingDataProtocol,
+//                  completion: @escaping Completion) {
+//        fatalError("no implementation\(#function)")
+//    }
+//
+//    func setImageName(from oldImage: ImageNetworkingDataProtocol,
+//                      to newImage: ImageNetworkingDataProtocol,
+//                      completion: @escaping Completion) {
+//        fatalError("no implementation\(#function)")
+//    }
+// }

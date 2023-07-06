@@ -7,18 +7,16 @@
 
 import Foundation
 import Swinject
+import Moya
 
 class ApiNetworkingServicesAssembly: Assembly {
     func assemble(container: Container) {
 
-        container.register(NetworkingProviderProtocol.self) { _ in
-            NetworkingProvider()
-        }
         container.register(NetworkHandlerErrors.self) { _ in
             ApiHandlerErrors()
         }
         container.register(ApiServices.self) { resolver in
-            ApiServices(apiProvider: resolver.resolve(NetworkingProviderProtocol.self)!,
+            ApiServices(provider: MoyaProvider<MultiTarget>(),
                         handlerErrors: resolver.resolve(NetworkHandlerErrors.self)!)
         }
         container.register(GetDataNetworkingServiceProtocol.self) { resolver in

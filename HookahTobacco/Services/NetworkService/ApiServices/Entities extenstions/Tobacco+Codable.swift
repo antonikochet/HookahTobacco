@@ -22,6 +22,7 @@ extension Tobacco: DataNetworkingServiceProtocol { }
 extension Tobacco: Decodable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = String(try container.decode(Int.self, forKey: .uid))
         uid = String(try container.decode(Int.self, forKey: .uid))
         name = try container.decode(String.self, forKey: .name)
         tastes = try container.decode([Taste].self, forKey: .tastes)
@@ -30,7 +31,7 @@ extension Tobacco: Decodable {
         nameManufacturer = manufacturer.name
         description = try container.decode(String.self, forKey: .description)
         line = try container.decode(TobaccoLine.self, forKey: .line)
-        imageURL = try container.decode(URL.self, forKey: .imageURL).absoluteString
+        imageURL = try container.decode(URL?.self, forKey: .imageURL)?.absoluteString ?? ""
         isFavorite = false
         isWantBuy = false
     }

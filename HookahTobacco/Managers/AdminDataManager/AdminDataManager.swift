@@ -40,10 +40,8 @@ class AdminDataManager: DataManager {
         setDataNetworkingService.addData(data) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success(let uid):
-                var newData = data
-                newData.uid = uid
-                    print(type(of: newData), newData.uid)
+            case .success(let newData):
+                print(type(of: newData), newData.uid)
                 self.dataBaseService.add(entity: newData) {
                     completion?(.success(newData))
                     self.notifySubscribers(T.self)
