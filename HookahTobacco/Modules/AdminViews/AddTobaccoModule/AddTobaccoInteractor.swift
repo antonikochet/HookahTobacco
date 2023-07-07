@@ -38,7 +38,6 @@ class AddTobaccoInteractor {
 
     private var getDataManager: GetDataNetworkingServiceProtocol
     private var setDataManager: AdminDataManagerProtocol
-    private var setImageManager: AdminImageManagerProtocol
 
     private var manufacturers: [Manufacturer]? {
         didSet {
@@ -55,19 +54,15 @@ class AddTobaccoInteractor {
     private var isEditing: Bool
     private var mainImageFileURL: URL?
     private var editingMainImage: Data?
-    private var dispatchGroup = DispatchGroup()
-    private var receivedErrorAtEditing: [Error] = []
 
     init(_ tobacco: Tobacco? = nil,
          getDataManager: GetDataNetworkingServiceProtocol,
-         setDataManager: AdminDataManagerProtocol,
-         setImageManager: AdminImageManagerProtocol) {
+         setDataManager: AdminDataManagerProtocol) {
         isEditing = tobacco != nil
         self.tobacco = tobacco
         self.selectedTobaccoLine = tobacco?.line
         self.getDataManager = getDataManager
         self.setDataManager = setDataManager
-        self.setImageManager = setImageManager
         getManufacturers()
         getAllTastes()
     }
@@ -99,69 +94,29 @@ class AddTobaccoInteractor {
     }
 
     private func addTobacco(_ tobacco: Tobacco, by imageFileURL: URL) {
-        setDataManager.addData(tobacco) { [weak self] result in
+        var tobaccoWithImage = tobacco
+        if let image = try? Data(contentsOf: imageFileURL) {
+            tobaccoWithImage.image = image
+        }
+        setDataManager.addData(tobaccoWithImage) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success(let newTobacco):
-                self.addImage(tobacco: newTobacco, by: imageFileURL)
+            case .success:
+                self.presenter.receivedSuccessAddition()
+                self.successAdded()
             case .failure(let error):
                 self.presenter.receivedError(with: error.localizedDescription)
             }
         }
     }
 
-    private func addImage(tobacco: Tobacco, by fileURL: URL) {
-        guard !tobacco.uid.isEmpty else { return }
-        let named = NamedImageManager.tobaccoImage(manufacturer: tobacco.nameManufacturer,
-                                                   uid: tobacco.uid,
-                                                   type: .main)
-        setImageManager.addImage(by: fileURL, for: named, completion: { error in
-            if let error = error {
-                self.presenter.receivedError(with: error.localizedDescription)
-            } else {
-                self.presenter.receivedSuccessAddition()
-                self.successAdded()
-            }
-        })
-    }
-
     private func setTobacco(_ tobacco: Tobacco) {
-        dispatchGroup.enter()
         setDataManager.setData(tobacco) { [weak self] error in
             guard let self = self else { return }
-            if let error = error {
-                self.receivedErrorAtEditing.append(error)
-            }
-            self.dispatchGroup.leave()
-        }
-    }
-
-    private func setImage(by newURL: URL?, for tobacco: Tobacco) {
-        guard !tobacco.uid.isEmpty,
-              let oldNameManufacturer = self.tobacco?.nameManufacturer else { return }
-        dispatchGroup.enter()
-        let oldNamed = NamedImageManager.tobaccoImage(manufacturer: oldNameManufacturer,
-                                                      uid: tobacco.uid,
-                                                      type: .main)
-        let newNamed = NamedImageManager.tobaccoImage(manufacturer: tobacco.nameManufacturer,
-                                                      uid: tobacco.uid,
-                                                      type: .main)
-        if let newURL = newURL {
-            editingMainImage = try? Data(contentsOf: newURL)
-            setImageManager.setImage(from: oldNamed, to: newURL, for: newNamed) { [weak self] error in
-                guard let self = self else { return }
-                if let error = error {
-                    self.receivedErrorAtEditing.append(error)
-                }
-                self.dispatchGroup.leave()
-            }
-        } else {
-            setImageManager.setImageName(from: oldNamed, to: newNamed) { [weak self] error in
-                guard let self = self else { return }
-                if let error = error {
-                    self.receivedErrorAtEditing.append(error)
-                }
-                self.dispatchGroup.leave()
+            if let error {
+                self.presenter.receivedError(with: error.localizedDescription)
+            } else {
+                self.presenter.receivedSuccessEditing(with: tobacco)
             }
         }
     }
@@ -177,7 +132,7 @@ class AddTobaccoInteractor {
               let manufacturer = receiveSelectedManufacturer(by: tobacco.idManufacturer) else { return }
         selectedManufacturer = manufacturer
         presenter.initialSelectedManufacturer(manufacturer.name)
-        presenter.showNameTobaccoLinesForSelect(manufacturer.lines.map { $0.name })
+        presenter.showNameTobaccoLinesForSelect(manufacturer.lines.map { $0.isBase ? "Базовая линейка" : $0.name })
         presenter.initialSelectedTobaccoLine(selectedTobaccoLine?.name)
     }
 
@@ -216,26 +171,17 @@ extension AddTobaccoInteractor: AddTobaccoInteractorInputProtocol {
                               nameManufacturer: selectManufacturer.name,
                               description: data.description,
                               line: selectTobaccoLine,
+                              imageURL: tobacco?.imageURL ?? "",
                               isFavorite: false,
                               isWantBuy: false,
                               image: tobacco?.image)
         if isEditing {
-            dispatchGroup = DispatchGroup()
-            setTobacco(tobacco)
-            if mainImageFileURL != nil || tobacco.nameManufacturer != self.tobacco?.nameManufacturer {
-                setImage(by: mainImageFileURL, for: tobacco)
+            if let mainImageFileURL {
+                editingMainImage = try? Data(contentsOf: mainImageFileURL)
                 tobacco.image = editingMainImage
-                mainImageFileURL = nil
+                self.mainImageFileURL = nil
             }
-            dispatchGroup.notify(queue: .main) {
-                if self.receivedErrorAtEditing.isEmpty {
-                    self.presenter.receivedSuccessEditing(with: tobacco)
-                } else {
-                    // TODO: исправить данный вывод ошибок
-                    let error = self.receivedErrorAtEditing.first!
-                    self.presenter.receivedError(with: error.localizedDescription)
-                }
-            }
+            setTobacco(tobacco)
         } else {
             guard let imageFileURL = mainImageFileURL else {
                 presenter.receivedError(with: "Изображение не было выбрано для табака!")
@@ -247,11 +193,15 @@ extension AddTobaccoInteractor: AddTobaccoInteractorInputProtocol {
 
     func didSelectedManufacturer(_ name: String) {
         selectedManufacturer = manufacturers?.first(where: { name == $0.name })
-        presenter.showNameTobaccoLinesForSelect(selectedManufacturer?.lines.map { $0.name } ?? [])
+        presenter.showNameTobaccoLinesForSelect(
+            selectedManufacturer?.lines.map { $0.isBase ? "Базовая линейка" : $0.name } ?? []
+        )
     }
 
     func didSelectedTobaccoLine(_ name: String) {
-        selectedTobaccoLine = selectedManufacturer?.lines.first(where: { name == $0.name })
+        selectedTobaccoLine = selectedManufacturer?.lines.first(where: {
+            name == $0.name || ($0.isBase && name == "Базовая линейка")
+        })
     }
 
     func didSelectMainImage(with fileURL: URL) {

@@ -150,7 +150,7 @@ fileprivate extension FBUser {
         self.email = user.email
         self.firstName = firstName
         self.lastName = lastName
-        self.isAdmin = isAdmin ?? false
+        self.isAdmin = isAdmin ?? true
         self.isAnonymous = user.isAnonymous
     }
 }

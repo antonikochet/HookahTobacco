@@ -10,6 +10,7 @@
 		3802046229FE6A7C000193A1 /* ApiHandlerErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3802046129FE6A7C000193A1 /* ApiHandlerErrors.swift */; };
 		3802046429FE6AB8000193A1 /* NetworkHandlerErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3802046329FE6AB8000193A1 /* NetworkHandlerErrors.swift */; };
 		3802046729FE6D1A000193A1 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3802046629FE6D1A000193A1 /* ApiError.swift */; };
+		3848022F2A57189C00DA595B /* Request+Manufacturer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3848022E2A57189C00DA595B /* Request+Manufacturer.swift */; };
 		387121AC2A55ABD000B6005E /* Api+Tobacco.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387121AB2A55ABD000B6005E /* Api+Tobacco.swift */; };
 		387121AF2A55AD6700B6005E /* Response+Manufacturer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387121AE2A55AD6700B6005E /* Response+Manufacturer.swift */; };
 		387121B32A55AE7F00B6005E /* Api+Taste.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387121B22A55AE7F00B6005E /* Api+Taste.swift */; };
@@ -18,6 +19,7 @@
 		387121BC2A55B34F00B6005E /* Api+Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387121BB2A55B34F00B6005E /* Api+Country.swift */; };
 		387121BF2A55BB1500B6005E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 387121BE2A55BB1500B6005E /* Alamofire */; };
 		387121C12A55BBA600B6005E /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 387121C02A55BBA600B6005E /* Moya */; };
+		3887C6CE2A585C9400A96AE2 /* Request+Tobacco.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3887C6CD2A585C9400A96AE2 /* Request+Tobacco.swift */; };
 		3895E4FF2A542D41005D87EE /* Api+Manufacturer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3895E4FE2A542D41005D87EE /* Api+Manufacturer.swift */; };
 		3895E5012A542D54005D87EE /* DefaultTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3895E5002A542D54005D87EE /* DefaultTarget.swift */; };
 		3895E5032A542FB7005D87EE /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3895E5022A542FB7005D87EE /* Api.swift */; };
@@ -51,9 +53,6 @@
 		B938A5182940DAFF00145EF0 /* AdminDataManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B938A5172940DAFF00145EF0 /* AdminDataManagerProtocol.swift */; };
 		B938A51A2940DB2500145EF0 /* AdminDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B938A5192940DB2500145EF0 /* AdminDataManager.swift */; };
 		B938A51C2940F1E900145EF0 /* AdminDataManagerAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B938A51B2940F1E900145EF0 /* AdminDataManagerAssembly.swift */; };
-		B938A51F2941134100145EF0 /* AdminImageManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B938A51E2941134100145EF0 /* AdminImageManagerProtocol.swift */; };
-		B938A5212941135D00145EF0 /* AdminImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B938A5202941135D00145EF0 /* AdminImageManager.swift */; };
-		B938A52329411F0000145EF0 /* AdminImageManagerAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B938A52229411F0000145EF0 /* AdminImageManagerAssembly.swift */; };
 		B938E69A29363FF100993A4C /* AddTobaccoLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B938E69929363FF100993A4C /* AddTobaccoLineView.swift */; };
 		B94306C12920181100EADFA0 /* Taste.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94306C02920181100EADFA0 /* Taste.swift */; };
 		B94306C92920277E00EADFA0 /* AddTastesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94306C42920277E00EADFA0 /* AddTastesPresenter.swift */; };
@@ -228,12 +227,14 @@
 		3802046129FE6A7C000193A1 /* ApiHandlerErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiHandlerErrors.swift; sourceTree = "<group>"; };
 		3802046329FE6AB8000193A1 /* NetworkHandlerErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHandlerErrors.swift; sourceTree = "<group>"; };
 		3802046629FE6D1A000193A1 /* ApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
+		3848022E2A57189C00DA595B /* Request+Manufacturer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Request+Manufacturer.swift"; sourceTree = "<group>"; };
 		387121AB2A55ABD000B6005E /* Api+Tobacco.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Api+Tobacco.swift"; sourceTree = "<group>"; };
 		387121AE2A55AD6700B6005E /* Response+Manufacturer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Response+Manufacturer.swift"; sourceTree = "<group>"; };
 		387121B22A55AE7F00B6005E /* Api+Taste.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Api+Taste.swift"; sourceTree = "<group>"; };
 		387121B52A55B1E100B6005E /* Api+TobaccoLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Api+TobaccoLine.swift"; sourceTree = "<group>"; };
 		387121B82A55B2A800B6005E /* Api+TasteType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Api+TasteType.swift"; sourceTree = "<group>"; };
 		387121BB2A55B34F00B6005E /* Api+Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Api+Country.swift"; sourceTree = "<group>"; };
+		3887C6CD2A585C9400A96AE2 /* Request+Tobacco.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Request+Tobacco.swift"; sourceTree = "<group>"; };
 		3895E4FE2A542D41005D87EE /* Api+Manufacturer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Api+Manufacturer.swift"; sourceTree = "<group>"; };
 		3895E5002A542D54005D87EE /* DefaultTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTarget.swift; sourceTree = "<group>"; };
 		3895E5022A542FB7005D87EE /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
@@ -268,9 +269,6 @@
 		B938A5172940DAFF00145EF0 /* AdminDataManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminDataManagerProtocol.swift; sourceTree = "<group>"; };
 		B938A5192940DB2500145EF0 /* AdminDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminDataManager.swift; sourceTree = "<group>"; };
 		B938A51B2940F1E900145EF0 /* AdminDataManagerAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminDataManagerAssembly.swift; sourceTree = "<group>"; };
-		B938A51E2941134100145EF0 /* AdminImageManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminImageManagerProtocol.swift; sourceTree = "<group>"; };
-		B938A5202941135D00145EF0 /* AdminImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminImageManager.swift; sourceTree = "<group>"; };
-		B938A52229411F0000145EF0 /* AdminImageManagerAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminImageManagerAssembly.swift; sourceTree = "<group>"; };
 		B938E69929363FF100993A4C /* AddTobaccoLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTobaccoLineView.swift; sourceTree = "<group>"; };
 		B94306C02920181100EADFA0 /* Taste.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Taste.swift; sourceTree = "<group>"; };
 		B94306C42920277E00EADFA0 /* AddTastesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTastesPresenter.swift; sourceTree = "<group>"; usesTabs = 0; };
@@ -468,6 +466,8 @@
 			isa = PBXGroup;
 			children = (
 				387121AB2A55ABD000B6005E /* Api+Tobacco.swift */,
+				3887C6CD2A585C9400A96AE2 /* Request+Tobacco.swift */,
+				B902AE4529F40B1D00BF6AD6 /* Tobacco+Codable.swift */,
 			);
 			path = Tobacco;
 			sourceTree = "<group>";
@@ -522,7 +522,9 @@
 			isa = PBXGroup;
 			children = (
 				3895E4FE2A542D41005D87EE /* Api+Manufacturer.swift */,
+				3848022E2A57189C00DA595B /* Request+Manufacturer.swift */,
 				387121AE2A55AD6700B6005E /* Response+Manufacturer.swift */,
+				B902AE3D29F405EA00BF6AD6 /* Manufacturer+Codable.swift */,
 			);
 			path = Manufacturer;
 			sourceTree = "<group>";
@@ -594,9 +596,7 @@
 		B902AE3C29F405AF00BF6AD6 /* Entities extenstions */ = {
 			isa = PBXGroup;
 			children = (
-				B902AE3D29F405EA00BF6AD6 /* Manufacturer+Codable.swift */,
 				B902AE3F29F408B300BF6AD6 /* TobaccoLine+Codable.swift */,
-				B902AE4529F40B1D00BF6AD6 /* Tobacco+Codable.swift */,
 				B9D6E92E29FDC651001D44D5 /* Taste+Codable.swift */,
 				B9D6E93229FDC974001D44D5 /* TasteType+Extension.swift */,
 				B9D6E93A29FDCE24001D44D5 /* Country+Extension.swift */,
@@ -712,15 +712,6 @@
 			path = AdminDataManager;
 			sourceTree = "<group>";
 		};
-		B938A51D2941126500145EF0 /* AdminImageManager */ = {
-			isa = PBXGroup;
-			children = (
-				B938A51E2941134100145EF0 /* AdminImageManagerProtocol.swift */,
-				B938A5202941135D00145EF0 /* AdminImageManager.swift */,
-			);
-			path = AdminImageManager;
-			sourceTree = "<group>";
-		};
 		B94306C329201F7B00EADFA0 /* AddTastesModule */ = {
 			isa = PBXGroup;
 			children = (
@@ -793,9 +784,9 @@
 		B96181B7299EB57900249A7E /* ApiServices */ = {
 			isa = PBXGroup;
 			children = (
-				3895E5042A543CF8005D87EE /* Moya */,
 				B90B671429A034FB004460C8 /* ApiServices.swift */,
 				3802046129FE6A7C000193A1 /* ApiHandlerErrors.swift */,
+				3895E5042A543CF8005D87EE /* Moya */,
 				3802046529FE6D06000193A1 /* Models */,
 				B902AE3C29F405AF00BF6AD6 /* Entities extenstions */,
 			);
@@ -881,7 +872,6 @@
 				B97EE9E0292B6FEC0090B344 /* DataManager */,
 				B91AF09A293F8B5E004CCC8A /* ImageManager */,
 				B938A5162940DAD400145EF0 /* AdminDataManager */,
-				B938A51D2941126500145EF0 /* AdminImageManager */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -924,7 +914,6 @@
 				B97EE9ED292BA0710090B344 /* DataManagerAssembly.swift */,
 				B938A51B2940F1E900145EF0 /* AdminDataManagerAssembly.swift */,
 				B91AF09D293FA800004CCC8A /* ImageManagerAssembly.swift */,
-				B938A52229411F0000145EF0 /* AdminImageManagerAssembly.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1549,6 +1538,7 @@
 				B97D05BC292998AC00F4629B /* TasteRealmObject.swift in Sources */,
 				B9E7A98628FEF9D700D711B4 /* GetImageNetworkingServiceProtocol.swift in Sources */,
 				B9DBE512290DE2C3005B185C /* HTNavigationControllerAssembly.swift in Sources */,
+				3887C6CE2A585C9400A96AE2 /* Request+Tobacco.swift in Sources */,
 				B94306C92920277E00EADFA0 /* AddTastesPresenter.swift in Sources */,
 				B9B30A1E2932602A00204913 /* UpdateDataSubscriberProtocol.swift in Sources */,
 				B9828041292FA3BA00BF3A93 /* SandboxImageStorageService.swift in Sources */,
@@ -1556,7 +1546,6 @@
 				B9828045292FA40E00BF3A93 /* ImageStorageError.swift in Sources */,
 				B9E8DA4828F77A8300CCA034 /* ManufacturerListRouter.swift in Sources */,
 				B98E1DD728F0812500964B8F /* LoginRouter.swift in Sources */,
-				B938A52329411F0000145EF0 /* AdminImageManagerAssembly.swift in Sources */,
 				B9027E05290FF613002E3C3A /* AppRouter+Register.swift in Sources */,
 				B91AF09C293F8B9C004CCC8A /* ImageManager.swift in Sources */,
 				B98E1DF228F0DBCF00964B8F /* AdminMenuPresenter.swift in Sources */,
@@ -1600,6 +1589,7 @@
 				B94306CC2920277E00EADFA0 /* AddTastesInteractor.swift in Sources */,
 				B9D6E93929FDCDB1001D44D5 /* Country.swift in Sources */,
 				B9C7825A28ECE25800DBF8C6 /* AuthServiceProtocol.swift in Sources */,
+				3848022F2A57189C00DA595B /* Request+Manufacturer.swift in Sources */,
 				3895E4FF2A542D41005D87EE /* Api+Manufacturer.swift in Sources */,
 				B97EE9F9292BBEE10090B344 /* UserDefaultsServiceAssembly.swift in Sources */,
 				B938A5182940DAFF00145EF0 /* AdminDataManagerProtocol.swift in Sources */,
@@ -1628,10 +1618,8 @@
 				3802046429FE6AB8000193A1 /* NetworkHandlerErrors.swift in Sources */,
 				B92A46AD2966FA430006B787 /* ProfileTableViewCell.swift in Sources */,
 				B981CBA42930DBAD00705422 /* DetailTobaccoPresenter.swift in Sources */,
-				B938A5212941135D00145EF0 /* AdminImageManager.swift in Sources */,
 				B97181582911254100E5DB28 /* DetailInfoManufacturerAssembly.swift in Sources */,
 				B948D83628CD286400E35884 /* SetDataNetworkingServiceProtocol.swift in Sources */,
-				B938A51F2941134100145EF0 /* AdminImageManagerProtocol.swift in Sources */,
 				B9EB024728F3252500B3B6DA /* AddTobaccoAssembly.swift in Sources */,
 				B98E1DD928F0812500964B8F /* LoginInteractor.swift in Sources */,
 				B9C92601294F6DB20085BB02 /* RegistrationServiceProtocol.swift in Sources */,

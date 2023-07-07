@@ -51,6 +51,7 @@ class ImageManager {
             switch result {
             case .success(let image):
                 if let named = self.convertNamedImageInImageService(from: url) {
+                    // TODO: - вернуть обратно сохранение изображений
 //                    do {
 //                        _ = try self.imageService.saveImage(image, for: named)
 //                    } catch {

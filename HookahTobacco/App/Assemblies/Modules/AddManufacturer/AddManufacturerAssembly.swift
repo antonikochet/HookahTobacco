@@ -27,16 +27,13 @@ class AddManufacturerAssembly: Assembly {
         ) { (resolver, dependency: AddManufacturerDependency) in
             // here resolve dependency injection
             let setDataManager = resolver.resolve(AdminDataManagerProtocol.self)!
-            let setImageManager = resolver.resolve(AdminImageManagerProtocol.self)!
             if let manufacturer = dependency.manufacturer {
                 let getImageManager = resolver.resolve(GetImageNetworkingServiceProtocol.self)!
                 return AddManufacturerInteractor(manufacturer,
                                                  setDataManager: setDataManager,
-                                                 setImageManager: setImageManager,
                                                  getImageManager: getImageManager)
             }
-            return AddManufacturerInteractor(setDataManager: setDataManager,
-                                             setImageManager: setImageManager)
+            return AddManufacturerInteractor(setDataManager: setDataManager)
         }
 
         container.register(AddManufacturerViewOutputProtocol.self) { _ in

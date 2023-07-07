@@ -151,11 +151,16 @@ extension ApiServices: GetImageNetworkingServiceProtocol {
 // MARK: - SetDataNetworkingServiceProtocol
 
 extension ApiServices: SetDataNetworkingServiceProtocol {
+// swiftlint: disable force_cast
     func addData<T>(_ data: T, completion: AddDataNetworkingCompletion<T>?) where T: DataNetworkingServiceProtocol {
         switch data.self {
         case is Manufacturer.Type:
             sendRequest(object: Manufacturer.self,
-                        target: Api.Manufacturer.create,
+                        target: Api.Manufacturer.create(ManufacturerRequest(manufacturer: data as! Manufacturer)),
+                        completion: completion as? AddDataNetworkingCompletion)
+        case is Tobacco.Type:
+            sendRequest(object: Tobacco.self,
+                        target: Api.Tobacco.create(TobaccoRequest(tobacco: data as! Tobacco)),
                         completion: completion as? AddDataNetworkingCompletion)
         default:
             break
@@ -163,30 +168,26 @@ extension ApiServices: SetDataNetworkingServiceProtocol {
     }
 
     func setData<T>(_ data: T, completion: SetDataNetworingCompletion?) where T: DataNetworkingServiceProtocol {
-        fatalError("no implementation\(#function)")
+        switch data.self {
+        case is Manufacturer.Type:
+            let manufacturer = data as! Manufacturer
+            sendRequest(object: Manufacturer.self,
+                        target: Api.Manufacturer.update(id: manufacturer.uid,
+                                                        ManufacturerRequest(manufacturer: manufacturer)),
+                        completion: completion as? AddDataNetworkingCompletion)
+        case is Tobacco.Type:
+            let tobacco = data as! Tobacco
+            sendRequest(object: Tobacco.self,
+                        target: Api.Tobacco.update(id: tobacco.uid,
+                                                   TobaccoRequest(tobacco: tobacco)),
+                        completion: completion as? AddDataNetworkingCompletion)
+        default:
+            break
+        }
     }
+// swiftlint: enable force_cast
 
     func setDBVersion(_ newVersion: Int, completion: SetDataNetworingCompletion?) {
         fatalError("no implementation\(#function)")
     }
 }
-
-// MARK: - SetImageNetworkingServiceProtocol
-// extension ApiServices: SetImageNetworkingServiceProtocol {
-//    func addImage(by fileURL: URL, for image: ImageNetworkingDataProtocol, completion: @escaping Completion) {
-//        fatalError("no implementation\(#function)")
-//    }
-//
-//    func setImage(from oldImage: ImageNetworkingDataProtocol,
-//                  to newURL: URL,
-//                  for newImage: ImageNetworkingDataProtocol,
-//                  completion: @escaping Completion) {
-//        fatalError("no implementation\(#function)")
-//    }
-//
-//    func setImageName(from oldImage: ImageNetworkingDataProtocol,
-//                      to newImage: ImageNetworkingDataProtocol,
-//                      completion: @escaping Completion) {
-//        fatalError("no implementation\(#function)")
-//    }
-// }

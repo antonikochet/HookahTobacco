@@ -10,8 +10,8 @@ import Moya
 extension Api {
     enum Tobacco {
         case list
-        case create
-        case update(id: String)
+        case create(TobaccoRequest)
+        case update(id: String, TobaccoRequest)
         case delete(id: String)
     }
 }
@@ -22,7 +22,7 @@ extension Api.Tobacco: DefaultTarget {
         switch self {
         case .list, .create:
             return "v1/tobacco/"
-        case let .update(id):
+        case let .update(id, _):
             return "v1/tobacco/\(id)"
         case let .delete(id):
             return "v1/tobacco/\(id)"
@@ -44,6 +44,10 @@ extension Api.Tobacco: DefaultTarget {
 
     var task: Task {
         switch self {
+        case let .create(request):
+            return request.createRequest()
+        case let .update(_, request):
+            return request.createRequest()
         default:
             return .requestPlain
         }

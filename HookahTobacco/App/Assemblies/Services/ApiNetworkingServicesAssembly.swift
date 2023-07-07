@@ -22,13 +22,10 @@ class ApiNetworkingServicesAssembly: Assembly {
         container.register(GetDataNetworkingServiceProtocol.self) { resolver in
             resolver.resolve(ApiServices.self)!
         }
-        container.register(GetDataNetworkingServiceProtocol.self) { resolver in
-            resolver.resolve(ApiServices.self)!
-        }
         container.register(GetImageNetworkingServiceProtocol.self) { resolver in
             resolver.resolve(ApiServices.self)!
         }
-        container.register(SetImageNetworkingServiceProtocol.self) { resolver in
+        container.register(SetDataNetworkingServiceProtocol.self) { resolver in
             resolver.resolve(ApiServices.self)!
         }
     }

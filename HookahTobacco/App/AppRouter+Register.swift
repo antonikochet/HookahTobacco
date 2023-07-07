@@ -18,7 +18,6 @@ extension AppRouter {
             ImageStorageServiceAssembly(),
             AdminDataManagerAssembly(),
             DataManagerAssembly(),
-            AdminImageManagerAssembly(),
             ImageManagerAssembly()
         ])
     }
