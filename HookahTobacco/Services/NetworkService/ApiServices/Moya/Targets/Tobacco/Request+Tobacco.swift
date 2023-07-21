@@ -6,6 +6,7 @@
 //
 
 import Moya
+import Foundation
 
 struct TobaccoRequest {
     private let tobacco: Tobacco
@@ -16,14 +17,22 @@ struct TobaccoRequest {
 
     func createRequest() -> Moya.Task {
         if let image = tobacco.image {
+            let format = ImageFormat.get(from: image)
             var formDatas: [MultipartFormData] = []
             let imageFormData = MultipartFormData(provider: .data(image),
-                                                  name: Manufacturer.CodingKeys.nameImage.rawValue)
+                                                  name: Tobacco.CodingKeys.imageURL.rawValue,
+                                                  fileName: "image.\(format.rawValue)",
+                                                  mimeType: format.contentType)
             formDatas.append(imageFormData)
             if let dict = try? tobacco.asDictionary() {
                 for (key, value) in dict {
-                    let strValue = String(describing: value)
-                    if let data = strValue.data(using: .utf8) {
+                    var data: Data?
+                    if let arrayValue = value as? [Any] {
+                        data = arrayValue.map({ "\($0)"}).joined(separator: ", ").data(using: .utf8)
+                    } else {
+                        data = "\(value)".data(using: .utf8)
+                    }
+                    if let data {
                         formDatas.append(MultipartFormData(provider: .data(data), name: key))
                     }
                 }

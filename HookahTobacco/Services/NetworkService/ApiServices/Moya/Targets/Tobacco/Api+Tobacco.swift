@@ -23,9 +23,9 @@ extension Api.Tobacco: DefaultTarget {
         case .list, .create:
             return "v1/tobacco/"
         case let .update(id, _):
-            return "v1/tobacco/\(id)"
+            return "v1/tobacco/\(id)/"
         case let .delete(id):
-            return "v1/tobacco/\(id)"
+            return "v1/tobacco/\(id)/"
         }
     }
 

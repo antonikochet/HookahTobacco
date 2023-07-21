@@ -12,7 +12,8 @@ extension Manufacturer: DataNetworkingServiceProtocol { }
 extension Manufacturer: Codable {
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        if !uid.isEmpty {
+        if !uid.isEmpty,
+            let uid = Int(uid) {
             try container.encode(uid, forKey: .uid)
         }
         try container.encode(name, forKey: .name)
@@ -21,7 +22,7 @@ extension Manufacturer: Codable {
         if let link {
             try container.encode(link, forKey: .link)
         }
-        try container.encode(lines.map { $0.uid }, forKey: .lines)
+        try container.encode(lines.compactMap { Int($0.uid) }, forKey: .lines)
     }
 
     init(from decoder: Decoder) throws {

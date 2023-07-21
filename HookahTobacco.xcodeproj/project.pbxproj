@@ -10,6 +10,7 @@
 		3802046229FE6A7C000193A1 /* ApiHandlerErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3802046129FE6A7C000193A1 /* ApiHandlerErrors.swift */; };
 		3802046429FE6AB8000193A1 /* NetworkHandlerErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3802046329FE6AB8000193A1 /* NetworkHandlerErrors.swift */; };
 		3802046729FE6D1A000193A1 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3802046629FE6D1A000193A1 /* ApiError.swift */; };
+		3813D6A92A6AB214009DDCBD /* ImageFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3813D6A82A6AB214009DDCBD /* ImageFormat.swift */; };
 		3848022F2A57189C00DA595B /* Request+Manufacturer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3848022E2A57189C00DA595B /* Request+Manufacturer.swift */; };
 		387121AC2A55ABD000B6005E /* Api+Tobacco.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387121AB2A55ABD000B6005E /* Api+Tobacco.swift */; };
 		387121AF2A55AD6700B6005E /* Response+Manufacturer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387121AE2A55AD6700B6005E /* Response+Manufacturer.swift */; };
@@ -20,6 +21,8 @@
 		387121BF2A55BB1500B6005E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 387121BE2A55BB1500B6005E /* Alamofire */; };
 		387121C12A55BBA600B6005E /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 387121C02A55BBA600B6005E /* Moya */; };
 		3887C6CE2A585C9400A96AE2 /* Request+Tobacco.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3887C6CD2A585C9400A96AE2 /* Request+Tobacco.swift */; };
+		3887C6D12A58711800A96AE2 /* HandlerErrorPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3887C6D02A58711800A96AE2 /* HandlerErrorPlugin.swift */; };
+		3887C6D32A58713A00A96AE2 /* Moya+Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3887C6D22A58713A00A96AE2 /* Moya+Config.swift */; };
 		3895E4FF2A542D41005D87EE /* Api+Manufacturer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3895E4FE2A542D41005D87EE /* Api+Manufacturer.swift */; };
 		3895E5012A542D54005D87EE /* DefaultTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3895E5002A542D54005D87EE /* DefaultTarget.swift */; };
 		3895E5032A542FB7005D87EE /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3895E5022A542FB7005D87EE /* Api.swift */; };
@@ -227,6 +230,7 @@
 		3802046129FE6A7C000193A1 /* ApiHandlerErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiHandlerErrors.swift; sourceTree = "<group>"; };
 		3802046329FE6AB8000193A1 /* NetworkHandlerErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHandlerErrors.swift; sourceTree = "<group>"; };
 		3802046629FE6D1A000193A1 /* ApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
+		3813D6A82A6AB214009DDCBD /* ImageFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFormat.swift; sourceTree = "<group>"; };
 		3848022E2A57189C00DA595B /* Request+Manufacturer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Request+Manufacturer.swift"; sourceTree = "<group>"; };
 		387121AB2A55ABD000B6005E /* Api+Tobacco.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Api+Tobacco.swift"; sourceTree = "<group>"; };
 		387121AE2A55AD6700B6005E /* Response+Manufacturer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Response+Manufacturer.swift"; sourceTree = "<group>"; };
@@ -235,6 +239,8 @@
 		387121B82A55B2A800B6005E /* Api+TasteType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Api+TasteType.swift"; sourceTree = "<group>"; };
 		387121BB2A55B34F00B6005E /* Api+Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Api+Country.swift"; sourceTree = "<group>"; };
 		3887C6CD2A585C9400A96AE2 /* Request+Tobacco.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Request+Tobacco.swift"; sourceTree = "<group>"; };
+		3887C6D02A58711800A96AE2 /* HandlerErrorPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandlerErrorPlugin.swift; sourceTree = "<group>"; };
+		3887C6D22A58713A00A96AE2 /* Moya+Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Moya+Config.swift"; sourceTree = "<group>"; };
 		3895E4FE2A542D41005D87EE /* Api+Manufacturer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Api+Manufacturer.swift"; sourceTree = "<group>"; };
 		3895E5002A542D54005D87EE /* DefaultTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTarget.swift; sourceTree = "<group>"; };
 		3895E5022A542FB7005D87EE /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
@@ -458,6 +464,7 @@
 			isa = PBXGroup;
 			children = (
 				3802046629FE6D1A000193A1 /* ApiError.swift */,
+				3813D6A82A6AB214009DDCBD /* ImageFormat.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -518,6 +525,14 @@
 			path = Country;
 			sourceTree = "<group>";
 		};
+		3887C6CF2A5870FC00A96AE2 /* Plugins */ = {
+			isa = PBXGroup;
+			children = (
+				3887C6D02A58711800A96AE2 /* HandlerErrorPlugin.swift */,
+			);
+			path = Plugins;
+			sourceTree = "<group>";
+		};
 		3895E4FD2A542D2D005D87EE /* Manufacturer */ = {
 			isa = PBXGroup;
 			children = (
@@ -532,7 +547,9 @@
 		3895E5042A543CF8005D87EE /* Moya */ = {
 			isa = PBXGroup;
 			children = (
+				3887C6CF2A5870FC00A96AE2 /* Plugins */,
 				3895E5052A5447AF005D87EE /* Moya+Request.swift */,
+				3887C6D22A58713A00A96AE2 /* Moya+Config.swift */,
 				3895E5022A542FB7005D87EE /* Api.swift */,
 				387121B02A55AE5D00B6005E /* Targets */,
 			);
@@ -1580,6 +1597,7 @@
 				B981B52929391DA600A02D9F /* TobaccoTypeRealmObject.swift in Sources */,
 				B9D6057428D53C350058D19E /* FirebaseAuthService.swift in Sources */,
 				B981CBA52930DBAD00705422 /* DetailTobaccoRouter.swift in Sources */,
+				3887C6D32A58713A00A96AE2 /* Moya+Config.swift in Sources */,
 				B9631C562923E9EE00BBC09B /* AddTasteRouter.swift in Sources */,
 				B92A46AF29672ACC0006B787 /* ButtonProfileTableViewCell.swift in Sources */,
 				B9EE2377291023F00098E4E0 /* DetailInfoManufacturerRouter.swift in Sources */,
@@ -1672,6 +1690,7 @@
 				B97EE9E7292B85910090B344 /* DataManager.swift in Sources */,
 				B9C9260C294F78140085BB02 /* AuthHandlerErrors.swift in Sources */,
 				B98E1DE628F08D4400964B8F /* AddTobaccoRouter.swift in Sources */,
+				3813D6A92A6AB214009DDCBD /* ImageFormat.swift in Sources */,
 				B97181572911254100E5DB28 /* DetailInfoManufacturerModule.swift in Sources */,
 				B9A4708628D2BB6400CA6FAA /* AddTextFieldView.swift in Sources */,
 				B92A46AB2966F9DC0006B787 /* ProfileInteractor.swift in Sources */,
@@ -1702,6 +1721,7 @@
 				B9E7ACAE28F46AFB00A3D7E5 /* AdminMenuModule.swift in Sources */,
 				B9E0FABD292EC57E008807BC /* RealmHandlerErrors.swift in Sources */,
 				B9E8DA4728F77A8300CCA034 /* ManufacturerListPresenter.swift in Sources */,
+				3887C6D12A58711800A96AE2 /* HandlerErrorPlugin.swift in Sources */,
 				B98E1DB228F04A0F00964B8F /* AddManufacturerRouter.swift in Sources */,
 				B98182A3292A6CBD00DEA9F0 /* HTRealm.swift in Sources */,
 				B982803F292FA32900BF3A93 /* ImageStorageServiceProtocol.swift in Sources */,

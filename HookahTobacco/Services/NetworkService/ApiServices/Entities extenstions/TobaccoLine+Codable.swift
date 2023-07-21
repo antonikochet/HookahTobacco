@@ -12,7 +12,20 @@ extension TobaccoType: Decodable {
 }
 
 extension VarietyTobaccoLeaf: Decodable {
-    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        let strValue = try container.decode(String.self)
+        switch strValue {
+        case "Burley":
+            self = .burley
+        case "Oriental":
+            self = .oriental
+        case "Virginia":
+            self = .virginia
+        default:
+            throw DecodingError.typeMismatch(String.self, .init(codingPath: [], debugDescription: "Failed to decode value \(strValue) to type VarietyTobaccoLeaf"))
+        }
+    }
 }
 
 extension TobaccoLine: DataNetworkingServiceProtocol { }

@@ -50,7 +50,6 @@ class AddTobaccoInteractor {
     private var selectedTobaccoLine: TobaccoLine?
     private var tobacco: Tobacco?
     private var tastes: SelectedTastes = [:]
-    private var allTastes: SelectedTastes = [:]
     private var isEditing: Bool
     private var mainImageFileURL: URL?
     private var editingMainImage: Data?
@@ -64,7 +63,6 @@ class AddTobaccoInteractor {
         self.getDataManager = getDataManager
         self.setDataManager = setDataManager
         getManufacturers()
-        getAllTastes()
     }
 
     private func getManufacturers() {
@@ -74,19 +72,6 @@ class AddTobaccoInteractor {
             case .success(let data):
                 self.manufacturers = data
                 self.initialSelectedManufacturer()
-            case .failure(let error):
-                self.presenter.receivedError(with: error.localizedDescription)
-            }
-        }
-    }
-
-    private func getAllTastes() {
-        getDataManager.receiveData(type: Taste.self) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let data):
-                self.allTastes = Dictionary(uniqueKeysWithValues: data.map { ($0.uid, $0) })
-                self.initialTastes()
             case .failure(let error):
                 self.presenter.receivedError(with: error.localizedDescription)
             }
@@ -111,12 +96,14 @@ class AddTobaccoInteractor {
     }
 
     private func setTobacco(_ tobacco: Tobacco) {
-        setDataManager.setData(tobacco) { [weak self] error in
+        setDataManager.setData(tobacco) { [weak self] result in
             guard let self = self else { return }
-            if let error {
+            switch result {
+            case .success(var newTobacco):
+                newTobacco.image = tobacco.image
+                self.presenter.receivedSuccessEditing(with: newTobacco)
+            case .failure(let error):
                 self.presenter.receivedError(with: error.localizedDescription)
-            } else {
-                self.presenter.receivedSuccessEditing(with: tobacco)
             }
         }
     }
@@ -133,7 +120,9 @@ class AddTobaccoInteractor {
         selectedManufacturer = manufacturer
         presenter.initialSelectedManufacturer(manufacturer.name)
         presenter.showNameTobaccoLinesForSelect(manufacturer.lines.map { $0.isBase ? "Базовая линейка" : $0.name })
-        presenter.initialSelectedTobaccoLine(selectedTobaccoLine?.name)
+        selectedTobaccoLine = tobacco.line
+        presenter.initialSelectedTobaccoLine(selectedTobaccoLine.flatMap { $0.isBase ? "Базовая линейка" : $0.name })
+        initialTastes()
     }
 
     private func initialTastes() {
@@ -222,12 +211,15 @@ extension AddTobaccoInteractor: AddTobaccoInteractorInputProtocol {
             if manufacturer != nil {
                 selectedManufacturer = manufacturer
             }
+            selectedTobaccoLine = tobacco.line
             editingMainImage = tobacco.image
         }
         presenter.initialDataForPresentation(pTobacco,
                                              isEditing: isEditing)
         presenter.initialSelectedManufacturer(manufacturer?.name)
-        presenter.initialSelectedTobaccoLine(selectedTobaccoLine?.name)
+        presenter.initialSelectedTobaccoLine(
+            selectedTobaccoLine.flatMap { $0.isBase ? "Базовая линейка" : $0.name }
+        )
         presenter.initialMainImage(editingMainImage)
     }
 

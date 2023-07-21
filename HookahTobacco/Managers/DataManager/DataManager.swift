@@ -20,7 +20,7 @@ class DataManager {
 
     private var remoteDBVersion: Int = -1 {
         didSet {
-            definitionDataSynchronization()
+//            definitionDataSynchronization()
         }
     }
     private let usedTypes: [Any.Type] = [
@@ -290,6 +290,7 @@ extension DataManager: DataManagerProtocol {
     }
 
     func updateFavorite(for tobacco: Tobacco, completion: Completion?) {
+        // TODO: - если isOffileMode == true то только в базе, если false то отправить запрос и потом только обновить в бд
         dataBaseService.update(entity: tobacco) {
             completion?(nil)
             // TODO: - добавить отправку данных на сервер для зарегистрированных пользователей

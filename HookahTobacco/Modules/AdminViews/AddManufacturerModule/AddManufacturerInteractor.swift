@@ -99,20 +99,22 @@ class AddManufacturerInteractor {
     }
 
     private func setManufacturer(_ new: Manufacturer) {
-        setDataManager.setData(new) { [weak self] error in
+        setDataManager.setData(new) { [weak self] result in
             guard let self = self else { return }
-            if let error {
+            switch result {
+            case .success(var manufacturer):
+                manufacturer.image = new.image
+                self.presenter.receivedSuccessEditing(with: manufacturer)
+            case .failure(let error):
                 self.presenter.receivedError(with: error.localizedDescription)
-            } else {
-                self.presenter.receivedSuccessEditing(with: new)
             }
         }
     }
 
     private func setTobaccoLine(_ tobaccoLines: TobaccoLine) {
-        setDataManager.setData(tobaccoLines) { [weak self] error in
+        setDataManager.setData(tobaccoLines) { [weak self] result in
             guard let self = self else { return }
-            if let error = error { self.presenter.receivedError(with: error.localizedDescription) }
+            if case let .failure(error) = result { self.presenter.receivedError(with: error.localizedDescription) }
         }
     }
 }

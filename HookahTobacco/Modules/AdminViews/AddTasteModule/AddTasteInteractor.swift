@@ -53,12 +53,13 @@ class AddTasteInteractor {
     }
 
     private func editTaste(_ taste: Taste) {
-        setDataManager.setData(taste) { [weak self] error in
+        setDataManager.setData(taste) { [weak self] result in
             guard let self = self else { return }
-            if let error = error {
-                self.presenter.receivedError(with: error.localizedDescription)
-            } else {
+            switch result {
+            case .success(let taste):
                 self.presenter.receivedSuccess(taste)
+            case .failure(let error):
+                self.presenter.receivedError(with: error.localizedDescription)
             }
         }
     }
