@@ -15,6 +15,8 @@ protocol AddManufacturerInteractorInputProtocol {
     func receiveStartingDataView()
     func didEnterTobaccoLine(_ data: AddManufacturerEntity.TobaccoLine, index: Int?)
     func receiveEditingTobaccoLine(at index: Int)
+    func didSelectCountry(at index: Int)
+    var manufacturerId: Int? { get }
 }
 
 protocol AddManufacturerInteractorOutputProtocol: AnyObject {
@@ -24,37 +26,62 @@ protocol AddManufacturerInteractorOutputProtocol: AnyObject {
     func initialDataForPresentation(_ manufacturer: AddManufacturerEntity.Manufacturer, isEditing: Bool)
     func initialImage(_ image: Data?)
     func initialTobaccoLines(_ lines: [TobaccoLine])
-    func initialTobaccoLine(_ line: TobaccoLine)
+    func changeTobaccoLine(for id: Int, _ line: TobaccoLine)
+    func initialCounties(_ countries: [Country])
+    func showCountryForSelect(_ country: String?)
 }
 
 class AddManufacturerInteractor {
 
     weak var presenter: AddManufacturerInteractorOutputProtocol!
 
+    private var getDataManager: DataManagerProtocol
     private var setDataManager: AdminDataManagerProtocol
     private var getImageManager: GetImageNetworkingServiceProtocol?
 
     private var imageFileURL: URL?
     private var manufacturer: Manufacturer?
+    private var countries: [Country] = []
     private var tobaccoLines: [TobaccoLine] = []
     private let isEditing: Bool
     private var editingImage: Data?
+    private var selectedCountry: Country?
 
     // init for add manufacturer
-    init(setDataManager: AdminDataManagerProtocol) {
+    init(getDataManager: DataManagerProtocol,
+         setDataManager: AdminDataManagerProtocol) {
+        self.getDataManager = getDataManager
         self.setDataManager = setDataManager
         self.isEditing = false
+        getCountries()
     }
 
     // init for edit manufacturer
     init(_ manufacturer: Manufacturer,
+         getDataManager: DataManagerProtocol,
          setDataManager: AdminDataManagerProtocol,
          getImageManager: GetImageNetworkingServiceProtocol) {
         self.manufacturer = manufacturer
+        self.getDataManager = getDataManager
         self.setDataManager = setDataManager
         self.getImageManager = getImageManager
         self.isEditing = true
         self.tobaccoLines = manufacturer.lines
+        getCountries()
+    }
+
+    // MARK: - private methods
+    private func getCountries() {
+        getDataManager.receiveData(typeData: Country.self) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let countries):
+                self.countries = countries
+                self.presenter.initialCounties(countries)
+            case .failure(let error):
+                self.presenter.receivedError(with: error.localizedDescription)
+            }
+        }
     }
 
     // MARK: - methods for adding manufacturer data
@@ -121,12 +148,12 @@ class AddManufacturerInteractor {
 
 extension AddManufacturerInteractor: AddManufacturerInteractorInputProtocol {
     func didEnterDataManufacturer(_ data: AddManufacturerEntity.Manufacturer) {
-        guard !tobaccoLines.isEmpty else {
-            presenter.receivedError(with: "У производителя должна быть хотя бы одна базовая линейка!")
+       guard let selectedCountry else {
+            presenter.receivedError(with: "Страна произовдителя не введена, поле является обязательным!")
             return
         }
         var enterManufacturer = Manufacturer(name: data.name,
-                                             country: data.country,
+                                             country: selectedCountry,
                                              description: data.description ?? "",
                                              urlImage: manufacturer?.urlImage ?? "",
                                              image: manufacturer?.image,
@@ -166,18 +193,18 @@ extension AddManufacturerInteractor: AddManufacturerInteractorInputProtocol {
             }
             let pManufacturer = AddManufacturerEntity.Manufacturer(
                                     name: manufacturer.name,
-                                    country: manufacturer.country,
                                     description: manufacturer.description,
                                     link: manufacturer.link)
             presenter.initialDataForPresentation(pManufacturer, isEditing: isEditing)
+            presenter.showCountryForSelect(manufacturer.country.name)
         } else {
             let pManufacturer = AddManufacturerEntity.Manufacturer(
                                     name: "",
-                                    country: "",
                                     description: "",
                                     link: "")
             presenter.initialDataForPresentation(pManufacturer, isEditing: isEditing)
             presenter.initialImage(nil)
+            presenter.initialCounties(countries)
         }
         presenter.initialTobaccoLines(tobaccoLines)
     }
@@ -213,7 +240,21 @@ extension AddManufacturerInteractor: AddManufacturerInteractorInputProtocol {
     }
 
     func receiveEditingTobaccoLine(at index: Int) {
-        guard index < tobaccoLines.count else { return }
-        presenter.initialTobaccoLine(tobaccoLines[index])
+        guard index < tobaccoLines.count,
+            let strId = manufacturer?.uid,
+            let id = Int(strId) else { return }
+        presenter.changeTobaccoLine(for: id, tobaccoLines[index])
+    }
+
+    func didSelectCountry(at index: Int) {
+        selectedCountry = countries[index]
+        presenter.showCountryForSelect(selectedCountry?.name)
+    }
+    
+    var manufacturerId: Int? {
+        guard let strId = manufacturer?.uid else {
+            return nil
+        }
+        return Int(strId)
     }
 }

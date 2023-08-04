@@ -11,7 +11,7 @@ struct Manufacturer {
     var id: String = ""
     var uid: String = ""
     let name: String
-    let country: String
+    let country: Country
     let description: String
     var urlImage: String
     var image: Data?

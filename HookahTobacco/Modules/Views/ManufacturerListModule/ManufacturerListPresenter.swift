@@ -22,7 +22,7 @@ class ManufacturerListPresenter {
     // MARK: - Private methods
     private func createItem(for manufacturer: Manufacturer) -> ManufacturerListTableViewCellItem {
         ManufacturerListTableViewCellItem(name: manufacturer.name,
-                                          country: manufacturer.country,
+                                          country: manufacturer.country.name,
                                           image: manufacturer.image)
     }
     private func createRow(at item: ManufacturerListTableViewCellItem) -> Row {

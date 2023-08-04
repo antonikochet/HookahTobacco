@@ -14,6 +14,8 @@ protocol AddManufacturerRouterProtocol: RouterProtocol {
     func dismissView(with changedData: Manufacturer)
     func showError(with message: String)
     func showSuccess(delay: Double)
+    func showAddCountryView()
+    func showAddTobaccoLineView(for manufacturerId: Int, editing tobaccoLine: TobaccoLine?)
 }
 
 protocol AddManufacturerOutputModule: AnyObject {
@@ -43,5 +45,13 @@ class AddManufacturerRouter: AddManufacturerRouterProtocol {
 
     func showSuccess(delay: Double) {
         appRouter.presentAlert(type: .success(delay: delay), completion: nil)
+    }
+
+    func showAddCountryView() {
+        
+    }
+
+    func showAddTobaccoLineView(for manufacturerId: Int, editing tobaccoLine: TobaccoLine?) {
+        appRouter.presentAlert(type: .systemSuccess(message: "manufacturer id: \(manufacturerId) for \(tobaccoLine?.uid ?? "nil")", delay: 5), completion: nil)
     }
 }

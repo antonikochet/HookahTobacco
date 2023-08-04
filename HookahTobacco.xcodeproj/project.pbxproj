@@ -183,7 +183,7 @@
 		B9D6E93129FDC806001D44D5 /* TasteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D6E93029FDC806001D44D5 /* TasteType.swift */; };
 		B9D6E93329FDC974001D44D5 /* TasteType+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D6E93229FDC974001D44D5 /* TasteType+Extension.swift */; };
 		B9D6E93929FDCDB1001D44D5 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D6E93829FDCDB1001D44D5 /* Country.swift */; };
-		B9D6E93B29FDCE24001D44D5 /* Country+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D6E93A29FDCE24001D44D5 /* Country+Extension.swift */; };
+		B9D6E93B29FDCE24001D44D5 /* Country+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D6E93A29FDCE24001D44D5 /* Country+Codable.swift */; };
 		B9DBE50B290DD8B1005B185C /* HTTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DBE50A290DD8B1005B185C /* HTTabBarController.swift */; };
 		B9DBE50E290DE11F005B185C /* HTNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DBE50D290DE11F005B185C /* HTNavigationController.swift */; };
 		B9DBE512290DE2C3005B185C /* HTNavigationControllerAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DBE511290DE2C3005B185C /* HTNavigationControllerAssembly.swift */; };
@@ -395,7 +395,7 @@
 		B9D6E93029FDC806001D44D5 /* TasteType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasteType.swift; sourceTree = "<group>"; };
 		B9D6E93229FDC974001D44D5 /* TasteType+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TasteType+Extension.swift"; sourceTree = "<group>"; };
 		B9D6E93829FDCDB1001D44D5 /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
-		B9D6E93A29FDCE24001D44D5 /* Country+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Country+Extension.swift"; sourceTree = "<group>"; };
+		B9D6E93A29FDCE24001D44D5 /* Country+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Country+Codable.swift"; sourceTree = "<group>"; };
 		B9D6E94229FDDD46001D44D5 /* localDebug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = localDebug.xcconfig; sourceTree = "<group>"; };
 		B9DBE50A290DD8B1005B185C /* HTTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTabBarController.swift; sourceTree = "<group>"; };
 		B9DBE50D290DE11F005B185C /* HTNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTNavigationController.swift; sourceTree = "<group>"; };
@@ -521,6 +521,7 @@
 			isa = PBXGroup;
 			children = (
 				387121BB2A55B34F00B6005E /* Api+Country.swift */,
+				B9D6E93A29FDCE24001D44D5 /* Country+Codable.swift */,
 			);
 			path = Country;
 			sourceTree = "<group>";
@@ -616,7 +617,6 @@
 				B902AE3F29F408B300BF6AD6 /* TobaccoLine+Codable.swift */,
 				B9D6E92E29FDC651001D44D5 /* Taste+Codable.swift */,
 				B9D6E93229FDC974001D44D5 /* TasteType+Extension.swift */,
-				B9D6E93A29FDCE24001D44D5 /* Country+Extension.swift */,
 			);
 			path = "Entities extenstions";
 			sourceTree = "<group>";
@@ -1726,7 +1726,7 @@
 				B98182A3292A6CBD00DEA9F0 /* HTRealm.swift in Sources */,
 				B982803F292FA32900BF3A93 /* ImageStorageServiceProtocol.swift in Sources */,
 				B98E1DD828F0812500964B8F /* LoginViewController.swift in Sources */,
-				B9D6E93B29FDCE24001D44D5 /* Country+Extension.swift in Sources */,
+				B9D6E93B29FDCE24001D44D5 /* Country+Codable.swift in Sources */,
 				B9C7B958296AE1C700D5A78B /* DetailManufacturerLineHeaderView.swift in Sources */,
 				387121B62A55B1E100B6005E /* Api+TobaccoLine.swift in Sources */,
 				B94B771C290C3785002C5660 /* AddPickerView.swift in Sources */,

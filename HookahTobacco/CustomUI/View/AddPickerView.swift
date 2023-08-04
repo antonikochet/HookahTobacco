@@ -26,7 +26,12 @@ class AddPickerView: UIView {
 
     var pickerViewHeight: CGFloat = 120
 
+    var addButtonAction: (() -> Void)? = nil
+
     // MARK: private properties
+
+    private let isAddButton: Bool
+
     private let label: UILabel = {
         let label = UILabel()
         return label
@@ -46,13 +51,22 @@ class AddPickerView: UIView {
 
     private let pickerView = UIPickerView()
 
+    private lazy var addButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "plus.circle.fill")?.withRenderingMode(.alwaysOriginal), for: .normal)
+        button.tintColor = .systemGreen
+        return button
+    }()
+
     // MARK: init
-    init() {
+    init(isAddButton: Bool = false) {
+        self.isAddButton = isAddButton
         super.init(frame: .zero)
         setup()
     }
 
     required init?(coder: NSCoder) {
+        self.isAddButton = false
         super.init(coder: coder)
         setup()
     }
@@ -92,8 +106,23 @@ class AddPickerView: UIView {
         textField.delegate = self
         textField.snp.makeConstraints { make in
             make.top.equalTo(label.snp.bottom).offset(16)
-            make.leading.trailing.equalToSuperview()
+            make.leading.equalToSuperview()
+            if !isAddButton {
+                make.trailing.equalToSuperview()
+            }
             make.height.equalTo(31)
+        }
+
+        if isAddButton {
+            addSubview(addButton)
+            addButton.snp.makeConstraints { make in
+                make.leading.equalTo(textField.snp.trailing).offset(4)
+                make.centerY.equalTo(textField.snp.centerY)
+                make.size.equalTo(CGSize(width: 24, height: 24))
+                make.trailing.equalToSuperview()
+            }
+            
+            addButton.addTarget(self, action: #selector(touchAddButton), for: .touchUpInside)
         }
 
         addSubview(pickerView)
@@ -116,6 +145,10 @@ class AddPickerView: UIView {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             self.pickerView.selectRow(index, inComponent: 0, animated: true)
         }
+    }
+
+    @objc private func touchAddButton() {
+        addButtonAction?()
     }
 }
 

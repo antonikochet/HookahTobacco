@@ -16,10 +16,8 @@ class AddManufacturerPresenter {
     var router: AddManufacturerRouterProtocol!
 
     // MARK: - Private properties
-    private var viewModel: AddManufacturerEntity.ViewModel?
     private var tobaccoLinesViewModels: [TasteCollectionCellViewModel] = []
-    private var tobaccoLineViewModel: AddTobaccoLineViewViewModelProtocol?
-    private var editingTobaccoLineIndex: Int?
+    private var countries: [String] = []
     private var isImage: Bool = false
 
     // MARK: - Private methods
@@ -63,8 +61,8 @@ extension AddManufacturerPresenter: AddManufacturerInteractorOutputProtocol {
     func receivedSuccessAddition() {
         view.hideLoading()
         tobaccoLinesViewModels = []
-        tobaccoLineViewModel = nil
         view.clearView()
+        showCountryForSelect(nil)
         router.showSuccess(delay: 2.0)
     }
 
@@ -84,10 +82,10 @@ extension AddManufacturerPresenter: AddManufacturerInteractorOutputProtocol {
     func initialDataForPresentation(_ manufacturer: AddManufacturerEntity.Manufacturer, isEditing: Bool) {
         let viewModel = AddManufacturerEntity.ViewModel(
                             name: manufacturer.name,
-                            country: manufacturer.country,
                             description: manufacturer.description ?? "",
                             textButton: isEditing ? "Изменить производителя" : "Добавить производителя",
-                            link: manufacturer.link ?? "")
+                            link: manufacturer.link ?? "",
+                            isEnabledAddTobaccoLine: isEditing)
         view.setupContent(viewModel)
     }
 
@@ -102,16 +100,32 @@ extension AddManufacturerPresenter: AddManufacturerInteractorOutputProtocol {
     }
 
     func initialTobaccoLines(_ lines: [TobaccoLine]) {
-        tobaccoLinesViewModels = lines.map { TasteCollectionCellViewModel(label: $0.name) }
+        tobaccoLinesViewModels = lines.map { TasteCollectionCellViewModel(label: $0.isBase ? "Базовая линейка" : $0.name) }
         view.setupTobaccoLines()
     }
 
-    func initialTobaccoLine(_ line: TobaccoLine) {
-        tobaccoLineViewModel = createTobaccoLineViewModel(
-            line,
-            selectedTobaccoTypeIndex: line.tobaccoType.rawValue,
-            selectedTobaccoLeafIndexs: line.tobaccoLeafType?.map { $0.rawValue } ?? [])
-        view.showTobaccoLineView()
+    func changeTobaccoLine(for id: Int, _ line: TobaccoLine) {
+        router.showAddTobaccoLineView(for: id, editing: line)
+    }
+
+    func initialCounties(_ countries: [Country]) {
+        self.countries = countries.map { $0.name }
+        if self.countries.isEmpty {
+            self.countries.insert("Отсутствует", at: 0)
+            showCountryForSelect("Отсутствует")
+        } else {
+            self.countries.insert("-", at: 0)
+            showCountryForSelect("-")
+        }
+    }
+
+    func showCountryForSelect(_ country: String?) {
+        if let country,
+           let index = countries.firstIndex(of: country) {
+            view.setupSelectedCountry(index)
+        } else {
+            view.setupSelectedCountry(0)
+        }
     }
 }
 
@@ -122,10 +136,6 @@ extension AddManufacturerPresenter: AddManufacturerViewOutputProtocol {
             router.showError(with: "Название производства не введено, поле является обязательным!")
             return
         }
-        guard let country = enteredData.country, !country.isEmpty else {
-            router.showError(with: "Страна произовдителя не введена, поле является обязательным!")
-            return
-        }
         guard isImage else {
             router.showError(with: "Не выбрано изображение")
             return
@@ -133,7 +143,6 @@ extension AddManufacturerPresenter: AddManufacturerViewOutputProtocol {
 
         let data = AddManufacturerEntity.Manufacturer(
                         name: name,
-                        country: country,
                         description: enteredData.description,
                         link: enteredData.link)
 
@@ -152,12 +161,6 @@ extension AddManufacturerPresenter: AddManufacturerViewOutputProtocol {
 
     func getTobaccoLineViewModel(at index: Int) -> TasteCollectionCellViewModel {
         tobaccoLinesViewModels[index]
-    }
-
-    func getTobaccoLineViewModel() -> AddTobaccoLineViewViewModelProtocol {
-        tobaccoLineViewModel ?? createTobaccoLineViewModel(nil,
-                                                           selectedTobaccoTypeIndex: -1,
-                                                           selectedTobaccoLeafIndexs: [])
     }
 
     var tobaccoLineNumberOfRows: Int {
@@ -182,37 +185,38 @@ extension AddManufacturerPresenter: AddManufacturerViewOutputProtocol {
         }
         guard !viewModel.description.isEmpty else {
             router.showError(with: "Описание линейки табака не введено")
-            return
-        }
-        if viewModel.selectedTobaccoTypeIndex == TobaccoType.tobacco.rawValue,
-           viewModel.selectedTobaccoLeafTypeIndexs.isEmpty {
-            router.showError(with: "Сорта табаков не выбраны для линейки")
-            return
-        }
-        let intPF = viewModel.packetingFormats.replacingOccurrences(of: "\\s*",
-                                                                    with: "",
-                                                                    options: [.regularExpression])
-                                                .split(separator: ",")
-                                                .compactMap { Int($0) }
-        let tobaccoLine = AddManufacturerEntity.TobaccoLine(
-            name: name,
-            packetingFormats: intPF,
-            selectedTobaccoTypeIndex: viewModel.selectedTobaccoTypeIndex,
-            description: viewModel.description,
-            isBase: viewModel.isBase,
-            selectedTobaccoLeafTypeIndexs: viewModel.selectedTobaccoLeafTypeIndexs
-        )
-        view.receivedResultAddTobaccoLine(isResult: true)
-        interactor.didEnterTobaccoLine(tobaccoLine, index: editingTobaccoLineIndex)
-        editingTobaccoLineIndex = nil
-    }
-
     func pressedEditingTobaccoLine(at index: Int) {
-        editingTobaccoLineIndex = index
         interactor.receiveEditingTobaccoLine(at: index)
     }
 
-    func pressedCloseEditingTobaccoLine() {
-        editingTobaccoLineIndex = nil
+    func pressedAddTobaccoLine() {
+        guard let id = interactor.manufacturerId else {
+            router.showError(with: "Для добавления линеек табака нужно добавить производителя на сервер")
+            return
+        }
+        router.showAddTobaccoLineView(for: id, editing: nil)
+    }
+
+    func pressedAddCountry() {
+        router.showAddCountryView()
+    }
+
+    func numberOfRowsCountries() -> Int {
+        return countries.count
+    }
+
+    func receiveRowCountry(by index: Int) -> String {
+        guard index < countries.count else {
+            return "Отсутствует"
+        }
+        return countries[index]
+    }
+
+    func receiveIndexRowCountry(for title: String) -> Int {
+        countries.firstIndex(of: title) ?? 0
+    }
+
+    func didSelectedCounty(by index: Int) {
+        interactor.didSelectCountry(at: index)
     }
 }

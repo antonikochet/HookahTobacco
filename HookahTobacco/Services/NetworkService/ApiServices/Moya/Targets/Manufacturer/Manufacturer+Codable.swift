@@ -17,7 +17,7 @@ extension Manufacturer: Codable {
             try container.encode(uid, forKey: .uid)
         }
         try container.encode(name, forKey: .name)
-        try container.encode(country, forKey: .country)
+        try container.encode(country.uid, forKey: .countryId)
         try container.encode(description, forKey: .description)
         if let link {
             try container.encode(link, forKey: .link)
@@ -30,7 +30,7 @@ extension Manufacturer: Codable {
         id = String(try container.decode(Int.self, forKey: .uid))
         uid = String(try container.decode(Int.self, forKey: .uid))
         name = try container.decode(String.self, forKey: .name)
-        country = try container.decode(String.self, forKey: .country)
+        country = try container.decode(Country.self, forKey: .country)
         description = try container.decode(String.self, forKey: .description)
         link = try container.decode(String.self, forKey: .link)
         urlImage = try container.decode(URL.self, forKey: .nameImage).absoluteString
@@ -41,6 +41,7 @@ extension Manufacturer: Codable {
         case uid = "id"
         case name
         case country
+        case countryId = "country_id"
         case description
         case link
         case nameImage = "image_url"

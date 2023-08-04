@@ -24,7 +24,7 @@ extension ManufacturerRealmObject {
         self.init()
         self.uid = manufacturer.uid
         self.name = manufacturer.name
-        self.country = manufacturer.country
+        self.country = manufacturer.country.name
         self.descriptionManufacturer = manufacturer.description
         self.urlImage = manufacturer.urlImage
         self.link = manufacturer.link
@@ -35,7 +35,7 @@ extension ManufacturerRealmObject {
         newValues["id"] = self.id
         newValues["uid"] = manufacturer.uid
         newValues["name"] = manufacturer.name
-        newValues["country"] = manufacturer.country
+        newValues["country"] = manufacturer.country.name // TODO: - исправить это
         newValues["descriptionManufacturer"] = manufacturer.description
         newValues["urlImage"] = manufacturer.urlImage
         newValues["link"] = manufacturer.link
@@ -48,7 +48,7 @@ extension ManufacturerRealmObject {
             id: id.stringValue,
             uid: uid,
             name: name,
-            country: country,
+            country: Country(name: country), // TODO: - исправить на получение объекта из бд
             description: descriptionManufacturer,
             urlImage: urlImage,
             image: nil,

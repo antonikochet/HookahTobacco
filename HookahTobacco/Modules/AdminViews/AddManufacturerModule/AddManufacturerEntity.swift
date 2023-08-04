@@ -12,14 +12,12 @@ import Foundation
 struct AddManufacturerEntity {
     struct EnterData {
         let name: String?
-        let country: String?
         let description: String?
         let link: String?
     }
 
     struct Manufacturer {
         let name: String
-        let country: String
         let description: String?
         let link: String?
     }
@@ -35,10 +33,10 @@ struct AddManufacturerEntity {
 
     struct ViewModel {
         let name: String
-        let country: String
         let description: String
         let textButton: String
         let link: String
+        let isEnabledAddTobaccoLine: Bool
     }
 
     struct TobaccoLineModel: AddTobaccoLineViewViewModelProtocol {

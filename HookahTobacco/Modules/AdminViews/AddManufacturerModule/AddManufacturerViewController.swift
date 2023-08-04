@@ -15,8 +15,8 @@ protocol AddManufacturerViewInputProtocol: AnyObject {
     func setupContent(_ viewModel: AddManufacturerEntity.ViewModel)
     func setupImageManufacturer(_ image: Data?, textButton: String)
     func setupTobaccoLines()
+    func setupSelectedCountry(_ index: Int)
     func receivedResultAddTobaccoLine(isResult: Bool)
-    func showTobaccoLineView()
     func showLoading()
     func hideLoading()
 }
@@ -25,12 +25,17 @@ protocol AddManufacturerViewOutputProtocol {
     func pressedAddButton(with enteredData: AddManufacturerEntity.EnterData)
     func selectedImage(with urlFile: URL)
     func viewDidLoad()
+    
     func getTobaccoLineViewModel(at index: Int) -> TasteCollectionCellViewModel
-    func getTobaccoLineViewModel() -> AddTobaccoLineViewViewModelProtocol
     var tobaccoLineNumberOfRows: Int { get }
-    func returnTobaccoLine(_ viewModel: TobaccoLineViewModelProtocol)
     func pressedEditingTobaccoLine(at index: Int)
-    func pressedCloseEditingTobaccoLine()
+    func pressedAddTobaccoLine()
+    
+    func pressedAddCountry()
+    func numberOfRowsCountries() -> Int
+    func receiveRowCountry(by index: Int) -> String
+    func receiveIndexRowCountry(for title: String) -> Int
+    func didSelectedCounty(by index: Int)
 }
 
 final class AddManufacturerViewController: HTScrollContentViewController {
@@ -39,12 +44,11 @@ final class AddManufacturerViewController: HTScrollContentViewController {
 
     // MARK: - UI properties
     private let nameTextFieldView = AddTextFieldView()
-    private let countryTextFieldView = AddTextFieldView()
+    private let countryPicketView = AddPickerView(isAddButton: true)
     private let descriptionView = AddTextView()
     private let linkTextFieldView = AddTextFieldView()
     private let tobaccoLineCollectionView = TasteCollectionView()
     private let addTobaccoLineButton = UIButton.createAppBigButton("Добавить Линейку табаков")
-    private let addTobaccoLineView = AddTobaccoLineView()
     private let imagePickerView = ImageButtonPickerView()
     private let activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView(style: .large)
 
@@ -84,20 +88,21 @@ final class AddManufacturerViewController: HTScrollContentViewController {
             make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
         }
 
-        contentScrollView.addSubview(countryTextFieldView)
-        countryTextFieldView.setupView(textLabel: "Страна производителя",
-                                       placeholder: "Введите страну производителя",
-                                       delegate: self)
-        countryTextFieldView.snp.makeConstraints { make in
+        contentScrollView.addSubview(countryPicketView)
+        countryPicketView.setupView(text: "Страна производителя")
+        countryPicketView.addButtonAction = { [weak self] in
+            self?.presenter.pressedAddCountry()
+        }
+        countryPicketView.delegate = self
+        countryPicketView.snp.makeConstraints { make in
             make.top.equalTo(nameTextFieldView.snp.bottom).offset(spacingBetweenViews)
-            make.height.equalTo(countryTextFieldView.heightView)
             make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
         }
 
         contentScrollView.addSubview(descriptionView)
         descriptionView.setupView(textLabel: "Описание производителя (не обязательно)")
         descriptionView.snp.makeConstraints { make in
-            make.top.equalTo(countryTextFieldView.snp.bottom).offset(spacingBetweenViews)
+            make.top.equalTo(countryPicketView.snp.bottom).offset(spacingBetweenViews)
             make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
         }
 
@@ -160,34 +165,26 @@ final class AddManufacturerViewController: HTScrollContentViewController {
             make.height.equalTo(40)
         }
 
-        contentScrollView.addSubview(addTobaccoLineView)
-        addTobaccoLineView.setupView(presenter.getTobaccoLineViewModel())
-        addTobaccoLineView.isHidden = true
-        addTobaccoLineView.delegate = self
-        addTobaccoLineView.snp.makeConstraints { make in
-            make.top.equalTo(addTobaccoLineButton.snp.bottom).inset(-spacingBetweenViews)
-            make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
-        }
+        return addTobaccoLineButton
+    }
 
-        return addTobaccoLineView
+    // MARK: - private methods
+    private func changeCountryPickerView(by row: Int) {
+        countryPicketView.text = presenter.receiveRowCountry(by: row)
     }
 
     // MARK: - Selectors
     @objc
     private func touchAddedButton() {
         let entity = AddManufacturerEntity.EnterData(name: nameTextFieldView.text,
-                                                     country: countryTextFieldView.text,
                                                      description: descriptionView.text,
                                                      link: linkTextFieldView.text)
 
         presenter.pressedAddButton(with: entity)
     }
 
-    @objc
-    private func touchAddTobaccoLine() {
-        addTobaccoLineView.showView()
-        addTobaccoLineView.setupView(presenter.getTobaccoLineViewModel())
-        view.setNeedsLayout()
+    @objc private func touchAddTobaccoLine() {
+        presenter.pressedAddTobaccoLine()
     }
 }
 
@@ -195,25 +192,24 @@ final class AddManufacturerViewController: HTScrollContentViewController {
 extension AddManufacturerViewController: AddManufacturerViewInputProtocol {
     func clearView() {
         nameTextFieldView.text = ""
-        countryTextFieldView.text = ""
+        changeCountryPickerView(by: 0)
         descriptionView.text = ""
         imagePickerView.image = nil
-        addTobaccoLineView.setupView(presenter.getTobaccoLineViewModel())
         tobaccoLineCollectionView.reloadData()
         nameTextFieldView.becomeFirstResponderTextField()
     }
 
     func setupContent(_ viewModel: AddManufacturerEntity.ViewModel) {
         nameTextFieldView.text = viewModel.name
-        countryTextFieldView.text = viewModel.country
         descriptionView.text = viewModel.description
         linkTextFieldView.text = viewModel.link
         tobaccoLineCollectionView.reloadData()
         addedButton.setTitle(viewModel.textButton, for: .normal)
+        addTobaccoLineButton.isEnabled = viewModel.isEnabledAddTobaccoLine
+        addTobaccoLineButton.alpha = viewModel.isEnabledAddTobaccoLine ? 1.0 : 0.5
     }
 
     func setupImageManufacturer(_ image: Data?, textButton: String) {
-//        imagePickerView.textButton = textButton
         if let image = image {
             imagePickerView.image = UIImage(data: image)
         }
@@ -223,17 +219,14 @@ extension AddManufacturerViewController: AddManufacturerViewInputProtocol {
         tobaccoLineCollectionView.reloadData()
     }
 
-    func receivedResultAddTobaccoLine(isResult: Bool) {
-        if isResult {
-            addTobaccoLineView.hideView()
-            view.setNeedsLayout()
-        }
+    func setupSelectedCountry(_ index: Int) {
+        changeCountryPickerView(by: index)
     }
 
-    func showTobaccoLineView() {
-        addTobaccoLineView.showView()
-        view.setNeedsLayout()
-        addTobaccoLineView.setupView(presenter.getTobaccoLineViewModel())
+    func receivedResultAddTobaccoLine(isResult: Bool) {
+        if isResult {
+            view.setNeedsLayout()
+        }
     }
 
     func showLoading() {
@@ -249,8 +242,6 @@ extension AddManufacturerViewController: AddManufacturerViewInputProtocol {
 extension AddManufacturerViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if nameTextFieldView.isMyTextField(textField) {
-            return countryTextFieldView.becomeFirstResponderTextField()
-        } else if countryTextFieldView.isMyTextField(textField) {
             return descriptionView.becomeFirstResponder()
         }
         return false
@@ -284,15 +275,21 @@ extension AddManufacturerViewController: TasteCollectionViewDelegate {
     }
 }
 
-extension AddManufacturerViewController: AddTobaccoLineViewDelegate {
-    func didTouchDone(_ viewModel: TobaccoLineViewModelProtocol) {
-        presenter.returnTobaccoLine(viewModel)
+extension AddManufacturerViewController: AddPickerViewDelegate {
+    func receiveNumberOfRows(_ pickerView: AddPickerView) -> Int {
+        return presenter.numberOfRowsCountries()
     }
-
-    func didTouchClose() {
-        addTobaccoLineView.hideView()
-        view.setNeedsLayout()
-        presenter.pressedCloseEditingTobaccoLine()
+    
+    func receiveRow(_ pickerView: AddPickerView, by row: Int) -> String {
+        return presenter.receiveRowCountry(by: row)
+    }
+    
+    func didSelected(_ pickerView: AddPickerView, by row: Int) {
+        return presenter.didSelectedCounty(by: row)
+    }
+    
+    func receiveIndex(_ pickerView: AddPickerView, for title: String) -> Int {
+        return presenter.receiveIndexRowCountry(for: title)
     }
 }
 
