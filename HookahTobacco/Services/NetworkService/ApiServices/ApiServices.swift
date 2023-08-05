@@ -95,7 +95,7 @@ extension ApiServices: GetDataNetworkingServiceProtocol {
                         completion: completion as? GetDataNetworkingServiceCompletion<[Tobacco]>)
         case is Taste.Type:
             sendRequest(object: [Taste].self,
-                        target: Api.Taste.list,
+                        target: Api.Tastes.list,
                         completion: completion as? GetDataNetworkingServiceCompletion<[Taste]>)
         case is TobaccoLine.Type:
             sendRequest(object: [TobaccoLine].self,
@@ -151,7 +151,6 @@ extension ApiServices: GetImageNetworkingServiceProtocol {
 // MARK: - SetDataNetworkingServiceProtocol
 
 extension ApiServices: SetDataNetworkingServiceProtocol {
-    
     func addData<T>(_ data: T, completion: DataNetworkingCompletion<T>?) where T: DataNetworkingServiceProtocol {
         if let manufacturer = data as? Manufacturer {
             sendRequest(object: Manufacturer.self,
@@ -164,6 +163,10 @@ extension ApiServices: SetDataNetworkingServiceProtocol {
         } else if let tobaccoLine = data as? TobaccoLine {
             sendRequest(object: TobaccoLine.self,
                         target: Api.TobaccoLines.create(tobaccoLine),
+                        completion: completion as? DataNetworkingCompletion)
+        } else if let taste = data as? Taste {
+            sendRequest(object: Taste.self,
+                        target: Api.Tastes.create(taste),
                         completion: completion as? DataNetworkingCompletion)
         } else {
             fatalError("не реализовано добавоение в бд для типа \(type(of: data))")
@@ -181,10 +184,13 @@ extension ApiServices: SetDataNetworkingServiceProtocol {
                         target: Api.Tobacco.update(id: tobacco.uid,
                                                    TobaccoRequest(tobacco: tobacco)),
                         completion: completion as? DataNetworkingCompletion)
-        
         } else if let tobaccoLine = data as? TobaccoLine {
             sendRequest(object: TobaccoLine.self,
                         target: Api.TobaccoLines.update(id: tobaccoLine.uid, tobaccoLine),
+                        completion: completion as? DataNetworkingCompletion)
+        } else if let taste = data as? Taste {
+            sendRequest(object: Taste.self,
+                        target: Api.Tastes.update(id: taste.uid, taste),
                         completion: completion as? DataNetworkingCompletion)
         } else {
             fatalError("не реализовано изменение в бд для типа \(type(of: data))")

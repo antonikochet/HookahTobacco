@@ -11,12 +11,16 @@ import UIKit
 import SnapKit
 
 protocol AddTasteViewInputProtocol: AnyObject {
-    func setupContent(taste: String?, type: String?)
+    func setupContent(taste: String?, addButtonText: String)
+    func getTableView() -> UITableView
+    func updateHeightTableView(_ newHeight: CGFloat)
+    func showProgressView()
+    func hideProgressView()
 }
 
 protocol AddTasteViewOutputProtocol: AnyObject {
     func viewDidLoad()
-    func didTouchAdded(taste: String?, type: String?)
+    func didTouchAdded(taste: String)
 }
 
 class AddTasteViewController: UIViewController {
@@ -25,13 +29,15 @@ class AddTasteViewController: UIViewController {
 
     // MARK: - UI properties
     private let tasteTextFieldView = AddTextFieldView()
-    private let typeTextFieldView = AddTextFieldView()
+    private let typeSelectLabel = UILabel()
+    private let typeSelectTableView = UITableView(frame: .zero, style: .grouped)
     private let addButton = UIButton.createAppBigButton("Добавить вкус")
+    private let activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView(style: .large)
 
     // MARK: - ViewController Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupSubviews()
+        setupUI()
         presenter.viewDidLoad()
     }
 
@@ -40,9 +46,18 @@ class AddTasteViewController: UIViewController {
     }
 
     // MARK: - Setups
-    private func setupSubviews() {
+    private func setupUI() {
+        setupView()
+        setupTasteTextFieldView()
+        setupTypeSelectLabel()
+        setupTypeSelectTableView()
+        setupAddButton()
+        setupActivityIndicator()
+    }
+    private func setupView() {
         view.backgroundColor = .systemBackground
-
+    }
+    private func setupTasteTextFieldView() {
         view.addSubview(tasteTextFieldView)
         tasteTextFieldView.setupView(textLabel: "Вкус",
                                      placeholder: "Введите вкус",
@@ -51,48 +66,78 @@ class AddTasteViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(spacingBetweenViews)
             make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
         }
-
-        view.addSubview(typeTextFieldView)
-        typeTextFieldView.setupView(textLabel: "Тип вкуса",
-                                    placeholder: "Введите тип вкуса",
-                                    delegate: self)
-        typeTextFieldView.snp.makeConstraints { make in
+    }
+    private func setupTypeSelectLabel() {
+        view.addSubview(typeSelectLabel)
+        typeSelectLabel.text = "Выбрать тип вкуса табака"
+        typeSelectLabel.snp.makeConstraints { make in
             make.top.equalTo(tasteTextFieldView.snp.bottom).offset(spacingBetweenViews)
             make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
         }
-
+    }
+    private func setupTypeSelectTableView() {
+        view.addSubview(typeSelectTableView)
+        typeSelectTableView.layer.cornerRadius = 6
+        typeSelectTableView.layer.borderColor = UIColor.systemGray4.cgColor
+        typeSelectTableView.layer.borderWidth = 1
+        typeSelectTableView.snp.makeConstraints { make in
+            make.top.equalTo(typeSelectLabel.snp.bottom).offset(spacingBetweenViews)
+            make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
+            make.height.equalTo(0)
+        }
+    }
+    private func setupAddButton() {
         view.addSubview(addButton)
         addButton.snp.makeConstraints { make in
-            make.top.equalTo(typeTextFieldView.snp.bottom).offset(spacingBetweenViews)
+            make.top.equalTo(typeSelectTableView.snp.bottom).offset(spacingBetweenViews)
             make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
         }
         addButton.addTarget(self, action: #selector(didTouchAddButton), for: .touchUpInside)
+    }
+    private func setupActivityIndicator() {
+        view.addSubview(activityIndicator)
+        activityIndicator.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
+        }
+        activityIndicator.hidesWhenStopped = true
     }
     // MARK: - Private methods
 
     // MARK: - Selectors
     @objc private func didTouchAddButton() {
-        presenter.didTouchAdded(taste: tasteTextFieldView.text,
-                                type: typeTextFieldView.text)
+        presenter.didTouchAdded(taste: tasteTextFieldView.text ?? "")
     }
 }
 
 // MARK: - ViewInputProtocol implementation
 extension AddTasteViewController: AddTasteViewInputProtocol {
-    func setupContent(taste: String?, type: String?) {
+    func setupContent(taste: String?, addButtonText: String) {
         tasteTextFieldView.text = taste
-        typeTextFieldView.text = type
+        addButton.setTitle(addButtonText, for: .normal)
+    }
+
+    func getTableView() -> UITableView {
+        typeSelectTableView
+    }
+
+    func updateHeightTableView(_ newHeight: CGFloat) {
+        typeSelectTableView.snp.updateConstraints { make in
+            make.height.equalTo(newHeight)
+        }
+    }
+
+    func showProgressView() {
+        activityIndicator.startAnimating()
+    }
+
+    func hideProgressView() {
+        activityIndicator.stopAnimating()
     }
 }
 
 // MARK: - UITextFieldDelegate implementation
 extension AddTasteViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if tasteTextFieldView.isMyTextField(textField) {
-            return typeTextFieldView.becomeFirstResponderTextField()
-        } else if typeTextFieldView.isMyTextField(textField) {
-            return view.endEditing(true)
-        }
-        return false
+        return true
     }
 }

@@ -11,7 +11,7 @@ struct Taste {
     var id: String = ""
     var uid: String = ""
     let taste: String
-    let typeTaste: String
+    let typeTaste: [TasteType]
 }
 
 extension Taste: Hashable {

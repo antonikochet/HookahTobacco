@@ -23,7 +23,7 @@ class AddTastesPresenter {
     private func createTasteViewModel(_ taste: Taste, isSelect: Bool) -> AddTastesTableCellViewModel {
         AddTastesTableCellViewModel(taste: taste.taste,
                                     id: String(taste.uid),
-                                    typeTaste: taste.typeTaste,
+                                    typeTaste: taste.typeTaste.first?.name ?? "",
                                     isSelect: isSelect)
     }
 

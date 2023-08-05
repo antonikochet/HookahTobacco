@@ -9,17 +9,26 @@ import Foundation
 
 extension Taste: DataNetworkingServiceProtocol { }
 
-extension Taste: Decodable {
+extension Taste: Codable {
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        if !uid.isEmpty,
+            let uid = Int(uid) {
+            try container.encode(uid, forKey: .uid)
+        }
+        try container.encode(taste, forKey: .taste)
+        try container.encode(typeTaste.map({ $0.uid }), forKey: .typeTaste)
+    }
+
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = String(try container.decode(Int.self, forKey: .uid))
         uid = String(try container.decode(Int.self, forKey: .uid))
         taste = try container.decode(String.self, forKey: .taste)
-        let tasteTypes = try container.decode([TasteType].self, forKey: .typeTaste)
-        typeTaste = tasteTypes.first!.name
-//        typeTaste = try container.decode(TasteType.self, forKey: .typeTaste) // TODO: - переделать на TasteType
+        typeTaste = try container.decode([TasteType].self, forKey: .typeTaste)
     }
-    
+
     enum CodingKeys: String, CodingKey {
         case uid = "id"
         case taste

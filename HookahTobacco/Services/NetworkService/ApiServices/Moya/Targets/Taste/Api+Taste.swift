@@ -8,27 +8,27 @@
 import Moya
 
 extension Api {
-    enum Taste {
+    enum Tastes {
         case list
         case detail(id: String)
-        case create
-        case update(id: String)
+        case create(Taste)
+        case update(id: String, Taste)
         case delete(id: String)
     }
 }
 
-extension Api.Taste: DefaultTarget {
+extension Api.Tastes: DefaultTarget {
 
     var path: String {
         switch self {
         case .list, .create:
             return "v1/taste/"
         case let .detail(id):
-            return "v1/taste/\(id)"
-        case let .update(id):
-            return "v1/taste/\(id)"
+            return "v1/taste/\(id)/"
+        case let .update(id, _):
+            return "v1/taste/\(id)/"
         case let .delete(id):
-            return "v1/taste/\(id)"
+            return "v1/taste/\(id)/"
         }
     }
 
@@ -47,6 +47,10 @@ extension Api.Taste: DefaultTarget {
 
     var task: Task {
         switch self {
+        case .create(let taste):
+            return .requestJSONEncodable(taste)
+        case .update(_, let taste):
+            return .requestJSONEncodable(taste)
         default:
             return .requestPlain
         }

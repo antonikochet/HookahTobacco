@@ -20,7 +20,7 @@ extension TasteRealmObject {
         self.init()
         self.uid = taste.uid
         self.taste = taste.taste
-        self.type = taste.typeTaste
+        self.type = taste.typeTaste.first?.name ?? ""
     }
 
     func update(_ taste: Taste) -> [String: Any]? {
@@ -31,7 +31,7 @@ extension TasteRealmObject {
         newValues["uid"] = taste.uid
         isChange = self.taste != taste.taste ? true : isChange
         newValues["taste"] = taste.taste
-        isChange = self.type != taste.typeTaste ? true : isChange
+        isChange = self.type != taste.typeTaste.first?.name ?? "" ? true : isChange
         newValues["type"] = taste.typeTaste
 
         return isChange ? newValues : nil
@@ -41,6 +41,6 @@ extension TasteRealmObject {
         Taste(id: self.id.stringValue,
               uid: self.uid,
               taste: self.taste,
-              typeTaste: self.type)
+              typeTaste: [])
     }
 }
