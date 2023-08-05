@@ -18,6 +18,8 @@ class AddSwitchView: UIView {
         switchView.isOn
     }
 
+    var didChangeSwitch: ((Bool) -> Void)?
+
     // MARK: - Private UI
     private let label: UILabel = {
         let label = UILabel()
@@ -52,6 +54,7 @@ class AddSwitchView: UIView {
             make.width.equalTo(0)
         }
 
+        switchView.addTarget(self, action: #selector(didChangeSwitchValue), for: .valueChanged)
         switchView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.leading.equalTo(label.snp.trailing).offset(8)
@@ -66,5 +69,10 @@ class AddSwitchView: UIView {
             make.width.equalTo(textLabel.sizeOfString(usingFont: label.font).width)
         }
         switchView.isOn = isOn
+    }
+
+    // MARK: - Selectors
+    @objc private func didChangeSwitchValue() {
+        didChangeSwitch?(switchView.isOn)
     }
 }

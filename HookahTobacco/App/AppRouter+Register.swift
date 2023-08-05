@@ -36,6 +36,7 @@ extension AppRouter {
         registerModule(DetailTobaccoAssembly(), DetailTobaccoModule.nameModule) { DetailTobaccoModule($0) }
         registerModule(RegistrationAssembly(), RegistrationModule.nameModule) { RegistrationModule($0) }
         registerModule(ProfileAssembly(), ProfileModule.nameModule) { ProfileModule($0) }
+        registerModule(AddTobaccoLineAssembly(), AddTobaccoLineModule.nameModule) { AddTobaccoLineModule($0) }
     }
 
     func registerContainerControllers() {

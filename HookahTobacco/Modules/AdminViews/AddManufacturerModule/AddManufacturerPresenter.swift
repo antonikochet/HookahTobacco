@@ -19,41 +19,10 @@ class AddManufacturerPresenter {
     private var tobaccoLinesViewModels: [TasteCollectionCellViewModel] = []
     private var countries: [String] = []
     private var isImage: Bool = false
+    private var editingTobaccoLineIndex: Int?
 
     // MARK: - Private methods
-    private func createTobaccoLineViewModel(_ tobaccoLine: TobaccoLine?,
-                                            selectedTobaccoTypeIndex: Int,
-                                            selectedTobaccoLeafIndexs: [Int]
-    ) -> AddTobaccoLineViewViewModelProtocol {
-        if let tobaccoLine = tobaccoLine {
-            return AddManufacturerEntity.TobaccoLineModel(
-                name: tobaccoLine.name,
-                paramTobacco: AddManufacturerEntity.ParamTobaccoModel(
-                    packetingFormats: tobaccoLine.packetingFormat
-                        .map { String($0) }
-                        .joined(separator: ", "),
-                    tobaccoTypes: TobaccoType.allCases.map { $0.name },
-                    selectedTobaccoTypeIndex: selectedTobaccoTypeIndex,
-                    isBaseLine: tobaccoLine.isBase,
-                    tobaccoLeafTypes: VarietyTobaccoLeaf.allCases.map { $0.name },
-                    selectedTobaccoLeafTypeIndex: selectedTobaccoLeafIndexs),
-                description: tobaccoLine.description
-            )
-        } else {
-            return AddManufacturerEntity.TobaccoLineModel(
-                name: "",
-                paramTobacco: AddManufacturerEntity.ParamTobaccoModel(
-                    packetingFormats: "",
-                    tobaccoTypes: TobaccoType.allCases.map { $0.name },
-                    selectedTobaccoTypeIndex: selectedTobaccoTypeIndex,
-                    isBaseLine: false,
-                    tobaccoLeafTypes: VarietyTobaccoLeaf.allCases.map { $0.name },
-                    selectedTobaccoLeafTypeIndex: selectedTobaccoLeafIndexs
-                ),
-                description: ""
-            )
-        }
-    }
+
 }
 
 // MARK: - InteractorOutputProtocol implementation
@@ -63,14 +32,13 @@ extension AddManufacturerPresenter: AddManufacturerInteractorOutputProtocol {
         tobaccoLinesViewModels = []
         view.clearView()
         showCountryForSelect(nil)
-        router.showSuccess(delay: 2.0)
+        router.showSuccess(delay: 2.0, completion: nil)
     }
 
     func receivedSuccessEditing(with changedData: Manufacturer) {
         view.hideLoading()
-        router.showSuccess(delay: 2.0)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            self.router.dismissView(with: changedData)
+        router.showSuccess(delay: 2.0) { [weak self] in
+            self?.router.dismissView(with: changedData)
         }
     }
 
@@ -105,7 +73,9 @@ extension AddManufacturerPresenter: AddManufacturerInteractorOutputProtocol {
     }
 
     func changeTobaccoLine(for id: Int, _ line: TobaccoLine) {
-        router.showAddTobaccoLineView(for: id, editing: line)
+        let name = line.isBase ? "Базовая линейка" : line.name
+        editingTobaccoLineIndex = tobaccoLinesViewModels.firstIndex(where: { $0.label == name })
+        router.showAddTobaccoLineView(for: id, editing: line, delegate: self)
     }
 
     func initialCounties(_ countries: [Country]) {
@@ -167,24 +137,6 @@ extension AddManufacturerPresenter: AddManufacturerViewOutputProtocol {
         tobaccoLinesViewModels.count
     }
 
-    func returnTobaccoLine(_ viewModel: TobaccoLineViewModelProtocol) {
-        var name = viewModel.name
-        if viewModel.isBase {
-            name = "Base"
-        } else if name.isEmpty {
-            router.showError(with: "Имя линейки табака не введено")
-            return
-        }
-        guard !viewModel.packetingFormats.isEmpty else {
-            router.showError(with: "Не введен вес упаковок в линейке")
-            return
-        }
-        guard viewModel.selectedTobaccoTypeIndex != -1 else {
-            router.showError(with: "Не выбран тип табака")
-            return
-        }
-        guard !viewModel.description.isEmpty else {
-            router.showError(with: "Описание линейки табака не введено")
     func pressedEditingTobaccoLine(at index: Int) {
         interactor.receiveEditingTobaccoLine(at: index)
     }
@@ -194,7 +146,8 @@ extension AddManufacturerPresenter: AddManufacturerViewOutputProtocol {
             router.showError(with: "Для добавления линеек табака нужно добавить производителя на сервер")
             return
         }
-        router.showAddTobaccoLineView(for: id, editing: nil)
+        editingTobaccoLineIndex = nil
+        router.showAddTobaccoLineView(for: id, editing: nil, delegate: self)
     }
 
     func pressedAddCountry() {
@@ -218,5 +171,15 @@ extension AddManufacturerPresenter: AddManufacturerViewOutputProtocol {
 
     func didSelectedCounty(by index: Int) {
         interactor.didSelectCountry(at: index)
+    }
+}
+
+// MARK: - AddTobaccoLineOutputModule implementation
+extension AddManufacturerPresenter: AddTobaccoLineOutputModule {
+    func send(_ tobaccoLine: TobaccoLine?) {
+        if let tobaccoLine {
+            interactor.receivedTobaccoLine(tobaccoLine, for: editingTobaccoLineIndex)
+        }
+        editingTobaccoLineIndex = nil
     }
 }

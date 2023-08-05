@@ -13,8 +13,8 @@ protocol AddManufacturerInteractorInputProtocol {
     func didEnterDataManufacturer(_ data: AddManufacturerEntity.Manufacturer)
     func didSelectImage(with urlFile: URL)
     func receiveStartingDataView()
-    func didEnterTobaccoLine(_ data: AddManufacturerEntity.TobaccoLine, index: Int?)
     func receiveEditingTobaccoLine(at index: Int)
+    func receivedTobaccoLine(_ tobaccoLine: TobaccoLine, for index: Int?)
     func didSelectCountry(at index: Int)
     var manufacturerId: Int? { get }
 }
@@ -78,6 +78,9 @@ class AddManufacturerInteractor {
             case .success(let countries):
                 self.countries = countries
                 self.presenter.initialCounties(countries)
+                if let manufacturer = self.manufacturer {
+                    self.presenter.showCountryForSelect(manufacturer.country.name)
+                }
             case .failure(let error):
                 self.presenter.receivedError(with: error.localizedDescription)
             }
@@ -85,20 +88,6 @@ class AddManufacturerInteractor {
     }
 
     // MARK: - methods for adding manufacturer data
-    private func addTobaccoLine(_ tobaccoLines: TobaccoLine, index: Int) {
-        if tobaccoLines.uid.isEmpty {
-            setDataManager.addData(tobaccoLines) { [weak self] result in
-                guard let self = self else { return }
-                switch result {
-                case .success(let newTobaccoLine):
-                    self.tobaccoLines[index] = newTobaccoLine
-                case .failure(let error):
-                    self.presenter.receivedError(with: error.localizedDescription)
-                }
-            }
-        }
-    }
-
     private func addManufacturerToServer(_ manufacturer: Manufacturer) {
         setDataManager.addData(manufacturer) { [weak self] result in
             guard let self = self else { return }
@@ -135,13 +124,6 @@ class AddManufacturerInteractor {
             case .failure(let error):
                 self.presenter.receivedError(with: error.localizedDescription)
             }
-        }
-    }
-
-    private func setTobaccoLine(_ tobaccoLines: TobaccoLine) {
-        setDataManager.setData(tobaccoLines) { [weak self] result in
-            guard let self = self else { return }
-            if case let .failure(error) = result { self.presenter.receivedError(with: error.localizedDescription) }
         }
     }
 }
@@ -209,41 +191,21 @@ extension AddManufacturerInteractor: AddManufacturerInteractorInputProtocol {
         presenter.initialTobaccoLines(tobaccoLines)
     }
 
-    func didEnterTobaccoLine(_ data: AddManufacturerEntity.TobaccoLine, index: Int?) {
-        let tobaccoLeafTypes = (data.selectedTobaccoLeafTypeIndexs.isEmpty ? nil :
-                                data.selectedTobaccoLeafTypeIndexs
-                                    .compactMap { VarietyTobaccoLeaf(rawValue: $0) })
-        if let index = index {
-            let tobaccoLine = tobaccoLines[index]
-            let newTobaccoLine = TobaccoLine(id: tobaccoLine.id,
-                                             uid: tobaccoLine.uid,
-                                             name: data.name,
-                                             packetingFormat: data.packetingFormats,
-                                             tobaccoType: TobaccoType(rawValue: data.selectedTobaccoTypeIndex)!,
-                                             tobaccoLeafType: tobaccoLeafTypes,
-                                             description: data.description,
-                                             isBase: data.isBase)
-            setTobaccoLine(newTobaccoLine)
-            tobaccoLines[index] = newTobaccoLine
-        } else {
-            let tobaccoLine = TobaccoLine(name: data.name,
-                                          packetingFormat: data.packetingFormats,
-                                          tobaccoType: TobaccoType(rawValue: data.selectedTobaccoTypeIndex)!,
-                                          tobaccoLeafType: tobaccoLeafTypes,
-                                          description: data.description,
-                                          isBase: data.isBase)
-            tobaccoLines = []
-            tobaccoLines.append(tobaccoLine)
-            addTobaccoLine(tobaccoLine, index: tobaccoLines.count - 1)
-        }
-        presenter.initialTobaccoLines(tobaccoLines)
-    }
-
     func receiveEditingTobaccoLine(at index: Int) {
         guard index < tobaccoLines.count,
             let strId = manufacturer?.uid,
             let id = Int(strId) else { return }
         presenter.changeTobaccoLine(for: id, tobaccoLines[index])
+    }
+
+    func receivedTobaccoLine(_ tobaccoLine: TobaccoLine, for index: Int?) {
+        if let index,
+           index < tobaccoLines.count {
+            tobaccoLines[index] = tobaccoLine
+        } else {
+            tobaccoLines.append(tobaccoLine)
+        }
+        presenter.initialTobaccoLines(tobaccoLines)
     }
 
     func didSelectCountry(at index: Int) {

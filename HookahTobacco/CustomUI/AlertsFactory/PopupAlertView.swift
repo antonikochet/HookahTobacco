@@ -67,7 +67,7 @@ final class PopupAlertView: UIView {
         return alertView
     }
 
-    func show(_ type: PopupAlertView.AlertType, delay: Double) {
+    func show(_ type: PopupAlertView.AlertType, delay: Double, completion: (() -> Void)? = nil) {
         var image: UIImage?
         switch type {
         case .success:
@@ -78,23 +78,25 @@ final class PopupAlertView: UIView {
         imageView.image = image
         UIView.animate(withDuration: TimeInterval(durationAnimate), delay: 0) {
             self.alpha = 0.8
-        } completion: { completion in
-            if completion {
-                self.hide(delay: delay)
+        } completion: { isCompletion in
+            if isCompletion {
+                self.hide(delay: delay, completion: completion)
             }
         }
     }
 
     // MARK: - Private methods
-    private func hide(delay: Double) {
+    private func hide(delay: Double, completion: (() -> Void)? = nil) {
         UIView.animate(withDuration: TimeInterval(durationAnimate),
                        delay: TimeInterval(delay),
                        options: []) {
             self.alpha = 0
         } completion: { isCompletion in
             if isCompletion {
+                completion?()
                 self.removeFromSuperview()
             }
+            
         }
     }
 }

@@ -13,9 +13,9 @@ protocol AddManufacturerRouterProtocol: RouterProtocol {
     func dismissView()
     func dismissView(with changedData: Manufacturer)
     func showError(with message: String)
-    func showSuccess(delay: Double)
+    func showSuccess(delay: Double, completion: (() -> Void)?)
     func showAddCountryView()
-    func showAddTobaccoLineView(for manufacturerId: Int, editing tobaccoLine: TobaccoLine?)
+    func showAddTobaccoLineView(for manufacturerId: Int, editing tobaccoLine: TobaccoLine?, delegate: AddTobaccoLineOutputModule)
 }
 
 protocol AddManufacturerOutputModule: AnyObject {
@@ -43,15 +43,18 @@ class AddManufacturerRouter: AddManufacturerRouterProtocol {
         appRouter.presentAlert(type: .error(message: message), completion: nil)
     }
 
-    func showSuccess(delay: Double) {
-        appRouter.presentAlert(type: .success(delay: delay), completion: nil)
+    func showSuccess(delay: Double, completion: (() -> Void)?) {
+        appRouter.presentAlert(type: .success(delay: delay), completion: completion)
     }
 
     func showAddCountryView() {
         
     }
 
-    func showAddTobaccoLineView(for manufacturerId: Int, editing tobaccoLine: TobaccoLine?) {
-        appRouter.presentAlert(type: .systemSuccess(message: "manufacturer id: \(manufacturerId) for \(tobaccoLine?.uid ?? "nil")", delay: 5), completion: nil)
+    func showAddTobaccoLineView(for manufacturerId: Int, editing tobaccoLine: TobaccoLine?, delegate: AddTobaccoLineOutputModule) {
+        let data = AddTobaccoLineDataModule(manufacturerId: manufacturerId,
+                                            editingTobaccoLine: tobaccoLine,
+                                            delegate: delegate)
+        appRouter.presentViewModally(module: AddTobaccoLineModule.self, moduleData: data)
     }
 }

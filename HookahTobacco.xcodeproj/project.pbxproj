@@ -11,6 +11,13 @@
 		3802046429FE6AB8000193A1 /* NetworkHandlerErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3802046329FE6AB8000193A1 /* NetworkHandlerErrors.swift */; };
 		3802046729FE6D1A000193A1 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3802046629FE6D1A000193A1 /* ApiError.swift */; };
 		3813D6A92A6AB214009DDCBD /* ImageFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3813D6A82A6AB214009DDCBD /* ImageFormat.swift */; };
+		382F0C3D2A7D936600E2F277 /* AddTobaccoLinePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382F0C382A7D936600E2F277 /* AddTobaccoLinePresenter.swift */; };
+		382F0C3E2A7D936600E2F277 /* AddTobaccoLineRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382F0C392A7D936600E2F277 /* AddTobaccoLineRouter.swift */; };
+		382F0C3F2A7D936600E2F277 /* AddTobaccoLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382F0C3A2A7D936600E2F277 /* AddTobaccoLineViewController.swift */; };
+		382F0C402A7D936600E2F277 /* AddTobaccoLineInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382F0C3B2A7D936600E2F277 /* AddTobaccoLineInteractor.swift */; };
+		382F0C412A7D936600E2F277 /* AddTobaccoLineEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382F0C3C2A7D936600E2F277 /* AddTobaccoLineEntity.swift */; };
+		382F0C452A7D93D700E2F277 /* AddTobaccoLineModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382F0C432A7D93D700E2F277 /* AddTobaccoLineModule.swift */; };
+		382F0C462A7D93D700E2F277 /* AddTobaccoLineAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382F0C442A7D93D700E2F277 /* AddTobaccoLineAssembly.swift */; };
 		3848022F2A57189C00DA595B /* Request+Manufacturer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3848022E2A57189C00DA595B /* Request+Manufacturer.swift */; };
 		387121AC2A55ABD000B6005E /* Api+Tobacco.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387121AB2A55ABD000B6005E /* Api+Tobacco.swift */; };
 		387121AF2A55AD6700B6005E /* Response+Manufacturer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387121AE2A55AD6700B6005E /* Response+Manufacturer.swift */; };
@@ -56,7 +63,6 @@
 		B938A5182940DAFF00145EF0 /* AdminDataManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B938A5172940DAFF00145EF0 /* AdminDataManagerProtocol.swift */; };
 		B938A51A2940DB2500145EF0 /* AdminDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B938A5192940DB2500145EF0 /* AdminDataManager.swift */; };
 		B938A51C2940F1E900145EF0 /* AdminDataManagerAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B938A51B2940F1E900145EF0 /* AdminDataManagerAssembly.swift */; };
-		B938E69A29363FF100993A4C /* AddTobaccoLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B938E69929363FF100993A4C /* AddTobaccoLineView.swift */; };
 		B94306C12920181100EADFA0 /* Taste.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94306C02920181100EADFA0 /* Taste.swift */; };
 		B94306C92920277E00EADFA0 /* AddTastesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94306C42920277E00EADFA0 /* AddTastesPresenter.swift */; };
 		B94306CA2920277E00EADFA0 /* AddTastesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94306C52920277E00EADFA0 /* AddTastesRouter.swift */; };
@@ -109,7 +115,6 @@
 		B98182A3292A6CBD00DEA9F0 /* HTRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98182A2292A6CBD00DEA9F0 /* HTRealm.swift */; };
 		B98182A6292ADBFF00DEA9F0 /* RealmProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98182A5292ADBFF00DEA9F0 /* RealmProviderProtocol.swift */; };
 		B98182A9292AE19600DEA9F0 /* RealmDataBaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98182A8292AE19600DEA9F0 /* RealmDataBaseService.swift */; };
-		B981B5252938DD3700A02D9F /* AddParamTobaccoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B981B5242938DD3600A02D9F /* AddParamTobaccoView.swift */; };
 		B981B5272938DE3000A02D9F /* AddSegmentedControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B981B5262938DE3000A02D9F /* AddSegmentedControlView.swift */; };
 		B981B52929391DA600A02D9F /* TobaccoTypeRealmObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B981B52829391DA600A02D9F /* TobaccoTypeRealmObject.swift */; };
 		B981CBA42930DBAD00705422 /* DetailTobaccoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B981CB9F2930DBAD00705422 /* DetailTobaccoPresenter.swift */; };
@@ -231,6 +236,13 @@
 		3802046329FE6AB8000193A1 /* NetworkHandlerErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHandlerErrors.swift; sourceTree = "<group>"; };
 		3802046629FE6D1A000193A1 /* ApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
 		3813D6A82A6AB214009DDCBD /* ImageFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFormat.swift; sourceTree = "<group>"; };
+		382F0C382A7D936600E2F277 /* AddTobaccoLinePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTobaccoLinePresenter.swift; sourceTree = "<group>"; };
+		382F0C392A7D936600E2F277 /* AddTobaccoLineRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTobaccoLineRouter.swift; sourceTree = "<group>"; };
+		382F0C3A2A7D936600E2F277 /* AddTobaccoLineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTobaccoLineViewController.swift; sourceTree = "<group>"; };
+		382F0C3B2A7D936600E2F277 /* AddTobaccoLineInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTobaccoLineInteractor.swift; sourceTree = "<group>"; };
+		382F0C3C2A7D936600E2F277 /* AddTobaccoLineEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTobaccoLineEntity.swift; sourceTree = "<group>"; };
+		382F0C432A7D93D700E2F277 /* AddTobaccoLineModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTobaccoLineModule.swift; sourceTree = "<group>"; };
+		382F0C442A7D93D700E2F277 /* AddTobaccoLineAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTobaccoLineAssembly.swift; sourceTree = "<group>"; };
 		3848022E2A57189C00DA595B /* Request+Manufacturer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Request+Manufacturer.swift"; sourceTree = "<group>"; };
 		387121AB2A55ABD000B6005E /* Api+Tobacco.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Api+Tobacco.swift"; sourceTree = "<group>"; };
 		387121AE2A55AD6700B6005E /* Response+Manufacturer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Response+Manufacturer.swift"; sourceTree = "<group>"; };
@@ -275,7 +287,6 @@
 		B938A5172940DAFF00145EF0 /* AdminDataManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminDataManagerProtocol.swift; sourceTree = "<group>"; };
 		B938A5192940DB2500145EF0 /* AdminDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminDataManager.swift; sourceTree = "<group>"; };
 		B938A51B2940F1E900145EF0 /* AdminDataManagerAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminDataManagerAssembly.swift; sourceTree = "<group>"; };
-		B938E69929363FF100993A4C /* AddTobaccoLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTobaccoLineView.swift; sourceTree = "<group>"; };
 		B94306C02920181100EADFA0 /* Taste.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Taste.swift; sourceTree = "<group>"; };
 		B94306C42920277E00EADFA0 /* AddTastesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTastesPresenter.swift; sourceTree = "<group>"; usesTabs = 0; };
 		B94306C52920277E00EADFA0 /* AddTastesRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTastesRouter.swift; sourceTree = "<group>"; };
@@ -326,7 +337,6 @@
 		B98182A2292A6CBD00DEA9F0 /* HTRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTRealm.swift; sourceTree = "<group>"; };
 		B98182A5292ADBFF00DEA9F0 /* RealmProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmProviderProtocol.swift; sourceTree = "<group>"; };
 		B98182A8292AE19600DEA9F0 /* RealmDataBaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDataBaseService.swift; sourceTree = "<group>"; };
-		B981B5242938DD3600A02D9F /* AddParamTobaccoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddParamTobaccoView.swift; sourceTree = "<group>"; };
 		B981B5262938DE3000A02D9F /* AddSegmentedControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSegmentedControlView.swift; sourceTree = "<group>"; };
 		B981B52829391DA600A02D9F /* TobaccoTypeRealmObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TobaccoTypeRealmObject.swift; sourceTree = "<group>"; };
 		B981CB9F2930DBAD00705422 /* DetailTobaccoPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTobaccoPresenter.swift; sourceTree = "<group>"; };
@@ -469,6 +479,40 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		382F0C372A7D934E00E2F277 /* AddTobaccoLine */ = {
+			isa = PBXGroup;
+			children = (
+				382F0C382A7D936600E2F277 /* AddTobaccoLinePresenter.swift */,
+				382F0C392A7D936600E2F277 /* AddTobaccoLineRouter.swift */,
+				382F0C3A2A7D936600E2F277 /* AddTobaccoLineViewController.swift */,
+				382F0C3B2A7D936600E2F277 /* AddTobaccoLineInteractor.swift */,
+				382F0C3C2A7D936600E2F277 /* AddTobaccoLineEntity.swift */,
+			);
+			path = AddTobaccoLine;
+			sourceTree = "<group>";
+		};
+		382F0C422A7D93BC00E2F277 /* AddTobaccoLine */ = {
+			isa = PBXGroup;
+			children = (
+				382F0C432A7D93D700E2F277 /* AddTobaccoLineModule.swift */,
+				382F0C442A7D93D700E2F277 /* AddTobaccoLineAssembly.swift */,
+			);
+			path = AddTobaccoLine;
+			sourceTree = "<group>";
+		};
+		3869D3892A7E566700C9BF5C /* Add */ = {
+			isa = PBXGroup;
+			children = (
+				B9A4708528D2BB6400CA6FAA /* AddTextFieldView.swift */,
+				B94B7719290C2738002C5660 /* AddTextView.swift */,
+				B94B771B290C3785002C5660 /* AddPickerView.swift */,
+				B9781D31293A45A700654567 /* AddSwitchView.swift */,
+				B981B5262938DE3000A02D9F /* AddSegmentedControlView.swift */,
+				B9D2D2A8293B808F00F2F591 /* AddMultiSegmentedControlView.swift */,
+			);
+			path = Add;
+			sourceTree = "<group>";
+		};
 		387121AD2A55ABD500B6005E /* Tobacco */ = {
 			isa = PBXGroup;
 			children = (
@@ -505,6 +549,7 @@
 			isa = PBXGroup;
 			children = (
 				387121B52A55B1E100B6005E /* Api+TobaccoLine.swift */,
+				B902AE3F29F408B300BF6AD6 /* TobaccoLine+Codable.swift */,
 			);
 			path = TobaccoLine;
 			sourceTree = "<group>";
@@ -614,7 +659,6 @@
 		B902AE3C29F405AF00BF6AD6 /* Entities extenstions */ = {
 			isa = PBXGroup;
 			children = (
-				B902AE3F29F408B300BF6AD6 /* TobaccoLine+Codable.swift */,
 				B9D6E92E29FDC651001D44D5 /* Taste+Codable.swift */,
 				B9D6E93229FDC974001D44D5 /* TasteType+Extension.swift */,
 			);
@@ -1067,17 +1111,10 @@
 		B992985D28DC965600C4E80F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3869D3892A7E566700C9BF5C /* Add */,
 				B94306D42920539000EADFA0 /* TasteCollectionView */,
 				B9DBE934290B0C07004D7B97 /* ImagePickerView.swift */,
 				B9567C91291C4BC300CF6176 /* ImageButtonPickerView.swift */,
-				B9A4708528D2BB6400CA6FAA /* AddTextFieldView.swift */,
-				B94B7719290C2738002C5660 /* AddTextView.swift */,
-				B94B771B290C3785002C5660 /* AddPickerView.swift */,
-				B9781D31293A45A700654567 /* AddSwitchView.swift */,
-				B981B5262938DE3000A02D9F /* AddSegmentedControlView.swift */,
-				B9D2D2A8293B808F00F2F591 /* AddMultiSegmentedControlView.swift */,
-				B981B5242938DD3600A02D9F /* AddParamTobaccoView.swift */,
-				B938E69929363FF100993A4C /* AddTobaccoLineView.swift */,
 				B904382D2985145D00BADEE3 /* DescriptionStackView.swift */,
 			);
 			path = View;
@@ -1269,6 +1306,7 @@
 				B98E1DEB28F0DBAA00964B8F /* AdminMenuModule */,
 				B98E1DDE28F08D2800964B8F /* AddTobaccoModule */,
 				B98E1DAA28F049E500964B8F /* AddManufacturerModule */,
+				382F0C372A7D934E00E2F277 /* AddTobaccoLine */,
 			);
 			path = AdminViews;
 			sourceTree = "<group>";
@@ -1276,6 +1314,7 @@
 		B9E7AC9F28F4518C00A3D7E5 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				382F0C422A7D93BC00E2F277 /* AddTobaccoLine */,
 				B92A46B0296731100006B787 /* Profile */,
 				B97181542911252100E5DB28 /* DetailInfoManufacturer */,
 				B9ED910A2909D24500DC3A6D /* TobaccoList */,
@@ -1503,7 +1542,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nexport PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  files=$(git diff --name-only | grep \"\\.swift\")\n  swiftlint lint $files\n  #swiftlint lint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n#export PATH=\"$PATH:/opt/homebrew/bin\"\n#if which swiftlint > /dev/null; then\n#  files=$(git diff --name-only | grep \"\\.swift\")\n  #swiftlint lint $files\n  #swiftlint lint\n#else\n#  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n#fi\n";
 		};
 		B9B358D729118D28001D178F /* Crashlytics */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1542,6 +1581,7 @@
 				B9E7ACAF28F46AFB00A3D7E5 /* AdminMenuAssembly.swift in Sources */,
 				B9828048292FB95600BF3A93 /* NamedImageStorage.swift in Sources */,
 				B9EE2378291023F00098E4E0 /* DetailInfoManufacturerViewController.swift in Sources */,
+				382F0C3F2A7D936600E2F277 /* AddTobaccoLineViewController.swift in Sources */,
 				B98E1DE528F08D4400964B8F /* AddTobaccoPresenter.swift in Sources */,
 				387121B32A55AE7F00B6005E /* Api+Taste.swift in Sources */,
 				B98E1DEA28F08D4400964B8F /* AddTobaccoEntity.swift in Sources */,
@@ -1552,6 +1592,7 @@
 				B981829F292A5F7700DEA9F0 /* RealmProvider.swift in Sources */,
 				B98E1DD628F0812500964B8F /* LoginPresenter.swift in Sources */,
 				B9C9260E294F784E0085BB02 /* FirebaseAuthHandlerErrors.swift in Sources */,
+				382F0C3D2A7D936600E2F277 /* AddTobaccoLinePresenter.swift in Sources */,
 				B97D05BC292998AC00F4629B /* TasteRealmObject.swift in Sources */,
 				B9E7A98628FEF9D700D711B4 /* GetImageNetworkingServiceProtocol.swift in Sources */,
 				B9DBE512290DE2C3005B185C /* HTNavigationControllerAssembly.swift in Sources */,
@@ -1564,6 +1605,7 @@
 				B9E8DA4828F77A8300CCA034 /* ManufacturerListRouter.swift in Sources */,
 				B98E1DD728F0812500964B8F /* LoginRouter.swift in Sources */,
 				B9027E05290FF613002E3C3A /* AppRouter+Register.swift in Sources */,
+				382F0C3E2A7D936600E2F277 /* AddTobaccoLineRouter.swift in Sources */,
 				B91AF09C293F8B9C004CCC8A /* ImageManager.swift in Sources */,
 				B98E1DF228F0DBCF00964B8F /* AdminMenuPresenter.swift in Sources */,
 				B97EE9EE292BA0710090B344 /* DataManagerAssembly.swift in Sources */,
@@ -1604,6 +1646,7 @@
 				B9E7ACB328F492ED00A3D7E5 /* LoginModule.swift in Sources */,
 				B9E7ACB428F492ED00A3D7E5 /* LoginAssembly.swift in Sources */,
 				B904382E2985145D00BADEE3 /* DescriptionStackView.swift in Sources */,
+				382F0C462A7D93D700E2F277 /* AddTobaccoLineAssembly.swift in Sources */,
 				B94306CC2920277E00EADFA0 /* AddTastesInteractor.swift in Sources */,
 				B9D6E93929FDCDB1001D44D5 /* Country.swift in Sources */,
 				B9C7825A28ECE25800DBF8C6 /* AuthServiceProtocol.swift in Sources */,
@@ -1617,6 +1660,7 @@
 				B98E1DB628F04A0F00964B8F /* AddManufacturerEntity.swift in Sources */,
 				B9ED9103290989EF00DC3A6D /* TobaccoListRouter.swift in Sources */,
 				387121BC2A55B34F00B6005E /* Api+Country.swift in Sources */,
+				382F0C452A7D93D700E2F277 /* AddTobaccoLineModule.swift in Sources */,
 				B982804C292FD4EB00BF3A93 /* ImageStorageServiceAssembly.swift in Sources */,
 				B98E1DF328F0DBCF00964B8F /* AdminMenuRouter.swift in Sources */,
 				B902AE4629F40B1D00BF6AD6 /* Tobacco+Codable.swift in Sources */,
@@ -1625,10 +1669,10 @@
 				B9631C5D292400FB00BBC09B /* AddTasteModule.swift in Sources */,
 				B9D6055928D4CB590058D19E /* Manufacturer.swift in Sources */,
 				B97EE9F3292BB3C30090B344 /* UserDefaultsService.swift in Sources */,
-				B981B5252938DD3700A02D9F /* AddParamTobaccoView.swift in Sources */,
 				B97EE9F6292BB3E50090B344 /* UserDefaultsServiceProtocol.swift in Sources */,
 				B9ED9102290989EF00DC3A6D /* TobaccoListPresenter.swift in Sources */,
 				B90B671D29A049D0004460C8 /* GlobalConstant.swift in Sources */,
+				382F0C402A7D936600E2F277 /* AddTobaccoLineInteractor.swift in Sources */,
 				B94306D329204EE700EADFA0 /* AddTastesTableViewCell.swift in Sources */,
 				B97EE9E3292B70790090B344 /* DataManagerProtocol.swift in Sources */,
 				B9A4708328D2B84500CA6FAA /* extention + UIFont.swift in Sources */,
@@ -1654,9 +1698,9 @@
 				B9DBE50E290DE11F005B185C /* HTNavigationController.swift in Sources */,
 				B97EE9F0292BA1480090B344 /* RealmDataBaseServiresAssembly.swift in Sources */,
 				B9E8DA4A28F77A8300CCA034 /* ManufacturerListInteractor.swift in Sources */,
+				382F0C412A7D936600E2F277 /* AddTobaccoLineEntity.swift in Sources */,
 				B9EE237D29102B710098E4E0 /* DetailInfoManufacturerTableCell.swift in Sources */,
 				B94B7717290C239E002C5660 /* extention + UIButton.swift in Sources */,
-				B938E69A29363FF100993A4C /* AddTobaccoLineView.swift in Sources */,
 				B98182A1292A6BDB00DEA9F0 /* HTRealmProtocol.swift in Sources */,
 				B92A46B42967313B0006B787 /* ProfileAssembly.swift in Sources */,
 				B938A51A2940DB2500145EF0 /* AdminDataManager.swift in Sources */,

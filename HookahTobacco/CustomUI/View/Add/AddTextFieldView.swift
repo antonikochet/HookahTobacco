@@ -67,6 +67,17 @@ class AddTextFieldView: UIView {
         textField.becomeFirstResponder()
     }
 
+    // MARK: - Public methods
+    func enableTextField() {
+        textField.isEnabled = true
+        textField.alpha = 1.0
+    }
+
+    func disableTextField() {
+        textField.isEnabled = false
+        textField.alpha = 0.5
+    }
+
     // MARK: private methods
     private func setupSubviews() {
         addSubview(label)

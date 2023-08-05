@@ -74,6 +74,10 @@ final class AddManufacturerViewController: HTScrollContentViewController {
         addTobaccoLineButton.createCornerRadius()
     }
 
+    override func hideViewTapped() {
+        super.hideViewTapped()
+        countryPicketView.hideView()
+    }
     // MARK: - Setups
     override func setupSubviews() {
         super.setupSubviews()

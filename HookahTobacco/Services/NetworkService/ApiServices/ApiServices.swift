@@ -99,7 +99,7 @@ extension ApiServices: GetDataNetworkingServiceProtocol {
                         completion: completion as? GetDataNetworkingServiceCompletion<[Taste]>)
         case is TobaccoLine.Type:
             sendRequest(object: [TobaccoLine].self,
-                        target: Api.TobaccoLine.list,
+                        target: Api.TobaccoLines.list,
                         completion: completion as? GetDataNetworkingServiceCompletion<[TobaccoLine]>)
         case is TasteType.Type:
             sendRequest(object: [TasteType].self,
@@ -161,6 +161,10 @@ extension ApiServices: SetDataNetworkingServiceProtocol {
             sendRequest(object: Tobacco.self,
                         target: Api.Tobacco.create(TobaccoRequest(tobacco: tobacco)),
                         completion: completion as? DataNetworkingCompletion)
+        } else if let tobaccoLine = data as? TobaccoLine {
+            sendRequest(object: TobaccoLine.self,
+                        target: Api.TobaccoLines.create(tobaccoLine),
+                        completion: completion as? DataNetworkingCompletion)
         } else {
             fatalError("не реализовано добавоение в бд для типа \(type(of: data))")
         }
@@ -176,6 +180,11 @@ extension ApiServices: SetDataNetworkingServiceProtocol {
             sendRequest(object: Tobacco.self,
                         target: Api.Tobacco.update(id: tobacco.uid,
                                                    TobaccoRequest(tobacco: tobacco)),
+                        completion: completion as? DataNetworkingCompletion)
+        
+        } else if let tobaccoLine = data as? TobaccoLine {
+            sendRequest(object: TobaccoLine.self,
+                        target: Api.TobaccoLines.update(id: tobaccoLine.uid, tobaccoLine),
                         completion: completion as? DataNetworkingCompletion)
         } else {
             fatalError("не реализовано изменение в бд для типа \(type(of: data))")

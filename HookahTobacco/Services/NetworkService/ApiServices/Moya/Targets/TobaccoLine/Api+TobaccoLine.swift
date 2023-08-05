@@ -8,21 +8,21 @@
 import Moya
 
 extension Api {
-    enum TobaccoLine {
+    enum TobaccoLines {
         case list
-        case create
-        case update(id: String)
+        case create(TobaccoLine)
+        case update(id: String, TobaccoLine)
     }
 }
 
-extension Api.TobaccoLine: DefaultTarget {
+extension Api.TobaccoLines: DefaultTarget {
 
     var path: String {
         switch self {
         case .list, .create:
             return "v1/tobacco_line/"
-        case let .update(id):
-            return "v1/tobacco_line/\(id)"
+        case let .update(id, _):
+            return "v1/tobacco_line/\(id)/"
         }
     }
 
@@ -39,6 +39,10 @@ extension Api.TobaccoLine: DefaultTarget {
 
     var task: Task {
         switch self {
+        case .create(let tobaccoLine):
+            return .requestJSONEncodable(tobaccoLine)
+        case .update(_, let tobaccoLine):
+            return .requestJSONEncodable(tobaccoLine)
         default:
             return .requestPlain
         }

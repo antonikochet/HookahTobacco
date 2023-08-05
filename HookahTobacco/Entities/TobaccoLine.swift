@@ -16,6 +16,7 @@ struct TobaccoLine {
     let tobaccoLeafType: [VarietyTobaccoLeaf]?
     let description: String
     let isBase: Bool
+    var manufacturerId: Int?
 }
 
 enum VarietyTobaccoLeaf: Int, CaseIterable {
