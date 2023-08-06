@@ -30,7 +30,7 @@ class AddTobaccoLineInteractor {
     // MARK: - Private properties
     private let tobaccoLine: TobaccoLine?
     private let manufacturerId: Int
-    
+
     // MARK: - Initializers
     init(manufacturerId: Int,
          tobaccoLine: TobaccoLine?,
@@ -39,7 +39,7 @@ class AddTobaccoLineInteractor {
         self.tobaccoLine = tobaccoLine
         self.setDataManager = setDataManager
     }
-    
+
     // MARK: - Private methods
     private func sendTobaccoLineToServer(_ tobaccoLine: TobaccoLine, isSet: Bool) {
         if isSet {
@@ -68,7 +68,7 @@ extension AddTobaccoLineInteractor: AddTobaccoLineInteractorInputProtocol {
     func receiveStartingDataView() {
         presenter?.initialDataForPresentation(tobaccoLine)
     }
-    
+
     func didEnterData(_ data: AddTobaccoLineEntity.TobaccoLine) {
         let tobaccoLeafTypes = (data.selectedTobaccoLeafTypeIndexs.isEmpty ? nil :
                                 data.selectedTobaccoLeafTypeIndexs

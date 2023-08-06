@@ -9,15 +9,15 @@ import Moya
 import Foundation
 
 protocol DefaultTarget: TargetType {
-    
+
 }
 
 extension DefaultTarget {
     var baseURL: URL {
         Api.baseURL
     }
-    
-    var headers: [String : String]? {
+
+    var headers: [String: String]? {
         return nil
     }
 }

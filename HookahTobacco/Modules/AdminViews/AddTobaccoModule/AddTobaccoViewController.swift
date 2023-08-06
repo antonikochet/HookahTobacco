@@ -79,7 +79,20 @@ final class AddTobaccoViewController: HTScrollContentViewController {
     // MARK: - Setups
     override func setupSubviews() {
         super.setupSubviews()
-
+        setupNameView()
+        setupManufacturerPickerView()
+        setupTasteCollectionView()
+        setupTasteButton()
+        setupDescriptionView()
+        setupTobaccoLinePickerView()
+        setupAddedButton()
+        setupImagePickerView()
+        setupActivityIndicator()
+        setupConstrainsScrollView(top: view.safeAreaLayoutGuide,
+                                  bottom: addedButton.snp.top,
+                                  bottomConstant: -spacingBetweenViews)
+    }
+    private func setupNameView() {
         contentScrollView.addSubview(nameView)
         nameView.setupView(textLabel: "Название",
                            placeholder: "Введите название производителя...",
@@ -89,7 +102,8 @@ final class AddTobaccoViewController: HTScrollContentViewController {
             make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
             make.height.equalTo(nameView.heightView)
         }
-
+    }
+    private func setupManufacturerPickerView() {
         contentScrollView.addSubview(manufacturerPickerView)
         manufacturerPickerView.setupView(text: "Выбрать производителя табака")
         manufacturerPickerView.delegate = self
@@ -97,7 +111,8 @@ final class AddTobaccoViewController: HTScrollContentViewController {
             make.top.equalTo(nameView.snp.bottom).offset(spacingBetweenViews)
             make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
         }
-
+    }
+    private func setupTasteCollectionView() {
         contentScrollView.addSubview(tasteCollectionView)
         tasteCollectionView.tasteDelegate = self
         tasteCollectionView.snp.makeConstraints { make in
@@ -106,7 +121,8 @@ final class AddTobaccoViewController: HTScrollContentViewController {
         }
         let tapTasteCollection = UITapGestureRecognizer(target: self, action: #selector(touchForSelectTastes))
         tasteCollectionView.addGestureRecognizer(tapTasteCollection)
-
+    }
+    private func setupTasteButton() {
         contentScrollView.addSubview(tasteButton)
         tasteButton.snp.makeConstraints { make in
             make.top.equalTo(tasteCollectionView.snp.bottom).offset(spacingBetweenViews)
@@ -114,14 +130,16 @@ final class AddTobaccoViewController: HTScrollContentViewController {
             make.height.equalTo(40)
         }
         tasteButton.addTarget(self, action: #selector(touchForSelectTastes), for: .touchUpInside)
-
+    }
+    private func setupDescriptionView() {
         contentScrollView.addSubview(descriptionView)
         descriptionView.setupView(textLabel: "Описание табака (не обязательно)")
         descriptionView.snp.makeConstraints { make in
             make.top.equalTo(tasteButton.snp.bottom).offset(spacingBetweenViews)
             make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
         }
-
+    }
+    private func setupTobaccoLinePickerView() {
         contentScrollView.addSubview(tobaccoLinePickerView)
         tobaccoLinePickerView.setupView(text: "Выбрать линейку табака")
         tobaccoLinePickerView.delegate = self
@@ -129,7 +147,8 @@ final class AddTobaccoViewController: HTScrollContentViewController {
             make.top.equalTo(descriptionView.snp.bottom).offset(spacingBetweenViews)
             make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
         }
-
+    }
+    private func setupAddedButton() {
         view.addSubview(addedButton)
         addedButton.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
@@ -137,7 +156,8 @@ final class AddTobaccoViewController: HTScrollContentViewController {
             make.height.equalTo(50)
         }
         addedButton.addTarget(self, action: #selector(touchAddedButton), for: .touchUpInside)
-
+    }
+    private func setupImagePickerView() {
         contentScrollView.addSubview(imagePickerView)
         imagePickerView.snp.makeConstraints { make in
             make.top.equalTo(tobaccoLinePickerView.snp.bottom).inset(-spacingBetweenViews)
@@ -149,17 +169,14 @@ final class AddTobaccoViewController: HTScrollContentViewController {
             make.bottom.equalToSuperview().inset(16.0)
         }
         imagePickerView.delegate = self
-
+    }
+    private func setupActivityIndicator() {
         view.addSubview(activityIndicator)
         activityIndicator.snp.makeConstraints { make in
             make.centerX.centerY.equalToSuperview()
         }
         activityIndicator.hidesWhenStopped = true
-
-        setupConstrainsScrollView(top: view.safeAreaLayoutGuide,
-                                  bottom: addedButton.snp.top,
-                                  bottomConstant: -spacingBetweenViews)
-        }
+    }
 
     // MARK: - Private methods
     private func changeManufacturerPickerView(by row: Int) {

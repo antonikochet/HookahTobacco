@@ -26,7 +26,7 @@ class AddPickerView: UIView {
 
     var pickerViewHeight: CGFloat = 120
 
-    var addButtonAction: (() -> Void)? = nil
+    var addButtonAction: (() -> Void)?
 
     // MARK: private properties
 
@@ -121,7 +121,6 @@ class AddPickerView: UIView {
                 make.size.equalTo(CGSize(width: 24, height: 24))
                 make.trailing.equalToSuperview()
             }
-            
             addButton.addTarget(self, action: #selector(touchAddButton), for: .touchUpInside)
         }
 

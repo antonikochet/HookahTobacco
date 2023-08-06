@@ -24,7 +24,7 @@ class AddTobaccoLineRouter: AddTobaccoLineRouterProtocol {
     // MARK: - Private properties
     private let appRouter: AppRouterProtocol
     weak var delegate: AddTobaccoLineOutputModule?
-    
+
     required init(_ appRouter: AppRouterProtocol) {
         self.appRouter = appRouter
     }
@@ -32,7 +32,7 @@ class AddTobaccoLineRouter: AddTobaccoLineRouterProtocol {
     func showSuccess(with completion: (() -> Void)?) {
         appRouter.presentAlert(type: .success(delay: 3.0), completion: completion)
     }
-    
+
     func showError(with message: String) {
         appRouter.presentAlert(type: .error(message: message), completion: nil)
     }

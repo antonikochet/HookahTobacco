@@ -71,7 +71,7 @@ extension AddTobaccoLinePresenter: AddTobaccoLineViewOutputProtocol {
     func viewDidLoad() {
         interactor.receiveStartingDataView()
     }
-    
+
     func pressedDoneButton(_ viewModel: AddTobaccoLineEntity.ViewModel) {
         var name = viewModel.name
         if viewModel.isBase {

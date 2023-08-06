@@ -29,7 +29,7 @@ class AddTobaccoLineViewController: UIViewController {
     // MARK: - Private properties
     private let sidePadding: CGFloat = 16.0
     private let topMargin: CGFloat = 8.0
-    
+
     // MARK: - UI properties
     private let nameView = AddTextFieldView()
     private let packetingFormatsView = AddTextFieldView()
@@ -43,7 +43,7 @@ class AddTobaccoLineViewController: UIViewController {
                                                                     .withRenderingMode(.alwaysTemplate),
                                                           backgroundColor: .systemGray3)
     private let activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView(style: .large)
-    
+
     // MARK: - ViewController Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,7 +55,7 @@ class AddTobaccoLineViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         doneButton.createCornerRadius()
     }
-    
+
     // MARK: - Setups
     private func setupUI() {
         setupView()
@@ -124,7 +124,7 @@ class AddTobaccoLineViewController: UIViewController {
         view.addSubview(baseSwitchView)
         baseSwitchView.didChangeSwitch = { [weak self] isOn in
             guard let self else { return }
-            isOn ? nameView.disableTextField() : nameView.enableTextField()
+            if isOn { nameView.disableTextField() } else { nameView.enableTextField() }
         }
         baseSwitchView.snp.makeConstraints { make in
             make.top.equalTo(tobaccoTypeView.snp.bottom).offset(topMargin)
@@ -201,7 +201,7 @@ extension AddTobaccoLineViewController: AddTobaccoLineViewInputProtocol {
         tobaccoTypeView.setupView(textLabel: "Тип табака", segmentTitles: viewModel.tobaccoTypes)
         tobaccoTypeView.selectedIndex = viewModel.selectedTobaccoTypeIndex
         baseSwitchView.setupView(textLabel: "Базовая линейка: ", isOn: viewModel.isBaseLine)
-        viewModel.isBaseLine ? nameView.disableTextField() : nameView.enableTextField()
+        if viewModel.isBaseLine { nameView.disableTextField() } else { nameView.enableTextField() }
         tobaccoLeafTypeView.setupView(textLabel: "Типы листа табака", segmentTitles: viewModel.tobaccoLeafTypes)
         tobaccoLeafTypeView.selectedIndex = viewModel.selectedTobaccoLeafTypeIndex
         defineHiddenTobaccoLeafView(index: viewModel.selectedTobaccoTypeIndex)

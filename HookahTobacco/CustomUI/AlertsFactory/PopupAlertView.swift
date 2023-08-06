@@ -96,7 +96,6 @@ final class PopupAlertView: UIView {
                 completion?()
                 self.removeFromSuperview()
             }
-            
         }
     }
 }

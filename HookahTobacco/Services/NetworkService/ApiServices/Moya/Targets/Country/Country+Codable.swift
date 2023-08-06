@@ -25,7 +25,7 @@ extension Country: Codable {
         uid = String(try container.decode(Int.self, forKey: .uid))
         name = try container.decode(String.self, forKey: .name)
     }
-    
+
     enum CodingKeys: String, CodingKey {
         case uid = "id"
         case name

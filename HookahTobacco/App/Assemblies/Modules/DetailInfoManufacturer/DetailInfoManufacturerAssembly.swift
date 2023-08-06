@@ -43,13 +43,13 @@ class DetailInfoManufacturerAssembly: Assembly {
         // swiftlint: disable force_cast
         container.register(
             DetailInfoManufacturerViewController.self
-        ) { (r, dependency: DetailInfoManufacturerDependency) in
+        ) { (resolver, dependency: DetailInfoManufacturerDependency) in
             let view = DetailInfoManufacturerViewController()
-            let presenter = r.resolve(
+            let presenter = resolver.resolve(
                 DetailInfoManufacturerViewOutputProtocol.self) as! DetailInfoManufacturerPresenter
-            let interactor = r.resolve(DetailInfoManufacturerInteractorInputProtocol.self,
+            let interactor = resolver.resolve(DetailInfoManufacturerInteractorInputProtocol.self,
                                        argument: dependency) as! DetailInfoManufacturerInteractor
-            let router = r.resolve(DetailInfoManufacturerRouterProtocol.self, argument: dependency)!
+            let router = resolver.resolve(DetailInfoManufacturerRouterProtocol.self, argument: dependency)!
 
             view.presenter = presenter
             presenter.view = view

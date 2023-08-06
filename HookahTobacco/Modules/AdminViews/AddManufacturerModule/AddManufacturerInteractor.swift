@@ -212,7 +212,7 @@ extension AddManufacturerInteractor: AddManufacturerInteractorInputProtocol {
         selectedCountry = countries[index]
         presenter.showCountryForSelect(selectedCountry?.name)
     }
-    
+
     var manufacturerId: Int? {
         guard let strId = manufacturer?.uid else {
             return nil

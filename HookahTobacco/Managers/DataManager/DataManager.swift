@@ -92,7 +92,7 @@ class DataManager {
             syncDataInLocalDatabase(oldVersion: localDBVersion)
         }
     }
-
+    // swiftlint:disable:next function_body_length
     private func syncDataInLocalDatabase(oldVersion: Int) {
         DispatchQueue.global(qos: .background).async { [weak self] in
             guard let self = self else { return }

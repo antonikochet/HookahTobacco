@@ -68,7 +68,9 @@ extension AddManufacturerPresenter: AddManufacturerInteractorOutputProtocol {
     }
 
     func initialTobaccoLines(_ lines: [TobaccoLine]) {
-        tobaccoLinesViewModels = lines.map { TasteCollectionCellViewModel(label: $0.isBase ? "Базовая линейка" : $0.name) }
+        tobaccoLinesViewModels = lines.map {
+            TasteCollectionCellViewModel(label: $0.isBase ? "Базовая линейка" : $0.name)
+        }
         view.setupTobaccoLines()
     }
 

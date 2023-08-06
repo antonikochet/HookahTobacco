@@ -20,7 +20,7 @@ struct Manufacturer {
 }
 
 extension Manufacturer: Equatable {
-    static func == (lm: Manufacturer, rm: Manufacturer) -> Bool {
-        lm.name == rm.name
+    static func == (lmnf: Manufacturer, rmnf: Manufacturer) -> Bool {
+        lmnf.name == rmnf.name
     }
 }

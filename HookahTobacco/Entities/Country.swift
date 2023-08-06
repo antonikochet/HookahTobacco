@@ -10,5 +10,5 @@ import Foundation
 struct Country {
     var id: String = ""
     var uid: String = ""
-    let name: String 
+    let name: String
 }

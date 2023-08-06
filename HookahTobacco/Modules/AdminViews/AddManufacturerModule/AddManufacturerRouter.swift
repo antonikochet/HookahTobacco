@@ -15,7 +15,9 @@ protocol AddManufacturerRouterProtocol: RouterProtocol {
     func showError(with message: String)
     func showSuccess(delay: Double, completion: (() -> Void)?)
     func showAddCountryView()
-    func showAddTobaccoLineView(for manufacturerId: Int, editing tobaccoLine: TobaccoLine?, delegate: AddTobaccoLineOutputModule)
+    func showAddTobaccoLineView(for manufacturerId: Int,
+                                editing tobaccoLine: TobaccoLine?,
+                                delegate: AddTobaccoLineOutputModule)
 }
 
 protocol AddManufacturerOutputModule: AnyObject {
@@ -48,10 +50,12 @@ class AddManufacturerRouter: AddManufacturerRouterProtocol {
     }
 
     func showAddCountryView() {
-        
+
     }
 
-    func showAddTobaccoLineView(for manufacturerId: Int, editing tobaccoLine: TobaccoLine?, delegate: AddTobaccoLineOutputModule) {
+    func showAddTobaccoLineView(for manufacturerId: Int,
+                                editing tobaccoLine: TobaccoLine?,
+                                delegate: AddTobaccoLineOutputModule) {
         let data = AddTobaccoLineDataModule(manufacturerId: manufacturerId,
                                             editingTobaccoLine: tobaccoLine,
                                             delegate: delegate)

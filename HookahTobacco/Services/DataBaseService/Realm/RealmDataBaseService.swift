@@ -166,8 +166,8 @@ class RealmDataBaseService {
         let filterManufacturers = manufacturers.filter { !$0.lines.isEmpty }
         let dict = Dictionary(uniqueKeysWithValues:
             filterManufacturers.compactMap({ manufacturer -> (ManufacturerRealmObject, Manufacturer)? in
-            guard let ob = realmObjects.first(where: { $0.uid == manufacturer.uid }) else { return nil }
-            return (ob, manufacturer)
+            guard let obj = realmObjects.first(where: { $0.uid == manufacturer.uid }) else { return nil }
+            return (obj, manufacturer)
         }))
         realmProvider.read(type: TobaccoLineRealmObject.self) { threadSafeObject in
             guard let wrapperdValue = threadSafeObject.wrappedValue else { return }

@@ -67,7 +67,7 @@ class ManufacturerListViewController: UIViewController {
             make.centerX.centerY.equalToSuperview()
         }
     }
-    
+
     // MARK: - Private methods
 
     // MARK: - Selectors

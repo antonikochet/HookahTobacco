@@ -10,7 +10,7 @@ import Foundation
 private struct ManufacturerForTobacco: Decodable {
     let id: Int
     let name: String
-    
+
     enum CodingKeys: String, CodingKey {
         case id
         case name

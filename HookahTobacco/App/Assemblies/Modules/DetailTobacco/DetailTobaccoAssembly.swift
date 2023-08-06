@@ -23,8 +23,9 @@ class DetailTobaccoAssembly: Assembly {
             return router
         }
 
-        container.register(DetailTobaccoInteractorInputProtocol.self) {
-            (resolver, dependency: DetailTobaccoDependency) in
+        container.register(
+            DetailTobaccoInteractorInputProtocol.self
+        ) { (resolver, dependency: DetailTobaccoDependency) in
             // here resolve dependency injection
             let getDataManager = resolver.resolve(DataManagerProtocol.self)!
             return DetailTobaccoInteractor(dependency.tobacco,

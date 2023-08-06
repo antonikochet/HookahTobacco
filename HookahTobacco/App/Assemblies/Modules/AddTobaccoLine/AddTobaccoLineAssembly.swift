@@ -26,7 +26,9 @@ class AddTobaccoLineAssembly: Assembly {
             return router
         }
 
-        container.register(AddTobaccoLineInteractorInputProtocol.self) { (resolver, dependency: AddTobaccoLineDependency) in
+        container.register(
+            AddTobaccoLineInteractorInputProtocol.self
+        ) { (resolver, dependency: AddTobaccoLineDependency) in
             // here resolve dependency injection
             let setDataManager = resolver.resolve(AdminDataManagerProtocol.self)!
             return AddTobaccoLineInteractor(manufacturerId: dependency.manufacturerId,
@@ -43,7 +45,10 @@ class AddTobaccoLineAssembly: Assembly {
         container.register(AddTobaccoLineViewController.self) { (resolver, dependency: AddTobaccoLineDependency) in
             let view = AddTobaccoLineViewController()
             let presenter = resolver.resolve(AddTobaccoLineViewOutputProtocol.self) as! AddTobaccoLinePresenter
-            let interactor = resolver.resolve(AddTobaccoLineInteractorInputProtocol.self, argument: dependency) as! AddTobaccoLineInteractor
+            let interactor = resolver.resolve(
+                AddTobaccoLineInteractorInputProtocol.self,
+                argument: dependency
+            ) as! AddTobaccoLineInteractor
             let router = resolver.resolve(AddTobaccoLineRouterProtocol.self, argument: dependency)!
 
             view.presenter = presenter

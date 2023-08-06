@@ -8,7 +8,7 @@
 import Foundation
 
 extension TobaccoType: Codable {
-    
+
 }
 
 extension VarietyTobaccoLeaf: Codable {
@@ -28,7 +28,11 @@ extension VarietyTobaccoLeaf: Codable {
         case "\(VarietyTobaccoLeaf.virginia.rawValue)":
             self = .virginia
         default:
-            throw DecodingError.typeMismatch(String.self, .init(codingPath: [], debugDescription: "Failed to decode value \(strValue) to type VarietyTobaccoLeaf"))
+            throw DecodingError.typeMismatch(
+                String.self,
+                .init(codingPath: [],
+                      debugDescription: "Failed to decode value \(strValue) to type VarietyTobaccoLeaf")
+            )
         }
     }
 }
@@ -59,14 +63,16 @@ extension TobaccoLine: Codable {
         id = String(try container.decode(Int.self, forKey: .uid))
         uid = String(try container.decode(Int.self, forKey: .uid))
         name = try container.decode(String.self, forKey: .name)
-        packetingFormat = try container.decode(String.self, forKey: .packetingFormat).split(separator: ",").compactMap { Int($0) } 
+        packetingFormat = try container.decode(String.self, forKey: .packetingFormat)
+            .split(separator: ",")
+            .compactMap { Int($0) }
         tobaccoType = try container.decode(TobaccoType.self, forKey: .tobaccoType)
         tobaccoLeafType = try container.decode([VarietyTobaccoLeaf]?.self, forKey: .tobaccoLeafType)
         description = try container.decode(String.self, forKey: .description)
         isBase = try container.decode(Bool.self, forKey: .isBase)
         manufacturerId = try container.decode(Int.self, forKey: .manufacturer)
     }
-    
+
     enum CodingKeys: String, CodingKey {
         case uid = "id"
         case name

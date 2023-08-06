@@ -25,12 +25,12 @@ protocol AddManufacturerViewOutputProtocol {
     func pressedAddButton(with enteredData: AddManufacturerEntity.EnterData)
     func selectedImage(with urlFile: URL)
     func viewDidLoad()
-    
+
     func getTobaccoLineViewModel(at index: Int) -> TasteCollectionCellViewModel
     var tobaccoLineNumberOfRows: Int { get }
     func pressedEditingTobaccoLine(at index: Int)
     func pressedAddTobaccoLine()
-    
+
     func pressedAddCountry()
     func numberOfRowsCountries() -> Int
     func receiveRowCountry(by index: Int) -> String
@@ -81,7 +81,18 @@ final class AddManufacturerViewController: HTScrollContentViewController {
     // MARK: - Setups
     override func setupSubviews() {
         super.setupSubviews()
-
+        setupNameTextField()
+        setupCountryPickerView()
+        setupDescriptionView()
+        setupLinkTextFieldView()
+        setupAddTobaccoLineView()
+        setupAddButton()
+        setupImagePickerView()
+        setupActivityIndicator()
+        setupConstrainsScrollView(top: view.safeAreaLayoutGuide,
+                                  bottom: addedButton.snp.top, bottomConstant: -spacingBetweenViews)
+    }
+    private func setupNameTextField() {
         contentScrollView.addSubview(nameTextFieldView)
         nameTextFieldView.setupView(textLabel: "Название",
                                     placeholder: "Введите название производителя...",
@@ -91,7 +102,8 @@ final class AddManufacturerViewController: HTScrollContentViewController {
             make.height.equalTo(nameTextFieldView.heightView)
             make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
         }
-
+    }
+    private func setupCountryPickerView() {
         contentScrollView.addSubview(countryPicketView)
         countryPicketView.setupView(text: "Страна производителя")
         countryPicketView.addButtonAction = { [weak self] in
@@ -102,14 +114,16 @@ final class AddManufacturerViewController: HTScrollContentViewController {
             make.top.equalTo(nameTextFieldView.snp.bottom).offset(spacingBetweenViews)
             make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
         }
-
+    }
+    private func setupDescriptionView() {
         contentScrollView.addSubview(descriptionView)
         descriptionView.setupView(textLabel: "Описание производителя (не обязательно)")
         descriptionView.snp.makeConstraints { make in
             make.top.equalTo(countryPicketView.snp.bottom).offset(spacingBetweenViews)
             make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
         }
-
+    }
+    private func setupLinkTextFieldView() {
         contentScrollView.addSubview(linkTextFieldView)
         linkTextFieldView.setupView(textLabel: "Ссылка на сайт производител (не обяз.)",
                                     placeholder: "Введите ссылку",
@@ -119,43 +133,11 @@ final class AddManufacturerViewController: HTScrollContentViewController {
             make.height.equalTo(linkTextFieldView.heightView)
             make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
         }
-
-        let tobaccoLineBotttomView = setupAddTobaccoLineView(topView: linkTextFieldView)
-
-        view.addSubview(addedButton)
-        addedButton.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(spacingBetweenViews)
-            make.height.equalTo(50)
-        }
-        addedButton.addTarget(self, action: #selector(touchAddedButton), for: .touchUpInside)
-
-        contentScrollView.addSubview(imagePickerView)
-        imagePickerView.snp.makeConstraints { make in
-            make.top.equalTo(tobaccoLineBotttomView.snp.bottom).offset(spacingBetweenViews)
-            make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().inset(spacingBetweenViews)
-            make.width.greaterThanOrEqualToSuperview().dividedBy(3)
-            make.width.lessThanOrEqualToSuperview().dividedBy(2)
-            make.height.equalTo(imagePickerView.snp.width)
-            make.bottom.equalToSuperview().inset(16.0)
-        }
-        imagePickerView.delegate = self
-
-        view.addSubview(activityIndicator)
-        activityIndicator.snp.makeConstraints { make in
-            make.centerX.centerY.equalToSuperview()
-        }
-        activityIndicator.hidesWhenStopped = true
-
-        setupConstrainsScrollView(top: view.safeAreaLayoutGuide,
-                                  bottom: addedButton.snp.top, bottomConstant: -spacingBetweenViews)
     }
-
-    private func setupAddTobaccoLineView(topView: UIView) -> UIView {
+    private func setupAddTobaccoLineView() {
         contentScrollView.addSubview(tobaccoLineCollectionView)
         tobaccoLineCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(topView.snp.bottom).inset(-spacingBetweenViews)
+            make.top.equalTo(linkTextFieldView.snp.bottom).inset(-spacingBetweenViews)
             make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
         }
         tobaccoLineCollectionView.tasteDelegate = self
@@ -168,8 +150,35 @@ final class AddManufacturerViewController: HTScrollContentViewController {
             make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
             make.height.equalTo(40)
         }
-
-        return addTobaccoLineButton
+    }
+    private func setupAddButton() {
+        view.addSubview(addedButton)
+        addedButton.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(spacingBetweenViews)
+            make.height.equalTo(50)
+        }
+        addedButton.addTarget(self, action: #selector(touchAddedButton), for: .touchUpInside)
+    }
+    private func setupImagePickerView() {
+        contentScrollView.addSubview(imagePickerView)
+        imagePickerView.snp.makeConstraints { make in
+            make.top.equalTo(addTobaccoLineButton.snp.bottom).offset(spacingBetweenViews)
+            make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview().inset(spacingBetweenViews)
+            make.width.greaterThanOrEqualToSuperview().dividedBy(3)
+            make.width.lessThanOrEqualToSuperview().dividedBy(2)
+            make.height.equalTo(imagePickerView.snp.width)
+            make.bottom.equalToSuperview().inset(16.0)
+        }
+        imagePickerView.delegate = self
+    }
+    private func setupActivityIndicator() {
+        view.addSubview(activityIndicator)
+        activityIndicator.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
+        }
+        activityIndicator.hidesWhenStopped = true
     }
 
     // MARK: - private methods
@@ -283,15 +292,15 @@ extension AddManufacturerViewController: AddPickerViewDelegate {
     func receiveNumberOfRows(_ pickerView: AddPickerView) -> Int {
         return presenter.numberOfRowsCountries()
     }
-    
+
     func receiveRow(_ pickerView: AddPickerView, by row: Int) -> String {
         return presenter.receiveRowCountry(by: row)
     }
-    
+
     func didSelected(_ pickerView: AddPickerView, by row: Int) {
         return presenter.didSelectedCounty(by: row)
     }
-    
+
     func receiveIndex(_ pickerView: AddPickerView, for title: String) -> Int {
         return presenter.receiveIndexRowCountry(for: title)
     }

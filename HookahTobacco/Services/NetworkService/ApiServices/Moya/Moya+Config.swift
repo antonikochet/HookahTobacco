@@ -12,7 +12,7 @@ extension MoyaProvider {
 
     static var `default`: MoyaProvider {
         return makeWithPlugins([
-            HandlerErrorPlugin(),   // process
+            HandlerErrorPlugin()
         ])
     }
 

@@ -18,39 +18,44 @@ struct AddTastesDependency {
 
 class AddTastesAssembly: Assembly {
     func assemble(container: Container) {
-        
-        container.register(AddTastesRouterProtocol.self) { (r, d: AddTastesDependency) in
-            let router = AddTastesRouter(d.appRouter)
-            router.outputModule = d.outputModule
+
+        container.register(AddTastesRouterProtocol.self) { (_, dependency: AddTastesDependency) in
+            let router = AddTastesRouter(dependency.appRouter)
+            router.outputModule = dependency.outputModule
             return router
         }
-        
-        container.register(AddTastesInteractorInputProtocol.self) { (r, d: AddTastesDependency) in
-            //here resolve dependency injection
-            let getDataManager = r.resolve(GetDataNetworkingServiceProtocol.self)!
-            
-            return AddTastesInteractor(selectedTastes: d.selectedTastes,
+
+        container.register(AddTastesInteractorInputProtocol.self) { (resolver, dependency: AddTastesDependency) in
+            // here resolve dependency injection
+            let getDataManager = resolver.resolve(GetDataNetworkingServiceProtocol.self)!
+
+            return AddTastesInteractor(selectedTastes: dependency.selectedTastes,
                                        getDataManager: getDataManager)
         }
-        
-        container.register(AddTastesViewOutputProtocol.self) { r in
+
+        container.register(AddTastesViewOutputProtocol.self) { _ in
             let presenter = AddTastesPresenter()
             return presenter
         }
-        
-        container.register(AddTastesViewController.self) { (r, d: AddTastesDependency) in
+
+        // swiftlint:disable force_cast
+        container.register(AddTastesViewController.self) { (resolver, dependency: AddTastesDependency) in
             let view = AddTastesViewController()
-            let presenter = r.resolve(AddTastesViewOutputProtocol.self) as! AddTastesPresenter
-            let interactor = r.resolve(AddTastesInteractorInputProtocol.self, argument: d) as! AddTastesInteractor
-            let router = r.resolve(AddTastesRouterProtocol.self, argument: d)!
-            
+            let presenter = resolver.resolve(AddTastesViewOutputProtocol.self) as! AddTastesPresenter
+            let interactor = resolver.resolve(
+                AddTastesInteractorInputProtocol.self,
+                argument: dependency
+            ) as! AddTastesInteractor
+            let router = resolver.resolve(AddTastesRouterProtocol.self, argument: dependency)!
+
             view.presenter = presenter
             presenter.view = view
             presenter.interactor = interactor
             interactor.presenter = presenter
-            
+
             presenter.router = router
             return view
         }
+        // swiftlint: enable force_cast
     }
 }

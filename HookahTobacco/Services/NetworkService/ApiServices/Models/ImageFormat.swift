@@ -30,10 +30,8 @@ extension ImageFormat {
                dataString.hasSuffix("WEBP") {
                 return .webp
             }
-            
-        case 0x00 where data.count >= 12 :
+        case 0x00 where data.count >= 12:
             let subdata = data[8...11]
-            
             if let dataString = String(data: subdata, encoding: .ascii),
                Set(["heic", "heix", "hevc", "hevx"]).contains(dataString) {
                 return .heic
