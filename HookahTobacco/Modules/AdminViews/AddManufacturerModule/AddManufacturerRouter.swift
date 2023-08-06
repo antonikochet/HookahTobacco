@@ -14,7 +14,7 @@ protocol AddManufacturerRouterProtocol: RouterProtocol {
     func dismissView(with changedData: Manufacturer)
     func showError(with message: String)
     func showSuccess(delay: Double, completion: (() -> Void)?)
-    func showAddCountryView()
+    func showAddCountryView(delegate: AddCountryOutputModule?)
     func showAddTobaccoLineView(for manufacturerId: Int,
                                 editing tobaccoLine: TobaccoLine?,
                                 delegate: AddTobaccoLineOutputModule)
@@ -49,8 +49,9 @@ class AddManufacturerRouter: AddManufacturerRouterProtocol {
         appRouter.presentAlert(type: .success(delay: delay), completion: completion)
     }
 
-    func showAddCountryView() {
-
+    func showAddCountryView(delegate: AddCountryOutputModule?) {
+        let data = AddCountryDataModule(delegate: delegate)
+        appRouter.pushViewController(module: AddCountryModule.self, moduleData: data, animateDisplay: true)
     }
 
     func showAddTobaccoLineView(for manufacturerId: Int,

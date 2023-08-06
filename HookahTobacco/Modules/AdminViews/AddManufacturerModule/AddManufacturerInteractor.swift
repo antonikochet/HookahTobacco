@@ -15,8 +15,9 @@ protocol AddManufacturerInteractorInputProtocol {
     func receiveStartingDataView()
     func receiveEditingTobaccoLine(at index: Int)
     func receivedTobaccoLine(_ tobaccoLine: TobaccoLine, for index: Int?)
-    func didSelectCountry(at index: Int)
+    func didSelectCountry(_ name: String)
     var manufacturerId: Int? { get }
+    func receivedCountriesAfterUpdate(_ newCountries: [Country])
 }
 
 protocol AddManufacturerInteractorOutputProtocol: AnyObject {
@@ -208,8 +209,8 @@ extension AddManufacturerInteractor: AddManufacturerInteractorInputProtocol {
         presenter.initialTobaccoLines(tobaccoLines)
     }
 
-    func didSelectCountry(at index: Int) {
-        selectedCountry = countries[index]
+    func didSelectCountry(_ name: String) {
+        selectedCountry = countries.first(where: { $0.name == name })
         presenter.showCountryForSelect(selectedCountry?.name)
     }
 
@@ -218,5 +219,17 @@ extension AddManufacturerInteractor: AddManufacturerInteractorInputProtocol {
             return nil
         }
         return Int(strId)
+    }
+
+    func receivedCountriesAfterUpdate(_ newCountries: [Country]) {
+        if let selectedCountry {
+            let uid = selectedCountry.uid
+            if let newSelectedCountry = newCountries.first(where: { $0.uid == uid }) {
+                self.selectedCountry = newSelectedCountry
+            }
+        }
+        countries = newCountries
+        presenter.initialCounties(countries)
+        presenter.showCountryForSelect(selectedCountry?.name)
     }
 }

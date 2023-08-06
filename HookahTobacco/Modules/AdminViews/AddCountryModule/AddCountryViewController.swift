@@ -1,0 +1,197 @@
+//
+//
+//  AddCountryViewController.swift
+//  HookahTobacco
+//
+//  Created by Anton Kochetkov on 06.08.2023.
+//
+//
+
+import UIKit
+import SnapKit
+
+protocol AddCountryViewInputProtocol: AnyObject {
+    func getTableView() -> UITableView
+    func showAddView(text: String, titleButton: String)
+    func hideAddView()
+    func showLoading()
+    func hideLoading()
+}
+
+protocol AddCountryViewOutputProtocol: AnyObject {
+    func viewDidLoad()
+    func viewWillDisappear()
+    func pressedAddButton()
+    func pressedAddNewButton(_ name: String)
+    func pressedCloseAddView()
+}
+
+class AddCountryViewController: UIViewController {
+    // MARK: - Public properties
+    var presenter: AddCountryViewOutputProtocol!
+
+    // MARK: - UI properties
+    private let addButton = UIButton.createAppBigButton("Добавить новую страну")
+    private let addView = UIView()
+    private let addTextFieldView = AddTextFieldView()
+    private let addNewButton = UIButton.createAppBigButton("Добавить страну")
+    private let closeAddViewButton = IconButton()
+    private let tableView = UITableView(frame: .zero, style: .grouped)
+    private let activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView(style: .large)
+
+    private var tableViewTopToAddButtonConstraint: Constraint?
+    private var tableViewTopToAddViewConstraint: Constraint?
+
+    // MARK: - ViewController Lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        setupUI()
+        presenter.viewDidLoad()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        presenter.viewWillDisappear()
+    }
+    override func viewDidLayoutSubviews() {
+        addButton.createCornerRadius()
+        addNewButton.createCornerRadius()
+    }
+    // MARK: - Setups
+    private func setupUI() {
+        setupView()
+        setupAddCountryButton()
+        setupAddView()
+        setupAddTextFieldView()
+        setupAddNewCountryButton()
+        setupCloseAddViewButton()
+        setupTableView()
+        setupActivityIndicator()
+    }
+    private func setupView() {
+        title = "Добавление стран"
+        view.backgroundColor = .systemBackground
+    }
+    private func setupAddCountryButton() {
+        view.addSubview(addButton)
+        addButton.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(spacingBetweenViews)
+            make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
+            make.height.equalTo(40)
+        }
+        addButton.addTarget(self, action: #selector(didTouchAddCountryButton), for: .touchUpInside)
+    }
+    private func setupAddView() {
+        view.addSubview(addView)
+        addView.layer.cornerRadius = 12
+        addView.layer.borderColor = UIColor.black.cgColor
+        addView.layer.borderWidth = 1.0
+        addView.clipsToBounds = true
+        addView.backgroundColor = .systemGray6
+        addView.isHidden = true
+        addView.snp.makeConstraints { make in
+            make.top.equalTo(addButton.snp.bottom).offset(spacingBetweenViews)
+            make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
+        }
+    }
+    private func setupAddTextFieldView() {
+        addView.addSubview(addTextFieldView)
+        addTextFieldView.setupView(textLabel: "Название страны",
+                                   placeholder: "Введите название")
+        addTextFieldView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(spacingBetweenViews)
+            make.height.equalTo(addTextFieldView.heightView)
+            make.leading.trailing.equalToSuperview().inset(spacingBetweenViews)
+        }
+    }
+    private func setupAddNewCountryButton() {
+        addView.addSubview(addNewButton)
+        addNewButton.snp.makeConstraints { make in
+            make.top.equalTo(addTextFieldView.snp.bottom).offset(spacingBetweenViews)
+            make.leading.trailing.equalToSuperview().inset(spacingBetweenViews)
+            make.height.equalTo(40)
+            make.bottom.equalToSuperview().inset(spacingBetweenViews)
+        }
+        addNewButton.addTarget(self, action: #selector(didTouchAddNewContryButton), for: .touchUpInside)
+    }
+    private func setupCloseAddViewButton() {
+        addView.addSubview(closeAddViewButton)
+        closeAddViewButton.action = { [weak self] in
+            guard let self else { return }
+            self.presenter.pressedCloseAddView()
+        }
+        closeAddViewButton.imageSize = 20.0
+        closeAddViewButton.image = UIImage(systemName: "multiply")
+        closeAddViewButton.backgroundColor = .systemGray2
+        closeAddViewButton.imageColor = .white
+        closeAddViewButton.createCornerRadius()
+        closeAddViewButton.snp.makeConstraints { make in
+            make.top.trailing.equalToSuperview().inset(10)
+        }
+    }
+    private func setupTableView() {
+        view.addSubview(tableView)
+        tableView.snp.makeConstraints { make in
+            tableViewTopToAddViewConstraint = make.top.equalTo(addView.snp.bottom)
+                                                    .offset(spacingBetweenViews).constraint
+            tableViewTopToAddButtonConstraint = make.top.equalTo(addButton.snp.bottom)
+                                                    .offset(spacingBetweenViews).constraint
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+        tableViewTopToAddViewConstraint?.isActive = false
+    }
+    private func setupActivityIndicator() {
+        view.addSubview(activityIndicator)
+        activityIndicator.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
+        }
+        activityIndicator.hidesWhenStopped = true
+    }
+
+    // MARK: - Private methods
+
+    // MARK: - Selectors
+    @objc private func didTouchAddCountryButton() {
+        presenter.pressedAddButton()
+    }
+
+    @objc private func didTouchAddNewContryButton() {
+        presenter.pressedAddNewButton(addTextFieldView.text ?? "")
+    }
+}
+
+// MARK: - ViewInputProtocol implementation
+extension AddCountryViewController: AddCountryViewInputProtocol {
+    func getTableView() -> UITableView {
+        tableView
+    }
+
+    func showAddView(text: String, titleButton: String) {
+        addTextFieldView.text = text
+        addNewButton.setTitle(titleButton, for: .normal)
+        addView.isHidden = false
+        addTextFieldView.isHidden = false
+        addNewButton.isHidden = false
+        tableViewTopToAddViewConstraint?.isActive = true
+        tableViewTopToAddButtonConstraint?.isActive = false
+    }
+
+    func hideAddView() {
+        addTextFieldView.text = ""
+        addView.isHidden = true
+        addTextFieldView.isHidden = true
+        addNewButton.isHidden = true
+        tableViewTopToAddViewConstraint?.isActive = false
+        tableViewTopToAddButtonConstraint?.isActive = true
+    }
+
+    func showLoading() {
+        activityIndicator.startAnimating()
+    }
+
+    func hideLoading() {
+        activityIndicator.stopAnimating()
+    }
+}

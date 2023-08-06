@@ -13,9 +13,6 @@ extension Country: Codable {
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        if !uid.isEmpty {
-            try container.encode(uid, forKey: .uid)
-        }
         try container.encode(name, forKey: .name)
     }
 

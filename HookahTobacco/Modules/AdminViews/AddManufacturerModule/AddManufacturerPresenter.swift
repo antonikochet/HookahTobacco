@@ -153,7 +153,7 @@ extension AddManufacturerPresenter: AddManufacturerViewOutputProtocol {
     }
 
     func pressedAddCountry() {
-        router.showAddCountryView()
+        router.showAddCountryView(delegate: self)
     }
 
     func numberOfRowsCountries() -> Int {
@@ -172,7 +172,7 @@ extension AddManufacturerPresenter: AddManufacturerViewOutputProtocol {
     }
 
     func didSelectedCounty(by index: Int) {
-        interactor.didSelectCountry(at: index)
+        interactor.didSelectCountry(countries[index])
     }
 }
 
@@ -183,5 +183,12 @@ extension AddManufacturerPresenter: AddTobaccoLineOutputModule {
             interactor.receivedTobaccoLine(tobaccoLine, for: editingTobaccoLineIndex)
         }
         editingTobaccoLineIndex = nil
+    }
+}
+
+// MARK: - AddCountryOutputModule implementation
+extension AddManufacturerPresenter: AddCountryOutputModule {
+    func send(_ countries: [Country]) {
+        interactor.receivedCountriesAfterUpdate(countries)
     }
 }
