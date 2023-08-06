@@ -38,10 +38,7 @@ class AddTobaccoLineViewController: UIViewController {
     private let tobaccoLeafTypeView = AddMultiSegmentedControlView()
     private let descriptionView = AddTextView()
     private let doneButton = UIButton.createAppBigButton("Готово", fontSise: 24)
-    private let closeView = UIView()
-    private let closeButton = UIButton.createAppBigButton(image: UIImage(systemName: "xmark")?
-                                                                    .withRenderingMode(.alwaysTemplate),
-                                                          backgroundColor: .systemGray3)
+    private let closeButton = IconButton()
     private let activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView(style: .large)
 
     // MARK: - ViewController Lifecycle
@@ -73,20 +70,17 @@ class AddTobaccoLineViewController: UIViewController {
         view.backgroundColor = .white
     }
     private func setupCloseButton() {
-        view.addSubview(closeView)
-        closeView.backgroundColor = .systemGray3
-        closeView.layer.cornerRadius = 12.0
-        closeView.clipsToBounds = true
-        closeView.snp.makeConstraints { make in
-            make.leading.top.equalToSuperview().offset(sidePadding)
-            make.size.equalTo(24.0)
+        closeButton.action = { [weak self] in
+            self?.presenter.pressedCloseButton()
         }
-
-        closeView.addSubview(closeButton)
-        closeButton.setImage(UIImage(systemName: "xmark")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        closeButton.addTarget(self, action: #selector(touchCloseButton), for: .touchUpInside)
+        closeButton.buttonSize = 36.0
+        closeButton.backgroundColor = .systemGray3
+        closeButton.image = UIImage(systemName: "multiply")
+        closeButton.imageColor = .white
+        closeButton.createCornerRadius()
+        view.addSubview(closeButton)
         closeButton.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(5)
+            make.leading.top.equalToSuperview().offset(sidePadding)
         }
     }
     private func setupNameView() {
@@ -95,7 +89,7 @@ class AddTobaccoLineViewController: UIViewController {
                            placeholder: "Введите название линейки",
                            delegate: self)
         nameView.snp.makeConstraints { make in
-            make.top.equalTo(closeView.snp.bottom).offset(topMargin)
+            make.top.equalTo(closeButton.snp.bottom).offset(topMargin)
             make.leading.trailing.equalToSuperview().inset(sidePadding)
             make.height.equalTo(nameView.heightView)
         }
@@ -186,10 +180,6 @@ class AddTobaccoLineViewController: UIViewController {
             isBase: baseSwitchView.isOn,
             selectedTobaccoLeafTypeIndexs: tobaccoLeafTypeView.selectedIndex
         ))
-    }
-
-    @objc private func touchCloseButton() {
-        presenter.pressedCloseButton()
     }
 }
 

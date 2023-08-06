@@ -44,9 +44,7 @@ class AddTastesViewController: UIViewController {
         return tableView
     }()
 
-    private let addButton = UIButton.createAppBigButton(image: UIImage(systemName: "plus")?
-                                                                .withRenderingMode(.alwaysTemplate),
-                                                        fontSise: 25)
+    private let addButton = IconButton()
 
     // MARK: - ViewController Lifecycle
     override func viewDidLoad() {
@@ -90,11 +88,18 @@ class AddTastesViewController: UIViewController {
 
         view.addSubview(addButton)
         addButton.snp.makeConstraints { make in
-            make.size.equalTo(50)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(24)
             make.trailing.equalToSuperview().inset(24)
         }
-        addButton.addTarget(self, action: #selector(didTouchAddButton), for: .touchUpInside)
+        addButton.action = { [weak self] in
+            self?.presenter.didTouchAdd()
+        }
+        addButton.buttonSize = 50.0
+        addButton.imageSize = 25.0
+        addButton.image = UIImage(systemName: "plus")
+        addButton.backgroundColor = .systemOrange
+        addButton.imageColor = .white
+        addButton.createCornerRadius()
     }
 
     private func setupNavigationItem() {
@@ -109,13 +114,7 @@ class AddTastesViewController: UIViewController {
     // MARK: - Private methods
 
     // MARK: - Selectors
-    @objc
-    private func didTouchAddButton() {
-        presenter.didTouchAdd()
-    }
-
-    @objc
-    private func didTouchDoneButton() {
+    @objc private func didTouchDoneButton() {
         presenter.selectedTastesDone()
     }
 }

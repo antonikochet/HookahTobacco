@@ -50,7 +50,8 @@ class AddTastePresenter {
         section.headerHeight = 0.0
         section.footerHeight = 0.0
         tableDirector += section
-        view.updateHeightTableView(CGFloat(rows.count) * 32.0)
+        let height = CGFloat(rows.count) * 32.0
+        view.updateHeightTableView(height > 192.0 ? 192.0 : height)
         reloadData()
     }
 
@@ -71,6 +72,10 @@ extension AddTastePresenter: AddTasteInteractorOutputProtocol {
     func receivedSuccessTypes(_ types: [TasteType]) {
         setupContentTypesTableView(types)
         view.hideProgressView()
+    }
+
+    func receivedSuccessNewType() {
+        view.hideAddType()
     }
 
     func receivedSuccess(_ taste: Taste) {
@@ -104,5 +109,14 @@ extension AddTastePresenter: AddTasteViewOutputProtocol {
             return
         }
         interactor.addTaste(nameTaste: taste, selectedTypes: selectedTypes)
+    }
+
+    func didAddNewType(_ newType: String) {
+        guard !newType.isEmpty else {
+            router.showError(with: "Название типа вкуса не введено")
+            return
+        }
+        view.showProgressView()
+        interactor.addType(newType: newType)
     }
 }

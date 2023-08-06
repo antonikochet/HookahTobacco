@@ -12,11 +12,13 @@ import Foundation
 protocol AddTasteInteractorInputProtocol: AnyObject {
     func setupContent()
     func addTaste(nameTaste: String, selectedTypes: [TasteType])
+    func addType(newType: String)
 }
 
 protocol AddTasteInteractorOutputProtocol: AnyObject {
     func initialData(taste: Taste, isEdit: Bool)
     func receivedSuccessTypes(_ types: [TasteType])
+    func receivedSuccessNewType()
     func receivedSuccess(_ taste: Taste)
     func receivedError(with message: String)
 }
@@ -78,6 +80,21 @@ class AddTasteInteractor {
             }
         }
     }
+
+    private func addTypeToServer(_ newType: String) {
+        let type = TasteType(name: newType)
+        setDataManager.addData(type) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let newType):
+                self.tasteTypes.append(newType)
+                self.presenter.receivedSuccessTypes(self.tasteTypes)
+                self.presenter.receivedSuccessNewType()
+            case .failure(let error):
+                self.presenter.receivedError(with: error.localizedDescription)
+            }
+        }
+    }
 }
 // MARK: - InputProtocol implementation 
 extension AddTasteInteractor: AddTasteInteractorInputProtocol {
@@ -101,5 +118,9 @@ extension AddTasteInteractor: AddTasteInteractorInputProtocol {
             let taste = Taste(uid: "", taste: nameTaste, typeTaste: selectedTypes)
             addTaste(taste)
         }
+    }
+
+    func addType(newType: String) {
+        addTypeToServer(newType)
     }
 }

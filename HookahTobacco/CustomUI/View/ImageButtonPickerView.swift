@@ -16,73 +16,66 @@ class ImageButtonPickerView: UIView {
         didSet {
             imageView.image = image
             imageView.backgroundColor = image != nil ? .clear : .systemGray5
+            removeButton.isHidden = image == nil
         }
     }
 
     // MARK: - Private properties
-    private let imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.backgroundColor = .systemGray5
-        imageView.contentMode = .scaleAspectFit
-        imageView.isUserInteractionEnabled = true
-        return imageView
-    }()
-
-    private let removeButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(systemName: "xmark")?
-                                .withRenderingMode(.alwaysTemplate),
-                        for: .normal)
-        button.backgroundColor = .systemGray2
-        button.alpha = 0.6
-        return button
-    }()
+    private let imageView = UIImageView()
+    private let removeButton = IconButton()
 
     // MARK: - Initializers
     init() {
         super.init(frame: .zero)
-        setup()
+        setupUI()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setup()
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        removeButton.createCornerRadius()
-        imageView.layer.cornerRadius = 8
-        imageView.clipsToBounds = true
+        setupUI()
     }
 
     // MARK: - Setups
-    private func setup() {
-        addSubview(imageView)
-        imageView.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(8)
-        }
+    private func setupUI() {
+        setupImageView()
+        setupRemoveButton()
+    }
+    private func setupImageView() {
+        imageView.backgroundColor = .systemGray5
+        imageView.contentMode = .scaleAspectFit
+        imageView.layer.cornerRadius = 8.0
+        imageView.clipsToBounds = true
+        imageView.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(touchOnImage))
         imageView.addGestureRecognizer(tapGesture)
 
+        addSubview(imageView)
+        imageView.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(8.0)
+        }
+    }
+    private func setupRemoveButton() {
+        removeButton.action = { [weak self] in
+            self?.image = nil
+        }
+        removeButton.buttonSize = 16.0
+        removeButton.imageSize = 12.0
+        removeButton.image = UIImage(systemName: "multiply")
+        removeButton.backgroundColor = .systemGray2
+        removeButton.imageColor = .white
+        removeButton.isHidden = true
+        removeButton.createCornerRadius()
         addSubview(removeButton)
         removeButton.snp.makeConstraints { make in
             make.centerX.equalTo(imageView.snp.trailing)
             make.centerY.equalTo(imageView.snp.top)
-            make.size.equalTo(16)
         }
-        removeButton.addTarget(self, action: #selector(touchRemoveButton), for: .touchUpInside)
     }
-
     // MARK: - Selectors
     @objc private func touchOnImage() {
         let imagePickerView = UIImagePickerController()
         imagePickerView.delegate = self
         delegate?.present(imagePickerView)
-    }
-
-    @objc private func touchRemoveButton() {
-        image = nil
     }
 }
 

@@ -103,7 +103,7 @@ extension ApiServices: GetDataNetworkingServiceProtocol {
                         completion: completion as? GetDataNetworkingServiceCompletion<[TobaccoLine]>)
         case is TasteType.Type:
             sendRequest(object: [TasteType].self,
-                        target: Api.TasteType.list,
+                        target: Api.TasteTypes.list,
                         completion: completion as? GetDataNetworkingServiceCompletion<[TasteType]>)
         case is Country.Type:
             sendRequest(object: [Country].self,
@@ -167,6 +167,10 @@ extension ApiServices: SetDataNetworkingServiceProtocol {
         } else if let taste = data as? Taste {
             sendRequest(object: Taste.self,
                         target: Api.Tastes.create(taste),
+                        completion: completion as? DataNetworkingCompletion)
+        } else if let tasteType = data as? TasteType {
+            sendRequest(object: TasteType.self,
+                        target: Api.TasteTypes.create(tasteType),
                         completion: completion as? DataNetworkingCompletion)
         } else {
             fatalError("не реализовано добавоение в бд для типа \(type(of: data))")
