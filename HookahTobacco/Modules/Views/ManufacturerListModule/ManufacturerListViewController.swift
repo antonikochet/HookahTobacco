@@ -10,11 +10,9 @@
 import UIKit
 import SnapKit
 
-protocol ManufacturerListViewInputProtocol: AnyObject {
+protocol ManufacturerListViewInputProtocol: ViewProtocol {
     func getTableView() -> UITableView
     func endRefreshing()
-    func showProgressView()
-    func hideProgressView()
 }
 
 protocol ManufacturerListViewOutputProtocol: AnyObject {
@@ -22,14 +20,13 @@ protocol ManufacturerListViewOutputProtocol: AnyObject {
     func didStartingRefreshView()
 }
 
-class ManufacturerListViewController: UIViewController {
+class ManufacturerListViewController: BaseViewController {
     // MARK: - Public properties
     var presenter: ManufacturerListViewOutputProtocol!
 
     // MARK: - UI properties
     private let tableView = UITableView()
     private let refreshControl = UIRefreshControl()
-    private let activityIndicator = UIActivityIndicatorView(style: .large)
 
     // MARK: - ViewController Lifecycle
     override func viewDidLoad() {
@@ -42,7 +39,6 @@ class ManufacturerListViewController: UIViewController {
     private func setup() {
         setupScreen()
         setupTableView()
-        setupActivityIndicator()
     }
 
     private func setupScreen() {
@@ -57,15 +53,6 @@ class ManufacturerListViewController: UIViewController {
         }
 
         refreshControl.addTarget(self, action: #selector(refreshTableView), for: .valueChanged)
-    }
-    private func setupActivityIndicator() {
-        view.addSubview(activityIndicator)
-        activityIndicator.hidesWhenStopped = true
-        activityIndicator.isHidden = true
-
-        activityIndicator.snp.makeConstraints { make in
-            make.centerX.centerY.equalToSuperview()
-        }
     }
 
     // MARK: - Private methods
@@ -85,16 +72,6 @@ extension ManufacturerListViewController: ManufacturerListViewInputProtocol {
     func endRefreshing() {
         DispatchQueue.main.async {
             self.refreshControl.endRefreshing()
-        }
-    }
-
-    func showProgressView() {
-        activityIndicator.startAnimating()
-    }
-
-    func hideProgressView() {
-        DispatchQueue.main.async {
-            self.activityIndicator.stopAnimating()
         }
     }
 }

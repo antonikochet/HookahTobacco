@@ -68,6 +68,7 @@ class AddManufacturerInteractor {
         self.getImageManager = getImageManager
         self.isEditing = true
         self.tobaccoLines = manufacturer.lines
+        self.selectedCountry = manufacturer.country
         getCountries()
     }
 

@@ -110,7 +110,7 @@ extension AddTobaccoLinePresenter: AddTobaccoLineViewOutputProtocol {
             isBase: viewModel.isBase,
             selectedTobaccoLeafTypeIndexs: viewModel.selectedTobaccoLeafTypeIndexs
         )
-        view.showLoading()
+        view.showBlockLoading()
         interactor.didEnterData(tobaccoLine)
     }
 

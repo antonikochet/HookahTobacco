@@ -90,12 +90,12 @@ final class ProfilePresenter {
 // MARK: - InteractorOutputProtocol implementation
 extension ProfilePresenter: ProfileInteractorOutputProtocol {
     func receivedProfileInfoSuccess(_ user: UserProtocol) {
-        view.hideSpinner()
+        view.hideLoading()
         setupContentView(user)
     }
 
     func receivedProfileInfoError(_ message: String) {
-        view.hideSpinner()
+        view.hideLoading()
         router.showError(with: message)
     }
 
@@ -116,7 +116,7 @@ extension ProfilePresenter: ProfileViewOutputProtocol {
     }
 
     func viewWillAppear() {
-        view.showSpinner()
+        view.showLoading()
         interactor.receiveProfileInfo()
     }
 

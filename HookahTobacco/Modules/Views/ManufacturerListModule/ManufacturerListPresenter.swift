@@ -69,12 +69,12 @@ class ManufacturerListPresenter {
 extension ManufacturerListPresenter: ManufacturerListInteractorOutputProtocol {
     func receivedManufacturersSuccess(with data: [Manufacturer]) {
         setupContentView(data)
-        view.hideProgressView()
+        view.hideLoading()
         view.endRefreshing()
     }
 
     func receivedError(with message: String) {
-        view.hideProgressView()
+        view.hideLoading()
         router.showError(with: message)
     }
 
@@ -98,7 +98,7 @@ extension ManufacturerListPresenter: ManufacturerListViewOutputProtocol {
         let cellHeightCalculator = ManufacturerListCellHeightCalculator(tableView: tableView, countCellInView: 8)
         tableDirector = TableDirector(tableView: tableView,
                                       cellHeightCalculator: cellHeightCalculator)
-        view.showProgressView()
+        view.showLoading()
         interactor.startReceiveData()
     }
 

@@ -10,10 +10,8 @@
 import UIKit
 import SnapKit
 
-protocol AddTobaccoLineViewInputProtocol: AnyObject {
+protocol AddTobaccoLineViewInputProtocol: ViewProtocol {
     func setupView(_ viewModel: AddTobaccoLineEntity.EnterData)
-    func showLoading()
-    func hideLoading()
 }
 
 protocol AddTobaccoLineViewOutputProtocol: AnyObject {
@@ -45,7 +43,6 @@ class AddTobaccoLineViewController: HTScrollContentViewController, BottomSheetPr
     private let descriptionView = AddTextView()
     private let doneButton = ApplyButton()
     private let closeButton = IconButton()
-    private let activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView(style: .large)
 
     // MARK: - ViewController Lifecycle
     override func viewDidLoad() {
@@ -67,7 +64,6 @@ class AddTobaccoLineViewController: HTScrollContentViewController, BottomSheetPr
         setupTobaccoLeafTypeView()
         setupDescriptionView()
         setupDoneButton()
-        setupActivityIndicator()
         setupConstrainsScrollView(top: view.safeAreaLayoutGuide.snp.top,
                                   bottom: doneButton.snp.top,
                                   bottomConstant: -spacingBetweenViews)
@@ -172,13 +168,7 @@ class AddTobaccoLineViewController: HTScrollContentViewController, BottomSheetPr
             make.centerX.equalToSuperview()
         }
     }
-    private func setupActivityIndicator() {
-        contentScrollView.addSubview(activityIndicator)
-        activityIndicator.snp.makeConstraints { make in
-            make.centerX.centerY.equalToSuperview()
-        }
-        activityIndicator.hidesWhenStopped = true
-    }
+
     // MARK: - Private methods
     private func defineHiddenTobaccoLeafView(index: Int) {
         if index == 0 {
@@ -212,14 +202,6 @@ extension AddTobaccoLineViewController: AddTobaccoLineViewInputProtocol {
         tobaccoLeafTypeView.selectedIndex = viewModel.selectedTobaccoLeafTypeIndex
         defineHiddenTobaccoLeafView(index: viewModel.selectedTobaccoTypeIndex)
         descriptionView.text = viewModel.description
-    }
-
-    func showLoading() {
-        activityIndicator.startAnimating()
-    }
-
-    func hideLoading() {
-        activityIndicator.stopAnimating()
     }
 }
 

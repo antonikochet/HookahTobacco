@@ -10,15 +10,13 @@
 import UIKit
 import SnapKit
 
-protocol AddTobaccoViewInputProtocol: AnyObject {
+protocol AddTobaccoViewInputProtocol: ViewProtocol {
     func clearView()
     func setupContent(_ viewModel: AddTobaccoEntity.ViewModel)
     func setupTastes()
     func setupSelectedManufacturer(_ index: Int)
     func setupSelectedTobaccoLine(_ index: Int)
     func setupMainImage(_ image: Data?, textButton: String)
-    func showLoading()
-    func hideLoading()
 }
 
 enum AddPicketType {
@@ -52,7 +50,6 @@ final class AddTobaccoViewController: HTScrollContentViewController {
     private let tobaccoLinePickerView = AddPickerView()
     private let imagePickerView = ImageButtonPickerView()
     private let addedButton = ApplyButton()
-    private let activityIndicator = UIActivityIndicatorView(style: .large)
 
     private var descriptionViewTopToTasteButtonConstraint: Constraint?
 
@@ -83,7 +80,6 @@ final class AddTobaccoViewController: HTScrollContentViewController {
         setupTobaccoLinePickerView()
         setupAddedButton()
         setupImagePickerView()
-        setupActivityIndicator()
         setupConstrainsScrollView(top: view.safeAreaLayoutGuide,
                                   bottom: addedButton.snp.top,
                                   bottomConstant: -spacingBetweenViews)
@@ -175,13 +171,6 @@ final class AddTobaccoViewController: HTScrollContentViewController {
         }
         imagePickerView.delegate = self
     }
-    private func setupActivityIndicator() {
-        view.addSubview(activityIndicator)
-        activityIndicator.snp.makeConstraints { make in
-            make.centerX.centerY.equalToSuperview()
-        }
-        activityIndicator.hidesWhenStopped = true
-    }
 
     // MARK: - Private methods
     private func changeManufacturerPickerView(by row: Int) {
@@ -237,14 +226,6 @@ extension AddTobaccoViewController: AddTobaccoViewInputProtocol {
         if let image = image {
             imagePickerView.image = UIImage(data: image)
         }
-    }
-
-    func showLoading() {
-        activityIndicator.startAnimating()
-    }
-
-    func hideLoading() {
-        activityIndicator.stopAnimating()
     }
 }
 

@@ -77,7 +77,7 @@ extension AddCountryPresenter: AddCountryViewOutputProtocol {
     func viewDidLoad() {
         let tableView = view.getTableView()
         tableDirector = TableDirector(tableView: tableView)
-        view.showLoading()
+        view.showBlockLoading()
         interactor.receiveStartingData()
     }
 
@@ -94,6 +94,7 @@ extension AddCountryPresenter: AddCountryViewOutputProtocol {
             router.showError(with: "Не введено название страны")
             return
         }
+        view.showBlockLoading()
         if let editingCountry {
             interactor.editCountry(name, with: editingCountry.uid)
         } else {

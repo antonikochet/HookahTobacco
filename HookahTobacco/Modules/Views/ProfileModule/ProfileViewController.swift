@@ -10,10 +10,8 @@
 import UIKit
 import SnapKit
 
-protocol ProfileViewInputProtocol: AnyObject {
+protocol ProfileViewInputProtocol: ViewProtocol {
     func getTableView() -> UITableView
-    func showSpinner()
-    func hideSpinner()
 }
 
 protocol ProfileViewOutputProtocol: AnyObject {
@@ -22,13 +20,12 @@ protocol ProfileViewOutputProtocol: AnyObject {
     func pressedLogoutButton()
 }
 
-final class ProfileViewController: UIViewController {
+final class ProfileViewController: BaseViewController {
     // MARK: - Public properties
     var presenter: ProfileViewOutputProtocol!
 
     // MARK: - UI properties
     private let tableView = UITableView()
-    private let activityIndicator = UIActivityIndicatorView()
 
     // MARK: - ViewController Lifecycle
     override func viewDidLoad() {
@@ -47,7 +44,6 @@ final class ProfileViewController: UIViewController {
     private func setupUI() {
         setupScreen()
         setupTableView()
-        setupActivityIndicator()
     }
 
     private func setupScreen() {
@@ -66,15 +62,6 @@ final class ProfileViewController: UIViewController {
         tableView.separatorStyle = .none
     }
 
-    private func setupActivityIndicator() {
-        view.addSubview(activityIndicator)
-        activityIndicator.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-        }
-        activityIndicator.hidesWhenStopped = true
-        activityIndicator.style = .large
-    }
-
     // MARK: - Private methods
 
     // MARK: - Selectors
@@ -87,13 +74,5 @@ final class ProfileViewController: UIViewController {
 extension ProfileViewController: ProfileViewInputProtocol {
     func getTableView() -> UITableView {
         tableView
-    }
-
-    func showSpinner() {
-        activityIndicator.startAnimating()
-    }
-
-    func hideSpinner() {
-        activityIndicator.stopAnimating()
     }
 }

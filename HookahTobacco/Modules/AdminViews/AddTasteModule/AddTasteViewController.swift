@@ -10,13 +10,11 @@
 import UIKit
 import SnapKit
 
-protocol AddTasteViewInputProtocol: AnyObject {
+protocol AddTasteViewInputProtocol: ViewProtocol {
     func setupContent(taste: String?, addButtonText: String)
     func getTableView() -> UITableView
     func updateHeightTableView(_ newHeight: CGFloat)
     func hideAddType()
-    func showProgressView()
-    func hideProgressView()
 }
 
 protocol AddTasteViewOutputProtocol: AnyObject {
@@ -25,7 +23,7 @@ protocol AddTasteViewOutputProtocol: AnyObject {
     func didAddNewType(_ newType: String)
 }
 
-class AddTasteViewController: UIViewController {
+class AddTasteViewController: BaseViewController {
     // MARK: - Public properties
     var presenter: AddTasteViewOutputProtocol!
 
@@ -39,7 +37,6 @@ class AddTasteViewController: UIViewController {
     private let addTypeButton = ApplyButton()
     private let closeTypeViewButton = IconButton()
     private let addButton = ApplyButton()
-    private let activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView(style: .large)
 
     private var addButtonTopToAddTypeButtonConstraint: Constraint?
     private var addButtonTopToAddTypeViewConstraint: Constraint?
@@ -63,7 +60,6 @@ class AddTasteViewController: UIViewController {
         setupAddTypeButton()
         setupCloseAddTypeViewButton()
         setupAddButton()
-        setupActivityIndicator()
     }
     private func setupView() {
         view.backgroundColor = .systemBackground
@@ -187,13 +183,7 @@ class AddTasteViewController: UIViewController {
         }
         addButtonTopToAddTypeViewConstraint?.isActive = false
     }
-    private func setupActivityIndicator() {
-        view.addSubview(activityIndicator)
-        activityIndicator.snp.makeConstraints { make in
-            make.centerX.centerY.equalToSuperview()
-        }
-        activityIndicator.hidesWhenStopped = true
-    }
+
     // MARK: - Private methods
 
     // MARK: - Selectors
@@ -222,14 +212,6 @@ extension AddTasteViewController: AddTasteViewInputProtocol {
         addTypeView.isHidden = true
         addButtonTopToAddTypeViewConstraint?.isActive = false
         addButtonTopToAddTypeButtonConstraint?.isActive = true
-    }
-
-    func showProgressView() {
-        activityIndicator.startAnimating()
-    }
-
-    func hideProgressView() {
-        activityIndicator.stopAnimating()
     }
 }
 

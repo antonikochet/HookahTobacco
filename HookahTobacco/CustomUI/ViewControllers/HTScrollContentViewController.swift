@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class HTScrollContentViewController: UIViewController {
+class HTScrollContentViewController: BaseViewController {
     // MARK: - Public UI
     let contentScrollView = UIView()
 

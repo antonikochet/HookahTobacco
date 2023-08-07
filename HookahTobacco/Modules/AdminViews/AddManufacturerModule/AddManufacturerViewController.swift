@@ -10,7 +10,7 @@
 import UIKit
 import SnapKit
 
-protocol AddManufacturerViewInputProtocol: AnyObject {
+protocol AddManufacturerViewInputProtocol: ViewProtocol {
     func clearView()
     func setupContent(_ viewModel: AddManufacturerEntity.ViewModel)
     func setupImageManufacturer(_ image: Data?, textButton: String)
@@ -50,7 +50,6 @@ final class AddManufacturerViewController: HTScrollContentViewController {
     private let tobaccoLineCollectionView = TasteCollectionView()
     private let addTobaccoLineButton = ApplyButton()
     private let imagePickerView = ImageButtonPickerView()
-    private let activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView(style: .large)
     private let addedButton = ApplyButton()
 
     // MARK: - ViewController Lifecycle
@@ -77,7 +76,6 @@ final class AddManufacturerViewController: HTScrollContentViewController {
         setupAddTobaccoLineView()
         setupAddButton()
         setupImagePickerView()
-        setupActivityIndicator()
         setupConstrainsScrollView(top: view.safeAreaLayoutGuide,
                                   bottom: addedButton.snp.top, bottomConstant: -spacingBetweenViews)
     }
@@ -172,13 +170,6 @@ final class AddManufacturerViewController: HTScrollContentViewController {
         }
         imagePickerView.delegate = self
     }
-    private func setupActivityIndicator() {
-        view.addSubview(activityIndicator)
-        activityIndicator.snp.makeConstraints { make in
-            make.centerX.centerY.equalToSuperview()
-        }
-        activityIndicator.hidesWhenStopped = true
-    }
 
     // MARK: - private methods
     private func changeCountryPickerView(by row: Int) {
@@ -227,14 +218,6 @@ extension AddManufacturerViewController: AddManufacturerViewInputProtocol {
         if isResult {
             view.setNeedsLayout()
         }
-    }
-
-    func showLoading() {
-        activityIndicator.startAnimating()
-    }
-
-    func hideLoading() {
-        activityIndicator.stopAnimating()
     }
 }
 

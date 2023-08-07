@@ -112,7 +112,7 @@ extension AddTobaccoPresenter: AddTobaccoViewOutputProtocol {
         let description = data.description ?? ""
         let tobaccoInteractor = AddTobaccoEntity.Tobacco(name: name,
                                                          description: description)
-        view.showLoading()
+        view.showBlockLoading()
         interactor.sendNewTobaccoToServer(tobaccoInteractor)
     }
 

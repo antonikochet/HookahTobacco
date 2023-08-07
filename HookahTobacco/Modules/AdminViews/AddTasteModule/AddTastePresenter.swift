@@ -71,7 +71,7 @@ extension AddTastePresenter: AddTasteInteractorOutputProtocol {
 
     func receivedSuccessTypes(_ types: [TasteType]) {
         setupContentTypesTableView(types)
-        view.hideProgressView()
+        view.hideLoading()
     }
 
     func receivedSuccessNewType() {
@@ -85,7 +85,7 @@ extension AddTastePresenter: AddTasteInteractorOutputProtocol {
     }
 
     func receivedError(with message: String) {
-        view.hideProgressView()
+        view.hideLoading()
         router.showError(with: message)
     }
 }
@@ -95,7 +95,7 @@ extension AddTastePresenter: AddTasteViewOutputProtocol {
     func viewDidLoad() {
         let tableView = view.getTableView()
         tableDirector = TableDirector(tableView: tableView)
-        view.showProgressView()
+        view.showBlockLoading()
         interactor.setupContent()
     }
 
@@ -116,7 +116,7 @@ extension AddTastePresenter: AddTasteViewOutputProtocol {
             router.showError(with: "Название типа вкуса не введено")
             return
         }
-        view.showProgressView()
+        view.showBlockLoading()
         interactor.addType(newType: newType)
     }
 }

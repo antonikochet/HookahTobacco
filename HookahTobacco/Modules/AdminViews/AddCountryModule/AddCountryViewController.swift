@@ -10,12 +10,10 @@
 import UIKit
 import SnapKit
 
-protocol AddCountryViewInputProtocol: AnyObject {
+protocol AddCountryViewInputProtocol: ViewProtocol {
     func getTableView() -> UITableView
     func showAddView(text: String, titleButton: String)
     func hideAddView()
-    func showLoading()
-    func hideLoading()
 }
 
 protocol AddCountryViewOutputProtocol: AnyObject {
@@ -26,7 +24,7 @@ protocol AddCountryViewOutputProtocol: AnyObject {
     func pressedCloseAddView()
 }
 
-class AddCountryViewController: UIViewController {
+class AddCountryViewController: BaseViewController {
     // MARK: - Public properties
     var presenter: AddCountryViewOutputProtocol!
 
@@ -37,7 +35,6 @@ class AddCountryViewController: UIViewController {
     private let addNewButton = ApplyButton()
     private let closeAddViewButton = IconButton()
     private let tableView = UITableView(frame: .zero, style: .grouped)
-    private let activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView(style: .large)
 
     private var tableViewTopToAddButtonConstraint: Constraint?
     private var tableViewTopToAddViewConstraint: Constraint?
@@ -54,10 +51,7 @@ class AddCountryViewController: UIViewController {
         super.viewWillDisappear(animated)
         presenter.viewWillDisappear()
     }
-    override func viewDidLayoutSubviews() {
-        addButton.createCornerRadius()
-        addNewButton.createCornerRadius()
-    }
+
     // MARK: - Setups
     private func setupUI() {
         setupView()
@@ -67,7 +61,6 @@ class AddCountryViewController: UIViewController {
         setupAddNewCountryButton()
         setupCloseAddViewButton()
         setupTableView()
-        setupActivityIndicator()
     }
     private func setupView() {
         title = "Добавление стран"
@@ -148,13 +141,6 @@ class AddCountryViewController: UIViewController {
         }
         tableViewTopToAddViewConstraint?.isActive = false
     }
-    private func setupActivityIndicator() {
-        view.addSubview(activityIndicator)
-        activityIndicator.snp.makeConstraints { make in
-            make.centerX.centerY.equalToSuperview()
-        }
-        activityIndicator.hidesWhenStopped = true
-    }
 
     // MARK: - Private methods
 
@@ -185,13 +171,5 @@ extension AddCountryViewController: AddCountryViewInputProtocol {
         addNewButton.isHidden = true
         tableViewTopToAddViewConstraint?.isActive = false
         tableViewTopToAddButtonConstraint?.isActive = true
-    }
-
-    func showLoading() {
-        activityIndicator.startAnimating()
-    }
-
-    func hideLoading() {
-        activityIndicator.stopAnimating()
     }
 }

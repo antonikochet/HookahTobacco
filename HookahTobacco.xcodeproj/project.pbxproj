@@ -23,6 +23,10 @@
 		382F0C452A7D93D700E2F277 /* AddTobaccoLineModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382F0C432A7D93D700E2F277 /* AddTobaccoLineModule.swift */; };
 		382F0C462A7D93D700E2F277 /* AddTobaccoLineAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382F0C442A7D93D700E2F277 /* AddTobaccoLineAssembly.swift */; };
 		3848022F2A57189C00DA595B /* Request+Manufacturer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3848022E2A57189C00DA595B /* Request+Manufacturer.swift */; };
+		385505352A814A4F00855E50 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385505342A814A4F00855E50 /* BaseViewController.swift */; };
+		385505372A814A7A00855E50 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385505362A814A7A00855E50 /* LoadingView.swift */; };
+		385505392A8154D800855E50 /* extension+UIVisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385505382A8154D800855E50 /* extension+UIVisualEffectView.swift */; };
+		3855053B2A8155FA00855E50 /* ViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3855053A2A8155FA00855E50 /* ViewProtocol.swift */; };
 		3869D3972A7EADBA00C9BF5C /* SelectTasteTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3869D3962A7EADBA00C9BF5C /* SelectTasteTypeTableViewCell.swift */; };
 		387121AC2A55ABD000B6005E /* Api+Tobacco.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387121AB2A55ABD000B6005E /* Api+Tobacco.swift */; };
 		387121AF2A55AD6700B6005E /* Response+Manufacturer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387121AE2A55AD6700B6005E /* Response+Manufacturer.swift */; };
@@ -261,6 +265,10 @@
 		382F0C432A7D93D700E2F277 /* AddTobaccoLineModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTobaccoLineModule.swift; sourceTree = "<group>"; };
 		382F0C442A7D93D700E2F277 /* AddTobaccoLineAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTobaccoLineAssembly.swift; sourceTree = "<group>"; };
 		3848022E2A57189C00DA595B /* Request+Manufacturer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Request+Manufacturer.swift"; sourceTree = "<group>"; };
+		385505342A814A4F00855E50 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		385505362A814A7A00855E50 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		385505382A8154D800855E50 /* extension+UIVisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extension+UIVisualEffectView.swift"; sourceTree = "<group>"; };
+		3855053A2A8155FA00855E50 /* ViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewProtocol.swift; sourceTree = "<group>"; };
 		3869D3962A7EADBA00C9BF5C /* SelectTasteTypeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTasteTypeTableViewCell.swift; sourceTree = "<group>"; };
 		387121AB2A55ABD000B6005E /* Api+Tobacco.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Api+Tobacco.swift"; sourceTree = "<group>"; };
 		387121AE2A55AD6700B6005E /* Response+Manufacturer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Response+Manufacturer.swift"; sourceTree = "<group>"; };
@@ -511,6 +519,8 @@
 			isa = PBXGroup;
 			children = (
 				3818E0372A80FD1C00C9D02C /* BottomSheetPresenter.swift */,
+				B9E7ACA028F4528000A3D7E5 /* RouterProtocol.swift */,
+				3855053A2A8155FA00855E50 /* ViewProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -694,6 +704,7 @@
 				B9DBE50D290DE11F005B185C /* HTNavigationController.swift */,
 				B9DBE50A290DD8B1005B185C /* HTTabBarController.swift */,
 				B9ACB677291D15AE001D65CE /* HTScrollContentViewController.swift */,
+				385505342A814A4F00855E50 /* BaseViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -797,6 +808,7 @@
 				B9CA939C2969C01C00F258F3 /* extension + TableKit.swift */,
 				38A027B92A0A7B6400D3C3E7 /* extention + Encodable.swift */,
 				3818E0392A80FE8600C9D02C /* extension+SheetViewController.swift */,
+				385505382A8154D800855E50 /* extension+UIVisualEffectView.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -1186,6 +1198,7 @@
 				B904382D2985145D00BADEE3 /* DescriptionStackView.swift */,
 				38F9B8922A7FE0DD00EAC0A0 /* IconButton.swift */,
 				3818E03B2A81342700C9D02C /* ApplyButton.swift */,
+				385505362A814A7A00855E50 /* LoadingView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1467,7 +1480,6 @@
 				3818E0362A80FD0C00C9D02C /* Protocols */,
 				B9EB023F28F31B2500B3B6DA /* Assemblies */,
 				B9E7AC9D28F4337100A3D7E5 /* AppRouter.swift */,
-				B9E7ACA028F4528000A3D7E5 /* RouterProtocol.swift */,
 				B90A79132899E2BF00B90193 /* SceneDelegate.swift */,
 				B90A79112899E2BF00B90193 /* AppDelegate.swift */,
 				B9027E04290FF613002E3C3A /* AppRouter+Register.swift */,
@@ -1657,10 +1669,12 @@
 				B9828048292FB95600BF3A93 /* NamedImageStorage.swift in Sources */,
 				B9EE2378291023F00098E4E0 /* DetailInfoManufacturerViewController.swift in Sources */,
 				382F0C3F2A7D936600E2F277 /* AddTobaccoLineViewController.swift in Sources */,
+				385505352A814A4F00855E50 /* BaseViewController.swift in Sources */,
 				B98E1DE528F08D4400964B8F /* AddTobaccoPresenter.swift in Sources */,
 				387121B32A55AE7F00B6005E /* Api+Taste.swift in Sources */,
 				B98E1DEA28F08D4400964B8F /* AddTobaccoEntity.swift in Sources */,
 				B9C925F7294F53720085BB02 /* RegistrationPresenter.swift in Sources */,
+				3855053B2A8155FA00855E50 /* ViewProtocol.swift in Sources */,
 				B989B87329339668007ECC59 /* PopupAlertView.swift in Sources */,
 				B9631C4C2921ACBE00BBC09B /* TasteCollectionViewLayout.swift in Sources */,
 				B9ED9104290989EF00DC3A6D /* TobaccoListViewController.swift in Sources */,
@@ -1736,8 +1750,10 @@
 				B9C9ECFD29129E00000A359B /* NetworkError.swift in Sources */,
 				3895E5062A5447AF005D87EE /* Moya+Request.swift in Sources */,
 				B98E1DB628F04A0F00964B8F /* AddManufacturerEntity.swift in Sources */,
+				385505392A8154D800855E50 /* extension+UIVisualEffectView.swift in Sources */,
 				B9ED9103290989EF00DC3A6D /* TobaccoListRouter.swift in Sources */,
 				387121BC2A55B34F00B6005E /* Api+Country.swift in Sources */,
+				385505372A814A7A00855E50 /* LoadingView.swift in Sources */,
 				382F0C452A7D93D700E2F277 /* AddTobaccoLineModule.swift in Sources */,
 				B982804C292FD4EB00BF3A93 /* ImageStorageServiceAssembly.swift in Sources */,
 				B98E1DF328F0DBCF00964B8F /* AdminMenuRouter.swift in Sources */,
