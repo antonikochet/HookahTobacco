@@ -32,7 +32,7 @@ extension AddManufacturerPresenter: AddManufacturerInteractorOutputProtocol {
         tobaccoLinesViewModels = []
         view.clearView()
         showCountryForSelect(nil)
-        router.showSuccess(delay: 2.0, completion: nil)
+        router.showSuccess(delay: 2.0)
     }
 
     func receivedSuccessEditing(with changedData: Manufacturer) {

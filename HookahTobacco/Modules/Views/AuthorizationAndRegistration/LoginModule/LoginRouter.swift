@@ -12,7 +12,6 @@ import UIKit
 protocol LoginRouterProtocol: RouterProtocol {
     func showProfileView()
     func showRegistrationView()
-    func showError(with message: String)
 }
 
 class LoginRouter: LoginRouterProtocol {
@@ -28,9 +27,5 @@ class LoginRouter: LoginRouterProtocol {
 
     func showRegistrationView() {
         appRouter.pushViewController(module: RegistrationModule.self, moduleData: nil, animateDisplay: true)
-    }
-
-    func showError(with message: String) {
-        appRouter.presentAlert(type: .error(message: message), completion: nil)
     }
 }

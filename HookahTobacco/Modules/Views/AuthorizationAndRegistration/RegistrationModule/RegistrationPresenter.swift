@@ -28,7 +28,7 @@ extension RegistrationPresenter: RegistrationInteractorOutputProtocol {
     }
 
     func receivedErrorRegistration(message: String) {
-        router.showError(message)
+        router.showError(with: message)
     }
 }
 
@@ -36,21 +36,21 @@ extension RegistrationPresenter: RegistrationInteractorOutputProtocol {
 extension RegistrationPresenter: RegistrationViewOutputProtocol {
     func pressedRegistrationButton(email: String?, pass: String?, repeatPass: String?) {
         guard let email = email, !email.isEmpty else {
-            router.showError("Email не введен!")
+            router.showError(with: "Email не введен!")
             return
         }
         // TODO: добавить проверку ввода email
         guard let pass = pass, !pass.isEmpty else {
-            router.showError("Пароль не введен!")
+            router.showError(with: "Пароль не введен!")
             return
         }
         guard let repeatPass = repeatPass, !repeatPass.isEmpty else {
-            router.showError("Повторный пароль не введен!")
+            router.showError(with: "Повторный пароль не введен!")
             return
         }
         // TODO: добавить проверку ввода пароля
         guard pass == repeatPass else {
-            router.showError("Введенные пароли различаются!")
+            router.showError(with: "Введенные пароли различаются!")
             return
         }
 

@@ -10,7 +10,6 @@
 import UIKit
 
 protocol ProfileRouterProtocol: RouterProtocol {
-    func showError(with message: String)
     func showAdminMenu()
     func showRegistrationView()
     func showLoginView()
@@ -19,15 +18,10 @@ protocol ProfileRouterProtocol: RouterProtocol {
 }
 
 final class ProfileRouter: ProfileRouterProtocol {
-    // MARK: - Private properties
-    private let appRouter: AppRouterProtocol
+    var appRouter: AppRouterProtocol
 
     init(_ appRouter: AppRouterProtocol) {
         self.appRouter = appRouter
-    }
-
-    func showError(with message: String) {
-        appRouter.presentAlert(type: .error(message: message), completion: nil)
     }
 
     func showAdminMenu() {

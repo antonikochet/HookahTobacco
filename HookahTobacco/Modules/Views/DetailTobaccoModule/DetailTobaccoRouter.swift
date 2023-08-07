@@ -10,17 +10,13 @@
 import UIKit
 
 protocol DetailTobaccoRouterProtocol: RouterProtocol {
-    func showError(with message: String)
+
 }
 
 class DetailTobaccoRouter: DetailTobaccoRouterProtocol {
-    private let appRouter: AppRouterProtocol
+    var appRouter: AppRouterProtocol
 
     required init(_ appRouter: AppRouterProtocol) {
         self.appRouter = appRouter
-    }
-
-    func showError(with message: String) {
-        appRouter.presentAlert(type: .error(message: message), completion: nil)
     }
 }

@@ -12,8 +12,6 @@ import UIKit
 protocol AddManufacturerRouterProtocol: RouterProtocol {
     func dismissView()
     func dismissView(with changedData: Manufacturer)
-    func showError(with message: String)
-    func showSuccess(delay: Double, completion: CompletionBlock?)
     func showAddCountryView(delegate: AddCountryOutputModule?)
     func showAddTobaccoLineView(for manufacturerId: Int,
                                 editing tobaccoLine: TobaccoLine?,
@@ -39,14 +37,6 @@ class AddManufacturerRouter: AddManufacturerRouterProtocol {
     func dismissView(with changedData: Manufacturer) {
         delegate?.sendChangedManufacturer(changedData)
         appRouter.popViewConroller(animated: true, completion: nil)
-    }
-
-    func showError(with message: String) {
-        appRouter.presentAlert(type: .error(message: message), completion: nil)
-    }
-
-    func showSuccess(delay: Double, completion: CompletionBlock?) {
-        appRouter.presentAlert(type: .success(delay: delay), completion: completion)
     }
 
     func showAddCountryView(delegate: AddCountryOutputModule?) {

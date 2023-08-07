@@ -10,8 +10,6 @@
 import UIKit
 
 protocol AddTobaccoLineRouterProtocol: RouterProtocol {
-    func showSuccess(with completion: CompletionBlock?)
-    func showError(with message: String)
     func dismissView()
     func dismissView(with tobaccoLine: TobaccoLine)
 }
@@ -22,19 +20,11 @@ protocol AddTobaccoLineOutputModule: AnyObject {
 
 class AddTobaccoLineRouter: AddTobaccoLineRouterProtocol {
     // MARK: - Private properties
-    private let appRouter: AppRouterProtocol
+    var appRouter: AppRouterProtocol
     weak var delegate: AddTobaccoLineOutputModule?
 
     required init(_ appRouter: AppRouterProtocol) {
         self.appRouter = appRouter
-    }
-
-    func showSuccess(with completion: CompletionBlock?) {
-        appRouter.presentAlert(type: .success(delay: 3.0), completion: completion)
-    }
-
-    func showError(with message: String) {
-        appRouter.presentAlert(type: .error(message: message), completion: nil)
     }
 
     func dismissView() {

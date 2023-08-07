@@ -12,7 +12,6 @@ import UIKit
 protocol ManufacturerListRouterProtocol: RouterProtocol {
     func showDetail(for manufacturer: Manufacturer)
     func showAddManufacturer(_ data: Manufacturer, delegate: AddManufacturerOutputModule?)
-    func showError(with message: String)
 }
 
 class ManufacturerListRouter: ManufacturerListRouterProtocol {
@@ -34,9 +33,5 @@ class ManufacturerListRouter: ManufacturerListRouterProtocol {
         appRouter.pushViewController(module: AddManufacturerModule.self,
                                      moduleData: data,
                                      animateDisplay: true)
-    }
-
-    func showError(with message: String) {
-        appRouter.presentAlert(type: .error(message: message), completion: nil)
     }
 }

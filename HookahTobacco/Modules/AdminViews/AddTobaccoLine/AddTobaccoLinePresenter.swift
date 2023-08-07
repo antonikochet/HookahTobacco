@@ -60,7 +60,7 @@ extension AddTobaccoLinePresenter: AddTobaccoLineInteractorOutputProtocol {
 
     func receivedSuccess(with tobaccoLine: TobaccoLine) {
         view.hideLoading()
-        router.showSuccess { [weak self] in
+        router.showSuccess(delay: 3.0) { [weak self] in
             self?.router.dismissView(with: tobaccoLine)
         }
     }
