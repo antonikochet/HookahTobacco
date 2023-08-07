@@ -21,8 +21,14 @@ protocol AddTobaccoLineViewOutputProtocol: AnyObject {
     func pressedDoneButton(_ viewModel: AddTobaccoLineEntity.ViewModel)
     func pressedCloseButton()
 }
+// FIXME: - поправить верстку при открытие клавиатуры
+class AddTobaccoLineViewController: HTScrollContentViewController, BottomSheetPresenter {
 
-class AddTobaccoLineViewController: UIViewController {
+    // MARK: - BottomSheetPresenter properties
+    var dismissOnPull: Bool = false
+    var dismissOnOverlayTap: Bool = false
+    var isShowGrip: Bool = false
+
     // MARK: - Public properties
     var presenter: AddTobaccoLineViewOutputProtocol!
 
@@ -45,7 +51,7 @@ class AddTobaccoLineViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupUI()
+        setupSubviews()
         presenter.viewDidLoad()
     }
 
@@ -54,7 +60,8 @@ class AddTobaccoLineViewController: UIViewController {
     }
 
     // MARK: - Setups
-    private func setupUI() {
+    override func setupSubviews() {
+        super.setupSubviews()
         setupView()
         setupCloseButton()
         setupNameView()
@@ -65,6 +72,9 @@ class AddTobaccoLineViewController: UIViewController {
         setupDescriptionView()
         setupDoneButton()
         setupActivityIndicator()
+        setupConstrainsScrollView(top: view.safeAreaLayoutGuide.snp.top,
+                                  bottom: doneButton.snp.top,
+                                  bottomConstant: -spacingBetweenViews)
     }
     private func setupView() {
         view.backgroundColor = .white
@@ -78,13 +88,13 @@ class AddTobaccoLineViewController: UIViewController {
         closeButton.image = UIImage(systemName: "multiply")
         closeButton.imageColor = .white
         closeButton.createCornerRadius()
-        view.addSubview(closeButton)
+        contentScrollView.addSubview(closeButton)
         closeButton.snp.makeConstraints { make in
             make.leading.top.equalToSuperview().offset(sidePadding)
         }
     }
     private func setupNameView() {
-        view.addSubview(nameView)
+        contentScrollView.addSubview(nameView)
         nameView.setupView(textLabel: "Название линейки",
                            placeholder: "Введите название линейки",
                            delegate: self)
@@ -95,7 +105,7 @@ class AddTobaccoLineViewController: UIViewController {
         }
     }
     private func setupPacketingFormatsView() {
-        view.addSubview(packetingFormatsView)
+        contentScrollView.addSubview(packetingFormatsView)
         packetingFormatsView.setupView(textLabel: "Вес упаковок",
                                        placeholder: "Введите вес через запятую",
                                        delegate: self)
@@ -106,7 +116,7 @@ class AddTobaccoLineViewController: UIViewController {
         }
     }
     private func setupTobaccoTypeView() {
-        view.addSubview(tobaccoTypeView)
+        contentScrollView.addSubview(tobaccoTypeView)
         tobaccoTypeView.delegate = self
         tobaccoTypeView.snp.makeConstraints { make in
             make.top.equalTo(packetingFormatsView.snp.bottom).offset(topMargin)
@@ -115,7 +125,7 @@ class AddTobaccoLineViewController: UIViewController {
         }
     }
     private func setupBaseSwitchView() {
-        view.addSubview(baseSwitchView)
+        contentScrollView.addSubview(baseSwitchView)
         baseSwitchView.didChangeSwitch = { [weak self] isOn in
             guard let self else { return }
             if isOn { nameView.disableTextField() } else { nameView.enableTextField() }
@@ -127,7 +137,7 @@ class AddTobaccoLineViewController: UIViewController {
         }
     }
     private func setupTobaccoLeafTypeView() {
-        view.addSubview(tobaccoLeafTypeView)
+        contentScrollView.addSubview(tobaccoLeafTypeView)
 
         tobaccoLeafTypeView.snp.makeConstraints { make in
             make.top.equalTo(baseSwitchView.snp.bottom).offset(topMargin)
@@ -136,26 +146,28 @@ class AddTobaccoLineViewController: UIViewController {
         }
     }
     private func setupDescriptionView() {
-        view.addSubview(descriptionView)
+        contentScrollView.addSubview(descriptionView)
         descriptionView.heightTextView = 120
-        descriptionView.setupView(textLabel: "Описание")
+        descriptionView.setupView(textLabel: "Описание", delegate: self)
         descriptionView.snp.makeConstraints { make in
             make.top.equalTo(tobaccoLeafTypeView.snp.bottom).offset(topMargin)
             make.leading.trailing.equalToSuperview().inset(sidePadding)
+            make.bottom.equalToSuperview()
         }
     }
     private func setupDoneButton() {
         view.addSubview(doneButton)
         doneButton.addTarget(self, action: #selector(touchDone), for: .touchUpInside)
         doneButton.snp.makeConstraints { make in
-            make.top.equalTo(descriptionView.snp.bottom).offset(sidePadding)
+            make.top.equalTo(contentScrollView.snp.bottom).offset(sidePadding)
             make.width.equalToSuperview().multipliedBy(0.5)
             make.height.equalTo(35)
+            make.bottom.equalToSuperview().inset(32.0)
             make.centerX.equalToSuperview()
         }
     }
     private func setupActivityIndicator() {
-        view.addSubview(activityIndicator)
+        contentScrollView.addSubview(activityIndicator)
         activityIndicator.snp.makeConstraints { make in
             make.centerX.centerY.equalToSuperview()
         }
@@ -167,6 +179,13 @@ class AddTobaccoLineViewController: UIViewController {
             tobaccoLeafTypeView.showView()
         } else {
             tobaccoLeafTypeView.hideView()
+        }
+        sheetViewController?.updateIntrinsicHeight()
+    }
+
+    private func updateBottomDoneButtonConstraint(_ offset: CGFloat) {
+        doneButton.snp.updateConstraints { make in
+            make.bottom.equalToSuperview().inset(offset)
         }
     }
 
@@ -211,9 +230,34 @@ extension AddTobaccoLineViewController: AddTobaccoLineViewInputProtocol {
 extension AddTobaccoLineViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if nameView.isMyTextField(textField) {
-            view.endEditing(true)
+            return packetingFormatsView.becomeFirstResponderTextField()
+        } else if packetingFormatsView.isMyTextField(textField) {
+            return view.endEditing(true)
         }
         return false
+    }
+
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        updateBottomDoneButtonConstraint(4.0)
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        updateBottomDoneButtonConstraint(32.0)
+    }
+}
+
+// MARK: - UITextViewDelegate implementation
+extension AddTobaccoLineViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        setOffset(CGPoint(x: 0, y: descriptionView.heightTextView))
+        updateBottomDoneButtonConstraint(4.0)
+        print(contentScrollView.frame)
+    }
+
+    func textViewDidEndEditing(_ textView: UITextView) {
+        setOffset(.zero)
+        updateBottomDoneButtonConstraint(32.0)
+        print(contentScrollView.frame)
     }
 }
 

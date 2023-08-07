@@ -63,6 +63,11 @@ class HTScrollContentViewController: UIViewController {
         })
     }
 
+    // MARK: - Public methods
+    public func setOffset(_ contentOffset: CGPoint) {
+        scrollView.setContentOffset(contentOffset, animated: true)
+    }
+
     // MARK: - Selectors
     @objc func hideViewTapped() {
         view.endEditing(true)

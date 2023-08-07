@@ -10,7 +10,7 @@
 import UIKit
 
 protocol AddTobaccoLineRouterProtocol: RouterProtocol {
-    func showSuccess(with completion: (() -> Void)?)
+    func showSuccess(with completion: CompletionBlock?)
     func showError(with message: String)
     func dismissView()
     func dismissView(with tobaccoLine: TobaccoLine)
@@ -29,7 +29,7 @@ class AddTobaccoLineRouter: AddTobaccoLineRouterProtocol {
         self.appRouter = appRouter
     }
 
-    func showSuccess(with completion: (() -> Void)?) {
+    func showSuccess(with completion: CompletionBlock?) {
         appRouter.presentAlert(type: .success(delay: 3.0), completion: completion)
     }
 

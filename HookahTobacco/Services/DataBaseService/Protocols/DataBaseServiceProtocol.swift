@@ -7,7 +7,7 @@
 
 import Foundation
 
-typealias DataBaseOperationCompletion = () -> Void
+typealias DataBaseOperationCompletion = CompletionBlock
 typealias DataBaseObjectsHandler<T> = (T) -> Void
 typealias DataBaseErrorHandler = ((DataBaseError) -> Void)
 

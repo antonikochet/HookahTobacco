@@ -13,7 +13,7 @@ protocol AddManufacturerRouterProtocol: RouterProtocol {
     func dismissView()
     func dismissView(with changedData: Manufacturer)
     func showError(with message: String)
-    func showSuccess(delay: Double, completion: (() -> Void)?)
+    func showSuccess(delay: Double, completion: CompletionBlock?)
     func showAddCountryView(delegate: AddCountryOutputModule?)
     func showAddTobaccoLineView(for manufacturerId: Int,
                                 editing tobaccoLine: TobaccoLine?,
@@ -45,7 +45,7 @@ class AddManufacturerRouter: AddManufacturerRouterProtocol {
         appRouter.presentAlert(type: .error(message: message), completion: nil)
     }
 
-    func showSuccess(delay: Double, completion: (() -> Void)?) {
+    func showSuccess(delay: Double, completion: CompletionBlock?) {
         appRouter.presentAlert(type: .success(delay: delay), completion: completion)
     }
 

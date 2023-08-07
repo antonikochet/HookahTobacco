@@ -10,7 +10,7 @@ import SnapKit
 
 final class IconButton: UIView {
     // MARK: - Public properties
-    public var action: (() -> Void)?
+    public var action: CompletionBlock?
 
     public var buttonSize: CGFloat = 24.0 {
         didSet {

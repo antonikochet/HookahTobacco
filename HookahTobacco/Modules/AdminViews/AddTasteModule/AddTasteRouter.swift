@@ -12,7 +12,7 @@ import UIKit
 protocol AddTasteRouterProtocol: RouterProtocol {
     func dismissView(_ newTaste: Taste)
     func showError(with message: String)
-    func showSuccess(delay: Double, with completion: (() -> Void)?)
+    func showSuccess(delay: Double, with completion: CompletionBlock?)
 }
 
 protocol AddTasteOutputModule: AnyObject {
@@ -37,7 +37,7 @@ class AddTasteRouter: AddTasteRouterProtocol {
         appRouter.presentAlert(type: .error(message: message), completion: nil)
     }
 
-    func showSuccess(delay: Double, with completion: (() -> Void)?) {
+    func showSuccess(delay: Double, with completion: CompletionBlock?) {
         appRouter.presentAlert(type: .success(delay: delay), completion: completion)
     }
 }

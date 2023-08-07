@@ -7,6 +7,8 @@
 
 import Foundation
 
+typealias CompletionBlock = () -> Void
+
 struct GlobalConstant {
     static let apiURL = Bundle.main.object(forInfoDictionaryKey: "API_URL") as? String ?? ""
 }
