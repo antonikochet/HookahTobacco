@@ -20,7 +20,7 @@ final class ButtonProfileTableViewCell: UITableViewCell, ConfigurableCell {
     var item: ButtonProfileTableViewCellItem?
 
     // MARK: - UI properties
-    private let button = UIButton.createAppBigButton()
+    private let button = ApplyButton()
 
     // MARK: - Initializers
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -34,11 +34,6 @@ final class ButtonProfileTableViewCell: UITableViewCell, ConfigurableCell {
     }
 
     // MARK: - Override
-    override func layoutSubviews() {
-        super.layoutSubviews()
-
-        button.createCornerRadius()
-    }
 
     // MARK: - Setup UI
     private func setupUI() {
@@ -58,13 +53,15 @@ final class ButtonProfileTableViewCell: UITableViewCell, ConfigurableCell {
             make.leading.trailing.equalToSuperview().inset(LayoutValues.Button.horizPadding)
             make.height.equalTo(LayoutValues.Button.height)
         }
-        button.addTarget(self, action: #selector(pressedButton), for: .touchUpInside)
     }
 
     // MARK: - ConfigurableCell
     func configure(with item: ButtonProfileTableViewCellItem) {
         self.item = item
         button.setTitle(item.text, for: .normal)
+        button.action = { [weak self] in
+            self?.item?.buttonAction?()
+        }
     }
 
     static var estimatedHeight: CGFloat? {
@@ -72,9 +69,7 @@ final class ButtonProfileTableViewCell: UITableViewCell, ConfigurableCell {
     }
 
     // MARK: - Selectors
-    @objc private func pressedButton() {
-        item?.buttonAction?()
-    }
+
 }
 
 private struct LayoutValues {

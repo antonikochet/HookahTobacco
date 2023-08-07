@@ -14,6 +14,7 @@
 		3818E0352A80FB1700C9D02C /* FittedSheets in Frameworks */ = {isa = PBXBuildFile; productRef = 3818E0342A80FB1700C9D02C /* FittedSheets */; };
 		3818E0382A80FD1C00C9D02C /* BottomSheetPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3818E0372A80FD1C00C9D02C /* BottomSheetPresenter.swift */; };
 		3818E03A2A80FE8600C9D02C /* extension+SheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3818E0392A80FE8600C9D02C /* extension+SheetViewController.swift */; };
+		3818E03C2A81342700C9D02C /* ApplyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3818E03B2A81342700C9D02C /* ApplyButton.swift */; };
 		382F0C3D2A7D936600E2F277 /* AddTobaccoLinePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382F0C382A7D936600E2F277 /* AddTobaccoLinePresenter.swift */; };
 		382F0C3E2A7D936600E2F277 /* AddTobaccoLineRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382F0C392A7D936600E2F277 /* AddTobaccoLineRouter.swift */; };
 		382F0C3F2A7D936600E2F277 /* AddTobaccoLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382F0C3A2A7D936600E2F277 /* AddTobaccoLineViewController.swift */; };
@@ -251,6 +252,7 @@
 		3813D6A82A6AB214009DDCBD /* ImageFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFormat.swift; sourceTree = "<group>"; };
 		3818E0372A80FD1C00C9D02C /* BottomSheetPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetPresenter.swift; sourceTree = "<group>"; };
 		3818E0392A80FE8600C9D02C /* extension+SheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extension+SheetViewController.swift"; sourceTree = "<group>"; };
+		3818E03B2A81342700C9D02C /* ApplyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplyButton.swift; sourceTree = "<group>"; };
 		382F0C382A7D936600E2F277 /* AddTobaccoLinePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTobaccoLinePresenter.swift; sourceTree = "<group>"; };
 		382F0C392A7D936600E2F277 /* AddTobaccoLineRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTobaccoLineRouter.swift; sourceTree = "<group>"; };
 		382F0C3A2A7D936600E2F277 /* AddTobaccoLineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTobaccoLineViewController.swift; sourceTree = "<group>"; };
@@ -1183,6 +1185,7 @@
 				B9567C91291C4BC300CF6176 /* ImageButtonPickerView.swift */,
 				B904382D2985145D00BADEE3 /* DescriptionStackView.swift */,
 				38F9B8922A7FE0DD00EAC0A0 /* IconButton.swift */,
+				3818E03B2A81342700C9D02C /* ApplyButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1667,6 +1670,7 @@
 				382F0C3D2A7D936600E2F277 /* AddTobaccoLinePresenter.swift in Sources */,
 				B97D05BC292998AC00F4629B /* TasteRealmObject.swift in Sources */,
 				B9E7A98628FEF9D700D711B4 /* GetImageNetworkingServiceProtocol.swift in Sources */,
+				3818E03C2A81342700C9D02C /* ApplyButton.swift in Sources */,
 				B9DBE512290DE2C3005B185C /* HTNavigationControllerAssembly.swift in Sources */,
 				3887C6CE2A585C9400A96AE2 /* Request+Tobacco.swift in Sources */,
 				B94306C92920277E00EADFA0 /* AddTastesPresenter.swift in Sources */,

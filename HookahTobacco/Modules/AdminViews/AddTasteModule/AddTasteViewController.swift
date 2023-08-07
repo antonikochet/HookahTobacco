@@ -33,12 +33,12 @@ class AddTasteViewController: UIViewController {
     private let tasteTextFieldView = AddTextFieldView()
     private let typeSelectLabel = UILabel()
     private let typeSelectTableView = UITableView(frame: .zero, style: .grouped)
-    private let openAddTypeButton = UIButton.createAppBigButton("Добавить тип вкуса", fontSise: 16)
+    private let openAddTypeButton = ApplyButton()
     private let addTypeView = UIView()
     private let addTypeTextFieldView = AddTextFieldView()
-    private let addTypeButton = UIButton.createAppBigButton("Создать тип")
+    private let addTypeButton = ApplyButton()
     private let closeTypeViewButton = IconButton()
-    private let addButton = UIButton.createAppBigButton("Добавить вкус")
+    private let addButton = ApplyButton()
     private let activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView(style: .large)
 
     private var addButtonTopToAddTypeButtonConstraint: Constraint?
@@ -49,12 +49,6 @@ class AddTasteViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         presenter.viewDidLoad()
-    }
-
-    override func viewDidLayoutSubviews() {
-        addButton.createCornerRadius()
-        openAddTypeButton.createCornerRadius()
-        addTypeButton.createCornerRadius()
     }
 
     // MARK: - Setups
@@ -104,13 +98,21 @@ class AddTasteViewController: UIViewController {
         }
     }
     private func setupOpenAddTypeButton() {
+        openAddTypeButton.setTitle("Добавить тип вкуса", for: .normal)
+        openAddTypeButton.action = { [weak self] in
+            guard let self else { return }
+            self.addTypeView.isHidden = false
+            self.addTypeTextFieldView.isHidden = false
+            self.addTypeButton.isHidden = false
+            self.addButtonTopToAddTypeViewConstraint?.isActive = true
+            self.addButtonTopToAddTypeButtonConstraint?.isActive = false
+        }
         view.addSubview(openAddTypeButton)
         openAddTypeButton.snp.makeConstraints { make in
             make.top.equalTo(typeSelectTableView.snp.bottom).offset(spacingBetweenViews)
             make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
             make.height.equalTo(40)
         }
-        openAddTypeButton.addTarget(self, action: #selector(didTouchOpenAddTypeButton), for: .touchUpInside)
     }
     private func setupAddTypeView() {
         view.addSubview(addTypeView)
@@ -136,6 +138,12 @@ class AddTasteViewController: UIViewController {
         }
     }
     private func setupAddTypeButton() {
+        addTypeButton.setTitle("Создать тип", for: .normal)
+        addTypeButton.action = { [weak self] in
+            guard let self else { return }
+            view.endEditing(true)
+            self.presenter.didAddNewType(self.addTypeTextFieldView.text ?? "")
+        }
         addTypeView.addSubview(addTypeButton)
         addTypeButton.snp.makeConstraints { make in
             make.top.equalTo(addTypeTextFieldView.snp.bottom).offset(spacingBetweenViews)
@@ -143,7 +151,6 @@ class AddTasteViewController: UIViewController {
             make.height.equalTo(40)
             make.bottom.equalToSuperview().inset(spacingBetweenViews)
         }
-        addTypeButton.addTarget(self, action: #selector(didTouchAddTypeButton), for: .touchUpInside)
     }
     private func setupCloseAddTypeViewButton() {
         addTypeView.addSubview(closeTypeViewButton)
@@ -165,6 +172,10 @@ class AddTasteViewController: UIViewController {
         }
     }
     private func setupAddButton() {
+        addButton.setTitle("Добавить вкус", for: .normal)
+        addButton.action = { [weak self] in
+            self?.presenter.didTouchAdded(taste: self?.tasteTextFieldView.text ?? "")
+        }
         view.addSubview(addButton)
         addButton.snp.makeConstraints { make in
             addButtonTopToAddTypeViewConstraint = make.top.equalTo(addTypeView.snp.bottom)
@@ -175,7 +186,6 @@ class AddTasteViewController: UIViewController {
             make.height.equalTo(45)
         }
         addButtonTopToAddTypeViewConstraint?.isActive = false
-        addButton.addTarget(self, action: #selector(didTouchAddButton), for: .touchUpInside)
     }
     private func setupActivityIndicator() {
         view.addSubview(activityIndicator)
@@ -187,22 +197,7 @@ class AddTasteViewController: UIViewController {
     // MARK: - Private methods
 
     // MARK: - Selectors
-    @objc private func didTouchAddButton() {
-        presenter.didTouchAdded(taste: tasteTextFieldView.text ?? "")
-    }
 
-    @objc private func didTouchOpenAddTypeButton() {
-        addTypeView.isHidden = false
-        addTypeTextFieldView.isHidden = false
-        addTypeButton.isHidden = false
-        addButtonTopToAddTypeViewConstraint?.isActive = true
-        addButtonTopToAddTypeButtonConstraint?.isActive = false
-    }
-
-    @objc private func didTouchAddTypeButton() {
-        view.endEditing(true)
-        presenter.didAddNewType(addTypeTextFieldView.text ?? "")
-    }
 }
 
 // MARK: - ViewInputProtocol implementation

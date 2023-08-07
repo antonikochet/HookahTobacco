@@ -31,10 +31,10 @@ class AddCountryViewController: UIViewController {
     var presenter: AddCountryViewOutputProtocol!
 
     // MARK: - UI properties
-    private let addButton = UIButton.createAppBigButton("Добавить новую страну")
+    private let addButton = ApplyButton()
     private let addView = UIView()
     private let addTextFieldView = AddTextFieldView()
-    private let addNewButton = UIButton.createAppBigButton("Добавить страну")
+    private let addNewButton = ApplyButton()
     private let closeAddViewButton = IconButton()
     private let tableView = UITableView(frame: .zero, style: .grouped)
     private let activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView(style: .large)
@@ -74,13 +74,15 @@ class AddCountryViewController: UIViewController {
         view.backgroundColor = .systemBackground
     }
     private func setupAddCountryButton() {
+        addButton.setTitle("Добавить новую страну", for: .normal)
+        addButton.action = { [weak self] in
+            self?.presenter.pressedAddButton()
+        }
         view.addSubview(addButton)
         addButton.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(spacingBetweenViews)
             make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
-            make.height.equalTo(40)
         }
-        addButton.addTarget(self, action: #selector(didTouchAddCountryButton), for: .touchUpInside)
     }
     private func setupAddView() {
         view.addSubview(addView)
@@ -106,6 +108,11 @@ class AddCountryViewController: UIViewController {
         }
     }
     private func setupAddNewCountryButton() {
+        addNewButton.setTitle("Добавить страну", for: .normal)
+        addNewButton.action = { [weak self] in
+            guard let self else { return }
+            self.presenter.pressedAddNewButton(self.addTextFieldView.text ?? "")
+        }
         addView.addSubview(addNewButton)
         addNewButton.snp.makeConstraints { make in
             make.top.equalTo(addTextFieldView.snp.bottom).offset(spacingBetweenViews)
@@ -113,7 +120,6 @@ class AddCountryViewController: UIViewController {
             make.height.equalTo(40)
             make.bottom.equalToSuperview().inset(spacingBetweenViews)
         }
-        addNewButton.addTarget(self, action: #selector(didTouchAddNewContryButton), for: .touchUpInside)
     }
     private func setupCloseAddViewButton() {
         addView.addSubview(closeAddViewButton)
@@ -153,13 +159,7 @@ class AddCountryViewController: UIViewController {
     // MARK: - Private methods
 
     // MARK: - Selectors
-    @objc private func didTouchAddCountryButton() {
-        presenter.pressedAddButton()
-    }
 
-    @objc private func didTouchAddNewContryButton() {
-        presenter.pressedAddNewButton(addTextFieldView.text ?? "")
-    }
 }
 
 // MARK: - ViewInputProtocol implementation

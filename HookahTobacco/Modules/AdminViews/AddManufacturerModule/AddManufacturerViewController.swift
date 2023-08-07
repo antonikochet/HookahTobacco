@@ -48,15 +48,10 @@ final class AddManufacturerViewController: HTScrollContentViewController {
     private let descriptionView = AddTextView()
     private let linkTextFieldView = AddTextFieldView()
     private let tobaccoLineCollectionView = TasteCollectionView()
-    private let addTobaccoLineButton = UIButton.createAppBigButton("Добавить Линейку табаков")
+    private let addTobaccoLineButton = ApplyButton()
     private let imagePickerView = ImageButtonPickerView()
     private let activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView(style: .large)
-
-    private let addedButton: UIButton = {
-        let button = UIButton.createAppBigButton("Добавить нового производителя")
-        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
-        return button
-    }()
+    private let addedButton = ApplyButton()
 
     // MARK: - ViewController Lifecycle
     override func viewDidLoad() {
@@ -66,12 +61,6 @@ final class AddManufacturerViewController: HTScrollContentViewController {
         overrideUserInterfaceStyle = .light
         presenter.viewDidLoad()
         setupSubviews()
-    }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        addedButton.createCornerRadius()
-        addTobaccoLineButton.createCornerRadius()
     }
 
     override func hideViewTapped() {
@@ -143,22 +132,32 @@ final class AddManufacturerViewController: HTScrollContentViewController {
         tobaccoLineCollectionView.tasteDelegate = self
         tobaccoLineCollectionView.isUserInteractionEnabled = true
 
+        addTobaccoLineButton.setTitle("Добавить Линейку табаков", for: .normal)
+        addTobaccoLineButton.action = { [weak self] in
+            self?.presenter.pressedAddTobaccoLine()
+        }
         contentScrollView.addSubview(addTobaccoLineButton)
-        addTobaccoLineButton.addTarget(self, action: #selector(touchAddTobaccoLine), for: .touchUpInside)
         addTobaccoLineButton.snp.makeConstraints { make in
             make.top.equalTo(tobaccoLineCollectionView.snp.bottom).inset(-spacingBetweenViews)
             make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
-            make.height.equalTo(40)
         }
     }
     private func setupAddButton() {
+        addedButton.setTitle("Добавить нового производителя", for: .normal)
+        addedButton.action = { [weak self] in
+            guard let self else { return }
+            let entity = AddManufacturerEntity.EnterData(name: self.nameTextFieldView.text,
+                                                         description: self.descriptionView.text,
+                                                         link: self.linkTextFieldView.text)
+
+            self.presenter.pressedAddButton(with: entity)
+        }
         view.addSubview(addedButton)
         addedButton.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(spacingBetweenViews)
             make.height.equalTo(50)
         }
-        addedButton.addTarget(self, action: #selector(touchAddedButton), for: .touchUpInside)
     }
     private func setupImagePickerView() {
         contentScrollView.addSubview(imagePickerView)
@@ -187,18 +186,7 @@ final class AddManufacturerViewController: HTScrollContentViewController {
     }
 
     // MARK: - Selectors
-    @objc
-    private func touchAddedButton() {
-        let entity = AddManufacturerEntity.EnterData(name: nameTextFieldView.text,
-                                                     description: descriptionView.text,
-                                                     link: linkTextFieldView.text)
 
-        presenter.pressedAddButton(with: entity)
-    }
-
-    @objc private func touchAddTobaccoLine() {
-        presenter.pressedAddTobaccoLine()
-    }
 }
 
 // MARK: - ViewInputProtocol implementation
@@ -219,7 +207,6 @@ extension AddManufacturerViewController: AddManufacturerViewInputProtocol {
         tobaccoLineCollectionView.reloadData()
         addedButton.setTitle(viewModel.textButton, for: .normal)
         addTobaccoLineButton.isEnabled = viewModel.isEnabledAddTobaccoLine
-        addTobaccoLineButton.alpha = viewModel.isEnabledAddTobaccoLine ? 1.0 : 0.5
     }
 
     func setupImageManufacturer(_ image: Data?, textButton: String) {

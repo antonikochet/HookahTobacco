@@ -43,7 +43,7 @@ class AddTobaccoLineViewController: HTScrollContentViewController, BottomSheetPr
     private let baseSwitchView = AddSwitchView()
     private let tobaccoLeafTypeView = AddMultiSegmentedControlView()
     private let descriptionView = AddTextView()
-    private let doneButton = UIButton.createAppBigButton("Готово", fontSise: 24)
+    private let doneButton = ApplyButton()
     private let closeButton = IconButton()
     private let activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView(style: .large)
 
@@ -53,10 +53,6 @@ class AddTobaccoLineViewController: HTScrollContentViewController, BottomSheetPr
 
         setupSubviews()
         presenter.viewDidLoad()
-    }
-
-    override func viewDidLayoutSubviews() {
-        doneButton.createCornerRadius()
     }
 
     // MARK: - Setups
@@ -156,12 +152,22 @@ class AddTobaccoLineViewController: HTScrollContentViewController, BottomSheetPr
         }
     }
     private func setupDoneButton() {
+        doneButton.setTitle("Готово", for: .normal)
+        doneButton.action = { [weak self] in
+            guard let self else { return }
+            self.presenter.pressedDoneButton(AddTobaccoLineEntity.ViewModel(
+                name: self.nameView.text ?? "",
+                packetingFormats: self.packetingFormatsView.text ?? "",
+                selectedTobaccoTypeIndex: self.tobaccoTypeView.selectedIndex,
+                description: self.descriptionView.text ?? "",
+                isBase: self.baseSwitchView.isOn,
+                selectedTobaccoLeafTypeIndexs: self.tobaccoLeafTypeView.selectedIndex
+            ))
+        }
         view.addSubview(doneButton)
-        doneButton.addTarget(self, action: #selector(touchDone), for: .touchUpInside)
         doneButton.snp.makeConstraints { make in
             make.top.equalTo(contentScrollView.snp.bottom).offset(sidePadding)
             make.width.equalToSuperview().multipliedBy(0.5)
-            make.height.equalTo(35)
             make.bottom.equalToSuperview().inset(32.0)
             make.centerX.equalToSuperview()
         }
@@ -190,16 +196,7 @@ class AddTobaccoLineViewController: HTScrollContentViewController, BottomSheetPr
     }
 
     // MARK: - Selectors
-    @objc private func touchDone() {
-        presenter.pressedDoneButton(AddTobaccoLineEntity.ViewModel(
-            name: nameView.text ?? "",
-            packetingFormats: packetingFormatsView.text ?? "",
-            selectedTobaccoTypeIndex: tobaccoTypeView.selectedIndex,
-            description: descriptionView.text ?? "",
-            isBase: baseSwitchView.isOn,
-            selectedTobaccoLeafTypeIndexs: tobaccoLeafTypeView.selectedIndex
-        ))
-    }
+
 }
 
 // MARK: - ViewInputProtocol implementation
