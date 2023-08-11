@@ -658,6 +658,24 @@
 			path = Moya;
 			sourceTree = "<group>";
 		};
+		38DDDE5C2A869A6500EA19A3 /* Providers */ = {
+			isa = PBXGroup;
+			children = (
+				38DDDE5D2A869AD100EA19A3 /* Realm */,
+				3895E5042A543CF8005D87EE /* Moya */,
+			);
+			path = Providers;
+			sourceTree = "<group>";
+		};
+		38DDDE5D2A869AD100EA19A3 /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				B98182A7292ADC0300DEA9F0 /* Protocols */,
+				B981829E292A5F7700DEA9F0 /* RealmProvider.swift */,
+			);
+			path = Realm;
+			sourceTree = "<group>";
+		};
 		38F9B8962A80043B00EAC0A0 /* AddCountryModule */ = {
 			isa = PBXGroup;
 			children = (
@@ -768,6 +786,7 @@
 				B9027E02290FEF0D002E3C3A /* CustomUI */,
 				B9027E07290FF737002E3C3A /* Entities */,
 				B91EB76728A141F400502221 /* Extentions */,
+				38DDDE5C2A869A6500EA19A3 /* Providers */,
 				B90A792E289C2ABE00B90193 /* Services */,
 				B97EE9DF292B6FDF0090B344 /* Managers */,
 				B9027E08290FF775002E3C3A /* Resources */,
@@ -927,7 +946,6 @@
 			children = (
 				B90B671429A034FB004460C8 /* ApiServices.swift */,
 				3802046129FE6A7C000193A1 /* ApiHandlerErrors.swift */,
-				3895E5042A543CF8005D87EE /* Moya */,
 				3802046529FE6D06000193A1 /* Models */,
 			);
 			path = ApiServices;
@@ -986,9 +1004,7 @@
 			isa = PBXGroup;
 			children = (
 				B98182A8292AE19600DEA9F0 /* RealmDataBaseService.swift */,
-				B981829E292A5F7700DEA9F0 /* RealmProvider.swift */,
 				B9E0FABC292EC57E008807BC /* RealmHandlerErrors.swift */,
-				B98182A7292ADC0300DEA9F0 /* Protocols */,
 				B97D05B62929925500F4629B /* Models */,
 			);
 			path = Realm;
