@@ -10,11 +10,11 @@
 import Foundation
 
 protocol RegistrationInteractorInputProtocol: AnyObject {
-    func sendNewRegistrationData(email: String, pass: String)
+    func sendCheckRegistrationData(username: String, email: String)
 }
 
 protocol RegistrationInteractorOutputProtocol: AnyObject {
-    func receivedSuccessRegistration()
+    func receivedSuccessCheckRegistrationData()
     func receivedErrorRegistration(message: String)
 }
 
@@ -37,14 +37,15 @@ final class RegistrationInteractor {
 }
 // MARK: - InputProtocol implementation 
 extension RegistrationInteractor: RegistrationInteractorInputProtocol {
-    func sendNewRegistrationData(email: String, pass: String) {
-        registrationService.registration(email: email, password: pass) { [weak self] error in
-            guard let self = self else { return }
-            if let error = error {
+    func sendCheckRegistrationData(username: String, email: String) {
+        registrationService.checkRegistrationData(email: email, username: username) { [weak self] error in
+            guard let self else { return }
+            if let error {
+                // TODO: переделат под показ ошибок под полями
                 self.presenter.receivedErrorRegistration(message: error.localizedDescription)
                 return
             }
-            self.presenter.receivedSuccessRegistration()
+            self.presenter.receivedSuccessCheckRegistrationData()
         }
     }
 }

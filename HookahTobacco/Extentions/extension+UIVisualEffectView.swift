@@ -8,21 +8,21 @@
 import UIKit
 
 extension UIVisualEffectView {
-    
+
     private var filterLayer: CALayer? {
         return layer.sublayers?.first
     }
-    
+
     private var effectSubviewLayer: CALayer? {
         return layer.sublayers?.last
     }
-    
+
     private var blurFilter: NSObject? {
         return filterLayer?
             .filters?.compactMap({ $0 as? NSObject })
             .first(where: { $0.value(forKey: "name") as? String == "gaussianBlur" })
     }
-    
+
     var effectBackgroundColor: UIColor? {
         get {
             if let background = effectSubviewLayer?.backgroundColor {

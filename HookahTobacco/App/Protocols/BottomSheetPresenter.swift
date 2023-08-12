@@ -71,7 +71,7 @@ extension BottomSheetPresenter {
         sheetController.dismissOnOverlayTap = dismissOnOverlayTap
         sheetController.dismissOnPull = dismissOnPull
         sheetController.allowPullingPastMaxHeight = false
-        
+
         if let handledScrollView {
             sheetController.handleScrollView(handledScrollView)
         }

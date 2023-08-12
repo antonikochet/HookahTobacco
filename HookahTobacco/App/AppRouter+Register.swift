@@ -67,12 +67,14 @@ extension AppRouter {
         // third container
         let tabBarProfile = TabBarItemContent(title: "Профиль",
                                               image: UIImage(systemName: "person"))
+        let authSerivice = resolver.resolve(AuthServiceProtocol.self)!
         let profileContainer = (ProfileModule.self, tabBarProfile)
+        let loginContainer = (LoginModule.self, tabBarProfile)
 
         startAppPresent([
             manufactureListContainer,
             tobaccoListContainer,
-            profileContainer
+            authSerivice.isLoggedIn ? profileContainer : loginContainer
         ])
     }
 }

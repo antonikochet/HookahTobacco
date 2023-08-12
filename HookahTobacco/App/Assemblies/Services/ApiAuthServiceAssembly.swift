@@ -27,8 +27,8 @@ class ApiAuthServiceAssembly: Assembly {
         container.register(AuthServiceProtocol.self) { resolver in
             resolver.resolve(ApiAuthServices.self)!
         }
-//        container.register(RegistrationServiceProtocol.self) { resolver in
-//            resolver.resolve(FirebaseAuthService.self)!
-//        }
+        container.register(RegistrationServiceProtocol.self) { resolver in
+            resolver.resolve(ApiAuthServices.self)!
+        }
     }
 }

@@ -9,13 +9,13 @@ import Foundation
 import Moya
 
 struct AuthorizationPlugin: PluginType {
-    
+
     private let authSettings: AuthSettingsProtocol
-    
+
     init(authSettings: AuthSettingsProtocol) {
         self.authSettings = authSettings
     }
-    
+
     func prepare(_ request: URLRequest, target: TargetType) -> URLRequest {
         guard let authToken = authSettings.getToken() else { return request }
 
@@ -26,4 +26,3 @@ struct AuthorizationPlugin: PluginType {
         return request
     }
 }
-

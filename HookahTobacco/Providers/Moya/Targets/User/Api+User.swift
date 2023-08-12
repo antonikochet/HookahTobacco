@@ -33,7 +33,7 @@ extension Api.Users: DefaultTarget {
             return "v1/user/wish_tobaccos"
         }
     }
-    
+
     var method: Moya.Method {
         switch self {
         case .get, .getFavoritesTobacco, .getBuyToTobacco:
@@ -44,7 +44,7 @@ extension Api.Users: DefaultTarget {
             return .post
         }
     }
-    
+
     var task: Moya.Task {
         switch self {
         default:

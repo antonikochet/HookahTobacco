@@ -17,4 +17,3 @@ struct User: UserProtocol {
     var dateOfBirth: Date?
     var isAnonymous: Bool = false
 }
-

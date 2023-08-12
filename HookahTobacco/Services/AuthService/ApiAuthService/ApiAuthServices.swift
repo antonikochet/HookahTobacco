@@ -36,7 +36,7 @@ extension ApiAuthServices: AuthServiceProtocol {
     }
 
     func login(with name: String, password: String, completion: AuthServiceCompletion?) {
-        var isEmail = name.isEmailValid()
+        let isEmail = name.isEmailValid()
         let request = LoginRequest(email: isEmail ? name : "",
                                    username: isEmail ? "" : name,
                                    password: password)
@@ -63,6 +63,38 @@ extension ApiAuthServices: AuthServiceProtocol {
                 self.settings.setToken(nil)
                 completion?(nil)
             case .failure(let error):
+                let authError = self.handlerErrors.handlerError(error)
+                completion?(authError)
+            }
+        }
+    }
+}
+
+extension ApiAuthServices: RegistrationServiceProtocol {
+    func checkRegistrationData(email: String?, username: String?, completion: RegistrationServiceCompletion?) {
+        let request = CheckRegistrationRequest(email: email, username: username)
+        let target = MultiTarget(Api.Registration.check(request))
+        provider.request(object: EmptyResponse.self, target: target) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success:
+                completion?(nil)
+            case .failure(let error):
+                let authError = self.handlerErrors.handlerError(error)
+                completion?(authError)
+            }
+        }
+    }
+
+    func registration(user: RegistrationUserProtocol, completion: RegistrationServiceCompletion?) {
+        let target = MultiTarget(Api.Registration.registration(user))
+        provider.request(object: LoginResponse.self, target: target) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case let .success(response):
+                self.settings.setToken(response.token)
+                completion?(nil)
+            case let .failure(error):
                 let authError = self.handlerErrors.handlerError(error)
                 completion?(authError)
             }

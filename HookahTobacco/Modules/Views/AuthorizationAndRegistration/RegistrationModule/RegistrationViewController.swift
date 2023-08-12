@@ -9,27 +9,30 @@
 
 import UIKit
 
-protocol RegistrationViewInputProtocol: AnyObject {
+protocol RegistrationViewInputProtocol: ViewProtocol {
 
 }
 
 protocol RegistrationViewOutputProtocol: AnyObject {
-    func pressedRegistrationButton(email: String?, pass: String?, repeatPass: String?)
+    func pressedRegistrationButton(username: String, email: String, pass: String, repeatPass: String)
 }
 
-final class RegistrationViewController: UIViewController {
+final class RegistrationViewController: BaseViewController {
     // MARK: - Public properties
     var presenter: RegistrationViewOutputProtocol!
 
     // MARK: - UI properties
+    // TODO: - убрать повторяемось вьюшек
     private let registrationLabel = UILabel()
+    private let usernameLabel = UILabel()
+    private let usernameTextField = UITextField()
     private let emailLabel = UILabel()
     private let emailTextField = UITextField()
     private let passLabel = UILabel()
     private let passTextField = UITextField()
     private let repeatPassLabel = UILabel()
     private let repeatPassTextField = UITextField()
-    private let registrationButton = UIButton.createAppBigButton(.registrationButtonText, fontSise: 25)
+    private let registrationButton = ApplyButton()
 
     // MARK: - ViewController Lifecycle
     override func viewDidLoad() {
@@ -38,7 +41,7 @@ final class RegistrationViewController: UIViewController {
         setupUI()
     }
 
-    override func viewWillLayoutSubviews() {
+    override func viewDidLayoutSubviews() {
         registrationButton.createCornerRadius()
     }
 
@@ -46,6 +49,7 @@ final class RegistrationViewController: UIViewController {
     private func setupUI() {
         setupScreen()
         setupRegistrationLabel()
+        setupUsername()
         setupEmail()
         setupPass()
         setupRepeatPass()
@@ -68,12 +72,35 @@ final class RegistrationViewController: UIViewController {
             make.height.equalTo(Fonts.registrationLabel.lineHeight)
         }
     }
+    private func setupUsername() {
+        view.addSubview(usernameLabel)
+        usernameLabel.font = Fonts.label
+        usernameLabel.text = .usernameLabelText
+        usernameLabel.snp.makeConstraints { make in
+            make.top.equalTo(registrationLabel.snp.bottom).offset(LayoutValues.Label.top)
+            make.leading.trailing.equalToSuperview().inset(LayoutValues.Label.horizPadding)
+            make.height.equalTo(Fonts.label.lineHeight)
+        }
+
+        view.addSubview(usernameTextField)
+        usernameTextField.placeholder = .usernamePlaceholder
+        usernameTextField.textColor = Colors.TextField.text
+        usernameTextField.backgroundColor = Colors.TextField.background
+        usernameTextField.borderStyle = .roundedRect
+        usernameTextField.clearButtonMode = .whileEditing
+        usernameTextField.autocapitalizationType = .none
+        usernameTextField.delegate = self
+        usernameTextField.snp.makeConstraints { make in
+            make.top.equalTo(usernameLabel.snp.bottom).offset(LayoutValues.TextField.top)
+            make.leading.trailing.equalToSuperview().inset(LayoutValues.TextField.horizPadding)
+        }
+    }
     private func setupEmail() {
         view.addSubview(emailLabel)
         emailLabel.font = Fonts.label
         emailLabel.text = .emailLabelText
         emailLabel.snp.makeConstraints { make in
-            make.top.equalTo(registrationLabel.snp.bottom).offset(LayoutValues.Label.top)
+            make.top.equalTo(usernameTextField.snp.bottom).offset(LayoutValues.Label.top)
             make.leading.trailing.equalToSuperview().inset(LayoutValues.Label.horizPadding)
             make.height.equalTo(Fonts.label.lineHeight)
         }
@@ -87,6 +114,7 @@ final class RegistrationViewController: UIViewController {
         emailTextField.keyboardType = .emailAddress
         emailTextField.textContentType = .emailAddress
         emailTextField.autocapitalizationType = .none
+        emailTextField.delegate = self
         emailTextField.snp.makeConstraints { make in
             make.top.equalTo(emailLabel.snp.bottom).offset(LayoutValues.TextField.top)
             make.leading.trailing.equalToSuperview().inset(LayoutValues.TextField.horizPadding)
@@ -111,6 +139,7 @@ final class RegistrationViewController: UIViewController {
         passTextField.textContentType = .password
         passTextField.autocapitalizationType = .none
         passTextField.isSecureTextEntry = true
+        passTextField.delegate = self
         passTextField.snp.makeConstraints { make in
             make.top.equalTo(passLabel.snp.bottom).offset(LayoutValues.TextField.top)
             make.leading.trailing.equalToSuperview().inset(LayoutValues.TextField.horizPadding)
@@ -135,6 +164,7 @@ final class RegistrationViewController: UIViewController {
         repeatPassTextField.textContentType = .password
         repeatPassTextField.autocapitalizationType = .none
         repeatPassTextField.isSecureTextEntry = true
+        repeatPassTextField.delegate = self
         repeatPassTextField.snp.makeConstraints { make in
             make.top.equalTo(repeatPassLabel.snp.bottom).offset(LayoutValues.TextField.top)
             make.leading.trailing.equalToSuperview().inset(LayoutValues.TextField.horizPadding)
@@ -142,8 +172,17 @@ final class RegistrationViewController: UIViewController {
     }
     private func setupRegistrationButton() {
         view.addSubview(registrationButton)
-        registrationButton.layer.cornerRadius = LayoutValues.RegistrationButton.cornerRadius
-        registrationButton.addTarget(self, action: #selector(pressedRegistrationButton), for: .touchUpInside)
+        registrationButton.setTitle(.registrationButtonText, for: .normal)
+        registrationButton.action = { [weak self] in
+            guard let self else { return }
+            self.presenter.pressedRegistrationButton(
+                username: self.usernameTextField.text ?? "",
+                email: self.emailTextField.text ?? "",
+                pass: self.passTextField.text ?? "",
+                repeatPass: self.repeatPassTextField.text ?? ""
+            )
+        }
+        registrationButton.titleLabel?.font = UIFont.appFont(size: 22, weight: .semibold)
         registrationButton.snp.makeConstraints { make in
             make.top.equalTo(repeatPassTextField.snp.bottom).offset(LayoutValues.RegistrationButton.top)
             make.leading.trailing.equalToSuperview().inset(LayoutValues.RegistrationButton.horizPadding)
@@ -154,11 +193,7 @@ final class RegistrationViewController: UIViewController {
     // MARK: - Private methods
 
     // MARK: - Selectors
-    @objc private func pressedRegistrationButton() {
-        presenter.pressedRegistrationButton(email: emailTextField.text,
-                                            pass: passTextField.text,
-                                            repeatPass: repeatPassTextField.text)
-    }
+
 }
 
 // MARK: - ViewInputProtocol implementation
@@ -166,15 +201,32 @@ extension RegistrationViewController: RegistrationViewInputProtocol {
 
 }
 
+// MARK: - UITextFieldDelegate implementation
+extension RegistrationViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField === usernameTextField {
+            return emailTextField.becomeFirstResponder()
+        } else if textField === emailTextField {
+            return passTextField.becomeFirstResponder()
+        } else if textField === passTextField {
+            return repeatPassTextField.becomeFirstResponder()
+        } else {
+            return view.endEditing(true)
+        }
+    }
+}
+
 private extension String {
     static let registrationLabelText = "Регистрация"
+    static let usernameLabelText = "Имя пользователя"
+    static let usernamePlaceholder = "Введите пользователя"
     static let emailLabelText = "Email"
     static let emailPlaceholder = "Введите email"
     static let passwordLabelText = "Пароль"
     static let passwordPlaceholder = "password"
     static let repeatPasswordLabelText = "Повторите пароль"
     static let repeatPasswordPlaceholder = "Повторите пароль"
-    static let registrationButtonText = "Зарегистрироваться"
+    static let registrationButtonText = "Продолжить регистрацию"
 }
 private struct LayoutValues {
     struct RegistrationLabel {
@@ -191,7 +243,7 @@ private struct LayoutValues {
     struct RegistrationButton {
         static let top: CGFloat = 48.0
         static let height: CGFloat = 60.0
-        static let horizPadding: CGFloat = 40.0
+        static let horizPadding: CGFloat = 20.0
         static let cornerRadius: CGFloat = height / 2.0
     }
 }

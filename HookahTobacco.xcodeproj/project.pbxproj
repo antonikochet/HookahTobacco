@@ -59,6 +59,8 @@
 		38DDDE752A86DC9C00EA19A3 /* AuthorizationPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE742A86DC9C00EA19A3 /* AuthorizationPlugin.swift */; };
 		38E8E6392A87B9B600041443 /* RealmProviderAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E8E6382A87B9B600041443 /* RealmProviderAssembly.swift */; };
 		38E8E6422A87C6B400041443 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 38E8E6412A87C6B400041443 /* KeychainAccess */; };
+		38E8E6452A87D12000041443 /* Api+Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E8E6442A87D12000041443 /* Api+Registration.swift */; };
+		38E8E6472A87D30E00041443 /* Request+Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E8E6462A87D30E00041443 /* Request+Registration.swift */; };
 		38F9B8932A7FE0DD00EAC0A0 /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F9B8922A7FE0DD00EAC0A0 /* IconButton.swift */; };
 		38F9B89C2A80047E00EAC0A0 /* AddCountryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F9B8972A80047E00EAC0A0 /* AddCountryPresenter.swift */; };
 		38F9B89D2A80047E00EAC0A0 /* AddCountryRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F9B8982A80047E00EAC0A0 /* AddCountryRouter.swift */; };
@@ -307,6 +309,8 @@
 		38DDDE722A86DAC400EA19A3 /* MoyaProviderAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaProviderAssembly.swift; sourceTree = "<group>"; };
 		38DDDE742A86DC9C00EA19A3 /* AuthorizationPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationPlugin.swift; sourceTree = "<group>"; };
 		38E8E6382A87B9B600041443 /* RealmProviderAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmProviderAssembly.swift; sourceTree = "<group>"; };
+		38E8E6442A87D12000041443 /* Api+Registration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Api+Registration.swift"; sourceTree = "<group>"; };
+		38E8E6462A87D30E00041443 /* Request+Registration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Request+Registration.swift"; sourceTree = "<group>"; };
 		38F9B8922A7FE0DD00EAC0A0 /* IconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
 		38F9B8972A80047E00EAC0A0 /* AddCountryPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCountryPresenter.swift; sourceTree = "<group>"; };
 		38F9B8982A80047E00EAC0A0 /* AddCountryRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCountryRouter.swift; sourceTree = "<group>"; };
@@ -600,6 +604,7 @@
 			children = (
 				3895E5002A542D54005D87EE /* DefaultTarget.swift */,
 				38DDDE542A86949000EA19A3 /* Authorization */,
+				38E8E6432A87D0FE00041443 /* Registration */,
 				38DDDE6C2A86CC3A00EA19A3 /* User */,
 				3895E4FD2A542D2D005D87EE /* Manufacturer */,
 				387121AD2A55ABD500B6005E /* Tobacco */,
@@ -741,6 +746,15 @@
 				38E8E6382A87B9B600041443 /* RealmProviderAssembly.swift */,
 			);
 			path = Providers;
+			sourceTree = "<group>";
+		};
+		38E8E6432A87D0FE00041443 /* Registration */ = {
+			isa = PBXGroup;
+			children = (
+				38E8E6442A87D12000041443 /* Api+Registration.swift */,
+				38E8E6462A87D30E00041443 /* Request+Registration.swift */,
+			);
+			path = Registration;
 			sourceTree = "<group>";
 		};
 		38F9B8962A80043B00EAC0A0 /* AddCountryModule */ = {
@@ -1799,6 +1813,7 @@
 				38DDDE752A86DC9C00EA19A3 /* AuthorizationPlugin.swift in Sources */,
 				B9EE2377291023F00098E4E0 /* DetailInfoManufacturerRouter.swift in Sources */,
 				B9E7ACB328F492ED00A3D7E5 /* LoginModule.swift in Sources */,
+				38E8E6452A87D12000041443 /* Api+Registration.swift in Sources */,
 				B9E7ACB428F492ED00A3D7E5 /* LoginAssembly.swift in Sources */,
 				B904382E2985145D00BADEE3 /* DescriptionStackView.swift in Sources */,
 				38F9B89D2A80047E00EAC0A0 /* AddCountryRouter.swift in Sources */,
@@ -1883,6 +1898,7 @@
 				B92A46B32967313B0006B787 /* ProfileModule.swift in Sources */,
 				B9D6E93129FDC806001D44D5 /* TasteType.swift in Sources */,
 				B90B671729A03EB5004460C8 /* ApiNetworkingServicesAssembly.swift in Sources */,
+				38E8E6472A87D30E00041443 /* Request+Registration.swift in Sources */,
 				B9E8DA4928F77A8300CCA034 /* ManufacturerListViewController.swift in Sources */,
 				3818E03A2A80FE8600C9D02C /* extension+SheetViewController.swift in Sources */,
 				B9A66BCB296897F600B6D6E7 /* AnonymousInfoTableViewCell.swift in Sources */,

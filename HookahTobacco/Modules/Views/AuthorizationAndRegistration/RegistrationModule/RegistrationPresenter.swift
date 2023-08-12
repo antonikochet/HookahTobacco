@@ -16,6 +16,9 @@ final class RegistrationPresenter {
     var router: RegistrationRouterProtocol!
 
     // MARK: - Private properties
+    private var email   : String = ""
+    private var username: String = ""
+    private var password: String = ""
 
     // MARK: - Private methods
 
@@ -23,28 +26,37 @@ final class RegistrationPresenter {
 
 // MARK: - InteractorOutputProtocol implementation
 extension RegistrationPresenter: RegistrationInteractorOutputProtocol {
-    func receivedSuccessRegistration() {
-        router.showProfileRegistrationView()
+    func receivedSuccessCheckRegistrationData() {
+        view.hideLoading()
+        router.showProfileRegistrationView(username: username, email: email, password: password)
     }
 
     func receivedErrorRegistration(message: String) {
+        view.hideLoading()
         router.showError(with: message)
     }
 }
 
 // MARK: - ViewOutputProtocol implementation
 extension RegistrationPresenter: RegistrationViewOutputProtocol {
-    func pressedRegistrationButton(email: String?, pass: String?, repeatPass: String?) {
-        guard let email = email, !email.isEmpty else {
+    func pressedRegistrationButton(username: String, email: String, pass: String, repeatPass: String) {
+        guard !username.isEmpty else {
+            router.showError(with: "Имя пользователя не введено!")
+            return
+        }
+        guard !email.isEmpty else {
             router.showError(with: "Email не введен!")
             return
         }
-        // TODO: добавить проверку ввода email
-        guard let pass = pass, !pass.isEmpty else {
+        guard email.isEmailValid() else {
+            router.showError(with: "Email не валидный")
+            return
+        }
+        guard !pass.isEmpty else {
             router.showError(with: "Пароль не введен!")
             return
         }
-        guard let repeatPass = repeatPass, !repeatPass.isEmpty else {
+        guard !repeatPass.isEmpty else {
             router.showError(with: "Повторный пароль не введен!")
             return
         }
@@ -54,6 +66,10 @@ extension RegistrationPresenter: RegistrationViewOutputProtocol {
             return
         }
 
-        interactor.sendNewRegistrationData(email: email, pass: pass)
+        self.username = username
+        self.email = email
+        self.password = pass
+        view.showBlockLoading()
+        interactor.sendCheckRegistrationData(username: username, email: email)
     }
 }
