@@ -14,7 +14,7 @@ class AdminDataManagerAssembly: Assembly {
             AdminDataManager(
                 getDataNetworkingService: resolver.resolve(GetDataNetworkingServiceProtocol.self)!,
                 dataBaseService: resolver.resolve(DataBaseServiceProtocol.self)!,
-                userDefaultsService: resolver.resolve(UserDefaultsServiceProtocol.self)!,
+                userDefaultsService: resolver.resolve(UserSettingsServiceProtocol.self)!,
                 setDataNetworkingService: resolver.resolve(SetDataNetworkingServiceProtocol.self)!
             )
         }

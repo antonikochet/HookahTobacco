@@ -58,6 +58,7 @@
 		38DDDE732A86DAC400EA19A3 /* MoyaProviderAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE722A86DAC400EA19A3 /* MoyaProviderAssembly.swift */; };
 		38DDDE752A86DC9C00EA19A3 /* AuthorizationPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE742A86DC9C00EA19A3 /* AuthorizationPlugin.swift */; };
 		38E8E6392A87B9B600041443 /* RealmProviderAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E8E6382A87B9B600041443 /* RealmProviderAssembly.swift */; };
+		38E8E6422A87C6B400041443 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 38E8E6412A87C6B400041443 /* KeychainAccess */; };
 		38F9B8932A7FE0DD00EAC0A0 /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F9B8922A7FE0DD00EAC0A0 /* IconButton.swift */; };
 		38F9B89C2A80047E00EAC0A0 /* AddCountryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F9B8972A80047E00EAC0A0 /* AddCountryPresenter.swift */; };
 		38F9B89D2A80047E00EAC0A0 /* AddCountryRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F9B8982A80047E00EAC0A0 /* AddCountryRouter.swift */; };
@@ -135,8 +136,8 @@
 		B97EE9E9292B8DAF0090B344 /* ImageNetworkingDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97EE9E8292B8DAF0090B344 /* ImageNetworkingDataProtocol.swift */; };
 		B97EE9EE292BA0710090B344 /* DataManagerAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97EE9ED292BA0710090B344 /* DataManagerAssembly.swift */; };
 		B97EE9F0292BA1480090B344 /* RealmDataBaseServiresAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97EE9EF292BA1480090B344 /* RealmDataBaseServiresAssembly.swift */; };
-		B97EE9F3292BB3C30090B344 /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97EE9F2292BB3C30090B344 /* UserDefaultsService.swift */; };
-		B97EE9F6292BB3E50090B344 /* UserDefaultsServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97EE9F5292BB3E50090B344 /* UserDefaultsServiceProtocol.swift */; };
+		B97EE9F3292BB3C30090B344 /* UserSettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97EE9F2292BB3C30090B344 /* UserSettingsService.swift */; };
+		B97EE9F6292BB3E50090B344 /* UserSettingsServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97EE9F5292BB3E50090B344 /* UserSettingsServiceProtocol.swift */; };
 		B97EE9F9292BBEE10090B344 /* UserDefaultsServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97EE9F8292BBEE10090B344 /* UserDefaultsServiceAssembly.swift */; };
 		B9818299292A55B900DEA9F0 /* DataBaseServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9818298292A55B900DEA9F0 /* DataBaseServiceProtocol.swift */; };
 		B981829C292A568100DEA9F0 /* DataBaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B981829B292A568100DEA9F0 /* DataBaseError.swift */; };
@@ -383,8 +384,8 @@
 		B97EE9E8292B8DAF0090B344 /* ImageNetworkingDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageNetworkingDataProtocol.swift; sourceTree = "<group>"; };
 		B97EE9ED292BA0710090B344 /* DataManagerAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerAssembly.swift; sourceTree = "<group>"; };
 		B97EE9EF292BA1480090B344 /* RealmDataBaseServiresAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDataBaseServiresAssembly.swift; sourceTree = "<group>"; };
-		B97EE9F2292BB3C30090B344 /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
-		B97EE9F5292BB3E50090B344 /* UserDefaultsServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsServiceProtocol.swift; sourceTree = "<group>"; };
+		B97EE9F2292BB3C30090B344 /* UserSettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsService.swift; sourceTree = "<group>"; };
+		B97EE9F5292BB3E50090B344 /* UserSettingsServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsServiceProtocol.swift; sourceTree = "<group>"; };
 		B97EE9F8292BBEE10090B344 /* UserDefaultsServiceAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsServiceAssembly.swift; sourceTree = "<group>"; };
 		B9818298292A55B900DEA9F0 /* DataBaseServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseServiceProtocol.swift; sourceTree = "<group>"; };
 		B981829B292A568100DEA9F0 /* DataBaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseError.swift; sourceTree = "<group>"; };
@@ -513,6 +514,7 @@
 				387121C12A55BBA600B6005E /* Moya in Frameworks */,
 				387121BF2A55BB1500B6005E /* Alamofire in Frameworks */,
 				B9EB023B28F3159A00B3B6DA /* Swinject in Frameworks */,
+				38E8E6422A87C6B400041443 /* KeychainAccess in Frameworks */,
 				B9D6056C28D508800058D19E /* SnapKit in Frameworks */,
 				B9C9ECFB29128F2F000A359B /* FirebaseCrashlytics in Frameworks */,
 				B9D2D2A7293B805100F2F591 /* MultiSelectSegmentedControl in Frameworks */,
@@ -1111,8 +1113,8 @@
 		B97EE9F4292BB3C90090B344 /* UserDefaultsService */ = {
 			isa = PBXGroup;
 			children = (
-				B97EE9F2292BB3C30090B344 /* UserDefaultsService.swift */,
-				B97EE9F5292BB3E50090B344 /* UserDefaultsServiceProtocol.swift */,
+				B97EE9F2292BB3C30090B344 /* UserSettingsService.swift */,
+				B97EE9F5292BB3E50090B344 /* UserSettingsServiceProtocol.swift */,
 			);
 			path = UserDefaultsService;
 			sourceTree = "<group>";
@@ -1606,6 +1608,7 @@
 				387121BE2A55BB1500B6005E /* Alamofire */,
 				387121C02A55BBA600B6005E /* Moya */,
 				3818E0342A80FB1700C9D02C /* FittedSheets */,
+				38E8E6412A87C6B400041443 /* KeychainAccess */,
 			);
 			productName = HookahTobacco;
 			productReference = B90A790E2899E2BF00B90193 /* HookahTobacco.app */;
@@ -1645,6 +1648,7 @@
 				3895E4FC2A542C8C005D87EE /* XCRemoteSwiftPackageReference "Moya" */,
 				387121BD2A55BB1500B6005E /* XCRemoteSwiftPackageReference "Alamofire" */,
 				3818E0332A80FB1700C9D02C /* XCRemoteSwiftPackageReference "FittedSheets" */,
+				38E8E6402A87C6B400041443 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 			);
 			productRefGroup = B90A790F2899E2BF00B90193 /* Products */;
 			projectDirPath = "";
@@ -1824,9 +1828,9 @@
 				B9ED910929098AA000DC3A6D /* TobaccoListCell.swift in Sources */,
 				B9631C5D292400FB00BBC09B /* AddTasteModule.swift in Sources */,
 				B9D6055928D4CB590058D19E /* Manufacturer.swift in Sources */,
-				B97EE9F3292BB3C30090B344 /* UserDefaultsService.swift in Sources */,
+				B97EE9F3292BB3C30090B344 /* UserSettingsService.swift in Sources */,
 				38DDDE6E2A86CC5300EA19A3 /* Api+User.swift in Sources */,
-				B97EE9F6292BB3E50090B344 /* UserDefaultsServiceProtocol.swift in Sources */,
+				B97EE9F6292BB3E50090B344 /* UserSettingsServiceProtocol.swift in Sources */,
 				B9ED9102290989EF00DC3A6D /* TobaccoListPresenter.swift in Sources */,
 				B90B671D29A049D0004460C8 /* GlobalConstant.swift in Sources */,
 				382F0C402A7D936600E2F277 /* AddTobaccoLineInteractor.swift in Sources */,
@@ -2187,6 +2191,14 @@
 				minimumVersion = 15.0.0;
 			};
 		};
+		38E8E6402A87C6B400041443 /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		B97D05AD2929639200F4629B /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift.git";
@@ -2252,6 +2264,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3895E4FC2A542C8C005D87EE /* XCRemoteSwiftPackageReference "Moya" */;
 			productName = Moya;
+		};
+		38E8E6412A87C6B400041443 /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 38E8E6402A87C6B400041443 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
 		};
 		B97D05AE2929639200F4629B /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;

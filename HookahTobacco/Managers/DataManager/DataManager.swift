@@ -38,12 +38,12 @@ class DataManager {
     let dataBaseService: DataBaseServiceProtocol
 
     // MARK: - Dependency UserDefaults
-    private let userDefaultsService: UserDefaultsServiceProtocol
+    private let userDefaultsService: UserSettingsServiceProtocol
 
     // MARK: - Initializers
     init(getDataNetworkingService: GetDataNetworkingServiceProtocol,
          dataBaseService: DataBaseServiceProtocol,
-         userDefaultsService: UserDefaultsServiceProtocol
+         userDefaultsService: UserSettingsServiceProtocol
     ) {
         self.getDataNetworkingService = getDataNetworkingService
         self.dataBaseService = dataBaseService

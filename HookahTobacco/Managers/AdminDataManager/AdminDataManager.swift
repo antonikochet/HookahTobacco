@@ -15,7 +15,7 @@ class AdminDataManager: DataManager {
 
     init(getDataNetworkingService: GetDataNetworkingServiceProtocol,
          dataBaseService: DataBaseServiceProtocol,
-         userDefaultsService: UserDefaultsServiceProtocol,
+         userDefaultsService: UserSettingsServiceProtocol,
          setDataNetworkingService: SetDataNetworkingServiceProtocol
     ) {
         self.setDataNetworkingService = setDataNetworkingService
