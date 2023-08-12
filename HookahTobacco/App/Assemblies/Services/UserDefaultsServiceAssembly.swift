@@ -10,8 +10,17 @@ import Swinject
 
 class UserDefaultsServiceAssembly: Assembly {
     func assemble(container: Container) {
-        container.register(UserDefaultsServiceProtocol.self) { _ in
+        container.register(UserDefaultsService.self) { _ in
             UserDefaultsService()
+        }
+        .inObjectScope(.container)
+
+        container.register(UserDefaultsServiceProtocol.self) { resolver in
+            resolver.resolve(UserDefaultsService.self)!
+        }
+
+        container.register(AuthSettingsProtocol.self) { resolver in
+            resolver.resolve(UserDefaultsService.self)!
         }
     }
 }

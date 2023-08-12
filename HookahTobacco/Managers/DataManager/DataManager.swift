@@ -289,6 +289,17 @@ extension DataManager: DataManagerProtocol {
         }
     }
 
+    func getUser(completion: ((Result<UserProtocol, Error>) -> Void)?) {
+        getDataNetworkingService.getUser { result in
+            switch result {
+            case .success(let user):
+                completion?(.success(user))
+            case .failure(let error):
+                completion?(.failure(error))
+            }
+        }
+    }
+
     func updateFavorite(for tobacco: Tobacco, completion: Completion?) {
         // TODO: - если isOffileMode == true то только в базе, если false то отправить запрос и потом только обновить в бд
         dataBaseService.update(entity: tobacco) {

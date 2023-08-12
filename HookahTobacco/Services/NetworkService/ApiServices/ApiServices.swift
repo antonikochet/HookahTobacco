@@ -48,16 +48,8 @@ private extension ApiServices {
             guard let self else { return }
             switch result {
             case let .success(response):
-                do {
-                    let data = try response.map(T.self)
-                    completion?(.success(data))
-                } catch {
-                    self.showError("\(error)")
-                    let networkingError = self.handlerErrors.handlerError(error)
-                    completion?(.failure(networkingError))
-                }
+                completion?(.success(response))
             case let .failure(error):
-                self.showError("\(error)")
                 let networkingError = self.handlerErrors.handlerError(error)
                 completion?(.failure(networkingError))
             }
@@ -120,6 +112,18 @@ extension ApiServices: GetDataNetworkingServiceProtocol {
             case let .success(data):
                 completion?(.success(data.tobaccos))
             case let .failure(error):
+                completion?(.failure(error))
+            }
+        }
+    }
+
+    func getUser(completion: GetDataNetworkingServiceCompletion<UserProtocol>?) {
+        let target = Api.Users.get
+        sendRequest(object: User.self, target: target) { result in
+            switch result {
+            case .success(let user):
+                completion?(.success(user))
+            case .failure(let error):
                 completion?(.failure(error))
             }
         }

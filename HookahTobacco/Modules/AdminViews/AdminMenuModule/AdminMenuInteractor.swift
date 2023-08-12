@@ -25,14 +25,17 @@ class AdminMenuInteractor {
     weak var presenter: AdminMenuInteractorOutputProtocol!
 
     // MARK: - Dependency
+    private let authService: AuthServiceProtocol
     private let getDataManager: GetDataNetworkingServiceProtocol
     private let setDataManager: SetDataNetworkingServiceProtocol
 
     // MARK: - Private properties
 
     // MARK: - Initializers
-    init(getDataManager: GetDataNetworkingServiceProtocol,
+    init(authService: AuthServiceProtocol,
+         getDataManager: GetDataNetworkingServiceProtocol,
          setDataManager: SetDataNetworkingServiceProtocol) {
+        self.authService = authService
         self.getDataManager = getDataManager
         self.setDataManager = setDataManager
     }
@@ -41,7 +44,7 @@ class AdminMenuInteractor {
 // MARK: - AdminMenuInteractorInputProtocol implementation
 extension AdminMenuInteractor: AdminMenuInteractorInputProtocol {
     func logout() {
-        FirebaseAuthService.shared.logout { [weak self] error in
+        authService.logout { [weak self] error in
             guard let self = self else { return }
             if let error {
                 self.presenter.receiveError(with:

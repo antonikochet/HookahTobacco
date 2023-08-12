@@ -27,12 +27,15 @@ final class ProfileInteractor {
 
     // MARK: - Dependency
     private let authService: AuthServiceProtocol
+    private let getDataMananger: DataManagerProtocol
 
     // MARK: - Private properties
 
     // MARK: - Initializers
-    init(authService: AuthServiceProtocol) {
+    init(authService: AuthServiceProtocol,
+         getDataMananger: DataManagerProtocol) {
         self.authService = authService
+        self.getDataMananger = getDataMananger
     }
 
     // MARK: - Private methods
@@ -41,11 +44,15 @@ final class ProfileInteractor {
 // MARK: - InputProtocol implementation 
 extension ProfileInteractor: ProfileInteractorInputProtocol {
     func receiveProfileInfo() {
-        guard let user = authService.currectUser else {
-            presenter.receivedProfileInfoError("") // TODO: написать ошибку
-            return
+        getDataMananger.getUser { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let user):
+                self.presenter.receivedProfileInfoSuccess(user)
+            case .failure(let error):
+                self.presenter.receivedProfileInfoError(error.localizedDescription)
+            }
         }
-        presenter.receivedProfileInfoSuccess(user)
     }
 
     func logout() {

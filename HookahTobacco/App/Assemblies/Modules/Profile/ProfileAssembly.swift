@@ -25,8 +25,9 @@ class ProfileAssembly: Assembly {
         container.register(ProfileInteractorInputProtocol.self) { resolver in
             // here resolve dependency injection
             let authService = resolver.resolve(AuthServiceProtocol.self)!
-
-            return ProfileInteractor(authService: authService)
+            let getDataManager = resolver.resolve(DataManagerProtocol.self)!
+            return ProfileInteractor(authService: authService,
+                                     getDataMananger: getDataManager)
         }
 
         container.register(ProfileViewOutputProtocol.self) { _ in

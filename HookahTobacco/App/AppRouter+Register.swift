@@ -8,13 +8,19 @@
 import UIKit
 
 extension AppRouter {
+    func registerProviders() {
+        apply(assemblies: [
+            MoyaProviderAssembly(),
+            RealmProviderAssembly()
+        ])
+    }
+
     func registerServices() {
         apply(assemblies: [
-//            FireBaseNetworkingServicesAssembly(),
-            ApiNetworkingServicesAssembly(),
-            FirebaseAuthServiceAssembly(),
-            RealmDataBaseServiresAssembly(),
             UserDefaultsServiceAssembly(),
+            ApiNetworkingServicesAssembly(),
+            ApiAuthServiceAssembly(),
+            RealmDataBaseServiresAssembly(),
             ImageStorageServiceAssembly(),
             AdminDataManagerAssembly(),
             DataManagerAssembly(),

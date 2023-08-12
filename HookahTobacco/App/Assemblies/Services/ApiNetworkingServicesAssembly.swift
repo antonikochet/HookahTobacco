@@ -16,7 +16,7 @@ class ApiNetworkingServicesAssembly: Assembly {
             ApiHandlerErrors()
         }
         container.register(ApiServices.self) { resolver in
-            ApiServices(provider: MoyaProvider<MultiTarget>.default,
+            ApiServices(provider: resolver.resolve(MoyaProvider.self)!,
                         handlerErrors: resolver.resolve(NetworkHandlerErrors.self)!)
         }
         container.register(GetDataNetworkingServiceProtocol.self) { resolver in

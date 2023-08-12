@@ -10,12 +10,6 @@ import Moya
 
 extension MoyaProvider {
 
-    static var `default`: MoyaProvider {
-        return makeWithPlugins([
-            HandlerErrorPlugin()
-        ])
-    }
-
     static var defaultSession: Session {
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = 15

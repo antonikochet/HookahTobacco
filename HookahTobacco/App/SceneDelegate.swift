@@ -19,12 +19,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
 
         let router = AppRouter(window!)
+        router.registerProviders()
         router.registerServices()
         router.registerAppModules()
         router.registerContainerControllers()
-
-        let authService = router.resolver.resolve(FirebaseAuthService.self)!
-        authService.startAuth()
 
         router.assembleContainers()
 
