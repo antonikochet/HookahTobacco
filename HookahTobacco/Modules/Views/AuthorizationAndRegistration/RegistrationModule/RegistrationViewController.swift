@@ -8,6 +8,7 @@
 //
 
 import UIKit
+import SnapKit
 
 protocol RegistrationViewInputProtocol: ViewProtocol {
 
@@ -22,16 +23,11 @@ final class RegistrationViewController: BaseViewController {
     var presenter: RegistrationViewOutputProtocol!
 
     // MARK: - UI properties
-    // TODO: - убрать повторяемось вьюшек
     private let registrationLabel = UILabel()
-    private let usernameLabel = UILabel()
-    private let usernameTextField = UITextField()
-    private let emailLabel = UILabel()
-    private let emailTextField = UITextField()
-    private let passLabel = UILabel()
-    private let passTextField = UITextField()
-    private let repeatPassLabel = UILabel()
-    private let repeatPassTextField = UITextField()
+    private let usernameTextFieldView = AddTextFieldView()
+    private let emailTextFieldView = AddTextFieldView()
+    private let passTextFieldView = AddTextFieldView()
+    private let repeatPassTextFieldView = AddTextFieldView()
     private let registrationButton = ApplyButton()
 
     // MARK: - ViewController Lifecycle
@@ -73,101 +69,49 @@ final class RegistrationViewController: BaseViewController {
         }
     }
     private func setupUsername() {
-        view.addSubview(usernameLabel)
-        usernameLabel.font = Fonts.label
-        usernameLabel.text = .usernameLabelText
-        usernameLabel.snp.makeConstraints { make in
+        view.addSubview(usernameTextFieldView)
+        usernameTextFieldView.setupView(textLabel: .usernameLabelText,
+                                        placeholder: .usernamePlaceholder,
+                                        delegate: self)
+        usernameTextFieldView.snp.makeConstraints { make in
             make.top.equalTo(registrationLabel.snp.bottom).offset(LayoutValues.Label.top)
             make.leading.trailing.equalToSuperview().inset(LayoutValues.Label.horizPadding)
-            make.height.equalTo(Fonts.label.lineHeight)
-        }
-
-        view.addSubview(usernameTextField)
-        usernameTextField.placeholder = .usernamePlaceholder
-        usernameTextField.textColor = Colors.TextField.text
-        usernameTextField.backgroundColor = Colors.TextField.background
-        usernameTextField.borderStyle = .roundedRect
-        usernameTextField.clearButtonMode = .whileEditing
-        usernameTextField.autocapitalizationType = .none
-        usernameTextField.delegate = self
-        usernameTextField.snp.makeConstraints { make in
-            make.top.equalTo(usernameLabel.snp.bottom).offset(LayoutValues.TextField.top)
-            make.leading.trailing.equalToSuperview().inset(LayoutValues.TextField.horizPadding)
         }
     }
     private func setupEmail() {
-        view.addSubview(emailLabel)
-        emailLabel.font = Fonts.label
-        emailLabel.text = .emailLabelText
-        emailLabel.snp.makeConstraints { make in
-            make.top.equalTo(usernameTextField.snp.bottom).offset(LayoutValues.Label.top)
+        view.addSubview(emailTextFieldView)
+        emailTextFieldView.setupView(textLabel: .emailLabelText,
+                                     placeholder: .emailPlaceholder,
+                                     delegate: self)
+        emailTextFieldView.setKeyboardType(.emailAddress)
+        emailTextFieldView.setTextContentType(.emailAddress)
+        emailTextFieldView.snp.makeConstraints { make in
+            make.top.equalTo(usernameTextFieldView.snp.bottom).offset(LayoutValues.Label.top)
             make.leading.trailing.equalToSuperview().inset(LayoutValues.Label.horizPadding)
-            make.height.equalTo(Fonts.label.lineHeight)
-        }
-
-        view.addSubview(emailTextField)
-        emailTextField.placeholder = .emailPlaceholder
-        emailTextField.textColor = Colors.TextField.text
-        emailTextField.backgroundColor = Colors.TextField.background
-        emailTextField.borderStyle = .roundedRect
-        emailTextField.clearButtonMode = .whileEditing
-        emailTextField.keyboardType = .emailAddress
-        emailTextField.textContentType = .emailAddress
-        emailTextField.autocapitalizationType = .none
-        emailTextField.delegate = self
-        emailTextField.snp.makeConstraints { make in
-            make.top.equalTo(emailLabel.snp.bottom).offset(LayoutValues.TextField.top)
-            make.leading.trailing.equalToSuperview().inset(LayoutValues.TextField.horizPadding)
         }
     }
     private func setupPass() {
-        view.addSubview(passLabel)
-        passLabel.font = Fonts.label
-        passLabel.text = .passwordLabelText
-        passLabel.snp.makeConstraints { make in
-            make.top.equalTo(emailTextField.snp.bottom).offset(LayoutValues.Label.top)
+        view.addSubview(passTextFieldView)
+        passTextFieldView.setupView(textLabel: .passwordLabelText,
+                                    placeholder: .passwordPlaceholder,
+                                    delegate: self)
+        passTextFieldView.setTextContentType(.password)
+        passTextFieldView.setIsSecureTextEntry(true)
+        passTextFieldView.snp.makeConstraints { make in
+            make.top.equalTo(emailTextFieldView.snp.bottom).offset(LayoutValues.Label.top)
             make.leading.trailing.equalToSuperview().inset(LayoutValues.Label.horizPadding)
-            make.height.equalTo(Fonts.label.lineHeight)
-        }
-
-        view.addSubview(passTextField)
-        passTextField.placeholder = .passwordPlaceholder
-        passTextField.textColor = Colors.TextField.text
-        passTextField.backgroundColor = Colors.TextField.background
-        passTextField.borderStyle = .roundedRect
-        passTextField.clearButtonMode = .whileEditing
-        passTextField.textContentType = .password
-        passTextField.autocapitalizationType = .none
-        passTextField.isSecureTextEntry = true
-        passTextField.delegate = self
-        passTextField.snp.makeConstraints { make in
-            make.top.equalTo(passLabel.snp.bottom).offset(LayoutValues.TextField.top)
-            make.leading.trailing.equalToSuperview().inset(LayoutValues.TextField.horizPadding)
         }
     }
     private func setupRepeatPass() {
-        view.addSubview(repeatPassLabel)
-        repeatPassLabel.font = Fonts.label
-        repeatPassLabel.text = .repeatPasswordLabelText
-        repeatPassLabel.snp.makeConstraints { make in
-            make.top.equalTo(passTextField.snp.bottom).offset(LayoutValues.Label.top)
+        view.addSubview(repeatPassTextFieldView)
+        repeatPassTextFieldView.setupView(textLabel: .repeatPasswordLabelText,
+                                          placeholder: .repeatPasswordPlaceholder,
+                                          delegate: self)
+        repeatPassTextFieldView.setTextContentType(.password)
+        repeatPassTextFieldView.setIsSecureTextEntry(true)
+        repeatPassTextFieldView.snp.makeConstraints { make in
+            make.top.equalTo(passTextFieldView.snp.bottom).offset(LayoutValues.Label.top)
             make.leading.trailing.equalToSuperview().inset(LayoutValues.Label.horizPadding)
-            make.height.equalTo(Fonts.label.lineHeight)
-        }
-
-        view.addSubview(repeatPassTextField)
-        repeatPassTextField.placeholder = .repeatPasswordPlaceholder
-        repeatPassTextField.textColor = Colors.TextField.text
-        repeatPassTextField.backgroundColor = Colors.TextField.background
-        repeatPassTextField.borderStyle = .roundedRect
-        repeatPassTextField.clearButtonMode = .whileEditing
-        repeatPassTextField.textContentType = .password
-        repeatPassTextField.autocapitalizationType = .none
-        repeatPassTextField.isSecureTextEntry = true
-        repeatPassTextField.delegate = self
-        repeatPassTextField.snp.makeConstraints { make in
-            make.top.equalTo(repeatPassLabel.snp.bottom).offset(LayoutValues.TextField.top)
-            make.leading.trailing.equalToSuperview().inset(LayoutValues.TextField.horizPadding)
         }
     }
     private func setupRegistrationButton() {
@@ -176,15 +120,15 @@ final class RegistrationViewController: BaseViewController {
         registrationButton.action = { [weak self] in
             guard let self else { return }
             self.presenter.pressedRegistrationButton(
-                username: self.usernameTextField.text ?? "",
-                email: self.emailTextField.text ?? "",
-                pass: self.passTextField.text ?? "",
-                repeatPass: self.repeatPassTextField.text ?? ""
+                username: self.usernameTextFieldView.text ?? "",
+                email: self.emailTextFieldView.text ?? "",
+                pass: self.passTextFieldView.text ?? "",
+                repeatPass: self.repeatPassTextFieldView.text ?? ""
             )
         }
         registrationButton.titleLabel?.font = UIFont.appFont(size: 22, weight: .semibold)
         registrationButton.snp.makeConstraints { make in
-            make.top.equalTo(repeatPassTextField.snp.bottom).offset(LayoutValues.RegistrationButton.top)
+            make.top.equalTo(repeatPassTextFieldView.snp.bottom).offset(LayoutValues.RegistrationButton.top)
             make.leading.trailing.equalToSuperview().inset(LayoutValues.RegistrationButton.horizPadding)
             make.height.equalTo(LayoutValues.RegistrationButton.height)
         }
@@ -204,12 +148,12 @@ extension RegistrationViewController: RegistrationViewInputProtocol {
 // MARK: - UITextFieldDelegate implementation
 extension RegistrationViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField === usernameTextField {
-            return emailTextField.becomeFirstResponder()
-        } else if textField === emailTextField {
-            return passTextField.becomeFirstResponder()
-        } else if textField === passTextField {
-            return repeatPassTextField.becomeFirstResponder()
+        if usernameTextFieldView.isMyTextField(textField) {
+            return emailTextFieldView.becomeFirstResponderTextField()
+        } else if emailTextFieldView.isMyTextField(textField) {
+            return passTextFieldView.becomeFirstResponderTextField()
+        } else if passTextFieldView.isMyTextField(textField) {
+            return repeatPassTextFieldView.becomeFirstResponderTextField()
         } else {
             return view.endEditing(true)
         }

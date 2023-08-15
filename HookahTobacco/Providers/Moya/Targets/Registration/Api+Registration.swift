@@ -5,6 +5,7 @@
 //  Created by Anton Kochetkov on 12.08.2023.
 //
 
+import Foundation
 import Moya
 
 extension Api {
@@ -39,7 +40,9 @@ extension Api.Registration: DefaultTarget {
         case .check(let request):
             return .requestJSONEncodable(request)
         case .registration(let request):
-            return .requestJSONEncodable(request)
+            let encoder = JSONEncoder()
+            encoder.dateEncodingStrategy = .formatted(DateFormatter(format: "yyyy-MM-dd"))
+            return .requestCustomJSONEncodable(request, encoder: encoder)
         default:
             return .requestPlain
         }

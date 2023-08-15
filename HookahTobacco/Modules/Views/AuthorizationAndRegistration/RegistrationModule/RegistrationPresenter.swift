@@ -16,7 +16,7 @@ final class RegistrationPresenter {
     var router: RegistrationRouterProtocol!
 
     // MARK: - Private properties
-    private var email   : String = ""
+    private var email: String = ""
     private var username: String = ""
     private var password: String = ""
 
@@ -28,7 +28,11 @@ final class RegistrationPresenter {
 extension RegistrationPresenter: RegistrationInteractorOutputProtocol {
     func receivedSuccessCheckRegistrationData() {
         view.hideLoading()
-        router.showProfileRegistrationView(username: username, email: email, password: password)
+        let user = RegistrationUser(username: username,
+                                    email: email,
+                                    password: password,
+                                    repeatPassword: password)
+        router.showProfileRegistrationView(user: user)
     }
 
     func receivedErrorRegistration(message: String) {

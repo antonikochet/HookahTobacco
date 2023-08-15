@@ -93,7 +93,6 @@ class AddTobaccoLineViewController: HTScrollContentViewController, BottomSheetPr
         nameView.snp.makeConstraints { make in
             make.top.equalTo(closeButton.snp.bottom).offset(topMargin)
             make.leading.trailing.equalToSuperview().inset(sidePadding)
-            make.height.equalTo(nameView.heightView)
         }
     }
     private func setupPacketingFormatsView() {
@@ -104,7 +103,6 @@ class AddTobaccoLineViewController: HTScrollContentViewController, BottomSheetPr
         packetingFormatsView.snp.makeConstraints { make in
             make.top.equalTo(nameView.snp.bottom).offset(topMargin)
             make.leading.trailing.equalToSuperview().inset(sidePadding)
-            make.height.equalTo(packetingFormatsView.heightView)
         }
     }
     private func setupTobaccoTypeView() {

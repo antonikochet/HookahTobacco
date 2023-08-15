@@ -16,10 +16,12 @@ class AddTextFieldView: UIView {
         set { textField.text = newValue }
     }
 
-    var heightView: CGFloat {
-        label.font.lineHeight + 8 + 31
+    override var intrinsicContentSize: CGSize {
+        CGSize(width: .greatestFiniteMagnitude, height: (label.intrinsicContentSize.height +
+                                                         8.0 +
+                                                         textField.intrinsicContentSize.height)
+        )
     }
-
     // MARK: private properties UI
     private let label: UILabel = {
         let label = UILabel()
@@ -33,6 +35,7 @@ class AddTextFieldView: UIView {
         text.clearButtonMode = .whileEditing
         text.returnKeyType = .next
         text.autocorrectionType = .no
+        text.autocapitalizationType = .none
         text.backgroundColor = UIColor(white: 0.95, alpha: 0.8)
         return text
     }()
@@ -76,6 +79,17 @@ class AddTextFieldView: UIView {
     func disableTextField() {
         textField.isEnabled = false
         textField.alpha = 0.5
+    }
+
+    func setTextContentType(_ textContentType: UITextContentType) {
+        textField.textContentType = textContentType
+    }
+
+    func setKeyboardType(_ keyboardType: UIKeyboardType) {
+        textField.keyboardType = keyboardType
+    }
+    func setIsSecureTextEntry(_ isSecureTextEntry: Bool) {
+        textField.isSecureTextEntry = isSecureTextEntry
     }
 
     // MARK: private methods

@@ -23,7 +23,11 @@ protocol AddTasteViewOutputProtocol: AnyObject {
     func didAddNewType(_ newType: String)
 }
 
-class AddTasteViewController: BaseViewController {
+class AddTasteViewController: BaseViewController, BottomSheetPresenter {
+    // MARK: - BottomSheetPresenter
+    var isShowGrip: Bool = false
+    var dismissOnPull: Bool = false
+
     // MARK: - Public properties
     var presenter: AddTasteViewOutputProtocol!
 
@@ -102,6 +106,7 @@ class AddTasteViewController: BaseViewController {
             self.addTypeButton.isHidden = false
             self.addButtonTopToAddTypeViewConstraint?.isActive = true
             self.addButtonTopToAddTypeButtonConstraint?.isActive = false
+            self.sheetViewController?.updateIntrinsicHeight()
         }
         view.addSubview(openAddTypeButton)
         openAddTypeButton.snp.makeConstraints { make in
@@ -129,7 +134,6 @@ class AddTasteViewController: BaseViewController {
                                        placeholder: "Введите название")
         addTypeTextFieldView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(spacingBetweenViews)
-            make.height.equalTo(addTypeTextFieldView.heightView)
             make.leading.trailing.equalToSuperview().inset(spacingBetweenViews)
         }
     }
@@ -157,6 +161,7 @@ class AddTasteViewController: BaseViewController {
             self.addTypeButton.isHidden = true
             self.addButtonTopToAddTypeViewConstraint?.isActive = false
             self.addButtonTopToAddTypeButtonConstraint?.isActive = true
+            self.sheetViewController?.updateIntrinsicHeight()
         }
         closeTypeViewButton.imageSize = 20.0
         closeTypeViewButton.image = UIImage(systemName: "multiply")
@@ -179,6 +184,7 @@ class AddTasteViewController: BaseViewController {
             addButtonTopToAddTypeButtonConstraint = make.top.equalTo(openAddTypeButton.snp.bottom)
                                                           .offset(spacingBetweenViews).constraint
             make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(spacingBetweenViews)
             make.height.equalTo(45)
         }
         addButtonTopToAddTypeViewConstraint?.isActive = false
@@ -212,6 +218,7 @@ extension AddTasteViewController: AddTasteViewInputProtocol {
         addTypeView.isHidden = true
         addButtonTopToAddTypeViewConstraint?.isActive = false
         addButtonTopToAddTypeButtonConstraint?.isActive = true
+        sheetViewController?.updateIntrinsicHeight()
     }
 }
 

@@ -92,7 +92,6 @@ final class AddTobaccoViewController: HTScrollContentViewController {
         nameView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(topSpacingFromSuperview)
             make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
-            make.height.equalTo(nameView.heightView)
         }
     }
     private func setupManufacturerPickerView() {

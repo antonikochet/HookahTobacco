@@ -86,7 +86,7 @@ final class AddManufacturerViewController: HTScrollContentViewController {
                                     delegate: self)
         nameTextFieldView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(topSpacingFromSuperview)
-            make.height.equalTo(nameTextFieldView.heightView)
+//            make.height.equalTo(nameTextFieldView.heightView)
             make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
         }
     }
@@ -117,7 +117,6 @@ final class AddManufacturerViewController: HTScrollContentViewController {
                                     delegate: self)
         linkTextFieldView.snp.makeConstraints { make in
             make.top.equalTo(descriptionView.snp.bottom).offset(spacingBetweenViews)
-            make.height.equalTo(linkTextFieldView.heightView)
             make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
         }
     }

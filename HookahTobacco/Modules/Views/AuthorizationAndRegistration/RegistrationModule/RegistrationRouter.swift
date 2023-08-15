@@ -10,7 +10,7 @@
 import UIKit
 
 protocol RegistrationRouterProtocol: RouterProtocol {
-    func showProfileRegistrationView(username: String, email: String, password: String)
+    func showProfileRegistrationView(user: RegistrationUserProtocol)
 }
 
 final class RegistrationRouter: RegistrationRouterProtocol {
@@ -20,7 +20,8 @@ final class RegistrationRouter: RegistrationRouterProtocol {
         self.appRouter = appRouter
     }
 
-    func showProfileRegistrationView(username: String, email: String, password: String) {
-        print("show profile registration view")
+    func showProfileRegistrationView(user: RegistrationUserProtocol) {
+        let data = ProfileEditDataModule(isRegistration: true, user: user)
+        appRouter.pushViewController(module: ProfileEditModule.self, moduleData: data, animateDisplay: true)
     }
 }

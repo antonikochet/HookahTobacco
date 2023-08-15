@@ -96,7 +96,6 @@ class AddCountryViewController: BaseViewController {
                                    placeholder: "Введите название")
         addTextFieldView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(spacingBetweenViews)
-            make.height.equalTo(addTextFieldView.heightView)
             make.leading.trailing.equalToSuperview().inset(spacingBetweenViews)
         }
     }

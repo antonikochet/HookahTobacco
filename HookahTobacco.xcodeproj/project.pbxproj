@@ -44,6 +44,19 @@
 		3895E5032A542FB7005D87EE /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3895E5022A542FB7005D87EE /* Api.swift */; };
 		3895E5062A5447AF005D87EE /* Moya+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3895E5052A5447AF005D87EE /* Moya+Request.swift */; };
 		38A027BA2A0A7B6400D3C3E7 /* extention + Encodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A027B92A0A7B6400D3C3E7 /* extention + Encodable.swift */; };
+		38C3ACBF2A8BCACC001D79EB /* DatePickerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C3ACBA2A8BCACC001D79EB /* DatePickerPresenter.swift */; };
+		38C3ACC02A8BCACC001D79EB /* DatePickerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C3ACBB2A8BCACC001D79EB /* DatePickerRouter.swift */; };
+		38C3ACC12A8BCACC001D79EB /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C3ACBC2A8BCACC001D79EB /* DatePickerViewController.swift */; };
+		38C3ACC22A8BCACC001D79EB /* DatePickerInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C3ACBD2A8BCACC001D79EB /* DatePickerInteractor.swift */; };
+		38C3ACC72A8BD4C0001D79EB /* DatePickerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C3ACC52A8BD4C0001D79EB /* DatePickerModule.swift */; };
+		38C3ACC82A8BD4C0001D79EB /* DatePickerAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C3ACC62A8BD4C0001D79EB /* DatePickerAssembly.swift */; };
+		38CE8CC82A8955F300B00307 /* ProfileEditPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CE8CC32A8955F300B00307 /* ProfileEditPresenter.swift */; };
+		38CE8CC92A8955F300B00307 /* ProfileEditRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CE8CC42A8955F300B00307 /* ProfileEditRouter.swift */; };
+		38CE8CCA2A8955F300B00307 /* ProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CE8CC52A8955F300B00307 /* ProfileEditViewController.swift */; };
+		38CE8CCB2A8955F300B00307 /* ProfileEditInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CE8CC62A8955F300B00307 /* ProfileEditInteractor.swift */; };
+		38CE8CCC2A8955F300B00307 /* ProfileEditEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CE8CC72A8955F300B00307 /* ProfileEditEntity.swift */; };
+		38CE8CD52A89715100B00307 /* ProfileEditModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CE8CD32A89715100B00307 /* ProfileEditModule.swift */; };
+		38CE8CD62A89715100B00307 /* ProfileEditAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CE8CD42A89715100B00307 /* ProfileEditAssembly.swift */; };
 		38DDDE562A8694C000EA19A3 /* Api+Authorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE552A8694C000EA19A3 /* Api+Authorization.swift */; };
 		38DDDE582A8697BB00EA19A3 /* Request+Authorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE572A8697BB00EA19A3 /* Request+Authorization.swift */; };
 		38DDDE5B2A8699E900EA19A3 /* ApiAuthServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE5A2A8699E900EA19A3 /* ApiAuthServices.swift */; };
@@ -295,6 +308,19 @@
 		3895E5022A542FB7005D87EE /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 		3895E5052A5447AF005D87EE /* Moya+Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Moya+Request.swift"; sourceTree = "<group>"; };
 		38A027B92A0A7B6400D3C3E7 /* extention + Encodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extention + Encodable.swift"; sourceTree = "<group>"; };
+		38C3ACBA2A8BCACC001D79EB /* DatePickerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerPresenter.swift; sourceTree = "<group>"; };
+		38C3ACBB2A8BCACC001D79EB /* DatePickerRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerRouter.swift; sourceTree = "<group>"; };
+		38C3ACBC2A8BCACC001D79EB /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
+		38C3ACBD2A8BCACC001D79EB /* DatePickerInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerInteractor.swift; sourceTree = "<group>"; };
+		38C3ACC52A8BD4C0001D79EB /* DatePickerModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerModule.swift; sourceTree = "<group>"; };
+		38C3ACC62A8BD4C0001D79EB /* DatePickerAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerAssembly.swift; sourceTree = "<group>"; };
+		38CE8CC32A8955F300B00307 /* ProfileEditPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditPresenter.swift; sourceTree = "<group>"; };
+		38CE8CC42A8955F300B00307 /* ProfileEditRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditRouter.swift; sourceTree = "<group>"; };
+		38CE8CC52A8955F300B00307 /* ProfileEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
+		38CE8CC62A8955F300B00307 /* ProfileEditInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditInteractor.swift; sourceTree = "<group>"; };
+		38CE8CC72A8955F300B00307 /* ProfileEditEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditEntity.swift; sourceTree = "<group>"; };
+		38CE8CD32A89715100B00307 /* ProfileEditModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditModule.swift; sourceTree = "<group>"; };
+		38CE8CD42A89715100B00307 /* ProfileEditAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditAssembly.swift; sourceTree = "<group>"; };
 		38DDDE552A8694C000EA19A3 /* Api+Authorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Api+Authorization.swift"; sourceTree = "<group>"; };
 		38DDDE572A8697BB00EA19A3 /* Request+Authorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Request+Authorization.swift"; sourceTree = "<group>"; };
 		38DDDE5A2A8699E900EA19A3 /* ApiAuthServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiAuthServices.swift; sourceTree = "<group>"; };
@@ -683,6 +709,55 @@
 				387121B02A55AE5D00B6005E /* Targets */,
 			);
 			path = Moya;
+			sourceTree = "<group>";
+		};
+		38C3ACB82A8BCA92001D79EB /* HelperViews */ = {
+			isa = PBXGroup;
+			children = (
+				38C3ACB92A8BCAAF001D79EB /* DatePickerModule */,
+			);
+			path = HelperViews;
+			sourceTree = "<group>";
+		};
+		38C3ACB92A8BCAAF001D79EB /* DatePickerModule */ = {
+			isa = PBXGroup;
+			children = (
+				38C3ACBA2A8BCACC001D79EB /* DatePickerPresenter.swift */,
+				38C3ACBB2A8BCACC001D79EB /* DatePickerRouter.swift */,
+				38C3ACBC2A8BCACC001D79EB /* DatePickerViewController.swift */,
+				38C3ACBD2A8BCACC001D79EB /* DatePickerInteractor.swift */,
+			);
+			path = DatePickerModule;
+			sourceTree = "<group>";
+		};
+		38C3ACC42A8BD4AE001D79EB /* HelperViews */ = {
+			isa = PBXGroup;
+			children = (
+				38C3ACC52A8BD4C0001D79EB /* DatePickerModule.swift */,
+				38C3ACC62A8BD4C0001D79EB /* DatePickerAssembly.swift */,
+			);
+			path = HelperViews;
+			sourceTree = "<group>";
+		};
+		38CE8CC22A8955D500B00307 /* ProfileEditModule */ = {
+			isa = PBXGroup;
+			children = (
+				38CE8CC32A8955F300B00307 /* ProfileEditPresenter.swift */,
+				38CE8CC42A8955F300B00307 /* ProfileEditRouter.swift */,
+				38CE8CC52A8955F300B00307 /* ProfileEditViewController.swift */,
+				38CE8CC62A8955F300B00307 /* ProfileEditInteractor.swift */,
+				38CE8CC72A8955F300B00307 /* ProfileEditEntity.swift */,
+			);
+			path = ProfileEditModule;
+			sourceTree = "<group>";
+		};
+		38CE8CD22A89713E00B00307 /* ProfileEdit */ = {
+			isa = PBXGroup;
+			children = (
+				38CE8CD32A89715100B00307 /* ProfileEditModule.swift */,
+				38CE8CD42A89715100B00307 /* ProfileEditAssembly.swift */,
+			);
+			path = ProfileEdit;
 			sourceTree = "<group>";
 		};
 		38DDDE542A86949000EA19A3 /* Authorization */ = {
@@ -1471,6 +1546,8 @@
 		B9E7AC9F28F4518C00A3D7E5 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				38C3ACC42A8BD4AE001D79EB /* HelperViews */,
+				38CE8CD22A89713E00B00307 /* ProfileEdit */,
 				B92A46B0296731100006B787 /* Profile */,
 				B97181542911252100E5DB28 /* DetailInfoManufacturer */,
 				B9ED910A2909D24500DC3A6D /* TobaccoList */,
@@ -1537,12 +1614,14 @@
 		B9E8DA5328F7835700CCA034 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				38C3ACB82A8BCA92001D79EB /* HelperViews */,
 				B9EE23522910196B0098E4E0 /* DetailInfoManufacturerModule */,
 				B95699AB28F709C000D9E584 /* ManufacturerListModule */,
 				B9B7274629096C5A00EB7323 /* TobaccoListModule */,
 				B981CB9E2930DB8500705422 /* DetailTobaccoModule */,
 				B9C925F0294F52D20085BB02 /* AuthorizationAndRegistration */,
 				B92A46A22966F9DC0006B787 /* ProfileModule */,
+				38CE8CC22A8955D500B00307 /* ProfileEditModule */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1732,6 +1811,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38CE8CCB2A8955F300B00307 /* ProfileEditInteractor.swift in Sources */,
 				B9D6E92F29FDC651001D44D5 /* Taste+Codable.swift in Sources */,
 				B94E17B9292126DD0008CB73 /* AddTastesModule.swift in Sources */,
 				B94306D6292053BA00EADFA0 /* TasteCollectionViewCell.swift in Sources */,
@@ -1748,6 +1828,7 @@
 				B98E1DE528F08D4400964B8F /* AddTobaccoPresenter.swift in Sources */,
 				387121B32A55AE7F00B6005E /* Api+Taste.swift in Sources */,
 				B98E1DEA28F08D4400964B8F /* AddTobaccoEntity.swift in Sources */,
+				38CE8CCA2A8955F300B00307 /* ProfileEditViewController.swift in Sources */,
 				B9C925F7294F53720085BB02 /* RegistrationPresenter.swift in Sources */,
 				3855053B2A8155FA00855E50 /* ViewProtocol.swift in Sources */,
 				B989B87329339668007ECC59 /* PopupAlertView.swift in Sources */,
@@ -1777,6 +1858,7 @@
 				B90A79122899E2BF00B90193 /* AppDelegate.swift in Sources */,
 				B9631C5E292400FB00BBC09B /* AddTasteAssembly.swift in Sources */,
 				B9E8DA5028F7827900CCA034 /* ManufacturerListModule.swift in Sources */,
+				38CE8CD62A89715100B00307 /* ProfileEditAssembly.swift in Sources */,
 				B9567C92291C4BC300CF6176 /* ImageButtonPickerView.swift in Sources */,
 				B9B358CC291169E2001D178F /* EmptyTableCell.swift in Sources */,
 				B9488F7D2934E9DB00D8B3B1 /* TobaccoLine.swift in Sources */,
@@ -1845,6 +1927,7 @@
 				B9D6055928D4CB590058D19E /* Manufacturer.swift in Sources */,
 				B97EE9F3292BB3C30090B344 /* UserSettingsService.swift in Sources */,
 				38DDDE6E2A86CC5300EA19A3 /* Api+User.swift in Sources */,
+				38C3ACC22A8BCACC001D79EB /* DatePickerInteractor.swift in Sources */,
 				B97EE9F6292BB3E50090B344 /* UserSettingsServiceProtocol.swift in Sources */,
 				B9ED9102290989EF00DC3A6D /* TobaccoListPresenter.swift in Sources */,
 				B90B671D29A049D0004460C8 /* GlobalConstant.swift in Sources */,
@@ -1872,6 +1955,7 @@
 				B90A79142899E2BF00B90193 /* SceneDelegate.swift in Sources */,
 				B9E7ACB928F495B300A3D7E5 /* AddManufacturerAssembly.swift in Sources */,
 				38F9B8A72A80355300EAC0A0 /* AddCountryModule.swift in Sources */,
+				38CE8CD52A89715100B00307 /* ProfileEditModule.swift in Sources */,
 				B9631C4A2921AB7100BBC09B /* TasteCollectionView.swift in Sources */,
 				B981B5272938DE3000A02D9F /* AddSegmentedControlView.swift in Sources */,
 				B9DBE50E290DE11F005B185C /* HTNavigationController.swift in Sources */,
@@ -1885,9 +1969,12 @@
 				B92A46B42967313B0006B787 /* ProfileAssembly.swift in Sources */,
 				B938A51A2940DB2500145EF0 /* AdminDataManager.swift in Sources */,
 				3818E0382A80FD1C00C9D02C /* BottomSheetPresenter.swift in Sources */,
+				38C3ACC12A8BCACC001D79EB /* DatePickerViewController.swift in Sources */,
 				B938A51C2940F1E900145EF0 /* AdminDataManagerAssembly.swift in Sources */,
+				38C3ACC02A8BCACC001D79EB /* DatePickerRouter.swift in Sources */,
 				B9D6E93329FDC974001D44D5 /* TasteType+Codable.swift in Sources */,
 				B97D05B82929928000F4629B /* ManufacturerRealmObject.swift in Sources */,
+				38CE8CC82A8955F300B00307 /* ProfileEditPresenter.swift in Sources */,
 				38F9B8A02A80047E00EAC0A0 /* AddCountryEntity.swift in Sources */,
 				B94306CB2920277E00EADFA0 /* AddTastesViewController.swift in Sources */,
 				3802046729FE6D1A000193A1 /* ApiError.swift in Sources */,
@@ -1911,19 +1998,24 @@
 				38DDDE5B2A8699E900EA19A3 /* ApiAuthServices.swift in Sources */,
 				B90B671529A034FB004460C8 /* ApiServices.swift in Sources */,
 				B9BA7947295B9CE7009188D6 /* RegistrationModule.swift in Sources */,
+				38C3ACC82A8BD4C0001D79EB /* DatePickerAssembly.swift in Sources */,
 				38E8E6392A87B9B600041443 /* RealmProviderAssembly.swift in Sources */,
 				B9781D32293A45A800654567 /* AddSwitchView.swift in Sources */,
 				B9E7ACB828F495B300A3D7E5 /* AddManufacturerModule.swift in Sources */,
 				B9CA939D2969C01C00F258F3 /* extension + TableKit.swift in Sources */,
 				B9DBE935290B0C07004D7B97 /* ImagePickerView.swift in Sources */,
 				B981829C292A568100DEA9F0 /* DataBaseError.swift in Sources */,
+				38C3ACC72A8BD4C0001D79EB /* DatePickerModule.swift in Sources */,
 				B97EE9E7292B85910090B344 /* DataManager.swift in Sources */,
 				B9C9260C294F78140085BB02 /* AuthHandlerErrors.swift in Sources */,
 				B98E1DE628F08D4400964B8F /* AddTobaccoRouter.swift in Sources */,
 				3813D6A92A6AB214009DDCBD /* ImageFormat.swift in Sources */,
 				38DDDE582A8697BB00EA19A3 /* Request+Authorization.swift in Sources */,
+				38CE8CC92A8955F300B00307 /* ProfileEditRouter.swift in Sources */,
+				38CE8CCC2A8955F300B00307 /* ProfileEditEntity.swift in Sources */,
 				B97181572911254100E5DB28 /* DetailInfoManufacturerModule.swift in Sources */,
 				B9A4708628D2BB6400CA6FAA /* AddTextFieldView.swift in Sources */,
+				38C3ACBF2A8BCACC001D79EB /* DatePickerPresenter.swift in Sources */,
 				B92A46AB2966F9DC0006B787 /* ProfileInteractor.swift in Sources */,
 				B9EE2376291023F00098E4E0 /* DetailInfoManufacturerPresenter.swift in Sources */,
 				B94E17BA292126DD0008CB73 /* AddTastesAssembly.swift in Sources */,
