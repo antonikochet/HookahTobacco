@@ -14,5 +14,7 @@ protocol GetDataNetworkingServiceProtocol {
                                                        completion: GetDataNetworkingServiceCompletion<[T]>?)
     func getTobaccos(for manufacturer: Manufacturer, completion: GetDataNetworkingServiceCompletion<[Tobacco]>?)
     func getUser(completion: GetDataNetworkingServiceCompletion<UserProtocol>?)
+    func getFavoriteTobaccos(completion: GetDataNetworkingServiceCompletion<[Tobacco]>?)
+    func getWantToBuyTobaccos(completion: GetDataNetworkingServiceCompletion<[Tobacco]>?)
     func getDataBaseVersion(completion: GetDataNetworkingServiceCompletion<Int>?)
 }

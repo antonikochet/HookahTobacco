@@ -300,6 +300,28 @@ extension DataManager: DataManagerProtocol {
         }
     }
 
+    func receiveFavoriteTobaccos(completion: ReceiveCompletion<Tobacco>?) {
+        getDataNetworkingService.getFavoriteTobaccos { result in
+            switch result {
+            case .success(let tobaccos):
+                completion?(.success(tobaccos))
+            case .failure(let error):
+                completion?(.failure(error))
+            }
+        }
+    }
+
+    func receiveWantBuyTobaccos(completion: ReceiveCompletion<Tobacco>?) {
+        getDataNetworkingService.getWantToBuyTobaccos { result in
+            switch result {
+            case .success(let tobaccos):
+                completion?(.success(tobaccos))
+            case .failure(let error):
+                completion?(.failure(error))
+            }
+        }
+    }
+
     func updateFavorite(for tobacco: Tobacco, completion: Completion?) {
         // TODO: - если isOffileMode == true то только в базе, если false то отправить запрос и потом только обновить в бд
         dataBaseService.update(entity: tobacco) {

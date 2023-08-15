@@ -30,7 +30,7 @@ extension Api.Users: DefaultTarget {
         case .getFavoritesTobacco:
             return "v1/user/favorite_tobacco/"
         case .getBuyToTobacco:
-            return "v1/user/wish_tobaccos"
+            return "v1/user/wish_tobaccos/"
         }
     }
 

@@ -11,7 +11,7 @@ import UIKit
 
 struct TobaccoListDataModile: DataModuleProtocol {
     let isAdminMode: Bool
-    let filter: TobaccoListFilters
+    let filter: TobaccoListInput
 }
 
 class TobaccoListModule: ModuleProtocol {

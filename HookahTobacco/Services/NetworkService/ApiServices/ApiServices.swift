@@ -129,6 +129,16 @@ extension ApiServices: GetDataNetworkingServiceProtocol {
         }
     }
 
+    func getFavoriteTobaccos(completion: GetDataNetworkingServiceCompletion<[Tobacco]>?) {
+        let target = Api.Users.getFavoritesTobacco
+        sendRequest(object: [Tobacco].self, target: target, completion: completion)
+    }
+
+    func getWantToBuyTobaccos(completion: GetDataNetworkingServiceCompletion<[Tobacco]>?) {
+        let target = Api.Users.getBuyToTobacco
+        sendRequest(object: [Tobacco].self, target: target, completion: completion)
+    }
+
     func getDataBaseVersion(completion: GetDataNetworkingServiceCompletion<Int>?) {
         completion?(.success(1))
     }

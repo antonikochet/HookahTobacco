@@ -13,7 +13,7 @@ import Swinject
 struct TobaccoListDependency {
     var appRouter: AppRouterProtocol
     var isAdminMode: Bool
-    var filter: TobaccoListFilters
+    var filter: TobaccoListInput
 }
 
 class TobaccoListAssembly: Assembly {
@@ -30,7 +30,7 @@ class TobaccoListAssembly: Assembly {
             let updateDataManager = resolver.resolve(ObserverProtocol.self)!
 
             return TobaccoListInteractor(dependency.isAdminMode,
-                                         filter: dependency.filter,
+                                         input: dependency.filter,
                                          getDataManager: getDataManager,
                                          getImageManager: getImageManager,
                                          updateDataManager: updateDataManager)
