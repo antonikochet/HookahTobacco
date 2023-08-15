@@ -8,12 +8,11 @@
 import Foundation
 
 struct User: UserProtocol {
-    var uid: String
+    var uid: Int
     var username: String
     var email: String
     var firstName: String?
     var lastName: String?
     var isAdmin: Bool
     var dateOfBirth: Date?
-    var isAnonymous: Bool = false
 }

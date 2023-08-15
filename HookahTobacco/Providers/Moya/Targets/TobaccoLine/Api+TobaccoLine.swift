@@ -11,7 +11,7 @@ extension Api {
     enum TobaccoLines {
         case list
         case create(TobaccoLine)
-        case update(id: String, TobaccoLine)
+        case update(id: Int, TobaccoLine)
     }
 }
 

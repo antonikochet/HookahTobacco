@@ -46,7 +46,7 @@ struct RegistrationUser: RegistrationUserProtocol {
 extension RegistrationUser {
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        
+
         try container.encode(username, forKey: .username)
         try container.encode(email, forKey: .email)
         if !isEdit {

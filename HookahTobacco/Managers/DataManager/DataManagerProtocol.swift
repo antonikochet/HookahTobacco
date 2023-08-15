@@ -15,7 +15,7 @@ protocol DataManagerProtocol {
 
     func receiveData<T: DataManagerType>(typeData: T.Type, completion: ReceiveCompletion<T>?)
     func receiveTobaccos(for manufacturer: Manufacturer, completion: ReceiveCompletion<Tobacco>?)
-    func receiveTastes(at ids: [String], completion: ReceiveCompletion<Taste>?)
+    func receiveTastes(at ids: [Int], completion: ReceiveCompletion<Taste>?)
     func getUser(completion: ((Result<UserProtocol, Error>) -> Void)?)
     func receiveFavoriteTobaccos(completion: ReceiveCompletion<Tobacco>?)
     func receiveWantBuyTobaccos(completion: ReceiveCompletion<Tobacco>?)

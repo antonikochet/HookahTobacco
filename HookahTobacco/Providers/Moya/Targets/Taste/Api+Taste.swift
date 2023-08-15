@@ -10,10 +10,10 @@ import Moya
 extension Api {
     enum Tastes {
         case list
-        case detail(id: String)
+        case detail(id: Int)
         case create(Taste)
-        case update(id: String, Taste)
-        case delete(id: String)
+        case update(id: Int, Taste)
+        case delete(id: Int)
     }
 }
 

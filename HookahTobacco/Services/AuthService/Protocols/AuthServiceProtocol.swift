@@ -8,14 +8,13 @@
 import Foundation
 
 protocol UserProtocol {
-    var uid: String { get }
+    var uid: Int { get }
     var username: String { get }
     var email: String { get }
     var firstName: String? { get }
     var lastName: String? { get }
     var isAdmin: Bool { get }
     var dateOfBirth: Date? { get }
-    var isAnonymous: Bool { get }
 }
 
 protocol AuthServiceProtocol {

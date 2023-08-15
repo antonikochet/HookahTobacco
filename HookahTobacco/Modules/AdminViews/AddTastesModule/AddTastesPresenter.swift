@@ -42,7 +42,7 @@ extension AddTastesPresenter: AddTastesInteractorOutputProtocol {
     }
 
     func initialAllTastes(_ tastes: [Taste], with selectedTastes: [Taste]) {
-        let selectedIdTastes: Set<String> = Set(selectedTastes.map { $0.uid })
+        let selectedIdTastes: Set<Int> = Set(selectedTastes.map { $0.uid })
         allTastesViewModel = tastes.map { taste in
             return createTasteViewModel(taste, isSelect: selectedIdTastes.contains(taste.uid))
         }

@@ -19,11 +19,11 @@ struct DatePickerDataModule: DataModuleProtocol {
 
 class DatePickerModule: ModuleProtocol {
     private var data: DataModuleProtocol?
-    
+
     required init(_ data: DataModuleProtocol? = nil) {
         self.data = data
     }
-    
+
     func createModule(_ appRouter: AppRouterProtocol) -> UIViewController? {
         var dependency = DatePickerDependency(appRouter: appRouter)
         if let data = data as? DatePickerDataModule {

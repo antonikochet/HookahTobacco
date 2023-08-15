@@ -10,7 +10,7 @@ import Realm
 
 class TobaccoLineRealmObject: Object {
     @Persisted(primaryKey: true) var id: ObjectId
-    @Persisted var uid: String = ""
+    @Persisted var uid: Int = -1
     @Persisted var name: String = ""
     @Persisted var packetingFormat: MutableSet<Int>
     @Persisted var tobaccoType: TobaccoTypeRealmObject = .none

@@ -102,7 +102,7 @@ extension AddTasteInteractor: AddTasteInteractorInputProtocol {
         if let taste {
             presenter.initialData(taste: taste, isEdit: true)
         } else {
-            let taste = Taste(uid: "", taste: "", typeTaste: [])
+            let taste = Taste(uid: -1, taste: "", typeTaste: [])
             presenter.initialData(taste: taste, isEdit: false)
         }
         receiveType()
@@ -115,7 +115,7 @@ extension AddTasteInteractor: AddTasteInteractorInputProtocol {
                               typeTaste: selectedTypes)
             editTaste(taste)
         } else {
-            let taste = Taste(uid: "", taste: nameTaste, typeTaste: selectedTypes)
+            let taste = Taste(uid: -1, taste: nameTaste, typeTaste: selectedTypes)
             addTaste(taste)
         }
     }

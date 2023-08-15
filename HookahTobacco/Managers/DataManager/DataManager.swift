@@ -265,7 +265,7 @@ extension DataManager: DataManagerProtocol {
         }
     }
 
-    func receiveTastes(at ids: [String], completion: ReceiveCompletion<Taste>?) {
+    func receiveTastes(at ids: [Int], completion: ReceiveCompletion<Taste>?) {
         if isSynchronized && isOfflineMode {
             dataBaseService.read(type: Taste.self) { tastes in
                 let setIds = Set(ids)

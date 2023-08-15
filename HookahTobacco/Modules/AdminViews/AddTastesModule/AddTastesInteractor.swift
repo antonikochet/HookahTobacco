@@ -9,7 +9,7 @@
 
 import Foundation
 
-typealias SelectedTastes = [String: Taste]
+typealias SelectedTastes = [Int: Taste]
 
 protocol AddTastesInteractorInputProtocol: AnyObject {
     func receiveStartingDataView()

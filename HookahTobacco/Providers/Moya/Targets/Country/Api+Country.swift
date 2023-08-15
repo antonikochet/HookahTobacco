@@ -10,10 +10,10 @@ import Moya
 extension Api {
     enum Countries {
         case list
-        case detail(id: String)
+        case detail(id: Int)
         case create(Country)
-        case update(id: String, Country)
-        case delete(id: String)
+        case update(id: Int, Country)
+        case delete(id: Int)
     }
 }
 

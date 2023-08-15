@@ -23,27 +23,24 @@ extension Tobacco: Codable {
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        if !uid.isEmpty,
-            let uid = Int(uid) {
+        if uid != -1 {
             try container.encode(uid, forKey: .uid)
         }
         try container.encode(name, forKey: .name)
         try container.encode(tastes.compactMap { Int($0.uid) }, forKey: .tastes)
         try container.encode(idManufacturer, forKey: .manufacturer)
         try container.encode(description, forKey: .description)
-        if let uid = Int(line.uid) {
-            try container.encode(uid, forKey: .lineId)
-        }
+        try container.encode(line.uid, forKey: .lineId)
     }
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = String(try container.decode(Int.self, forKey: .uid))
-        uid = String(try container.decode(Int.self, forKey: .uid))
+        uid = try container.decode(Int.self, forKey: .uid)
         name = try container.decode(String.self, forKey: .name)
         tastes = try container.decode([Taste].self, forKey: .tastes)
         let manufacturer = try container.decode(ManufacturerForTobacco.self, forKey: .manufacturer)
-        idManufacturer = String(manufacturer.id)
+        idManufacturer = manufacturer.id
         nameManufacturer = manufacturer.name
         description = try container.decode(String.self, forKey: .description)
         line = try container.decode(TobaccoLine.self, forKey: .line)

@@ -12,7 +12,7 @@ import Foundation
 protocol AddCountryInteractorInputProtocol: AnyObject {
     func receiveStartingData()
     func addCountry(_ name: String)
-    func editCountry(_ name: String, with uid: String)
+    func editCountry(_ name: String, with uid: Int)
     func receiveCountries() -> [Country]
 }
 
@@ -91,7 +91,7 @@ extension AddCountryInteractor: AddCountryInteractorInputProtocol {
         sendNewCountry(newCountry)
     }
 
-    func editCountry(_ name: String, with uid: String) {
+    func editCountry(_ name: String, with uid: Int) {
         guard let index = countries.firstIndex(where: { $0.uid == uid }) else {
             presenter.receivedError(with: "В списке нет такой страны с uid: \(uid)")
             return

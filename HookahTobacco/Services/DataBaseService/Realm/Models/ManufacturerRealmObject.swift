@@ -9,7 +9,7 @@ import RealmSwift
 
 class ManufacturerRealmObject: Object {
     @Persisted(primaryKey: true) var id: ObjectId
-    @Persisted var uid: String = ""
+    @Persisted var uid: Int = -1
     @Persisted var name: String = ""
     @Persisted var country: String = ""
     @Persisted var descriptionManufacturer: String = ""

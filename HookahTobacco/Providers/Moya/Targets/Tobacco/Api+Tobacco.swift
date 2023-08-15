@@ -11,8 +11,8 @@ extension Api {
     enum Tobacco {
         case list
         case create(TobaccoRequest)
-        case update(id: String, TobaccoRequest)
-        case delete(id: String)
+        case update(id: Int, TobaccoRequest)
+        case delete(id: Int)
     }
 }
 

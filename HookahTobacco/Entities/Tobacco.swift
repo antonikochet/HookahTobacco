@@ -9,10 +9,10 @@ import Foundation
 
 struct Tobacco {
     var id: String = ""
-    var uid: String = ""
+    var uid: Int = -1
     let name: String
     let tastes: [Taste]
-    let idManufacturer: String
+    let idManufacturer: Int
     let nameManufacturer: String
     let description: String
     let line: TobaccoLine

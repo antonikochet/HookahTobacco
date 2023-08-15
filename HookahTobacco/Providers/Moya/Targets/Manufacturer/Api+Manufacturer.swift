@@ -10,10 +10,10 @@ import Moya
 extension Api {
     enum Manufacturer {
         case list
-        case detail(id: String)
+        case detail(id: Int)
         case create(ManufacturerRequest)
-        case update(id: String, ManufacturerRequest)
-        case tobaccos(id: String)
+        case update(id: Int, ManufacturerRequest)
+        case tobaccos(id: Int)
     }
 }
 

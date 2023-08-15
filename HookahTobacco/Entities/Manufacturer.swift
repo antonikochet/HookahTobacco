@@ -9,7 +9,7 @@ import Foundation
 
 struct Manufacturer {
     var id: String = ""
-    var uid: String = ""
+    var uid: Int = -1
     let name: String
     let country: Country
     let description: String

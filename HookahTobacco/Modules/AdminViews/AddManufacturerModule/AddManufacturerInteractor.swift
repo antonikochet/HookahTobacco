@@ -195,8 +195,7 @@ extension AddManufacturerInteractor: AddManufacturerInteractorInputProtocol {
 
     func receiveEditingTobaccoLine(at index: Int) {
         guard index < tobaccoLines.count,
-            let strId = manufacturer?.uid,
-            let id = Int(strId) else { return }
+            let id = manufacturer?.uid else { return }
         presenter.changeTobaccoLine(for: id, tobaccoLines[index])
     }
 

@@ -8,5 +8,5 @@
 import Foundation
 
 protocol DataNetworkingServiceProtocol {
-    var uid: String { get set }
+    var uid: Int { get set }
 }

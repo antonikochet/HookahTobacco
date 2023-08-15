@@ -186,7 +186,7 @@ class RealmDataBaseService {
         guard let realmObjects = realmObjects as? [TobaccoLineRealmObject] else { return }
         realmProvider.read(type: TobaccoRealmObject.self) { threadSafeObject in
             guard let wrapperdValue = threadSafeObject.wrappedValue else { return }
-            var dict: [String: [TobaccoRealmObject]] = [:]
+            var dict: [Int: [TobaccoRealmObject]] = [:]
             wrapperdValue.forEach { object in
                 guard let tobacco = object as? TobaccoRealmObject else { return }
                 let uid = tobacco.uidTobaccoLine

@@ -9,7 +9,7 @@ import Foundation
 
 struct TobaccoLine {
     var id: String = ""
-    var uid: String = ""
+    var uid: Int = -1
     let name: String
     let packetingFormat: [Int]
     let tobaccoType: TobaccoType

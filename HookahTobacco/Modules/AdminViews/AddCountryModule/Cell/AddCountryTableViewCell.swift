@@ -69,7 +69,7 @@ final class AddCountryTableViewCell: UITableViewCell, ConfigurableCell {
 
     // MARK: - ConfigurableCell
     func configure(with item: AddCountryTableViewCellItem) {
-        idLabel.text = item.country.uid
+        idLabel.text = String(item.country.uid)
         nameLabel.text = item.country.name
     }
 }

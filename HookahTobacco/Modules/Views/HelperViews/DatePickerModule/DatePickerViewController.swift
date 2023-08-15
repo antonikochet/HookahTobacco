@@ -70,7 +70,7 @@ class DatePickerViewController: UIViewController, BottomSheetPresenter {
         chooseButton.addTarget(self,
                              action: #selector(chooseDate),
                              for: .touchUpInside)
-        
+
         view.addSubview(chooseButton)
         chooseButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview().inset(16.0)

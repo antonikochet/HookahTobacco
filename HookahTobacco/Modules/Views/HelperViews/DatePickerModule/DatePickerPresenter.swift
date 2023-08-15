@@ -35,11 +35,11 @@ extension DatePickerPresenter: DatePickerViewOutputProtocol {
     func viewDidLoad() {
         interactor.receiveStartingData()
     }
-    
+
     func changedDateOnPicker(_ newDate: Date) {
         dateValue = newDate
     }
-    
+
     func pressedChooseButton() {
         router.dismissView(dateValue)
     }

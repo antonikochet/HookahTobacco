@@ -43,8 +43,7 @@ extension TobaccoLine: Codable {
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        if !uid.isEmpty,
-            let uid = Int(uid) {
+        if uid != -1 {
             try container.encode(uid, forKey: .uid)
         }
         try container.encode(name, forKey: .name)
@@ -61,7 +60,7 @@ extension TobaccoLine: Codable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = String(try container.decode(Int.self, forKey: .uid))
-        uid = String(try container.decode(Int.self, forKey: .uid))
+        uid = try container.decode(Int.self, forKey: .uid)
         name = try container.decode(String.self, forKey: .name)
         packetingFormat = try container.decode(String.self, forKey: .packetingFormat)
             .split(separator: ",")

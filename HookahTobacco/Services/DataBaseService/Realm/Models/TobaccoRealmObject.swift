@@ -9,11 +9,11 @@ import RealmSwift
 
 class TobaccoRealmObject: Object {
     @Persisted(primaryKey: true) var id: ObjectId
-    @Persisted var uid: String = ""
+    @Persisted var uid: Int = -1
     @Persisted var name: String = ""
     @Persisted var descriptionTobacco: String = ""
-    @Persisted var uidManufacturer: String = ""
-    @Persisted var uidTobaccoLine: String = ""
+    @Persisted var uidManufacturer: Int = -1
+    @Persisted var uidTobaccoLine: Int = -1
     @Persisted var isFavorite: Bool = false
     @Persisted var isWantBuy: Bool = false
     @Persisted(originProperty: "tobaccos") var manufacturer: LinkingObjects<ManufacturerRealmObject>

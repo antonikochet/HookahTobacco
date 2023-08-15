@@ -10,7 +10,7 @@ import Foundation
 extension User: Decodable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        uid = String(try container.decode(Int.self, forKey: .uid))
+        uid = try container.decode(Int.self, forKey: .uid)
         username = try container.decode(String.self, forKey: .username)
         email = try container.decode(String.self, forKey: .email)
         firstName = try container.decode(String?.self, forKey: .firstName)

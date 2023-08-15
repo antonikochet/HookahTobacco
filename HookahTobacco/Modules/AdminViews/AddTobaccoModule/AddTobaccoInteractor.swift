@@ -108,7 +108,7 @@ class AddTobaccoInteractor {
         }
     }
 
-    private func receiveSelectedManufacturer(by uid: String) -> Manufacturer? {
+    private func receiveSelectedManufacturer(by uid: Int) -> Manufacturer? {
         guard let manufacturers = manufacturers else { return nil }
         let manufacturer = manufacturers.first(where: { $0.uid == uid })
         return manufacturer
@@ -144,16 +144,16 @@ class AddTobaccoInteractor {
 extension AddTobaccoInteractor: AddTobaccoInteractorInputProtocol {
     func sendNewTobaccoToServer(_ data: AddTobaccoEntity.Tobacco) {
         guard let selectManufacturer = selectedManufacturer,
-              !selectManufacturer.uid.isEmpty else {
+              selectManufacturer.uid != -1 else {
             presenter.receivedError(with: "Не выбран производитель для табака!")
             return
         }
         guard let selectTobaccoLine = selectedTobaccoLine,
-              !selectTobaccoLine.uid.isEmpty else {
+              selectTobaccoLine.uid != -1 else {
             presenter.receivedError(with: "Не выбрана линейка табака!")
             return
         }
-        var tobacco = Tobacco(uid: tobacco?.uid ?? "",
+        var tobacco = Tobacco(uid: tobacco?.uid ?? -1,
                               name: data.name,
                               tastes: Array(tastes.values),
                               idManufacturer: selectManufacturer.uid,
