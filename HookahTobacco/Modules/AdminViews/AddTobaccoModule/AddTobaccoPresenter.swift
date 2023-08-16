@@ -32,8 +32,10 @@ extension AddTobaccoPresenter: AddTobaccoInteractorOutputProtocol {
 
     func receivedSuccessEditing(with changedData: Tobacco) {
         view.hideLoading()
-        router.showSuccess(delay: 2.0)
-        router.dismissView(with: changedData)
+        router.showSuccess(delay: 2.0) { [weak self] in
+            self?.router.dismissView(with: changedData)
+        }
+        
     }
 
     func receivedError(with message: String) {

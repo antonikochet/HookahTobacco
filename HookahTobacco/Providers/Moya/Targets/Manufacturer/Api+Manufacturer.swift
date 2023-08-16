@@ -24,9 +24,9 @@ extension Api.Manufacturer: DefaultTarget {
         case .list, .create:
             return "v1/manufacturer/"
         case let .detail(id):
-            return "v1/manufacturer/\(id)"
+            return "v1/manufacturer/\(id)/"
         case let .update(id, _):
-            return "v1/manufacturer/\(id)"
+            return "v1/manufacturer/\(id)/"
         case let .tobaccos(id):
             return "v1/manufacturer/\(id)/tobaccos/"
         }

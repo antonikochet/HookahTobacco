@@ -19,13 +19,19 @@ extension VarietyTobaccoLeaf: Codable {
 
     init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        let strValue = try container.decode(String.self)
+        let strValue = try container.decode(String.self).lowercased()
         switch strValue {
         case "\(VarietyTobaccoLeaf.burley.rawValue)":
             self = .burley
         case "\(VarietyTobaccoLeaf.oriental.rawValue)":
             self = .oriental
         case "\(VarietyTobaccoLeaf.virginia.rawValue)":
+            self = .virginia
+        case "burley":
+            self = .burley
+        case "oriental":
+            self = .oriental
+        case "virginia":
             self = .virginia
         default:
             throw DecodingError.typeMismatch(
