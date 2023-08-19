@@ -13,9 +13,8 @@ protocol DetailTobaccoInteractorInputProtocol: AnyObject {
     func receiveStartingDataView()
 }
 
-protocol DetailTobaccoInteractorOutputProtocol: AnyObject {
+protocol DetailTobaccoInteractorOutputProtocol: PresenterrProtocol {
     func initialDataForPresentation(_ tobacco: Tobacco)
-    func receivedError(with message: String)
 }
 
 class DetailTobaccoInteractor {

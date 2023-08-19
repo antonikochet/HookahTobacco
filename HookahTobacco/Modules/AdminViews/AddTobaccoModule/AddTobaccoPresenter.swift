@@ -42,6 +42,11 @@ extension AddTobaccoPresenter: AddTobaccoInteractorOutputProtocol {
         router.showError(with: message)
     }
 
+    func receivedError(_ error: HTError) {
+        view.hideLoading()
+        router.showError(with: error.message)
+    }
+
     func showNameManufacturersForSelect(_ names: [String]) {
         manufacturerSelectItems = names
         manufacturerSelectItems.insert("-", at: 0)

@@ -111,7 +111,7 @@ class DataManager {
                     case .success(let data):
                         manufacturers = data
                     case .failure(let error):
-                        self.notifySystemSubscribers(.errorMessage(error.localizedDescription, 8.0))
+                        self.notifySystemSubscribers(.errorMessage(error.message, 8.0))
                     }
                     dispatchGroup.leave()
                 }
@@ -123,7 +123,7 @@ class DataManager {
                     case .success(let data):
                         tobaccoLines = data
                     case .failure(let error):
-                        self.notifySystemSubscribers(.errorMessage(error.localizedDescription, 8.0))
+                        self.notifySystemSubscribers(.errorMessage(error.message, 8.0))
                     }
                     dispatchGroup.leave()
                 }
@@ -135,7 +135,7 @@ class DataManager {
                     case .success(let data):
                         tobaccos = data
                     case .failure(let error):
-                        self.notifySystemSubscribers(.errorMessage(error.localizedDescription, 8.0))
+                        self.notifySystemSubscribers(.errorMessage(error.message, 8.0))
                     }
                     dispatchGroup.leave()
                 }
@@ -147,7 +147,7 @@ class DataManager {
                     case .success(let data):
                         taste = data
                     case .failure(let error):
-                        self.notifySystemSubscribers(.errorMessage(error.localizedDescription, 8.0))
+                        self.notifySystemSubscribers(.errorMessage(error.message, 8.0))
                     }
                     dispatchGroup.leave()
                 }

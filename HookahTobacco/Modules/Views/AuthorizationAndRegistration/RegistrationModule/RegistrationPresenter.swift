@@ -35,9 +35,9 @@ extension RegistrationPresenter: RegistrationInteractorOutputProtocol {
         router.showProfileRegistrationView(user: user)
     }
 
-    func receivedErrorRegistration(message: String) {
+    func receivedError(_ error: HTError) {
         view.hideLoading()
-        router.showError(with: message)
+        router.showError(with: error.message)
     }
 }
 

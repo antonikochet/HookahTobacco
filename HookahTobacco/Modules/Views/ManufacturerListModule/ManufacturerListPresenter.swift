@@ -73,9 +73,9 @@ extension ManufacturerListPresenter: ManufacturerListInteractorOutputProtocol {
         view.endRefreshing()
     }
 
-    func receivedError(with message: String) {
+    func receivedError(_ error: HTError) {
         view.hideLoading()
-        router.showError(with: message)
+        router.showError(with: error.message)
     }
 
     func receivedUpdate(for manufacturer: Manufacturer, at index: Int) {

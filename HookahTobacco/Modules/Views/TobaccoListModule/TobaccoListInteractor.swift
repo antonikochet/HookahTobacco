@@ -24,9 +24,8 @@ protocol TobaccoListInteractorInputProtocol: AnyObject {
     func updateWantBuy(by index: Int)
 }
 
-protocol TobaccoListInteractorOutputProtocol: AnyObject {
+protocol TobaccoListInteractorOutputProtocol: PresenterrProtocol {
     func receivedSuccess(_ data: [Tobacco])
-    func receivedError(with message: String)
     func receivedUpdate(for data: Tobacco, at index: Int)
     func receivedDataForShowDetail(_ tobacco: Tobacco)
     func receivedDataForEditing(_ tobacco: Tobacco)
@@ -77,7 +76,7 @@ class TobaccoListInteractor {
                 self.presenter.receivedSuccess(tobaccos)
                 self.getImagesTobacco()
             case .failure(let error):
-                self.presenter.receivedError(with: error.localizedDescription)
+                self.presenter.receivedError(error)
             }
         }
         switch input {
@@ -100,7 +99,7 @@ class TobaccoListInteractor {
                 self.tobaccos[index] = mutableTobacco
                 self.presenter.receivedUpdate(for: mutableTobacco, at: index)
             case .failure(let error):
-                self.presenter.receivedError(with: error.localizedDescription)
+                self.presenter.receivedError(error)
             }
         }
     }
@@ -144,7 +143,7 @@ extension TobaccoListInteractor: TobaccoListInteractorInputProtocol {
         getDataManager.updateFavorite(for: tobacco) { [weak self] error in
             guard let self = self else { return }
             if let error {
-                self.presenter.receivedError(with: error.localizedDescription)
+                self.presenter.receivedError(error)
                 return
             }
             if self.input != .favorite {
@@ -165,7 +164,7 @@ extension TobaccoListInteractor: TobaccoListInteractorInputProtocol {
         getDataManager.updateFavorite(for: tobacco) { [weak self] error in
             guard let self = self else { return }
             if let error {
-                self.presenter.receivedError(with: error.localizedDescription)
+                self.presenter.receivedError(error)
                 return
             }
             if self.input != .wantBuy {
@@ -196,7 +195,7 @@ extension TobaccoListInteractor: UpdateDataSubscriberProtocol {
                 getImagesTobacco()
             }
         case .error(let error):
-                presenter.receivedError(with: error.localizedDescription)
+                presenter.receivedError(error)
         }
     }
 }

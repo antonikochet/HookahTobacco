@@ -96,10 +96,10 @@ extension TobaccoListPresenter: TobaccoListInteractorOutputProtocol {
         view.endRefreshing()
     }
 
-    func receivedError(with message: String) {
+    func receivedError(_ error: HTError) {
         DispatchQueue.main.async {
             self.view.hideLoading()
-            self.router.showError(with: message)
+            self.router.showError(with: error.message)
         }
     }
 

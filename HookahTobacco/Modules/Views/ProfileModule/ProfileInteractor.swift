@@ -14,9 +14,8 @@ protocol ProfileInteractorInputProtocol: AnyObject {
     func logout()
 }
 
-protocol ProfileInteractorOutputProtocol: AnyObject {
+protocol ProfileInteractorOutputProtocol: PresenterrProtocol {
     func receivedProfileInfoSuccess(_ user: UserProtocol)
-    func receivedProfileInfoError(_ message: String)
     func receivedLogoutSuccess()
     func receivedLogoutError(_ message: String)
 }
@@ -50,7 +49,7 @@ extension ProfileInteractor: ProfileInteractorInputProtocol {
             case .success(let user):
                 self.presenter.receivedProfileInfoSuccess(user)
             case .failure(let error):
-                self.presenter.receivedProfileInfoError(error.localizedDescription)
+                self.presenter.receivedError(error)
             }
         }
     }
@@ -59,7 +58,7 @@ extension ProfileInteractor: ProfileInteractorInputProtocol {
         authService.logout { [weak self] error in
             guard let self = self else { return }
             if let error {
-                self.presenter.receivedLogoutError(error.localizedDescription)
+                self.presenter.receivedError(error)
                 return
             }
             self.presenter.receivedLogoutSuccess()

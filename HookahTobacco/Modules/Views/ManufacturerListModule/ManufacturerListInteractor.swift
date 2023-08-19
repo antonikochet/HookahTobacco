@@ -16,9 +16,8 @@ protocol ManufacturerListInteractorInputProtocol: AnyObject {
     func updateData()
 }
 
-protocol ManufacturerListInteractorOutputProtocol: AnyObject {
+protocol ManufacturerListInteractorOutputProtocol: PresenterrProtocol {
     func receivedManufacturersSuccess(with data: [Manufacturer])
-    func receivedError(with message: String)
     func receivedUpdate(for manufacturer: Manufacturer, at index: Int)
     func receivedDataForShowDetail(_ manudacturer: Manufacturer)
     func receivedDataForEditing(_ manufacturer: Manufacturer)
@@ -63,7 +62,7 @@ class ManufacturerListInteractor {
                 self.manufacturers = data
                 self.presenter.receivedManufacturersSuccess(with: data)
             case .failure(let error):
-                self.presenter.receivedError(with: error.localizedDescription)
+                self.presenter.receivedError(error)
             }
             for (index, manufacturer) in self.manufacturers.enumerated() {
                 self.receiveImage(for: manufacturer, at: index)
@@ -83,7 +82,7 @@ class ManufacturerListInteractor {
                 self.manufacturers[index] = mutableManufacturer
                 self.presenter.receivedUpdate(for: mutableManufacturer, at: index)
             case .failure(let error):
-                self.presenter.receivedError(with: error.localizedDescription)
+                self.presenter.receivedError(error)
             }
         }
     }
@@ -127,7 +126,7 @@ extension ManufacturerListInteractor: UpdateDataSubscriberProtocol {
                 }
             }
         case .error(let error):
-            presenter.receivedError(with: error.localizedDescription)
+            presenter.receivedError(error)
         }
     }
 }

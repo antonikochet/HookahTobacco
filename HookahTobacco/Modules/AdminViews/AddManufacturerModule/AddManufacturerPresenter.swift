@@ -47,6 +47,11 @@ extension AddManufacturerPresenter: AddManufacturerInteractorOutputProtocol {
         router.showError(with: message)
     }
 
+    func receivedError(_ error: HTError) {
+        view.hideLoading()
+        router.showError(with: error.message)
+    }
+
     func initialDataForPresentation(_ manufacturer: AddManufacturerEntity.Manufacturer, isEditing: Bool) {
         let viewModel = AddManufacturerEntity.ViewModel(
                             name: manufacturer.name,

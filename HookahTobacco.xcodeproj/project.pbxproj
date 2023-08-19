@@ -44,6 +44,7 @@
 		3895E5032A542FB7005D87EE /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3895E5022A542FB7005D87EE /* Api.swift */; };
 		3895E5062A5447AF005D87EE /* Moya+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3895E5052A5447AF005D87EE /* Moya+Request.swift */; };
 		38A027BA2A0A7B6400D3C3E7 /* extention + Encodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A027B92A0A7B6400D3C3E7 /* extention + Encodable.swift */; };
+		38A8B1EC2A91747C009FAFF7 /* PresenterrProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A8B1EB2A91747C009FAFF7 /* PresenterrProtocol.swift */; };
 		38ADAF542A8FB78000DDB30B /* HTError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38ADAF532A8FB78000DDB30B /* HTError.swift */; };
 		38C3ACBF2A8BCACC001D79EB /* DatePickerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C3ACBA2A8BCACC001D79EB /* DatePickerPresenter.swift */; };
 		38C3ACC02A8BCACC001D79EB /* DatePickerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C3ACBB2A8BCACC001D79EB /* DatePickerRouter.swift */; };
@@ -306,6 +307,7 @@
 		3895E5022A542FB7005D87EE /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 		3895E5052A5447AF005D87EE /* Moya+Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Moya+Request.swift"; sourceTree = "<group>"; };
 		38A027B92A0A7B6400D3C3E7 /* extention + Encodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extention + Encodable.swift"; sourceTree = "<group>"; };
+		38A8B1EB2A91747C009FAFF7 /* PresenterrProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterrProtocol.swift; sourceTree = "<group>"; };
 		38ADAF532A8FB78000DDB30B /* HTError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTError.swift; sourceTree = "<group>"; };
 		38C3ACBA2A8BCACC001D79EB /* DatePickerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerPresenter.swift; sourceTree = "<group>"; };
 		38C3ACBB2A8BCACC001D79EB /* DatePickerRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerRouter.swift; sourceTree = "<group>"; };
@@ -563,9 +565,8 @@
 		3818E0362A80FD0C00C9D02C /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				38A8B1E82A91743D009FAFF7 /* VIPER */,
 				3818E0372A80FD1C00C9D02C /* BottomSheetPresenter.swift */,
-				B9E7ACA028F4528000A3D7E5 /* RouterProtocol.swift */,
-				3855053A2A8155FA00855E50 /* ViewProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -706,6 +707,16 @@
 				387121B02A55AE5D00B6005E /* Targets */,
 			);
 			path = Moya;
+			sourceTree = "<group>";
+		};
+		38A8B1E82A91743D009FAFF7 /* VIPER */ = {
+			isa = PBXGroup;
+			children = (
+				B9E7ACA028F4528000A3D7E5 /* RouterProtocol.swift */,
+				3855053A2A8155FA00855E50 /* ViewProtocol.swift */,
+				38A8B1EB2A91747C009FAFF7 /* PresenterrProtocol.swift */,
+			);
+			path = VIPER;
 			sourceTree = "<group>";
 		};
 		38C3ACB82A8BCA92001D79EB /* HelperViews */ = {
@@ -2018,6 +2029,7 @@
 				B98E1DE728F08D4400964B8F /* AddTobaccoViewController.swift in Sources */,
 				B981CBA62930DBAD00705422 /* DetailTobaccoViewController.swift in Sources */,
 				B9BA7948295B9CE7009188D6 /* RegistrationAssembly.swift in Sources */,
+				38A8B1EC2A91747C009FAFF7 /* PresenterrProtocol.swift in Sources */,
 				B9E8DA5728F783B400CCA034 /* ManufacturerListTableViewCell.swift in Sources */,
 				38F9B89F2A80047E00EAC0A0 /* AddCountryInteractor.swift in Sources */,
 				B981CBAC293120EF00705422 /* DetailTobaccoModule.swift in Sources */,

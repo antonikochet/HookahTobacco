@@ -14,11 +14,10 @@ protocol ProfileEditInteractorInputProtocol: AnyObject {
     func sendNewData(_ newUser: ProfileEditEntity.User)
 }
 
-protocol ProfileEditInteractorOutputProtocol: AnyObject {
+protocol ProfileEditInteractorOutputProtocol: PresenterrProtocol {
     func receivedStartData(_ user: RegistrationUserProtocol, isRegistration: Bool)
     func receivedSuccessRegistration()
     func receivedSuccessEditProfile()
-    func receivedError(with message: String)
 }
 
 class ProfileEditInteractor {
@@ -46,7 +45,7 @@ class ProfileEditInteractor {
         registrationService.registration(user: newUser) { [weak self] error in
             guard let self else { return }
             if let error {
-                self.presenter.receivedError(with: error.localizedDescription)
+                self.presenter.receivedError(error)
                 return
             }
             self.presenter.receivedSuccessRegistration()

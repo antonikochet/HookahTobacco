@@ -19,7 +19,7 @@ extension RouterProtocol {
     }
 
     func showError(with message: String, completion: CompletionBlock?) {
-        appRouter.presentAlert(type: .error(message: message), completion: completion)
+        appRouter.presentAlert(type: .systemError(message: message, delay: 6.0), completion: completion)
     }
 
     // MARK: - Success alert

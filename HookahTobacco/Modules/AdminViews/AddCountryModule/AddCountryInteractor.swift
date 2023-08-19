@@ -16,7 +16,7 @@ protocol AddCountryInteractorInputProtocol: AnyObject {
     func receiveCountries() -> [Country]
 }
 
-protocol AddCountryInteractorOutputProtocol: AnyObject {
+protocol AddCountryInteractorOutputProtocol: PresenterrProtocol {
     func receivedSuccessCountries(_ countries: [Country])
     func receivedError(with message: String)
     func receivedSuccessAddCountry(showWithNew countries: [Country])
@@ -49,7 +49,7 @@ class AddCountryInteractor {
                 self.countries = counties
                 self.presenter.receivedSuccessCountries(counties)
             case .failure(let error):
-                self.presenter.receivedError(with: error.localizedDescription)
+                self.presenter.receivedError(error)
             }
         }
     }
@@ -62,7 +62,7 @@ class AddCountryInteractor {
                 self.countries.append(newCountry)
                 self.presenter.receivedSuccessAddCountry(showWithNew: self.countries)
             case .failure(let error):
-                self.presenter.receivedError(with: error.localizedDescription)
+                self.presenter.receivedError(error)
             }
         }
     }
@@ -75,7 +75,7 @@ class AddCountryInteractor {
                 self.countries[index] = editCountry
                 self.presenter.receivedSuccessAddCountry(showWithNew: self.countries)
             case .failure(let error):
-                self.presenter.receivedError(with: error.localizedDescription)
+                self.presenter.receivedError(error)
             }
         }
     }

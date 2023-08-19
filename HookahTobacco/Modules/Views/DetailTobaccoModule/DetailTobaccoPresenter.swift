@@ -52,8 +52,8 @@ class DetailTobaccoPresenter {
 
 // MARK: - InteractorOutputProtocol implementation
 extension DetailTobaccoPresenter: DetailTobaccoInteractorOutputProtocol {
-    func receivedError(with message: String) {
-        router.showError(with: message)
+    func receivedError(_ error: HTError) {
+        router.showError(with: error.message)
     }
 
     func initialDataForPresentation(_ tobacco: Tobacco) {

@@ -13,9 +13,8 @@ protocol RegistrationInteractorInputProtocol: AnyObject {
     func sendCheckRegistrationData(username: String, email: String)
 }
 
-protocol RegistrationInteractorOutputProtocol: AnyObject {
+protocol RegistrationInteractorOutputProtocol: PresenterrProtocol {
     func receivedSuccessCheckRegistrationData()
-    func receivedErrorRegistration(message: String)
 }
 
 final class RegistrationInteractor {
@@ -42,7 +41,7 @@ extension RegistrationInteractor: RegistrationInteractorInputProtocol {
             guard let self else { return }
             if let error {
                 // TODO: переделат под показ ошибок под полями
-                self.presenter.receivedErrorRegistration(message: error.localizedDescription)
+                self.presenter.receivedError(error)
                 return
             }
             self.presenter.receivedSuccessCheckRegistrationData()

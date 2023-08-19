@@ -58,6 +58,11 @@ extension AddTobaccoLinePresenter: AddTobaccoLineInteractorOutputProtocol {
         router.showError(with: message)
     }
 
+    func receivedError(_ error: HTError) {
+        view.hideLoading()
+        router.showError(with: error.message)
+    }
+
     func receivedSuccess(with tobaccoLine: TobaccoLine) {
         view.hideLoading()
         router.showSuccess(delay: 3.0) { [weak self] in

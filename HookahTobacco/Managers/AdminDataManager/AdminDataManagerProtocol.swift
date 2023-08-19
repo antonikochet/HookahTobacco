@@ -8,7 +8,7 @@
 import Foundation
 
 protocol AdminDataManagerProtocol {
-    typealias AdminDataManagerCompletion<T> = (Result<T, Error>) -> Void
+    typealias AdminDataManagerCompletion<T> = (Result<T, HTError>) -> Void
 
     func addData<T: DataManagerType>(_ data: T, completion: AdminDataManagerCompletion<T>?)
     func setData<T: DataManagerType>(_ data: T, completion: AdminDataManagerCompletion<T>?)

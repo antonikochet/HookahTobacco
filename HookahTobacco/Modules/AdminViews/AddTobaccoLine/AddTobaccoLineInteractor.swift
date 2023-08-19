@@ -14,10 +14,9 @@ protocol AddTobaccoLineInteractorInputProtocol: AnyObject {
     func didEnterData(_ data: AddTobaccoLineEntity.TobaccoLine)
 }
 
-protocol AddTobaccoLineInteractorOutputProtocol: AnyObject {
+protocol AddTobaccoLineInteractorOutputProtocol: PresenterrProtocol {
     func initialDataForPresentation(_ tobaccoLine: TobaccoLine?)
     func receivedSuccess(with tobaccoLine: TobaccoLine)
-    func receivedError(with message: String)
 }
 
 class AddTobaccoLineInteractor {
@@ -48,7 +47,7 @@ class AddTobaccoLineInteractor {
                 case .success(let newTobaccoLine):
                     self?.presenter.receivedSuccess(with: newTobaccoLine)
                 case .failure(let error):
-                    self?.presenter.receivedError(with: error.localizedDescription)
+                    self?.presenter.receivedError(error)
                 }
             }
         } else {
@@ -57,7 +56,7 @@ class AddTobaccoLineInteractor {
                 case .success(let newTobaccoLine):
                     self?.presenter.receivedSuccess(with: newTobaccoLine)
                 case .failure(let error):
-                    self?.presenter.receivedError(with: error.localizedDescription)
+                    self?.presenter.receivedError(error)
                 }
             }
         }

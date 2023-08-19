@@ -15,12 +15,11 @@ protocol AddTasteInteractorInputProtocol: AnyObject {
     func addType(newType: String)
 }
 
-protocol AddTasteInteractorOutputProtocol: AnyObject {
+protocol AddTasteInteractorOutputProtocol: PresenterrProtocol {
     func initialData(taste: Taste, isEdit: Bool)
     func receivedSuccessTypes(_ types: [TasteType])
     func receivedSuccessNewType()
     func receivedSuccess(_ taste: Taste)
-    func receivedError(with message: String)
 }
 
 class AddTasteInteractor {
@@ -52,7 +51,7 @@ class AddTasteInteractor {
                 self?.tasteTypes = types
                 self?.presenter.receivedSuccessTypes(types)
             case .failure(let error):
-                self?.presenter.receivedError(with: error.localizedDescription)
+                self?.presenter.receivedError(error)
             }
         }
     }
@@ -64,7 +63,7 @@ class AddTasteInteractor {
             case .success(let newTaste):
                 self.presenter.receivedSuccess(newTaste)
             case .failure(let error):
-                self.presenter.receivedError(with: error.localizedDescription)
+                self.presenter.receivedError(error)
             }
         }
     }
@@ -76,7 +75,7 @@ class AddTasteInteractor {
             case .success(let taste):
                 self.presenter.receivedSuccess(taste)
             case .failure(let error):
-                self.presenter.receivedError(with: error.localizedDescription)
+                self.presenter.receivedError(error)
             }
         }
     }
@@ -91,7 +90,7 @@ class AddTasteInteractor {
                 self.presenter.receivedSuccessTypes(self.tasteTypes)
                 self.presenter.receivedSuccessNewType()
             case .failure(let error):
-                self.presenter.receivedError(with: error.localizedDescription)
+                self.presenter.receivedError(error)
             }
         }
     }

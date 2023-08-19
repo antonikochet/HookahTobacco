@@ -84,9 +84,9 @@ extension AddTastePresenter: AddTasteInteractorOutputProtocol {
         }
     }
 
-    func receivedError(with message: String) {
+    func receivedError(_ error: HTError) {
         view.hideLoading()
-        router.showError(with: message)
+        router.showError(with: error.message)
     }
 }
 

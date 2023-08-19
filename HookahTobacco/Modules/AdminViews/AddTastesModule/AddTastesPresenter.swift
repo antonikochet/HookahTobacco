@@ -49,8 +49,8 @@ extension AddTastesPresenter: AddTastesInteractorOutputProtocol {
         view.setupContent()
     }
 
-    func receivedError(with message: String) {
-        router.showError(with: message)
+    func receivedError(_ error: HTError) {
+        router.showError(with: error.message)
     }
 
     func updateData(by index: Int, with taste: Taste, and selectedTastes: [Taste]) {

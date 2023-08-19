@@ -60,8 +60,8 @@ extension ProfileEditPresenter: ProfileEditInteractorOutputProtocol {
         }
     }
 
-    func receivedError(with message: String) {
-        router.showError(with: message)
+    func receivedError(_ error: HTError) {
+        router.showError(with: error.message)
         view.hideLoading()
     }
 }

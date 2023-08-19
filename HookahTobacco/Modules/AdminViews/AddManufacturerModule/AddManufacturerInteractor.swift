@@ -20,7 +20,7 @@ protocol AddManufacturerInteractorInputProtocol {
     func receivedCountriesAfterUpdate(_ newCountries: [Country])
 }
 
-protocol AddManufacturerInteractorOutputProtocol: AnyObject {
+protocol AddManufacturerInteractorOutputProtocol: PresenterrProtocol {
     func receivedSuccessAddition()
     func receivedSuccessEditing(with changedData: Manufacturer)
     func receivedError(with message: String)
@@ -84,7 +84,7 @@ class AddManufacturerInteractor {
                     self.presenter.showCountryForSelect(manufacturer.country.name)
                 }
             case .failure(let error):
-                self.presenter.receivedError(with: error.localizedDescription)
+                self.presenter.receivedError(error)
             }
         }
     }
@@ -97,7 +97,7 @@ class AddManufacturerInteractor {
             case .success:
                 self.presenter.receivedSuccessAddition()
             case .failure(let error):
-                self.presenter.receivedError(with: error.localizedDescription)
+                self.presenter.receivedError(error)
             }
         }
     }
@@ -111,7 +111,7 @@ class AddManufacturerInteractor {
                 self.editingImage = image
                 self.presenter.initialImage(image)
             case .failure(let error):
-                self.presenter.receivedError(with: error.localizedDescription)
+                self.presenter.receivedError(error)
             }
         }
     }
@@ -124,7 +124,7 @@ class AddManufacturerInteractor {
                 manufacturer.image = new.image
                 self.presenter.receivedSuccessEditing(with: manufacturer)
             case .failure(let error):
-                self.presenter.receivedError(with: error.localizedDescription)
+                self.presenter.receivedError(error)
             }
         }
     }

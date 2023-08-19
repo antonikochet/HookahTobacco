@@ -14,10 +14,9 @@ protocol DetailInfoManufacturerInteractorInputProtocol: AnyObject {
     func updateFavorite(by index: Int)
 }
 
-protocol DetailInfoManufacturerInteractorOutputProtocol: AnyObject {
+protocol DetailInfoManufacturerInteractorOutputProtocol: PresenterrProtocol {
     func initialDataForPresentation(_ manufacturer: Manufacturer)
     func receivedTobacco(with tobaccos: [Tobacco])
-    func receivedError(with message: String)
     func receivedUpdate(for tobacco: Tobacco, at index: Int)
 }
 
@@ -53,7 +52,7 @@ class DetailInfoManufacturerInteractor {
                 self.presenter.receivedTobacco(with: tobaccos)
                 self.receiveImageTobaccos(tobaccos)
             case .failure(let error):
-                self.presenter.receivedError(with: error.localizedDescription)
+                self.presenter.receivedError(error)
             }
         }
     }
@@ -69,7 +68,7 @@ class DetailInfoManufacturerInteractor {
                     self.tobaccos[index] = mTobacco
                     self.presenter.receivedUpdate(for: mTobacco, at: index)
                 case .failure(let error):
-                    self.presenter.receivedError(with: error.localizedDescription)
+                    self.presenter.receivedError(error)
                 }
             }
         }
@@ -90,7 +89,7 @@ extension DetailInfoManufacturerInteractor: DetailInfoManufacturerInteractorInpu
         getDataManager.updateFavorite(for: tobacco) { [weak self] error in
             guard let self = self else { return }
             if let error {
-                self.presenter?.receivedError(with: error.localizedDescription)
+                self.presenter?.receivedError(error)
                 return
             }
             self.tobaccos[index].isFavorite.toggle()

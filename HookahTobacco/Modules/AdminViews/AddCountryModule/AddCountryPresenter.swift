@@ -63,6 +63,11 @@ extension AddCountryPresenter: AddCountryInteractorOutputProtocol {
         router.showError(with: message)
     }
 
+    func receivedError(_ error: HTError) {
+        view.hideLoading()
+        router.showError(with: error.message)
+    }
+
     func receivedSuccessAddCountry(showWithNew countries: [Country]) {
         editingCountry = nil
         view.hideLoading()

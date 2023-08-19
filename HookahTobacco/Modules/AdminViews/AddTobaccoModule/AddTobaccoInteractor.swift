@@ -19,7 +19,7 @@ protocol AddTobaccoInteractorInputProtocol: AnyObject {
     func receivedNewSelectedTastes(_ tastes: [Taste])
 }
 
-protocol AddTobaccoInteractorOutputProtocol: AnyObject {
+protocol AddTobaccoInteractorOutputProtocol: PresenterrProtocol {
     func receivedSuccessAddition()
     func receivedSuccessEditing(with changedData: Tobacco)
     func receivedError(with message: String)
@@ -73,7 +73,7 @@ class AddTobaccoInteractor {
                 self.manufacturers = data
                 self.initialSelectedManufacturer()
             case .failure(let error):
-                self.presenter.receivedError(with: error.localizedDescription)
+                self.presenter.receivedError(error)
             }
         }
     }
@@ -90,7 +90,7 @@ class AddTobaccoInteractor {
                 self.presenter.receivedSuccessAddition()
                 self.successAdded()
             case .failure(let error):
-                self.presenter.receivedError(with: error.localizedDescription)
+                self.presenter.receivedError(error)
             }
         }
     }
@@ -103,7 +103,7 @@ class AddTobaccoInteractor {
                 newTobacco.image = tobacco.image
                 self.presenter.receivedSuccessEditing(with: newTobacco)
             case .failure(let error):
-                self.presenter.receivedError(with: error.localizedDescription)
+                self.presenter.receivedError(error)
             }
         }
     }
