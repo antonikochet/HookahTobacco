@@ -11,6 +11,7 @@ import RealmSwift
 class RealmDataBaseService {
     // MARK: - Private properties
     private let realmProvider: RealmProviderProtocol
+    private let handlerErrors: DataBaseHandlerErrorsProtocol
     private var cacheData: [String: Results<Object>] = [:]
     private var usedType: [(enity: Any.Type, realm: Object.Type)] = [
         (Manufacturer.self, ManufacturerRealmObject.self),
@@ -20,8 +21,10 @@ class RealmDataBaseService {
     ]
 
     // MARK: - Initialization
-    init(realmProvider: RealmProviderProtocol) {
+    init(realmProvider: RealmProviderProtocol,
+         handlerErrors: DataBaseHandlerErrorsProtocol) {
         self.realmProvider = realmProvider
+        self.handlerErrors = handlerErrors
     }
 
     // MARK: - Working with Types
@@ -211,7 +214,10 @@ extension RealmDataBaseService: DataBaseServiceProtocol {
     func read<T>(type: T.Type,
                  completion: DataBaseObjectsHandler<[T]>?,
                  failure: DataBaseErrorHandler?) {
-        guard let realmObjectType = receiveRealmType(from: type) else { failure?(.wrongTypeError); return }
+        guard let realmObjectType = receiveRealmType(from: type) else {
+            failure?(.databaseError(.wrongTypeError))
+            return
+        }
         realmProvider.read(type: realmObjectType) { [weak self] threadSafeObject in
             guard let self = self else { return }
             guard let wrapperdValue = threadSafeObject.wrappedValue else { return }
@@ -224,9 +230,15 @@ extension RealmDataBaseService: DataBaseServiceProtocol {
     func add<T>(entity: T,
                 completion: DataBaseOperationCompletion?,
                 failure: DataBaseErrorHandler?) {
-        guard let newRealmObject = createNewRealmObject(entity: entity) else { failure?(.wrongTypeError); return }
+        guard let newRealmObject = createNewRealmObject(entity: entity) else {
+            failure?(.databaseError(.wrongTypeError))
+            return
+        }
         settingUpLinks(objects: [newRealmObject], entities: [entity])
-        realmProvider.write(element: newRealmObject, completion: completion, failure: failure)
+        realmProvider.write(element: newRealmObject, completion: completion) { [weak self] error in
+            guard let self else { return }
+            failure?(self.handlerErrors.handlerError(error))
+        }
     }
 
     func add<T: Sequence>(entities: T,
@@ -237,13 +249,16 @@ extension RealmDataBaseService: DataBaseServiceProtocol {
         }
         settingUpLinks(objects: newRealmObjects, entities: entities)
         guard !newRealmObjects.isEmpty else { return }
-        realmProvider.write(elements: newRealmObjects, completion: completion, failure: failure)
+        realmProvider.write(elements: newRealmObjects, completion: completion) { [weak self] error in
+            guard let self else { return }
+            failure?(self.handlerErrors.handlerError(error))
+        }
     }
 
     func update<T>(entity: T,
                    completion: DataBaseOperationCompletion?,
                    failure: DataBaseErrorHandler?) {
-        guard let typeRealm = receiveRealmType(from: T.self) else { failure?(.wrongTypeError); return }
+        guard let typeRealm = receiveRealmType(from: T.self) else { failure?(.databaseError(.wrongTypeError)); return }
         realmProvider.read(type: typeRealm.self) { [weak self] threadSafeObject in
             guard let self = self else { return }
             guard let wrapperdValue = threadSafeObject.wrappedValue else { return }
@@ -256,14 +271,20 @@ extension RealmDataBaseService: DataBaseServiceProtocol {
                 newObject = object
             }
             self.settingUpLinks(objects: [newObject], entities: [entity])
-            self.realmProvider.update(element: newObject, completion: completion, failure: failure)
+            self.realmProvider.update(element: newObject, completion: completion) { [weak self] error in
+                guard let self else { return }
+                failure?(self.handlerErrors.handlerError(error))
+            }
         }
     }
 
     func update<T: Sequence>(entities: T,
                              completion: DataBaseOperationCompletion?,
                              failure: DataBaseErrorHandler?) {
-        guard let typeRealm = receiveRealmType(from: T.Element.self) else { failure?(.wrongTypeError); return }
+        guard let typeRealm = receiveRealmType(from: T.Element.self) else {
+            failure?(.databaseError(.wrongTypeError))
+            return
+        }
         realmProvider.read(type: typeRealm.self) { [weak self] threadSafeObject in
             guard let self = self else { return }
             guard let wrapperdValue = threadSafeObject.wrappedValue else { return }
@@ -282,10 +303,16 @@ extension RealmDataBaseService: DataBaseServiceProtocol {
                 }
             }
             if objectsForDeleted.count > 0 {
-                self.realmProvider.delete(objects: objectsForDeleted, completion: nil, failure: failure)
+                self.realmProvider.delete(objects: objectsForDeleted, completion: nil) { [weak self] error in
+                    guard let self else { return }
+                    failure?(self.handlerErrors.handlerError(error))
+                }
             }
             self.settingUpLinks(objects: updatedValues, entities: entities)
-            self.realmProvider.update(elements: updatedValues, completion: completion, failure: failure)
+            self.realmProvider.update(elements: updatedValues, completion: completion) { [weak self] error in
+                guard let self else { return }
+                failure?(self.handlerErrors.handlerError(error))
+            }
         }
     }
 }

@@ -13,12 +13,12 @@ final class ApiAuthServices {
     // MARK: - Private properties
     private let provider: MoyaProvider<MultiTarget>
     private let settings: AuthSettingsProtocol
-    private let handlerErrors: AuthHandlerErrors
+    private let handlerErrors: NetworkHandlerErrors
 
     // MARK: - Init
     init(provider: MoyaProvider<MultiTarget>,
          settings: AuthSettingsProtocol,
-         handlerErrors: AuthHandlerErrors) {
+         handlerErrors: NetworkHandlerErrors) {
         self.provider = provider
         self.settings = settings
         self.handlerErrors = handlerErrors

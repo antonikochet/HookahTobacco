@@ -9,7 +9,7 @@ import Foundation
 
 typealias DataBaseOperationCompletion = CompletionBlock
 typealias DataBaseObjectsHandler<T> = (T) -> Void
-typealias DataBaseErrorHandler = ((DataBaseError) -> Void)
+typealias DataBaseErrorHandler = ((HTError) -> Void)
 
 protocol DataBaseServiceProtocol {
     func read<T>(type: T.Type,

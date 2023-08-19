@@ -8,5 +8,5 @@
 import Foundation
 
 protocol GetImageNetworkingServiceProtocol {
-    func getImage(for url: String, completion: @escaping (Result<Data, NetworkError>) -> Void)
+    func getImage(for url: String, completion: @escaping (Result<Data, HTError>) -> Void)
 }

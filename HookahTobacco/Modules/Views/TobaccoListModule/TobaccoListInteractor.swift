@@ -69,7 +69,7 @@ class TobaccoListInteractor {
 
     // MARK: - Private methods
     private func getTobacco() {
-        let completion: (Result<[Tobacco], Error>) -> Void = { [weak self] result in
+        let completion: (Result<[Tobacco], HTError>) -> Void = { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let tobaccos):

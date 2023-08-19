@@ -18,8 +18,7 @@ class RealmProviderAssembly: Assembly {
             RealmHandlerErrors()
         }
         container.register(RealmProviderProtocol.self) { resolver in
-            RealmProvider(htRealm: resolver.resolve(HTRealmProtocol.self)!,
-                          handlerErrors: resolver.resolve(DataBaseHandlerErrorsProtocol.self)!)
+            RealmProvider(htRealm: resolver.resolve(HTRealmProtocol.self)!)
         }
     }
 }

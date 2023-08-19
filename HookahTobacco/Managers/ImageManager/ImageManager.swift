@@ -45,7 +45,7 @@ class ImageManager {
 
     // MARK: - Private methods
     private func receiveImageFromNetwork(for url: String,
-                                         completion: @escaping (Result<Data, Error>) -> Void) {
+                                         completion: @escaping (Result<Data, HTError>) -> Void) {
         getImageNetworingService.getImage(for: url) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -68,7 +68,7 @@ class ImageManager {
 
 // MARK: - ImageManagerProtocol implementation
 extension ImageManager: ImageManagerProtocol {
-    func getImage(for url: String, completion: @escaping (Result<Data, Error>) -> Void) {
+    func getImage(for url: String, completion: @escaping (Result<Data, HTError>) -> Void) {
         imageWorkingQueue.async {
             do {
                 if let named = self.convertNamedImageInImageService(from: url) {

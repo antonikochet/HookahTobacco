@@ -289,7 +289,7 @@ extension DataManager: DataManagerProtocol {
         }
     }
 
-    func getUser(completion: ((Result<UserProtocol, Error>) -> Void)?) {
+    func getUser(completion: ((Result<UserProtocol, HTError>) -> Void)?) {
         getDataNetworkingService.getUser { result in
             switch result {
             case .success(let user):

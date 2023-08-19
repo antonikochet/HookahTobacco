@@ -8,5 +8,5 @@
 import Foundation
 
 protocol NetworkHandlerErrors {
-    func handlerError(_ error: Error) -> NetworkError
+    func handlerError(_ error: Error) -> HTError
 }

@@ -10,7 +10,7 @@ import Moya
 import Alamofire
 
 struct ApiHandlerErrors: NetworkHandlerErrors {
-    func handlerError(_ error: Error) -> NetworkError {
+    func handlerError(_ error: Error) -> HTError {
         if let apiError = handlerMoyaError(error) {
             return apiError
         } else if let afError = handlerAFError(error) {
@@ -20,17 +20,17 @@ struct ApiHandlerErrors: NetworkHandlerErrors {
         }
     }
 
-    private func handlerMoyaError(_ error: Error) -> NetworkError? {
+    private func handlerMoyaError(_ error: Error) -> HTError? {
         guard let moyaError = error as? MoyaError else { return nil }
         switch moyaError {
         case .encodableMapping(let error):
             return .unknownError(error)
-        case .requestMapping(let string):
-            return .unknownDataError(string)
+        case .requestMapping:
+            return .unexpectedError
         case .parameterEncoding(let error):
             return .unknownError(error)
         case .statusCode(let response):
-            return handlerStatusCodeError(response.statusCode, response: response)
+            return handlerApiError(response: response)
         case .underlying(let error, _):
             return handlerAFError(error)
         default:
@@ -38,21 +38,14 @@ struct ApiHandlerErrors: NetworkHandlerErrors {
         }
     }
 
-    private func handlerStatusCodeError(_ statusCode: Int, response: Response?) -> NetworkError? {
-        switch statusCode {
-        case 401:
-            return .permissionDenied
-        case 404:
-            return .dataNotFound("")
-        default:
-            if let apiError = try? response?.map(ApiError.self) {
-                return .apiError(apiError)
-            }
-            return .unexpectedError
+    private func handlerApiError(response: Response) -> HTError? {
+        if let apiErrorResponse = try? response.map(ApiErrorResponse.self) {
+            return .apiError(apiErrorResponse.errors)
         }
+        return .unexpectedError
     }
 
-    private func handlerAFError(_ error: Error) -> NetworkError? {
+    private func handlerAFError(_ error: Error) -> HTError? {
         guard let afError = error.asAFError else { return nil }
         switch afError {
         case let .sessionTaskFailed(error):

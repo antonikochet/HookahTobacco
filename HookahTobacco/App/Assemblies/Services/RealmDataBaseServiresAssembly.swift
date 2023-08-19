@@ -11,7 +11,8 @@ import Swinject
 class RealmDataBaseServiresAssembly: Assembly {
     func assemble(container: Container) {
         container.register(DataBaseServiceProtocol.self) { resolver in
-            RealmDataBaseService(realmProvider: resolver.resolve(RealmProviderProtocol.self)!)
+            RealmDataBaseService(realmProvider: resolver.resolve(RealmProviderProtocol.self)!,
+                                 handlerErrors: resolver.resolve(DataBaseHandlerErrorsProtocol.self)!)
         }
     }
 }

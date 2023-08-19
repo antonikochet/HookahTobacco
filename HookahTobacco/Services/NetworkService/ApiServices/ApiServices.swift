@@ -56,7 +56,7 @@ private extension ApiServices {
         }
     }
 
-    func getImage(_ url: String, completion: ((Result<Data?, NetworkError>) -> Void)?) {
+    func getImage(_ url: String, completion: ((Result<Data?, HTError>) -> Void)?) {
         AF.request(url).response { [weak self] response in
             guard let self else { return }
             switch response.result {
@@ -146,14 +146,14 @@ extension ApiServices: GetDataNetworkingServiceProtocol {
 
 // MARK: - GetImageNetworkingServiceProtocol
 extension ApiServices: GetImageNetworkingServiceProtocol {
-    func getImage(for url: String, completion: @escaping (Result<Data, NetworkError>) -> Void) {
+    func getImage(for url: String, completion: @escaping (Result<Data, HTError>) -> Void) {
         getImage(url) { result in
             switch result {
             case let .success(data):
                 if let data {
                     completion(.success(data))
                 } else {
-                    completion(.failure(.unknownDataError("photo on \(url)")))
+                    completion(.failure(.unexpectedError))
                 }
             case let .failure(error):
                 completion(.failure(error))

@@ -13,5 +13,5 @@ enum NamedImageManager {
 }
 
 protocol ImageManagerProtocol {
-    func getImage(for url: String, completion: @escaping (Result<Data, Error>) -> Void)
+    func getImage(for url: String, completion: @escaping (Result<Data, HTError>) -> Void)
 }

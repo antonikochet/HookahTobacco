@@ -15,7 +15,6 @@ class RealmProvider {
     // MARK: - Private properties
     private let htRealm: HTRealmProtocol
     private let workingQueue: DispatchQueue
-    private let handlerErrors: DataBaseHandlerErrorsProtocol
 
     private var configuration: Realm.Configuration?
     private var contextRealm: Realm? {
@@ -33,11 +32,9 @@ class RealmProvider {
     }
 
     // MARK: - Initialization
-    init(htRealm: HTRealmProtocol,
-         handlerErrors: DataBaseHandlerErrorsProtocol) {
+    init(htRealm: HTRealmProtocol) {
         self.htRealm = htRealm
         self.workingQueue = htRealm.workingQueue
-        self.handlerErrors = handlerErrors
         configureRealm()
     }
 
@@ -83,25 +80,25 @@ class RealmProvider {
     }
 
     private func writeToStore(object: Object,
-                              failure: DataBaseErrorHandler?,
+                              failure: FailureCompletionBlock?,
                               block: @escaping RealmBlock<Object>) {
         workingQueue.async { [weak self] in
             autoreleasepool {
                 guard let self = self else { return }
                 do {
-                    guard let realm = self.contextRealm else { failure?(.notAccessDBError); return }
+                    guard let realm = self.contextRealm else { return }
                     try realm.write {
                         block(realm, object)
                     }
                 } catch {
-                    failure?(self.handlerErrors.handlerError(error))
+                    failure?(error)
                 }
             }
         }
     }
 
     private func writeToStore<S: Sequence>(objects: S,
-                                           failure: DataBaseErrorHandler?,
+                                           failure: FailureCompletionBlock?,
                                            block: @escaping RealmBlock<S>
     ) where S.Element: Object {
         workingQueue.async { [weak self] in
@@ -113,7 +110,7 @@ class RealmProvider {
                         block(realm, objects)
                     }
                 } catch {
-                    failure?(self.handlerErrors.handlerError(error))
+                    failure?(error)
                 }
             }
         }
@@ -129,7 +126,7 @@ extension RealmProvider: RealmProviderProtocol {
 
     func write(element: Object,
                completion: DataBaseOperationCompletion?,
-               failure: DataBaseErrorHandler?) {
+               failure: FailureCompletionBlock?) {
         let writeBlock: RealmBlock<Object> = { realm, object in
             realm.add(object)
             completion?()
@@ -139,7 +136,7 @@ extension RealmProvider: RealmProviderProtocol {
 
     func write<S>(elements: S,
                   completion: DataBaseOperationCompletion?,
-                  failure: DataBaseErrorHandler?) where S: Sequence, S.Element: Object {
+                  failure: FailureCompletionBlock?) where S: Sequence, S.Element: Object {
         let writeBlock: RealmBlock<S> = { realm, objects in
             realm.add(objects)
             completion?()
@@ -149,7 +146,7 @@ extension RealmProvider: RealmProviderProtocol {
 
     func update(element: Object,
                 completion: DataBaseOperationCompletion?,
-                failure: DataBaseErrorHandler?) {
+                failure: FailureCompletionBlock?) {
         let updateBlock: RealmBlock<Object> = { realm, object in
             realm.add(object, update: .modified)
             completion?()
@@ -159,7 +156,7 @@ extension RealmProvider: RealmProviderProtocol {
 
     func update<S>(elements: S,
                    completion: DataBaseOperationCompletion?,
-                   failure: DataBaseErrorHandler?) where S: Sequence, S.Element: Object {
+                   failure: FailureCompletionBlock?) where S: Sequence, S.Element: Object {
         let updateBlock: RealmBlock<S> = { realm, objects in
             realm.add(objects, update: .modified)
             completion?()
@@ -169,7 +166,7 @@ extension RealmProvider: RealmProviderProtocol {
 
     func delete(object: Object,
                 completion: DataBaseOperationCompletion?,
-                failure: DataBaseErrorHandler?) {
+                failure: FailureCompletionBlock?) {
         let deleteBlock: RealmBlock<Object> = { realm, object in
             realm.delete(object)
             completion?()
@@ -179,7 +176,7 @@ extension RealmProvider: RealmProviderProtocol {
 
     func delete<S>(objects: S,
                    completion: DataBaseOperationCompletion?,
-                   failure: DataBaseErrorHandler?) where S: Sequence, S.Element: Object {
+                   failure: FailureCompletionBlock?) where S: Sequence, S.Element: Object {
         let deleteBlock: RealmBlock<S> = { realm, objects in
             realm.delete(objects)
             completion?()

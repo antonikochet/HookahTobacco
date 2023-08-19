@@ -9,13 +9,13 @@ import Foundation
 import RealmSwift
 
 struct RealmHandlerErrors: DataBaseHandlerErrorsProtocol {
-    func handlerError(_ error: Error) -> DataBaseError {
-        guard let realmError = error as? Realm.Error else { return .failError(error) }
+    func handlerError(_ error: Error) -> HTError {
+        guard let realmError = error as? Realm.Error else { return .unknownError(error) }
         switch realmError.code {
-        case .fileNotFound: return .fileDBNotFound
-        case .schemaMismatch: return .schemaMismatchError
-        case .fileAccess: return .fileAccessError
-        default: return .failError(error)
+        case .fileNotFound: return .databaseError(.fileDBNotFound)
+        case .schemaMismatch: return .databaseError(.schemaMismatchError)
+        case .fileAccess: return .databaseError(.notAccessDBError)
+        default: return .unknownError(error)
         }
     }
 }

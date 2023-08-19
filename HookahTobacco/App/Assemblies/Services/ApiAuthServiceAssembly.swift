@@ -11,13 +11,10 @@ import Moya
 
 class ApiAuthServiceAssembly: Assembly {
     func assemble(container: Container) {
-        container.register(AuthHandlerErrors.self) { _ in
-            ApiAuthHandlerErrors()
-        }
         container.register(ApiAuthServices.self) { resolver in
             let provider = resolver.resolve(MoyaProvider<MultiTarget>.self)!
             let settings = resolver.resolve(AuthSettingsProtocol.self)!
-            let handlerErrors = resolver.resolve(AuthHandlerErrors.self)!
+            let handlerErrors = resolver.resolve(NetworkHandlerErrors.self)!
             return ApiAuthServices(provider: provider,
                                    settings: settings,
                                    handlerErrors: handlerErrors)

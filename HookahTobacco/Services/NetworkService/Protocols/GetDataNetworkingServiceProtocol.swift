@@ -7,7 +7,7 @@
 
 import Foundation
 
-typealias GetDataNetworkingServiceCompletion<T> = (Result<T, NetworkError>) -> Void
+typealias GetDataNetworkingServiceCompletion<T> = (Result<T, HTError>) -> Void
 
 protocol GetDataNetworkingServiceProtocol {
     func receiveData<T: DataNetworkingServiceProtocol>(type: T.Type,

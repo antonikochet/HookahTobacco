@@ -8,7 +8,7 @@
 import Foundation
 
 protocol SetImageNetworkingServiceProtocol {
-    typealias Completion = (NetworkError?) -> Void
+    typealias Completion = (HTError?) -> Void
 
     func addImage(by fileURL: URL,
                   for image: ImageNetworkingDataProtocol,

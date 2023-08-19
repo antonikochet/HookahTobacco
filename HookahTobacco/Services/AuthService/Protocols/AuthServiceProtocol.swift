@@ -18,7 +18,7 @@ protocol UserProtocol {
 }
 
 protocol AuthServiceProtocol {
-    typealias AuthServiceCompletion = (AuthError?) -> Void
+    typealias AuthServiceCompletion = (HTError?) -> Void
     var isLoggedIn: Bool { get }
     func login(with name: String, password: String, completion: AuthServiceCompletion?)
     func logout(completion: AuthServiceCompletion?)
