@@ -7,12 +7,6 @@
 
 import Foundation
 
-protocol AdminNetworkingServiceProtocol {
-    func addData<T: DataNetworkingServiceProtocol>(_ data: T, completion: CompletionResultBlock<T>?)
-    func setData<T: DataNetworkingServiceProtocol>(_ data: T, completion: CompletionResultBlock<T>?)
-    func setDBVersion(_ newVersion: Int, completion: CompletionBlockWithParam<HTError?>?)
-}
-
 final class AdminApiService: BaseApiService {
 
 }

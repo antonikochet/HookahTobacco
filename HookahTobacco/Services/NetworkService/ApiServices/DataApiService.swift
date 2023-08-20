@@ -12,10 +12,6 @@ final class DataApiService: BaseApiService {
 }
 
 extension DataApiService: GetDataNetworkingServiceProtocol {
-    func getDataBaseVersion(completion: GetDataNetworkingServiceCompletion<Int>?) {
-        // TODO: удалить метод
-    }
-
     func receiveData<T: DataNetworkingServiceProtocol>(
         type: T.Type,
         completion: CompletionResultBlock<[T]>?
@@ -92,5 +88,9 @@ extension DataApiService: GetDataNetworkingServiceProtocol {
         } failure: { error in
             completion?(.failure(error))
         }
+    }
+
+    func getDataBaseVersion(completion: CompletionResultBlock<Int>?) {
+
     }
 }

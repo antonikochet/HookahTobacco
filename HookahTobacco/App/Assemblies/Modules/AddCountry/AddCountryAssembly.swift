@@ -26,9 +26,9 @@ class AddCountryAssembly: Assembly {
         container.register(AddCountryInteractorInputProtocol.self) { resolver in
             // here resolve dependency injection
             let getDataManager = resolver.resolve(DataManagerProtocol.self)!
-            let setDataManager = resolver.resolve(AdminDataManagerProtocol.self)!
+            let adminNetworkingService = resolver.resolve(AdminNetworkingServiceProtocol.self)!
             return AddCountryInteractor(getDataManager: getDataManager,
-                                        setDataManager: setDataManager)
+                                        adminNetworkingService: adminNetworkingService)
         }
 
         container.register(AddCountryViewOutputProtocol.self) { (_, dependency: AddCountryDependency)  in

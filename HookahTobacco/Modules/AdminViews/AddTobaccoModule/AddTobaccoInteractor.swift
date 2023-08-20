@@ -37,7 +37,7 @@ class AddTobaccoInteractor {
     weak var presenter: AddTobaccoInteractorOutputProtocol!
 
     private var getDataManager: GetDataNetworkingServiceProtocol
-    private var setDataManager: AdminDataManagerProtocol
+    private var adminNetworkingService: AdminNetworkingServiceProtocol
 
     private var manufacturers: [Manufacturer]? {
         didSet {
@@ -56,12 +56,12 @@ class AddTobaccoInteractor {
 
     init(_ tobacco: Tobacco? = nil,
          getDataManager: GetDataNetworkingServiceProtocol,
-         setDataManager: AdminDataManagerProtocol) {
+         adminNetworkingService: AdminNetworkingServiceProtocol) {
         isEditing = tobacco != nil
         self.tobacco = tobacco
         self.selectedTobaccoLine = tobacco?.line
         self.getDataManager = getDataManager
-        self.setDataManager = setDataManager
+        self.adminNetworkingService = adminNetworkingService
         getManufacturers()
     }
 
@@ -83,7 +83,7 @@ class AddTobaccoInteractor {
         if let image = try? Data(contentsOf: imageFileURL) {
             tobaccoWithImage.image = image
         }
-        setDataManager.addData(tobaccoWithImage) { [weak self] result in
+        adminNetworkingService.addData(tobaccoWithImage) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success:
@@ -96,7 +96,7 @@ class AddTobaccoInteractor {
     }
 
     private func setTobacco(_ tobacco: Tobacco) {
-        setDataManager.setData(tobacco) { [weak self] result in
+        adminNetworkingService.setData(tobacco) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(var newTobacco):

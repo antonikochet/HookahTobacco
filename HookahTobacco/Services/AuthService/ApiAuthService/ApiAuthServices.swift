@@ -8,20 +8,17 @@
 import Foundation
 import Moya
 
-final class ApiAuthServices {
+final class ApiAuthServices: BaseApiService {
 
     // MARK: - Private properties
-    private let provider: MoyaProvider<MultiTarget>
     private let settings: AuthSettingsProtocol
-    private let handlerErrors: NetworkHandlerErrors
 
     // MARK: - Init
     init(provider: MoyaProvider<MultiTarget>,
          settings: AuthSettingsProtocol,
          handlerErrors: NetworkHandlerErrors) {
-        self.provider = provider
         self.settings = settings
-        self.handlerErrors = handlerErrors
+        super.init(provider: provider, handlerErrors: handlerErrors)
     }
 
     // MARK: - Public methods
@@ -40,63 +37,51 @@ extension ApiAuthServices: AuthServiceProtocol {
         let request = LoginRequest(email: isEmail ? name : "",
                                    username: isEmail ? "" : name,
                                    password: password)
-        let target = MultiTarget(Api.Authorization.login(request))
-        provider.request(object: LoginResponse.self, target: target) { [weak self] result in
-            guard let self else { return }
-            switch result {
-            case let .success(response):
-                self.settings.setToken(response.token)
-                completion?(nil)
-            case let .failure(error):
-                let authError = self.handlerErrors.handlerError(error)
-                completion?(authError)
-            }
+        let target = Api.Authorization.login(request)
+        sendRequest(object: LoginResponse.self, target: target) { [weak self] response in
+            self?.settings.setToken(response.token)
+            completion?(nil)
+        } failure: { error in
+            completion?(error)
         }
+
     }
 
     func logout(completion: AuthServiceCompletion?) {
-        let target = MultiTarget(Api.Authorization.logout)
-        provider.request(object: EmptyResponse.self, target: target) { [weak self] result in
-            guard let self else { return }
-            switch result {
-            case .success:
-                self.settings.setToken(nil)
-                completion?(nil)
-            case .failure(let error):
-                let authError = self.handlerErrors.handlerError(error)
-                completion?(authError)
-            }
+        let target = Api.Authorization.logout
+        sendRequest(object: EmptyResponse.self, target: target) { [weak self] _ in
+            self?.settings.setToken(nil)
+            completion?(nil)
+        } failure: { error in
+            completion?(error)
         }
     }
 }
 
 extension ApiAuthServices: RegistrationServiceProtocol {
-    func checkRegistrationData(email: String?, username: String?, completion: RegistrationServiceCompletion?) {
+    func checkRegistrationData(email: String?, username: String?, completion: CompletionBlockWithParam<HTError?>?) {
         let request = CheckRegistrationRequest(email: email, username: username)
-        let target = MultiTarget(Api.Registration.check(request))
-        provider.request(object: EmptyResponse.self, target: target) { [weak self] result in
-            guard let self else { return }
+        let target = Api.Registration.check(request)
+        sendRequest(object: EmptyResponse.self, target: target) { result in
             switch result {
             case .success:
                 completion?(nil)
             case .failure(let error):
-                let authError = self.handlerErrors.handlerError(error)
-                completion?(authError)
+                completion?(error)
             }
         }
     }
 
-    func registration(user: RegistrationUserProtocol, completion: RegistrationServiceCompletion?) {
-        let target = MultiTarget(Api.Registration.registration(user))
-        provider.request(object: LoginResponse.self, target: target) { [weak self] result in
+    func registration(user: RegistrationUserProtocol, completion: CompletionBlockWithParam<HTError?>?) {
+        let target = Api.Registration.registration(user)
+        sendRequest(object: LoginResponse.self, target: target) { [weak self] result in
             guard let self else { return }
             switch result {
             case let .success(response):
                 self.settings.setToken(response.token)
                 completion?(nil)
             case let .failure(error):
-                let authError = self.handlerErrors.handlerError(error)
-                completion?(authError)
+                completion?(error)
             }
         }
     }

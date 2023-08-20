@@ -7,15 +7,6 @@
 
 import Foundation
 
-protocol UserNetworkingServiceProtocol {
-    func receiveUser(completion: CompletionResultBlock<UserProtocol>?)
-//    func updateUser(_ user: UserProtocol, completion: CompletionResultBlock<UserProtocol>?)
-    func receiveFavoriteTobaccos(completion: CompletionResultBlock<[Tobacco]>?)
-    func receiveWantToBuyTobaccos(completion: CompletionResultBlock<[Tobacco]>?)
-//    func updateFavoriteTobacco(_ tobaccos: [Tobacco], completion: CompletionResultBlock<[Tobacco]>?)
-//    func updateWantToBuyTobacco(_ tobaccos: [Tobacco], completion: CompletionResultBlock<[Tobacco]>?)
-}
-
 final class UserApiService: BaseApiService {
 
 }

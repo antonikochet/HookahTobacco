@@ -28,7 +28,7 @@ class AddTasteInteractor {
 
     // MARK: - Dependency
     private let getDataManager: DataManagerProtocol
-    private let setDataManager: AdminDataManagerProtocol
+    private let adminNetworkingService: AdminNetworkingServiceProtocol
 
     // MARK: - Private properties
     private var taste: Taste?
@@ -37,10 +37,10 @@ class AddTasteInteractor {
     // MARK: - Initializers
     init(_ taste: Taste?,
          getDataManager: DataManagerProtocol,
-         setDataManager: AdminDataManagerProtocol) {
+         adminNetworkingService: AdminNetworkingServiceProtocol) {
         self.taste = taste
         self.getDataManager = getDataManager
-        self.setDataManager = setDataManager
+        self.adminNetworkingService = adminNetworkingService
     }
 
     // MARK: - Private methods
@@ -57,7 +57,7 @@ class AddTasteInteractor {
     }
 
     private func addTaste(_ taste: Taste) {
-        setDataManager.addData(taste) { [weak self] result in
+        adminNetworkingService.addData(taste) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let newTaste):
@@ -69,7 +69,7 @@ class AddTasteInteractor {
     }
 
     private func editTaste(_ taste: Taste) {
-        setDataManager.setData(taste) { [weak self] result in
+        adminNetworkingService.setData(taste) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let taste):
@@ -82,7 +82,7 @@ class AddTasteInteractor {
 
     private func addTypeToServer(_ newType: String) {
         let type = TasteType(name: newType)
-        setDataManager.addData(type) { [weak self] result in
+        adminNetworkingService.addData(type) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let newType):

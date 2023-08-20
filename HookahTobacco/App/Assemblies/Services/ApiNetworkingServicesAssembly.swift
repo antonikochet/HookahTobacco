@@ -27,12 +27,5 @@ class ApiNetworkingServicesAssembly: Assembly {
             AdminApiService(provider: resolver.resolve(MoyaProvider.self)!,
                             handlerErrors: resolver.resolve(NetworkHandlerErrors.self)!)
         }
-        container.register(ApiServices.self) { resolver in
-            ApiServices(provider: resolver.resolve(MoyaProvider.self)!,
-                        handlerErrors: resolver.resolve(NetworkHandlerErrors.self)!)
-        }
-        container.register(SetDataNetworkingServiceProtocol.self) { resolver in
-            resolver.resolve(ApiServices.self)!
-        }
     }
 }

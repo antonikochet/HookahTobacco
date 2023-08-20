@@ -19,7 +19,6 @@ protocol RegistrationUserProtocol: Encodable {
 }
 
 protocol RegistrationServiceProtocol {
-    typealias RegistrationServiceCompletion = (HTError?) -> Void
-    func checkRegistrationData(email: String?, username: String?, completion: RegistrationServiceCompletion?)
-    func registration(user: RegistrationUserProtocol, completion: RegistrationServiceCompletion?)
+    func checkRegistrationData(email: String?, username: String?, completion: CompletionBlockWithParam<HTError?>?)
+    func registration(user: RegistrationUserProtocol, completion: CompletionBlockWithParam<HTError?>?)
 }

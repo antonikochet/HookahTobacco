@@ -37,7 +37,7 @@ class AddManufacturerInteractor {
     weak var presenter: AddManufacturerInteractorOutputProtocol!
 
     private var getDataManager: DataManagerProtocol
-    private var setDataManager: AdminDataManagerProtocol
+    private var adminNetworkingService: AdminNetworkingServiceProtocol
 
     private var imageFileURL: URL?
     private var manufacturer: Manufacturer?
@@ -49,9 +49,9 @@ class AddManufacturerInteractor {
 
     // init for add manufacturer
     init(getDataManager: DataManagerProtocol,
-         setDataManager: AdminDataManagerProtocol) {
+         adminNetworkingService: AdminNetworkingServiceProtocol) {
         self.getDataManager = getDataManager
-        self.setDataManager = setDataManager
+        self.adminNetworkingService = adminNetworkingService
         self.isEditing = false
         getCountries()
     }
@@ -59,10 +59,10 @@ class AddManufacturerInteractor {
     // init for edit manufacturer
     init(_ manufacturer: Manufacturer,
          getDataManager: DataManagerProtocol,
-         setDataManager: AdminDataManagerProtocol) {
+         adminNetworkingService: AdminNetworkingServiceProtocol) {
         self.manufacturer = manufacturer
         self.getDataManager = getDataManager
-        self.setDataManager = setDataManager
+        self.adminNetworkingService = adminNetworkingService
         self.isEditing = true
         self.tobaccoLines = manufacturer.lines
         self.selectedCountry = manufacturer.country
@@ -88,7 +88,7 @@ class AddManufacturerInteractor {
 
     // MARK: - methods for adding manufacturer data
     private func addManufacturerToServer(_ manufacturer: Manufacturer) {
-        setDataManager.addData(manufacturer) { [weak self] result in
+        adminNetworkingService.addData(manufacturer) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success:
@@ -114,7 +114,7 @@ class AddManufacturerInteractor {
     }
 
     private func setManufacturer(_ new: Manufacturer) {
-        setDataManager.setData(new) { [weak self] result in
+        adminNetworkingService.setData(new) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(var manufacturer):

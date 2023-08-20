@@ -28,16 +28,16 @@ class AddCountryInteractor {
 
     // MARK: - Dependency
     private let getDataManager: DataManagerProtocol
-    private let setDataManager: AdminDataManagerProtocol
+    private let adminNetworkingService: AdminNetworkingServiceProtocol
 
     // MARK: - Private properties
     private var countries: [Country] = []
 
     // MARK: - Initializers
     init(getDataManager: DataManagerProtocol,
-         setDataManager: AdminDataManagerProtocol) {
+         adminNetworkingService: AdminNetworkingServiceProtocol) {
         self.getDataManager = getDataManager
-        self.setDataManager = setDataManager
+        self.adminNetworkingService = adminNetworkingService
     }
 
     // MARK: - Private methods
@@ -55,7 +55,7 @@ class AddCountryInteractor {
     }
 
     private func sendNewCountry(_ country: Country) {
-        setDataManager.addData(country) { [weak self] result in
+        adminNetworkingService.addData(country) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let newCountry):
@@ -68,7 +68,7 @@ class AddCountryInteractor {
     }
 
     private func sendEditCountry(_ country: Country, with index: Int) {
-        setDataManager.setData(country) { [weak self] result in
+        adminNetworkingService.setData(country) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let editCountry):

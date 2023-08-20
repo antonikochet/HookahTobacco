@@ -24,7 +24,7 @@ class AddTobaccoLineInteractor {
     weak var presenter: AddTobaccoLineInteractorOutputProtocol!
 
     // MARK: - Dependency
-    private let setDataManager: AdminDataManagerProtocol
+    private let adminNetworkingService: AdminNetworkingServiceProtocol
 
     // MARK: - Private properties
     private let tobaccoLine: TobaccoLine?
@@ -33,16 +33,16 @@ class AddTobaccoLineInteractor {
     // MARK: - Initializers
     init(manufacturerId: Int,
          tobaccoLine: TobaccoLine?,
-         setDataManager: AdminDataManagerProtocol) {
+         adminNetworkingService: AdminNetworkingServiceProtocol) {
         self.manufacturerId = manufacturerId
         self.tobaccoLine = tobaccoLine
-        self.setDataManager = setDataManager
+        self.adminNetworkingService = adminNetworkingService
     }
 
     // MARK: - Private methods
     private func sendTobaccoLineToServer(_ tobaccoLine: TobaccoLine, isSet: Bool) {
         if isSet {
-            setDataManager.setData(tobaccoLine) { [weak self] result in
+            adminNetworkingService.setData(tobaccoLine) { [weak self] result in
                 switch result {
                 case .success(let newTobaccoLine):
                     self?.presenter.receivedSuccess(with: newTobaccoLine)
@@ -51,7 +51,7 @@ class AddTobaccoLineInteractor {
                 }
             }
         } else {
-            setDataManager.addData(tobaccoLine) { [weak self] result in
+            adminNetworkingService.addData(tobaccoLine) { [weak self] result in
                 switch result {
                 case .success(let newTobaccoLine):
                     self?.presenter.receivedSuccess(with: newTobaccoLine)

@@ -22,7 +22,6 @@ extension AppRouter {
             ApiAuthServiceAssembly(),
             RealmDataBaseServiresAssembly(),
             ImageStorageServiceAssembly(),
-            AdminDataManagerAssembly(),
             DataManagerAssembly()
         ])
     }

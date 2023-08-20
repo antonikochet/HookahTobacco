@@ -27,11 +27,11 @@ class AddTasteAssembly: Assembly {
         container.register(AddTasteInteractorInputProtocol.self) { (resolver, dependency: AddTasteDependency) in
             // here resolve dependency injection
             let getDataManager = resolver.resolve(DataManagerProtocol.self)!
-            let setDataManager = resolver.resolve(AdminDataManagerProtocol.self)!
+            let adminNetworkingService = resolver.resolve(AdminNetworkingServiceProtocol.self)!
 
             return AddTasteInteractor(dependency.taste,
                                       getDataManager: getDataManager,
-                                      setDataManager: setDataManager)
+                                      adminNetworkingService: adminNetworkingService)
         }
 
         container.register(AddTasteViewOutputProtocol.self) { _ in

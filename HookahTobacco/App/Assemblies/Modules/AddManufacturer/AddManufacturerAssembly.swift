@@ -27,13 +27,14 @@ class AddManufacturerAssembly: Assembly {
         ) { (resolver, dependency: AddManufacturerDependency) in
             // here resolve dependency injection
             let getDataManager = resolver.resolve(DataManagerProtocol.self)!
-            let setDataManager = resolver.resolve(AdminDataManagerProtocol.self)!
+            let adminNetworkingService = resolver.resolve(AdminNetworkingServiceProtocol.self)!
             if let manufacturer = dependency.manufacturer {
                 return AddManufacturerInteractor(manufacturer,
                                                  getDataManager: getDataManager,
-                                                 setDataManager: setDataManager)
+                                                 adminNetworkingService: adminNetworkingService)
             }
-            return AddManufacturerInteractor(getDataManager: getDataManager, setDataManager: setDataManager)
+            return AddManufacturerInteractor(getDataManager: getDataManager,
+                                             adminNetworkingService: adminNetworkingService)
         }
 
         container.register(AddManufacturerViewOutputProtocol.self) { _ in
