@@ -31,6 +31,8 @@ class DataManager {
     ]
     private var subscribers: [String: [WeakSubject]]
 
+    let imageWorkingQueue = DispatchQueue(label: "ru.HookahTobacco.DataManager.getImage")
+
     // MARK: - Dependency Network
     private let getDataNetworkingService: GetDataNetworkingServiceProtocol
 
@@ -40,14 +42,19 @@ class DataManager {
     // MARK: - Dependency UserDefaults
     private let userDefaultsService: UserSettingsServiceProtocol
 
+    // MARK: - Dependency Image
+    let imageService: ImageStorageServiceProtocol
+
     // MARK: - Initializers
     init(getDataNetworkingService: GetDataNetworkingServiceProtocol,
          dataBaseService: DataBaseServiceProtocol,
-         userDefaultsService: UserSettingsServiceProtocol
+         userDefaultsService: UserSettingsServiceProtocol,
+         imageService: ImageStorageServiceProtocol
     ) {
         self.getDataNetworkingService = getDataNetworkingService
         self.dataBaseService = dataBaseService
         self.userDefaultsService = userDefaultsService
+        self.imageService = imageService
         subscribers = Dictionary(uniqueKeysWithValues: usedTypes.map {
             (String(describing: $0.self), [WeakSubject]())
         })
@@ -210,6 +217,45 @@ class DataManager {
         }
     }
 
+    private func convertNamedImageInImageService(from url: String) -> NamedImageStorage? {
+        var named: NamedImageStorage?
+        if let url = URL(string: url) {
+            let pathComponents = url.pathComponents
+            if pathComponents.contains(where: { $0 == "tobaccos" }) {
+                if let manufacturer = pathComponents.dropLast().last,
+                   let nameFile = pathComponents.last {
+                    named = NamedImageStorage.tobacco(manufacturer: manufacturer, name: nameFile)
+                }
+            } else {
+                if let nameFile = pathComponents.last {
+                    named = NamedImageStorage.manufacturer(nameImage: nameFile)
+                }
+            }
+        }
+        return named
+    }
+
+    private func receiveImageFromNetwork(for url: String,
+                                         completion: CompletionResultBlock<Data>?) {
+        getDataNetworkingService.getImage(for: url) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let image):
+                if let named = self.convertNamedImageInImageService(from: url) {
+                    // TODO: - вернуть обратно сохранение изображений
+//                    do {
+//                        _ = try self.imageService.saveImage(image, for: named)
+//                    } catch {
+//                        print(error)
+//                    }
+                }
+                completion?(.success(image))
+            case .failure(let error):
+                completion?(.failure(error))
+            }
+        }
+    }
+
     // MARK: - Notification subscribers methods
     func notifySubscribers<T>(with type: T.Type, newState: UpdateDataNotification<[T]>) {
         let nameType = String(describing: type.self)
@@ -243,6 +289,21 @@ extension DataManager: DataManagerProtocol {
         } else {
             receiveDataFromNetwork(typeData: typeData, completion: completion)
         }
+    }
+
+    func receiveImage(for url: String, completion: CompletionResultBlock<Data>?) {
+        imageWorkingQueue.async {
+            do {
+                if let named = self.convertNamedImageInImageService(from: url) {
+                    completion?(.success(try self.imageService.receiveImage(for: named)))
+                } else {
+                    self.receiveImageFromNetwork(for: url, completion: completion)
+                }
+            } catch {
+                self.receiveImageFromNetwork(for: url, completion: completion)
+            }
+        }
+        getDataNetworkingService.getImage(for: url, completion: completion)
     }
 
     func receiveTobaccos(for manufacturer: Manufacturer, completion: ReceiveCompletion<Tobacco>?) {
@@ -285,39 +346,6 @@ extension DataManager: DataManagerProtocol {
                 case .failure(let error):
                     completion?(.failure(error))
                 }
-            }
-        }
-    }
-
-    func getUser(completion: ((Result<UserProtocol, HTError>) -> Void)?) {
-        getDataNetworkingService.getUser { result in
-            switch result {
-            case .success(let user):
-                completion?(.success(user))
-            case .failure(let error):
-                completion?(.failure(error))
-            }
-        }
-    }
-
-    func receiveFavoriteTobaccos(completion: ReceiveCompletion<Tobacco>?) {
-        getDataNetworkingService.getFavoriteTobaccos { result in
-            switch result {
-            case .success(let tobaccos):
-                completion?(.success(tobaccos))
-            case .failure(let error):
-                completion?(.failure(error))
-            }
-        }
-    }
-
-    func receiveWantBuyTobaccos(completion: ReceiveCompletion<Tobacco>?) {
-        getDataNetworkingService.getWantToBuyTobaccos { result in
-            switch result {
-            case .success(let tobaccos):
-                completion?(.success(tobaccos))
-            case .failure(let error):
-                completion?(.failure(error))
             }
         }
     }

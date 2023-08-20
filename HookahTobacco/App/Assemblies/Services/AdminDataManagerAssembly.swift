@@ -15,7 +15,8 @@ class AdminDataManagerAssembly: Assembly {
                 getDataNetworkingService: resolver.resolve(GetDataNetworkingServiceProtocol.self)!,
                 dataBaseService: resolver.resolve(DataBaseServiceProtocol.self)!,
                 userDefaultsService: resolver.resolve(UserSettingsServiceProtocol.self)!,
-                setDataNetworkingService: resolver.resolve(SetDataNetworkingServiceProtocol.self)!
+                setDataNetworkingService: resolver.resolve(SetDataNetworkingServiceProtocol.self)!,
+                imageService: resolver.resolve(ImageStorageServiceProtocol.self)!
             )
         }
         .inObjectScope(.container)

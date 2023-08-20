@@ -12,9 +12,7 @@ typealias GetDataNetworkingServiceCompletion<T> = (Result<T, HTError>) -> Void
 protocol GetDataNetworkingServiceProtocol {
     func receiveData<T: DataNetworkingServiceProtocol>(type: T.Type,
                                                        completion: GetDataNetworkingServiceCompletion<[T]>?)
+    func getImage(for url: String, completion: CompletionResultBlock<Data>?)
     func getTobaccos(for manufacturer: Manufacturer, completion: GetDataNetworkingServiceCompletion<[Tobacco]>?)
-    func getUser(completion: GetDataNetworkingServiceCompletion<UserProtocol>?)
-    func getFavoriteTobaccos(completion: GetDataNetworkingServiceCompletion<[Tobacco]>?)
-    func getWantToBuyTobaccos(completion: GetDataNetworkingServiceCompletion<[Tobacco]>?)
     func getDataBaseVersion(completion: GetDataNetworkingServiceCompletion<Int>?)
 }

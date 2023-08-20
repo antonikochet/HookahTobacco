@@ -38,7 +38,6 @@ class AddManufacturerInteractor {
 
     private var getDataManager: DataManagerProtocol
     private var setDataManager: AdminDataManagerProtocol
-    private var getImageManager: GetImageNetworkingServiceProtocol?
 
     private var imageFileURL: URL?
     private var manufacturer: Manufacturer?
@@ -60,12 +59,10 @@ class AddManufacturerInteractor {
     // init for edit manufacturer
     init(_ manufacturer: Manufacturer,
          getDataManager: DataManagerProtocol,
-         setDataManager: AdminDataManagerProtocol,
-         getImageManager: GetImageNetworkingServiceProtocol) {
+         setDataManager: AdminDataManagerProtocol) {
         self.manufacturer = manufacturer
         self.getDataManager = getDataManager
         self.setDataManager = setDataManager
-        self.getImageManager = getImageManager
         self.isEditing = true
         self.tobaccoLines = manufacturer.lines
         self.selectedCountry = manufacturer.country
@@ -104,7 +101,7 @@ class AddManufacturerInteractor {
 
     // MARK: - methods for changing manufacturer data
     private func receiveImage(for manufacturer: Manufacturer) {
-        getImageManager?.getImage(for: manufacturer.urlImage) { [weak self] result in
+        getDataManager.receiveImage(for: manufacturer.urlImage) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let image):

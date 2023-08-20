@@ -29,11 +29,9 @@ class AddManufacturerAssembly: Assembly {
             let getDataManager = resolver.resolve(DataManagerProtocol.self)!
             let setDataManager = resolver.resolve(AdminDataManagerProtocol.self)!
             if let manufacturer = dependency.manufacturer {
-                let getImageManager = resolver.resolve(GetImageNetworkingServiceProtocol.self)!
                 return AddManufacturerInteractor(manufacturer,
                                                  getDataManager: getDataManager,
-                                                 setDataManager: setDataManager,
-                                                 getImageManager: getImageManager)
+                                                 setDataManager: setDataManager)
             }
             return AddManufacturerInteractor(getDataManager: getDataManager, setDataManager: setDataManager)
         }

@@ -8,6 +8,9 @@
 import Foundation
 
 typealias CompletionBlock = () -> Void
+typealias CompletionBlockWithParam<T> = (T) -> Void
+typealias CompletionResultBlockWithError<T, E: Error> = (Result<T, E>) -> Void
+typealias CompletionResultBlock<T> = CompletionResultBlockWithError<T, HTError>
 
 struct GlobalConstant {
     static let apiURL = Bundle.main.object(forInfoDictionaryKey: "API_URL") as? String ?? ""

@@ -26,7 +26,6 @@ class DetailInfoManufacturerInteractor {
 
     // MARK: - Dependency
     private var getDataManager: DataManagerProtocol
-    private var getImageManager: ImageManagerProtocol
 
     // MARK: - Private properties
     private var manufacturer: Manufacturer
@@ -34,11 +33,9 @@ class DetailInfoManufacturerInteractor {
 
     // MARK: - Initializers
     init(_ manufacturer: Manufacturer,
-         getDataManager: DataManagerProtocol,
-         getImageManager: ImageManagerProtocol) {
+         getDataManager: DataManagerProtocol) {
         self.manufacturer = manufacturer
         self.getDataManager = getDataManager
-        self.getImageManager = getImageManager
         receiveTobacco()
     }
 
@@ -59,7 +56,7 @@ class DetailInfoManufacturerInteractor {
 
     private func receiveImageTobaccos(_ tobaccos: [Tobacco]) {
         tobaccos.enumerated().forEach { index, tobacco in
-            getImageManager.getImage(for: tobacco.imageURL) { [weak self] result in
+            getDataManager.receiveImage(for: tobacco.imageURL) { [weak self] result in
                 guard let self = self else { return }
                 switch result {
                 case .success(let image):

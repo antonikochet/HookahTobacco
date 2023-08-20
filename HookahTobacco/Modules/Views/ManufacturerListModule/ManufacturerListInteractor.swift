@@ -29,7 +29,6 @@ class ManufacturerListInteractor {
 
     // MARK: - Dependency
     private var getDataManager: DataManagerProtocol
-    private var getImageManager: ImageManagerProtocol
     private var updateDataManager: ObserverProtocol
 
     // MARK: - Private properties
@@ -39,12 +38,10 @@ class ManufacturerListInteractor {
     // MARK: - Initializers
     init(_ isAdminMode: Bool,
          getDataManager: DataManagerProtocol,
-         getImageManager: ImageManagerProtocol,
          updateDataManager: ObserverProtocol
     ) {
         self.isAdminMode = isAdminMode
         self.getDataManager = getDataManager
-        self.getImageManager = getImageManager
         self.updateDataManager = updateDataManager
         self.updateDataManager.subscribe(to: Manufacturer.self, subscriber: self)
     }
@@ -73,7 +70,7 @@ class ManufacturerListInteractor {
     private func receiveImage(for manufacturer: Manufacturer, at index: Int) {
         let urlImage = manufacturer.urlImage
         guard !urlImage.isEmpty else { return }
-        getImageManager.getImage(for: urlImage) { [weak self] result in
+        getDataManager.receiveImage(for: urlImage) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let data):

@@ -45,7 +45,11 @@
 		3895E5062A5447AF005D87EE /* Moya+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3895E5052A5447AF005D87EE /* Moya+Request.swift */; };
 		38A027BA2A0A7B6400D3C3E7 /* extention + Encodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A027B92A0A7B6400D3C3E7 /* extention + Encodable.swift */; };
 		38A8B1EC2A91747C009FAFF7 /* PresenterrProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A8B1EB2A91747C009FAFF7 /* PresenterrProtocol.swift */; };
+		38A8B1EE2A91A08A009FAFF7 /* BaseApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A8B1ED2A91A08A009FAFF7 /* BaseApiService.swift */; };
 		38ADAF542A8FB78000DDB30B /* HTError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38ADAF532A8FB78000DDB30B /* HTError.swift */; };
+		38AFD1192A92322800800342 /* UserApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38AFD1182A92322800800342 /* UserApiService.swift */; };
+		38AFD11B2A9238B600800342 /* DataApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38AFD11A2A9238B600800342 /* DataApiService.swift */; };
+		38AFD11D2A92415600800342 /* AdminApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38AFD11C2A92415600800342 /* AdminApiService.swift */; };
 		38C3ACBF2A8BCACC001D79EB /* DatePickerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C3ACBA2A8BCACC001D79EB /* DatePickerPresenter.swift */; };
 		38C3ACC02A8BCACC001D79EB /* DatePickerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C3ACBB2A8BCACC001D79EB /* DatePickerRouter.swift */; };
 		38C3ACC12A8BCACC001D79EB /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C3ACBC2A8BCACC001D79EB /* DatePickerViewController.swift */; };
@@ -98,8 +102,6 @@
 		B90B671529A034FB004460C8 /* ApiServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90B671429A034FB004460C8 /* ApiServices.swift */; };
 		B90B671729A03EB5004460C8 /* ApiNetworkingServicesAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90B671629A03EB5004460C8 /* ApiNetworkingServicesAssembly.swift */; };
 		B90B671D29A049D0004460C8 /* GlobalConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90B671C29A049D0004460C8 /* GlobalConstant.swift */; };
-		B91AF09C293F8B9C004CCC8A /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91AF09B293F8B9C004CCC8A /* ImageManager.swift */; };
-		B91AF09E293FA801004CCC8A /* ImageManagerAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91AF09D293FA800004CCC8A /* ImageManagerAssembly.swift */; };
 		B92A46A82966F9DC0006B787 /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A46A32966F9DC0006B787 /* ProfilePresenter.swift */; };
 		B92A46A92966F9DC0006B787 /* ProfileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A46A42966F9DC0006B787 /* ProfileRouter.swift */; };
 		B92A46AA2966F9DC0006B787 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A46A62966F9DC0006B787 /* ProfileViewController.swift */; };
@@ -147,9 +149,7 @@
 		B97D05BA2929979300F4629B /* TobaccoRealmObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97D05B92929979300F4629B /* TobaccoRealmObject.swift */; };
 		B97D05BC292998AC00F4629B /* TasteRealmObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97D05BB292998AC00F4629B /* TasteRealmObject.swift */; };
 		B97EE9E3292B70790090B344 /* DataManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97EE9E2292B70790090B344 /* DataManagerProtocol.swift */; };
-		B97EE9E5292B71CD0090B344 /* ImageManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97EE9E4292B71CD0090B344 /* ImageManagerProtocol.swift */; };
 		B97EE9E7292B85910090B344 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97EE9E6292B85910090B344 /* DataManager.swift */; };
-		B97EE9E9292B8DAF0090B344 /* ImageNetworkingDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97EE9E8292B8DAF0090B344 /* ImageNetworkingDataProtocol.swift */; };
 		B97EE9EE292BA0710090B344 /* DataManagerAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97EE9ED292BA0710090B344 /* DataManagerAssembly.swift */; };
 		B97EE9F0292BA1480090B344 /* RealmDataBaseServiresAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97EE9EF292BA1480090B344 /* RealmDataBaseServiresAssembly.swift */; };
 		B97EE9F3292BB3C30090B344 /* UserSettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97EE9F2292BB3C30090B344 /* UserSettingsService.swift */; };
@@ -236,8 +236,6 @@
 		B9DBE935290B0C07004D7B97 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DBE934290B0C07004D7B97 /* ImagePickerView.swift */; };
 		B9E0FABB292EC520008807BC /* DataBaseHandlerErrorsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E0FABA292EC520008807BC /* DataBaseHandlerErrorsProtocol.swift */; };
 		B9E0FABD292EC57E008807BC /* RealmHandlerErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E0FABC292EC57E008807BC /* RealmHandlerErrors.swift */; };
-		B9E7A98628FEF9D700D711B4 /* GetImageNetworkingServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7A98528FEF9D700D711B4 /* GetImageNetworkingServiceProtocol.swift */; };
-		B9E7A98C28FF15DF00D711B4 /* SetImageNetworkingServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7A98B28FF15DF00D711B4 /* SetImageNetworkingServiceProtocol.swift */; };
 		B9E7AC9E28F4337100A3D7E5 /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7AC9D28F4337100A3D7E5 /* AppRouter.swift */; };
 		B9E7ACA128F4528000A3D7E5 /* RouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7ACA028F4528000A3D7E5 /* RouterProtocol.swift */; };
 		B9E7ACAE28F46AFB00A3D7E5 /* AdminMenuModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7ACAC28F46AFB00A3D7E5 /* AdminMenuModule.swift */; };
@@ -308,7 +306,11 @@
 		3895E5052A5447AF005D87EE /* Moya+Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Moya+Request.swift"; sourceTree = "<group>"; };
 		38A027B92A0A7B6400D3C3E7 /* extention + Encodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extention + Encodable.swift"; sourceTree = "<group>"; };
 		38A8B1EB2A91747C009FAFF7 /* PresenterrProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterrProtocol.swift; sourceTree = "<group>"; };
+		38A8B1ED2A91A08A009FAFF7 /* BaseApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseApiService.swift; sourceTree = "<group>"; };
 		38ADAF532A8FB78000DDB30B /* HTError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTError.swift; sourceTree = "<group>"; };
+		38AFD1182A92322800800342 /* UserApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserApiService.swift; sourceTree = "<group>"; };
+		38AFD11A2A9238B600800342 /* DataApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataApiService.swift; sourceTree = "<group>"; };
+		38AFD11C2A92415600800342 /* AdminApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminApiService.swift; sourceTree = "<group>"; };
 		38C3ACBA2A8BCACC001D79EB /* DatePickerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerPresenter.swift; sourceTree = "<group>"; };
 		38C3ACBB2A8BCACC001D79EB /* DatePickerRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerRouter.swift; sourceTree = "<group>"; };
 		38C3ACBC2A8BCACC001D79EB /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
@@ -363,8 +365,6 @@
 		B90B671429A034FB004460C8 /* ApiServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiServices.swift; sourceTree = "<group>"; };
 		B90B671629A03EB5004460C8 /* ApiNetworkingServicesAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiNetworkingServicesAssembly.swift; sourceTree = "<group>"; };
 		B90B671C29A049D0004460C8 /* GlobalConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConstant.swift; sourceTree = "<group>"; };
-		B91AF09B293F8B9C004CCC8A /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
-		B91AF09D293FA800004CCC8A /* ImageManagerAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManagerAssembly.swift; sourceTree = "<group>"; };
 		B92A46A32966F9DC0006B787 /* ProfilePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
 		B92A46A42966F9DC0006B787 /* ProfileRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileRouter.swift; sourceTree = "<group>"; };
 		B92A46A62966F9DC0006B787 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -410,9 +410,7 @@
 		B97D05B92929979300F4629B /* TobaccoRealmObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TobaccoRealmObject.swift; sourceTree = "<group>"; };
 		B97D05BB292998AC00F4629B /* TasteRealmObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasteRealmObject.swift; sourceTree = "<group>"; };
 		B97EE9E2292B70790090B344 /* DataManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerProtocol.swift; sourceTree = "<group>"; };
-		B97EE9E4292B71CD0090B344 /* ImageManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManagerProtocol.swift; sourceTree = "<group>"; };
 		B97EE9E6292B85910090B344 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
-		B97EE9E8292B8DAF0090B344 /* ImageNetworkingDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageNetworkingDataProtocol.swift; sourceTree = "<group>"; };
 		B97EE9ED292BA0710090B344 /* DataManagerAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerAssembly.swift; sourceTree = "<group>"; };
 		B97EE9EF292BA1480090B344 /* RealmDataBaseServiresAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDataBaseServiresAssembly.swift; sourceTree = "<group>"; };
 		B97EE9F2292BB3C30090B344 /* UserSettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsService.swift; sourceTree = "<group>"; };
@@ -496,8 +494,6 @@
 		B9DBE934290B0C07004D7B97 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		B9E0FABA292EC520008807BC /* DataBaseHandlerErrorsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseHandlerErrorsProtocol.swift; sourceTree = "<group>"; };
 		B9E0FABC292EC57E008807BC /* RealmHandlerErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmHandlerErrors.swift; sourceTree = "<group>"; };
-		B9E7A98528FEF9D700D711B4 /* GetImageNetworkingServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetImageNetworkingServiceProtocol.swift; sourceTree = "<group>"; };
-		B9E7A98B28FF15DF00D711B4 /* SetImageNetworkingServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetImageNetworkingServiceProtocol.swift; sourceTree = "<group>"; };
 		B9E7AC9D28F4337100A3D7E5 /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
 		B9E7ACA028F4528000A3D7E5 /* RouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterProtocol.swift; sourceTree = "<group>"; };
 		B9E7ACAC28F46AFB00A3D7E5 /* AdminMenuModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminMenuModule.swift; sourceTree = "<group>"; };
@@ -973,15 +969,6 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		B91AF09A293F8B5E004CCC8A /* ImageManager */ = {
-			isa = PBXGroup;
-			children = (
-				B97EE9E4292B71CD0090B344 /* ImageManagerProtocol.swift */,
-				B91AF09B293F8B9C004CCC8A /* ImageManager.swift */,
-			);
-			path = ImageManager;
-			sourceTree = "<group>";
-		};
 		B91EB76728A141F400502221 /* Extentions */ = {
 			isa = PBXGroup;
 			children = (
@@ -1108,7 +1095,11 @@
 		B96181B7299EB57900249A7E /* ApiServices */ = {
 			isa = PBXGroup;
 			children = (
+				38A8B1ED2A91A08A009FAFF7 /* BaseApiService.swift */,
 				B90B671429A034FB004460C8 /* ApiServices.swift */,
+				38AFD1182A92322800800342 /* UserApiService.swift */,
+				38AFD11A2A9238B600800342 /* DataApiService.swift */,
+				38AFD11C2A92415600800342 /* AdminApiService.swift */,
 				3802046129FE6A7C000193A1 /* ApiHandlerErrors.swift */,
 				3802046529FE6D06000193A1 /* Models */,
 			);
@@ -1190,7 +1181,6 @@
 			isa = PBXGroup;
 			children = (
 				B97EE9E0292B6FEC0090B344 /* DataManager */,
-				B91AF09A293F8B5E004CCC8A /* ImageManager */,
 				B938A5162940DAD400145EF0 /* AdminDataManager */,
 			);
 			path = Managers;
@@ -1225,7 +1215,6 @@
 				B97EE9F8292BBEE10090B344 /* UserDefaultsServiceAssembly.swift */,
 				B97EE9ED292BA0710090B344 /* DataManagerAssembly.swift */,
 				B938A51B2940F1E900145EF0 /* AdminDataManagerAssembly.swift */,
-				B91AF09D293FA800004CCC8A /* ImageManagerAssembly.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1475,10 +1464,7 @@
 			isa = PBXGroup;
 			children = (
 				B9D6055C28D4CFA70058D19E /* GetDataNetworkingServiceProtocol.swift */,
-				B9E7A98528FEF9D700D711B4 /* GetImageNetworkingServiceProtocol.swift */,
 				B948D83528CD286400E35884 /* SetDataNetworkingServiceProtocol.swift */,
-				B9E7A98B28FF15DF00D711B4 /* SetImageNetworkingServiceProtocol.swift */,
-				B97EE9E8292B8DAF0090B344 /* ImageNetworkingDataProtocol.swift */,
 				B98EE1EE2936CC7400F97E1A /* DataNetworkingServiceProtocol.swift */,
 				3802046329FE6AB8000193A1 /* NetworkHandlerErrors.swift */,
 			);
@@ -1830,7 +1816,6 @@
 				38DDDE562A8694C000EA19A3 /* Api+Authorization.swift in Sources */,
 				382F0C3D2A7D936600E2F277 /* AddTobaccoLinePresenter.swift in Sources */,
 				B97D05BC292998AC00F4629B /* TasteRealmObject.swift in Sources */,
-				B9E7A98628FEF9D700D711B4 /* GetImageNetworkingServiceProtocol.swift in Sources */,
 				3818E03C2A81342700C9D02C /* ApplyButton.swift in Sources */,
 				B9DBE512290DE2C3005B185C /* HTNavigationControllerAssembly.swift in Sources */,
 				3887C6CE2A585C9400A96AE2 /* Request+Tobacco.swift in Sources */,
@@ -1843,7 +1828,6 @@
 				B98E1DD728F0812500964B8F /* LoginRouter.swift in Sources */,
 				B9027E05290FF613002E3C3A /* AppRouter+Register.swift in Sources */,
 				382F0C3E2A7D936600E2F277 /* AddTobaccoLineRouter.swift in Sources */,
-				B91AF09C293F8B9C004CCC8A /* ImageManager.swift in Sources */,
 				B98E1DF228F0DBCF00964B8F /* AdminMenuPresenter.swift in Sources */,
 				B97EE9EE292BA0710090B344 /* DataManagerAssembly.swift in Sources */,
 				B90A79122899E2BF00B90193 /* AppDelegate.swift in Sources */,
@@ -1856,7 +1840,6 @@
 				B9ACB678291D15AE001D65CE /* HTScrollContentViewController.swift in Sources */,
 				38DDDE702A86CF8700EA19A3 /* User+Codable.swift in Sources */,
 				B9ED910E2909D26100DC3A6D /* TobaccoListAssembly.swift in Sources */,
-				B9E7A98C28FF15DF00D711B4 /* SetImageNetworkingServiceProtocol.swift in Sources */,
 				B9ED9105290989EF00DC3A6D /* TobaccoListInteractor.swift in Sources */,
 				B9C925F8294F53720085BB02 /* RegistrationRouter.swift in Sources */,
 				38DDDE732A86DAC400EA19A3 /* MoyaProviderAssembly.swift in Sources */,
@@ -1898,6 +1881,7 @@
 				38F9B8A32A802FE100EAC0A0 /* AddCountryTableViewCell.swift in Sources */,
 				3848022F2A57189C00DA595B /* Request+Manufacturer.swift in Sources */,
 				3895E4FF2A542D41005D87EE /* Api+Manufacturer.swift in Sources */,
+				38AFD11D2A92415600800342 /* AdminApiService.swift in Sources */,
 				B97EE9F9292BBEE10090B344 /* UserDefaultsServiceAssembly.swift in Sources */,
 				B938A5182940DAFF00145EF0 /* AdminDataManagerProtocol.swift in Sources */,
 				387121B92A55B2A800B6005E /* Api+TasteType.swift in Sources */,
@@ -1970,7 +1954,6 @@
 				B94306CB2920277E00EADFA0 /* AddTastesViewController.swift in Sources */,
 				3802046729FE6D1A000193A1 /* ApiError.swift in Sources */,
 				B9E8DA5128F7827900CCA034 /* ManufacturerListAssembly.swift in Sources */,
-				B91AF09E293FA801004CCC8A /* ImageManagerAssembly.swift in Sources */,
 				B90A792D289A8C2200B90193 /* Tobacco.swift in Sources */,
 				B9074144290F041B00499674 /* HTTabBarControllerAssembly.swift in Sources */,
 				B92A46B32967313B0006B787 /* ProfileModule.swift in Sources */,
@@ -1985,7 +1968,6 @@
 				38F9B8A82A80355300EAC0A0 /* AddCountryAssembly.swift in Sources */,
 				B9ED910D2909D26100DC3A6D /* TobaccoListModule.swift in Sources */,
 				3895E5012A542D54005D87EE /* DefaultTarget.swift in Sources */,
-				B97EE9E9292B8DAF0090B344 /* ImageNetworkingDataProtocol.swift in Sources */,
 				38DDDE5B2A8699E900EA19A3 /* ApiAuthServices.swift in Sources */,
 				B90B671529A034FB004460C8 /* ApiServices.swift in Sources */,
 				B9BA7947295B9CE7009188D6 /* RegistrationModule.swift in Sources */,
@@ -2009,10 +1991,10 @@
 				B92A46AB2966F9DC0006B787 /* ProfileInteractor.swift in Sources */,
 				B9EE2376291023F00098E4E0 /* DetailInfoManufacturerPresenter.swift in Sources */,
 				B94E17BA292126DD0008CB73 /* AddTastesAssembly.swift in Sources */,
-				B97EE9E5292B71CD0090B344 /* ImageManagerProtocol.swift in Sources */,
 				B98E1DF428F0DBCF00964B8F /* AdminMenuViewController.swift in Sources */,
 				B9E0FABB292EC520008807BC /* DataBaseHandlerErrorsProtocol.swift in Sources */,
 				B9E7AC9E28F4337100A3D7E5 /* AppRouter.swift in Sources */,
+				38AFD1192A92322800800342 /* UserApiService.swift in Sources */,
 				38F9B89E2A80047E00EAC0A0 /* AddCountryViewController.swift in Sources */,
 				B98EE1EF2936CC7400F97E1A /* DataNetworkingServiceProtocol.swift in Sources */,
 				B94B771A290C2738002C5660 /* AddTextView.swift in Sources */,
@@ -2041,12 +2023,14 @@
 				B98E1DB228F04A0F00964B8F /* AddManufacturerRouter.swift in Sources */,
 				B98182A3292A6CBD00DEA9F0 /* HTRealm.swift in Sources */,
 				38F9B8932A7FE0DD00EAC0A0 /* IconButton.swift in Sources */,
+				38AFD11B2A9238B600800342 /* DataApiService.swift in Sources */,
 				B982803F292FA32900BF3A93 /* ImageStorageServiceProtocol.swift in Sources */,
 				B98E1DD828F0812500964B8F /* LoginViewController.swift in Sources */,
 				B9D6E93B29FDCE24001D44D5 /* Country+Codable.swift in Sources */,
 				B9C7B958296AE1C700D5A78B /* DetailManufacturerLineHeaderView.swift in Sources */,
 				387121B62A55B1E100B6005E /* Api+TobaccoLine.swift in Sources */,
 				B94B771C290C3785002C5660 /* AddPickerView.swift in Sources */,
+				38A8B1EE2A91A08A009FAFF7 /* BaseApiService.swift in Sources */,
 				B92A46A92966F9DC0006B787 /* ProfileRouter.swift in Sources */,
 				B9631C552923E9EE00BBC09B /* AddTastePresenter.swift in Sources */,
 				38A027BA2A0A7B6400D3C3E7 /* extention + Encodable.swift in Sources */,

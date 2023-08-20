@@ -39,7 +39,7 @@ class TobaccoListInteractor {
 
     // MARK: - Dependency
     private var getDataManager: DataManagerProtocol
-    private var getImageManager: ImageManagerProtocol
+    private var userService: UserNetworkingServiceProtocol
     private var updateDataManager: ObserverProtocol
 
     // MARK: - Private properties
@@ -51,13 +51,13 @@ class TobaccoListInteractor {
     init(_ isAdminModel: Bool,
          input: TobaccoListInput,
          getDataManager: DataManagerProtocol,
-         getImageManager: ImageManagerProtocol,
+         userService: UserNetworkingServiceProtocol,
          updateDataManager: ObserverProtocol
     ) {
         self.isAdminMode = isAdminModel
         self.input = input
         self.getDataManager = getDataManager
-        self.getImageManager = getImageManager
+        self.userService = userService
         self.updateDataManager = updateDataManager
         self.updateDataManager.subscribe(to: Tobacco.self, subscriber: self)
     }
@@ -68,7 +68,7 @@ class TobaccoListInteractor {
 
     // MARK: - Private methods
     private func getTobacco() {
-        let completion: (Result<[Tobacco], HTError>) -> Void = { [weak self] result in
+        let completion: CompletionResultBlock<[Tobacco]> = { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let tobaccos):
@@ -83,14 +83,14 @@ class TobaccoListInteractor {
         case .none:
             getDataManager.receiveData(typeData: Tobacco.self, completion: completion)
         case .favorite:
-            getDataManager.receiveFavoriteTobaccos(completion: completion)
+            userService.receiveFavoriteTobaccos(completion: completion)
         case .wantBuy:
-            getDataManager.receiveWantBuyTobaccos(completion: completion)
+            userService.receiveWantToBuyTobaccos(completion: completion)
         }
     }
 
     private func getImage(for tobacco: Tobacco, with index: Int) {
-        getImageManager.getImage(for: tobacco.imageURL) { [weak self] result in
+        getDataManager.receiveImage(for: tobacco.imageURL) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let image):

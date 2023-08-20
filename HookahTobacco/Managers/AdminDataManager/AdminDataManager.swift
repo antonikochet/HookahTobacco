@@ -16,12 +16,14 @@ class AdminDataManager: DataManager {
     init(getDataNetworkingService: GetDataNetworkingServiceProtocol,
          dataBaseService: DataBaseServiceProtocol,
          userDefaultsService: UserSettingsServiceProtocol,
-         setDataNetworkingService: SetDataNetworkingServiceProtocol
+         setDataNetworkingService: SetDataNetworkingServiceProtocol,
+         imageService: ImageStorageServiceProtocol
     ) {
         self.setDataNetworkingService = setDataNetworkingService
         super.init(getDataNetworkingService: getDataNetworkingService,
                    dataBaseService: dataBaseService,
-                   userDefaultsService: userDefaultsService)
+                   userDefaultsService: userDefaultsService,
+                   imageService: imageService)
     }
 
     private func notifySubscribers<T>(_ type: T.Type) {

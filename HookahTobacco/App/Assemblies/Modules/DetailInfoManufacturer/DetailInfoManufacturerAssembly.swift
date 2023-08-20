@@ -28,11 +28,9 @@ class DetailInfoManufacturerAssembly: Assembly {
         ) { (resolver, dependency: DetailInfoManufacturerDependency) in
             // here resolve dependency injection
             let getDataManager = resolver.resolve(DataManagerProtocol.self)!
-            let getImageManager = resolver.resolve(ImageManagerProtocol.self)!
 
             return DetailInfoManufacturerInteractor(dependency.manufacturer,
-                                                    getDataManager: getDataManager,
-                                                    getImageManager: getImageManager)
+                                                    getDataManager: getDataManager)
         }
 
         container.register(DetailInfoManufacturerViewOutputProtocol.self) { _ in

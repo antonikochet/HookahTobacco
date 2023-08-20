@@ -15,15 +15,21 @@ class ApiNetworkingServicesAssembly: Assembly {
         container.register(NetworkHandlerErrors.self) { _ in
             ApiHandlerErrors()
         }
+        container.register(UserNetworkingServiceProtocol.self) { resolver in
+            UserApiService(provider: resolver.resolve(MoyaProvider.self)!,
+                           handlerErrors: resolver.resolve(NetworkHandlerErrors.self)!)
+        }
+        container.register(GetDataNetworkingServiceProtocol.self) { resolver in
+            DataApiService(provider: resolver.resolve(MoyaProvider.self)!,
+                           handlerErrors: resolver.resolve(NetworkHandlerErrors.self)!)
+        }
+        container.register(AdminNetworkingServiceProtocol.self) { resolver in
+            AdminApiService(provider: resolver.resolve(MoyaProvider.self)!,
+                            handlerErrors: resolver.resolve(NetworkHandlerErrors.self)!)
+        }
         container.register(ApiServices.self) { resolver in
             ApiServices(provider: resolver.resolve(MoyaProvider.self)!,
                         handlerErrors: resolver.resolve(NetworkHandlerErrors.self)!)
-        }
-        container.register(GetDataNetworkingServiceProtocol.self) { resolver in
-            resolver.resolve(ApiServices.self)!
-        }
-        container.register(GetImageNetworkingServiceProtocol.self) { resolver in
-            resolver.resolve(ApiServices.self)!
         }
         container.register(SetDataNetworkingServiceProtocol.self) { resolver in
             resolver.resolve(ApiServices.self)!
