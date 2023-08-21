@@ -34,8 +34,6 @@
 		387121B62A55B1E100B6005E /* Api+TobaccoLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387121B52A55B1E100B6005E /* Api+TobaccoLine.swift */; };
 		387121B92A55B2A800B6005E /* Api+TasteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387121B82A55B2A800B6005E /* Api+TasteType.swift */; };
 		387121BC2A55B34F00B6005E /* Api+Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387121BB2A55B34F00B6005E /* Api+Country.swift */; };
-		387121BF2A55BB1500B6005E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 387121BE2A55BB1500B6005E /* Alamofire */; };
-		387121C12A55BBA600B6005E /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 387121C02A55BBA600B6005E /* Moya */; };
 		3887C6CE2A585C9400A96AE2 /* Request+Tobacco.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3887C6CD2A585C9400A96AE2 /* Request+Tobacco.swift */; };
 		3887C6D12A58711800A96AE2 /* HandlerErrorPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3887C6D02A58711800A96AE2 /* HandlerErrorPlugin.swift */; };
 		3887C6D32A58713A00A96AE2 /* Moya+Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3887C6D22A58713A00A96AE2 /* Moya+Config.swift */; };
@@ -51,6 +49,8 @@
 		38AFD11B2A9238B600800342 /* DataApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38AFD11A2A9238B600800342 /* DataApiService.swift */; };
 		38AFD11D2A92415600800342 /* AdminApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38AFD11C2A92415600800342 /* AdminApiService.swift */; };
 		38AFD11F2A925C5100800342 /* NetworkingServiceProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38AFD11E2A925C5100800342 /* NetworkingServiceProtocols.swift */; };
+		38AFD1212A92633000800342 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38AFD1202A92633000800342 /* InfoView.swift */; };
+		38B9FF5D2A93C168007E1516 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 38B9FF5C2A93C168007E1516 /* Moya */; };
 		38C3ACBF2A8BCACC001D79EB /* DatePickerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C3ACBA2A8BCACC001D79EB /* DatePickerPresenter.swift */; };
 		38C3ACC02A8BCACC001D79EB /* DatePickerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C3ACBB2A8BCACC001D79EB /* DatePickerRouter.swift */; };
 		38C3ACC12A8BCACC001D79EB /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C3ACBC2A8BCACC001D79EB /* DatePickerViewController.swift */; };
@@ -307,6 +307,7 @@
 		38AFD11A2A9238B600800342 /* DataApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataApiService.swift; sourceTree = "<group>"; };
 		38AFD11C2A92415600800342 /* AdminApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminApiService.swift; sourceTree = "<group>"; };
 		38AFD11E2A925C5100800342 /* NetworkingServiceProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingServiceProtocols.swift; sourceTree = "<group>"; };
+		38AFD1202A92633000800342 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		38C3ACBA2A8BCACC001D79EB /* DatePickerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerPresenter.swift; sourceTree = "<group>"; };
 		38C3ACBB2A8BCACC001D79EB /* DatePickerRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerRouter.swift; sourceTree = "<group>"; };
 		38C3ACBC2A8BCACC001D79EB /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
@@ -526,12 +527,11 @@
 				B97D05AF2929639200F4629B /* Realm in Frameworks */,
 				B9D6DA3F2966206000B142AC /* TableKit in Frameworks */,
 				3818E0352A80FB1700C9D02C /* FittedSheets in Frameworks */,
-				387121C12A55BBA600B6005E /* Moya in Frameworks */,
-				387121BF2A55BB1500B6005E /* Alamofire in Frameworks */,
 				B9EB023B28F3159A00B3B6DA /* Swinject in Frameworks */,
 				38E8E6422A87C6B400041443 /* KeychainAccess in Frameworks */,
 				B9D6056C28D508800058D19E /* SnapKit in Frameworks */,
 				B9C9ECFB29128F2F000A359B /* FirebaseCrashlytics in Frameworks */,
+				38B9FF5D2A93C168007E1516 /* Moya in Frameworks */,
 				B9D2D2A7293B805100F2F591 /* MultiSelectSegmentedControl in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1329,6 +1329,7 @@
 				38F9B8922A7FE0DD00EAC0A0 /* IconButton.swift */,
 				3818E03B2A81342700C9D02C /* ApplyButton.swift */,
 				385505362A814A7A00855E50 /* LoadingView.swift */,
+				38AFD1202A92633000800342 /* InfoView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1652,10 +1653,9 @@
 				B97D05B02929639200F4629B /* RealmSwift */,
 				B9D2D2A6293B805100F2F591 /* MultiSelectSegmentedControl */,
 				B9D6DA3E2966206000B142AC /* TableKit */,
-				387121BE2A55BB1500B6005E /* Alamofire */,
-				387121C02A55BBA600B6005E /* Moya */,
 				3818E0342A80FB1700C9D02C /* FittedSheets */,
 				38E8E6412A87C6B400041443 /* KeychainAccess */,
+				38B9FF5C2A93C168007E1516 /* Moya */,
 			);
 			productName = HookahTobacco;
 			productReference = B90A790E2899E2BF00B90193 /* HookahTobacco.app */;
@@ -1692,10 +1692,9 @@
 				B97D05AD2929639200F4629B /* XCRemoteSwiftPackageReference "realm-swift" */,
 				B9D2D2A5293B805100F2F591 /* XCRemoteSwiftPackageReference "MultiSelectSegmentedControl" */,
 				B9D6DA3C2965ECB200B142AC /* XCRemoteSwiftPackageReference "TableKit" */,
-				3895E4FC2A542C8C005D87EE /* XCRemoteSwiftPackageReference "Moya" */,
-				387121BD2A55BB1500B6005E /* XCRemoteSwiftPackageReference "Alamofire" */,
 				3818E0332A80FB1700C9D02C /* XCRemoteSwiftPackageReference "FittedSheets" */,
 				38E8E6402A87C6B400041443 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
+				38B9FF5B2A93C168007E1516 /* XCRemoteSwiftPackageReference "Moya" */,
 			);
 			productRefGroup = B90A790F2899E2BF00B90193 /* Products */;
 			projectDirPath = "";
@@ -1772,6 +1771,7 @@
 				38DDDE602A86B1CA00EA19A3 /* User.swift in Sources */,
 				B94306C12920181100EADFA0 /* Taste.swift in Sources */,
 				B949D7AB293D15900019BEFC /* SystemSubscriberProtocol.swift in Sources */,
+				38AFD1212A92633000800342 /* InfoView.swift in Sources */,
 				B902AE3E29F405EA00BF6AD6 /* Manufacturer+Codable.swift in Sources */,
 				3802046229FE6A7C000193A1 /* ApiHandlerErrors.swift in Sources */,
 				B9E7ACAF28F46AFB00A3D7E5 /* AdminMenuAssembly.swift in Sources */,
@@ -2323,15 +2323,7 @@
 				minimumVersion = 2.0.0;
 			};
 		};
-		387121BD2A55BB1500B6005E /* XCRemoteSwiftPackageReference "Alamofire" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
-			};
-		};
-		3895E4FC2A542C8C005D87EE /* XCRemoteSwiftPackageReference "Moya" */ = {
+		38B9FF5B2A93C168007E1516 /* XCRemoteSwiftPackageReference "Moya" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Moya/Moya.git";
 			requirement = {
@@ -2403,14 +2395,9 @@
 			package = 3818E0332A80FB1700C9D02C /* XCRemoteSwiftPackageReference "FittedSheets" */;
 			productName = FittedSheets;
 		};
-		387121BE2A55BB1500B6005E /* Alamofire */ = {
+		38B9FF5C2A93C168007E1516 /* Moya */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 387121BD2A55BB1500B6005E /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
-		};
-		387121C02A55BBA600B6005E /* Moya */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3895E4FC2A542C8C005D87EE /* XCRemoteSwiftPackageReference "Moya" */;
+			package = 38B9FF5B2A93C168007E1516 /* XCRemoteSwiftPackageReference "Moya" */;
 			productName = Moya;
 		};
 		38E8E6412A87C6B400041443 /* KeychainAccess */ = {

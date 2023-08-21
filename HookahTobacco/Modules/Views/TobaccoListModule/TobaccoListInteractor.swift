@@ -22,6 +22,7 @@ protocol TobaccoListInteractorInputProtocol: AnyObject {
     func updateData()
     func updateFavorite(by index: Int)
     func updateWantBuy(by index: Int)
+    func receiveTobaccoListInput() -> TobaccoListInput
 }
 
 protocol TobaccoListInteractorOutputProtocol: PresenterrProtocol {
@@ -181,6 +182,10 @@ extension TobaccoListInteractor: TobaccoListInteractorInputProtocol {
                 self.presenter.showMessageUser("Вы убрали табак из списка \"Хочу купить\"")
             }
         }
+    }
+
+    func receiveTobaccoListInput() -> TobaccoListInput {
+        input
     }
 }
 

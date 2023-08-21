@@ -30,3 +30,22 @@ enum HTError: Error {
         }
     }
 }
+
+extension HTError: Equatable {
+    static func == (lhs: HTError, rhs: HTError) -> Bool {
+        switch (lhs, rhs) {
+        case (.noInternetConnection, .noInternetConnection):
+            return true
+        case (.unexpectedError, .unexpectedError):
+            return true
+        case (.unknownError, .unknownError):
+            return true
+        case (.apiError, .apiError):
+            return true
+        case (.databaseError, .databaseError):
+            return true
+        default:
+            return false
+        }
+    }
+}

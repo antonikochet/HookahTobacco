@@ -43,6 +43,15 @@ class BaseViewController: UIViewController {
         }
         self.loadingView = loadingView
     }
+
+    private func setupErrorView(_ viewModel: InfoViewModel) {
+        let infoView = InfoView()
+        view.addSubview(infoView)
+        infoView.snp.makeConstraints { make in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+        infoView.configure(viewModel: viewModel)
+    }
 }
 
 // MARK: - ViewProtocol implementation
@@ -64,5 +73,34 @@ extension BaseViewController: ViewProtocol {
         loadingView = nil
         blockView?.removeFromSuperview()
         blockView = nil
+    }
+
+    func showErrorView(title: String, message: String, image: UIImage?,
+                       refreshButtonTitle: String, buttonAction: CompletionBlock?) {
+        var primaryAction: ActionWithTitle?
+        if buttonAction != nil {
+            primaryAction = ActionWithTitle(title: refreshButtonTitle,
+                                            action: {
+                                                buttonAction?()
+                                            })
+        }
+        let viewModel = InfoViewModel(
+            image: image,
+            title: title,
+            subtitle: message,
+            primaryAction: primaryAction)
+        setupErrorView(viewModel)
+    }
+
+    func hideErrorView() {
+        view.subviews.filter({ $0 is InfoView }).forEach { $0.removeFromSuperview() }
+    }
+
+    func showInfoView(viewModel: InfoViewModel) {
+        setupErrorView(viewModel)
+    }
+
+    func hideInfoView() {
+        hideErrorView()
     }
 }

@@ -13,6 +13,7 @@ import SnapKit
 protocol TobaccoListViewInputProtocol: ViewProtocol {
     func getTableView() -> UITableView
     func endRefreshing()
+    func setupView(title: String)
 }
 
 protocol TobaccoListViewOutputProtocol: AnyObject {
@@ -74,6 +75,10 @@ extension TobaccoListViewController: TobaccoListViewInputProtocol {
         DispatchQueue.main.async {
             self.refreshControl.endRefreshing()
         }
+    }
+
+    func setupView(title: String) {
+        self.title = title
     }
 }
 
