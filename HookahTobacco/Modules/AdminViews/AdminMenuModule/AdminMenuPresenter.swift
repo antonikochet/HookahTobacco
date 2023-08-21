@@ -17,8 +17,8 @@ class AdminMenuPresenter {
 
 // MARK: - AdminMenuInteractorOutputProtocol implementation
 extension AdminMenuPresenter: AdminMenuInteractorOutputProtocol {
-    func receiveError(with message: String) {
-        router.showError(with: message)
+    func receivedError(_ error: HTError) {
+        router.showError(with: error.message)
     }
 
     func receiveSuccessLogout() {

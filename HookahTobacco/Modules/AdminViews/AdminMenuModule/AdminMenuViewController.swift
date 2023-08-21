@@ -27,11 +27,11 @@ class AdminMenuViewController: UIViewController {
     var presenter: AdminMenuViewOutputProtocol!
 
     // MARK: - UI properties
-    private let addManufacturer = UIButton.createAppBigButton("Добавить производителя")
-    private let addTobacco = UIButton.createAppBigButton("Добавить табак")
-    private let editManufacturer = UIButton.createAppBigButton("Изменить производителей")
-    private let editTobacco = UIButton.createAppBigButton("Изменить табаки")
-    private let upgradeDBVersion = UIButton.createAppBigButton("Повысить версию базы данных")
+    private let addManufacturer = ApplyButton()
+    private let addTobacco = ApplyButton()
+    private let editManufacturer = ApplyButton()
+    private let editTobacco = ApplyButton()
+    private let upgradeDBVersion = ApplyButton()
 
     // MARK: - Lifecycle ViewController
     override func viewDidLoad() {
@@ -43,30 +43,37 @@ class AdminMenuViewController: UIViewController {
         setupRightButtonNavigationBar()
     }
 
-    override func viewDidLayoutSubviews() {
-        addManufacturer.createCornerRadius()
-        addTobacco.createCornerRadius()
-        editManufacturer.createCornerRadius()
-        editTobacco.createCornerRadius()
-        upgradeDBVersion.createCornerRadius()
-    }
-
     // MARK: - Setups
     private func setupSubviews() {
+        addManufacturer.setTitle("Добавить производителя", for: .normal)
+        addManufacturer.action = { [weak self] in
+            self?.presenter.pressedAddManufacturerButton()
+        }
         addManufacturer.setupButton(superView: view, topViewConstraint: view.safeAreaLayoutGuide.snp.top)
-        addManufacturer.addTarget(self, action: #selector(touchButton(_:)), for: .touchUpInside)
 
+        addTobacco.setTitle("Добавить табак", for: .normal)
+        addTobacco.action = { [weak self] in
+            self?.presenter.pressedAddTobaccoButton()
+        }
         addTobacco.setupButton(superView: view, topViewConstraint: addManufacturer.snp.bottom)
-        addTobacco.addTarget(self, action: #selector(touchButton(_:)), for: .touchUpInside)
 
+        editManufacturer.setTitle("Изменить производителей", for: .normal)
+        editManufacturer.action = { [weak self] in
+            self?.presenter.pressedEditManufacturers()
+        }
         editManufacturer.setupButton(superView: view, topViewConstraint: addTobacco.snp.bottom)
-        editManufacturer.addTarget(self, action: #selector(touchButton(_:)), for: .touchUpInside)
 
+        editTobacco.setTitle("Изменить табаки", for: .normal)
+        editTobacco.action = { [weak self] in
+            self?.presenter.pressedEditTobacco()
+        }
         editTobacco.setupButton(superView: view, topViewConstraint: editManufacturer.snp.bottom)
-        editTobacco.addTarget(self, action: #selector(touchButton(_:)), for: .touchUpInside)
 
+        upgradeDBVersion.setTitle("Повысить версию базы данных", for: .normal)
+        upgradeDBVersion.action = { [weak self] in
+            self?.presenter.pressedUpgradeBDVersion()
+        }
         upgradeDBVersion.setupButton(superView: view, topViewConstraint: editTobacco.snp.bottom)
-        upgradeDBVersion.addTarget(self, action: #selector(touchButton(_:)), for: .touchUpInside)
     }
 
     private func setupRightButtonNavigationBar() {
@@ -74,22 +81,6 @@ class AdminMenuViewController: UIViewController {
                                                             style: .done,
                                                             target: self,
                                                             action: #selector(touchRightButtonNavBar))
-    }
-
-    // MARK: - Selectors
-    @objc
-    private func touchButton(_ button: UIButton) {
-        if addManufacturer == button {
-            presenter.pressedAddManufacturerButton()
-        } else if addTobacco == button {
-            presenter.pressedAddTobaccoButton()
-        } else if editManufacturer == button {
-            presenter.pressedEditManufacturers()
-        } else if editTobacco == button {
-            presenter.pressedEditTobacco()
-        } else if upgradeDBVersion == button {
-            presenter.pressedUpgradeBDVersion()
-        }
     }
 
     @objc
@@ -110,7 +101,6 @@ fileprivate extension UIButton {
         self.snp.makeConstraints { make in
             make.top.equalTo(topViewConstraint).offset(24)
             make.leading.trailing.equalToSuperview().inset(24)
-            make.height.equalTo(50)
         }
     }
 }

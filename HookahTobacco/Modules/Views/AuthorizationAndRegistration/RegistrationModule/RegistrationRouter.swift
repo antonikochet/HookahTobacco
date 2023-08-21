@@ -10,23 +10,18 @@
 import UIKit
 
 protocol RegistrationRouterProtocol: RouterProtocol {
-    func showError(_ message: String)
-    func showProfileRegistrationView()
+    func showProfileRegistrationView(user: RegistrationUserProtocol)
 }
 
 final class RegistrationRouter: RegistrationRouterProtocol {
-    // MARK: - Private properties
-    private let appRouter: AppRouterProtocol
+    var appRouter: AppRouterProtocol
 
     init(_ appRouter: AppRouterProtocol) {
         self.appRouter = appRouter
     }
 
-    func showError(_ message: String) {
-        appRouter.presentAlert(type: .error(message: message), completion: nil)
-    }
-
-    func showProfileRegistrationView() {
-        print("show profile registration view")
+    func showProfileRegistrationView(user: RegistrationUserProtocol) {
+        let data = ProfileEditDataModule(isRegistration: true, user: user)
+        appRouter.pushViewController(module: ProfileEditModule.self, moduleData: data, animateDisplay: true)
     }
 }

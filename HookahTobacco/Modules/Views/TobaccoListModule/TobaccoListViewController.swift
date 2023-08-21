@@ -10,11 +10,10 @@
 import UIKit
 import SnapKit
 
-protocol TobaccoListViewInputProtocol: AnyObject {
+protocol TobaccoListViewInputProtocol: ViewProtocol {
     func getTableView() -> UITableView
     func endRefreshing()
-    func showProgressView()
-    func hideProgressView()
+    func setupView(title: String)
 }
 
 protocol TobaccoListViewOutputProtocol: AnyObject {
@@ -22,14 +21,13 @@ protocol TobaccoListViewOutputProtocol: AnyObject {
     func didStartingRefreshView()
 }
 
-class TobaccoListViewController: UIViewController {
+class TobaccoListViewController: BaseViewController {
     // MARK: - Public properties
     var presenter: TobaccoListViewOutputProtocol!
 
     // MARK: - Private properties
     private let tableView = UITableView()
     private let refreshControl = UIRefreshControl()
-    private let activityIndicator = UIActivityIndicatorView(style: .large)
 
     // MARK: - ViewController Lifecycle
     override func viewDidLoad() {
@@ -42,7 +40,6 @@ class TobaccoListViewController: UIViewController {
     private func setup() {
         setupScreen()
         setupTableView()
-        setupActivityIndicator()
     }
 
     private func setupScreen() {
@@ -58,15 +55,6 @@ class TobaccoListViewController: UIViewController {
         }
 
         refreshControl.addTarget(self, action: #selector(refreshTableView), for: .valueChanged)
-    }
-    private func setupActivityIndicator() {
-        view.addSubview(activityIndicator)
-        activityIndicator.hidesWhenStopped = true
-        activityIndicator.isHidden = true
-
-        activityIndicator.snp.makeConstraints { make in
-            make.centerX.centerY.equalToSuperview()
-        }
     }
 
     // MARK: - Private methods
@@ -89,14 +77,8 @@ extension TobaccoListViewController: TobaccoListViewInputProtocol {
         }
     }
 
-    func showProgressView() {
-        activityIndicator.startAnimating()
-    }
-
-    func hideProgressView() {
-        DispatchQueue.main.async {
-            self.activityIndicator.stopAnimating()
-        }
+    func setupView(title: String) {
+        self.title = title
     }
 }
 

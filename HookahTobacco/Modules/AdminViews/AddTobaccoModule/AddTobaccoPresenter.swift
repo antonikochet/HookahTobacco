@@ -32,13 +32,19 @@ extension AddTobaccoPresenter: AddTobaccoInteractorOutputProtocol {
 
     func receivedSuccessEditing(with changedData: Tobacco) {
         view.hideLoading()
-        router.showSuccess(delay: 2.0)
-        router.dismissView(with: changedData)
+        router.showSuccess(delay: 2.0) { [weak self] in
+            self?.router.dismissView(with: changedData)
+        }
     }
 
     func receivedError(with message: String) {
         view.hideLoading()
         router.showError(with: message)
+    }
+
+    func receivedError(_ error: HTError) {
+        view.hideLoading()
+        router.showError(with: error.message)
     }
 
     func showNameManufacturersForSelect(_ names: [String]) {
@@ -112,7 +118,7 @@ extension AddTobaccoPresenter: AddTobaccoViewOutputProtocol {
         let description = data.description ?? ""
         let tobaccoInteractor = AddTobaccoEntity.Tobacco(name: name,
                                                          description: description)
-        view.showLoading()
+        view.showBlockLoading()
         interactor.sendNewTobaccoToServer(tobaccoInteractor)
     }
 

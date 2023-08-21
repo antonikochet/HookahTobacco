@@ -9,6 +9,7 @@
 
 import Foundation
 import TableKit
+import UIKit
 
 class ManufacturerListPresenter {
     // MARK: - Public properties
@@ -18,11 +19,12 @@ class ManufacturerListPresenter {
 
     // MARK: - Private properties
     private var tableDirector: TableDirector?
+    private var isDownloadData: Bool = false
 
     // MARK: - Private methods
     private func createItem(for manufacturer: Manufacturer) -> ManufacturerListTableViewCellItem {
         ManufacturerListTableViewCellItem(name: manufacturer.name,
-                                          country: manufacturer.country,
+                                          country: manufacturer.country.name,
                                           image: manufacturer.image)
     }
     private func createRow(at item: ManufacturerListTableViewCellItem) -> Row {
@@ -68,14 +70,34 @@ class ManufacturerListPresenter {
 // MARK: - InteractorOutputProtocol implementation
 extension ManufacturerListPresenter: ManufacturerListInteractorOutputProtocol {
     func receivedManufacturersSuccess(with data: [Manufacturer]) {
-        setupContentView(data)
-        view.hideProgressView()
+        isDownloadData = true
+        if data.isEmpty {
+            view.showErrorView(title: "Производителей нет",
+                               message: "",
+                               buttonAction: nil)
+        } else {
+            setupContentView(data)
+        }
+        view.hideLoading()
         view.endRefreshing()
     }
 
-    func receivedError(with message: String) {
-        view.hideProgressView()
-        router.showError(with: message)
+    func receivedError(_ error: HTError) {
+        view.hideLoading()
+        view.endRefreshing()
+        switch error {
+        case .apiError, .databaseError:
+            router.showError(with: error.message)
+        case .noInternetConnection, .unexpectedError, .unknownError:
+            if isDownloadData {
+                router.showError(with: error.message)
+            } else {
+                view.showErrorView(isUnexpectedError: error != .noInternetConnection) { [weak self] in
+                    self?.view.hideErrorView()
+                    self?.interactor.startReceiveData()
+                }
+            }
+        }
     }
 
     func receivedUpdate(for manufacturer: Manufacturer, at index: Int) {
@@ -98,7 +120,7 @@ extension ManufacturerListPresenter: ManufacturerListViewOutputProtocol {
         let cellHeightCalculator = ManufacturerListCellHeightCalculator(tableView: tableView, countCellInView: 8)
         tableDirector = TableDirector(tableView: tableView,
                                       cellHeightCalculator: cellHeightCalculator)
-        view.showProgressView()
+        view.showLoading()
         interactor.startReceiveData()
     }
 

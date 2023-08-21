@@ -8,5 +8,5 @@
 import Foundation
 
 protocol DataBaseHandlerErrorsProtocol {
-    func handlerError(_ error: Error) -> DataBaseError
+    func handlerError(_ error: Error) -> HTError
 }

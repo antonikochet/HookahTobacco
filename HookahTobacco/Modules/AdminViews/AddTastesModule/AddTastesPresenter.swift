@@ -23,7 +23,7 @@ class AddTastesPresenter {
     private func createTasteViewModel(_ taste: Taste, isSelect: Bool) -> AddTastesTableCellViewModel {
         AddTastesTableCellViewModel(taste: taste.taste,
                                     id: String(taste.uid),
-                                    typeTaste: taste.typeTaste,
+                                    typeTaste: taste.typeTaste.first?.name ?? "",
                                     isSelect: isSelect)
     }
 
@@ -42,15 +42,15 @@ extension AddTastesPresenter: AddTastesInteractorOutputProtocol {
     }
 
     func initialAllTastes(_ tastes: [Taste], with selectedTastes: [Taste]) {
-        let selectedIdTastes: Set<String> = Set(selectedTastes.map { $0.uid })
+        let selectedIdTastes: Set<Int> = Set(selectedTastes.map { $0.uid })
         allTastesViewModel = tastes.map { taste in
             return createTasteViewModel(taste, isSelect: selectedIdTastes.contains(taste.uid))
         }
         view.setupContent()
     }
 
-    func receivedError(with message: String) {
-        router.showError(with: message)
+    func receivedError(_ error: HTError) {
+        router.showError(with: error.message)
     }
 
     func updateData(by index: Int, with taste: Taste, and selectedTastes: [Taste]) {

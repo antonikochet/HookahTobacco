@@ -9,7 +9,7 @@
 
 import Foundation
 
-typealias SelectedTastes = [String: Taste]
+typealias SelectedTastes = [Int: Taste]
 
 protocol AddTastesInteractorInputProtocol: AnyObject {
     func receiveStartingDataView()
@@ -21,10 +21,9 @@ protocol AddTastesInteractorInputProtocol: AnyObject {
     func endSearch()
 }
 
-protocol AddTastesInteractorOutputProtocol: AnyObject {
+protocol AddTastesInteractorOutputProtocol: PresenterrProtocol {
     func initialSelectedTastes(_ tastes: [Taste])
     func initialAllTastes(_ tastes: [Taste], with selectedTastes: [Taste])
-    func receivedError(with message: String)
     func updateData(by index: Int, with taste: Taste, and selectedTastes: [Taste])
     func receivedDataForEdit(editTaste: Taste)
     func receivedSelectedTastes(_ selectedTastes: [Taste])
@@ -64,7 +63,7 @@ class AddTastesInteractor {
                 self.allTastes = data.sorted(by: { $0.taste < $1.taste })
                 self.presenter.initialAllTastes(self.allTastes, with: self.sortedSelectedTastes)
             case .failure(let error):
-                self.presenter.receivedError(with: error.localizedDescription)
+                self.presenter.receivedError(error)
             }
         }
     }

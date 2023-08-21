@@ -17,15 +17,15 @@ protocol AppRouterProtocol {
     func pushViewController(module: ModuleProtocol.Type,
                             moduleData data: DataModuleProtocol?,
                             animateDisplay: Bool,
-                            completion: (() -> Void)?)
-    func popViewConroller(animated: Bool, completion: (() -> Void)?)
+                            completion: CompletionBlock?)
+    func popViewConroller(animated: Bool, completion: CompletionBlock?)
 
     func presentView(module: ModuleProtocol.Type, moduleData data: DataModuleProtocol?, animated: Bool)
-    func dismissView(animated: Bool, completion: (() -> Void)?)
+    func dismissView(animated: Bool, completion: CompletionBlock?)
 
     func presentViewModally(module: ModuleProtocol.Type, moduleData data: DataModuleProtocol?)
 
-    func presentAlert(type: AlertFactory.AlertType, completion: (() -> Void)?)
+    func presentAlert(type: AlertFactory.AlertType, completion: CompletionBlock?)
 }
 
 class AppRouter: AppRouterProtocol {
@@ -84,6 +84,21 @@ class AppRouter: AppRouterProtocol {
         }
     }
 
+    private func topViewController(controller: UIViewController?) -> UIViewController? {
+        if let navigationController = controller as? UINavigationController {
+            return topViewController(controller: navigationController.visibleViewController)
+        }
+        if let tabController = controller as? UITabBarController {
+            if let selected = tabController.selectedViewController {
+                return topViewController(controller: selected)
+            }
+        }
+        if let presented = controller?.presentedViewController {
+            return topViewController(controller: presented)
+        }
+        return controller
+    }
+
     // MARK: - AppRouterProtocol
     var resolver: Resolver {
         assembler.resolver
@@ -101,7 +116,7 @@ class AppRouter: AppRouterProtocol {
     func pushViewController(module: ModuleProtocol.Type,
                             moduleData data: DataModuleProtocol? = nil,
                             animateDisplay: Bool,
-                            completion: (() -> Void)?) {
+                            completion: CompletionBlock?) {
         guard let module = receiveModule(module, data),
               let view = module.createModule(self),
               let navigationController = receiveContainer() else { return }
@@ -110,7 +125,7 @@ class AppRouter: AppRouterProtocol {
     }
 
     func popViewConroller(animated: Bool,
-                          completion: (() -> Void)? = nil) {
+                          completion: CompletionBlock? = nil) {
         guard let navigationController = receiveContainer() else { return }
         navigationController.popViewController(animated: animated)
         completion?()
@@ -125,7 +140,7 @@ class AppRouter: AppRouterProtocol {
         navigationController.setViewControllers([view], animated: animated)
     }
 
-    func dismissView(animated: Bool, completion: (() -> Void)? = nil) {
+    func dismissView(animated: Bool, completion: CompletionBlock? = nil) {
         guard let navigationController = receiveContainer() else { return }
         navigationController.dismiss(animated: true)
         completion?()
@@ -133,14 +148,13 @@ class AppRouter: AppRouterProtocol {
 
     func presentViewModally(module: ModuleProtocol.Type, moduleData data: DataModuleProtocol? = nil) {
         guard let module = receiveModule(module, data),
-              let view = module.createModule(self),
+              let view = module.createModule(self) as? BottomSheetPresenter,
               let navigationController = receiveContainer() else { return }
-        view.modalPresentationStyle = .pageSheet
-        navigationController.present(view, animated: true)
+        view.present(from: navigationController, swipeToDismissListenerClosure: nil)
     }
 
-    func presentAlert(type: AlertFactory.AlertType, completion: (() -> Void)?) {
-        guard let viewController = appWindow.rootViewController else { return }
+    func presentAlert(type: AlertFactory.AlertType, completion: CompletionBlock?) {
+        guard let viewController = topViewController(controller: appWindow.rootViewController) else { return }
         AlertFactory.shared.showAlert(type, from: viewController, completion: completion)
     }
 }

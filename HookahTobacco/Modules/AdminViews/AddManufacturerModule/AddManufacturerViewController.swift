@@ -10,13 +10,13 @@
 import UIKit
 import SnapKit
 
-protocol AddManufacturerViewInputProtocol: AnyObject {
+protocol AddManufacturerViewInputProtocol: ViewProtocol {
     func clearView()
     func setupContent(_ viewModel: AddManufacturerEntity.ViewModel)
     func setupImageManufacturer(_ image: Data?, textButton: String)
     func setupTobaccoLines()
+    func setupSelectedCountry(_ index: Int)
     func receivedResultAddTobaccoLine(isResult: Bool)
-    func showTobaccoLineView()
     func showLoading()
     func hideLoading()
 }
@@ -25,12 +25,17 @@ protocol AddManufacturerViewOutputProtocol {
     func pressedAddButton(with enteredData: AddManufacturerEntity.EnterData)
     func selectedImage(with urlFile: URL)
     func viewDidLoad()
+
     func getTobaccoLineViewModel(at index: Int) -> TasteCollectionCellViewModel
-    func getTobaccoLineViewModel() -> AddTobaccoLineViewViewModelProtocol
     var tobaccoLineNumberOfRows: Int { get }
-    func returnTobaccoLine(_ viewModel: TobaccoLineViewModelProtocol)
     func pressedEditingTobaccoLine(at index: Int)
-    func pressedCloseEditingTobaccoLine()
+    func pressedAddTobaccoLine()
+
+    func pressedAddCountry()
+    func numberOfRowsCountries() -> Int
+    func receiveRowCountry(by index: Int) -> String
+    func receiveIndexRowCountry(for title: String) -> Int
+    func didSelectedCounty(by index: Int)
 }
 
 final class AddManufacturerViewController: HTScrollContentViewController {
@@ -39,20 +44,13 @@ final class AddManufacturerViewController: HTScrollContentViewController {
 
     // MARK: - UI properties
     private let nameTextFieldView = AddTextFieldView()
-    private let countryTextFieldView = AddTextFieldView()
+    private let countryPicketView = AddPickerView(isAddButton: true)
     private let descriptionView = AddTextView()
     private let linkTextFieldView = AddTextFieldView()
     private let tobaccoLineCollectionView = TasteCollectionView()
-    private let addTobaccoLineButton = UIButton.createAppBigButton("Добавить Линейку табаков")
-    private let addTobaccoLineView = AddTobaccoLineView()
+    private let addTobaccoLineButton = ApplyButton()
     private let imagePickerView = ImageButtonPickerView()
-    private let activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView(style: .large)
-
-    private let addedButton: UIButton = {
-        let button = UIButton.createAppBigButton("Добавить нового производителя")
-        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
-        return button
-    }()
+    private let addedButton = ApplyButton()
 
     // MARK: - ViewController Lifecycle
     override func viewDidLoad() {
@@ -64,66 +62,104 @@ final class AddManufacturerViewController: HTScrollContentViewController {
         setupSubviews()
     }
 
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        addedButton.createCornerRadius()
-        addTobaccoLineButton.createCornerRadius()
+    override func hideViewTapped() {
+        super.hideViewTapped()
+        countryPicketView.hideView()
     }
-
     // MARK: - Setups
     override func setupSubviews() {
         super.setupSubviews()
-
+        setupNameTextField()
+        setupCountryPickerView()
+        setupDescriptionView()
+        setupLinkTextFieldView()
+        setupAddTobaccoLineView()
+        setupAddButton()
+        setupImagePickerView()
+        setupConstrainsScrollView(top: view.safeAreaLayoutGuide,
+                                  bottom: addedButton.snp.top, bottomConstant: -spacingBetweenViews)
+    }
+    private func setupNameTextField() {
         contentScrollView.addSubview(nameTextFieldView)
         nameTextFieldView.setupView(textLabel: "Название",
                                     placeholder: "Введите название производителя...",
                                     delegate: self)
         nameTextFieldView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(topSpacingFromSuperview)
-            make.height.equalTo(nameTextFieldView.heightView)
+//            make.height.equalTo(nameTextFieldView.heightView)
             make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
         }
-
-        contentScrollView.addSubview(countryTextFieldView)
-        countryTextFieldView.setupView(textLabel: "Страна производителя",
-                                       placeholder: "Введите страну производителя",
-                                       delegate: self)
-        countryTextFieldView.snp.makeConstraints { make in
+    }
+    private func setupCountryPickerView() {
+        contentScrollView.addSubview(countryPicketView)
+        countryPicketView.setupView(text: "Страна производителя")
+        countryPicketView.addButtonAction = { [weak self] in
+            self?.presenter.pressedAddCountry()
+        }
+        countryPicketView.delegate = self
+        countryPicketView.snp.makeConstraints { make in
             make.top.equalTo(nameTextFieldView.snp.bottom).offset(spacingBetweenViews)
-            make.height.equalTo(countryTextFieldView.heightView)
             make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
         }
-
+    }
+    private func setupDescriptionView() {
         contentScrollView.addSubview(descriptionView)
         descriptionView.setupView(textLabel: "Описание производителя (не обязательно)")
         descriptionView.snp.makeConstraints { make in
-            make.top.equalTo(countryTextFieldView.snp.bottom).offset(spacingBetweenViews)
+            make.top.equalTo(countryPicketView.snp.bottom).offset(spacingBetweenViews)
             make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
         }
-
+    }
+    private func setupLinkTextFieldView() {
         contentScrollView.addSubview(linkTextFieldView)
         linkTextFieldView.setupView(textLabel: "Ссылка на сайт производител (не обяз.)",
                                     placeholder: "Введите ссылку",
                                     delegate: self)
         linkTextFieldView.snp.makeConstraints { make in
             make.top.equalTo(descriptionView.snp.bottom).offset(spacingBetweenViews)
-            make.height.equalTo(linkTextFieldView.heightView)
             make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
         }
+    }
+    private func setupAddTobaccoLineView() {
+        contentScrollView.addSubview(tobaccoLineCollectionView)
+        tobaccoLineCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(linkTextFieldView.snp.bottom).inset(-spacingBetweenViews)
+            make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
+        }
+        tobaccoLineCollectionView.tasteDelegate = self
+        tobaccoLineCollectionView.isUserInteractionEnabled = true
 
-        let tobaccoLineBotttomView = setupAddTobaccoLineView(topView: linkTextFieldView)
+        addTobaccoLineButton.setTitle("Добавить Линейку табаков", for: .normal)
+        addTobaccoLineButton.action = { [weak self] in
+            self?.presenter.pressedAddTobaccoLine()
+        }
+        contentScrollView.addSubview(addTobaccoLineButton)
+        addTobaccoLineButton.snp.makeConstraints { make in
+            make.top.equalTo(tobaccoLineCollectionView.snp.bottom).inset(-spacingBetweenViews)
+            make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
+        }
+    }
+    private func setupAddButton() {
+        addedButton.setTitle("Добавить нового производителя", for: .normal)
+        addedButton.action = { [weak self] in
+            guard let self else { return }
+            let entity = AddManufacturerEntity.EnterData(name: self.nameTextFieldView.text,
+                                                         description: self.descriptionView.text,
+                                                         link: self.linkTextFieldView.text)
 
+            self.presenter.pressedAddButton(with: entity)
+        }
         view.addSubview(addedButton)
         addedButton.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(spacingBetweenViews)
             make.height.equalTo(50)
         }
-        addedButton.addTarget(self, action: #selector(touchAddedButton), for: .touchUpInside)
-
+    }
+    private func setupImagePickerView() {
         contentScrollView.addSubview(imagePickerView)
         imagePickerView.snp.makeConstraints { make in
-            make.top.equalTo(tobaccoLineBotttomView.snp.bottom).offset(spacingBetweenViews)
+            make.top.equalTo(addTobaccoLineButton.snp.bottom).offset(spacingBetweenViews)
             make.centerX.equalToSuperview()
             make.bottom.equalToSuperview().inset(spacingBetweenViews)
             make.width.greaterThanOrEqualToSuperview().dividedBy(3)
@@ -132,88 +168,38 @@ final class AddManufacturerViewController: HTScrollContentViewController {
             make.bottom.equalToSuperview().inset(16.0)
         }
         imagePickerView.delegate = self
-
-        view.addSubview(activityIndicator)
-        activityIndicator.snp.makeConstraints { make in
-            make.centerX.centerY.equalToSuperview()
-        }
-        activityIndicator.hidesWhenStopped = true
-
-        setupConstrainsScrollView(top: view.safeAreaLayoutGuide,
-                                  bottom: addedButton.snp.top, bottomConstant: -spacingBetweenViews)
     }
 
-    private func setupAddTobaccoLineView(topView: UIView) -> UIView {
-        contentScrollView.addSubview(tobaccoLineCollectionView)
-        tobaccoLineCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(topView.snp.bottom).inset(-spacingBetweenViews)
-            make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
-        }
-        tobaccoLineCollectionView.tasteDelegate = self
-        tobaccoLineCollectionView.isUserInteractionEnabled = true
-
-        contentScrollView.addSubview(addTobaccoLineButton)
-        addTobaccoLineButton.addTarget(self, action: #selector(touchAddTobaccoLine), for: .touchUpInside)
-        addTobaccoLineButton.snp.makeConstraints { make in
-            make.top.equalTo(tobaccoLineCollectionView.snp.bottom).inset(-spacingBetweenViews)
-            make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
-            make.height.equalTo(40)
-        }
-
-        contentScrollView.addSubview(addTobaccoLineView)
-        addTobaccoLineView.setupView(presenter.getTobaccoLineViewModel())
-        addTobaccoLineView.isHidden = true
-        addTobaccoLineView.delegate = self
-        addTobaccoLineView.snp.makeConstraints { make in
-            make.top.equalTo(addTobaccoLineButton.snp.bottom).inset(-spacingBetweenViews)
-            make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
-        }
-
-        return addTobaccoLineView
+    // MARK: - private methods
+    private func changeCountryPickerView(by row: Int) {
+        countryPicketView.text = presenter.receiveRowCountry(by: row)
     }
 
     // MARK: - Selectors
-    @objc
-    private func touchAddedButton() {
-        let entity = AddManufacturerEntity.EnterData(name: nameTextFieldView.text,
-                                                     country: countryTextFieldView.text,
-                                                     description: descriptionView.text,
-                                                     link: linkTextFieldView.text)
 
-        presenter.pressedAddButton(with: entity)
-    }
-
-    @objc
-    private func touchAddTobaccoLine() {
-        addTobaccoLineView.showView()
-        addTobaccoLineView.setupView(presenter.getTobaccoLineViewModel())
-        view.setNeedsLayout()
-    }
 }
 
 // MARK: - ViewInputProtocol implementation
 extension AddManufacturerViewController: AddManufacturerViewInputProtocol {
     func clearView() {
         nameTextFieldView.text = ""
-        countryTextFieldView.text = ""
+        changeCountryPickerView(by: 0)
         descriptionView.text = ""
         imagePickerView.image = nil
-        addTobaccoLineView.setupView(presenter.getTobaccoLineViewModel())
         tobaccoLineCollectionView.reloadData()
         nameTextFieldView.becomeFirstResponderTextField()
     }
 
     func setupContent(_ viewModel: AddManufacturerEntity.ViewModel) {
         nameTextFieldView.text = viewModel.name
-        countryTextFieldView.text = viewModel.country
         descriptionView.text = viewModel.description
         linkTextFieldView.text = viewModel.link
         tobaccoLineCollectionView.reloadData()
         addedButton.setTitle(viewModel.textButton, for: .normal)
+        addTobaccoLineButton.isEnabled = viewModel.isEnabledAddTobaccoLine
     }
 
     func setupImageManufacturer(_ image: Data?, textButton: String) {
-//        imagePickerView.textButton = textButton
         if let image = image {
             imagePickerView.image = UIImage(data: image)
         }
@@ -223,25 +209,14 @@ extension AddManufacturerViewController: AddManufacturerViewInputProtocol {
         tobaccoLineCollectionView.reloadData()
     }
 
+    func setupSelectedCountry(_ index: Int) {
+        changeCountryPickerView(by: index)
+    }
+
     func receivedResultAddTobaccoLine(isResult: Bool) {
         if isResult {
-            addTobaccoLineView.hideView()
             view.setNeedsLayout()
         }
-    }
-
-    func showTobaccoLineView() {
-        addTobaccoLineView.showView()
-        view.setNeedsLayout()
-        addTobaccoLineView.setupView(presenter.getTobaccoLineViewModel())
-    }
-
-    func showLoading() {
-        activityIndicator.startAnimating()
-    }
-
-    func hideLoading() {
-        activityIndicator.stopAnimating()
     }
 }
 
@@ -249,8 +224,6 @@ extension AddManufacturerViewController: AddManufacturerViewInputProtocol {
 extension AddManufacturerViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if nameTextFieldView.isMyTextField(textField) {
-            return countryTextFieldView.becomeFirstResponderTextField()
-        } else if countryTextFieldView.isMyTextField(textField) {
             return descriptionView.becomeFirstResponder()
         }
         return false
@@ -284,15 +257,21 @@ extension AddManufacturerViewController: TasteCollectionViewDelegate {
     }
 }
 
-extension AddManufacturerViewController: AddTobaccoLineViewDelegate {
-    func didTouchDone(_ viewModel: TobaccoLineViewModelProtocol) {
-        presenter.returnTobaccoLine(viewModel)
+extension AddManufacturerViewController: AddPickerViewDelegate {
+    func receiveNumberOfRows(_ pickerView: AddPickerView) -> Int {
+        return presenter.numberOfRowsCountries()
     }
 
-    func didTouchClose() {
-        addTobaccoLineView.hideView()
-        view.setNeedsLayout()
-        presenter.pressedCloseEditingTobaccoLine()
+    func receiveRow(_ pickerView: AddPickerView, by row: Int) -> String {
+        return presenter.receiveRowCountry(by: row)
+    }
+
+    func didSelected(_ pickerView: AddPickerView, by row: Int) {
+        return presenter.didSelectedCounty(by: row)
+    }
+
+    func receiveIndex(_ pickerView: AddPickerView, for title: String) -> Int {
+        return presenter.receiveIndexRowCountry(for: title)
     }
 }
 

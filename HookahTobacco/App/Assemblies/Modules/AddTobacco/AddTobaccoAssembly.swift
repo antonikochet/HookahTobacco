@@ -23,12 +23,10 @@ class AddTobaccoAssembly: Assembly {
 
         container.register(AddTobaccoInteractorInputProtocol.self) { (resolver, dependency: AddTobaccoDependency) in
             let getDataManager = resolver.resolve(GetDataNetworkingServiceProtocol.self)!
-            let setDataManager = resolver.resolve(AdminDataManagerProtocol.self)!
-            let setImageManager = resolver.resolve(AdminImageManagerProtocol.self)!
+            let adminNetworkingService = resolver.resolve(AdminNetworkingServiceProtocol.self)!
             return AddTobaccoInteractor(dependency.tobacco,
                                         getDataManager: getDataManager,
-                                        setDataManager: setDataManager,
-                                        setImageManager: setImageManager)
+                                        adminNetworkingService: adminNetworkingService)
         }
 
         container.register(AddTobaccoViewOutputProtocol.self) { _ in

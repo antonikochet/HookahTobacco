@@ -16,6 +16,9 @@ final class RegistrationPresenter {
     var router: RegistrationRouterProtocol!
 
     // MARK: - Private properties
+    private var email: String = ""
+    private var username: String = ""
+    private var password: String = ""
 
     // MARK: - Private methods
 
@@ -23,37 +26,54 @@ final class RegistrationPresenter {
 
 // MARK: - InteractorOutputProtocol implementation
 extension RegistrationPresenter: RegistrationInteractorOutputProtocol {
-    func receivedSuccessRegistration() {
-        router.showProfileRegistrationView()
+    func receivedSuccessCheckRegistrationData() {
+        view.hideLoading()
+        let user = RegistrationUser(username: username,
+                                    email: email,
+                                    password: password,
+                                    repeatPassword: password)
+        router.showProfileRegistrationView(user: user)
     }
 
-    func receivedErrorRegistration(message: String) {
-        router.showError(message)
+    func receivedError(_ error: HTError) {
+        view.hideLoading()
+        router.showError(with: error.message)
     }
 }
 
 // MARK: - ViewOutputProtocol implementation
 extension RegistrationPresenter: RegistrationViewOutputProtocol {
-    func pressedRegistrationButton(email: String?, pass: String?, repeatPass: String?) {
-        guard let email = email, !email.isEmpty else {
-            router.showError("Email не введен!")
+    func pressedRegistrationButton(username: String, email: String, pass: String, repeatPass: String) {
+        guard !username.isEmpty else {
+            router.showError(with: "Имя пользователя не введено!")
             return
         }
-        // TODO: добавить проверку ввода email
-        guard let pass = pass, !pass.isEmpty else {
-            router.showError("Пароль не введен!")
+        guard !email.isEmpty else {
+            router.showError(with: "Email не введен!")
             return
         }
-        guard let repeatPass = repeatPass, !repeatPass.isEmpty else {
-            router.showError("Повторный пароль не введен!")
+        guard email.isEmailValid() else {
+            router.showError(with: "Email не валидный")
+            return
+        }
+        guard !pass.isEmpty else {
+            router.showError(with: "Пароль не введен!")
+            return
+        }
+        guard !repeatPass.isEmpty else {
+            router.showError(with: "Повторный пароль не введен!")
             return
         }
         // TODO: добавить проверку ввода пароля
         guard pass == repeatPass else {
-            router.showError("Введенные пароли различаются!")
+            router.showError(with: "Введенные пароли различаются!")
             return
         }
 
-        interactor.sendNewRegistrationData(email: email, pass: pass)
+        self.username = username
+        self.email = email
+        self.password = pass
+        view.showBlockLoading()
+        interactor.sendCheckRegistrationData(username: username, email: email)
     }
 }

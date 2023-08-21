@@ -9,7 +9,7 @@ import Foundation
 
 enum UpdateDataNotification<T> {
     case update(T)
-    case error(Error)
+    case error(HTError)
 }
 
 protocol UpdateDataSubscriberProtocol: SubscriberProtocol {

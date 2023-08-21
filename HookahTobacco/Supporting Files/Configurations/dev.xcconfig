@@ -1,0 +1,11 @@
+//
+//  dev.xcconfig
+//  HookahTobacco
+//
+//  Created by Anton Kochetkov on 16.08.2023.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+API_URL = http:/$()/51.83.200.175:8000/api/

@@ -8,18 +8,18 @@
 import Foundation
 
 protocol UserProtocol {
-    var uid: String { get }
-    var email: String? { get }
+    var uid: Int { get }
+    var username: String { get }
+    var email: String { get }
     var firstName: String? { get }
     var lastName: String? { get }
     var isAdmin: Bool { get }
-    var isAnonymous: Bool { get }
+    var dateOfBirth: Date? { get }
 }
 
 protocol AuthServiceProtocol {
-    typealias AuthServiceCompletion = (AuthError?) -> Void
-    var isUserLoggerIn: Bool { get }
-    var currectUser: UserProtocol? { get }
-    func login(with email: String, password: String, completion: AuthServiceCompletion?)
+    typealias AuthServiceCompletion = (HTError?) -> Void
+    var isLoggedIn: Bool { get }
+    func login(with name: String, password: String, completion: AuthServiceCompletion?)
     func logout(completion: AuthServiceCompletion?)
 }

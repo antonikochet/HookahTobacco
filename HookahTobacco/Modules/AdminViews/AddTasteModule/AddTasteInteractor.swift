@@ -11,13 +11,15 @@ import Foundation
 
 protocol AddTasteInteractorInputProtocol: AnyObject {
     func setupContent()
-    func addTaste(taste: String, type: String)
+    func addTaste(nameTaste: String, selectedTypes: [TasteType])
+    func addType(newType: String)
 }
 
-protocol AddTasteInteractorOutputProtocol: AnyObject {
-    func initialData(taste: Taste)
+protocol AddTasteInteractorOutputProtocol: PresenterrProtocol {
+    func initialData(taste: Taste, isEdit: Bool)
+    func receivedSuccessTypes(_ types: [TasteType])
+    func receivedSuccessNewType()
     func receivedSuccess(_ taste: Taste)
-    func receivedError(with message: String)
 }
 
 class AddTasteInteractor {
@@ -25,40 +27,70 @@ class AddTasteInteractor {
     weak var presenter: AddTasteInteractorOutputProtocol!
 
     // MARK: - Dependency
-    private let setDataManager: AdminDataManagerProtocol
+    private let getDataManager: DataManagerProtocol
+    private let adminNetworkingService: AdminNetworkingServiceProtocol
 
     // MARK: - Private properties
     private var taste: Taste?
-    private var isEditing: Bool
+    private var tasteTypes: [TasteType] = []
 
     // MARK: - Initializers
     init(_ taste: Taste?,
-         setDataManager: AdminDataManagerProtocol) {
-        self.isEditing = taste != nil
+         getDataManager: DataManagerProtocol,
+         adminNetworkingService: AdminNetworkingServiceProtocol) {
         self.taste = taste
-        self.setDataManager = setDataManager
+        self.getDataManager = getDataManager
+        self.adminNetworkingService = adminNetworkingService
     }
 
     // MARK: - Private methods
+    private func receiveType() {
+        getDataManager.receiveData(typeData: TasteType.self) { [weak self] result in
+            switch result {
+            case .success(let types):
+                self?.tasteTypes = types
+                self?.presenter.receivedSuccessTypes(types)
+            case .failure(let error):
+                self?.presenter.receivedError(error)
+            }
+        }
+    }
+
     private func addTaste(_ taste: Taste) {
-        setDataManager.addData(taste) { [weak self] result in
+        adminNetworkingService.addData(taste) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let newTaste):
                 self.presenter.receivedSuccess(newTaste)
             case .failure(let error):
-                self.presenter.receivedError(with: error.localizedDescription)
+                self.presenter.receivedError(error)
             }
         }
     }
 
     private func editTaste(_ taste: Taste) {
-        setDataManager.setData(taste) { [weak self] error in
+        adminNetworkingService.setData(taste) { [weak self] result in
             guard let self = self else { return }
-            if let error = error {
-                self.presenter.receivedError(with: error.localizedDescription)
-            } else {
+            switch result {
+            case .success(let taste):
                 self.presenter.receivedSuccess(taste)
+            case .failure(let error):
+                self.presenter.receivedError(error)
+            }
+        }
+    }
+
+    private func addTypeToServer(_ newType: String) {
+        let type = TasteType(name: newType)
+        adminNetworkingService.addData(type) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let newType):
+                self.tasteTypes.append(newType)
+                self.presenter.receivedSuccessTypes(self.tasteTypes)
+                self.presenter.receivedSuccessNewType()
+            case .failure(let error):
+                self.presenter.receivedError(error)
             }
         }
     }
@@ -66,23 +98,28 @@ class AddTasteInteractor {
 // MARK: - InputProtocol implementation 
 extension AddTasteInteractor: AddTasteInteractorInputProtocol {
     func setupContent() {
-        if let taste = taste {
-            presenter.initialData(taste: taste)
+        if let taste {
+            presenter.initialData(taste: taste, isEdit: true)
         } else {
-            let taste = Taste(uid: "", taste: "", typeTaste: "")
-            presenter.initialData(taste: taste)
+            let taste = Taste(uid: -1, taste: "", typeTaste: [])
+            presenter.initialData(taste: taste, isEdit: false)
+        }
+        receiveType()
+    }
+
+    func addTaste(nameTaste: String, selectedTypes: [TasteType]) {
+        if let taste {
+            let taste = Taste(uid: taste.uid,
+                              taste: nameTaste,
+                              typeTaste: selectedTypes)
+            editTaste(taste)
+        } else {
+            let taste = Taste(uid: -1, taste: nameTaste, typeTaste: selectedTypes)
+            addTaste(taste)
         }
     }
 
-    func addTaste(taste: String, type: String) {
-        if isEditing {
-            let taste = Taste(uid: self.taste?.uid ?? "",
-                              taste: taste,
-                              typeTaste: type)
-            editTaste(taste)
-        } else {
-            let taste = Taste(uid: "", taste: taste, typeTaste: type)
-            addTaste(taste)
-        }
+    func addType(newType: String) {
+        addTypeToServer(newType)
     }
 }

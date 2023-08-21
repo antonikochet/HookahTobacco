@@ -176,8 +176,8 @@ extension DetailInfoManufacturerPresenter: DetailInfoManufacturerInteractorOutpu
         setupContentView(nil, tobaccoDict)
     }
 
-    func receivedError(with message: String) {
-        router.showError(with: message)
+    func receivedError(_ error: HTError) {
+        router.showError(with: error.message)
     }
 
     func receivedUpdate(for tobacco: Tobacco, at index: Int) {

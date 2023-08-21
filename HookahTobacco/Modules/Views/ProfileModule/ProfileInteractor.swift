@@ -14,9 +14,8 @@ protocol ProfileInteractorInputProtocol: AnyObject {
     func logout()
 }
 
-protocol ProfileInteractorOutputProtocol: AnyObject {
+protocol ProfileInteractorOutputProtocol: PresenterrProtocol {
     func receivedProfileInfoSuccess(_ user: UserProtocol)
-    func receivedProfileInfoError(_ message: String)
     func receivedLogoutSuccess()
     func receivedLogoutError(_ message: String)
 }
@@ -27,12 +26,15 @@ final class ProfileInteractor {
 
     // MARK: - Dependency
     private let authService: AuthServiceProtocol
+    private let userService: UserNetworkingServiceProtocol
 
     // MARK: - Private properties
 
     // MARK: - Initializers
-    init(authService: AuthServiceProtocol) {
+    init(authService: AuthServiceProtocol,
+         userService: UserNetworkingServiceProtocol) {
         self.authService = authService
+        self.userService = userService
     }
 
     // MARK: - Private methods
@@ -41,18 +43,22 @@ final class ProfileInteractor {
 // MARK: - InputProtocol implementation 
 extension ProfileInteractor: ProfileInteractorInputProtocol {
     func receiveProfileInfo() {
-        guard let user = authService.currectUser else {
-            presenter.receivedProfileInfoError("") // TODO: написать ошибку
-            return
+        userService.receiveUser { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let user):
+                self.presenter.receivedProfileInfoSuccess(user)
+            case .failure(let error):
+                self.presenter.receivedError(error)
+            }
         }
-        presenter.receivedProfileInfoSuccess(user)
     }
 
     func logout() {
         authService.logout { [weak self] error in
             guard let self = self else { return }
             if let error {
-                self.presenter.receivedLogoutError(error.localizedDescription)
+                self.presenter.receivedError(error)
                 return
             }
             self.presenter.receivedLogoutSuccess()

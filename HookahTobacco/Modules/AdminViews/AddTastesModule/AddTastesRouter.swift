@@ -12,7 +12,6 @@ import UIKit
 protocol AddTastesRouterProtocol: RouterProtocol {
     func showAddTaste(taste: Taste?, outputModule: AddTasteOutputModule)
     func dismissView(newSelectedTastes: [Taste])
-    func showError(with message: String)
 }
 
 protocol AddTastesOutputModule: AnyObject {
@@ -20,7 +19,7 @@ protocol AddTastesOutputModule: AnyObject {
 }
 
 class AddTastesRouter: AddTastesRouterProtocol {
-    private var appRouter: AppRouterProtocol
+    var appRouter: AppRouterProtocol
     weak var outputModule: AddTastesOutputModule?
 
     required init(_ appRouter: AppRouterProtocol) {
@@ -36,9 +35,5 @@ class AddTastesRouter: AddTastesRouterProtocol {
     func dismissView(newSelectedTastes: [Taste]) {
         appRouter.popViewConroller(animated: true, completion: nil)
         outputModule?.sendSelectedTastes(newSelectedTastes)
-    }
-
-    func showError(with message: String) {
-        appRouter.presentAlert(type: .error(message: message), completion: nil)
     }
 }

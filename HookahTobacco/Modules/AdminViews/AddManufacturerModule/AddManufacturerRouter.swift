@@ -12,8 +12,10 @@ import UIKit
 protocol AddManufacturerRouterProtocol: RouterProtocol {
     func dismissView()
     func dismissView(with changedData: Manufacturer)
-    func showError(with message: String)
-    func showSuccess(delay: Double)
+    func showAddCountryView(delegate: AddCountryOutputModule?)
+    func showAddTobaccoLineView(for manufacturerId: Int,
+                                editing tobaccoLine: TobaccoLine?,
+                                delegate: AddTobaccoLineOutputModule)
 }
 
 protocol AddManufacturerOutputModule: AnyObject {
@@ -37,11 +39,17 @@ class AddManufacturerRouter: AddManufacturerRouterProtocol {
         appRouter.popViewConroller(animated: true, completion: nil)
     }
 
-    func showError(with message: String) {
-        appRouter.presentAlert(type: .error(message: message), completion: nil)
+    func showAddCountryView(delegate: AddCountryOutputModule?) {
+        let data = AddCountryDataModule(delegate: delegate)
+        appRouter.pushViewController(module: AddCountryModule.self, moduleData: data, animateDisplay: true)
     }
 
-    func showSuccess(delay: Double) {
-        appRouter.presentAlert(type: .success(delay: delay), completion: nil)
+    func showAddTobaccoLineView(for manufacturerId: Int,
+                                editing tobaccoLine: TobaccoLine?,
+                                delegate: AddTobaccoLineOutputModule) {
+        let data = AddTobaccoLineDataModule(manufacturerId: manufacturerId,
+                                            editingTobaccoLine: tobaccoLine,
+                                            delegate: delegate)
+        appRouter.presentViewModally(module: AddTobaccoLineModule.self, moduleData: data)
     }
 }

@@ -13,9 +13,8 @@ protocol LoginInteractorInputProtocol {
     func userLoginSystem(with login: String, and password: String)
 }
 
-protocol LoginInteractorOutputProtocol: AnyObject {
+protocol LoginInteractorOutputProtocol: PresenterrProtocol {
     func receivedSuccessWhileLogin()
-    func receivedErrorLogin(with message: String)
 }
 
 class LoginInteractor {
@@ -37,10 +36,10 @@ extension LoginInteractor: LoginInteractorInputProtocol {
     func userLoginSystem(with login: String, and password: String) {
         authService.login(with: login, password: password) { [weak self] error in
             guard let self = self else { return }
-            if error == nil {
-                self.presenter.receivedSuccessWhileLogin()
+            if let error {
+                self.presenter.receivedError(error)
             } else {
-                self.presenter.receivedErrorLogin(with: "Ошибка входа. \(error!.localizedDescription)")
+                self.presenter.receivedSuccessWhileLogin()
             }
         }
     }

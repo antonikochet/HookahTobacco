@@ -20,7 +20,7 @@ class DataManager {
 
     private var remoteDBVersion: Int = -1 {
         didSet {
-            definitionDataSynchronization()
+//            definitionDataSynchronization()
         }
     }
     private let usedTypes: [Any.Type] = [
@@ -31,6 +31,8 @@ class DataManager {
     ]
     private var subscribers: [String: [WeakSubject]]
 
+    let imageWorkingQueue = DispatchQueue(label: "ru.HookahTobacco.DataManager.getImage")
+
     // MARK: - Dependency Network
     private let getDataNetworkingService: GetDataNetworkingServiceProtocol
 
@@ -38,16 +40,21 @@ class DataManager {
     let dataBaseService: DataBaseServiceProtocol
 
     // MARK: - Dependency UserDefaults
-    private let userDefaultsService: UserDefaultsServiceProtocol
+    private let userDefaultsService: UserSettingsServiceProtocol
+
+    // MARK: - Dependency Image
+    let imageService: ImageStorageServiceProtocol
 
     // MARK: - Initializers
     init(getDataNetworkingService: GetDataNetworkingServiceProtocol,
          dataBaseService: DataBaseServiceProtocol,
-         userDefaultsService: UserDefaultsServiceProtocol
+         userDefaultsService: UserSettingsServiceProtocol,
+         imageService: ImageStorageServiceProtocol
     ) {
         self.getDataNetworkingService = getDataNetworkingService
         self.dataBaseService = dataBaseService
         self.userDefaultsService = userDefaultsService
+        self.imageService = imageService
         subscribers = Dictionary(uniqueKeysWithValues: usedTypes.map {
             (String(describing: $0.self), [WeakSubject]())
         })
@@ -92,7 +99,7 @@ class DataManager {
             syncDataInLocalDatabase(oldVersion: localDBVersion)
         }
     }
-
+    // swiftlint:disable:next function_body_length
     private func syncDataInLocalDatabase(oldVersion: Int) {
         DispatchQueue.global(qos: .background).async { [weak self] in
             guard let self = self else { return }
@@ -111,7 +118,7 @@ class DataManager {
                     case .success(let data):
                         manufacturers = data
                     case .failure(let error):
-                        self.notifySystemSubscribers(.errorMessage(error.localizedDescription, 8.0))
+                        self.notifySystemSubscribers(.errorMessage(error.message, 8.0))
                     }
                     dispatchGroup.leave()
                 }
@@ -123,7 +130,7 @@ class DataManager {
                     case .success(let data):
                         tobaccoLines = data
                     case .failure(let error):
-                        self.notifySystemSubscribers(.errorMessage(error.localizedDescription, 8.0))
+                        self.notifySystemSubscribers(.errorMessage(error.message, 8.0))
                     }
                     dispatchGroup.leave()
                 }
@@ -135,7 +142,7 @@ class DataManager {
                     case .success(let data):
                         tobaccos = data
                     case .failure(let error):
-                        self.notifySystemSubscribers(.errorMessage(error.localizedDescription, 8.0))
+                        self.notifySystemSubscribers(.errorMessage(error.message, 8.0))
                     }
                     dispatchGroup.leave()
                 }
@@ -147,7 +154,7 @@ class DataManager {
                     case .success(let data):
                         taste = data
                     case .failure(let error):
-                        self.notifySystemSubscribers(.errorMessage(error.localizedDescription, 8.0))
+                        self.notifySystemSubscribers(.errorMessage(error.message, 8.0))
                     }
                     dispatchGroup.leave()
                 }
@@ -210,6 +217,45 @@ class DataManager {
         }
     }
 
+    private func convertNamedImageInImageService(from url: String) -> NamedImageStorage? {
+        var named: NamedImageStorage?
+        if let url = URL(string: url) {
+            let pathComponents = url.pathComponents
+            if pathComponents.contains(where: { $0 == "tobaccos" }) {
+                if let manufacturer = pathComponents.dropLast().last,
+                   let nameFile = pathComponents.last {
+                    named = NamedImageStorage.tobacco(manufacturer: manufacturer, name: nameFile)
+                }
+            } else {
+                if let nameFile = pathComponents.last {
+                    named = NamedImageStorage.manufacturer(nameImage: nameFile)
+                }
+            }
+        }
+        return named
+    }
+
+    private func receiveImageFromNetwork(for url: String,
+                                         completion: CompletionResultBlock<Data>?) {
+        getDataNetworkingService.getImage(for: url) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let image):
+                if let named = self.convertNamedImageInImageService(from: url) {
+                    // TODO: - вернуть обратно сохранение изображений
+//                    do {
+//                        _ = try self.imageService.saveImage(image, for: named)
+//                    } catch {
+//                        print(error)
+//                    }
+                }
+                completion?(.success(image))
+            case .failure(let error):
+                completion?(.failure(error))
+            }
+        }
+    }
+
     // MARK: - Notification subscribers methods
     func notifySubscribers<T>(with type: T.Type, newState: UpdateDataNotification<[T]>) {
         let nameType = String(describing: type.self)
@@ -234,7 +280,7 @@ class DataManager {
 // MARK: - DataManagerProtocol implementation
 extension DataManager: DataManagerProtocol {
     func receiveData<T: DataManagerType>(typeData: T.Type, completion: ReceiveCompletion<T>?) {
-        if isSynchronized || isOfflineMode {
+        if isSynchronized && isOfflineMode {
             dataBaseService.read(type: typeData) { data in
                 completion?(.success(data))
             } failure: { error in
@@ -245,8 +291,23 @@ extension DataManager: DataManagerProtocol {
         }
     }
 
+    func receiveImage(for url: String, completion: CompletionResultBlock<Data>?) {
+        imageWorkingQueue.async {
+            do {
+                if let named = self.convertNamedImageInImageService(from: url) {
+                    completion?(.success(try self.imageService.receiveImage(for: named)))
+                } else {
+                    self.receiveImageFromNetwork(for: url, completion: completion)
+                }
+            } catch {
+                self.receiveImageFromNetwork(for: url, completion: completion)
+            }
+        }
+        getDataNetworkingService.getImage(for: url, completion: completion)
+    }
+
     func receiveTobaccos(for manufacturer: Manufacturer, completion: ReceiveCompletion<Tobacco>?) {
-        if isSynchronized || isOfflineMode {
+        if isSynchronized && isOfflineMode {
             dataBaseService.read(type: Tobacco.self) { tobacco in
                 let manufacturerTobaccos = tobacco.filter { $0.idManufacturer == manufacturer.uid }
                 completion?(.success(manufacturerTobaccos))
@@ -265,8 +326,8 @@ extension DataManager: DataManagerProtocol {
         }
     }
 
-    func receiveTastes(at ids: [String], completion: ReceiveCompletion<Taste>?) {
-        if isSynchronized || isOfflineMode {
+    func receiveTastes(at ids: [Int], completion: ReceiveCompletion<Taste>?) {
+        if isSynchronized && isOfflineMode {
             dataBaseService.read(type: Taste.self) { tastes in
                 let setIds = Set(ids)
                 let needTastes = tastes.filter { setIds.contains($0.uid) }
@@ -290,6 +351,7 @@ extension DataManager: DataManagerProtocol {
     }
 
     func updateFavorite(for tobacco: Tobacco, completion: Completion?) {
+        // TODO: - если isOffileMode == true то только в базе, если false то отправить запрос и потом только обновить в бд
         dataBaseService.update(entity: tobacco) {
             completion?(nil)
             // TODO: - добавить отправку данных на сервер для зарегистрированных пользователей

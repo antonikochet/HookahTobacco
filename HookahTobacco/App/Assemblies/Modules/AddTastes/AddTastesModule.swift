@@ -15,13 +15,13 @@ struct AddTastesDataModule: DataModuleProtocol {
 
 class AddTastesModule: ModuleProtocol {
     private var data: DataModuleProtocol?
-    
+
     required init(_ data: DataModuleProtocol? = nil) {
         self.data = data
     }
-    
+
     func createModule(_ appRouter: AppRouterProtocol) -> UIViewController? {
-        
+
         var dependency = AddTastesDependency(appRouter: appRouter,
                                              selectedTastes: [:],
                                              outputModule: nil)

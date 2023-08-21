@@ -8,17 +8,21 @@
 import UIKit
 
 extension AppRouter {
+    func registerProviders() {
+        apply(assemblies: [
+            MoyaProviderAssembly(),
+            RealmProviderAssembly()
+        ])
+    }
+
     func registerServices() {
         apply(assemblies: [
-            FireBaseNetworkingServicesAssembly(),
-            FirebaseAuthServiceAssembly(),
-            RealmDataBaseServiresAssembly(),
             UserDefaultsServiceAssembly(),
+            ApiNetworkingServicesAssembly(),
+            ApiAuthServiceAssembly(),
+            RealmDataBaseServiresAssembly(),
             ImageStorageServiceAssembly(),
-            AdminDataManagerAssembly(),
-            DataManagerAssembly(),
-            AdminImageManagerAssembly(),
-            ImageManagerAssembly()
+            DataManagerAssembly()
         ])
     }
 
@@ -36,6 +40,10 @@ extension AppRouter {
         registerModule(DetailTobaccoAssembly(), DetailTobaccoModule.nameModule) { DetailTobaccoModule($0) }
         registerModule(RegistrationAssembly(), RegistrationModule.nameModule) { RegistrationModule($0) }
         registerModule(ProfileAssembly(), ProfileModule.nameModule) { ProfileModule($0) }
+        registerModule(AddTobaccoLineAssembly(), AddTobaccoLineModule.nameModule) { AddTobaccoLineModule($0) }
+        registerModule(AddCountryAssembly(), AddCountryModule.nameModule) { AddCountryModule($0) }
+        registerModule(ProfileEditAssembly(), ProfileEditModule.nameModule) { ProfileEditModule($0) }
+        registerModule(DatePickerAssembly(), DatePickerModule.nameModule) { DatePickerModule($0) }
     }
 
     func registerContainerControllers() {
@@ -57,14 +65,16 @@ extension AppRouter {
         let tobaccoListContainer = (TobaccoListModule.self, tobaccoListTabBar)
 
         // third container
-        let TabBarProfile = TabBarItemContent(title: "Профиль",
+        let tabBarProfile = TabBarItemContent(title: "Профиль",
                                               image: UIImage(systemName: "person"))
-        let profileContainer = (ProfileModule.self, TabBarProfile)
+        let authSerivice = resolver.resolve(AuthServiceProtocol.self)!
+        let profileContainer = (ProfileModule.self, tabBarProfile)
+        let loginContainer = (LoginModule.self, tabBarProfile)
 
         startAppPresent([
             manufactureListContainer,
             tobaccoListContainer,
-            profileContainer
+            authSerivice.isLoggedIn ? profileContainer : loginContainer
         ])
     }
 }

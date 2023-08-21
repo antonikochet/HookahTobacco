@@ -14,10 +14,9 @@ protocol DetailInfoManufacturerInteractorInputProtocol: AnyObject {
     func updateFavorite(by index: Int)
 }
 
-protocol DetailInfoManufacturerInteractorOutputProtocol: AnyObject {
+protocol DetailInfoManufacturerInteractorOutputProtocol: PresenterrProtocol {
     func initialDataForPresentation(_ manufacturer: Manufacturer)
     func receivedTobacco(with tobaccos: [Tobacco])
-    func receivedError(with message: String)
     func receivedUpdate(for tobacco: Tobacco, at index: Int)
 }
 
@@ -27,7 +26,6 @@ class DetailInfoManufacturerInteractor {
 
     // MARK: - Dependency
     private var getDataManager: DataManagerProtocol
-    private var getImageManager: ImageManagerProtocol
 
     // MARK: - Private properties
     private var manufacturer: Manufacturer
@@ -35,11 +33,9 @@ class DetailInfoManufacturerInteractor {
 
     // MARK: - Initializers
     init(_ manufacturer: Manufacturer,
-         getDataManager: DataManagerProtocol,
-         getImageManager: ImageManagerProtocol) {
+         getDataManager: DataManagerProtocol) {
         self.manufacturer = manufacturer
         self.getDataManager = getDataManager
-        self.getImageManager = getImageManager
         receiveTobacco()
     }
 
@@ -53,17 +49,14 @@ class DetailInfoManufacturerInteractor {
                 self.presenter.receivedTobacco(with: tobaccos)
                 self.receiveImageTobaccos(tobaccos)
             case .failure(let error):
-                self.presenter.receivedError(with: error.localizedDescription)
+                self.presenter.receivedError(error)
             }
         }
     }
 
     private func receiveImageTobaccos(_ tobaccos: [Tobacco]) {
         tobaccos.enumerated().forEach { index, tobacco in
-            let named = NamedImageManager.tobaccoImage(manufacturer: tobacco.nameManufacturer,
-                                                       uid: tobacco.uid,
-                                                       type: .main)
-            getImageManager.getImage(for: named) { [weak self] result in
+            getDataManager.receiveImage(for: tobacco.imageURL) { [weak self] result in
                 guard let self = self else { return }
                 switch result {
                 case .success(let image):
@@ -72,7 +65,7 @@ class DetailInfoManufacturerInteractor {
                     self.tobaccos[index] = mTobacco
                     self.presenter.receivedUpdate(for: mTobacco, at: index)
                 case .failure(let error):
-                    self.presenter.receivedError(with: error.localizedDescription)
+                    self.presenter.receivedError(error)
                 }
             }
         }
@@ -93,7 +86,7 @@ extension DetailInfoManufacturerInteractor: DetailInfoManufacturerInteractorInpu
         getDataManager.updateFavorite(for: tobacco) { [weak self] error in
             guard let self = self else { return }
             if let error {
-                self.presenter?.receivedError(with: error.localizedDescription)
+                self.presenter?.receivedError(error)
                 return
             }
             self.tobaccos[index].isFavorite.toggle()

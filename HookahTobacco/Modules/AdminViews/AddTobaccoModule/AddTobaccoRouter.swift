@@ -13,8 +13,6 @@ protocol AddTobaccoRouterProtocol: RouterProtocol {
     func dismissView()
     func dismissView(with changedData: Tobacco)
     func showAddTastesView(_ tastes: SelectedTastes, outputModule: AddTastesOutputModule?)
-    func showError(with message: String)
-    func showSuccess(delay: Double)
 }
 
 protocol AddTobaccoOutputModule: AnyObject {
@@ -44,13 +42,5 @@ class AddTobaccoRouter: AddTobaccoRouterProtocol {
         appRouter.pushViewController(module: AddTastesModule.self,
                                      moduleData: data,
                                      animateDisplay: true)
-    }
-
-    func showError(with message: String) {
-        appRouter.presentAlert(type: .error(message: message), completion: nil)
-    }
-
-    func showSuccess(delay: Double) {
-        appRouter.presentAlert(type: .success(delay: delay), completion: nil)
     }
 }

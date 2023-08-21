@@ -16,9 +16,8 @@ protocol ManufacturerListInteractorInputProtocol: AnyObject {
     func updateData()
 }
 
-protocol ManufacturerListInteractorOutputProtocol: AnyObject {
+protocol ManufacturerListInteractorOutputProtocol: PresenterrProtocol {
     func receivedManufacturersSuccess(with data: [Manufacturer])
-    func receivedError(with message: String)
     func receivedUpdate(for manufacturer: Manufacturer, at index: Int)
     func receivedDataForShowDetail(_ manudacturer: Manufacturer)
     func receivedDataForEditing(_ manufacturer: Manufacturer)
@@ -30,7 +29,6 @@ class ManufacturerListInteractor {
 
     // MARK: - Dependency
     private var getDataManager: DataManagerProtocol
-    private var getImageManager: ImageManagerProtocol
     private var updateDataManager: ObserverProtocol
 
     // MARK: - Private properties
@@ -40,12 +38,10 @@ class ManufacturerListInteractor {
     // MARK: - Initializers
     init(_ isAdminMode: Bool,
          getDataManager: DataManagerProtocol,
-         getImageManager: ImageManagerProtocol,
          updateDataManager: ObserverProtocol
     ) {
         self.isAdminMode = isAdminMode
         self.getDataManager = getDataManager
-        self.getImageManager = getImageManager
         self.updateDataManager = updateDataManager
         self.updateDataManager.subscribe(to: Manufacturer.self, subscriber: self)
     }
@@ -63,7 +59,7 @@ class ManufacturerListInteractor {
                 self.manufacturers = data
                 self.presenter.receivedManufacturersSuccess(with: data)
             case .failure(let error):
-                self.presenter.receivedError(with: error.localizedDescription)
+                self.presenter.receivedError(error)
             }
             for (index, manufacturer) in self.manufacturers.enumerated() {
                 self.receiveImage(for: manufacturer, at: index)
@@ -72,9 +68,9 @@ class ManufacturerListInteractor {
     }
 
     private func receiveImage(for manufacturer: Manufacturer, at index: Int) {
-        let imageName = manufacturer.nameImage
-        guard !imageName.isEmpty else { return }
-        getImageManager.getImage(for: NamedImageManager.manufacturerImage(nameImage: imageName)) { [weak self] result in
+        let urlImage = manufacturer.urlImage
+        guard !urlImage.isEmpty else { return }
+        getDataManager.receiveImage(for: urlImage) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let data):
@@ -83,7 +79,7 @@ class ManufacturerListInteractor {
                 self.manufacturers[index] = mutableManufacturer
                 self.presenter.receivedUpdate(for: mutableManufacturer, at: index)
             case .failure(let error):
-                self.presenter.receivedError(with: error.localizedDescription)
+                self.presenter.receivedError(error)
             }
         }
     }
@@ -127,7 +123,7 @@ extension ManufacturerListInteractor: UpdateDataSubscriberProtocol {
                 }
             }
         case .error(let error):
-            presenter.receivedError(with: error.localizedDescription)
+            presenter.receivedError(error)
         }
     }
 }

@@ -14,8 +14,7 @@ protocol AdminMenuInteractorInputProtocol: AnyObject {
     func upgradeDBVersion()
 }
 
-protocol AdminMenuInteractorOutputProtocol: AnyObject {
-    func receiveError(with message: String)
+protocol AdminMenuInteractorOutputProtocol: PresenterrProtocol {
     func receiveSuccessLogout()
     func showAlert()
 }
@@ -25,27 +24,29 @@ class AdminMenuInteractor {
     weak var presenter: AdminMenuInteractorOutputProtocol!
 
     // MARK: - Dependency
+    private let authService: AuthServiceProtocol
     private let getDataManager: GetDataNetworkingServiceProtocol
-    private let setDataManager: SetDataNetworkingServiceProtocol
+    private let adminNetworkingService: AdminNetworkingServiceProtocol
 
     // MARK: - Private properties
 
     // MARK: - Initializers
-    init(getDataManager: GetDataNetworkingServiceProtocol,
-         setDataManager: SetDataNetworkingServiceProtocol) {
+    init(authService: AuthServiceProtocol,
+         getDataManager: GetDataNetworkingServiceProtocol,
+         adminNetworkingService: AdminNetworkingServiceProtocol) {
+        self.authService = authService
         self.getDataManager = getDataManager
-        self.setDataManager = setDataManager
+        self.adminNetworkingService = adminNetworkingService
     }
 }
 
 // MARK: - AdminMenuInteractorInputProtocol implementation
 extension AdminMenuInteractor: AdminMenuInteractorInputProtocol {
     func logout() {
-        FirebaseAuthService.shared.logout { [weak self] error in
+        authService.logout { [weak self] error in
             guard let self = self else { return }
             if let error {
-                self.presenter.receiveError(with:
-                    "Выйти из пользователя не вышло, причина: \(error.localizedDescription)")
+                self.presenter.receivedError(error)
                 return
             }
             self.presenter.receiveSuccessLogout()
@@ -57,12 +58,12 @@ extension AdminMenuInteractor: AdminMenuInteractorInputProtocol {
             guard let self = self else { return }
             switch result {
             case .success(let version):
-                self.setDataManager.setDBVersion(version + 1) { error in
-                    if let error = error { self.presenter.receiveError(with: error.localizedDescription)
+                self.adminNetworkingService.setDBVersion(version + 1) { error in
+                    if let error { self.presenter.receivedError(error)
                     } else { self.presenter.showAlert() }
                 }
             case .failure(let error):
-                self.presenter.receiveError(with: error.localizedDescription)
+                self.presenter.receivedError(error)
             }
         }
     }

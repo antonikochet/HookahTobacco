@@ -9,7 +9,7 @@
 
 import Foundation
 
-enum TobaccoListFilters {
+enum TobaccoListInput {
     case none
     case favorite
     case wantBuy
@@ -22,11 +22,11 @@ protocol TobaccoListInteractorInputProtocol: AnyObject {
     func updateData()
     func updateFavorite(by index: Int)
     func updateWantBuy(by index: Int)
+    func receiveTobaccoListInput() -> TobaccoListInput
 }
 
-protocol TobaccoListInteractorOutputProtocol: AnyObject {
+protocol TobaccoListInteractorOutputProtocol: PresenterrProtocol {
     func receivedSuccess(_ data: [Tobacco])
-    func receivedError(with message: String)
     func receivedUpdate(for data: Tobacco, at index: Int)
     func receivedDataForShowDetail(_ tobacco: Tobacco)
     func receivedDataForEditing(_ tobacco: Tobacco)
@@ -40,25 +40,25 @@ class TobaccoListInteractor {
 
     // MARK: - Dependency
     private var getDataManager: DataManagerProtocol
-    private var getImageManager: ImageManagerProtocol
+    private var userService: UserNetworkingServiceProtocol
     private var updateDataManager: ObserverProtocol
 
     // MARK: - Private properties
     private var tobaccos: [Tobacco] = []
     private var isAdminMode: Bool
-    private var filter: TobaccoListFilters
+    private var input: TobaccoListInput
 
     // MARK: - Initializers
     init(_ isAdminModel: Bool,
-         filter: TobaccoListFilters,
+         input: TobaccoListInput,
          getDataManager: DataManagerProtocol,
-         getImageManager: ImageManagerProtocol,
+         userService: UserNetworkingServiceProtocol,
          updateDataManager: ObserverProtocol
     ) {
         self.isAdminMode = isAdminModel
-        self.filter = filter
+        self.input = input
         self.getDataManager = getDataManager
-        self.getImageManager = getImageManager
+        self.userService = userService
         self.updateDataManager = updateDataManager
         self.updateDataManager.subscribe(to: Tobacco.self, subscriber: self)
     }
@@ -69,25 +69,29 @@ class TobaccoListInteractor {
 
     // MARK: - Private methods
     private func getTobacco() {
-        getDataManager.receiveData(typeData: Tobacco.self) { [weak self] result in
-            guard let self = self else { return }
+        let completion: CompletionResultBlock<[Tobacco]> = { [weak self] result in
+            guard let self else { return }
             switch result {
-            case .success(let data):
-                self.tobaccos = self.receiveFiltersData(data)
-                self.presenter.receivedSuccess(self.tobaccos)
+            case .success(let tobaccos):
+                self.tobaccos = tobaccos
+                self.presenter.receivedSuccess(tobaccos)
                 self.getImagesTobacco()
             case .failure(let error):
-                self.presenter.receivedError(with: error.localizedDescription)
+                self.presenter.receivedError(error)
             }
+        }
+        switch input {
+        case .none:
+            getDataManager.receiveData(typeData: Tobacco.self, completion: completion)
+        case .favorite:
+            userService.receiveFavoriteTobaccos(completion: completion)
+        case .wantBuy:
+            userService.receiveWantToBuyTobaccos(completion: completion)
         }
     }
 
     private func getImage(for tobacco: Tobacco, with index: Int) {
-        guard !tobacco.uid.isEmpty else { return }
-        let named = NamedImageManager.tobaccoImage(manufacturer: tobacco.nameManufacturer,
-                                                   uid: tobacco.uid,
-                                                   type: .main)
-        getImageManager.getImage(for: named) { [weak self] result in
+        getDataManager.receiveImage(for: tobacco.imageURL) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let image):
@@ -96,7 +100,7 @@ class TobaccoListInteractor {
                 self.tobaccos[index] = mutableTobacco
                 self.presenter.receivedUpdate(for: mutableTobacco, at: index)
             case .failure(let error):
-                self.presenter.receivedError(with: error.localizedDescription)
+                self.presenter.receivedError(error)
             }
         }
     }
@@ -104,17 +108,6 @@ class TobaccoListInteractor {
     private func getImagesTobacco() {
         for (index, tobacco) in tobaccos.enumerated() {
             getImage(for: tobacco, with: index)
-        }
-    }
-
-    private func receiveFiltersData(_ tobaccos: [Tobacco]) -> [Tobacco] {
-        switch filter {
-        case .none:
-            return tobaccos
-        case .favorite:
-            return tobaccos.filter { $0.isFavorite }
-        case .wantBuy:
-            return tobaccos.filter { $0.isWantBuy }
         }
     }
 }
@@ -151,10 +144,10 @@ extension TobaccoListInteractor: TobaccoListInteractorInputProtocol {
         getDataManager.updateFavorite(for: tobacco) { [weak self] error in
             guard let self = self else { return }
             if let error {
-                self.presenter.receivedError(with: error.localizedDescription)
+                self.presenter.receivedError(error)
                 return
             }
-            if self.filter != .favorite {
+            if self.input != .favorite {
                 self.tobaccos[index].isFavorite.toggle()
                 self.presenter.receivedUpdate(for: self.tobaccos[index], at: index)
             } else {
@@ -172,10 +165,10 @@ extension TobaccoListInteractor: TobaccoListInteractorInputProtocol {
         getDataManager.updateFavorite(for: tobacco) { [weak self] error in
             guard let self = self else { return }
             if let error {
-                self.presenter.receivedError(with: error.localizedDescription)
+                self.presenter.receivedError(error)
                 return
             }
-            if self.filter != .wantBuy {
+            if self.input != .wantBuy {
                 self.tobaccos[index].isWantBuy.toggle()
                 self.presenter.receivedUpdate(for: self.tobaccos[index], at: index)
                 if self.tobaccos[index].isWantBuy {
@@ -190,6 +183,10 @@ extension TobaccoListInteractor: TobaccoListInteractorInputProtocol {
             }
         }
     }
+
+    func receiveTobaccoListInput() -> TobaccoListInput {
+        input
+    }
 }
 
     // MARK: - UpdateDataSubscriberProtocol implementation
@@ -198,12 +195,12 @@ extension TobaccoListInteractor: UpdateDataSubscriberProtocol {
         switch notification {
         case .update(let data):
             if let newTobacco = data as? [Tobacco] {
-                tobaccos = receiveFiltersData(newTobacco)
+                tobaccos = newTobacco
                 presenter.receivedSuccess(tobaccos)
                 getImagesTobacco()
             }
         case .error(let error):
-                presenter.receivedError(with: error.localizedDescription)
+                presenter.receivedError(error)
         }
     }
 }

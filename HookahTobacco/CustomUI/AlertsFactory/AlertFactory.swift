@@ -24,11 +24,10 @@ struct AlertFactory {
     // MARK: - Public methods
     func showAlert(_ type: AlertType,
                    from viewController: UIViewController,
-                   completion: (() -> Void)? = nil) {
+                   completion: CompletionBlock? = nil) {
         switch type {
         case .success(let delay):
-            showSuccessAlert(.success, delay: delay, from: viewController)
-            completion?()
+            showSuccessAlert(.success, delay: delay, from: viewController, completion: completion)
         case .error(let message):
             showErrorAlert(with: message, from: viewController, completion: completion)
         case .systemSuccess(let message, let delay):
@@ -43,7 +42,7 @@ struct AlertFactory {
     // MARK: - Private methods
     private func showErrorAlert(with message: String,
                                 from viewController: UIViewController,
-                                completion: (() -> Void)? = nil) {
+                                completion: CompletionBlock? = nil) {
         let alertVC = UIAlertController(title: "Ошибка",
                                         message: message,
                                         preferredStyle: .alert)
@@ -57,9 +56,10 @@ struct AlertFactory {
 
     private func showSuccessAlert(_ type: PopupAlertView.AlertType,
                                   delay: Double,
-                                  from viewController: UIViewController) {
+                                  from viewController: UIViewController,
+                                  completion: CompletionBlock? = nil) {
         let alert = PopupAlertView.createView(superview: viewController.view)
-        alert.show(type, delay: delay)
+        alert.show(type, delay: delay, completion: completion)
     }
 
     private func showSystemNotification(_ type: PopupNotificationView.NotificationType,

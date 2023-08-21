@@ -8,8 +8,5 @@
 import Foundation
 
 protocol DataNetworkingServiceProtocol {
-    var uid: String { get set }
-
-    init?(_ data: [String: Any], uid: String)
-    func formatterToData() -> [String: Any]
+    var uid: Int { get set }
 }

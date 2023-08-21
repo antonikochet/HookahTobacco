@@ -7,9 +7,18 @@
 
 import Foundation
 
+protocol RegistrationUserProtocol: Encodable {
+    var username: String { get }
+    var email: String { get }
+    var password: String { get }
+    var repeatPassword: String { get }
+    var firstName: String? { get }
+    var lastName: String? { get }
+    var dateOfBirth: Date? { get }
+    var image: Data? { get }
+}
+
 protocol RegistrationServiceProtocol {
-    typealias RegistrationServiceCompletion = (AuthError?) -> Void
-    func registration(email: String, password: String, completion: RegistrationServiceCompletion?)
-    func sendRegistrationUserData(firstName: String, lastName: String, photo: Data?,
-                                  completion: RegistrationServiceCompletion?)
+    func checkRegistrationData(email: String?, username: String?, completion: CompletionBlockWithParam<HTError?>?)
+    func registration(user: RegistrationUserProtocol, completion: CompletionBlockWithParam<HTError?>?)
 }

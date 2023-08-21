@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class HTScrollContentViewController: UIViewController {
+class HTScrollContentViewController: BaseViewController {
     // MARK: - Public UI
     let contentScrollView = UIView()
 
@@ -61,6 +61,11 @@ class HTScrollContentViewController: UIViewController {
             } else {
                 make.bottom.equalToSuperview().inset(bottomConstant) }
         })
+    }
+
+    // MARK: - Public methods
+    public func setOffset(_ contentOffset: CGPoint) {
+        scrollView.setContentOffset(contentOffset, animated: true)
     }
 
     // MARK: - Selectors

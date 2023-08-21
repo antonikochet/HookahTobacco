@@ -29,26 +29,10 @@ final class ProfilePresenter {
         if let firstName = user.firstName,
            let lastName = user.lastName {
             name = "\(firstName) \(lastName)"
-        } else if user.isAnonymous {
-            name = "Anonymous-\(user.uid.prefix(6))"
         }
         let profileItem = ProfileTableViewCellItem(photo: nil, name: name)
         let profileCell = TableRow<ProfileTableViewCell>(item: profileItem)
         rows.append(profileCell)
-
-        // registration button if user is anonymous
-        if user.isAnonymous {
-            let anonymousInfoItem = AnonymousInfoTableViewCellItem(text: .anonymousInfoText)
-            let anonymousInfoCell = TableRow<AnonymousInfoTableViewCell>(item: anonymousInfoItem)
-            rows.append(anonymousInfoCell)
-            let registrationAnonymousItem = ButtonProfileTableViewCellItem(
-                text: "Зарегистрировать аккаунт"
-            ) { [weak self] in
-                self?.router.showRegistrationView()
-            }
-            let registrationAnonymousCell = TableRow<ButtonProfileTableViewCell>(item: registrationAnonymousItem)
-            rows.append(registrationAnonymousCell)
-        }
 
         // admin button if user is admin
         if user.isAdmin {
@@ -89,14 +73,14 @@ final class ProfilePresenter {
 
 // MARK: - InteractorOutputProtocol implementation
 extension ProfilePresenter: ProfileInteractorOutputProtocol {
-    func receivedProfileInfoSuccess(_ user: UserProtocol) {
-        view.hideSpinner()
-        setupContentView(user)
+    func receivedError(_ error: HTError) {
+        view.hideLoading()
+        router.showError(with: error.message)
     }
 
-    func receivedProfileInfoError(_ message: String) {
-        view.hideSpinner()
-        router.showError(with: message)
+    func receivedProfileInfoSuccess(_ user: UserProtocol) {
+        view.hideLoading()
+        setupContentView(user)
     }
 
     func receivedLogoutSuccess() {
@@ -116,7 +100,7 @@ extension ProfilePresenter: ProfileViewOutputProtocol {
     }
 
     func viewWillAppear() {
-        view.showSpinner()
+        view.showLoading()
         interactor.receiveProfileInfo()
     }
 

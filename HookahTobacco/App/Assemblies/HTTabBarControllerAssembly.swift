@@ -16,14 +16,14 @@ struct HTTabBarControllerDependency {
 
 class HTTabBarControllerAssembly: Assembly {
     func assemble(container: Container) {
-        container.register(HTTabBarController.self) { (r, dependency: HTTabBarControllerDependency) in
+        container.register(HTTabBarController.self) { (resolver, dependency: HTTabBarControllerDependency) in
             let tabBar = HTTabBarController()
 
             let containers = dependency.containers.map { item -> HTNavigationController in
                 let dependency = HTNavigationControllerDependency(appRouter: dependency.appRouter,
                                                                   module: item.module,
                                                                   tabBarItem: item.tabBarItem)
-                let container = r.resolve(HTNavigationController.self, argument: dependency)!
+                let container = resolver.resolve(HTNavigationController.self, argument: dependency)!
                 return container
             }
             tabBar.viewControllers = containers

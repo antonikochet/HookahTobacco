@@ -9,6 +9,7 @@
 
 import Foundation
 import TableKit
+import UIKit
 
 class TobaccoListPresenter {
     // MARK: - Public properties
@@ -19,6 +20,7 @@ class TobaccoListPresenter {
     // MARK: - Private properties
     private var tobaccoItems: [TobaccoListTableCellItem] = []
     private var tableDirector: TableDirector?
+    private var isDownloadData: Bool = false
 
     // MARK: - Private methods
     private func createItem(for tobacco: Tobacco) -> TobaccoListTableCellItem {
@@ -91,15 +93,47 @@ class TobaccoListPresenter {
 // MARK: - InteractorOutputProtocol implementation
 extension TobaccoListPresenter: TobaccoListInteractorOutputProtocol {
     func receivedSuccess(_ data: [Tobacco]) {
+        isDownloadData = true
+        if data.isEmpty {
+            let title: String
+            var message: String = ""
+            switch interactor.receiveTobaccoListInput() {
+            case .none:
+                title = "Список табаков пуст"
+            case .favorite:
+                title = "Любимых табаков нет"
+                message = "Пройдитесь по списку табаков и добавьте в список любимых"
+            case .wantBuy:
+                title = "Список покупок табаков пуст"
+                message = "Пройдитесь по списку табаков и добавьте в список покупок табаки"
+            }
+            view.showErrorView(title: title,
+                               message: message,
+                               image: UIImage(named: "notFound"),
+                               buttonAction: nil)
+        } else {
+            setupContentView(data)
+        }
         setupContentView(data)
-        view.hideProgressView()
+        view.hideLoading()
         view.endRefreshing()
     }
 
-    func receivedError(with message: String) {
-        DispatchQueue.main.async {
-            self.view.hideProgressView()
-            self.router.showError(with: message)
+    func receivedError(_ error: HTError) {
+        view.endRefreshing()
+        view.hideLoading()
+        switch error {
+        case .noInternetConnection, .unexpectedError, .unknownError:
+            if isDownloadData {
+                router.showError(with: error.message)
+            } else {
+                view.showErrorView(isUnexpectedError: error != .noInternetConnection) { [weak self] in
+                    self?.view.hideErrorView()
+                    self?.interactor.startReceiveData()
+                }
+            }
+        default:
+            router.showError(with: error.message)
         }
     }
 
@@ -135,7 +169,17 @@ extension TobaccoListPresenter: TobaccoListViewOutputProtocol {
     func viewDidLoad() {
         let tableView = view.getTableView()
         tableDirector = TableDirector(tableView: tableView)
-        view.showProgressView()
+        let title: String
+        switch interactor.receiveTobaccoListInput() {
+        case .none:
+            title = "Табаки"
+        case .favorite:
+            title = "Любимые табаки"
+        case .wantBuy:
+            title = "Список для покупки"
+        }
+        view.setupView(title: title)
+        view.showLoading()
         interactor.startReceiveData()
     }
 
