@@ -11,13 +11,17 @@ import UIKit
 import SnapKit
 
 protocol AddTastesViewInputProtocol: AnyObject {
-    func getTableView() -> UITableView
-    func getTasteCollectionView() -> UICollectionView
+    func setupContent()
     func updateRowAndSelect(by index: Int)
 }
 
 protocol AddTastesViewOutputProtocol: AnyObject {
     func viewDidLoad()
+    var selectedNumberOfRows: Int { get }
+    func getSelectedViewModel(by index: Int) -> TasteCollectionCellViewModel
+    var tastesNumberOfRows: Int { get }
+    func getViewModel(by index: Int) -> AddTastesTableCellViewModel
+    func didSelectTaste(by index: Int)
     func didTouchAdd()
     func selectedTastesDone()
     func didEditingTaste(by index: Int)
@@ -32,14 +36,26 @@ class AddTastesViewController: UIViewController {
     // MARK: - UI properties
     private let searchBar = UISearchBar()
     private let tasteCollectionView = TasteCollectionView()
-    private let tableView = UITableView(frame: .zero, style: .plain)
-    private var addButton: UIButton!
+
+    private let tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .plain)
+        tableView.register(AddTastesTableViewCell.self,
+                           forCellReuseIdentifier: AddTastesTableViewCell.identifier)
+        return tableView
+    }()
+
+    private let addButton = UIButton.createAppBigButton(image: UIImage(systemName: "plus")?
+                                                                .withRenderingMode(.alwaysTemplate),
+                                                        fontSise: 25)
 
     // MARK: - ViewController Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = "Добавление вкусов"
+        view.backgroundColor = .systemBackground
 
-        setup()
+        setupNavigationItem()
+        setupSubviews()
         presenter.viewDidLoad()
     }
 
@@ -47,18 +63,40 @@ class AddTastesViewController: UIViewController {
         addButton.createCornerRadius()
     }
     // MARK: - Setups    
-    private func setup() {
-        setupScreenView()
-        setupNavigationItem()
-        setupTasteCollectionView()
-        setupSearchBar()
-        setupTableView()
-        setupAddButton()
+    private func setupSubviews() {
+        view.addSubview(tasteCollectionView)
+        tasteCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.leading.trailing.equalToSuperview().inset(spacingBetweenViews)
+        }
+        tasteCollectionView.tasteDelegate = self
+
+        view.addSubview(searchBar)
+        searchBar.delegate = self
+        searchBar.placeholder = "Фильтр вкусов"
+        searchBar.snp.makeConstraints { make in
+            make.top.equalTo(tasteCollectionView.snp.bottom).offset(8)
+            make.leading.trailing.equalToSuperview()
+        }
+
+        view.addSubview(tableView)
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(searchBar.snp.bottom).offset(spacingBetweenViews)
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+        }
+        tableView.dataSource = self
+        tableView.delegate = self
+
+        view.addSubview(addButton)
+        addButton.snp.makeConstraints { make in
+            make.size.equalTo(50)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(24)
+            make.trailing.equalToSuperview().inset(24)
+        }
+        addButton.addTarget(self, action: #selector(didTouchAddButton), for: .touchUpInside)
     }
-    private func setupScreenView() {
-        navigationItem.title = .title
-        view.backgroundColor = Colors.Screen.background
-    }
+
     private func setupNavigationItem() {
         let doneButton = UIBarButtonItem(
             barButtonSystemItem: .done,
@@ -67,61 +105,26 @@ class AddTastesViewController: UIViewController {
         )
         navigationItem.rightBarButtonItem = doneButton
     }
-    private func setupTasteCollectionView() {
-        view.addSubview(tasteCollectionView)
-        tasteCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.leading.trailing.equalToSuperview().inset(LayoutValues.TasteCollectionView.horizPadding)
-        }
-    }
-    private func setupSearchBar() {
-        view.addSubview(searchBar)
-        searchBar.delegate = self
-        searchBar.placeholder = .searchBarPlaceholder
-        searchBar.snp.makeConstraints { make in
-            make.top.equalTo(tasteCollectionView.snp.bottom).offset(LayoutValues.SearchBar.top)
-            make.leading.trailing.equalToSuperview()
-        }
-    }
-    private func setupTableView() {
-        view.addSubview(tableView)
-        tableView.snp.makeConstraints { make in
-            make.top.equalTo(searchBar.snp.bottom)//.offset(LayoutValues.TableView.top)
-            make.leading.trailing.equalToSuperview()
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
-        }
-    }
-    private func setupAddButton() {
-        addButton = UIButton.createAppBigButton(image: Images.add, fontSise: 25)
-        view.addSubview(addButton)
-        addButton.snp.makeConstraints { make in
-            make.size.equalTo(LayoutValues.AddButton.size)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(LayoutValues.AddButton.bottom)
-            make.trailing.equalToSuperview().inset(LayoutValues.AddButton.trailing)
-        }
-        addButton.addTarget(self, action: #selector(didTouchAddButton), for: .touchUpInside)
-    }
 
     // MARK: - Private methods
 
     // MARK: - Selectors
-    @objc private func didTouchAddButton() {
+    @objc
+    private func didTouchAddButton() {
         presenter.didTouchAdd()
     }
 
-    @objc private func didTouchDoneButton() {
+    @objc
+    private func didTouchDoneButton() {
         presenter.selectedTastesDone()
     }
 }
 
 // MARK: - ViewInputProtocol implementation
 extension AddTastesViewController: AddTastesViewInputProtocol {
-    func getTableView() -> UITableView {
-        tableView
-    }
-
-    func getTasteCollectionView() -> UICollectionView {
-        tasteCollectionView
+    func setupContent() {
+        tableView.reloadData()
+        tasteCollectionView.reloadData()
     }
 
     func updateRowAndSelect(by index: Int) {
@@ -170,8 +173,32 @@ extension AddTastesViewController: UISearchBarDelegate {
     }
 }
 
+// MARK: - UITableViewDataSource implementation
+extension AddTastesViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return presenter.tastesNumberOfRows
+    }
+
+    // swiftlint: disable force_cast
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: AddTastesTableViewCell.identifier,
+                                                 for: indexPath) as! AddTastesTableViewCell
+        cell.viewModel = presenter.getViewModel(by: indexPath.row)
+        return cell
+    }
+    // swiftlint: enable force_cast
+
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+}
+
 // MARK: - UITableViewDelegate implementation
 extension AddTastesViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presenter.didSelectTaste(by: indexPath.row)
+    }
+
     func tableView(
         _ tableView: UITableView,
         trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
@@ -184,34 +211,23 @@ extension AddTastesViewController: UITableViewDelegate {
         let configuration = UISwipeActionsConfiguration(actions: [edit])
         return configuration
     }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
 }
 
-private extension String {
-    static let title = "Добавление вкусов"
-    static let searchBarPlaceholder = "Фильтр вкусов"
-}
-private struct LayoutValues {
-    struct TasteCollectionView {
-        static let horizPadding: CGFloat = 16.0
+// MARK: - UICollectionViewDelegate implementation
+extension AddTastesViewController: TasteCollectionViewDelegate {
+    func getItem(at index: Int) -> TasteCollectionCellViewModel {
+        presenter.getSelectedViewModel(by: index)
     }
-    struct SearchBar {
-        static let top: CGFloat = 8.0
+
+    var numberOfRows: Int {
+        presenter.selectedNumberOfRows
     }
-    struct TableView {
-        static let top: CGFloat = 16.0
-    }
-    struct AddButton {
-        static let size: CGFloat = 50.0
-        static let bottom: CGFloat = 24.0
-        static let trailing: CGFloat = 24.0
+
+    func didSelectTaste(at index: Int) {
+
     }
 }
-private struct Images {
-    static let add = UIImage(systemName: "plus")!.withRenderingMode(.alwaysTemplate)
-}
-private struct Colors {
-    struct Screen {
-        static let background = UIColor.systemBackground
-    }
-}
-private struct Fonts { }

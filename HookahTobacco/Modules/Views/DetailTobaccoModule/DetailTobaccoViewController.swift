@@ -86,6 +86,7 @@ class DetailTobaccoViewController: HTScrollContentViewController {
     }
     private func setupTasteCollectionView() {
         contentScrollView.addSubview(tasteCollectionView)
+        tasteCollectionView.tasteDelegate = self
 
         tasteCollectionView.snp.makeConstraints { make in
             make.top.equalTo(nameLabel.snp.bottom).offset(LayoutValues.TasteCollectionView.top)
@@ -161,6 +162,21 @@ extension DetailTobaccoViewController: DetailTobaccoViewInputProtocol {
 
     func setupTasteView() {
         tasteCollectionView.reloadData()
+    }
+}
+
+// MARK: - TasteCollectionViewDelegate implementation
+extension DetailTobaccoViewController: TasteCollectionViewDelegate {
+    func getItem(at index: Int) -> TasteCollectionCellViewModel {
+        presenter.getTasteViewModel(at: index)
+    }
+
+    var numberOfRows: Int {
+        presenter.tasteNumberOfRows
+    }
+
+    func didSelectTaste(at index: Int) {
+
     }
 }
 

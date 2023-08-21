@@ -8,7 +8,6 @@
 //
 
 import Foundation
-import IVCollectionKit
 
 class AddTobaccoPresenter {
     // MARK: - Public properties
@@ -20,27 +19,6 @@ class AddTobaccoPresenter {
     private var manufacturerSelectItems: [String] = ["-"]
     private var tasteViewModels: [TasteCollectionCellViewModel] = []
     private var tobaccoLinesSelectItems: [String] = ["Отсутствует"]
-    private var tasteDirector: CollectionDirector?
-
-    // MARK: - Private methods
-    private func setupTasteCollectionView(_ selectedTaste: [Taste]) {
-        guard let tasteDirector else { return }
-        tasteDirector.sections.removeAll()
-        tasteViewModels.removeAll()
-        var rows: [AbstractCollectionItem] = []
-
-        for taste in selectedTaste {
-            let item = TasteCollectionCellViewModel(label: taste.taste)
-            tasteViewModels.append(item)
-            let row = CollectionItem<TasteCollectionViewCell>(item: item)
-            rows.append(row)
-        }
-
-        let section = CollectionSection(items: rows)
-
-        tasteDirector += section
-        tasteDirector.reload()
-    }
 }
 
 // MARK: - InteractorOutputProtocol implementation
@@ -49,7 +27,6 @@ extension AddTobaccoPresenter: AddTobaccoInteractorOutputProtocol {
         view.hideLoading()
         tasteViewModels = []
         router.showSuccess(delay: 2.0)
-        tasteDirector?.reload()
         view.clearView()
     }
 
@@ -119,8 +96,8 @@ extension AddTobaccoPresenter: AddTobaccoInteractorOutputProtocol {
     }
 
     func initialTastes(_ tastes: [Taste]) {
-        setupTasteCollectionView(tastes)
-        view.updateTasteButton(isShow: tastes.isEmpty)
+        tasteViewModels = tastes.map { TasteCollectionCellViewModel(label: $0.taste) }
+        view.setupTastes()
     }
 }
 
@@ -184,15 +161,15 @@ extension AddTobaccoPresenter: AddTobaccoViewOutputProtocol {
     }
 
     func viewDidLoad() {
-        if let tasteCollectionView = view.getTasteCollectionView() as? TasteCollectionView {
-            tasteCollectionView.getItem = { [weak self] index -> TasteCollectionCellViewModel? in
-                guard let self = self else { return nil }
-                guard index < self.tasteViewModels.count else { return nil }
-                return self.tasteViewModels[index]
-            }
-            tasteDirector = CollectionDirector(collectionView: tasteCollectionView)
-        }
         interactor.receiveStartingDataView()
+    }
+
+    var tasteNumberOfRows: Int {
+        tasteViewModels.count
+    }
+
+    func getTasteViewModel(by index: Int) -> TasteCollectionCellViewModel {
+        tasteViewModels[index]
     }
 
     func didTouchSelectedTastes() {

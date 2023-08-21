@@ -16,7 +16,6 @@
 		B90A791E2899E2C200B90193 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B90A791C2899E2C200B90193 /* LaunchScreen.storyboard */; };
 		B90A792D289A8C2200B90193 /* Tobacco.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90A792C289A8C2200B90193 /* Tobacco.swift */; };
 		B90FB1332901857100881D56 /* FireBaseSetImageNetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90FB1322901857100881D56 /* FireBaseSetImageNetworkingService.swift */; };
-		B917B04629B4E963008F08DD /* IVCollectionKit in Frameworks */ = {isa = PBXBuildFile; productRef = B917B04529B4E963008F08DD /* IVCollectionKit */; };
 		B91AF09C293F8B9C004CCC8A /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91AF09B293F8B9C004CCC8A /* ImageManager.swift */; };
 		B91AF09E293FA801004CCC8A /* ImageManagerAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91AF09D293FA800004CCC8A /* ImageManagerAssembly.swift */; };
 		B92A46A82966F9DC0006B787 /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A46A32966F9DC0006B787 /* ProfilePresenter.swift */; };
@@ -27,8 +26,6 @@
 		B92A46AF29672ACC0006B787 /* ButtonProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A46AE29672ACC0006B787 /* ButtonProfileTableViewCell.swift */; };
 		B92A46B32967313B0006B787 /* ProfileModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A46B12967313B0006B787 /* ProfileModule.swift */; };
 		B92A46B42967313B0006B787 /* ProfileAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A46B22967313B0006B787 /* ProfileAssembly.swift */; };
-		B9382A0C29B8A94300A5BB83 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = B9382A0B29B8A94300A5BB83 /* SnapKit */; };
-		B9382A0E29B8AE1200A5BB83 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = B9382A0D29B8AE1200A5BB83 /* Swinject */; };
 		B938A5182940DAFF00145EF0 /* AdminDataManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B938A5172940DAFF00145EF0 /* AdminDataManagerProtocol.swift */; };
 		B938A51A2940DB2500145EF0 /* AdminDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B938A5192940DB2500145EF0 /* AdminDataManager.swift */; };
 		B938A51C2940F1E900145EF0 /* AdminDataManagerAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B938A51B2940F1E900145EF0 /* AdminDataManagerAssembly.swift */; };
@@ -160,6 +157,7 @@
 		B9D6056428D4FED20058D19E /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B9D6056328D4FED20058D19E /* FirebaseAuth */; settings = {ATTRIBUTES = (Required, ); }; };
 		B9D6056628D4FED20058D19E /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B9D6056528D4FED20058D19E /* FirebaseFirestoreSwift */; };
 		B9D6056828D4FED20058D19E /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = B9D6056728D4FED20058D19E /* FirebaseStorage */; };
+		B9D6056C28D508800058D19E /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = B9D6056B28D508800058D19E /* SnapKit */; };
 		B9D6057428D53C350058D19E /* FirebaseAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D6057328D53C350058D19E /* FirebaseAuthService.swift */; };
 		B9D6DA3F2966206000B142AC /* TableKit in Frameworks */ = {isa = PBXBuildFile; productRef = B9D6DA3E2966206000B142AC /* TableKit */; };
 		B9DBE50B290DD8B1005B185C /* HTTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DBE50A290DD8B1005B185C /* HTTabBarController.swift */; };
@@ -188,6 +186,7 @@
 		B9E8DA5128F7827900CCA034 /* ManufacturerListAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E8DA4F28F7827900CCA034 /* ManufacturerListAssembly.swift */; };
 		B9E8DA5728F783B400CCA034 /* ManufacturerListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E8DA5628F783B400CCA034 /* ManufacturerListTableViewCell.swift */; };
 		B9E98A9229107BC000E1389B /* extention + String.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E98A9129107BC000E1389B /* extention + String.swift */; };
+		B9EB023B28F3159A00B3B6DA /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = B9EB023A28F3159A00B3B6DA /* Swinject */; };
 		B9EB024128F31B6300B3B6DA /* FireBaseNetworkingServicesAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EB024028F31B6300B3B6DA /* FireBaseNetworkingServicesAssembly.swift */; };
 		B9EB024728F3252500B3B6DA /* AddTobaccoAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EB024628F3252500B3B6DA /* AddTobaccoAssembly.swift */; };
 		B9EB024928F35B5F00B3B6DA /* ModuleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EB024828F35B5F00B3B6DA /* ModuleProtocol.swift */; };
@@ -408,13 +407,12 @@
 				B97D05AF2929639200F4629B /* Realm in Frameworks */,
 				B9D6DA3F2966206000B142AC /* TableKit in Frameworks */,
 				B9D6056428D4FED20058D19E /* FirebaseAuth in Frameworks */,
-				B917B04629B4E963008F08DD /* IVCollectionKit in Frameworks */,
-				B9382A0E29B8AE1200A5BB83 /* Swinject in Frameworks */,
+				B9EB023B28F3159A00B3B6DA /* Swinject in Frameworks */,
+				B9D6056C28D508800058D19E /* SnapKit in Frameworks */,
 				B9C9ECFB29128F2F000A359B /* FirebaseCrashlytics in Frameworks */,
 				B9D6056628D4FED20058D19E /* FirebaseFirestoreSwift in Frameworks */,
 				B9D2D2A7293B805100F2F591 /* MultiSelectSegmentedControl in Frameworks */,
 				B9D6056828D4FED20058D19E /* FirebaseStorage in Frameworks */,
-				B9382A0C29B8A94300A5BB83 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -516,14 +514,6 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		B917B04329B4E46B008F08DD /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				B94306D229204EE700EADFA0 /* AddTastesTableViewCell.swift */,
-			);
-			path = Cell;
-			sourceTree = "<group>";
-		};
 		B91AF09A293F8B5E004CCC8A /* ImageManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -598,13 +588,28 @@
 		B94306C329201F7B00EADFA0 /* AddTastesModule */ = {
 			isa = PBXGroup;
 			children = (
-				B917B04329B4E46B008F08DD /* Cell */,
 				B94306C42920277E00EADFA0 /* AddTastesPresenter.swift */,
 				B94306C52920277E00EADFA0 /* AddTastesRouter.swift */,
 				B94306C62920277E00EADFA0 /* AddTastesViewController.swift */,
 				B94306C72920277E00EADFA0 /* AddTastesInteractor.swift */,
 			);
 			path = AddTastesModule;
+			sourceTree = "<group>";
+		};
+		B94306D029204EA400EADFA0 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				B94306D129204EB700EADFA0 /* AddTastesTableViewCell */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		B94306D129204EB700EADFA0 /* AddTastesTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				B94306D229204EE700EADFA0 /* AddTastesTableViewCell.swift */,
+			);
+			path = AddTastesTableViewCell;
 			sourceTree = "<group>";
 		};
 		B94306D42920539000EADFA0 /* TasteCollectionView */ = {
@@ -1093,6 +1098,7 @@
 		B9D705F928E3A6730079AD23 /* AdminViews */ = {
 			isa = PBXGroup;
 			children = (
+				B94306D029204EA400EADFA0 /* Cells */,
 				B9631C4F2923E9CE00BBC09B /* AddTasteModule */,
 				B94306C329201F7B00EADFA0 /* AddTastesModule */,
 				B98E1DEB28F0DBAA00964B8F /* AdminMenuModule */,
@@ -1246,14 +1252,13 @@
 				B9D6056328D4FED20058D19E /* FirebaseAuth */,
 				B9D6056528D4FED20058D19E /* FirebaseFirestoreSwift */,
 				B9D6056728D4FED20058D19E /* FirebaseStorage */,
+				B9D6056B28D508800058D19E /* SnapKit */,
+				B9EB023A28F3159A00B3B6DA /* Swinject */,
 				B9C9ECFA29128F2F000A359B /* FirebaseCrashlytics */,
 				B97D05AE2929639200F4629B /* Realm */,
 				B97D05B02929639200F4629B /* RealmSwift */,
 				B9D2D2A6293B805100F2F591 /* MultiSelectSegmentedControl */,
 				B9D6DA3E2966206000B142AC /* TableKit */,
-				B917B04529B4E963008F08DD /* IVCollectionKit */,
-				B9382A0B29B8A94300A5BB83 /* SnapKit */,
-				B9382A0D29B8AE1200A5BB83 /* Swinject */,
 			);
 			productName = HookahTobacco;
 			productReference = B90A790E2899E2BF00B90193 /* HookahTobacco.app */;
@@ -1290,7 +1295,6 @@
 				B97D05AD2929639200F4629B /* XCRemoteSwiftPackageReference "realm-swift" */,
 				B9D2D2A5293B805100F2F591 /* XCRemoteSwiftPackageReference "MultiSelectSegmentedControl" */,
 				B9D6DA3C2965ECB200B142AC /* XCRemoteSwiftPackageReference "TableKit" */,
-				B917B04429B4E962008F08DD /* XCRemoteSwiftPackageReference "CollectionKit" */,
 			);
 			productRefGroup = B90A790F2899E2BF00B90193 /* Products */;
 			projectDirPath = "";
@@ -1756,14 +1760,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		B917B04429B4E962008F08DD /* XCRemoteSwiftPackageReference "CollectionKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ivedeneev/CollectionKit";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
 		B97D05AD2929639200F4629B /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift.git";
@@ -1815,21 +1811,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		B917B04529B4E963008F08DD /* IVCollectionKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = B917B04429B4E962008F08DD /* XCRemoteSwiftPackageReference "CollectionKit" */;
-			productName = IVCollectionKit;
-		};
-		B9382A0B29B8A94300A5BB83 /* SnapKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = B9D6056928D4FFDA0058D19E /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = SnapKit;
-		};
-		B9382A0D29B8AE1200A5BB83 /* Swinject */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = B9EB023928F3159A00B3B6DA /* XCRemoteSwiftPackageReference "Swinject" */;
-			productName = Swinject;
-		};
 		B97D05AE2929639200F4629B /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B97D05AD2929639200F4629B /* XCRemoteSwiftPackageReference "realm-swift" */;
@@ -1865,10 +1846,20 @@
 			package = B9D6056228D4FED20058D19E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
 		};
+		B9D6056B28D508800058D19E /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B9D6056928D4FFDA0058D19E /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
 		B9D6DA3E2966206000B142AC /* TableKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B9D6DA3C2965ECB200B142AC /* XCRemoteSwiftPackageReference "TableKit" */;
 			productName = TableKit;
+		};
+		B9EB023A28F3159A00B3B6DA /* Swinject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B9EB023928F3159A00B3B6DA /* XCRemoteSwiftPackageReference "Swinject" */;
+			productName = Swinject;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

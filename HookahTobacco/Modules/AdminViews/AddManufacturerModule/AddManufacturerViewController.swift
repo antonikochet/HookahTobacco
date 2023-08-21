@@ -11,10 +11,10 @@ import UIKit
 import SnapKit
 
 protocol AddManufacturerViewInputProtocol: AnyObject {
-    func getTobaccoLineCollectionView() -> UICollectionView
     func clearView()
     func setupContent(_ viewModel: AddManufacturerEntity.ViewModel)
     func setupImageManufacturer(_ image: Data?, textButton: String)
+    func setupTobaccoLines()
     func receivedResultAddTobaccoLine(isResult: Bool)
     func showTobaccoLineView()
     func showLoading()
@@ -25,8 +25,11 @@ protocol AddManufacturerViewOutputProtocol {
     func pressedAddButton(with enteredData: AddManufacturerEntity.EnterData)
     func selectedImage(with urlFile: URL)
     func viewDidLoad()
+    func getTobaccoLineViewModel(at index: Int) -> TasteCollectionCellViewModel
     func getTobaccoLineViewModel() -> AddTobaccoLineViewViewModelProtocol
+    var tobaccoLineNumberOfRows: Int { get }
     func returnTobaccoLine(_ viewModel: TobaccoLineViewModelProtocol)
+    func pressedEditingTobaccoLine(at index: Int)
     func pressedCloseEditingTobaccoLine()
 }
 
@@ -57,8 +60,8 @@ final class AddManufacturerViewController: HTScrollContentViewController {
 
         view.backgroundColor = .white
         overrideUserInterfaceStyle = .light
-        setupSubviews()
         presenter.viewDidLoad()
+        setupSubviews()
     }
 
     override func viewDidLayoutSubviews() {
@@ -146,6 +149,8 @@ final class AddManufacturerViewController: HTScrollContentViewController {
             make.top.equalTo(topView.snp.bottom).inset(-spacingBetweenViews)
             make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
         }
+        tobaccoLineCollectionView.tasteDelegate = self
+        tobaccoLineCollectionView.isUserInteractionEnabled = true
 
         contentScrollView.addSubview(addTobaccoLineButton)
         addTobaccoLineButton.addTarget(self, action: #selector(touchAddTobaccoLine), for: .touchUpInside)
@@ -188,16 +193,13 @@ final class AddManufacturerViewController: HTScrollContentViewController {
 
 // MARK: - ViewInputProtocol implementation
 extension AddManufacturerViewController: AddManufacturerViewInputProtocol {
-    func getTobaccoLineCollectionView() -> UICollectionView {
-        tobaccoLineCollectionView
-    }
-
     func clearView() {
         nameTextFieldView.text = ""
         countryTextFieldView.text = ""
         descriptionView.text = ""
         imagePickerView.image = nil
         addTobaccoLineView.setupView(presenter.getTobaccoLineViewModel())
+        tobaccoLineCollectionView.reloadData()
         nameTextFieldView.becomeFirstResponderTextField()
     }
 
@@ -206,6 +208,7 @@ extension AddManufacturerViewController: AddManufacturerViewInputProtocol {
         countryTextFieldView.text = viewModel.country
         descriptionView.text = viewModel.description
         linkTextFieldView.text = viewModel.link
+        tobaccoLineCollectionView.reloadData()
         addedButton.setTitle(viewModel.textButton, for: .normal)
     }
 
@@ -214,6 +217,10 @@ extension AddManufacturerViewController: AddManufacturerViewInputProtocol {
         if let image = image {
             imagePickerView.image = UIImage(data: image)
         }
+    }
+
+    func setupTobaccoLines() {
+        tobaccoLineCollectionView.reloadData()
     }
 
     func receivedResultAddTobaccoLine(isResult: Bool) {
@@ -261,6 +268,20 @@ extension AddManufacturerViewController: ImagePickerViewDelegate {
     }
 
     func didCancel() { }
+}
+
+extension AddManufacturerViewController: TasteCollectionViewDelegate {
+    func getItem(at index: Int) -> TasteCollectionCellViewModel {
+        presenter.getTobaccoLineViewModel(at: index)
+    }
+
+    var numberOfRows: Int {
+        presenter.tobaccoLineNumberOfRows
+    }
+
+    func didSelectTaste(at index: Int) {
+        presenter.pressedEditingTobaccoLine(at: index)
+    }
 }
 
 extension AddManufacturerViewController: AddTobaccoLineViewDelegate {

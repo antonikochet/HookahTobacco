@@ -279,7 +279,6 @@ extension AddTobaccoInteractor: AddTobaccoInteractorInputProtocol {
         presenter.initialSelectedManufacturer(manufacturer?.name)
         presenter.initialSelectedTobaccoLine(selectedTobaccoLine?.name)
         presenter.initialMainImage(editingMainImage)
-        presenter.initialTastes([])
     }
 
     func receiveTastesForEditing() {
