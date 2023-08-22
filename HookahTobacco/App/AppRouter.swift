@@ -161,12 +161,18 @@ class AppRouter: AppRouterProtocol {
 
 extension AppRouter: SystemSubscriberProtocol {
     func notify(_ notification: SystemNotification) {
-        guard let viewController = appWindow.rootViewController else { return }
+        guard let viewController = topViewController(controller: appWindow.rootViewController) else { return }
         switch notification {
         case .successMessage(let message, let delay):
-            AlertFactory.shared.showAlert(.systemSuccess(message: message, delay: delay), from: viewController)
+            AlertFactory.shared.showAlert(.toastSuccess(message: message,
+                                                        delay: delay,
+                                                        position: .top),
+                                          from: viewController)
         case .errorMessage(let message, let delay):
-            AlertFactory.shared.showAlert(.systemError(message: message, delay: delay), from: viewController)
+            AlertFactory.shared.showAlert(.toastError(message: message,
+                                                      delay: delay,
+                                                      position: .top),
+                                          from: viewController)
         }
     }
 }

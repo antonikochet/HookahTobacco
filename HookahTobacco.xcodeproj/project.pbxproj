@@ -120,7 +120,7 @@
 		B94306D6292053BA00EADFA0 /* TasteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94306D5292053BA00EADFA0 /* TasteCollectionViewCell.swift */; };
 		B9488F7D2934E9DB00D8B3B1 /* TobaccoLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9488F7C2934E9DB00D8B3B1 /* TobaccoLine.swift */; };
 		B949D7AB293D15900019BEFC /* SystemSubscriberProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B949D7AA293D15900019BEFC /* SystemSubscriberProtocol.swift */; };
-		B949D7AD293D2D0F0019BEFC /* PopupNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B949D7AC293D2D0F0019BEFC /* PopupNotificationView.swift */; };
+		B949D7AD293D2D0F0019BEFC /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B949D7AC293D2D0F0019BEFC /* ToastView.swift */; };
 		B94B7717290C239E002C5660 /* extention + UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94B7716290C239E002C5660 /* extention + UIButton.swift */; };
 		B94B771A290C2738002C5660 /* AddTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94B7719290C2738002C5660 /* AddTextView.swift */; };
 		B94B771C290C3785002C5660 /* AddPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94B771B290C3785002C5660 /* AddPickerView.swift */; };
@@ -380,7 +380,7 @@
 		B94306D5292053BA00EADFA0 /* TasteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasteCollectionViewCell.swift; sourceTree = "<group>"; };
 		B9488F7C2934E9DB00D8B3B1 /* TobaccoLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TobaccoLine.swift; sourceTree = "<group>"; };
 		B949D7AA293D15900019BEFC /* SystemSubscriberProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemSubscriberProtocol.swift; sourceTree = "<group>"; };
-		B949D7AC293D2D0F0019BEFC /* PopupNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupNotificationView.swift; sourceTree = "<group>"; };
+		B949D7AC293D2D0F0019BEFC /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		B94B7716290C239E002C5660 /* extention + UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extention + UIButton.swift"; sourceTree = "<group>"; };
 		B94B7719290C2738002C5660 /* AddTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTextView.swift; sourceTree = "<group>"; };
 		B94B771B290C3785002C5660 /* AddPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPickerView.swift; sourceTree = "<group>"; };
@@ -1263,7 +1263,7 @@
 			children = (
 				B989B87029338CD6007ECC59 /* AlertFactory.swift */,
 				B989B87229339668007ECC59 /* PopupAlertView.swift */,
-				B949D7AC293D2D0F0019BEFC /* PopupNotificationView.swift */,
+				B949D7AC293D2D0F0019BEFC /* ToastView.swift */,
 			);
 			path = AlertsFactory;
 			sourceTree = "<group>";
@@ -1932,7 +1932,7 @@
 				B9E8DA4928F77A8300CCA034 /* ManufacturerListViewController.swift in Sources */,
 				3818E03A2A80FE8600C9D02C /* extension+SheetViewController.swift in Sources */,
 				B9A66BCB296897F600B6D6E7 /* AnonymousInfoTableViewCell.swift in Sources */,
-				B949D7AD293D2D0F0019BEFC /* PopupNotificationView.swift in Sources */,
+				B949D7AD293D2D0F0019BEFC /* ToastView.swift in Sources */,
 				387121AF2A55AD6700B6005E /* Response+Manufacturer.swift in Sources */,
 				38F9B8A82A80355300EAC0A0 /* AddCountryAssembly.swift in Sources */,
 				B9ED910D2909D26100DC3A6D /* TobaccoListModule.swift in Sources */,

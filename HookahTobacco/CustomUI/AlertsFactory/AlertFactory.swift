@@ -12,8 +12,15 @@ struct AlertFactory {
     enum AlertType {
         case success(delay: Double)
         case error(message: String)
-        case systemSuccess(message: String, delay: Double)
-        case systemError(message: String, delay: Double)
+        case toastSuccess(title: String? = nil,
+                          message: String,
+                          delay: Double,
+                          position: ToastView.PositionView,
+                          isShowIcon: Bool = false)
+        case toastError(title: String? = nil,
+                        message: String,
+                        delay: Double,
+                        position: ToastView.PositionView)
     }
 
     // MARK: - singleton
@@ -30,11 +37,20 @@ struct AlertFactory {
             showSuccessAlert(.success, delay: delay, from: viewController, completion: completion)
         case .error(let message):
             showErrorAlert(with: message, from: viewController, completion: completion)
-        case .systemSuccess(let message, let delay):
-            showSystemNotification(.success(message: message), delay: delay, from: viewController)
+        case let .toastSuccess(title, message, delay, position, isShowIcon):
+            showToast(title: title,
+                      message: message,
+                      delay: delay,
+                      position: position,
+                      isShowIcon: isShowIcon,
+                      from: viewController)
             completion?()
-        case .systemError(let message, let delay):
-            showSystemNotification(.error(message: message), delay: delay, from: viewController)
+        case let .toastError(title, message, delay, position):
+            showErrorToast(title: title,
+                           message: message,
+                           delay: delay,
+                           position: position,
+                           from: viewController)
             completion?()
         }
     }
@@ -61,11 +77,25 @@ struct AlertFactory {
         let alert = PopupAlertView.createView(superview: viewController.view)
         alert.show(type, delay: delay, completion: completion)
     }
+    // swiftlint: disable:next function_parameter_count
+    private func showToast(title: String?,
+                           message: String,
+                           delay: Double,
+                           position: ToastView.PositionView,
+                           isShowIcon: Bool,
+                           from viewController: UIViewController) {
+        let toastView = ToastView.createView(superview: viewController.view)
+        toastView.positionViewOnSuperView = position
+        toastView.showToast(title: title, message: message, delay: delay, isShowIcon: isShowIcon)
+    }
 
-    private func showSystemNotification(_ type: PopupNotificationView.NotificationType,
-                                        delay: Double,
-                                        from viewController: UIViewController) {
-        let notificationView = PopupNotificationView.createView(superview: viewController.view)
-        notificationView.show(type, delay: delay)
+    private func showErrorToast(title: String?,
+                                message: String,
+                                delay: Double,
+                                position: ToastView.PositionView,
+                                from viewController: UIViewController) {
+        let toastView = ToastView.createView(superview: viewController.view)
+        toastView.positionViewOnSuperView = position
+        toastView.showErrorToast(title: title, message: message, delay: delay)
     }
 }

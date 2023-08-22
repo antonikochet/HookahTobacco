@@ -37,6 +37,6 @@ class TobaccoListRouter: TobaccoListRouterProtocol {
     }
 
     func showMessage(with message: String) {
-        appRouter.presentAlert(type: .systemSuccess(message: message, delay: 5), completion: nil)
+        appRouter.presentAlert(type: .toastSuccess(message: message, delay: 5.0, position: .top), completion: nil)
     }
 }
