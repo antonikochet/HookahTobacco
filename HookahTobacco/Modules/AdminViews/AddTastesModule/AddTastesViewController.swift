@@ -11,20 +11,16 @@ import UIKit
 import SnapKit
 
 protocol AddTastesViewInputProtocol: AnyObject {
+    func getTableView() -> UITableView
     func setupContent()
-    func updateRowAndSelect(by index: Int)
 }
 
 protocol AddTastesViewOutputProtocol: AnyObject {
     func viewDidLoad()
     var selectedNumberOfRows: Int { get }
     func getSelectedViewModel(by index: Int) -> TasteCollectionCellViewModel
-    var tastesNumberOfRows: Int { get }
-    func getViewModel(by index: Int) -> AddTastesTableCellViewModel
-    func didSelectTaste(by index: Int)
     func didTouchAdd()
     func selectedTastesDone()
-    func didEditingTaste(by index: Int)
     func didStartSearch(with text: String)
     func didEndSearch()
 }
@@ -36,14 +32,7 @@ class AddTastesViewController: UIViewController {
     // MARK: - UI properties
     private let searchBar = UISearchBar()
     private let tasteCollectionView = TasteCollectionView()
-
-    private let tableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .plain)
-        tableView.register(AddTastesTableViewCell.self,
-                           forCellReuseIdentifier: AddTastesTableViewCell.identifier)
-        return tableView
-    }()
-
+    private let tableView = UITableView(frame: .zero, style: .grouped)
     private let addButton = IconButton()
 
     // MARK: - ViewController Lifecycle
@@ -79,12 +68,10 @@ class AddTastesViewController: UIViewController {
 
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(searchBar.snp.bottom).offset(spacingBetweenViews)
+            make.top.equalTo(searchBar.snp.bottom)
             make.leading.trailing.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
-        tableView.dataSource = self
-        tableView.delegate = self
 
         view.addSubview(addButton)
         addButton.snp.makeConstraints { make in
@@ -121,16 +108,11 @@ class AddTastesViewController: UIViewController {
 
 // MARK: - ViewInputProtocol implementation
 extension AddTastesViewController: AddTastesViewInputProtocol {
-    func setupContent() {
-        tableView.reloadData()
-        tasteCollectionView.reloadData()
+    func getTableView() -> UITableView {
+        tableView
     }
 
-    func updateRowAndSelect(by index: Int) {
-        let indexPath = IndexPath(row: index, section: 0)
-        if tableView.indexPathsForVisibleRows?.contains(indexPath) ?? false {
-            tableView.reloadRows(at: [indexPath], with: .automatic)
-        }
+    func setupContent() {
         tasteCollectionView.reloadData()
     }
 }
@@ -169,50 +151,6 @@ extension AddTastesViewController: UISearchBarDelegate {
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(false, animated: true)
         view.endEditing(true)
-    }
-}
-
-// MARK: - UITableViewDataSource implementation
-extension AddTastesViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.tastesNumberOfRows
-    }
-
-    // swiftlint: disable force_cast
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: AddTastesTableViewCell.identifier,
-                                                 for: indexPath) as! AddTastesTableViewCell
-        cell.viewModel = presenter.getViewModel(by: indexPath.row)
-        return cell
-    }
-    // swiftlint: enable force_cast
-
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-}
-
-// MARK: - UITableViewDelegate implementation
-extension AddTastesViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter.didSelectTaste(by: indexPath.row)
-    }
-
-    func tableView(
-        _ tableView: UITableView,
-        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
-    ) -> UISwipeActionsConfiguration? {
-        let edit = UIContextualAction(style: .normal, title: "Изменить") { [weak self] (_, _, completionHandler) in
-            self?.presenter.didEditingTaste(by: indexPath.row)
-            completionHandler(true)
-        }
-        edit.backgroundColor = .systemOrange
-        let configuration = UISwipeActionsConfiguration(actions: [edit])
-        return configuration
-    }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
     }
 }
 

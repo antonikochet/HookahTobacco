@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import TableKit
 
 struct AddTastesTableCellViewModel {
     let taste: String
@@ -15,17 +16,8 @@ struct AddTastesTableCellViewModel {
     let isSelect: Bool
 }
 
-class AddTastesTableViewCell: UITableViewCell {
+class AddTastesTableViewCell: UITableViewCell, ConfigurableCell {
 
-    // MARK: - Static properties
-    static let identifier = NSStringFromClass(AddTastesTableViewCell.self)
-
-    // MARK: - Public properties
-    var viewModel: AddTastesTableCellViewModel? {
-        didSet {
-            updateContentCell()
-        }
-    }
     // MARK: - Private properties
     private var checkmarkWidthConstraint: Constraint?
 
@@ -84,7 +76,7 @@ class AddTastesTableViewCell: UITableViewCell {
 
         contentView.addSubview(tasteLabel)
         tasteLabel.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview()
+            make.top.bottom.equalToSuperview().inset(8.0)
             make.leading.equalTo(idLabel.snp.trailing)
             make.width.equalToSuperview().multipliedBy(0.5)
         }
@@ -105,17 +97,14 @@ class AddTastesTableViewCell: UITableViewCell {
         }
     }
 
-    // MARK: - Private methods
-    private func updateContentCell() {
-        if let viewModel = viewModel {
-            idLabel.text = viewModel.id
-            tasteLabel.text = viewModel.taste
-            typeTasteLabel.text = viewModel.typeTaste
-            let checkmarkImage = UIImage(systemName: "checkmark.circle.fill")?
-                                    .withRenderingMode(.alwaysTemplate)
-            checkmarkImageView.image = viewModel.isSelect ? checkmarkImage : nil
-            checkmarkWidthConstraint?.isActive = viewModel.isSelect
-        }
+    // MARK: - ConfigurableCell
+    func configure(with viewModel: AddTastesTableCellViewModel) {
+        idLabel.text = viewModel.id
+        tasteLabel.text = viewModel.taste
+        typeTasteLabel.text = viewModel.typeTaste
+        let checkmarkImage = UIImage(systemName: "checkmark.circle.fill")?
+                                .withRenderingMode(.alwaysTemplate)
+        checkmarkImageView.image = viewModel.isSelect ? checkmarkImage : nil
+        checkmarkWidthConstraint?.isActive = viewModel.isSelect
     }
-
 }

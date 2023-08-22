@@ -8,6 +8,7 @@
 //
 
 import Foundation
+import TableKit
 
 class AddTastesPresenter {
     // MARK: - Public properties
@@ -16,19 +17,58 @@ class AddTastesPresenter {
     var router: AddTastesRouterProtocol!
 
     // MARK: - Private properties
-    private var allTastesViewModel: [AddTastesTableCellViewModel] = []
+    private var tableDirector: CustomTableDirector?
     private var selectedViewModels: [TasteCollectionCellViewModel] = []
 
     // MARK: - Private methods
-    private func createTasteViewModel(_ taste: Taste, isSelect: Bool) -> AddTastesTableCellViewModel {
-        AddTastesTableCellViewModel(taste: taste.taste,
+    private func createTasteTableRow(_ taste: Taste, isSelect: Bool) -> TableRow<AddTastesTableViewCell> {
+        let item = AddTastesTableCellViewModel(taste: taste.taste,
                                     id: String(taste.uid),
                                     typeTaste: taste.typeTaste.first?.name ?? "",
                                     isSelect: isSelect)
+        return TableRow<AddTastesTableViewCell>(item: item)
+            .on(.click) { [weak self] options in
+                self?.interactor.selectedTaste(by: options.item.taste)
+            }
+            .on(.canEdit) { _ in
+                return true
+            }
     }
 
     private func createSelectedTasteViewModel(_ taste: Taste) -> TasteCollectionCellViewModel {
         TasteCollectionCellViewModel(label: taste.taste)
+    }
+
+    private func setupAllTastesContent(_ tastes: [Taste], with selectedTastes: [Taste]) {
+        guard let tableDirector else { return }
+        tableDirector.clear()
+        var rows: [Row] = []
+
+        let selectedIdTastes: Set<Int> = Set(selectedTastes.map { $0.uid })
+
+        for taste in tastes {
+            let row = createTasteTableRow(taste, isSelect: selectedIdTastes.contains(taste.uid))
+            rows.append(row)
+        }
+
+        tableDirector.customAction = { [weak self] row, action in
+            if case .edit = action,
+               let tableRow = row as? TableRow<AddTastesTableViewCell> {
+                self?.interactor.receiveDataForEdit(by: tableRow.item.taste)
+            }
+        }
+
+        let section = TableSection(rows: rows)
+        section.headerHeight = 0.0
+        section.footerHeight = 0.0
+        tableDirector += section
+        reloadData()
+    }
+
+    private func reloadData() {
+        DispatchQueue.main.async { [weak self] in
+            self?.tableDirector?.reload()
+        }
     }
 }
 
@@ -42,10 +82,7 @@ extension AddTastesPresenter: AddTastesInteractorOutputProtocol {
     }
 
     func initialAllTastes(_ tastes: [Taste], with selectedTastes: [Taste]) {
-        let selectedIdTastes: Set<Int> = Set(selectedTastes.map { $0.uid })
-        allTastesViewModel = tastes.map { taste in
-            return createTasteViewModel(taste, isSelect: selectedIdTastes.contains(taste.uid))
-        }
+        setupAllTastesContent(tastes, with: selectedTastes)
         view.setupContent()
     }
 
@@ -55,11 +92,13 @@ extension AddTastesPresenter: AddTastesInteractorOutputProtocol {
 
     func updateData(by index: Int, with taste: Taste, and selectedTastes: [Taste]) {
         let selectedIdTastes = Set(selectedTastes.map { $0.uid })
-        allTastesViewModel[index] = createTasteViewModel(taste, isSelect: selectedIdTastes.contains(taste.uid))
         selectedViewModels = selectedTastes.map {
             createSelectedTasteViewModel($0)
         }
-        view.updateRowAndSelect(by: index)
+        let row = createTasteTableRow(taste, isSelect: selectedIdTastes.contains(taste.uid))
+        let indexPath = IndexPath(row: index, section: 0)
+        tableDirector?.reloadRow(at: indexPath, with: row)
+        view.setupContent()
     }
 
     func receivedDataForEdit(editTaste: Taste) {
@@ -75,6 +114,8 @@ extension AddTastesPresenter: AddTastesInteractorOutputProtocol {
 // MARK: - ViewOutputProtocol implementation
 extension AddTastesPresenter: AddTastesViewOutputProtocol {
     func viewDidLoad() {
+        let tableView = view.getTableView()
+        tableDirector = CustomTableDirector(tableView: tableView)
         interactor.receiveStartingDataView()
     }
 
@@ -86,30 +127,12 @@ extension AddTastesPresenter: AddTastesViewOutputProtocol {
         selectedViewModels[index]
     }
 
-    var tastesNumberOfRows: Int {
-        allTastesViewModel.count
-    }
-
-    func getViewModel(by index: Int) -> AddTastesTableCellViewModel {
-        allTastesViewModel[index]
-    }
-
-    func didSelectTaste(by index: Int) {
-        let viewModel = allTastesViewModel[index]
-        interactor.selectedTaste(by: viewModel.taste)
-    }
-
     func didTouchAdd() {
         router.showAddTaste(taste: nil, outputModule: self)
     }
 
     func selectedTastesDone() {
         interactor.receiveSelectedTastes()
-    }
-
-    func didEditingTaste(by index: Int) {
-        let viewModel = allTastesViewModel[index]
-        interactor.receiveDataForEdit(by: viewModel.taste)
     }
 
     func didStartSearch(with text: String) {
