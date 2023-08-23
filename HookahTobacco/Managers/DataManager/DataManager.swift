@@ -306,26 +306,6 @@ extension DataManager: DataManagerProtocol {
         getDataNetworkingService.getImage(for: url, completion: completion)
     }
 
-    func receiveTobaccos(for manufacturer: Manufacturer, completion: ReceiveCompletion<Tobacco>?) {
-        if isSynchronized && isOfflineMode {
-            dataBaseService.read(type: Tobacco.self) { tobacco in
-                let manufacturerTobaccos = tobacco.filter { $0.idManufacturer == manufacturer.uid }
-                completion?(.success(manufacturerTobaccos))
-            } failure: { error in
-                completion?(.failure(error))
-            }
-        } else {
-            getDataNetworkingService.getTobaccos(for: manufacturer) { result in
-                switch result {
-                case .success(let tobaccos):
-                    completion?(.success(tobaccos))
-                case .failure(let error):
-                    completion?(.failure(error))
-                }
-            }
-        }
-    }
-
     func receiveTastes(at ids: [Int], completion: ReceiveCompletion<Taste>?) {
         if isSynchronized && isOfflineMode {
             dataBaseService.read(type: Taste.self) { tastes in
@@ -347,16 +327,6 @@ extension DataManager: DataManagerProtocol {
                     completion?(.failure(error))
                 }
             }
-        }
-    }
-
-    func updateFavorite(for tobacco: Tobacco, completion: Completion?) {
-        // TODO: - если isOffileMode == true то только в базе, если false то отправить запрос и потом только обновить в бд
-        dataBaseService.update(entity: tobacco) {
-            completion?(nil)
-            // TODO: - добавить отправку данных на сервер для зарегистрированных пользователей
-        } failure: { error in
-            completion?(error)
         }
     }
 }

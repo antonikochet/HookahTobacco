@@ -45,8 +45,8 @@ extension Tobacco: Codable {
         description = try container.decode(String.self, forKey: .description)
         line = try container.decode(TobaccoLine.self, forKey: .line)
         imageURL = try container.decode(URL?.self, forKey: .imageURL)?.absoluteString ?? ""
-        isFavorite = false
-        isWantBuy = false
+        isFavorite = try container.decode(Bool.self, forKey: .isFavorite)
+        isWantBuy = try container.decode(Bool.self, forKey: .isWantBuy)
     }
 
     enum CodingKeys: String, CodingKey {
@@ -58,5 +58,7 @@ extension Tobacco: Codable {
         case imageURL = "image_url"
         case line
         case lineId = "line_id"
+        case isFavorite = "is_favorite"
+        case isWantBuy = "is_want_buy"
     }
 }

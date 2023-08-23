@@ -27,10 +27,12 @@ class DetailInfoManufacturerAssembly: Assembly {
         container.register(DetailInfoManufacturerInteractorInputProtocol.self
         ) { (resolver, dependency: DetailInfoManufacturerDependency) in
             // here resolve dependency injection
-            let getDataManager = resolver.resolve(DataManagerProtocol.self)!
+            let getDataNetworkingService = resolver.resolve(GetDataNetworkingServiceProtocol.self)!
+            let userNetworkingService = resolver.resolve(UserNetworkingServiceProtocol.self)!
 
             return DetailInfoManufacturerInteractor(dependency.manufacturer,
-                                                    getDataManager: getDataManager)
+                                                    getDataNetworkingService: getDataNetworkingService,
+                                                    userNetworkingService: userNetworkingService)
         }
 
         container.register(DetailInfoManufacturerViewOutputProtocol.self) { _ in

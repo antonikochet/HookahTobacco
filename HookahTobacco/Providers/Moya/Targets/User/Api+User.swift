@@ -15,6 +15,8 @@ extension Api {
         case resetPassword
         case getFavoritesTobacco
         case getBuyToTobacco
+        case updateFavoriteTobaccos([UpdateTobaccosUser])
+        case updateWantBuyTobaccos([UpdateTobaccosUser])
     }
 }
 
@@ -31,6 +33,10 @@ extension Api.Users: DefaultTarget {
             return "v1/user/favorite_tobacco/"
         case .getBuyToTobacco:
             return "v1/user/wish_tobaccos/"
+        case .updateFavoriteTobaccos:
+            return "v1/user/update-favorite-tobacco/"
+        case .updateWantBuyTobaccos:
+            return "v1/user/update-wish-tobacco/"
         }
     }
 
@@ -40,13 +46,17 @@ extension Api.Users: DefaultTarget {
             return .get
         case .patch:
             return .patch
-        case .changePassword, .resetPassword:
+        case .changePassword, .resetPassword, .updateFavoriteTobaccos, .updateWantBuyTobaccos:
             return .post
         }
     }
 
     var task: Moya.Task {
         switch self {
+        case .updateFavoriteTobaccos(let tobaccos):
+            return .requestJSONEncodable(tobaccos)
+        case .updateWantBuyTobaccos(let tobaccos):
+            return .requestJSONEncodable(tobaccos)
         default:
             return .requestPlain
         }

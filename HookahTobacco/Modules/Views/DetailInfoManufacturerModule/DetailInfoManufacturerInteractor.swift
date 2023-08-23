@@ -25,7 +25,8 @@ class DetailInfoManufacturerInteractor {
     weak var presenter: DetailInfoManufacturerInteractorOutputProtocol!
 
     // MARK: - Dependency
-    private var getDataManager: DataManagerProtocol
+    private var getDataNetworkingService: GetDataNetworkingServiceProtocol
+    private var userNetworkingService: UserNetworkingServiceProtocol
 
     // MARK: - Private properties
     private var manufacturer: Manufacturer
@@ -33,15 +34,17 @@ class DetailInfoManufacturerInteractor {
 
     // MARK: - Initializers
     init(_ manufacturer: Manufacturer,
-         getDataManager: DataManagerProtocol) {
+         getDataNetworkingService: GetDataNetworkingServiceProtocol,
+         userNetworkingService: UserNetworkingServiceProtocol) {
         self.manufacturer = manufacturer
-        self.getDataManager = getDataManager
+        self.getDataNetworkingService = getDataNetworkingService
+        self.userNetworkingService = userNetworkingService
         receiveTobacco()
     }
 
     // MARK: - Private methods
     private func receiveTobacco() {
-        getDataManager.receiveTobaccos(for: manufacturer) { [weak self] result in
+        getDataNetworkingService.receiveTobaccos(for: manufacturer) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let tobaccos):
@@ -56,7 +59,7 @@ class DetailInfoManufacturerInteractor {
 
     private func receiveImageTobaccos(_ tobaccos: [Tobacco]) {
         tobaccos.enumerated().forEach { index, tobacco in
-            getDataManager.receiveImage(for: tobacco.imageURL) { [weak self] result in
+            getDataNetworkingService.getImage(for: tobacco.imageURL) { [weak self] result in
                 guard let self = self else { return }
                 switch result {
                 case .success(let image):
@@ -83,14 +86,17 @@ extension DetailInfoManufacturerInteractor: DetailInfoManufacturerInteractorInpu
         var tobacco = tobaccos[index]
         tobacco.isFlagsChanged = true
         tobacco.isFavorite.toggle()
-        getDataManager.updateFavorite(for: tobacco) { [weak self] error in
-            guard let self = self else { return }
-            if let error {
-                self.presenter?.receivedError(error)
-                return
+        userNetworkingService.updateFavoriteTobacco([tobacco]) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let tobaccos):
+                guard var newTobacco = tobaccos.first else { return }
+                newTobacco.image = tobacco.image
+                self.tobaccos[index] = newTobacco
+                self.presenter.receivedUpdate(for: newTobacco, at: index)
+            case .failure(let error):
+                self.presenter.receivedError(error)
             }
-            self.tobaccos[index].isFavorite.toggle()
-            self.presenter.receivedUpdate(for: self.tobaccos[index], at: index)
         }
     }
 }

@@ -11,7 +11,7 @@ protocol GetDataNetworkingServiceProtocol {
     func receiveData<T: DataNetworkingServiceProtocol>(type: T.Type,
                                                        completion: CompletionResultBlock<[T]>?)
     func getImage(for url: String, completion: CompletionResultBlock<Data>?)
-    func getTobaccos(for manufacturer: Manufacturer, completion: CompletionResultBlock<[Tobacco]>?)
+    func receiveTobaccos(for manufacturer: Manufacturer, completion: CompletionResultBlock<[Tobacco]>?)
     func getDataBaseVersion(completion: CompletionResultBlock<Int>?)
 }
 
@@ -20,8 +20,8 @@ protocol UserNetworkingServiceProtocol {
 //    func updateUser(_ user: UserProtocol, completion: CompletionResultBlock<UserProtocol>?)
     func receiveFavoriteTobaccos(completion: CompletionResultBlock<[Tobacco]>?)
     func receiveWantToBuyTobaccos(completion: CompletionResultBlock<[Tobacco]>?)
-//    func updateFavoriteTobacco(_ tobaccos: [Tobacco], completion: CompletionResultBlock<[Tobacco]>?)
-//    func updateWantToBuyTobacco(_ tobaccos: [Tobacco], completion: CompletionResultBlock<[Tobacco]>?)
+    func updateFavoriteTobacco(_ tobaccos: [Tobacco], completion: CompletionResultBlock<[Tobacco]>?)
+    func updateWantToBuyTobacco(_ tobaccos: [Tobacco], completion: CompletionResultBlock<[Tobacco]>?)
 }
 
 protocol AdminNetworkingServiceProtocol {

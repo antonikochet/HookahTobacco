@@ -78,7 +78,7 @@ extension DataApiService: GetDataNetworkingServiceProtocol {
         }
     }
 
-    func getTobaccos(
+    func receiveTobaccos(
         for manufacturer: Manufacturer,
         completion: CompletionResultBlock<[Tobacco]>?
     ) {

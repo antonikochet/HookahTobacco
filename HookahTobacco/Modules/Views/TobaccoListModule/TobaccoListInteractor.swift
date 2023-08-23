@@ -141,18 +141,21 @@ extension TobaccoListInteractor: TobaccoListInteractorInputProtocol {
         var tobacco = tobaccos[index]
         tobacco.isFlagsChanged = true
         tobacco.isFavorite.toggle()
-        getDataManager.updateFavorite(for: tobacco) { [weak self] error in
-            guard let self = self else { return }
-            if let error {
+        userService.updateFavoriteTobacco([tobacco]) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let tobaccos):
+                guard var newTobacco = tobaccos.first else { return }
+                newTobacco.image = tobacco.image
+                if self.input != .favorite {
+                    self.tobaccos[index] = newTobacco
+                    self.presenter.receivedUpdate(for: newTobacco, at: index)
+                } else {
+                    self.tobaccos.remove(at: index)
+                    self.presenter.removeTobacco(at: index)
+                }
+            case .failure(let error):
                 self.presenter.receivedError(error)
-                return
-            }
-            if self.input != .favorite {
-                self.tobaccos[index].isFavorite.toggle()
-                self.presenter.receivedUpdate(for: self.tobaccos[index], at: index)
-            } else {
-                self.tobaccos.remove(at: index)
-                self.presenter.removeTobacco(at: index)
             }
         }
     }
@@ -162,24 +165,27 @@ extension TobaccoListInteractor: TobaccoListInteractorInputProtocol {
         var tobacco = tobaccos[index]
         tobacco.isFlagsChanged = true
         tobacco.isWantBuy.toggle()
-        getDataManager.updateFavorite(for: tobacco) { [weak self] error in
-            guard let self = self else { return }
-            if let error {
-                self.presenter.receivedError(error)
-                return
-            }
-            if self.input != .wantBuy {
-                self.tobaccos[index].isWantBuy.toggle()
-                self.presenter.receivedUpdate(for: self.tobaccos[index], at: index)
-                if self.tobaccos[index].isWantBuy {
-                    self.presenter.showMessageUser("Вы добавили табак в список \"Хочу купить\"")
+        userService.updateWantToBuyTobacco([tobacco]) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let tobaccos):
+                guard var newTobacco = tobaccos.first else { return }
+                newTobacco.image = tobacco.image
+                if self.input != .wantBuy {
+                    self.tobaccos[index] = newTobacco
+                    self.presenter.receivedUpdate(for: newTobacco, at: index)
+                    if newTobacco.isWantBuy {
+                        self.presenter.showMessageUser("Вы добавили табак в список \"Хочу купить\"")
+                    } else {
+                        self.presenter.showMessageUser("Вы убрали табак из списка \"Хочу купить\"")
+                    }
                 } else {
+                    self.tobaccos.remove(at: index)
+                    self.presenter.removeTobacco(at: index)
                     self.presenter.showMessageUser("Вы убрали табак из списка \"Хочу купить\"")
                 }
-            } else {
-                self.tobaccos.remove(at: index)
-                self.presenter.removeTobacco(at: index)
-                self.presenter.showMessageUser("Вы убрали табак из списка \"Хочу купить\"")
+            case .failure(let error):
+                self.presenter.receivedError(error)
             }
         }
     }
