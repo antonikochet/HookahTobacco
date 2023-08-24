@@ -17,6 +17,7 @@ protocol ManufacturerListViewInputProtocol: ViewProtocol {
 
 protocol ManufacturerListViewOutputProtocol: AnyObject {
     func viewDidLoad()
+    func viewDidAppear()
     func didStartingRefreshView()
 }
 
@@ -35,6 +36,10 @@ class ManufacturerListViewController: BaseViewController {
         presenter.viewDidLoad()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        presenter.viewDidAppear()
+    }
     // MARK: - Setups
     private func setup() {
         setupScreen()

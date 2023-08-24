@@ -179,6 +179,9 @@ extension TobaccoListPresenter: TobaccoListViewOutputProtocol {
             title = "Список для покупки"
         }
         view.setupView(title: title)
+    }
+
+    func viewDidAppear() {
         view.showLoading()
         interactor.startReceiveData()
     }

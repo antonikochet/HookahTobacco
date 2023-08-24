@@ -120,6 +120,9 @@ extension ManufacturerListPresenter: ManufacturerListViewOutputProtocol {
         let cellHeightCalculator = ManufacturerListCellHeightCalculator(tableView: tableView, countCellInView: 8)
         tableDirector = TableDirector(tableView: tableView,
                                       cellHeightCalculator: cellHeightCalculator)
+    }
+
+    func viewDidAppear() {
         view.showLoading()
         interactor.startReceiveData()
     }
