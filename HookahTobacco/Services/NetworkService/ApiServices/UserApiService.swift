@@ -21,14 +21,18 @@ extension UserApiService: UserNetworkingServiceProtocol {
         }
     }
 
-    func receiveFavoriteTobaccos(completion: CompletionResultBlock<[Tobacco]>?) {
-        let target = Api.Users.getFavoritesTobacco
-        sendRequest(object: [Tobacco].self, target: target, completion: completion as? CompletionResultBlock)
+    func receiveFavoriteTobaccos(page: Int, completion: CompletionResultBlock<PageResponse<Tobacco>>?) {
+        let target = Api.Users.getFavoritesTobacco(page: page)
+        sendRequest(object: PageResponse<Tobacco>.self,
+                    target: target,
+                    completion: completion as? CompletionResultBlock)
     }
 
-    func receiveWantToBuyTobaccos(completion: CompletionResultBlock<[Tobacco]>?) {
-        let target = Api.Users.getBuyToTobacco
-        sendRequest(object: [Tobacco].self, target: target, completion: completion as? CompletionResultBlock)
+    func receiveWantToBuyTobaccos(page: Int, completion: CompletionResultBlock<PageResponse<Tobacco>>?) {
+        let target = Api.Users.getBuyToTobacco(page: page)
+        sendRequest(object: PageResponse<Tobacco>.self,
+                    target: target,
+                    completion: completion as? CompletionResultBlock)
     }
 
     func updateFavoriteTobacco(_ tobaccos: [Tobacco], completion: CompletionResultBlock<[Tobacco]>?) {

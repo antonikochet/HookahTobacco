@@ -59,7 +59,7 @@ class DetailInfoManufacturerInteractor {
 
     private func receiveImageTobaccos(_ tobaccos: [Tobacco]) {
         tobaccos.enumerated().forEach { index, tobacco in
-            getDataNetworkingService.getImage(for: tobacco.imageURL) { [weak self] result in
+            getDataNetworkingService.receiveImage(for: tobacco.imageURL) { [weak self] result in
                 guard let self = self else { return }
                 switch result {
                 case .success(let image):

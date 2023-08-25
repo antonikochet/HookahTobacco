@@ -25,19 +25,11 @@ extension MoyaProviderType {
                     let data = try response.map(T.self)
                     completion(.success(data))
                 } catch {
-                    self.showError("\(error)")
                     completion(.failure(error))
                 }
             case let .failure(error):
-                self.showError("\(error)")
                 completion(.failure(error))
             }
         }
-    }
-
-    private func showError(_ line: String) {
-        #if DEBUG
-        print("‼️‼️‼️\n\(line)\n‼️‼️‼️")
-        #endif
     }
 }

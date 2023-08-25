@@ -11,7 +11,7 @@ import Foundation
 import TableKit
 import UIKit
 
-class TobaccoListPresenter {
+class TobaccoListPresenter: NSObject {
     // MARK: - Public properties
     weak var view: TobaccoListViewInputProtocol!
     var interactor: TobaccoListInteractorInputProtocol!
@@ -21,6 +21,9 @@ class TobaccoListPresenter {
     private var tobaccoItems: [TobaccoListTableCellItem] = []
     private var tableDirector: TableDirector?
     private var isDownloadData: Bool = false
+    private var isLoadingData: Bool = false
+    private var isError: Bool = false
+    private var oldContentHeight: CGFloat = 0.0
 
     // MARK: - Private methods
     private func createItem(for tobacco: Tobacco) -> TobaccoListTableCellItem {
@@ -94,6 +97,8 @@ class TobaccoListPresenter {
 extension TobaccoListPresenter: TobaccoListInteractorOutputProtocol {
     func receivedSuccess(_ data: [Tobacco]) {
         isDownloadData = true
+        isLoadingData = false
+        isError = false
         if data.isEmpty {
             let title: String
             var message: String = ""
@@ -122,8 +127,10 @@ extension TobaccoListPresenter: TobaccoListInteractorOutputProtocol {
     func receivedError(_ error: HTError) {
         view.endRefreshing()
         view.hideLoading()
+        isError = true
+        isLoadingData = false
         switch error {
-        case .noInternetConnection, .unexpectedError, .unknownError:
+        case .noInternetConnection, .unexpectedError, .unknownError, .serverNotAvailable:
             if isDownloadData {
                 router.showError(with: error.message)
             } else {
@@ -168,7 +175,7 @@ extension TobaccoListPresenter: TobaccoListInteractorOutputProtocol {
 extension TobaccoListPresenter: TobaccoListViewOutputProtocol {
     func viewDidLoad() {
         let tableView = view.getTableView()
-        tableDirector = TableDirector(tableView: tableView)
+        tableDirector = TableDirector(tableView: tableView, scrollDelegate: self)
         let title: String
         switch interactor.receiveTobaccoListInput() {
         case .none:
@@ -179,14 +186,13 @@ extension TobaccoListPresenter: TobaccoListViewOutputProtocol {
             title = "Список для покупки"
         }
         view.setupView(title: title)
-    }
-
-    func viewDidAppear() {
         view.showLoading()
         interactor.startReceiveData()
     }
 
     func didStartingRefreshView() {
+        oldContentHeight = 0.0
+        isError = false
         interactor.updateData()
     }
 }
@@ -195,5 +201,19 @@ extension TobaccoListPresenter: TobaccoListViewOutputProtocol {
 extension TobaccoListPresenter: AddTobaccoOutputModule {
     func sendChangedTobacco(_ tobacco: Tobacco) {
         interactor.receivedDataFromOutside(tobacco)
+    }
+}
+
+// MARK: - OutputModule implementation
+extension TobaccoListPresenter: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if (scrollView.contentOffset.y + scrollView.frame.height >
+            (scrollView.contentSize.height + oldContentHeight) / 2),
+            !isLoadingData,
+            !isError {
+            interactor.receiveNextPage()
+            isLoadingData = true
+            oldContentHeight = scrollView.contentSize.height
+        }
     }
 }

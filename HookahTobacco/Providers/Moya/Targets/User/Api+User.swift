@@ -13,8 +13,8 @@ extension Api {
         case patch
         case changePassword
         case resetPassword
-        case getFavoritesTobacco
-        case getBuyToTobacco
+        case getFavoritesTobacco(page: Int)
+        case getBuyToTobacco(page: Int)
         case updateFavoriteTobaccos([UpdateTobaccosUser])
         case updateWantBuyTobaccos([UpdateTobaccosUser])
     }
@@ -53,6 +53,10 @@ extension Api.Users: DefaultTarget {
 
     var task: Moya.Task {
         switch self {
+        case .getFavoritesTobacco(let page):
+            return .requestParameters(parameters: ["page": page], encoding: URLEncoding())
+        case .getBuyToTobacco(let page):
+            return .requestParameters(parameters: ["page": page], encoding: URLEncoding())
         case .updateFavoriteTobaccos(let tobaccos):
             return .requestJSONEncodable(tobaccos)
         case .updateWantBuyTobaccos(let tobaccos):

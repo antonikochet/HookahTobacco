@@ -49,8 +49,11 @@ struct ApiHandlerErrors: NetworkHandlerErrors {
         guard let afError = error.asAFError else { return nil }
         switch afError {
         case let .sessionTaskFailed(error):
-            if error._code == NSURLErrorTimedOut {
+            if error._code == NSURLErrorTimedOut ||
+                error._code == NSURLErrorNotConnectedToInternet {
                 return .noInternetConnection
+            } else if error._code == NSURLErrorCannotConnectToHost {
+                return .serverNotAvailable
             }
             return .unknownError(error)
         default:

@@ -10,6 +10,7 @@ import Foundation
 enum HTError: Error {
     case noInternetConnection
     case unexpectedError
+    case serverNotAvailable
     case unknownError(Error)
     case apiError([ApiError])
     case databaseError(DataBaseError)
@@ -20,6 +21,8 @@ enum HTError: Error {
             return "Нет подключения к интернету. Проверьте подключение к сети и попробуйте снова!"
         case .unexpectedError:
             return "Произошла неизвестная ошибка!"
+        case .serverNotAvailable:
+            return "Сервер недоступен!"
         case .unknownError(let error):
             return "Произошла ошибка: \(error.localizedDescription)"
         case .apiError(let errors):

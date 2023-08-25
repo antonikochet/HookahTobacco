@@ -21,10 +21,6 @@ extension DataApiService: GetDataNetworkingServiceProtocol {
             sendRequest(object: [Manufacturer].self,
                         target: Api.Manufacturer.list,
                         completion: completion as? CompletionResultBlock)
-        case is Tobacco.Type:
-            sendRequest(object: [Tobacco].self,
-                        target: Api.Tobacco.list,
-                        completion: completion as? CompletionResultBlock)
         case is Taste.Type:
             sendRequest(object: [Taste].self,
                         target: Api.Tastes.list,
@@ -47,7 +43,21 @@ extension DataApiService: GetDataNetworkingServiceProtocol {
         }
     }
 
-    func getImage(for url: String, completion: CompletionResultBlock<Data>?) {
+    func receivePagesData<T: DataNetworkingServiceProtocol>(type: T.Type,
+                                                            page: Int,
+                                                            completion: CompletionResultBlock<PageResponse<T>>?) {
+        switch type {
+        case is Tobacco.Type:
+            sendRequest(object: PageResponse<T>.self,
+                        target: Api.Tobacco.list(page: page),
+                        completion: completion as? CompletionResultBlock)
+        default:
+            fatalError("Метод receivePagesData протокола GetDataNetworkingServiceProtocol" +
+                       " не поддерживает для получения тип \(type)")
+        }
+    }
+
+    func receiveImage(for url: String, completion: CompletionResultBlock<Data>?) {
         receiveImage(url) { result in
             switch result {
             case let .success(data):

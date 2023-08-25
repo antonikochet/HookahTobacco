@@ -18,7 +18,6 @@ protocol TobaccoListViewInputProtocol: ViewProtocol {
 
 protocol TobaccoListViewOutputProtocol: AnyObject {
     func viewDidLoad()
-    func viewDidAppear()
     func didStartingRefreshView()
 }
 
@@ -37,10 +36,6 @@ class TobaccoListViewController: BaseViewController {
         presenter.viewDidLoad()
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        presenter.viewDidAppear()
-    }
     // MARK: - Setups
     private func setup() {
         setupScreen()

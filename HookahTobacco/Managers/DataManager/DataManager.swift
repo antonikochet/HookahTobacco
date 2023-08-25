@@ -237,7 +237,7 @@ class DataManager {
 
     private func receiveImageFromNetwork(for url: String,
                                          completion: CompletionResultBlock<Data>?) {
-        getDataNetworkingService.getImage(for: url) { [weak self] result in
+        getDataNetworkingService.receiveImage(for: url) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let image):
@@ -303,7 +303,7 @@ extension DataManager: DataManagerProtocol {
                 self.receiveImageFromNetwork(for: url, completion: completion)
             }
         }
-        getDataNetworkingService.getImage(for: url, completion: completion)
+        getDataNetworkingService.receiveImage(for: url, completion: completion)
     }
 
     func receiveTastes(at ids: [Int], completion: ReceiveCompletion<Taste>?) {

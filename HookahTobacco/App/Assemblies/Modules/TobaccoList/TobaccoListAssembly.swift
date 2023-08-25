@@ -25,13 +25,13 @@ class TobaccoListAssembly: Assembly {
 
         container.register(TobaccoListInteractorInputProtocol.self) { (resolver, dependency: TobaccoListDependency) in
             // here resolve dependency injection
-            let getDataManager = resolver.resolve(DataManagerProtocol.self)!
+            let getDataNetworkingService = resolver.resolve(GetDataNetworkingServiceProtocol.self)!
             let userService = resolver.resolve(UserNetworkingServiceProtocol.self)!
             let updateDataManager = resolver.resolve(ObserverProtocol.self)!
 
             return TobaccoListInteractor(dependency.isAdminMode,
                                          input: dependency.filter,
-                                         getDataManager: getDataManager,
+                                         getDataNetworkingService: getDataNetworkingService,
                                          userService: userService,
                                          updateDataManager: updateDataManager)
         }

@@ -17,6 +17,7 @@ enum TobaccoListInput {
 
 protocol TobaccoListInteractorInputProtocol: AnyObject {
     func startReceiveData()
+    func receiveNextPage()
     func receiveDataForShowDetail(by index: Int)
     func receivedDataFromOutside(_ data: Tobacco)
     func updateData()
@@ -39,7 +40,7 @@ class TobaccoListInteractor {
     weak var presenter: TobaccoListInteractorOutputProtocol!
 
     // MARK: - Dependency
-    private var getDataManager: DataManagerProtocol
+    private var getDataNetworkingService: GetDataNetworkingServiceProtocol
     private var userService: UserNetworkingServiceProtocol
     private var updateDataManager: ObserverProtocol
 
@@ -47,17 +48,18 @@ class TobaccoListInteractor {
     private var tobaccos: [Tobacco] = []
     private var isAdminMode: Bool
     private var input: TobaccoListInput
+    private var page: Int = 0
 
     // MARK: - Initializers
     init(_ isAdminModel: Bool,
          input: TobaccoListInput,
-         getDataManager: DataManagerProtocol,
+         getDataNetworkingService: GetDataNetworkingServiceProtocol,
          userService: UserNetworkingServiceProtocol,
          updateDataManager: ObserverProtocol
     ) {
         self.isAdminMode = isAdminModel
         self.input = input
-        self.getDataManager = getDataManager
+        self.getDataNetworkingService = getDataNetworkingService
         self.userService = userService
         self.updateDataManager = updateDataManager
         self.updateDataManager.subscribe(to: Tobacco.self, subscriber: self)
@@ -69,29 +71,32 @@ class TobaccoListInteractor {
 
     // MARK: - Private methods
     private func getTobacco() {
-        let completion: CompletionResultBlock<[Tobacco]> = { [weak self] result in
+        let completion: CompletionResultBlock<PageResponse<Tobacco>> = { [weak self] result in
             guard let self else { return }
             switch result {
-            case .success(let tobaccos):
-                self.tobaccos = tobaccos
-                self.presenter.receivedSuccess(tobaccos)
+            case .success(let response):
+                self.page = response.next ?? -1
+                self.tobaccos.append(contentsOf: response.results)
+                self.presenter.receivedSuccess(self.tobaccos)
                 self.getImagesTobacco()
             case .failure(let error):
                 self.presenter.receivedError(error)
             }
         }
-        switch input {
-        case .none:
-            getDataManager.receiveData(typeData: Tobacco.self, completion: completion)
-        case .favorite:
-            userService.receiveFavoriteTobaccos(completion: completion)
-        case .wantBuy:
-            userService.receiveWantToBuyTobaccos(completion: completion)
+        if page != -1 {
+            switch input {
+            case .none:
+                getDataNetworkingService.receivePagesData(type: Tobacco.self, page: page, completion: completion)
+            case .favorite:
+                userService.receiveFavoriteTobaccos(page: page, completion: completion)
+            case .wantBuy:
+                userService.receiveWantToBuyTobaccos(page: page, completion: completion)
+            }
         }
     }
 
     private func getImage(for tobacco: Tobacco, with index: Int) {
-        getDataManager.receiveImage(for: tobacco.imageURL) { [weak self] result in
+        getDataNetworkingService.receiveImage(for: tobacco.imageURL) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let image):
@@ -115,6 +120,12 @@ class TobaccoListInteractor {
 // MARK: - InputProtocol implementation 
 extension TobaccoListInteractor: TobaccoListInteractorInputProtocol {
     func startReceiveData() {
+        page = 1
+        tobaccos = []
+        getTobacco()
+    }
+
+    func receiveNextPage() {
         getTobacco()
     }
 
@@ -133,6 +144,8 @@ extension TobaccoListInteractor: TobaccoListInteractorInputProtocol {
     }
 
     func updateData() {
+        page = 1
+        tobaccos = []
         getTobacco()
     }
 
