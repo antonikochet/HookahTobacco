@@ -27,6 +27,7 @@ class BaseViewController: UIViewController {
         blockView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+        self.blockView?.removeFromSuperview()
         self.blockView = blockView
         return blockView
     }
@@ -41,6 +42,7 @@ class BaseViewController: UIViewController {
         loadingView.snp.makeConstraints { make in
             make.center.equalToSuperview()
         }
+        self.loadingView?.removeFromSuperview()
         self.loadingView = loadingView
     }
 
@@ -48,7 +50,17 @@ class BaseViewController: UIViewController {
         let infoView = InfoView()
         view.addSubview(infoView)
         infoView.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
+            make.leading.trailing.equalToSuperview()
+            if let topView = viewModel.topView {
+                make.top.equalTo(topView.snp.bottom)
+            } else {
+                make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            }
+            if let bottomView = viewModel.bottomView {
+                make.bottom.equalTo(bottomView.snp.top)
+            } else {
+                make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            }
         }
         infoView.configure(viewModel: viewModel)
     }

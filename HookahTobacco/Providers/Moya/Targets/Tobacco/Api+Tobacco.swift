@@ -9,7 +9,7 @@ import Moya
 
 extension Api {
     enum Tobacco {
-        case list(page: Int)
+        case list(page: Int, search: String?)
         case create(TobaccoRequest)
         case update(id: Int, TobaccoRequest)
         case delete(id: Int)
@@ -44,8 +44,14 @@ extension Api.Tobacco: DefaultTarget {
 
     var task: Task {
         switch self {
-        case let .list(page):
-            return .requestParameters(parameters: ["page": page], encoding: URLEncoding())
+        case let .list(page, search):
+            var params: [String: Any] = [
+                "page": page
+            ]
+            if let search {
+                params["search"] = search
+            }
+            return .requestParameters(parameters: params, encoding: URLEncoding())
         case let .create(request):
             return request.createRequest()
         case let .update(_, request):

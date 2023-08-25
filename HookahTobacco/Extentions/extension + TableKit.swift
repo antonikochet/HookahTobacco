@@ -15,6 +15,6 @@ extension TableDirector {
         guard section.rows.count > indexPath.row else { return }
         section.replace(rowAt: indexPath.row, with: row)
 
-        tableView?.reloadRows(at: [indexPath], with: .none)
+        tableView?.reloadData()
     }
 }

@@ -12,6 +12,7 @@ protocol GetDataNetworkingServiceProtocol {
                                                        completion: CompletionResultBlock<[T]>?)
     func receivePagesData<T: DataNetworkingServiceProtocol>(type: T.Type,
                                                             page: Int,
+                                                            search: String?,
                                                             completion: CompletionResultBlock<PageResponse<T>>?)
     func receiveImage(for url: String, completion: CompletionResultBlock<Data>?)
     func receiveTobaccos(for manufacturer: Manufacturer, completion: CompletionResultBlock<[Tobacco]>?)

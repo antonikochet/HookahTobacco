@@ -45,11 +45,12 @@ extension DataApiService: GetDataNetworkingServiceProtocol {
 
     func receivePagesData<T: DataNetworkingServiceProtocol>(type: T.Type,
                                                             page: Int,
+                                                            search: String?,
                                                             completion: CompletionResultBlock<PageResponse<T>>?) {
         switch type {
         case is Tobacco.Type:
             sendRequest(object: PageResponse<T>.self,
-                        target: Api.Tobacco.list(page: page),
+                        target: Api.Tobacco.list(page: page, search: search),
                         completion: completion as? CompletionResultBlock)
         default:
             fatalError("Метод receivePagesData протокола GetDataNetworkingServiceProtocol" +

@@ -15,6 +15,9 @@ struct InfoViewModel {
     let primaryAction: ActionWithTitle?
     let secondaryAction: ActionWithTitle?
 
+    var topView: UIView?
+    var bottomView: UIView?
+
     init(image: UIImage?,
          title: String,
          subtitle: String?,

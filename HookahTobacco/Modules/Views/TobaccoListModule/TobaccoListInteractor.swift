@@ -18,6 +18,7 @@ enum TobaccoListInput {
 protocol TobaccoListInteractorInputProtocol: AnyObject {
     func startReceiveData()
     func receiveNextPage()
+    func receiveData(for searchText: String)
     func receiveDataForShowDetail(by index: Int)
     func receivedDataFromOutside(_ data: Tobacco)
     func updateData()
@@ -70,7 +71,7 @@ class TobaccoListInteractor {
     }
 
     // MARK: - Private methods
-    private func getTobacco() {
+    private func getTobacco(searchText: String? = nil) {
         let completion: CompletionResultBlock<PageResponse<Tobacco>> = { [weak self] result in
             guard let self else { return }
             switch result {
@@ -86,7 +87,12 @@ class TobaccoListInteractor {
         if page != -1 {
             switch input {
             case .none:
-                getDataNetworkingService.receivePagesData(type: Tobacco.self, page: page, completion: completion)
+                getDataNetworkingService.receivePagesData(
+                    type: Tobacco.self,
+                    page: page,
+                    search: searchText,
+                    completion: completion
+                )
             case .favorite:
                 userService.receiveFavoriteTobaccos(page: page, completion: completion)
             case .wantBuy:
@@ -127,6 +133,12 @@ extension TobaccoListInteractor: TobaccoListInteractorInputProtocol {
 
     func receiveNextPage() {
         getTobacco()
+    }
+
+    func receiveData(for searchText: String) {
+        page = 1
+        tobaccos = []
+        getTobacco(searchText: searchText)
     }
 
     func receiveDataForShowDetail(by index: Int) {

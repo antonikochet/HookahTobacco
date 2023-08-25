@@ -24,6 +24,8 @@ class TobaccoListPresenter: NSObject {
     private var isLoadingData: Bool = false
     private var isError: Bool = false
     private var oldContentHeight: CGFloat = 0.0
+    private weak var timer: Timer?
+    private var searchText: String?
 
     // MARK: - Private methods
     private func createItem(for tobacco: Tobacco) -> TobaccoListTableCellItem {
@@ -91,6 +93,51 @@ class TobaccoListPresenter: NSObject {
             self?.tableDirector?.reload()
         }
     }
+
+    private func setupInfoView() {
+        var title: String
+        var message: String = ""
+        var action: ActionWithTitle?
+        switch interactor.receiveTobaccoListInput() {
+        case .none:
+            title = "Список табаков пуст"
+        case .favorite:
+            title = "Любимых табаков нет"
+            message = "Пройдитесь по списку табаков и добавьте в список любимых"
+        case .wantBuy:
+            title = "Список покупок табаков пуст"
+            message = "Пройдитесь по списку табаков и добавьте в список покупок табаки"
+        }
+        if searchText != nil {
+            view.hideKeyboard()
+            title = "Ничего не найдено!"
+            message = "По вашему запросу\n ничего не найдено\n 😢"
+            action = ActionWithTitle(title: "Обновить", action: { [weak self] in
+                self?.view.hideErrorView()
+                self?.view.showLoading()
+                self?.interactor.startReceiveData()
+                self?.view.showKeyboard()
+            })
+        }
+        var viewModel = InfoViewModel(image: UIImage(named: "notFound"),
+                                      title: title,
+                                      subtitle: message,
+                                      primaryAction: action)
+        viewModel.topView = view.getSearchView()
+        view.showInfoView(viewModel: viewModel)
+    }
+
+    private func initializeTimer(_ text: String) {
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: Constant.timerLimit,
+                                     repeats: false, block: { [weak self] _ in
+            guard let self else { return }
+            self.timer?.invalidate()
+            self.timer = nil
+            self.view.showLoading()
+            self.interactor.receiveData(for: text)
+        })
+    }
 }
 
 // MARK: - InteractorOutputProtocol implementation
@@ -100,24 +147,7 @@ extension TobaccoListPresenter: TobaccoListInteractorOutputProtocol {
         isLoadingData = false
         isError = false
         if data.isEmpty {
-            let title: String
-            var message: String = ""
-            switch interactor.receiveTobaccoListInput() {
-            case .none:
-                title = "Список табаков пуст"
-            case .favorite:
-                title = "Любимых табаков нет"
-                message = "Пройдитесь по списку табаков и добавьте в список любимых"
-            case .wantBuy:
-                title = "Список покупок табаков пуст"
-                message = "Пройдитесь по списку табаков и добавьте в список покупок табаки"
-            }
-            view.showErrorView(title: title,
-                               message: message,
-                               image: UIImage(named: "notFound"),
-                               buttonAction: nil)
-        } else {
-            setupContentView(data)
+            setupInfoView()
         }
         setupContentView(data)
         view.hideLoading()
@@ -167,6 +197,9 @@ extension TobaccoListPresenter: TobaccoListInteractorOutputProtocol {
               let firstSection = tableDirector.sections.first else { return }
         firstSection.delete(rowAt: index)
         tobaccoItems.remove(at: index)
+        if tobaccoItems.isEmpty {
+            setupInfoView()
+        }
         reloadData()
     }
 }
@@ -177,7 +210,8 @@ extension TobaccoListPresenter: TobaccoListViewOutputProtocol {
         let tableView = view.getTableView()
         tableDirector = TableDirector(tableView: tableView, scrollDelegate: self)
         let title: String
-        switch interactor.receiveTobaccoListInput() {
+        let input = interactor.receiveTobaccoListInput()
+        switch input {
         case .none:
             title = "Табаки"
         case .favorite:
@@ -185,7 +219,7 @@ extension TobaccoListPresenter: TobaccoListViewOutputProtocol {
         case .wantBuy:
             title = "Список для покупки"
         }
-        view.setupView(title: title)
+        view.setupView(title: title, isShowSearch: input == .none)
         view.showLoading()
         interactor.startReceiveData()
     }
@@ -194,6 +228,20 @@ extension TobaccoListPresenter: TobaccoListViewOutputProtocol {
         oldContentHeight = 0.0
         isError = false
         interactor.updateData()
+    }
+
+    func updateSearchText(_ text: String?) {
+        if let text, !text.isEmpty {
+            searchText = text
+            initializeTimer(text)
+        } else {
+            if searchText != nil {
+                timer?.invalidate()
+                view.showLoading()
+                interactor.startReceiveData()
+                searchText = nil
+            }
+        }
     }
 }
 
@@ -210,10 +258,15 @@ extension TobaccoListPresenter: UIScrollViewDelegate {
         if (scrollView.contentOffset.y + scrollView.frame.height >
             (scrollView.contentSize.height + oldContentHeight) / 2),
             !isLoadingData,
-            !isError {
+            !isError,
+            isDownloadData {
             interactor.receiveNextPage()
             isLoadingData = true
             oldContentHeight = scrollView.contentSize.height
         }
     }
+}
+
+private struct Constant {
+    static let timerLimit = 1.0
 }
