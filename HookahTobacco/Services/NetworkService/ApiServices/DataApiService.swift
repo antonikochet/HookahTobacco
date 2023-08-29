@@ -43,18 +43,37 @@ extension DataApiService: GetDataNetworkingServiceProtocol {
         }
     }
 
-    func receivePagesData<T: DataNetworkingServiceProtocol>(type: T.Type,
-                                                            page: Int,
-                                                            search: String?,
-                                                            completion: CompletionResultBlock<PageResponse<T>>?) {
-        switch type {
-        case is Tobacco.Type:
-            sendRequest(object: PageResponse<T>.self,
-                        target: Api.Tobacco.list(page: page, search: search),
-                        completion: completion as? CompletionResultBlock)
-        default:
-            fatalError("Метод receivePagesData протокола GetDataNetworkingServiceProtocol" +
-                       " не поддерживает для получения тип \(type)")
+    func receiveTobacco(page: Int,
+                        search: String?,
+                        filters: TobaccoFilters?,
+                        completion: CompletionResultBlock<PageResponse<Tobacco>>?) {
+        sendRequest(object: PageResponse<Tobacco>.self,
+                    target: Api.Tobacco.list(page: page, search: search, filter: TobaccoFilterRequest(filters)),
+                    completion: completion as? CompletionResultBlock)
+    }
+
+    func receiveTobaccoFilters(completion: CompletionResultBlock<TobaccoFilters>?) {
+        sendRequest(object: TobaccoFilterResponse.self,
+                    target: Api.Tobacco.getFilter) { result in
+            switch result {
+            case .success(let response):
+                completion?(.success(TobaccoFilters(response)))
+            case .failure(let error):
+                completion?(.failure(error))
+            }
+        }
+    }
+
+    func updateTobaccoFilters(filters: TobaccoFilters, completion: CompletionResultBlock<TobaccoFilters>?) {
+        guard let request = TobaccoFilterRequest(filters) else { return }
+        sendRequest(object: TobaccoFilterResponse.self,
+                    target: Api.Tobacco.updateFilter(request)) { result in
+            switch result {
+            case .success(let response):
+                completion?(.success(TobaccoFilters(response)))
+            case .failure(let error):
+                completion?(.failure(error))
+            }
         }
     }
 

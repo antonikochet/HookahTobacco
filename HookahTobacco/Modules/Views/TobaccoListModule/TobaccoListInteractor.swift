@@ -87,10 +87,10 @@ class TobaccoListInteractor {
         if page != -1 {
             switch input {
             case .none:
-                getDataNetworkingService.receivePagesData(
-                    type: Tobacco.self,
+                getDataNetworkingService.receiveTobacco(
                     page: page,
                     search: searchText,
+                    filters: nil,
                     completion: completion
                 )
             case .favorite:

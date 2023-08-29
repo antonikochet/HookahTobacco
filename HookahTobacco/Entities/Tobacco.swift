@@ -23,3 +23,10 @@ struct Tobacco {
 
     var isFlagsChanged: Bool = false
 }
+
+struct TobaccoFilters {
+    var manufacturer: [Manufacturer]
+    var tasteType: [TasteType]
+    var tastes: [Taste]
+    var tobaccoType: [TobaccoType]
+}

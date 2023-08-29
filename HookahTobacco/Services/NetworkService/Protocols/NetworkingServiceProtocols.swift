@@ -10,10 +10,12 @@ import Foundation
 protocol GetDataNetworkingServiceProtocol {
     func receiveData<T: DataNetworkingServiceProtocol>(type: T.Type,
                                                        completion: CompletionResultBlock<[T]>?)
-    func receivePagesData<T: DataNetworkingServiceProtocol>(type: T.Type,
-                                                            page: Int,
-                                                            search: String?,
-                                                            completion: CompletionResultBlock<PageResponse<T>>?)
+    func receiveTobacco(page: Int,
+                        search: String?,
+                        filters: TobaccoFilters?,
+                        completion: CompletionResultBlock<PageResponse<Tobacco>>?)
+    func receiveTobaccoFilters(completion: CompletionResultBlock<TobaccoFilters>?)
+    func updateTobaccoFilters(filters: TobaccoFilters, completion: CompletionResultBlock<TobaccoFilters>?)
     func receiveImage(for url: String, completion: CompletionResultBlock<Data>?)
     func receiveTobaccos(for manufacturer: Manufacturer, completion: CompletionResultBlock<[Tobacco]>?)
     func getDataBaseVersion(completion: CompletionResultBlock<Int>?)

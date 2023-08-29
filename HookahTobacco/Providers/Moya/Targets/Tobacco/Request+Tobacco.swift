@@ -43,3 +43,29 @@ struct TobaccoRequest {
         }
     }
 }
+
+typealias ArrayId = [Int]
+
+struct TobaccoFilterRequest: Encodable {
+    let manufacturer: ArrayId?
+    let tasteType: ArrayId?
+    let tastes: ArrayId?
+    let tobaccoType: ArrayId?
+
+    enum CodingKeys: String, CodingKey {
+        case manufacturer
+        case tasteType = "taste_type"
+        case tastes
+        case tobaccoType = "tobacco_type"
+    }
+}
+
+extension TobaccoFilterRequest {
+    init?(_ filters: TobaccoFilters?) {
+        guard let filters else { return nil }
+        manufacturer = filters.manufacturer.map { $0.uid }
+        tasteType = filters.tasteType.map { $0.uid }
+        tastes = filters.tastes.map { $0.uid }
+        tobaccoType = filters.tobaccoType.map { $0.rawValue }
+    }
+}
