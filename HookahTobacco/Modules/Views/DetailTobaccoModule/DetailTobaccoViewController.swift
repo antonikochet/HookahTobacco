@@ -19,13 +19,11 @@ struct DetailTobaccoViewModel {
 }
 
 protocol DetailTobaccoViewInputProtocol: AnyObject {
+    func getTasteCollectionView() -> CustomCollectionView
     func setupContent(_ viewModel: DetailTobaccoViewModel)
-    func setupTasteView()
 }
 
 protocol DetailTobaccoViewOutputProtocol: AnyObject {
-    var tasteNumberOfRows: Int { get }
-    func getTasteViewModel(at index: Int) -> TasteCollectionCellViewModel
     func viewDidLoad()
 }
 
@@ -36,7 +34,7 @@ class DetailTobaccoViewController: HTScrollContentViewController {
     // MARK: - UI properties
     private let imageView = UIImageView()
     private let nameLabel = UILabel()
-    private let tasteCollectionView = TasteCollectionView()
+    private let tasteCollectionView = CustomCollectionView()
     private let infoStackView = UIStackView()
     private let descriptionLabel = UILabel()
     private let nameManufacturerLabel = UILabel()
@@ -86,7 +84,6 @@ class DetailTobaccoViewController: HTScrollContentViewController {
     }
     private func setupTasteCollectionView() {
         contentScrollView.addSubview(tasteCollectionView)
-        tasteCollectionView.tasteDelegate = self
 
         tasteCollectionView.snp.makeConstraints { make in
             make.top.equalTo(nameLabel.snp.bottom).offset(LayoutValues.TasteCollectionView.top)
@@ -146,6 +143,10 @@ class DetailTobaccoViewController: HTScrollContentViewController {
 
 // MARK: - ViewInputProtocol implementation
 extension DetailTobaccoViewController: DetailTobaccoViewInputProtocol {
+    func getTasteCollectionView() -> CustomCollectionView {
+        tasteCollectionView
+    }
+
     func setupContent(_ viewModel: DetailTobaccoViewModel) {
         if let image = viewModel.image {
             imageView.image = UIImage(data: image)
@@ -158,25 +159,6 @@ extension DetailTobaccoViewController: DetailTobaccoViewInputProtocol {
                                                               font: descriptionLabel.font) ?? 0)
         }
         nameManufacturerLabel.text = viewModel.nameManufacturer
-    }
-
-    func setupTasteView() {
-        tasteCollectionView.reloadData()
-    }
-}
-
-// MARK: - TasteCollectionViewDelegate implementation
-extension DetailTobaccoViewController: TasteCollectionViewDelegate {
-    func getItem(at index: Int) -> TasteCollectionCellViewModel {
-        presenter.getTasteViewModel(at: index)
-    }
-
-    var numberOfRows: Int {
-        presenter.tasteNumberOfRows
-    }
-
-    func didSelectTaste(at index: Int) {
-
     }
 }
 

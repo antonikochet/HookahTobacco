@@ -1,5 +1,5 @@
 //
-//  TasteCollectionViewLayout.swift
+//  CustomCollectionViewLayout.swift
 //  HookahTobacco
 //
 //  Created by антон кочетков on 14.11.2022.
@@ -7,15 +7,15 @@
 
 import UIKit
 
-protocol TasteCollectionViewLayoutDelegate: AnyObject {
+protocol CustomCollectionViewLayoutDelegate: AnyObject {
     func collectionView(_ collectionView: UICollectionView, sizeForTasteAtIndexPath indexPath: IndexPath) -> CGSize
 }
 
-class TasteCollectionViewLayout: UICollectionViewLayout {
+class CustomCollectionViewLayout: UICollectionViewLayout {
     // MARK: - Public properties
     var interItemSpacing: CGFloat = 0
 
-    weak var delegate: TasteCollectionViewLayoutDelegate?
+    weak var delegate: CustomCollectionViewLayoutDelegate?
 
     // MARK: - Private properties
     private var itemCache: [UICollectionViewLayoutAttributes] = []
@@ -40,6 +40,7 @@ class TasteCollectionViewLayout: UICollectionViewLayout {
         guard let collectionView = collectionView else { return }
         var layoutWidthIterator: CGFloat = 0.0
         var itemSize: CGSize = .zero
+        guard collectionView.numberOfSections > 0 else { return }
         for item in 0..<collectionView.numberOfItems(inSection: 0) {
             let indexPath = IndexPath(row: item, section: 0)
             itemSize = delegate?.collectionView(

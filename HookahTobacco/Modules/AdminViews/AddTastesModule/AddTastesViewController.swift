@@ -12,13 +12,11 @@ import SnapKit
 
 protocol AddTastesViewInputProtocol: AnyObject {
     func getTableView() -> UITableView
-    func setupContent()
+    func getSelectCollectionView() -> CustomCollectionView
 }
 
 protocol AddTastesViewOutputProtocol: AnyObject {
     func viewDidLoad()
-    var selectedNumberOfRows: Int { get }
-    func getSelectedViewModel(by index: Int) -> TasteCollectionCellViewModel
     func didTouchAdd()
     func selectedTastesDone()
     func didStartSearch(with text: String)
@@ -31,7 +29,7 @@ class AddTastesViewController: UIViewController {
 
     // MARK: - UI properties
     private let searchBar = UISearchBar()
-    private let tasteCollectionView = TasteCollectionView()
+    private let tasteCollectionView = CustomCollectionView()
     private let tableView = UITableView(frame: .zero, style: .grouped)
     private let addButton = IconButton()
 
@@ -56,7 +54,6 @@ class AddTastesViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.leading.trailing.equalToSuperview().inset(spacingBetweenViews)
         }
-        tasteCollectionView.tasteDelegate = self
 
         view.addSubview(searchBar)
         searchBar.delegate = self
@@ -112,8 +109,8 @@ extension AddTastesViewController: AddTastesViewInputProtocol {
         tableView
     }
 
-    func setupContent() {
-        tasteCollectionView.reloadData()
+    func getSelectCollectionView() -> CustomCollectionView {
+        tasteCollectionView
     }
 }
 
@@ -151,20 +148,5 @@ extension AddTastesViewController: UISearchBarDelegate {
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(false, animated: true)
         view.endEditing(true)
-    }
-}
-
-// MARK: - UICollectionViewDelegate implementation
-extension AddTastesViewController: TasteCollectionViewDelegate {
-    func getItem(at index: Int) -> TasteCollectionCellViewModel {
-        presenter.getSelectedViewModel(by: index)
-    }
-
-    var numberOfRows: Int {
-        presenter.selectedNumberOfRows
-    }
-
-    func didSelectTaste(at index: Int) {
-
     }
 }

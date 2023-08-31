@@ -8,6 +8,7 @@
 //
 
 import Foundation
+import IVCollectionKit
 
 class AddManufacturerPresenter {
     // MARK: - Public properties
@@ -16,13 +17,32 @@ class AddManufacturerPresenter {
     var router: AddManufacturerRouterProtocol!
 
     // MARK: - Private properties
+    private var tobaccoLinesDirector: CustomCollectionDirector?
     private var tobaccoLinesViewModels: [TasteCollectionCellViewModel] = []
     private var countries: [String] = []
     private var isImage: Bool = false
     private var editingTobaccoLineIndex: Int?
 
     // MARK: - Private methods
+    private func setupTobaccoLineCollectionView(_ tobaccoLines: [TobaccoLine]) {
+        guard let tobaccoLinesDirector else { return }
+        tobaccoLinesDirector.sections.removeAll()
+        tobaccoLinesViewModels.removeAll()
 
+        var rows: [AbstractCollectionItem] = []
+
+        for line in tobaccoLines {
+            let item = TasteCollectionCellViewModel(label: line.isBase ? "Базовая линейка" : line.name)
+            tobaccoLinesViewModels.append(item)
+            let row = CollectionItem<TasteCollectionViewCell>(item: item)
+            rows.append(row)
+        }
+
+        let section = CollectionSection(items: rows)
+
+        tobaccoLinesDirector += section
+        tobaccoLinesDirector.reload()
+    }
 }
 
 // MARK: - InteractorOutputProtocol implementation
@@ -31,6 +51,7 @@ extension AddManufacturerPresenter: AddManufacturerInteractorOutputProtocol {
         view.hideLoading()
         tobaccoLinesViewModels = []
         view.clearView()
+        setupTobaccoLineCollectionView([])
         showCountryForSelect(nil)
         router.showSuccess(delay: 2.0)
     }
@@ -73,10 +94,7 @@ extension AddManufacturerPresenter: AddManufacturerInteractorOutputProtocol {
     }
 
     func initialTobaccoLines(_ lines: [TobaccoLine]) {
-        tobaccoLinesViewModels = lines.map {
-            TasteCollectionCellViewModel(label: $0.isBase ? "Базовая линейка" : $0.name)
-        }
-        view.setupTobaccoLines()
+        setupTobaccoLineCollectionView(lines)
     }
 
     func changeTobaccoLine(for id: Int, _ line: TobaccoLine) {
@@ -133,19 +151,13 @@ extension AddManufacturerPresenter: AddManufacturerViewOutputProtocol {
     }
 
     func viewDidLoad() {
+        let collectionView = view.getTobaccoLineCollectionView()
+        collectionView.didSelect = { [weak self] indexPath in
+            self?.editingTobaccoLineIndex = indexPath.row
+            self?.interactor.receiveEditingTobaccoLine(at: indexPath.row)
+        }
+        tobaccoLinesDirector = CustomCollectionDirector(collectionView: collectionView)
         interactor.receiveStartingDataView()
-    }
-
-    func getTobaccoLineViewModel(at index: Int) -> TasteCollectionCellViewModel {
-        tobaccoLinesViewModels[index]
-    }
-
-    var tobaccoLineNumberOfRows: Int {
-        tobaccoLinesViewModels.count
-    }
-
-    func pressedEditingTobaccoLine(at index: Int) {
-        interactor.receiveEditingTobaccoLine(at: index)
     }
 
     func pressedAddTobaccoLine() {

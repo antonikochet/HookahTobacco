@@ -11,6 +11,8 @@
 		3802046429FE6AB8000193A1 /* NetworkHandlerErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3802046329FE6AB8000193A1 /* NetworkHandlerErrors.swift */; };
 		3802046729FE6D1A000193A1 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3802046629FE6D1A000193A1 /* ApiError.swift */; };
 		38041BCF2A9E45BB00DEEE6D /* Response+Tobacco.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38041BCE2A9E45BB00DEEE6D /* Response+Tobacco.swift */; };
+		38041BE52A9FB8CB00DEEE6D /* IVCollectionKit in Frameworks */ = {isa = PBXBuildFile; productRef = 38041BE42A9FB8CB00DEEE6D /* IVCollectionKit */; };
+		38041BE72AA0C40D00DEEE6D /* CustomCollectionDirector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38041BE62AA0C40D00DEEE6D /* CustomCollectionDirector.swift */; };
 		3813D6A92A6AB214009DDCBD /* ImageFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3813D6A82A6AB214009DDCBD /* ImageFormat.swift */; };
 		381569972A96A7650053D223 /* Request+User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381569962A96A7650053D223 /* Request+User.swift */; };
 		3818E0352A80FB1700C9D02C /* FittedSheets in Frameworks */ = {isa = PBXBuildFile; productRef = 3818E0342A80FB1700C9D02C /* FittedSheets */; };
@@ -130,8 +132,8 @@
 		B94E17B9292126DD0008CB73 /* AddTastesModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E17B7292126DD0008CB73 /* AddTastesModule.swift */; };
 		B94E17BA292126DD0008CB73 /* AddTastesAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E17B8292126DD0008CB73 /* AddTastesAssembly.swift */; };
 		B9567C92291C4BC300CF6176 /* ImageButtonPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9567C91291C4BC300CF6176 /* ImageButtonPickerView.swift */; };
-		B9631C4A2921AB7100BBC09B /* TasteCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9631C492921AB7100BBC09B /* TasteCollectionView.swift */; };
-		B9631C4C2921ACBE00BBC09B /* TasteCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9631C4B2921ACBE00BBC09B /* TasteCollectionViewLayout.swift */; };
+		B9631C4A2921AB7100BBC09B /* CustomCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9631C492921AB7100BBC09B /* CustomCollectionView.swift */; };
+		B9631C4C2921ACBE00BBC09B /* CustomCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9631C4B2921ACBE00BBC09B /* CustomCollectionViewLayout.swift */; };
 		B9631C4E2922487500BBC09B /* extention + UIEdgeInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9631C4D2922487500BBC09B /* extention + UIEdgeInsets.swift */; };
 		B9631C552923E9EE00BBC09B /* AddTastePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9631C502923E9EE00BBC09B /* AddTastePresenter.swift */; };
 		B9631C562923E9EE00BBC09B /* AddTasteRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9631C512923E9EE00BBC09B /* AddTasteRouter.swift */; };
@@ -274,6 +276,7 @@
 		3802046329FE6AB8000193A1 /* NetworkHandlerErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHandlerErrors.swift; sourceTree = "<group>"; };
 		3802046629FE6D1A000193A1 /* ApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
 		38041BCE2A9E45BB00DEEE6D /* Response+Tobacco.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Response+Tobacco.swift"; sourceTree = "<group>"; };
+		38041BE62AA0C40D00DEEE6D /* CustomCollectionDirector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionDirector.swift; sourceTree = "<group>"; };
 		3813D6A82A6AB214009DDCBD /* ImageFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFormat.swift; sourceTree = "<group>"; };
 		381569962A96A7650053D223 /* Request+User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Request+User.swift"; sourceTree = "<group>"; };
 		3818E0372A80FD1C00C9D02C /* BottomSheetPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetPresenter.swift; sourceTree = "<group>"; };
@@ -393,8 +396,8 @@
 		B94E17B7292126DD0008CB73 /* AddTastesModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTastesModule.swift; sourceTree = "<group>"; };
 		B94E17B8292126DD0008CB73 /* AddTastesAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTastesAssembly.swift; sourceTree = "<group>"; };
 		B9567C91291C4BC300CF6176 /* ImageButtonPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageButtonPickerView.swift; sourceTree = "<group>"; };
-		B9631C492921AB7100BBC09B /* TasteCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasteCollectionView.swift; sourceTree = "<group>"; };
-		B9631C4B2921ACBE00BBC09B /* TasteCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasteCollectionViewLayout.swift; sourceTree = "<group>"; };
+		B9631C492921AB7100BBC09B /* CustomCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionView.swift; sourceTree = "<group>"; };
+		B9631C4B2921ACBE00BBC09B /* CustomCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewLayout.swift; sourceTree = "<group>"; };
 		B9631C4D2922487500BBC09B /* extention + UIEdgeInsets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extention + UIEdgeInsets.swift"; sourceTree = "<group>"; };
 		B9631C502923E9EE00BBC09B /* AddTastePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTastePresenter.swift; sourceTree = "<group>"; };
 		B9631C512923E9EE00BBC09B /* AddTasteRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTasteRouter.swift; sourceTree = "<group>"; };
@@ -536,6 +539,7 @@
 				B9D6DA3F2966206000B142AC /* TableKit in Frameworks */,
 				3818E0352A80FB1700C9D02C /* FittedSheets in Frameworks */,
 				B9EB023B28F3159A00B3B6DA /* Swinject in Frameworks */,
+				38041BE52A9FB8CB00DEEE6D /* IVCollectionKit in Frameworks */,
 				38E8E6422A87C6B400041443 /* KeychainAccess in Frameworks */,
 				B9D6056C28D508800058D19E /* SnapKit in Frameworks */,
 				B9C9ECFB29128F2F000A359B /* FirebaseCrashlytics in Frameworks */,
@@ -554,6 +558,14 @@
 				3813D6A82A6AB214009DDCBD /* ImageFormat.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		38041BE82AA0CB9B00DEEE6D /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				B94306D5292053BA00EADFA0 /* TasteCollectionViewCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		3818E0362A80FD0C00C9D02C /* Protocols */ = {
@@ -1038,14 +1050,15 @@
 			path = AddTastesModule;
 			sourceTree = "<group>";
 		};
-		B94306D42920539000EADFA0 /* TasteCollectionView */ = {
+		B94306D42920539000EADFA0 /* CustomCollectionView */ = {
 			isa = PBXGroup;
 			children = (
-				B9631C492921AB7100BBC09B /* TasteCollectionView.swift */,
-				B9631C4B2921ACBE00BBC09B /* TasteCollectionViewLayout.swift */,
-				B94306D5292053BA00EADFA0 /* TasteCollectionViewCell.swift */,
+				38041BE82AA0CB9B00DEEE6D /* Cell */,
+				B9631C492921AB7100BBC09B /* CustomCollectionView.swift */,
+				B9631C4B2921ACBE00BBC09B /* CustomCollectionViewLayout.swift */,
+				38041BE62AA0C40D00DEEE6D /* CustomCollectionDirector.swift */,
 			);
-			path = TasteCollectionView;
+			path = CustomCollectionView;
 			sourceTree = "<group>";
 		};
 		B948D83428CD284900E35884 /* NetworkService */ = {
@@ -1327,7 +1340,7 @@
 			isa = PBXGroup;
 			children = (
 				3869D3892A7E566700C9BF5C /* Add */,
-				B94306D42920539000EADFA0 /* TasteCollectionView */,
+				B94306D42920539000EADFA0 /* CustomCollectionView */,
 				B9DBE934290B0C07004D7B97 /* ImagePickerView.swift */,
 				B9567C91291C4BC300CF6176 /* ImageButtonPickerView.swift */,
 				B904382D2985145D00BADEE3 /* DescriptionStackView.swift */,
@@ -1660,6 +1673,7 @@
 				3818E0342A80FB1700C9D02C /* FittedSheets */,
 				38E8E6412A87C6B400041443 /* KeychainAccess */,
 				38B9FF5C2A93C168007E1516 /* Moya */,
+				38041BE42A9FB8CB00DEEE6D /* IVCollectionKit */,
 			);
 			productName = HookahTobacco;
 			productReference = B90A790E2899E2BF00B90193 /* HookahTobacco.app */;
@@ -1699,6 +1713,7 @@
 				3818E0332A80FB1700C9D02C /* XCRemoteSwiftPackageReference "FittedSheets" */,
 				38E8E6402A87C6B400041443 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 				38B9FF5B2A93C168007E1516 /* XCRemoteSwiftPackageReference "Moya" */,
+				38041BE32A9FB8CA00DEEE6D /* XCRemoteSwiftPackageReference "CollectionKit" */,
 			);
 			productRefGroup = B90A790F2899E2BF00B90193 /* Products */;
 			projectDirPath = "";
@@ -1791,7 +1806,7 @@
 				B9C925F7294F53720085BB02 /* RegistrationPresenter.swift in Sources */,
 				3855053B2A8155FA00855E50 /* ViewProtocol.swift in Sources */,
 				B989B87329339668007ECC59 /* PopupAlertView.swift in Sources */,
-				B9631C4C2921ACBE00BBC09B /* TasteCollectionViewLayout.swift in Sources */,
+				B9631C4C2921ACBE00BBC09B /* CustomCollectionViewLayout.swift in Sources */,
 				B9ED9104290989EF00DC3A6D /* TobaccoListViewController.swift in Sources */,
 				B981829F292A5F7700DEA9F0 /* RealmProvider.swift in Sources */,
 				B98E1DD628F0812500964B8F /* LoginPresenter.swift in Sources */,
@@ -1900,6 +1915,7 @@
 				B9EB024728F3252500B3B6DA /* AddTobaccoAssembly.swift in Sources */,
 				B98E1DD928F0812500964B8F /* LoginInteractor.swift in Sources */,
 				38F9B89C2A80047E00EAC0A0 /* AddCountryPresenter.swift in Sources */,
+				38041BE72AA0C40D00DEEE6D /* CustomCollectionDirector.swift in Sources */,
 				B9C92601294F6DB20085BB02 /* RegistrationServiceProtocol.swift in Sources */,
 				B98182A9292AE19600DEA9F0 /* RealmDataBaseService.swift in Sources */,
 				B98EE1F12936DB5800F97E1A /* TobaccoLineRealmObject.swift in Sources */,
@@ -1911,7 +1927,7 @@
 				B9E7ACB928F495B300A3D7E5 /* AddManufacturerAssembly.swift in Sources */,
 				38F9B8A72A80355300EAC0A0 /* AddCountryModule.swift in Sources */,
 				38CE8CD52A89715100B00307 /* ProfileEditModule.swift in Sources */,
-				B9631C4A2921AB7100BBC09B /* TasteCollectionView.swift in Sources */,
+				B9631C4A2921AB7100BBC09B /* CustomCollectionView.swift in Sources */,
 				B981B5272938DE3000A02D9F /* AddSegmentedControlView.swift in Sources */,
 				B9DBE50E290DE11F005B185C /* HTNavigationController.swift in Sources */,
 				B97EE9F0292BA1480090B344 /* RealmDataBaseServiresAssembly.swift in Sources */,
@@ -2323,6 +2339,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		38041BE32A9FB8CA00DEEE6D /* XCRemoteSwiftPackageReference "CollectionKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ivedeneev/CollectionKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		3818E0332A80FB1700C9D02C /* XCRemoteSwiftPackageReference "FittedSheets" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/gordontucker/FittedSheets";
@@ -2398,6 +2422,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		38041BE42A9FB8CB00DEEE6D /* IVCollectionKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 38041BE32A9FB8CA00DEEE6D /* XCRemoteSwiftPackageReference "CollectionKit" */;
+			productName = IVCollectionKit;
+		};
 		3818E0342A80FB1700C9D02C /* FittedSheets */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3818E0332A80FB1700C9D02C /* XCRemoteSwiftPackageReference "FittedSheets" */;

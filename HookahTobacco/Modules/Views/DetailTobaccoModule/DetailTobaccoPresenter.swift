@@ -8,6 +8,7 @@
 //
 
 import Foundation
+import IVCollectionKit
 
 class DetailTobaccoPresenter {
     // MARK: - Public properties
@@ -16,7 +17,7 @@ class DetailTobaccoPresenter {
     var router: DetailTobaccoRouterProtocol!
 
     // MARK: - Private properties
-    private var tasteViewModels: [TasteCollectionCellViewModel] = []
+    private var tasteDirector: CustomCollectionDirector?
 
     // MARK: - Private methods
     private func createTasteViewModel(_ taste: Taste) -> TasteCollectionCellViewModel {
@@ -48,6 +49,24 @@ class DetailTobaccoPresenter {
             info: info
         )
     }
+
+    private func setupCollectionView(_ tastes: [Taste]) {
+        guard let tasteDirector else { return }
+        tasteDirector.sections.removeAll()
+        var rows: [AbstractCollectionItem] = []
+
+        for taste in tastes {
+            let item = TasteCollectionCellViewModel(label: taste.taste)
+            let row = CollectionItem<TasteCollectionViewCell>(item: item)
+            rows.append(row)
+        }
+
+        let section = CollectionSection(items: rows)
+
+        tasteDirector += section
+        tasteDirector.reload()
+    }
+
 }
 
 // MARK: - InteractorOutputProtocol implementation
@@ -58,23 +77,16 @@ extension DetailTobaccoPresenter: DetailTobaccoInteractorOutputProtocol {
 
     func initialDataForPresentation(_ tobacco: Tobacco) {
         let viewModel = createViewModel(tobacco)
-        tasteViewModels = tobacco.tastes.map { createTasteViewModel($0) }
         view.setupContent(viewModel)
-        view.setupTasteView()
+        setupCollectionView(tobacco.tastes)
     }
 }
 
 // MARK: - ViewOutputProtocol implementation
 extension DetailTobaccoPresenter: DetailTobaccoViewOutputProtocol {
-    var tasteNumberOfRows: Int {
-        tasteViewModels.count
-    }
-
-    func getTasteViewModel(at index: Int) -> TasteCollectionCellViewModel {
-        tasteViewModels[index]
-    }
-
     func viewDidLoad() {
+        let tasteCollectionView = view.getTasteCollectionView()
+        tasteDirector = CustomCollectionDirector(collectionView: tasteCollectionView)
         interactor.receiveStartingDataView()
     }
 }

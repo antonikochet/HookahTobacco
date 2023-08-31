@@ -11,12 +11,13 @@ import UIKit
 import SnapKit
 
 protocol AddTobaccoViewInputProtocol: ViewProtocol {
+    func getTasteCollectionView() -> CustomCollectionView
     func clearView()
     func setupContent(_ viewModel: AddTobaccoEntity.ViewModel)
-    func setupTastes()
     func setupSelectedManufacturer(_ index: Int)
     func setupSelectedTobaccoLine(_ index: Int)
     func setupMainImage(_ image: Data?, textButton: String)
+    func updateTasteButton(isShow: Bool)
 }
 
 enum AddPicketType {
@@ -32,8 +33,6 @@ protocol AddTobaccoViewOutputProtocol: AnyObject {
     func receiveRow(by index: Int, type: AddPicketType) -> String
     func receiveIndexRow(for title: String, type: AddPicketType) -> Int
     func viewDidLoad()
-    var tasteNumberOfRows: Int { get }
-    func getTasteViewModel(by index: Int) -> TasteCollectionCellViewModel
     func didTouchSelectedTastes()
 }
 
@@ -44,7 +43,7 @@ final class AddTobaccoViewController: HTScrollContentViewController {
     // MARK: - UI properties
     private let nameView = AddTextFieldView()
     private let manufacturerPickerView = AddPickerView()
-    private let tasteCollectionView = TasteCollectionView()
+    private let tasteCollectionView = CustomCollectionView()
     private let tasteButton = ApplyButton()
     private let descriptionView = AddTextView()
     private let tobaccoLinePickerView = AddPickerView()
@@ -105,7 +104,6 @@ final class AddTobaccoViewController: HTScrollContentViewController {
     }
     private func setupTasteCollectionView() {
         contentScrollView.addSubview(tasteCollectionView)
-        tasteCollectionView.tasteDelegate = self
         tasteCollectionView.snp.makeConstraints { make in
             make.top.equalTo(manufacturerPickerView.snp.bottom).offset(spacingBetweenViews)
             make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
@@ -189,6 +187,10 @@ final class AddTobaccoViewController: HTScrollContentViewController {
 
 // MARK: - ViewInputProtocol implementation
 extension AddTobaccoViewController: AddTobaccoViewInputProtocol {
+    func getTasteCollectionView() -> CustomCollectionView {
+        tasteCollectionView
+    }
+
     func clearView() {
         nameView.text = ""
         descriptionView.text = ""
@@ -196,20 +198,12 @@ extension AddTobaccoViewController: AddTobaccoViewInputProtocol {
         changeTobaccoLinePickerView(by: 0)
         nameView.becomeFirstResponderTextField()
         imagePickerView.image = nil
-        tasteCollectionView.reloadData()
     }
 
     func setupContent(_ viewModel: AddTobaccoEntity.ViewModel) {
         nameView.text = viewModel.name
         descriptionView.text = viewModel.description
         addedButton.setTitle(viewModel.textButton, for: .normal)
-    }
-
-    func setupTastes() {
-        tasteCollectionView.reloadData()
-        let isEmpty = presenter.tasteNumberOfRows == 0
-        tasteButton.isHidden = !isEmpty
-        descriptionViewTopToTasteButtonConstraint?.isActive = isEmpty
     }
 
     func setupSelectedManufacturer(_ index: Int) {
@@ -225,6 +219,11 @@ extension AddTobaccoViewController: AddTobaccoViewInputProtocol {
         if let image = image {
             imagePickerView.image = UIImage(data: image)
         }
+    }
+
+    func updateTasteButton(isShow: Bool) {
+        tasteButton.isHidden = !isShow
+        descriptionViewTopToTasteButtonConstraint?.isActive = isShow
     }
 }
 
@@ -288,21 +287,6 @@ extension AddTobaccoViewController: AddPickerViewDelegate {
             return presenter.receiveIndexRow(for: title, type: .tobaccoLine)
         }
         return -1
-    }
-}
-
-// MARK: - TasteCollectionViewDelegate implementation
-extension AddTobaccoViewController: TasteCollectionViewDelegate {
-    func getItem(at index: Int) -> TasteCollectionCellViewModel {
-        presenter.getTasteViewModel(by: index)
-    }
-
-    var numberOfRows: Int {
-        presenter.tasteNumberOfRows
-    }
-
-    func didSelectTaste(at index: Int) {
-
     }
 }
 

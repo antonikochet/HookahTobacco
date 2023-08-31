@@ -9,6 +9,7 @@
 
 import Foundation
 import TableKit
+import IVCollectionKit
 
 class AddTastesPresenter {
     // MARK: - Public properties
@@ -18,7 +19,8 @@ class AddTastesPresenter {
 
     // MARK: - Private properties
     private var tableDirector: CustomTableDirector?
-    private var selectedViewModels: [TasteCollectionCellViewModel] = []
+    private var tasteDirector: CustomCollectionDirector?
+    private var selectedTastesViewModel: [TasteCollectionCellViewModel] = []
 
     // MARK: - Private methods
     private func createTasteTableRow(_ taste: Taste, isSelect: Bool) -> TableRow<AddTastesTableViewCell> {
@@ -65,6 +67,25 @@ class AddTastesPresenter {
         reloadData()
     }
 
+    private func setupCollectionView(_ selectedTastes: [Taste]) {
+        guard let tasteDirector else { return }
+        tasteDirector.sections.removeAll()
+        selectedTastesViewModel.removeAll()
+        var rows: [AbstractCollectionItem] = []
+
+        for taste in selectedTastes {
+            let item = createSelectedTasteViewModel(taste)
+            selectedTastesViewModel.append(item)
+            let row = CollectionItem<TasteCollectionViewCell>(item: item)
+            rows.append(row)
+        }
+
+        let section = CollectionSection(items: rows)
+
+        tasteDirector += section
+        tasteDirector.reload()
+    }
+
     private func reloadData() {
         DispatchQueue.main.async { [weak self] in
             self?.tableDirector?.reload()
@@ -75,15 +96,12 @@ class AddTastesPresenter {
 // MARK: - InteractorOutputProtocol implementation
 extension AddTastesPresenter: AddTastesInteractorOutputProtocol {
     func initialSelectedTastes(_ tastes: [Taste]) {
-        selectedViewModels = tastes.map {
-            createSelectedTasteViewModel($0)
-        }
-        view.setupContent()
+        setupCollectionView(tastes)
     }
 
     func initialAllTastes(_ tastes: [Taste], with selectedTastes: [Taste]) {
         setupAllTastesContent(tastes, with: selectedTastes)
-        view.setupContent()
+        setupCollectionView(selectedTastes)
     }
 
     func receivedError(_ error: HTError) {
@@ -92,13 +110,10 @@ extension AddTastesPresenter: AddTastesInteractorOutputProtocol {
 
     func updateData(by index: Int, with taste: Taste, and selectedTastes: [Taste]) {
         let selectedIdTastes = Set(selectedTastes.map { $0.uid })
-        selectedViewModels = selectedTastes.map {
-            createSelectedTasteViewModel($0)
-        }
+        setupCollectionView(selectedTastes)
         let row = createTasteTableRow(taste, isSelect: selectedIdTastes.contains(taste.uid))
         let indexPath = IndexPath(row: index, section: 0)
         tableDirector?.reloadRow(at: indexPath, with: row)
-        view.setupContent()
     }
 
     func receivedDataForEdit(editTaste: Taste) {
@@ -116,15 +131,9 @@ extension AddTastesPresenter: AddTastesViewOutputProtocol {
     func viewDidLoad() {
         let tableView = view.getTableView()
         tableDirector = CustomTableDirector(tableView: tableView)
+        let collectionView = view.getSelectCollectionView()
+        tasteDirector = CustomCollectionDirector(collectionView: collectionView)
         interactor.receiveStartingDataView()
-    }
-
-    var selectedNumberOfRows: Int {
-        selectedViewModels.count
-    }
-
-    func getSelectedViewModel(by index: Int) -> TasteCollectionCellViewModel {
-        selectedViewModels[index]
     }
 
     func didTouchAdd() {
