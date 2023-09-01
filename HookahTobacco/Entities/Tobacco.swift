@@ -41,4 +41,8 @@ extension TobaccoFilters {
     var isEmpty: Bool {
         manufacturer.isEmpty && tasteType.isEmpty && tastes.isEmpty
     }
+
+    var isAllEmpty: Bool {
+        manufacturer.isEmpty && tasteType.isEmpty && tastes.isEmpty && tobaccoType.isEmpty
+    }
 }

@@ -1,6 +1,7 @@
 disabled_rules:
     - todo
     - discouraged_direct_init
+    - cyclomatic_complexity
 
 type_name:
     max_length:

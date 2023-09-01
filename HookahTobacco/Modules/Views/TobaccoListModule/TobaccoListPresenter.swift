@@ -259,7 +259,7 @@ extension TobaccoListPresenter: AddTobaccoOutputModule {
 // MARK: - TobaccoFiltersOutputModule implementation
 extension TobaccoListPresenter: TobaccoFiltersOutputModule {
     func receiveFilter(_ filters: TobaccoFilters?) {
-        if let filters, !filters.isEmpty {
+        if let filters, !filters.isAllEmpty {
             view.showFilterIndicator(true)
         } else {
             view.showFilterIndicator(false)

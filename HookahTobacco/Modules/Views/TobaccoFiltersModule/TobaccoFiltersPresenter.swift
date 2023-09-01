@@ -61,6 +61,28 @@ class TobaccoFiltersPresenter {
             rows.append(row)
         }
 
+        // tobaccoType
+        if !filters.tobaccoType.isEmpty {
+            let selectedIds = selectedFilters.tobaccoType.map { $0.rawValue }
+            let item = MultiSegmentedTobaccoTableViewCellItem(
+                title: "Тип табака",
+                itemsSegment: TobaccoType.allCases.map { $0.name },
+                selectItems: selectedIds) { [weak self] index in
+                    guard let self,
+                          let tobaccoType = TobaccoType.allCases.first(where: { $0.rawValue == index })
+                    else { return }
+                    if selectedFilters.tobaccoType.contains(where: { $0 == tobaccoType }) {
+                        self.selectedFilters.tobaccoType.removeAll(where: { $0 == tobaccoType })
+                    } else {
+                        self.selectedFilters.tobaccoType.append(tobaccoType)
+                    }
+                    self.reloadFilters()
+                    self.initializeTimer()
+                }
+            let row = TableRow<MultiSegmentedTobaccoTableViewCell>(item: item)
+            rows.append(row)
+        }
+
         // tasteType
         if !filters.tasteType.isEmpty {
             let selectedIds = Set(selectedFilters.tasteType.map { $0.uid })
