@@ -17,12 +17,14 @@ protocol TobaccoListViewInputProtocol: ViewProtocol {
     func hideKeyboard()
     func getSearchView() -> UISearchBar
     func showKeyboard()
+    func showFilterIndicator(_ isShow: Bool)
 }
 
 protocol TobaccoListViewOutputProtocol: AnyObject {
     func viewDidLoad()
     func didStartingRefreshView()
     func updateSearchText(_ text: String?)
+    func touchFilterButton()
 }
 
 class TobaccoListViewController: BaseViewController {
@@ -30,6 +32,8 @@ class TobaccoListViewController: BaseViewController {
     var presenter: TobaccoListViewOutputProtocol!
 
     // MARK: - Private properties
+    private let filterButton = IconButton()
+    private let filterActiveView = UIView()
     private let searchBar = UISearchBar()
     private let tableView = UITableView()
     private let refreshControl = UIRefreshControl()
@@ -44,12 +48,30 @@ class TobaccoListViewController: BaseViewController {
     // MARK: - Setups
     private func setup() {
         setupScreen()
+        setupFilterActiveView()
         setupSearchBar()
         setupTableView()
     }
 
     private func setupScreen() {
         view.backgroundColor = .systemBackground
+        filterButton.action = { [weak self] in
+            self?.presenter.touchFilterButton()
+        }
+        filterButton.imageSize = 16.0
+        filterButton.image = UIImage(named: "filter")
+        filterButton.imageColor = .black
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: filterButton)
+    }
+    private func setupFilterActiveView() {
+        filterActiveView.isHidden = true
+        filterActiveView.backgroundColor = .purple
+        filterActiveView.layer.cornerRadius = 4
+        filterButton.addSubview(filterActiveView)
+        filterActiveView.snp.makeConstraints { make in
+            make.top.trailing.equalToSuperview().inset(3)
+            make.size.equalTo(8)
+        }
     }
     private func setupSearchBar() {
         view.addSubview(searchBar)
@@ -113,6 +135,10 @@ extension TobaccoListViewController: TobaccoListViewInputProtocol {
     func showKeyboard() {
         searchBar.becomeFirstResponder()
     }
+
+    func showFilterIndicator(_ isShow: Bool) {
+        filterActiveView.isHidden = !isShow
+    }
 }
 
 // MARK: - UISearchBarDelegate implementation
@@ -125,7 +151,6 @@ extension TobaccoListViewController: UISearchBarDelegate {
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        guard let text = searchBar.text else { return }
         view.endEditing(true)
     }
 

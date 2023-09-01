@@ -8,16 +8,30 @@
 import Foundation
 
 struct TobaccoFilterResponse: Decodable {
-    let manufacturer: [Manufacturer]
+    let manufacturer: [ManufacturerForTobacco]
     let tasteType: [TasteType]
-    let tastes: [Taste]
+    let tastes: [TasteFilter]
     let tobaccoType: [TobaccoType]
+    let count: Int
 
     enum CodingKeys: String, CodingKey {
         case manufacturer
         case tasteType = "taste_type"
         case tastes
         case tobaccoType = "tobacco_type"
+        case count
+    }
+}
+
+extension TasteFilter: Decodable {
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(Int.self, forKey: .id)
+        taste = try container.decode(String.self, forKey: .taste)
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case id, taste
     }
 }
 
@@ -27,5 +41,6 @@ extension TobaccoFilters {
         tasteType = response.tasteType
         tastes = response.tastes
         tobaccoType = response.tobaccoType
+        count = response.count
     }
 }

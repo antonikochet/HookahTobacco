@@ -243,16 +243,32 @@ extension TobaccoListPresenter: TobaccoListViewOutputProtocol {
             }
         }
     }
+
+    func touchFilterButton() {
+        router.showFilter(interactor.receiveFilter(), delegate: self)
+    }
 }
 
-// MARK: - OutputModule implementation
+// MARK: - AddTobaccoOutputModule implementation
 extension TobaccoListPresenter: AddTobaccoOutputModule {
     func sendChangedTobacco(_ tobacco: Tobacco) {
         interactor.receivedDataFromOutside(tobacco)
     }
 }
 
-// MARK: - OutputModule implementation
+// MARK: - TobaccoFiltersOutputModule implementation
+extension TobaccoListPresenter: TobaccoFiltersOutputModule {
+    func receiveFilter(_ filters: TobaccoFilters?) {
+        if let filters, !filters.isEmpty {
+            view.showFilterIndicator(true)
+        } else {
+            view.showFilterIndicator(false)
+        }
+        interactor.receivedNewFiltes(filters)
+    }
+}
+
+// MARK: - UIScrollViewDelegate implementation
 extension TobaccoListPresenter: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if (scrollView.contentOffset.y + scrollView.frame.height >

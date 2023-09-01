@@ -25,6 +25,8 @@ protocol TobaccoListInteractorInputProtocol: AnyObject {
     func updateFavorite(by index: Int)
     func updateWantBuy(by index: Int)
     func receiveTobaccoListInput() -> TobaccoListInput
+    func receivedNewFiltes(_ filters: TobaccoFilters?)
+    func receiveFilter() -> TobaccoFilters?
 }
 
 protocol TobaccoListInteractorOutputProtocol: PresenterrProtocol {
@@ -50,6 +52,7 @@ class TobaccoListInteractor {
     private var isAdminMode: Bool
     private var input: TobaccoListInput
     private var page: Int = 0
+    private var filters: TobaccoFilters?
 
     // MARK: - Initializers
     init(_ isAdminModel: Bool,
@@ -90,7 +93,7 @@ class TobaccoListInteractor {
                 getDataNetworkingService.receiveTobacco(
                     page: page,
                     search: searchText,
-                    filters: nil,
+                    filters: filters,
                     completion: completion
                 )
             case .favorite:
@@ -217,6 +220,15 @@ extension TobaccoListInteractor: TobaccoListInteractorInputProtocol {
 
     func receiveTobaccoListInput() -> TobaccoListInput {
         input
+    }
+
+    func receivedNewFiltes(_ filters: TobaccoFilters?) {
+        self.filters = filters
+        updateData()
+    }
+
+    func receiveFilter() -> TobaccoFilters? {
+        filters
     }
 }
 

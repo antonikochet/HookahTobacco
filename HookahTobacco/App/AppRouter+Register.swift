@@ -44,6 +44,7 @@ extension AppRouter {
         registerModule(AddCountryAssembly(), AddCountryModule.nameModule) { AddCountryModule($0) }
         registerModule(ProfileEditAssembly(), ProfileEditModule.nameModule) { ProfileEditModule($0) }
         registerModule(DatePickerAssembly(), DatePickerModule.nameModule) { DatePickerModule($0) }
+        registerModule(TobaccoFiltersAssembly(), TobaccoFiltersModule.nameModule) { TobaccoFiltersModule($0) }
     }
 
     func registerContainerControllers() {

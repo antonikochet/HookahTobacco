@@ -58,13 +58,13 @@ extension Api.Tobacco: DefaultTarget {
             if let search {
                 params["search"] = search
             }
-            let data: Data
+            var bodyParams: [String: Any] = [:]
             if let filter {
-                data = (try? JSONEncoder().encode(filter)) ?? Data()
-            } else {
-                data = Data()
+                bodyParams = (try? filter.asDictionary()) ?? [:]
             }
-            return .requestCompositeData(bodyData: data, urlParameters: params)
+            return .requestCompositeParameters(bodyParameters: bodyParams,
+                                               bodyEncoding: JSONEncoding(),
+                                               urlParameters: params)
         case let .create(request):
             return request.createRequest()
         case let .update(_, request):

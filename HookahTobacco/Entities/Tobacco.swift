@@ -24,9 +24,21 @@ struct Tobacco {
     var isFlagsChanged: Bool = false
 }
 
+struct TasteFilter {
+    let id: Int
+    let taste: String
+}
+
 struct TobaccoFilters {
-    var manufacturer: [Manufacturer]
+    var manufacturer: [ManufacturerForTobacco]
     var tasteType: [TasteType]
-    var tastes: [Taste]
+    var tastes: [TasteFilter]
     var tobaccoType: [TobaccoType]
+    var count: Int
+}
+
+extension TobaccoFilters {
+    var isEmpty: Bool {
+        manufacturer.isEmpty && tasteType.isEmpty && tastes.isEmpty
+    }
 }

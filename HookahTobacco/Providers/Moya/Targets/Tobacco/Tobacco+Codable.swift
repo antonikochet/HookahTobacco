@@ -7,7 +7,7 @@
 
 import Foundation
 
-private struct ManufacturerForTobacco: Decodable {
+struct ManufacturerForTobacco: Decodable {
     let id: Int
     let name: String
 
