@@ -174,13 +174,13 @@ class TobaccoFiltersPresenter {
 
     private func reloadFilters() {
         if filters.isEmpty {
-            let action = ActionWithTitle(title: "Сбросить фильтра", action: { [weak self] in
+            let action = ActionWithTitle(title: R.string.localizable.tobaccoFilterEmptyButtonTitle(), action: { [weak self] in
                 self?.touchAllClearButton()
                 self?.view.hideInfoView()
             })
-            var viewModel = InfoViewModel(image: UIImage(named: "notFound"),
-                                          title: "Фильтров нет",
-                                          subtitle: "По вашему выбору нет табаков",
+            var viewModel = InfoViewModel(image: R.image.notFound(),
+                                          title: R.string.localizable.tobaccoFilterEmptyTitle(),
+                                          subtitle: R.string.localizable.tobaccoFilterEmptyMessage(),
                                           primaryAction: action)
             viewModel.topView = view.getCloseButton()
             view.showInfoView(viewModel: viewModel)
@@ -196,6 +196,7 @@ extension TobaccoFiltersPresenter: TobaccoFiltersInteractorOutputProtocol {
         isDownloadData = true
         self.filters = filters
         reloadFilters()
+        // TODO: - добавить множественное число
         view.updateCounter(filters.count == 0 ? nil : "Найдено \(filters.count) табаков")
         view.hideLoading()
     }

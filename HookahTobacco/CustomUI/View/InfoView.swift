@@ -61,7 +61,7 @@ final class InfoView: UIView {
     }
 
     private func setup() {
-        backgroundColor = .systemBackground
+        backgroundColor = R.color.primaryBackground()
         addSubview(stackView)
         stackView.axis = .vertical
 
@@ -80,7 +80,7 @@ final class InfoView: UIView {
 
         imageViewHolder.addSubview(imageView)
         imageView.contentMode = .center
-        imageView.backgroundColor = .systemGray6
+        imageView.backgroundColor = R.color.fourthBackground()
         imageView.layer.cornerRadius = 130
         imageView.clipsToBounds = true
         imageView.snp.makeConstraints { make in
@@ -90,13 +90,13 @@ final class InfoView: UIView {
 
         titleLabel.numberOfLines = 3
         titleLabel.textAlignment = .center
-        titleLabel.textColor = .black
+        titleLabel.textColor = R.color.primaryTitle()
         titleLabel.font = UIFont.systemFont(ofSize: 20.0, weight: .semibold)
         titleLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
 
         subtitleLabel.numberOfLines = 4
         subtitleLabel.textAlignment = .center
-        subtitleLabel.textColor = .systemGray2
+        subtitleLabel.textColor = R.color.primarySubtitle()
         subtitleLabel.font = UIFont.systemFont(ofSize: 16.0, weight: .regular)
         subtitleLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
         subtitleLabel.setContentCompressionResistancePriority(.defaultLow, for: .vertical)

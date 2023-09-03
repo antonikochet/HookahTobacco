@@ -15,7 +15,7 @@ class ImageButtonPickerView: UIView {
     var image: UIImage? {
         didSet {
             imageView.image = image
-            imageView.backgroundColor = image != nil ? .clear : .systemGray5
+            imageView.backgroundColor = image != nil ? .clear : R.color.secondarySubtitle()
             removeButton.isHidden = image == nil
         }
     }
@@ -41,7 +41,7 @@ class ImageButtonPickerView: UIView {
         setupRemoveButton()
     }
     private func setupImageView() {
-        imageView.backgroundColor = .systemGray5
+        imageView.backgroundColor = R.color.secondarySubtitle()
         imageView.contentMode = .scaleAspectFit
         imageView.layer.cornerRadius = 8.0
         imageView.clipsToBounds = true
@@ -61,8 +61,8 @@ class ImageButtonPickerView: UIView {
         removeButton.buttonSize = 16.0
         removeButton.imageSize = 12.0
         removeButton.image = UIImage(systemName: "multiply")
-        removeButton.backgroundColor = .systemGray2
-        removeButton.imageColor = .white
+        removeButton.backgroundColor = R.color.primarySubtitle()
+        removeButton.imageColor = R.color.primaryWhite()
         removeButton.isHidden = true
         removeButton.createCornerRadius()
         addSubview(removeButton)

@@ -21,7 +21,7 @@ final class LoadingView: UIView {
         }
     }
 
-    var blurBackgroundColor: UIColor = UIColor(red: 47.0/255.0, green: 41.0/255.0, blue: 41.0/255.0, alpha: 1.0) {
+    var blurBackgroundColor: UIColor? = R.color.secondarySubtitle() {
         didSet {
             if isBlur {
                 blurView.effectBackgroundColor = blurBackgroundColor
@@ -58,7 +58,7 @@ final class LoadingView: UIView {
         setupActivityIndicator()
     }
     private func setupView() {
-        backgroundColor = UIColor(red: 47.0/255.0, green: 41.0/255.0, blue: 41.0/255.0, alpha: 0.7)
+        backgroundColor = R.color.secondarySubtitle()
     }
     private func setupBlurView() {
         if isBlur {

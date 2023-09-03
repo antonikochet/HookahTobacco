@@ -58,25 +58,24 @@ class TobaccoListViewController: BaseViewController {
         filterButton.action = { [weak self] in
             self?.presenter.touchFilterButton()
         }
-        filterButton.imageSize = 16.0
-        filterButton.image = UIImage(named: "filter")
-        filterButton.imageColor = .black
+        filterButton.image = R.image.filter()
+        filterButton.imageColor = R.color.primaryTitle()
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: filterButton)
     }
     private func setupFilterActiveView() {
         filterActiveView.isHidden = true
-        filterActiveView.backgroundColor = .purple
+        filterActiveView.backgroundColor = R.color.primaryPurple()
         filterActiveView.layer.cornerRadius = 4
         filterButton.addSubview(filterActiveView)
         filterActiveView.snp.makeConstraints { make in
-            make.top.trailing.equalToSuperview().inset(3)
+            make.top.trailing.equalToSuperview()
             make.size.equalTo(8)
         }
     }
     private func setupSearchBar() {
         view.addSubview(searchBar)
         searchBar.delegate = self
-        searchBar.placeholder = "Поиск"
+        searchBar.placeholder = R.string.localizable.searchBarPlaceholderText()
         searchBar.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.leading.trailing.equalToSuperview()
@@ -84,6 +83,10 @@ class TobaccoListViewController: BaseViewController {
     }
     private func setupTableView() {
         tableView.refreshControl = refreshControl
+        tableView.separatorStyle = .none
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0.0
+        }
 
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in

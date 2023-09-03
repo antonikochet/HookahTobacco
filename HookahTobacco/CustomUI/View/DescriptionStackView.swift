@@ -84,8 +84,8 @@ private struct LayoutValues {
     }
 }
 private struct Colors {
-    static let nameText = UIColor(white: 0.07, alpha: 1.0)
-    static let descriptionText = UIColor(white: 0.07, alpha: 1.0)
+    static let nameText = R.color.primaryTitle()
+    static let descriptionText = R.color.primarySubtitle()
 }
 private struct Fonts {
     static let name = UIFont.appFont(size: 16.0, weight: .regular)

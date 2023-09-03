@@ -100,26 +100,26 @@ class TobaccoListPresenter: NSObject {
         var action: ActionWithTitle?
         switch interactor.receiveTobaccoListInput() {
         case .none:
-            title = "Список табаков пуст"
+            title = R.string.localizable.infoTitleNone()
         case .favorite:
-            title = "Любимых табаков нет"
-            message = "Пройдитесь по списку табаков и добавьте в список любимых"
+            title = R.string.localizable.infoTitleFavorite()
+            message = R.string.localizable.infoMessageFavorite()
         case .wantBuy:
-            title = "Список покупок табаков пуст"
-            message = "Пройдитесь по списку табаков и добавьте в список покупок табаки"
+            title = R.string.localizable.infoTitleWantBuy()
+            message = R.string.localizable.infoMessageWantBuy()
         }
         if searchText != nil {
             view.hideKeyboard()
-            title = "Ничего не найдено!"
-            message = "По вашему запросу\n ничего не найдено\n 😢"
-            action = ActionWithTitle(title: "Обновить", action: { [weak self] in
+            title = R.string.localizable.infoTitleSearch()
+            message = R.string.localizable.infoMessageSearch()
+            action = ActionWithTitle(title: R.string.localizable.infoButtonTitle(), action: { [weak self] in
                 self?.view.hideErrorView()
                 self?.view.showLoading()
                 self?.interactor.startReceiveData()
                 self?.view.showKeyboard()
             })
         }
-        var viewModel = InfoViewModel(image: UIImage(named: "notFound"),
+        var viewModel = InfoViewModel(image: R.image.notFound(),
                                       title: title,
                                       subtitle: message,
                                       primaryAction: action)
@@ -213,11 +213,11 @@ extension TobaccoListPresenter: TobaccoListViewOutputProtocol {
         let input = interactor.receiveTobaccoListInput()
         switch input {
         case .none:
-            title = "Табаки"
+            title = R.string.localizable.titleNone()
         case .favorite:
-            title = "Любимые табаки"
+            title = R.string.localizable.titleFavorite()
         case .wantBuy:
-            title = "Список для покупки"
+            title = R.string.localizable.titleWantBuy()
         }
         view.setupView(title: title, isShowSearch: input == .none)
         view.showLoading()

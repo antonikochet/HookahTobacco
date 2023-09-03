@@ -35,7 +35,7 @@ final class FilterTobaccoCollectionViewCell: UICollectionViewCell, ConfigurableC
         setupLabel()
     }
     private func setupContentView() {
-        contentView.layer.cornerRadius = LayoutValues.cornerRadius
+        contentView.layer.cornerRadius = 4.0
         contentView.clipsToBounds = true
         contentView.backgroundColor = Colors.unselectedBackground
     }
@@ -75,13 +75,12 @@ final class FilterTobaccoCollectionViewCell: UICollectionViewCell, ConfigurableC
 
 private struct LayoutValues {
     static let paddingLabel: UIEdgeInsets = UIEdgeInsets(horizontal: 8, vertical: 4)
-    static let cornerRadius: CGFloat = 4.0
 }
 private struct Colors {
-    static let unselectedBackground = UIColor.systemGray5
-    static let selectedBackground = UIColor.systemGreen
-    static let unselectedLabelText = UIColor.black
-    static let selectedLabelText = UIColor.white
+    static let unselectedBackground = R.color.fourthBackground()
+    static let selectedBackground = R.color.primaryPurple()
+    static let unselectedLabelText = R.color.primaryTitle()
+    static let selectedLabelText = R.color.primaryWhite()
 }
 private struct Fonts {
     static let label = UIFont.appFont(size: 16, weight: .medium)

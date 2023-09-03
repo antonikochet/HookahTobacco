@@ -47,13 +47,14 @@ final class TobaccoListCell: UITableViewCell, ConfigurableCell {
     private var item: TobaccoListTableCellItem?
 
     // MARK: - UI properties
+    private let containerView = UIView()
+    private let containerImageView = UIView()
     private let tobaccoImageView = UIImageView()
     private let nameLabel = UILabel()
     private let tastyLabel = UILabel()
     private let manufacturerLabel = UILabel()
-    private let favoriteView = UIView()
-    private let favoriteButton = UIButton()
-    private let wantButButton = UIButton()
+    private let favoriteButton = IconButton()
+    private let wantButButton = IconButton()
 
     // MARK: - Initializers
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -69,6 +70,7 @@ final class TobaccoListCell: UITableViewCell, ConfigurableCell {
     // MARK: - Setup UI
     private func setupUI() {
         setupCell()
+        setupContainerView()
         setupTobaccoImageView()
         setupFavoriteButton()
         setupWantBuyButton()
@@ -79,83 +81,90 @@ final class TobaccoListCell: UITableViewCell, ConfigurableCell {
 
     private func setupCell() {
         selectionStyle = .none
-        backgroundColor = Colors.Cell.background
+        backgroundColor = .clear
+    }
+    private func setupContainerView() {
+        containerView.backgroundColor = R.color.primaryBackground()
+        containerView.layer.cornerRadius = 16.0
+        containerView.clipsToBounds = true
+        contentView.addSubview(containerView)
+        containerView.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(8.0)
+        }
     }
     private func setupTobaccoImageView() {
-        tobaccoImageView.contentMode = .scaleToFill
+        containerImageView.layer.cornerRadius = 16.0
+        containerImageView.clipsToBounds = true
+        containerImageView.backgroundColor = R.color.primaryWhite()
+        containerView.addSubview(containerImageView)
+        containerImageView.snp.makeConstraints { make in
+            make.top.leading.bottom.equalToSuperview().inset(8.0)
+        }
 
-        contentView.addSubview(tobaccoImageView)
+        tobaccoImageView.contentMode = .scaleToFill
+        containerImageView.addSubview(tobaccoImageView)
         tobaccoImageView.snp.makeConstraints { make in
-            make.leading.top.bottom.equalToSuperview().inset(LayoutValues.TobaccoImageView.padding)
-            make.width.equalToSuperview().multipliedBy(LayoutValues.TobaccoImageView.ratioWidth)
-            make.height.equalTo(tobaccoImageView.snp.width)
+            make.edges.equalToSuperview().inset(10.0)
+            make.size.equalTo(90.0)
         }
     }
     private func setupNameLabel() {
-        nameLabel.font = Fonts.name
+        nameLabel.font = UIFont.appFont(size: 20, weight: .semibold)
         nameLabel.numberOfLines = 2
         nameLabel.lineBreakMode = .byWordWrapping
 
-        contentView.addSubview(nameLabel)
+        containerView.addSubview(nameLabel)
         nameLabel.snp.makeConstraints { make in
-            make.leading.equalTo(tobaccoImageView.snp.trailing).offset(LayoutValues.NameLabel.left)
-            make.top.equalToSuperview().offset(LayoutValues.NameLabel.padding)
-            make.trailing.equalTo(favoriteView.snp.leading).inset(LayoutValues.NameLabel.padding)
-            make.height.equalTo(LayoutValues.NameLabel.height)
+            make.leading.equalTo(containerImageView.snp.trailing).offset(16.0)
+            make.top.equalToSuperview().offset(8.0)
+            make.trailing.equalTo(favoriteButton.snp.leading).inset(8.0)
         }
     }
     private func setupTastyLabel() {
-        tastyLabel.font = Fonts.tasty
-        tastyLabel.numberOfLines = 0
+        tastyLabel.font = UIFont.appFont(size: 14, weight: .regular)
+        tastyLabel.numberOfLines = 3
 
-        contentView.addSubview(tastyLabel)
+        containerView.addSubview(tastyLabel)
         tastyLabel.snp.makeConstraints { make in
             make.leading.trailing.equalTo(nameLabel)
-            make.top.equalTo(nameLabel.snp.bottom)
-            make.height.equalToSuperview().multipliedBy(0.3)
+            make.top.equalTo(nameLabel.snp.bottom).offset(4.0)
         }
     }
     private func setupManufacturerLabel() {
-        manufacturerLabel.font = Fonts.manufacturerName
+        manufacturerLabel.font = UIFont.appFont(size: 20, weight: .semibold)
         manufacturerLabel.textAlignment = .right
         manufacturerLabel.adjustsFontSizeToFitWidth = true
         manufacturerLabel.minimumScaleFactor = 0.8
 
-        contentView.addSubview(manufacturerLabel)
+        containerView.addSubview(manufacturerLabel)
         manufacturerLabel.snp.makeConstraints { make in
-            make.top.equalTo(tastyLabel.snp.bottom)
-            make.leading.equalTo(tobaccoImageView.snp.trailing).offset(LayoutValues.ManufacturerLabel.left)
-            make.trailing.bottom.equalToSuperview().inset(LayoutValues.ManufacturerLabel.padding)
+            make.leading.equalTo(tobaccoImageView.snp.trailing).offset(16.0)
+            make.trailing.bottom.equalToSuperview().inset(8.0)
         }
     }
     private func setupFavoriteButton() {
-        contentView.addSubview(favoriteView)
-        favoriteView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(LayoutValues.FavoriteView.top)
-            make.trailing.equalToSuperview().inset(LayoutValues.FavoriteView.trailing)
-            make.size.equalTo(LayoutValues.FavoriteView.size)
+        favoriteButton.action = { [weak self] in
+            guard let self, let item = self.item else { return }
+            item.favoriteAction?(item)
         }
+        favoriteButton.image = Images.notFavorite
 
-        favoriteButton.setImage(Images.notFavorite, for: .normal)
-        favoriteButton.tintColor = Colors.FavoriteButton.notPress
-        favoriteButton.addTarget(self, action: #selector(pressedFavoriteButton), for: .touchUpInside)
-
-        favoriteView.addSubview(favoriteButton)
+        containerView.addSubview(favoriteButton)
         favoriteButton.snp.makeConstraints { make in
-            make.centerX.centerY.equalToSuperview()
-            make.size.equalTo(LayoutValues.FavoriteButton.size)
+            make.top.trailing.equalToSuperview().inset(8.0)
         }
     }
     private func setupWantBuyButton() {
-        wantButButton.setImage(Images.notWantBuy, for: .normal)
-        wantButButton.tintColor = Colors.WantBuyButton.notPress
-        wantButButton.addTarget(self, action: #selector(pressedWantBuyButton), for: .touchUpInside)
+        wantButButton.action = { [weak self] in
+            guard let self, let item = self.item else { return }
+            item.wantBuyAction?(item)
+        }
+        wantButButton.image = Images.notWantBuy
 
-        contentView.addSubview(wantButButton)
+        containerView.addSubview(wantButButton)
         wantButButton.snp.makeConstraints { make in
-            make.top.equalTo(favoriteView.snp.bottom).offset(LayoutValues.WantBuyButton.top)
-            make.trailing.equalToSuperview().inset(LayoutValues.WantBuyButton.trailing)
-            make.size.equalTo(LayoutValues.WantBuyButton.size)
+            make.top.equalTo(favoriteButton.snp.bottom).offset(8.0)
+            make.trailing.equalToSuperview().inset(8.0)
         }
     }
 
@@ -183,83 +192,25 @@ final class TobaccoListCell: UITableViewCell, ConfigurableCell {
         }
     }
     private func configureFavoriteButton(isFavorite: Bool) {
-        favoriteButton.setImage(isFavorite ? Images.favorite : Images.notFavorite, for: .normal)
-        favoriteButton.tintColor = isFavorite ? Colors.FavoriteButton.press : Colors.FavoriteButton.notPress
+        favoriteButton.imageColor = isFavorite ? R.color.primaryRed() : R.color.primarySubtitle()
+        favoriteButton.image = isFavorite ? Images.favorite : Images.notFavorite
     }
     private func configureWantBuyButton(with item: TobaccoListTableCellItem) {
         wantButButton.isHidden = !item.isShowWantBuyButton
-        wantButButton.setImage(item.isWantBuy ? Images.wantBuy : Images.notWantBuy, for: .normal)
-        wantButButton.tintColor = item.isWantBuy ? Colors.WantBuyButton.press : Colors.WantBuyButton.notPress
+        wantButButton.imageColor = item.isWantBuy ? R.color.primaryOrange() : R.color.primarySubtitle()
+        wantButButton.image = item.isWantBuy ? Images.wantBuy : Images.notWantBuy
     }
 
     static var estimatedHeight: CGFloat? {
-        LayoutValues.Cell.estimatedHeight
+        125.0
     }
 
     // MARK: - Selectors
-    @objc private func pressedFavoriteButton() {
-        guard let item else { return }
-        item.favoriteAction?(item)
-    }
-
-    @objc private func pressedWantBuyButton() {
-        guard let item else { return }
-        item.wantBuyAction?(item)
-    }
 }
 
-private struct LayoutValues {
-    struct Cell {
-        static let estimatedHeight: CGFloat = 125.0
-    }
-    struct TobaccoImageView {
-        static let padding: CGFloat = 8.0
-        static let ratioWidth: CGFloat = 0.3
-    }
-    struct NameLabel {
-        static let left: CGFloat = 16.0
-        static let padding: CGFloat = 8.0
-        static let height: CGFloat = Fonts.name.lineHeight * 2.0
-    }
-    struct ManufacturerLabel {
-        static let left: CGFloat = 16.0
-        static let padding: CGFloat = 8.0
-    }
-    struct FavoriteView {
-        static let trailing: CGFloat = 16.0
-        static let top: CGFloat = 8.0
-        static let size: CGFloat = 24.0
-    }
-    struct FavoriteButton {
-        static let size: CGFloat = 24.0
-    }
-    struct WantBuyButton {
-        static let trailing: CGFloat = 16.0
-        static let top: CGFloat = 16.0
-        static let size: CGFloat = 24.0
-    }
-}
 private struct Images {
-    static let favorite = UIImage(systemName: "heart.fill")!
-    static let notFavorite = UIImage(systemName: "heart")!
-    static let notWantBuy = UIImage(systemName: "basket")!
-    static let wantBuy = UIImage(systemName: "basket.fill")!
-}
-private struct Colors {
-    struct Cell {
-        static let background: UIColor = .clear
-    }
-    struct FavoriteButton {
-        static let press = UIColor.systemRed
-        static let notPress = UIColor(white: 0.6, alpha: 1.0)
-    }
-    struct WantBuyButton {
-        static let press = UIColor.systemOrange
-        static let notPress = UIColor(white: 0.6, alpha: 1.0)
-    }
-}
-private struct Fonts {
-    static let name = UIFont.appFont(size: 20, weight: .bold)
-    static let tasty = UIFont.appFont(size: 14, weight: .medium)
-    static let manufacturerName = UIFont.appFont(size: 18, weight: .semibold)
+    static let favorite = R.image.heartFill()!
+    static let notFavorite = R.image.heart()!
+    static let notWantBuy = R.image.basket()!
+    static let wantBuy = R.image.basketFill()!
 }

@@ -26,6 +26,7 @@ final class MultiSegmentedTobaccoTableViewCell: UITableViewCell, ConfigurableCel
     // MARK: - UI properties
     private let titleLabel = UILabel()
     private let segmentedControl = MultiSelectSegmentedControl()
+    private let separatorView = UIView()
 
     // MARK: - Initializers
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -43,6 +44,7 @@ final class MultiSegmentedTobaccoTableViewCell: UITableViewCell, ConfigurableCel
         setupCell()
         setupTitleLabel()
         setupSegmentedCotrol()
+        setupSeparatorView()
     }
 
     private func setupCell() {
@@ -50,7 +52,7 @@ final class MultiSegmentedTobaccoTableViewCell: UITableViewCell, ConfigurableCel
         backgroundColor = .clear
     }
     private func setupTitleLabel() {
-        titleLabel.textColor = .black
+        titleLabel.textColor = R.color.primaryTitle()
         titleLabel.font = UIFont.appFont(size: 18.0, weight: .semibold)
         titleLabel.numberOfLines = 1
         contentView.addSubview(titleLabel)
@@ -60,13 +62,21 @@ final class MultiSegmentedTobaccoTableViewCell: UITableViewCell, ConfigurableCel
     }
     private func setupSegmentedCotrol() {
         contentView.addSubview(segmentedControl)
-        segmentedControl.selectedBackgroundColor = .purple
-        segmentedControl.tintColor = .purple
+        segmentedControl.selectedBackgroundColor = R.color.primaryPurple()
+        segmentedControl.tintColor = R.color.primaryPurple()
         segmentedControl.delegate = self
         segmentedControl.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(16.0)
             make.leading.trailing.equalToSuperview().inset(36.0)
             make.bottom.equalToSuperview().inset(16.0)
+        }
+    }
+    private func setupSeparatorView() {
+        separatorView.backgroundColor = R.color.fourthBackground()
+        contentView.addSubview(separatorView)
+        separatorView.snp.makeConstraints { make in
+            make.leading.trailing.bottom.equalToSuperview()
+            make.height.equalTo(1.0)
         }
     }
 

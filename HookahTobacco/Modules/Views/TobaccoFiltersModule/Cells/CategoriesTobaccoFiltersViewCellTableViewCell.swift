@@ -30,6 +30,7 @@ final class CategoriesTobaccoFiltersViewCellTableViewCell: UITableViewCell, Conf
     private let titleLabel = UILabel()
     private let collectionView = CustomCollectionView()
     private let clearButton = UIButton()
+    private let separatorView = UIView()
 
     // MARK: - Initializers
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -49,6 +50,7 @@ final class CategoriesTobaccoFiltersViewCellTableViewCell: UITableViewCell, Conf
         setupTitleLabel()
         setupClearButton()
         setupCollectionView()
+        setupSeparatorView()
     }
 
     private func setupCell() {
@@ -56,8 +58,8 @@ final class CategoriesTobaccoFiltersViewCellTableViewCell: UITableViewCell, Conf
         backgroundColor = .clear
     }
     private func setupClearButton() {
-        clearButton.setTitle("Очистить", for: .normal)
-        clearButton.setTitleColor(.systemGray2, for: .normal)
+        clearButton.setTitle(R.string.localizable.generalClear(), for: .normal)
+        clearButton.setTitleColor(R.color.secondarySubtitle(), for: .normal)
         clearButton.addTarget(self, action: #selector(touchClearButton), for: .touchUpInside)
         clearButton.isHidden = true
         contentView.addSubview(clearButton)
@@ -68,7 +70,7 @@ final class CategoriesTobaccoFiltersViewCellTableViewCell: UITableViewCell, Conf
         }
     }
     private func setupTitleLabel() {
-        titleLabel.textColor = .black
+        titleLabel.textColor = R.color.primaryTitle()
         titleLabel.font = UIFont.appFont(size: 18.0, weight: .semibold)
         titleLabel.numberOfLines = 1
         contentView.addSubview(titleLabel)
@@ -85,6 +87,14 @@ final class CategoriesTobaccoFiltersViewCellTableViewCell: UITableViewCell, Conf
             make.top.equalTo(titleLabel.snp.bottom).offset(16.0)
             make.leading.trailing.equalToSuperview().inset(8.0)
             make.bottom.equalToSuperview().inset(16.0)
+        }
+    }
+    private func setupSeparatorView() {
+        separatorView.backgroundColor = R.color.fourthBackground()
+        contentView.addSubview(separatorView)
+        separatorView.snp.makeConstraints { make in
+            make.leading.trailing.bottom.equalToSuperview()
+            make.height.equalTo(1.0)
         }
     }
 

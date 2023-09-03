@@ -20,7 +20,7 @@ class TasteCollectionViewCell: UICollectionViewCell, ConfigurableCollectionItem 
         let label = UILabel()
         label.font = Fonts.tasteLabel
         label.lineBreakMode = .byWordWrapping
-        label.textColor = .black
+        label.textColor = R.color.primaryTitle()
         return label
     }()
 
@@ -37,7 +37,7 @@ class TasteCollectionViewCell: UICollectionViewCell, ConfigurableCollectionItem 
 
     // MARK: - Setups
     private func setup() {
-        contentView.backgroundColor = .systemGreen
+        contentView.backgroundColor = R.color.primaryPurple()
         contentView.addSubview(tasteLabel)
         tasteLabel.snp.makeConstraints { make in
             make.edges.equalToSuperview().inset(LayoutValues.paddingLabel)

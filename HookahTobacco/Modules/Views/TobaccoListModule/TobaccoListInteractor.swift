@@ -203,14 +203,14 @@ extension TobaccoListInteractor: TobaccoListInteractorInputProtocol {
                     self.tobaccos[index] = newTobacco
                     self.presenter.receivedUpdate(for: newTobacco, at: index)
                     if newTobacco.isWantBuy {
-                        self.presenter.showMessageUser("Вы добавили табак в список \"Хочу купить\"")
+                        self.presenter.showMessageUser(R.string.localizable.addWantMessage())
                     } else {
-                        self.presenter.showMessageUser("Вы убрали табак из списка \"Хочу купить\"")
+                        self.presenter.showMessageUser(R.string.localizable.deleteWantMessage())
                     }
                 } else {
                     self.tobaccos.remove(at: index)
                     self.presenter.removeTobacco(at: index)
-                    self.presenter.showMessageUser("Вы убрали табак из списка \"Хочу купить\"")
+                    self.presenter.showMessageUser(R.string.localizable.deleteWantMessage())
                 }
             case .failure(let error):
                 self.presenter.receivedError(error)
