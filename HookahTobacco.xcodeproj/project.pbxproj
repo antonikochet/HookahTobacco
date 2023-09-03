@@ -54,8 +54,11 @@
 		3895E5032A542FB7005D87EE /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3895E5022A542FB7005D87EE /* Api.swift */; };
 		3895E5062A5447AF005D87EE /* Moya+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3895E5052A5447AF005D87EE /* Moya+Request.swift */; };
 		38A027BA2A0A7B6400D3C3E7 /* extention + Encodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A027B92A0A7B6400D3C3E7 /* extention + Encodable.swift */; };
+		38A0EB362AA4EF7200CB0D13 /* RswiftLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 38A0EB352AA4EF7200CB0D13 /* RswiftLibrary */; };
 		38A8B1EC2A91747C009FAFF7 /* PresenterrProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A8B1EB2A91747C009FAFF7 /* PresenterrProtocol.swift */; };
 		38A8B1EE2A91A08A009FAFF7 /* BaseApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A8B1ED2A91A08A009FAFF7 /* BaseApiService.swift */; };
+		38A8BC6A2AA51B500074CC3C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 38A8BC6C2AA51B500074CC3C /* Localizable.strings */; };
+		38A8BC702AA51BBD0074CC3C /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38A8BC6F2AA51BBD0074CC3C /* Launch Screen.storyboard */; };
 		38ADAF542A8FB78000DDB30B /* HTError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38ADAF532A8FB78000DDB30B /* HTError.swift */; };
 		38AFD1192A92322800800342 /* UserApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38AFD1182A92322800800342 /* UserApiService.swift */; };
 		38AFD11B2A9238B600800342 /* DataApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38AFD11A2A9238B600800342 /* DataApiService.swift */; };
@@ -113,7 +116,6 @@
 		B90A79122899E2BF00B90193 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90A79112899E2BF00B90193 /* AppDelegate.swift */; };
 		B90A79142899E2BF00B90193 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90A79132899E2BF00B90193 /* SceneDelegate.swift */; };
 		B90A791B2899E2C200B90193 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B90A791A2899E2C200B90193 /* Assets.xcassets */; };
-		B90A791E2899E2C200B90193 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B90A791C2899E2C200B90193 /* LaunchScreen.storyboard */; };
 		B90A792D289A8C2200B90193 /* Tobacco.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90A792C289A8C2200B90193 /* Tobacco.swift */; };
 		B90B671729A03EB5004460C8 /* ApiNetworkingServicesAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90B671629A03EB5004460C8 /* ApiNetworkingServicesAssembly.swift */; };
 		B90B671D29A049D0004460C8 /* GlobalConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90B671C29A049D0004460C8 /* GlobalConstant.swift */; };
@@ -328,6 +330,9 @@
 		38A027B92A0A7B6400D3C3E7 /* extention + Encodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extention + Encodable.swift"; sourceTree = "<group>"; };
 		38A8B1EB2A91747C009FAFF7 /* PresenterrProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterrProtocol.swift; sourceTree = "<group>"; };
 		38A8B1ED2A91A08A009FAFF7 /* BaseApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseApiService.swift; sourceTree = "<group>"; };
+		38A8BC6B2AA51B500074CC3C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		38A8BC6D2AA51B530074CC3C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		38A8BC6F2AA51BBD0074CC3C /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		38ADAF532A8FB78000DDB30B /* HTError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTError.swift; sourceTree = "<group>"; };
 		38AFD1182A92322800800342 /* UserApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserApiService.swift; sourceTree = "<group>"; };
 		38AFD11A2A9238B600800342 /* DataApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataApiService.swift; sourceTree = "<group>"; };
@@ -385,7 +390,6 @@
 		B90A79112899E2BF00B90193 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B90A79132899E2BF00B90193 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		B90A791A2899E2C200B90193 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		B90A791D2899E2C200B90193 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B90A791F2899E2C200B90193 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B90A792C289A8C2200B90193 /* Tobacco.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tobacco.swift; sourceTree = "<group>"; };
 		B90B671629A03EB5004460C8 /* ApiNetworkingServicesAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiNetworkingServicesAssembly.swift; sourceTree = "<group>"; };
@@ -557,6 +561,7 @@
 				B9D6DA3F2966206000B142AC /* TableKit in Frameworks */,
 				3818E0352A80FB1700C9D02C /* FittedSheets in Frameworks */,
 				B9EB023B28F3159A00B3B6DA /* Swinject in Frameworks */,
+				38A0EB362AA4EF7200CB0D13 /* RswiftLibrary in Frameworks */,
 				38041BE52A9FB8CB00DEEE6D /* IVCollectionKit in Frameworks */,
 				38E8E6422A87C6B400041443 /* KeychainAccess in Frameworks */,
 				B9D6056C28D508800058D19E /* SnapKit in Frameworks */,
@@ -985,11 +990,12 @@
 		B9027E08290FF775002E3C3A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				38A8BC6F2AA51BBD0074CC3C /* Launch Screen.storyboard */,
 				B90A791F2899E2C200B90193 /* Info.plist */,
 				B9D6056028D4F1410058D19E /* GoogleService-Info.plist */,
 				B90A791A2899E2C200B90193 /* Assets.xcassets */,
-				B90A791C2899E2C200B90193 /* LaunchScreen.storyboard */,
 				B90B671C29A049D0004460C8 /* GlobalConstant.swift */,
+				38A8BC6C2AA51B500074CC3C /* Localizable.strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1711,6 +1717,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				38A0EB382AA4EFC500CB0D13 /* PBXTargetDependency */,
 			);
 			name = HookahTobacco;
 			packageProductDependencies = (
@@ -1725,6 +1732,7 @@
 				38E8E6412A87C6B400041443 /* KeychainAccess */,
 				38B9FF5C2A93C168007E1516 /* Moya */,
 				38041BE42A9FB8CB00DEEE6D /* IVCollectionKit */,
+				38A0EB352AA4EF7200CB0D13 /* RswiftLibrary */,
 			);
 			productName = HookahTobacco;
 			productReference = B90A790E2899E2BF00B90193 /* HookahTobacco.app */;
@@ -1747,11 +1755,11 @@
 			};
 			buildConfigurationList = B90A79092899E2BF00B90193 /* Build configuration list for PBXProject "HookahTobacco" */;
 			compatibilityVersion = "Xcode 13.0";
-			developmentRegion = en;
+			developmentRegion = ru;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
+				ru,
 			);
 			mainGroup = B90A79052899E2BF00B90193;
 			packageReferences = (
@@ -1765,6 +1773,7 @@
 				38E8E6402A87C6B400041443 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 				38B9FF5B2A93C168007E1516 /* XCRemoteSwiftPackageReference "Moya" */,
 				38041BE32A9FB8CA00DEEE6D /* XCRemoteSwiftPackageReference "CollectionKit" */,
+				38A0EB342AA4EF7200CB0D13 /* XCRemoteSwiftPackageReference "R.swift" */,
 			);
 			productRefGroup = B90A790F2899E2BF00B90193 /* Products */;
 			projectDirPath = "";
@@ -1780,8 +1789,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B90A791E2899E2C200B90193 /* LaunchScreen.storyboard in Resources */,
+				38A8BC6A2AA51B500074CC3C /* Localizable.strings in Resources */,
 				B90A791B2899E2C200B90193 /* Assets.xcassets in Resources */,
+				38A8BC702AA51BBD0074CC3C /* Launch Screen.storyboard in Resources */,
 				B9D6056128D4F1410058D19E /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2096,13 +2106,21 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		38A0EB382AA4EFC500CB0D13 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 38A0EB372AA4EFC500CB0D13 /* RswiftGenerateInternalResources */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
-		B90A791C2899E2C200B90193 /* LaunchScreen.storyboard */ = {
+		38A8BC6C2AA51B500074CC3C /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				B90A791D2899E2C200B90193 /* Base */,
+				38A8BC6B2AA51B500074CC3C /* ru */,
+				38A8BC6D2AA51B530074CC3C /* en */,
 			);
-			name = LaunchScreen.storyboard;
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -2113,6 +2131,7 @@
 			baseConfigurationReference = 38C3ACD32A8D337A001D79EB /* dev.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -2205,6 +2224,7 @@
 			baseConfigurationReference = B9D6E94229FDDD46001D44D5 /* localDebug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -2294,6 +2314,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -2415,6 +2436,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		38A0EB342AA4EF7200CB0D13 /* XCRemoteSwiftPackageReference "R.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mac-cain13/R.swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 		38B9FF5B2A93C168007E1516 /* XCRemoteSwiftPackageReference "Moya" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Moya/Moya.git";
@@ -2491,6 +2520,15 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3818E0332A80FB1700C9D02C /* XCRemoteSwiftPackageReference "FittedSheets" */;
 			productName = FittedSheets;
+		};
+		38A0EB352AA4EF7200CB0D13 /* RswiftLibrary */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 38A0EB342AA4EF7200CB0D13 /* XCRemoteSwiftPackageReference "R.swift" */;
+			productName = RswiftLibrary;
+		};
+		38A0EB372AA4EFC500CB0D13 /* RswiftGenerateInternalResources */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = "plugin:RswiftGenerateInternalResources";
 		};
 		38B9FF5C2A93C168007E1516 /* Moya */ = {
 			isa = XCSwiftPackageProductDependency;

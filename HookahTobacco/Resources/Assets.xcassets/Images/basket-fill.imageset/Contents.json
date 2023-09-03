@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "dark=false.svg",
+      "filename" : "dark=false, select=true.svg",
       "idiom" : "universal"
     }
   ],
