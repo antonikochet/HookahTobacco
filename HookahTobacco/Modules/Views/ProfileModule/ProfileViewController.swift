@@ -47,10 +47,11 @@ final class ProfileViewController: BaseViewController {
     }
 
     private func setupScreen() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "log out",
-                                                            style: .done,
-                                                            target: self,
-                                                            action: #selector(touchRightButtonNavBar))
+        let button = UIButton()
+        button.setTitle(R.string.localizable.profileLogout(), for: .normal)
+        button.setTitleColor(R.color.primarySubtitle(), for: .normal)
+        button.addTarget(self, action: #selector(touchRightButtonNavBar), for: .touchUpInside)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
     }
 
     private func setupTableView() {

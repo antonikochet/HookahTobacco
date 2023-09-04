@@ -36,7 +36,9 @@ final class ProfilePresenter {
 
         // admin button if user is admin
         if user.isAdmin {
-            let adminButtonItem = ButtonProfileTableViewCellItem(text: "Меню админа") { [weak self] in
+            let adminButtonItem = ButtonProfileTableViewCellItem(
+                text: R.string.localizable.profileAdminButtonTitle()
+            ) { [weak self] in
                 self?.router.showAdminMenu()
             }
             let adminButtonCell = TableRow<ButtonProfileTableViewCell>(item: adminButtonItem)
@@ -44,14 +46,18 @@ final class ProfilePresenter {
         }
 
         // button for show tobacco list with filter: favorite
-        let favoriteItem = ButtonProfileTableViewCellItem(text: "Мне нравится") { [weak self] in
+        let favoriteItem = ButtonProfileTableViewCellItem(
+            text: R.string.localizable.profileFavoriteButtonTitle()
+        ) { [weak self] in
             self?.router.showFavoriteList()
         }
         let favoriteRow = TableRow<ButtonProfileTableViewCell>(item: favoriteItem)
         rows.append(favoriteRow)
 
         // button for show tobacco list with filter: wantToBuy
-        let wantToBuyItem = ButtonProfileTableViewCellItem(text: "Хочу купить") { [weak self] in
+        let wantToBuyItem = ButtonProfileTableViewCellItem(
+            text: R.string.localizable.profileWantToBuyButtonTitle()
+        ) { [weak self] in
             self?.router.showWantToBuyList()
         }
         let wantToBuyRow = TableRow<ButtonProfileTableViewCell>(item: wantToBuyItem)
@@ -107,10 +113,4 @@ extension ProfilePresenter: ProfileViewOutputProtocol {
     func pressedLogoutButton() {
         interactor.logout()
     }
-}
-
-private extension String {
-    static let anonymousInfoText = """
-    Ваш аккаунт является анонимным, для сохранения удаленно любимых табаков необходимо зарегистрироваться!
-    """
 }

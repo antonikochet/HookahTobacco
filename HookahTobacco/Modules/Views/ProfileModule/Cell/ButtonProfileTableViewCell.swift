@@ -20,7 +20,7 @@ final class ButtonProfileTableViewCell: UITableViewCell, ConfigurableCell {
     var item: ButtonProfileTableViewCellItem?
 
     // MARK: - UI properties
-    private let button = ApplyButton()
+    private let button = ApplyButton(style: .primary)
 
     // MARK: - Initializers
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -49,9 +49,8 @@ final class ButtonProfileTableViewCell: UITableViewCell, ConfigurableCell {
     private func setupButton() {
         contentView.addSubview(button)
         button.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview().inset(LayoutValues.Button.verticPadding)
-            make.leading.trailing.equalToSuperview().inset(LayoutValues.Button.horizPadding)
-            make.height.equalTo(LayoutValues.Button.height)
+            make.top.bottom.equalToSuperview().inset(8.0)
+            make.leading.trailing.equalToSuperview().inset(16.0)
         }
     }
 
@@ -65,20 +64,9 @@ final class ButtonProfileTableViewCell: UITableViewCell, ConfigurableCell {
     }
 
     static var estimatedHeight: CGFloat? {
-        LayoutValues.Cell.estimatedHeight
+        64.0
     }
 
     // MARK: - Selectors
 
-}
-
-private struct LayoutValues {
-    struct Cell {
-        static let estimatedHeight: CGFloat = 66.0
-    }
-    struct Button {
-        static let verticPadding: CGFloat = 8.0
-        static let horizPadding: CGFloat = 16.0
-        static let height: CGFloat = Cell.estimatedHeight - verticPadding * 2.0
-    }
 }

@@ -41,7 +41,7 @@ class AddTobaccoLineViewController: HTScrollContentViewController, BottomSheetPr
     private let baseSwitchView = AddSwitchView()
     private let tobaccoLeafTypeView = AddMultiSegmentedControlView()
     private let descriptionView = AddTextView()
-    private let doneButton = ApplyButton()
+    private let doneButton = ApplyButton(style: .primary)
     private let closeButton = IconButton()
 
     // MARK: - ViewController Lifecycle

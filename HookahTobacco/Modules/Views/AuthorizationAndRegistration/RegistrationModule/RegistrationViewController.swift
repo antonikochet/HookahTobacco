@@ -28,7 +28,7 @@ final class RegistrationViewController: BaseViewController {
     private let emailTextFieldView = AddTextFieldView()
     private let passTextFieldView = AddTextFieldView()
     private let repeatPassTextFieldView = AddTextFieldView()
-    private let registrationButton = ApplyButton()
+    private let registrationButton = ApplyButton(style: .primary)
 
     // MARK: - ViewController Lifecycle
     override func viewDidLoad() {

@@ -44,11 +44,11 @@ final class AddTobaccoViewController: HTScrollContentViewController {
     private let nameView = AddTextFieldView()
     private let manufacturerPickerView = AddPickerView()
     private let tasteCollectionView = CustomCollectionView()
-    private let tasteButton = ApplyButton()
+    private let tasteButton = ApplyButton(style: .primary)
     private let descriptionView = AddTextView()
     private let tobaccoLinePickerView = AddPickerView()
     private let imagePickerView = ImageButtonPickerView()
-    private let addedButton = ApplyButton()
+    private let addedButton = ApplyButton(style: .primary)
 
     private var descriptionViewTopToTasteButtonConstraint: Constraint?
 

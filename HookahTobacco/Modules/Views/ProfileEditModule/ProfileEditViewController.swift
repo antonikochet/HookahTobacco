@@ -36,7 +36,7 @@ class ProfileEditViewController: HTScrollContentViewController, BottomSheetPrese
     private let lastNameFieldView = AddTextFieldView()
     private let dateOfBirthFieldView = AddTextFieldView()
     // TODO: добавить поле о согласии обработки персональных данных после добавления на back
-    private let button = ApplyButton()
+    private let button = ApplyButton(style: .primary)
 
     // MARK: - ViewController Lifecycle
     override func viewDidLoad() {

@@ -47,8 +47,8 @@ final class InfoView: UIView {
     private let titleLabel = UILabel()
     private let subtitleLabel = UILabel()
     private lazy var buttonsStackView = UIStackView(arrangedSubviews: [primaryActionButton, secondaryActionButton])
-    private let primaryActionButton = ApplyButton()
-    private let secondaryActionButton = ApplyButton()
+    private let primaryActionButton = ApplyButton(style: .primary)
+    private let secondaryActionButton = ApplyButton(style: .secondary)
     private lazy var stackView = UIStackView(arrangedSubviews: [imageViewHolder, titleLabel, subtitleLabel])
 
     override init(frame: CGRect) {
@@ -101,9 +101,6 @@ final class InfoView: UIView {
         subtitleLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
         subtitleLabel.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
 
-        primaryActionButton.addTarget(self, action: #selector(primaryButtonTapped), for: .touchUpInside)
-        secondaryActionButton.addTarget(self, action: #selector(secondaryButtonTapped), for: .touchUpInside)
-
         addSubview(buttonsStackView)
         buttonsStackView.snp.makeConstraints { make in
             make.leading.trailing.equalTo(stackView)
@@ -127,13 +124,5 @@ final class InfoView: UIView {
         secondaryActionButton.isHidden = viewModel.secondaryAction == nil
         secondaryActionButton.setTitle(viewModel.secondaryAction?.title, for: .normal)
         secondaryActionButton.action = viewModel.secondaryAction?.action
-    }
-
-    @objc private func primaryButtonTapped() {
-        primaryActionButton.action?()
-    }
-
-    @objc private func secondaryButtonTapped() {
-        secondaryActionButton.action?()
     }
 }

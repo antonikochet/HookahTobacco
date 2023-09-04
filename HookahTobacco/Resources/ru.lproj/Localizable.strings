@@ -46,3 +46,9 @@
 "manufacteurerDetail.baseLineName" = "Табаки производителя";
 "manufacteurerDetail.empty.title" = "Упс... Список табаков пуст";
 "manufacteurerDetail.empty.message" = "В базу данных еще не внесли табаки производителя...";
+
+// MARK: Profile screen
+"profile.logout" = "Выйти";
+"profile.adminButton.title" = "Меню админа";
+"profile.favoriteButton.title" = "Мне нравится";
+"profile.wantToBuyButton.title" = "Хочу купить";

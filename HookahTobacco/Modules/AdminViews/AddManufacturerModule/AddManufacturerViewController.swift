@@ -45,9 +45,9 @@ final class AddManufacturerViewController: HTScrollContentViewController {
     private let descriptionView = AddTextView()
     private let linkTextFieldView = AddTextFieldView()
     private let tobaccoLineCollectionView = CustomCollectionView()
-    private let addTobaccoLineButton = ApplyButton()
+    private let addTobaccoLineButton = ApplyButton(style: .secondary)
     private let imagePickerView = ImageButtonPickerView()
-    private let addedButton = ApplyButton()
+    private let addedButton = ApplyButton(style: .primary)
 
     // MARK: - ViewController Lifecycle
     override func viewDidLoad() {

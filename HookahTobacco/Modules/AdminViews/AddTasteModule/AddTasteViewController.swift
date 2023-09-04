@@ -35,12 +35,12 @@ class AddTasteViewController: BaseViewController, BottomSheetPresenter {
     private let tasteTextFieldView = AddTextFieldView()
     private let typeSelectLabel = UILabel()
     private let typeSelectTableView = UITableView(frame: .zero, style: .grouped)
-    private let openAddTypeButton = ApplyButton()
+    private let openAddTypeButton = ApplyButton(style: .secondary)
     private let addTypeView = UIView()
     private let addTypeTextFieldView = AddTextFieldView()
-    private let addTypeButton = ApplyButton()
+    private let addTypeButton = ApplyButton(style: .secondary)
     private let closeTypeViewButton = IconButton()
-    private let addButton = ApplyButton()
+    private let addButton = ApplyButton(style: .primary)
 
     private var addButtonTopToAddTypeButtonConstraint: Constraint?
     private var addButtonTopToAddTypeViewConstraint: Constraint?

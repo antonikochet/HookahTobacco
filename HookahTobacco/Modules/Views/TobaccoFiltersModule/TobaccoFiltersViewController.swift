@@ -33,8 +33,8 @@ class TobaccoFiltersViewController: BaseViewController, BottomSheetPresenter {
     private let closeButton = UIButton()
     private let tableView = UITableView()
     private let counterLabel = UILabel()
-    private let applyButton = ApplyButton()
-    private let clearAllButton = ApplyButton()
+    private let applyButton = ApplyButton(style: .primary)
+    private let clearAllButton = ApplyButton(style: .secondary)
 
     // MARK: - ViewController Lifecycle
     override func viewDidLoad() {

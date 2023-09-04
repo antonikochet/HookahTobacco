@@ -29,10 +29,10 @@ class AddCountryViewController: BaseViewController {
     var presenter: AddCountryViewOutputProtocol!
 
     // MARK: - UI properties
-    private let addButton = ApplyButton()
+    private let addButton = ApplyButton(style: .primary)
     private let addView = UIView()
     private let addTextFieldView = AddTextFieldView()
-    private let addNewButton = ApplyButton()
+    private let addNewButton = ApplyButton(style: .primary)
     private let closeAddViewButton = IconButton()
     private let tableView = UITableView(frame: .zero, style: .grouped)
 

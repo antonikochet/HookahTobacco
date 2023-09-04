@@ -27,11 +27,11 @@ class AdminMenuViewController: UIViewController {
     var presenter: AdminMenuViewOutputProtocol!
 
     // MARK: - UI properties
-    private let addManufacturer = ApplyButton()
-    private let addTobacco = ApplyButton()
-    private let editManufacturer = ApplyButton()
-    private let editTobacco = ApplyButton()
-    private let upgradeDBVersion = ApplyButton()
+    private let addManufacturer = ApplyButton(style: .primary)
+    private let addTobacco = ApplyButton(style: .primary)
+    private let editManufacturer = ApplyButton(style: .primary)
+    private let editTobacco = ApplyButton(style: .primary)
+    private let upgradeDBVersion = ApplyButton(style: .primary)
 
     // MARK: - Lifecycle ViewController
     override func viewDidLoad() {
