@@ -31,8 +31,10 @@ class DetailInfoManufacturerPresenter {
     ) -> DetailInfoManufacturerTableCellItem {
 
         DetailInfoManufacturerTableCellItem(
-            country: "Страна производителя: \(manufacturer.country)",
-            description: manufacturer.description.isEmpty ? "" : "Описание: \n\(manufacturer.description)",
+            country: R.string.localizable.manufacteurerDetailCountryTitle(manufacturer.country.name),
+            description: (manufacturer.description.isEmpty ?
+                            "" :
+                            R.string.localizable.manufacteurerDetailDescriptionTitle(manufacturer.description)),
             iconImage: manufacturer.image
         )
     }
@@ -93,8 +95,8 @@ class DetailInfoManufacturerPresenter {
         tableDirector += firstSection
     }
     private func setupEmptyTableCell() -> TableSection {
-        let item = EmptyTableCellItem(title: .emptyTitle,
-                                      description: .emptyDescription)
+        let item = EmptyTableCellItem(title: R.string.localizable.manufacteurerDetailEmptyTitle(),
+                                      description: R.string.localizable.manufacteurerDetailEmptyMessage())
         let row = TableRow<EmptyTableCell>(item: item)
         let section = TableSection(rows: [row])
         section.headerHeight = 0.0
@@ -117,7 +119,7 @@ class DetailInfoManufacturerPresenter {
             DispatchQueue.main.async {
                 let header = DetailManufacturerLineHeaderView()
                 let viewModel = DetailManufacturerLineHeaderViewModel(
-                    name: tobaccos.count > 1 ? line.name : .baseLineName,
+                    name: line.isBase ? R.string.localizable.manufacteurerDetailBaseLineName() : line.name,
                     description: line.description,
                     isHideTobacco: isHideRows) { [weak self] nameLine in
                         guard let self = self else { return }
@@ -161,7 +163,7 @@ extension DetailInfoManufacturerPresenter: DetailInfoManufacturerInteractorOutpu
     func initialDataForPresentation(_ manufacturer: Manufacturer) {
         view.setupNameManufacturer(manufacturer.name)
         if let link = manufacturer.link, !link.isEmpty {
-            linkToManufacturer = .linkManufacturer + link
+            linkToManufacturer = R.string.localizable.manufacteurerDetailLinkTitle(link)
         }
         setupContentView(manufacturer, nil)
     }
@@ -195,9 +197,5 @@ extension DetailInfoManufacturerPresenter: DetailInfoManufacturerViewOutputProto
 }
 
 private extension String {
-    static let emptyTitle = "Упс... Список табаков пуст"
-    static let emptyDescription = "В базу данных еще не внесли табаки производителя..."
-    static let linkManufacturer = "Сайт производителя: "
-    static let baseLineName = "Табаки производителя"
     static let base = "Base"
 }

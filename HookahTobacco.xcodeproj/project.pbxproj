@@ -230,7 +230,6 @@
 		B9C92609294F77570085BB02 /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C92608294F77570085BB02 /* AuthError.swift */; };
 		B9C9ECFB29128F2F000A359B /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = B9C9ECFA29128F2F000A359B /* FirebaseCrashlytics */; };
 		B9CA939D2969C01C00F258F3 /* extension + TableKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CA939C2969C01C00F258F3 /* extension + TableKit.swift */; };
-		B9CA939F2969CE5600F258F3 /* ManufacturerListCellHeightCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CA939E2969CE5500F258F3 /* ManufacturerListCellHeightCalculator.swift */; };
 		B9D2D2A7293B805100F2F591 /* MultiSelectSegmentedControl in Frameworks */ = {isa = PBXBuildFile; productRef = B9D2D2A6293B805100F2F591 /* MultiSelectSegmentedControl */; };
 		B9D2D2A9293B808F00F2F591 /* AddMultiSegmentedControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D2D2A8293B808F00F2F591 /* AddMultiSegmentedControlView.swift */; };
 		B9D6055928D4CB590058D19E /* Manufacturer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D6055828D4CB590058D19E /* Manufacturer.swift */; };
@@ -502,7 +501,6 @@
 		B9C92600294F6DB20085BB02 /* RegistrationServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationServiceProtocol.swift; sourceTree = "<group>"; };
 		B9C92608294F77570085BB02 /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
 		B9CA939C2969C01C00F258F3 /* extension + TableKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extension + TableKit.swift"; sourceTree = "<group>"; };
-		B9CA939E2969CE5500F258F3 /* ManufacturerListCellHeightCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManufacturerListCellHeightCalculator.swift; sourceTree = "<group>"; };
 		B9D2D2A8293B808F00F2F591 /* AddMultiSegmentedControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMultiSegmentedControlView.swift; sourceTree = "<group>"; };
 		B9D6055828D4CB590058D19E /* Manufacturer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manufacturer.swift; sourceTree = "<group>"; };
 		B9D6056028D4F1410058D19E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -1489,7 +1487,6 @@
 			isa = PBXGroup;
 			children = (
 				B9E8DA5628F783B400CCA034 /* ManufacturerListTableViewCell.swift */,
-				B9CA939E2969CE5500F258F3 /* ManufacturerListCellHeightCalculator.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1914,7 +1911,6 @@
 				B982804A292FB97C00BF3A93 /* ImageStorageServiceDataProtocol.swift in Sources */,
 				B9EB024B28F3604E00B3B6DA /* AddTobaccoModule.swift in Sources */,
 				B981CBAD293120EF00705422 /* DetailTobaccoAssembly.swift in Sources */,
-				B9CA939F2969CE5600F258F3 /* ManufacturerListCellHeightCalculator.swift in Sources */,
 				B9EB024928F35B5F00B3B6DA /* ModuleProtocol.swift in Sources */,
 				38ADAF542A8FB78000DDB30B /* HTError.swift in Sources */,
 				38DDDE622A86B93A00EA19A3 /* AuthSettingsProtocol.swift in Sources */,

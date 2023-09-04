@@ -72,7 +72,7 @@ extension ManufacturerListPresenter: ManufacturerListInteractorOutputProtocol {
     func receivedManufacturersSuccess(with data: [Manufacturer]) {
         isDownloadData = true
         if data.isEmpty {
-            view.showErrorView(title: "Производителей нет",
+            view.showErrorView(title: R.string.localizable.manufacteurerListEmptyTitle(),
                                message: "",
                                buttonAction: nil)
         } else {
@@ -117,12 +117,7 @@ extension ManufacturerListPresenter: ManufacturerListInteractorOutputProtocol {
 extension ManufacturerListPresenter: ManufacturerListViewOutputProtocol {
     func viewDidLoad() {
         let tableView = view.getTableView()
-        let cellHeightCalculator = ManufacturerListCellHeightCalculator(tableView: tableView, countCellInView: 8)
-        tableDirector = TableDirector(tableView: tableView,
-                                      cellHeightCalculator: cellHeightCalculator)
-    }
-
-    func viewDidAppear() {
+        tableDirector = TableDirector(tableView: tableView)
         view.showLoading()
         interactor.startReceiveData()
     }

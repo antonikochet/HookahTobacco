@@ -17,7 +17,6 @@ protocol ManufacturerListViewInputProtocol: ViewProtocol {
 
 protocol ManufacturerListViewOutputProtocol: AnyObject {
     func viewDidLoad()
-    func viewDidAppear()
     func didStartingRefreshView()
 }
 
@@ -36,10 +35,6 @@ class ManufacturerListViewController: BaseViewController {
         presenter.viewDidLoad()
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        presenter.viewDidAppear()
-    }
     // MARK: - Setups
     private func setup() {
         setupScreen()
@@ -47,10 +42,14 @@ class ManufacturerListViewController: BaseViewController {
     }
 
     private func setupScreen() {
-        navigationItem.title = .title
+        navigationItem.title = R.string.localizable.manufacteurerListTitle()
     }
     private func setupTableView() {
         tableView.refreshControl = refreshControl
+        tableView.separatorStyle = .none
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0.0
+        }
 
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
@@ -79,8 +78,4 @@ extension ManufacturerListViewController: ManufacturerListViewInputProtocol {
             self.refreshControl.endRefreshing()
         }
     }
-}
-
-private extension String {
-    static let title = "Производители табаков"
 }

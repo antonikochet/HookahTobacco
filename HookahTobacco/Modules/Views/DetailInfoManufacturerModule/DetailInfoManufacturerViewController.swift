@@ -44,6 +44,9 @@ class DetailInfoManufacturerViewController: UIViewController {
     }
     private func setupTableView() {
         tableView.separatorStyle = .none
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0.0
+        }
 
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
@@ -65,12 +68,4 @@ extension DetailInfoManufacturerViewController: DetailInfoManufacturerViewInputP
     func setupNameManufacturer(_ nameManufacturer: String) {
         navigationItem.title = nameManufacturer
     }
-//    func updateRow(at index: Int) {
-//        DispatchQueue.main.async {
-//            let indexPath = IndexPath(row: index, section: 1)
-//            if self.tableView.indexPathsForVisibleRows?.contains(indexPath) ?? false {
-//                self.tableView.reloadRows(at: [indexPath], with: .none)
-//            }
-//        }
-//    }
 }

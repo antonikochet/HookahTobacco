@@ -17,6 +17,7 @@ struct ManufacturerListTableViewCellItem {
 
 final class ManufacturerListTableViewCell: UITableViewCell, ConfigurableCell {
     // MARK: - UI properties
+    private let containerView = UIView()
     private let imageManufacturerView = UIImageView()
     private let nameLabel = UILabel()
     private let countryLabel = UILabel()
@@ -34,6 +35,7 @@ final class ManufacturerListTableViewCell: UITableViewCell, ConfigurableCell {
     // MARK: - Setup UI
     private func setupUI() {
         setupCell()
+        setupContainerView()
         setupImageManufacturerView()
         setupNameLabel()
         setupCountryLabel()
@@ -41,45 +43,55 @@ final class ManufacturerListTableViewCell: UITableViewCell, ConfigurableCell {
 
     private func setupCell() {
         selectionStyle = .none
-        backgroundColor = Colors.Cell.background
+        backgroundColor = .clear
+    }
+    private func setupContainerView() {
+        containerView.backgroundColor = R.color.secondaryBackground()
+        containerView.layer.cornerRadius = 16.0
+        containerView.clipsToBounds = true
+        contentView.addSubview(containerView)
+        containerView.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview().inset(4.0)
+            make.leading.trailing.equalToSuperview().inset(8.0)
+        }
     }
     private func setupImageManufacturerView() {
-        imageManufacturerView.tintColor = Colors.ImageManufacturerView.tint
+        imageManufacturerView.backgroundColor = R.color.primaryWhite()
         imageManufacturerView.contentMode = .scaleAspectFit
+        imageManufacturerView.layer.cornerRadius = 16.0
+        imageManufacturerView.clipsToBounds = true
 
-        contentView.addSubview(imageManufacturerView)
+        containerView.addSubview(imageManufacturerView)
         imageManufacturerView.snp.makeConstraints { make in
-            make.left.top.bottom.equalToSuperview().inset(LayoutValues.ImageManufacturerView.padding)
-            make.width.equalTo(imageManufacturerView.snp.height)
+            make.leading.top.bottom.equalToSuperview().inset(8.0)
+            make.size.lessThanOrEqualTo(90.0)
         }
     }
     private func setupNameLabel() {
-        nameLabel.font = Fonts.name
+        nameLabel.font = UIFont.appFont(size: 24, weight: .semibold)
         nameLabel.textAlignment = .left
         nameLabel.adjustsFontSizeToFitWidth = true
         nameLabel.minimumScaleFactor = 0.6
         nameLabel.numberOfLines = 1
 
-        contentView.addSubview(nameLabel)
+        containerView.addSubview(nameLabel)
         nameLabel.snp.makeConstraints { make in
-            make.left.equalTo(imageManufacturerView.snp.right).offset(LayoutValues.NameLabel.left)
-            make.top.right.equalToSuperview().offset(LayoutValues.NameLabel.padding)
-            make.height.greaterThanOrEqualTo(Fonts.name.lineHeight * nameLabel.minimumScaleFactor)
-            make.height.lessThanOrEqualTo(Fonts.name.lineHeight)
+            make.leading.equalTo(imageManufacturerView.snp.trailing).offset(16.0)
+            make.top.trailing.equalToSuperview().offset(8.0)
         }
     }
     private func setupCountryLabel() {
-        countryLabel.font = Fonts.country
+        countryLabel.font = UIFont.appFont(size: 18, weight: .medium)
         countryLabel.textAlignment = .left
         countryLabel.adjustsFontSizeToFitWidth = true
         countryLabel.minimumScaleFactor = 0.6
         countryLabel.numberOfLines = 1
 
-        contentView.addSubview(countryLabel)
+        containerView.addSubview(countryLabel)
         countryLabel.snp.makeConstraints { make in
-            make.left.equalTo(imageManufacturerView.snp.right).offset(LayoutValues.CountryLabel.left)
-            make.right.equalToSuperview().inset(LayoutValues.CountryLabel.padding)
-            make.top.equalTo(nameLabel.snp.bottom).offset(LayoutValues.CountryLabel.padding)
+            make.leading.equalTo(nameLabel.snp.leading)
+            make.trailing.equalToSuperview().inset(16.0)
+            make.top.equalTo(nameLabel.snp.bottom).offset(8.0)
         }
     }
 
@@ -101,35 +113,6 @@ final class ManufacturerListTableViewCell: UITableViewCell, ConfigurableCell {
     }
 
     static var estimatedHeight: CGFloat? {
-        LayoutValues.Cell.estimatedHeight
+        80.0
     }
-}
-
-private struct LayoutValues {
-    struct Cell {
-        static let estimatedHeight: CGFloat = 80.0
-    }
-    struct ImageManufacturerView {
-        static let padding: CGFloat = 8.0
-    }
-    struct NameLabel {
-        static let left: CGFloat = 16.0
-        static let padding: CGFloat = 8.0
-    }
-    struct CountryLabel {
-        static let left: CGFloat = 16.0
-        static let padding: CGFloat = 8.0
-    }
-}
-private struct Colors {
-    struct Cell {
-        static let background: UIColor = .clear
-    }
-    struct ImageManufacturerView {
-        static let tint: UIColor = .label
-    }
-}
-private struct Fonts {
-    static let name = UIFont.appFont(size: 24, weight: .bold)
-    static let country = UIFont.appFont(size: 18, weight: .medium)
 }

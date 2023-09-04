@@ -42,99 +42,51 @@ final class DetailInfoManufacturerTableCell: UITableViewCell, ConfigurableCell {
 
     private func setupCell() {
         selectionStyle = .none
-        backgroundColor = Colors.Cell.background
+        backgroundColor = .clear
     }
     private func setupIconImage() {
-        iconImage.backgroundColor = Colors.IconImage.background
+        iconImage.backgroundColor = .clear
         iconImage.contentMode = .scaleAspectFit
 
         contentView.addSubview(iconImage)
         iconImage.snp.makeConstraints { make in
-            make.top.equalTo(LayoutValues.IconImage.top)
-            make.leading.trailing.equalToSuperview().inset(LayoutValues.IconImage.horizPadding)
-            make.height.equalTo(iconImage.snp.width)
+            make.top.equalToSuperview().offset(16.0)
+            make.centerX.equalToSuperview()
+            make.leading.equalToSuperview().offset(16.0)
+            make.height.lessThanOrEqualTo(iconImage.snp.width)
         }
     }
     private func setupCountryLabel() {
-        countryLabel.font = Fonts.country
+        countryLabel.font = UIFont.appFont(size: 18, weight: .medium)
         countryLabel.numberOfLines = 1
 
         contentView.addSubview(countryLabel)
         countryLabel.snp.makeConstraints { make in
-            make.top.equalTo(iconImage.snp.bottom).offset(LayoutValues.CountryLabel.top)
-            make.leading.trailing.equalToSuperview().inset(LayoutValues.CountryLabel.horizPadding)
-            make.height.equalTo(LayoutValues.CountryLabel.height)
+            make.top.equalTo(iconImage.snp.bottom).offset(10)
+            make.leading.trailing.equalToSuperview().inset(16.0)
         }
     }
     private func setupDescriptionLabel() {
-        descriptionLabel.font = Fonts.description
+        descriptionLabel.font = UIFont.appFont(size: 16, weight: .regular)
         descriptionLabel.numberOfLines = 0
 
         contentView.addSubview(descriptionLabel)
         descriptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(countryLabel.snp.bottom).offset(LayoutValues.DescriptionLabel.top)
-            make.leading.trailing.equalToSuperview().inset(LayoutValues.DescriptionLabel.horizPadding)
-            make.height.equalTo(0)
-            make.bottom.equalToSuperview().inset(LayoutValues.DescriptionLabel.bottom)
+            make.top.equalTo(countryLabel.snp.bottom).offset(10.0)
+            make.leading.trailing.equalToSuperview().inset(16.0)
+            make.bottom.equalToSuperview().inset(8.0)
         }
     }
 
     // MARK: - ConfigurableCell
     func configure(with item: DetailInfoManufacturerTableCellItem) {
         countryLabel.text = item.country
-        configureDescriptionLabel(with: item.description)
+        descriptionLabel.text = item.description
         if let icon = item.iconImage {
             iconImage.image = UIImage(data: icon)
         }
     }
-    private func configureDescriptionLabel(with text: String) {
-        if !text.isEmpty {
-            descriptionLabel.text = text
-            let height = text.height(width: descriptionLabel.frame.width,
-                                     font: Fonts.description)
-            descriptionLabel.snp.updateConstraints { make in
-                make.height.equalTo(height)
-            }
-        } else {
-            descriptionLabel.snp.updateConstraints { make in
-                make.height.equalTo(0)
-            }
-        }
-    }
-
     static var estimatedHeight: CGFloat? {
-        LayoutValues.Cell.estimatedHeight
+        700.0
     }
-}
-
-private struct LayoutValues {
-    struct Cell {
-        static let estimatedHeight: CGFloat = 700.0
-    }
-    struct IconImage {
-        static let top: CGFloat = 16.0
-        static let horizPadding: CGFloat = 32.0
-    }
-    struct CountryLabel {
-        static let top: CGFloat = 16.0
-        static let horizPadding: CGFloat = 16.0
-        static let height: CGFloat = 20.0
-    }
-    struct DescriptionLabel {
-        static let top: CGFloat = 16.0
-        static let horizPadding: CGFloat = 16.0
-        static let bottom: CGFloat = 16.0
-    }
-}
-private struct Colors {
-    struct Cell {
-        static let background: UIColor = .clear
-    }
-    struct IconImage {
-        static let background: UIColor = .clear
-    }
-}
-private struct Fonts {
-    static let country = UIFont.appFont(size: 20, weight: .medium)
-    static let description = UIFont.appFont(size: 18, weight: .regular)
 }

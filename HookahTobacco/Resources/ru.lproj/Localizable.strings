@@ -34,3 +34,15 @@
 "tobaccoFilter.empty.message" = "По вашему выбору нет табаков";
 "tobaccoFilter.empty.button.title" = "Сбросить фильтра";
 "tobaccoFilter.applyButton.title" = "Применить фильтры";
+
+// MARK: - Manufacturer list
+"manufacteurerList.title" = "Производители табаков";
+"manufacteurerList.empty.title" = "Производителей нет";
+
+// MARK: - Manufacturer detail
+"manufacteurerDetail.country.title" = "Страна производителя: %@";
+"manufacteurerDetail.description.title" = "Описание: \n%@";
+"manufacteurerDetail.link.title" = "Сайт производителя: %@";
+"manufacteurerDetail.baseLineName" = "Табаки производителя";
+"manufacteurerDetail.empty.title" = "Упс... Список табаков пуст";
+"manufacteurerDetail.empty.message" = "В базу данных еще не внесли табаки производителя...";

@@ -84,12 +84,13 @@ final class TobaccoListCell: UITableViewCell, ConfigurableCell {
         backgroundColor = .clear
     }
     private func setupContainerView() {
-        containerView.backgroundColor = R.color.primaryBackground()
+        containerView.backgroundColor = R.color.secondaryBackground()
         containerView.layer.cornerRadius = 16.0
         containerView.clipsToBounds = true
         contentView.addSubview(containerView)
         containerView.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(8.0)
+            make.top.bottom.equalToSuperview().inset(4.0)
+            make.leading.trailing.equalToSuperview().inset(8.0)
         }
     }
     private func setupTobaccoImageView() {
@@ -105,7 +106,7 @@ final class TobaccoListCell: UITableViewCell, ConfigurableCell {
         containerImageView.addSubview(tobaccoImageView)
         tobaccoImageView.snp.makeConstraints { make in
             make.edges.equalToSuperview().inset(10.0)
-            make.size.equalTo(90.0)
+            make.size.lessThanOrEqualTo(90)
         }
     }
     private func setupNameLabel() {
@@ -117,7 +118,7 @@ final class TobaccoListCell: UITableViewCell, ConfigurableCell {
         nameLabel.snp.makeConstraints { make in
             make.leading.equalTo(containerImageView.snp.trailing).offset(16.0)
             make.top.equalToSuperview().offset(8.0)
-            make.trailing.equalTo(favoriteButton.snp.leading).inset(8.0)
+            make.trailing.equalTo(favoriteButton.snp.leading).offset(-8.0)
         }
     }
     private func setupTastyLabel() {
