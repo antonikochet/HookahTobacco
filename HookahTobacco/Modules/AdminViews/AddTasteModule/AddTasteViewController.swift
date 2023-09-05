@@ -66,12 +66,12 @@ class AddTasteViewController: BaseViewController, BottomSheetPresenter {
         setupAddButton()
     }
     private func setupView() {
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = R.color.primaryBackground()
     }
     private func setupTasteTextFieldView() {
         view.addSubview(tasteTextFieldView)
-        tasteTextFieldView.setupView(textLabel: "Вкус",
-                                     placeholder: "Введите вкус",
+        tasteTextFieldView.setupView(textLabel: R.string.localizable.addTasteTasteTextFieldText(),
+                                     placeholder: R.string.localizable.addTasteTasteTextFieldPlaceholder(),
                                      delegate: self)
         tasteTextFieldView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(spacingBetweenViews)
@@ -80,7 +80,9 @@ class AddTasteViewController: BaseViewController, BottomSheetPresenter {
     }
     private func setupTypeSelectLabel() {
         view.addSubview(typeSelectLabel)
-        typeSelectLabel.text = "Выбрать тип вкуса табака"
+        typeSelectLabel.font = UIFont.appFont(size: 16.0, weight: .regular)
+        typeSelectLabel.textColor = R.color.primaryTitle()
+        typeSelectLabel.text = R.string.localizable.addTasteTypeLabelText()
         typeSelectLabel.snp.makeConstraints { make in
             make.top.equalTo(tasteTextFieldView.snp.bottom).offset(spacingBetweenViews)
             make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
@@ -88,8 +90,9 @@ class AddTasteViewController: BaseViewController, BottomSheetPresenter {
     }
     private func setupTypeSelectTableView() {
         view.addSubview(typeSelectTableView)
+        typeSelectTableView.backgroundColor = R.color.secondaryBackground()
         typeSelectTableView.layer.cornerRadius = 6
-        typeSelectTableView.layer.borderColor = UIColor.systemGray4.cgColor
+        typeSelectTableView.layer.borderColor = R.color.primarySubtitle()?.cgColor
         typeSelectTableView.layer.borderWidth = 1
         typeSelectTableView.snp.makeConstraints { make in
             make.top.equalTo(typeSelectLabel.snp.bottom).offset(spacingBetweenViews)
@@ -98,7 +101,7 @@ class AddTasteViewController: BaseViewController, BottomSheetPresenter {
         }
     }
     private func setupOpenAddTypeButton() {
-        openAddTypeButton.setTitle("Добавить тип вкуса", for: .normal)
+        openAddTypeButton.setTitle(R.string.localizable.addTasteAddTypeButtonTitle(), for: .normal)
         openAddTypeButton.action = { [weak self] in
             guard let self else { return }
             self.addTypeView.isHidden = false
@@ -112,16 +115,15 @@ class AddTasteViewController: BaseViewController, BottomSheetPresenter {
         openAddTypeButton.snp.makeConstraints { make in
             make.top.equalTo(typeSelectTableView.snp.bottom).offset(spacingBetweenViews)
             make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
-            make.height.equalTo(40)
         }
     }
     private func setupAddTypeView() {
         view.addSubview(addTypeView)
         addTypeView.layer.cornerRadius = 12
-        addTypeView.layer.borderColor = UIColor.black.cgColor
+        addTypeView.layer.borderColor = R.color.primaryTitle()?.cgColor
         addTypeView.layer.borderWidth = 1.0
         addTypeView.clipsToBounds = true
-        addTypeView.backgroundColor = .systemGray6
+        addTypeView.backgroundColor = R.color.secondaryBackground()
         addTypeView.isHidden = true
         addTypeView.snp.makeConstraints { make in
             make.top.equalTo(openAddTypeButton.snp.bottom).offset(spacingBetweenViews)
@@ -130,15 +132,15 @@ class AddTasteViewController: BaseViewController, BottomSheetPresenter {
     }
     private func setupAddTypeTextFieldView() {
         addTypeView.addSubview(addTypeTextFieldView)
-        addTypeTextFieldView.setupView(textLabel: "Название типа вкуса",
-                                       placeholder: "Введите название")
+        addTypeTextFieldView.setupView(textLabel: R.string.localizable.addTasteTypeTextFieldText(),
+                                       placeholder: R.string.localizable.addTasteTypeTextFieldPlaceholder())
         addTypeTextFieldView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(spacingBetweenViews)
             make.leading.trailing.equalToSuperview().inset(spacingBetweenViews)
         }
     }
     private func setupAddTypeButton() {
-        addTypeButton.setTitle("Создать тип", for: .normal)
+        addTypeButton.setTitle(R.string.localizable.addTasteTypeAddButtonTitle(), for: .normal)
         addTypeButton.action = { [weak self] in
             guard let self else { return }
             view.endEditing(true)
@@ -148,7 +150,6 @@ class AddTasteViewController: BaseViewController, BottomSheetPresenter {
         addTypeButton.snp.makeConstraints { make in
             make.top.equalTo(addTypeTextFieldView.snp.bottom).offset(spacingBetweenViews)
             make.leading.trailing.equalToSuperview().inset(spacingBetweenViews)
-            make.height.equalTo(40)
             make.bottom.equalToSuperview().inset(spacingBetweenViews)
         }
     }
@@ -163,17 +164,13 @@ class AddTasteViewController: BaseViewController, BottomSheetPresenter {
             self.addButtonTopToAddTypeButtonConstraint?.isActive = true
             self.sheetViewController?.updateIntrinsicHeight()
         }
-        closeTypeViewButton.imageSize = 20.0
-        closeTypeViewButton.image = UIImage(systemName: "multiply")
-        closeTypeViewButton.backgroundColor = .systemGray2
-        closeTypeViewButton.imageColor = .white
-        closeTypeViewButton.createCornerRadius()
+        closeTypeViewButton.image = R.image.close()
         closeTypeViewButton.snp.makeConstraints { make in
             make.top.trailing.equalToSuperview().inset(10)
         }
     }
     private func setupAddButton() {
-        addButton.setTitle("Добавить вкус", for: .normal)
+        addButton.setTitle(R.string.localizable.addTasteAddButtonAdd(), for: .normal)
         addButton.action = { [weak self] in
             self?.presenter.didTouchAdded(taste: self?.tasteTextFieldView.text ?? "")
         }
@@ -185,7 +182,6 @@ class AddTasteViewController: BaseViewController, BottomSheetPresenter {
                                                           .offset(spacingBetweenViews).constraint
             make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(spacingBetweenViews)
-            make.height.equalTo(45)
         }
         addButtonTopToAddTypeViewConstraint?.isActive = false
     }

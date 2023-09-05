@@ -106,7 +106,7 @@ final class TobaccoListCell: UITableViewCell, ConfigurableCell {
         containerImageView.addSubview(tobaccoImageView)
         tobaccoImageView.snp.makeConstraints { make in
             make.edges.equalToSuperview().inset(10.0)
-            make.size.lessThanOrEqualTo(90)
+            make.size.equalTo(90).priority(999)
         }
     }
     private func setupNameLabel() {
@@ -193,12 +193,10 @@ final class TobaccoListCell: UITableViewCell, ConfigurableCell {
         }
     }
     private func configureFavoriteButton(isFavorite: Bool) {
-        favoriteButton.imageColor = isFavorite ? R.color.primaryRed() : R.color.primarySubtitle()
         favoriteButton.image = isFavorite ? Images.favorite : Images.notFavorite
     }
     private func configureWantBuyButton(with item: TobaccoListTableCellItem) {
         wantButButton.isHidden = !item.isShowWantBuyButton
-        wantButButton.imageColor = item.isWantBuy ? R.color.primaryOrange() : R.color.primarySubtitle()
         wantButButton.image = item.isWantBuy ? Images.wantBuy : Images.notWantBuy
     }
 

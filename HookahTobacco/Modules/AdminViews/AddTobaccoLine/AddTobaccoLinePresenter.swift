@@ -80,26 +80,26 @@ extension AddTobaccoLinePresenter: AddTobaccoLineViewOutputProtocol {
     func pressedDoneButton(_ viewModel: AddTobaccoLineEntity.ViewModel) {
         var name = viewModel.name
         if viewModel.isBase {
-            name = "Base"
+            name = ""
         } else if name.isEmpty {
-            router.showError(with: "Имя линейки табака не введено")
+            router.showError(with: R.string.localizable.addTobaccoLineNameEmptyMessage())
             return
         }
         guard !viewModel.packetingFormats.isEmpty else {
-            router.showError(with: "Не введен вес упаковок в линейке")
+            router.showError(with: R.string.localizable.addTobaccoLinePacketingFormatsEmptyMessage())
             return
         }
         guard viewModel.selectedTobaccoTypeIndex != -1 else {
-            router.showError(with: "Не выбран тип табака")
+            router.showError(with: R.string.localizable.addTobaccoLineTypeEmptyMessage())
             return
         }
         guard !viewModel.description.isEmpty else {
-            router.showError(with: "Описание линейки табака не введено")
+            router.showError(with: R.string.localizable.addTobaccoLineDescriptionEmptyMessage())
             return
         }
         if viewModel.selectedTobaccoTypeIndex == TobaccoType.tobacco.rawValue,
            viewModel.selectedTobaccoLeafTypeIndexs.isEmpty {
-            router.showError(with: "Сорта табаков не выбраны для линейки")
+            router.showError(with: R.string.localizable.addTobaccoLineTypeleafEmptyMessage())
             return
         }
         let intPF = viewModel.packetingFormats.replacingOccurrences(of: "\\s*",

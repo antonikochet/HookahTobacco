@@ -30,14 +30,14 @@ class AddTastesViewController: UIViewController {
     // MARK: - UI properties
     private let searchBar = UISearchBar()
     private let tasteCollectionView = CustomCollectionView()
-    private let tableView = UITableView(frame: .zero, style: .grouped)
+    private let tableView = UITableView()
     private let addButton = IconButton()
 
     // MARK: - ViewController Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Добавление вкусов"
-        view.backgroundColor = .systemBackground
+        navigationItem.title = R.string.localizable.addTastesTitle()
+        view.backgroundColor = R.color.primaryBackground()
 
         setupNavigationItem()
         setupSubviews()
@@ -57,12 +57,17 @@ class AddTastesViewController: UIViewController {
 
         view.addSubview(searchBar)
         searchBar.delegate = self
-        searchBar.placeholder = "Фильтр вкусов"
+        searchBar.backgroundColor = R.color.fourthBackground()
+        searchBar.placeholder = R.string.localizable.addTastesSearchPlaceholder()
         searchBar.snp.makeConstraints { make in
             make.top.equalTo(tasteCollectionView.snp.bottom).offset(8)
             make.leading.trailing.equalToSuperview()
         }
 
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0
+        }
+        tableView.backgroundColor = .clear
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.top.equalTo(searchBar.snp.bottom)
@@ -81,17 +86,17 @@ class AddTastesViewController: UIViewController {
         addButton.buttonSize = 50.0
         addButton.imageSize = 25.0
         addButton.image = UIImage(systemName: "plus")
-        addButton.backgroundColor = .systemOrange
+        addButton.backgroundColor = R.color.primaryPurple()
         addButton.imageColor = .white
         addButton.createCornerRadius()
     }
 
     private func setupNavigationItem() {
-        let doneButton = UIBarButtonItem(
-            barButtonSystemItem: .done,
-            target: self,
-            action: #selector(didTouchDoneButton)
-        )
+        let button = UIButton()
+        button.setTitle(R.string.localizable.addTastesNavbarDone(), for: .normal)
+        button.setTitleColor(R.color.secondarySubtitle(), for: .normal)
+        button.addTarget(self, action: #selector(didTouchDoneButton), for: .touchUpInside)
+        let doneButton = UIBarButtonItem(customView: button)
         navigationItem.rightBarButtonItem = doneButton
     }
 

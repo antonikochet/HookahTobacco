@@ -28,7 +28,7 @@ final class IconButton: UIView {
         }
     }
 
-    public var imageColor: UIColor? = R.color.primaryBlack() {
+    public var imageColor: UIColor? = .clear {
         didSet {
             imageView.image = imageView.image?.withTintColor(imageColor ?? .black, renderingMode: .alwaysOriginal)
         }
@@ -39,7 +39,7 @@ final class IconButton: UIView {
             imageView.image
         }
         set {
-            imageView.image = newValue?.withTintColor(imageColor ?? .black, renderingMode: .alwaysOriginal)
+            imageView.image = newValue
         }
     }
 

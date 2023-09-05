@@ -14,7 +14,7 @@ protocol AddManufacturerViewInputProtocol: ViewProtocol {
     func getTobaccoLineCollectionView() -> CustomCollectionView
     func clearView()
     func setupContent(_ viewModel: AddManufacturerEntity.ViewModel)
-    func setupImageManufacturer(_ image: Data?, textButton: String)
+    func setupImageManufacturer(_ image: Data?)
     func setupSelectedCountry(_ index: Int)
     func receivedResultAddTobaccoLine(isResult: Bool)
     func showLoading()
@@ -53,8 +53,7 @@ final class AddManufacturerViewController: HTScrollContentViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .white
-        overrideUserInterfaceStyle = .light
+        view.backgroundColor = R.color.primaryBackground()
         setupSubviews()
         presenter.viewDidLoad()
     }
@@ -78,8 +77,8 @@ final class AddManufacturerViewController: HTScrollContentViewController {
     }
     private func setupNameTextField() {
         contentScrollView.addSubview(nameTextFieldView)
-        nameTextFieldView.setupView(textLabel: "Название",
-                                    placeholder: "Введите название производителя...",
+        nameTextFieldView.setupView(textLabel: R.string.localizable.addManufacturerNameTextFieldTitle(),
+                                    placeholder: R.string.localizable.addManufacturerNameTextFieldPlaceholder(),
                                     delegate: self)
         nameTextFieldView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(topSpacingFromSuperview)
@@ -89,7 +88,7 @@ final class AddManufacturerViewController: HTScrollContentViewController {
     }
     private func setupCountryPickerView() {
         contentScrollView.addSubview(countryPicketView)
-        countryPicketView.setupView(text: "Страна производителя")
+        countryPicketView.setupView(text: R.string.localizable.addManufacturerCountryText())
         countryPicketView.addButtonAction = { [weak self] in
             self?.presenter.pressedAddCountry()
         }
@@ -101,7 +100,7 @@ final class AddManufacturerViewController: HTScrollContentViewController {
     }
     private func setupDescriptionView() {
         contentScrollView.addSubview(descriptionView)
-        descriptionView.setupView(textLabel: "Описание производителя (не обязательно)")
+        descriptionView.setupView(textLabel: R.string.localizable.addManufacturerDescriptionTitle())
         descriptionView.snp.makeConstraints { make in
             make.top.equalTo(countryPicketView.snp.bottom).offset(spacingBetweenViews)
             make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
@@ -109,8 +108,8 @@ final class AddManufacturerViewController: HTScrollContentViewController {
     }
     private func setupLinkTextFieldView() {
         contentScrollView.addSubview(linkTextFieldView)
-        linkTextFieldView.setupView(textLabel: "Ссылка на сайт производител (не обяз.)",
-                                    placeholder: "Введите ссылку",
+        linkTextFieldView.setupView(textLabel: R.string.localizable.addManufacturerLinkTextFieldTitle(),
+                                    placeholder: R.string.localizable.addManufacturerLinkTextFieldPlaceholder(),
                                     delegate: self)
         linkTextFieldView.snp.makeConstraints { make in
             make.top.equalTo(descriptionView.snp.bottom).offset(spacingBetweenViews)
@@ -124,7 +123,7 @@ final class AddManufacturerViewController: HTScrollContentViewController {
             make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
         }
 
-        addTobaccoLineButton.setTitle("Добавить Линейку табаков", for: .normal)
+        addTobaccoLineButton.setTitle(R.string.localizable.addManufacturerAddTobaccoLineButtonTitle(), for: .normal)
         addTobaccoLineButton.action = { [weak self] in
             self?.presenter.pressedAddTobaccoLine()
         }
@@ -135,7 +134,6 @@ final class AddManufacturerViewController: HTScrollContentViewController {
         }
     }
     private func setupAddButton() {
-        addedButton.setTitle("Добавить нового производителя", for: .normal)
         addedButton.action = { [weak self] in
             guard let self else { return }
             let entity = AddManufacturerEntity.EnterData(name: self.nameTextFieldView.text,
@@ -196,7 +194,7 @@ extension AddManufacturerViewController: AddManufacturerViewInputProtocol {
         addTobaccoLineButton.isEnabled = viewModel.isEnabledAddTobaccoLine
     }
 
-    func setupImageManufacturer(_ image: Data?, textButton: String) {
+    func setupImageManufacturer(_ image: Data?) {
         if let image = image {
             imagePickerView.image = UIImage(data: image)
         }

@@ -50,7 +50,7 @@ class AddTastePresenter {
         section.headerHeight = 0.0
         section.footerHeight = 0.0
         tableDirector += section
-        let height = CGFloat(rows.count) * 32.0
+        let height = CGFloat(rows.count) * 36.0
         view.updateHeightTableView(height > 192.0 ? 192.0 : height)
         reloadData()
     }
@@ -66,7 +66,10 @@ class AddTastePresenter {
 extension AddTastePresenter: AddTasteInteractorOutputProtocol {
     func initialData(taste: Taste, isEdit: Bool) {
         selectedTypes = taste.typeTaste
-        view.setupContent(taste: taste.taste, addButtonText: isEdit ? "Изменить вкус": "Добавить вкус")
+        view.setupContent(taste: taste.taste,
+                          addButtonText: (isEdit ?
+                                            R.string.localizable.addTasteAddButtonAdd() :
+                                            R.string.localizable.addTasteAddButtonEdit()))
     }
 
     func receivedSuccessTypes(_ types: [TasteType]) {
@@ -101,11 +104,11 @@ extension AddTastePresenter: AddTasteViewOutputProtocol {
 
     func didTouchAdded(taste: String) {
         guard !taste.isEmpty else {
-            router.showError(with: "Название вкуса не введено")
+            router.showError(with: R.string.localizable.addTasteEmptyTaste())
             return
         }
         guard !selectedTypes.isEmpty else {
-            router.showError(with: "Нужно выбрать хотя бы один тип вкуса")
+            router.showError(with: R.string.localizable.addTasteEmptyType())
             return
         }
         interactor.addTaste(nameTaste: taste, selectedTypes: selectedTypes)
@@ -113,7 +116,7 @@ extension AddTastePresenter: AddTasteViewOutputProtocol {
 
     func didAddNewType(_ newType: String) {
         guard !newType.isEmpty else {
-            router.showError(with: "Название типа вкуса не введено")
+            router.showError(with: R.string.localizable.addTasteEmptyAddType())
             return
         }
         view.showBlockLoading()

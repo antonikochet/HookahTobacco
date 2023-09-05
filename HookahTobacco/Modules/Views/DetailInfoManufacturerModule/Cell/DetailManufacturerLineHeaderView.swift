@@ -50,7 +50,7 @@ final class DetailManufacturerLineHeaderView: UIView {
 
         addSubview(containerView)
         containerView.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview()
+            make.top.bottom.equalToSuperview().inset(LayoutValues.ContainerView.verticPadding)
             make.leading.trailing.equalToSuperview().inset(LayoutValues.ContainerView.horizPadding)
         }
     }
@@ -84,7 +84,6 @@ final class DetailManufacturerLineHeaderView: UIView {
             viewModel.pressedHideTobaccoButton?(viewModel.name)
         }
         button.image = R.image.chevronDown()
-        button.imageColor = R.color.primarySubtitle()
 
         containerView.addSubview(button)
         button.snp.makeConstraints { make in
@@ -110,6 +109,7 @@ struct DetailManufacturerLineHeaderCalculator {
     static func calculateHeightView(width: CGFloat,
                                     with viewModel: DetailManufacturerLineHeaderViewModel) -> CGFloat {
         var height: CGFloat = 0.0
+        height += LayoutValues.ContainerView.verticPadding
         height += LayoutValues.Label.padding
         height += Fonts.nameLabel.lineHeight
         height += LayoutValues.DescriptionLabel.top
@@ -118,6 +118,7 @@ struct DetailManufacturerLineHeaderCalculator {
                                 LayoutValues.DescriptionLabel.horizPadding * 2.0)
         height += viewModel.description.height(width: descriptionWidth, font: Fonts.descriptionLabel)
         height += LayoutValues.DescriptionLabel.bottom
+        height += LayoutValues.ContainerView.verticPadding
         return height
     }
 }
@@ -125,6 +126,7 @@ struct DetailManufacturerLineHeaderCalculator {
 private struct LayoutValues {
     struct ContainerView {
         static let horizPadding: CGFloat = 8.0
+        static let verticPadding: CGFloat = 8.0
     }
     struct Label {
         static let padding: CGFloat = 10.0

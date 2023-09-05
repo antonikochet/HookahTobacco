@@ -19,81 +19,75 @@ struct AddTastesTableCellViewModel {
 class AddTastesTableViewCell: UITableViewCell, ConfigurableCell {
 
     // MARK: - Private properties
-    private var checkmarkWidthConstraint: Constraint?
+    private var typeLabelTrainingConstraint: Constraint?
 
     // MARK: - Private UI
-    private let idLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.appFont(size: 18, weight: .regular)
-        label.numberOfLines = 1
-        label.textAlignment = .center
-        return label
-    }()
-
-    private let tasteLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.appFont(size: 22, weight: .medium)
-        label.numberOfLines = 0
-        return label
-    }()
-
-    private let typeTasteLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.appFont(size: 16, weight: .light)
-        label.numberOfLines = 1
-        label.textAlignment = .right
-        return label
-    }()
-
-    private let checkmarkImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = .label
-        return imageView
-    }()
+    private let idLabel = UILabel()
+    private let tasteLabel = UILabel()
+    private let typeTasteLabel = UILabel()
+    private let checkmarkImageView = IconButton()
 
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setup()
+        setupUI()
     }
 
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setup()
+        fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: - Setup
-    private func setup() {
+    private func setupUI() {
+        setupCell()
+        setupIdLabel()
+        setupTasteLabel()
+        setupCheckmarkImageView()
+        setupTypeTasteLabel()
+    }
+    private func setupCell() {
         selectionStyle = .none
         backgroundColor = .clear
-
+    }
+    private func setupIdLabel() {
+        idLabel.font = UIFont.appFont(size: 18, weight: .regular)
+        idLabel.numberOfLines = 1
+        idLabel.textAlignment = .center
         contentView.addSubview(idLabel)
         idLabel.snp.makeConstraints { make in
             make.leading.top.bottom.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.15)
         }
-
+    }
+    private func setupTasteLabel() {
+        tasteLabel.font = UIFont.appFont(size: 20, weight: .medium)
+        tasteLabel.numberOfLines = 0
         contentView.addSubview(tasteLabel)
         tasteLabel.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview().inset(8.0)
             make.leading.equalTo(idLabel.snp.trailing)
             make.width.equalToSuperview().multipliedBy(0.5)
         }
-
+    }
+    private func setupCheckmarkImageView() {
+        checkmarkImageView.image = R.image.checkmark()
+        checkmarkImageView.isHidden = true
         contentView.addSubview(checkmarkImageView)
         checkmarkImageView.snp.makeConstraints { make in
-            make.height.equalToSuperview().inset(4)
-            checkmarkWidthConstraint = make.width.equalTo(checkmarkImageView.snp.height).constraint
-            make.width.equalTo(0).priority(.medium)
             make.centerY.equalToSuperview()
             make.trailing.equalToSuperview().inset(4)
         }
+    }
+    private func setupTypeTasteLabel() {
+        typeTasteLabel.font = UIFont.appFont(size: 16, weight: .light)
+        typeTasteLabel.numberOfLines = 1
+        typeTasteLabel.textAlignment = .right
         contentView.addSubview(typeTasteLabel)
         typeTasteLabel.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview()
             make.leading.equalTo(tasteLabel.snp.trailing)
-            make.trailing.equalTo(checkmarkImageView.snp.leading).inset(-4)
+            make.trailing.equalToSuperview().inset(8).priority(.medium)
+            typeLabelTrainingConstraint = make.trailing.equalTo(checkmarkImageView.snp.leading).inset(-8).constraint
         }
     }
 
@@ -102,9 +96,7 @@ class AddTastesTableViewCell: UITableViewCell, ConfigurableCell {
         idLabel.text = viewModel.id
         tasteLabel.text = viewModel.taste
         typeTasteLabel.text = viewModel.typeTaste
-        let checkmarkImage = UIImage(systemName: "checkmark.circle.fill")?
-                                .withRenderingMode(.alwaysTemplate)
-        checkmarkImageView.image = viewModel.isSelect ? checkmarkImage : nil
-        checkmarkWidthConstraint?.isActive = viewModel.isSelect
+        checkmarkImageView.isHidden = !viewModel.isSelect
+        typeLabelTrainingConstraint?.isActive = viewModel.isSelect
     }
 }

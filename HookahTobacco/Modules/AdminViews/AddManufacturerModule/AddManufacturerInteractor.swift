@@ -129,8 +129,8 @@ class AddManufacturerInteractor {
 
 extension AddManufacturerInteractor: AddManufacturerInteractorInputProtocol {
     func didEnterDataManufacturer(_ data: AddManufacturerEntity.Manufacturer) {
-       guard let selectedCountry else {
-            presenter.receivedError(with: "Страна произовдителя не введена, поле является обязательным!")
+        guard let selectedCountry else {
+            presenter.receivedError(with: R.string.localizable.addManufacturerCountryEmptyMessage())
             return
         }
         var enterManufacturer = Manufacturer(name: data.name,

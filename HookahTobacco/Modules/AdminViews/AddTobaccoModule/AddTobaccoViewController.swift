@@ -16,7 +16,7 @@ protocol AddTobaccoViewInputProtocol: ViewProtocol {
     func setupContent(_ viewModel: AddTobaccoEntity.ViewModel)
     func setupSelectedManufacturer(_ index: Int)
     func setupSelectedTobaccoLine(_ index: Int)
-    func setupMainImage(_ image: Data?, textButton: String)
+    func setupMainImage(_ image: Data?)
     func updateTasteButton(isShow: Bool)
 }
 
@@ -48,15 +48,14 @@ final class AddTobaccoViewController: HTScrollContentViewController {
     private let descriptionView = AddTextView()
     private let tobaccoLinePickerView = AddPickerView()
     private let imagePickerView = ImageButtonPickerView()
-    private let addedButton = ApplyButton(style: .primary)
+    private let addedButton = ApplyButton(style: .primary )
 
     private var descriptionViewTopToTasteButtonConstraint: Constraint?
 
     // MARK: - ViewController Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        overrideUserInterfaceStyle = .light
+        view.backgroundColor = R.color.primaryBackground()
 
         setupSubviews()
         presenter.viewDidLoad()
@@ -85,8 +84,8 @@ final class AddTobaccoViewController: HTScrollContentViewController {
     }
     private func setupNameView() {
         contentScrollView.addSubview(nameView)
-        nameView.setupView(textLabel: "Название",
-                           placeholder: "Введите название производителя...",
+        nameView.setupView(textLabel: R.string.localizable.addTobaccoNameTextFieldTitle(),
+                           placeholder: R.string.localizable.addTobaccoNameTextFieldPlaceholder(),
                            delegate: self)
         nameView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(topSpacingFromSuperview)
@@ -95,7 +94,7 @@ final class AddTobaccoViewController: HTScrollContentViewController {
     }
     private func setupManufacturerPickerView() {
         contentScrollView.addSubview(manufacturerPickerView)
-        manufacturerPickerView.setupView(text: "Выбрать производителя табака")
+        manufacturerPickerView.setupView(text: R.string.localizable.addTobaccoManufacturerText())
         manufacturerPickerView.delegate = self
         manufacturerPickerView.snp.makeConstraints { make in
             make.top.equalTo(nameView.snp.bottom).offset(spacingBetweenViews)
@@ -112,7 +111,7 @@ final class AddTobaccoViewController: HTScrollContentViewController {
         tasteCollectionView.addGestureRecognizer(tapTasteCollection)
     }
     private func setupTasteButton() {
-        tasteButton.setTitle("Добавить вкусы", for: .normal)
+        tasteButton.setTitle(R.string.localizable.addTobaccoTasteButtonTitle(), for: .normal)
         tasteButton.action = { [weak self] in
             self?.presenter.didTouchSelectedTastes()
         }
@@ -124,7 +123,7 @@ final class AddTobaccoViewController: HTScrollContentViewController {
     }
     private func setupDescriptionView() {
         contentScrollView.addSubview(descriptionView)
-        descriptionView.setupView(textLabel: "Описание табака (не обязательно)")
+        descriptionView.setupView(textLabel: R.string.localizable.addTobaccoDescriptionTitle())
         descriptionView.snp.makeConstraints { make in
             descriptionViewTopToTasteButtonConstraint = make.top.equalTo(tasteButton.snp.bottom).offset(spacingBetweenViews).constraint
             make.top.equalTo(tasteCollectionView.snp.bottom).offset(spacingBetweenViews).priority(.medium)
@@ -133,7 +132,7 @@ final class AddTobaccoViewController: HTScrollContentViewController {
     }
     private func setupTobaccoLinePickerView() {
         contentScrollView.addSubview(tobaccoLinePickerView)
-        tobaccoLinePickerView.setupView(text: "Выбрать линейку табака")
+        tobaccoLinePickerView.setupView(text: R.string.localizable.addTobaccoTobaccoLineTitle())
         tobaccoLinePickerView.delegate = self
         tobaccoLinePickerView.snp.makeConstraints { make in
             make.top.equalTo(descriptionView.snp.bottom).offset(spacingBetweenViews)
@@ -214,8 +213,7 @@ extension AddTobaccoViewController: AddTobaccoViewInputProtocol {
         changeTobaccoLinePickerView(by: index)
     }
 
-    func setupMainImage(_ image: Data?, textButton: String) {
-//        imagePickerView.textButton = textButton
+    func setupMainImage(_ image: Data?) {
         if let image = image {
             imagePickerView.image = UIImage(data: image)
         }

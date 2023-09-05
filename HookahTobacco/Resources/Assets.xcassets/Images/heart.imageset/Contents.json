@@ -3,6 +3,16 @@
     {
       "filename" : "heart.svg",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "dark=true,type=stroke.svg",
+      "idiom" : "universal"
     }
   ],
   "info" : {

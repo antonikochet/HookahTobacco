@@ -17,9 +17,9 @@ class AddTobaccoPresenter {
     var router: AddTobaccoRouterProtocol!
 
     // MARK: - Private properties
-    private var manufacturerSelectItems: [String] = ["-"]
+    private var manufacturerSelectItems: [String] = [.dash]
     private var tasteViewModels: [TasteCollectionCellViewModel] = []
-    private var tobaccoLinesSelectItems: [String] = ["Отсутствует"]
+    private var tobaccoLinesSelectItems: [String] = [R.string.localizable.generalAbsent()]
     private var tasteDirector: CustomCollectionDirector?
 
     // MARK: - Private methods
@@ -72,22 +72,24 @@ extension AddTobaccoPresenter: AddTobaccoInteractorOutputProtocol {
 
     func showNameManufacturersForSelect(_ names: [String]) {
         manufacturerSelectItems = names
-        manufacturerSelectItems.insert("-", at: 0)
+        manufacturerSelectItems.insert(.dash, at: 0)
     }
 
     func showNameTobaccoLinesForSelect(_ names: [String]) {
         tobaccoLinesSelectItems = names
         if names.isEmpty {
-            tobaccoLinesSelectItems.insert("Отсутствует", at: 0)
-            initialSelectedTobaccoLine("Отсутствует")
+            tobaccoLinesSelectItems.insert(R.string.localizable.generalAbsent(), at: 0)
+            initialSelectedTobaccoLine(R.string.localizable.generalAbsent())
         } else {
-            tobaccoLinesSelectItems.insert("-", at: 0)
-            initialSelectedTobaccoLine("-")
+            tobaccoLinesSelectItems.insert(.dash, at: 0)
+            initialSelectedTobaccoLine(.dash)
         }
     }
 
     func initialDataForPresentation(_ tobacco: AddTobaccoEntity.Tobacco, isEditing: Bool) {
-        let textButton = isEditing ? "Изменить табак" : "Добавить табак"
+        let textButton = (isEditing ?
+                            R.string.localizable.addTobaccoAddButtonEditTitle() :
+                            R.string.localizable.addTobaccoAddButtonAddTitle())
         let viewModel = AddTobaccoEntity.ViewModel(
                             name: tobacco.name,
                             description: tobacco.description,
@@ -114,10 +116,7 @@ extension AddTobaccoPresenter: AddTobaccoInteractorOutputProtocol {
     }
 
     func initialMainImage(_ image: Data?) {
-        let textButton = (image != nil
-                          ? "Изменить изображение"
-                          : "Добавить изображение")
-        view.setupMainImage(image, textButton: textButton)
+        view.setupMainImage(image)
     }
 
     func receivedTastesForEditing(_ tastes: SelectedTastes) {
@@ -134,7 +133,7 @@ extension AddTobaccoPresenter: AddTobaccoInteractorOutputProtocol {
 extension AddTobaccoPresenter: AddTobaccoViewOutputProtocol {
     func pressedButtonAdded(with data: AddTobaccoEntity.EnteredData) {
         guard let name = data.name, !name.isEmpty else {
-            router.showError(with: "Название табака не введено, поле является обязательным!")
+            router.showError(with: R.string.localizable.addTobaccoNameEmptyMessage())
             return
         }
 
@@ -205,4 +204,8 @@ extension AddTobaccoPresenter: AddTastesOutputModule {
     func sendSelectedTastes(_ tastes: [Taste]) {
         interactor.receivedNewSelectedTastes(tastes)
     }
+}
+
+private extension String {
+    static let dash = "-"
 }

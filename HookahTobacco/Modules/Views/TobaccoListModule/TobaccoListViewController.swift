@@ -59,7 +59,6 @@ class TobaccoListViewController: BaseViewController {
             self?.presenter.touchFilterButton()
         }
         filterButton.image = R.image.filter()
-        filterButton.imageColor = R.color.primaryTitle()
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: filterButton)
     }
     private func setupFilterActiveView() {

@@ -32,7 +32,9 @@ class AddManufacturerPresenter {
         var rows: [AbstractCollectionItem] = []
 
         for line in tobaccoLines {
-            let item = TasteCollectionCellViewModel(label: line.isBase ? "Базовая линейка" : line.name)
+            let item = TasteCollectionCellViewModel(
+                label: line.isBase ? R.string.localizable.generalBasicLine() : line.name
+            )
             tobaccoLinesViewModels.append(item)
             let row = CollectionItem<TasteCollectionViewCell>(item: item)
             rows.append(row)
@@ -77,7 +79,9 @@ extension AddManufacturerPresenter: AddManufacturerInteractorOutputProtocol {
         let viewModel = AddManufacturerEntity.ViewModel(
                             name: manufacturer.name,
                             description: manufacturer.description ?? "",
-                            textButton: isEditing ? "Изменить производителя" : "Добавить производителя",
+                            textButton: (isEditing ?
+                                            R.string.localizable.addManufacturerAddButtonEditTitle() :
+                                            R.string.localizable.addManufacturerAddButtonAddTitle()),
                             link: manufacturer.link ?? "",
                             isEnabledAddTobaccoLine: isEditing)
         view.setupContent(viewModel)
@@ -85,10 +89,10 @@ extension AddManufacturerPresenter: AddManufacturerInteractorOutputProtocol {
 
     func initialImage(_ image: Data?) {
         if let image = image {
-            view.setupImageManufacturer(image, textButton: "Изменить изображение")
+            view.setupImageManufacturer(image)
             isImage = true
         } else {
-            view.setupImageManufacturer(nil, textButton: "Добавить изображение")
+            view.setupImageManufacturer(nil)
             isImage = false
         }
     }
@@ -98,7 +102,7 @@ extension AddManufacturerPresenter: AddManufacturerInteractorOutputProtocol {
     }
 
     func changeTobaccoLine(for id: Int, _ line: TobaccoLine) {
-        let name = line.isBase ? "Базовая линейка" : line.name
+        let name = line.isBase ? R.string.localizable.generalBasicLine() : line.name
         editingTobaccoLineIndex = tobaccoLinesViewModels.firstIndex(where: { $0.label == name })
         router.showAddTobaccoLineView(for: id, editing: line, delegate: self)
     }
@@ -106,11 +110,11 @@ extension AddManufacturerPresenter: AddManufacturerInteractorOutputProtocol {
     func initialCounties(_ countries: [Country]) {
         self.countries = countries.map { $0.name }
         if self.countries.isEmpty {
-            self.countries.insert("Отсутствует", at: 0)
-            showCountryForSelect("Отсутствует")
+            self.countries.insert(R.string.localizable.generalAbsent(), at: 0)
+            showCountryForSelect(R.string.localizable.generalAbsent())
         } else {
-            self.countries.insert("-", at: 0)
-            showCountryForSelect("-")
+            self.countries.insert(.dash, at: 0)
+            showCountryForSelect(.dash)
         }
     }
 
@@ -128,11 +132,11 @@ extension AddManufacturerPresenter: AddManufacturerInteractorOutputProtocol {
 extension AddManufacturerPresenter: AddManufacturerViewOutputProtocol {
     func pressedAddButton(with enteredData: AddManufacturerEntity.EnterData) {
         guard let name = enteredData.name, !name.isEmpty else {
-            router.showError(with: "Название производства не введено, поле является обязательным!")
+            router.showError(with: R.string.localizable.addManufacturerNameEmptyMessage())
             return
         }
         guard isImage else {
-            router.showError(with: "Не выбрано изображение")
+            router.showError(with: R.string.localizable.addManufacturerImageEmptyMessage())
             return
         }
 
@@ -162,7 +166,7 @@ extension AddManufacturerPresenter: AddManufacturerViewOutputProtocol {
 
     func pressedAddTobaccoLine() {
         guard let id = interactor.manufacturerId else {
-            router.showError(with: "Для добавления линеек табака нужно добавить производителя на сервер")
+            router.showError(with: R.string.localizable.addManufacturerNotIdManufacturerEmptyMessage())
             return
         }
         editingTobaccoLineIndex = nil
@@ -179,7 +183,7 @@ extension AddManufacturerPresenter: AddManufacturerViewOutputProtocol {
 
     func receiveRowCountry(by index: Int) -> String {
         guard index < countries.count else {
-            return "Отсутствует"
+            return R.string.localizable.generalAbsent()
         }
         return countries[index]
     }
@@ -208,4 +212,8 @@ extension AddManufacturerPresenter: AddCountryOutputModule {
     func send(_ countries: [Country]) {
         interactor.receivedCountriesAfterUpdate(countries)
     }
+}
+
+private extension String {
+    static let dash = "-"
 }

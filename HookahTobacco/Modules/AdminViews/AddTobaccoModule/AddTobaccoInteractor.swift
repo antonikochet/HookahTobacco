@@ -119,9 +119,12 @@ class AddTobaccoInteractor {
               let manufacturer = receiveSelectedManufacturer(by: tobacco.idManufacturer) else { return }
         selectedManufacturer = manufacturer
         presenter.initialSelectedManufacturer(manufacturer.name)
-        presenter.showNameTobaccoLinesForSelect(manufacturer.lines.map { $0.isBase ? "Базовая линейка" : $0.name })
+        presenter.showNameTobaccoLinesForSelect(
+            manufacturer.lines.map { $0.isBase ? R.string.localizable.generalBasicLine() : $0.name })
         selectedTobaccoLine = tobacco.line
-        presenter.initialSelectedTobaccoLine(selectedTobaccoLine.flatMap { $0.isBase ? "Базовая линейка" : $0.name })
+        presenter.initialSelectedTobaccoLine(selectedTobaccoLine.flatMap {
+            $0.isBase ? R.string.localizable.generalBasicLine() : $0.name
+        })
         initialTastes()
     }
 
@@ -145,12 +148,12 @@ extension AddTobaccoInteractor: AddTobaccoInteractorInputProtocol {
     func sendNewTobaccoToServer(_ data: AddTobaccoEntity.Tobacco) {
         guard let selectManufacturer = selectedManufacturer,
               selectManufacturer.uid != -1 else {
-            presenter.receivedError(with: "Не выбран производитель для табака!")
+            presenter.receivedError(with: R.string.localizable.addTobaccoManufacturerEmptyMessage())
             return
         }
         guard let selectTobaccoLine = selectedTobaccoLine,
               selectTobaccoLine.uid != -1 else {
-            presenter.receivedError(with: "Не выбрана линейка табака!")
+            presenter.receivedError(with: R.string.localizable.addTobaccoTobaccoLineEmptyMessage())
             return
         }
         var tobacco = Tobacco(uid: tobacco?.uid ?? -1,
@@ -173,7 +176,7 @@ extension AddTobaccoInteractor: AddTobaccoInteractorInputProtocol {
             setTobacco(tobacco)
         } else {
             guard let imageFileURL = mainImageFileURL else {
-                presenter.receivedError(with: "Изображение не было выбрано для табака!")
+                presenter.receivedError(with: R.string.localizable.addTobaccoImageEmptyMessage())
                 return
             }
             addTobacco(tobacco, by: imageFileURL)
@@ -183,13 +186,13 @@ extension AddTobaccoInteractor: AddTobaccoInteractorInputProtocol {
     func didSelectedManufacturer(_ name: String) {
         selectedManufacturer = manufacturers?.first(where: { name == $0.name })
         presenter.showNameTobaccoLinesForSelect(
-            selectedManufacturer?.lines.map { $0.isBase ? "Базовая линейка" : $0.name } ?? []
+            selectedManufacturer?.lines.map { $0.isBase ? R.string.localizable.generalBasicLine() : $0.name } ?? []
         )
     }
 
     func didSelectedTobaccoLine(_ name: String) {
         selectedTobaccoLine = selectedManufacturer?.lines.first(where: {
-            name == $0.name || ($0.isBase && name == "Базовая линейка")
+            name == $0.name || ($0.isBase && name == R.string.localizable.generalBasicLine())
         })
     }
 
@@ -218,7 +221,7 @@ extension AddTobaccoInteractor: AddTobaccoInteractorInputProtocol {
                                              isEditing: isEditing)
         presenter.initialSelectedManufacturer(manufacturer?.name)
         presenter.initialSelectedTobaccoLine(
-            selectedTobaccoLine.flatMap { $0.isBase ? "Базовая линейка" : $0.name }
+            selectedTobaccoLine.flatMap { $0.isBase ? R.string.localizable.generalBasicLine() : $0.name }
         )
         presenter.initialMainImage(editingMainImage)
     }

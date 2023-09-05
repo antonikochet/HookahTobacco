@@ -23,6 +23,7 @@ final class CustomCollectionView: UICollectionView {
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         addGestureRecognizer(tap)
         isUserInteractionEnabled = true
+        backgroundColor = .clear
         snp.makeConstraints { $0.height.equalTo(0) }
     }
 

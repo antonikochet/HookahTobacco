@@ -64,7 +64,7 @@ final class ManufacturerListTableViewCell: UITableViewCell, ConfigurableCell {
         containerView.addSubview(imageManufacturerView)
         imageManufacturerView.snp.makeConstraints { make in
             make.leading.top.bottom.equalToSuperview().inset(8.0)
-            make.size.lessThanOrEqualTo(90.0)
+            make.size.equalTo(90.0).priority(999)
         }
     }
     private func setupNameLabel() {

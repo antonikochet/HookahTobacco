@@ -36,8 +36,8 @@ class AdminMenuViewController: UIViewController {
     // MARK: - Lifecycle ViewController
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Меню"
-        view.backgroundColor = .systemBackground
+        navigationItem.title = R.string.localizable.adminMenuTitle()
+        view.backgroundColor = R.color.primaryBackground()
 
         setupSubviews()
         setupRightButtonNavigationBar()
@@ -45,31 +45,31 @@ class AdminMenuViewController: UIViewController {
 
     // MARK: - Setups
     private func setupSubviews() {
-        addManufacturer.setTitle("Добавить производителя", for: .normal)
+        addManufacturer.setTitle(R.string.localizable.adminMenuAddManufacturerTitle(), for: .normal)
         addManufacturer.action = { [weak self] in
             self?.presenter.pressedAddManufacturerButton()
         }
         addManufacturer.setupButton(superView: view, topViewConstraint: view.safeAreaLayoutGuide.snp.top)
 
-        addTobacco.setTitle("Добавить табак", for: .normal)
+        addTobacco.setTitle(R.string.localizable.adminMenuAddTobaccoTitle(), for: .normal)
         addTobacco.action = { [weak self] in
             self?.presenter.pressedAddTobaccoButton()
         }
         addTobacco.setupButton(superView: view, topViewConstraint: addManufacturer.snp.bottom)
 
-        editManufacturer.setTitle("Изменить производителей", for: .normal)
+        editManufacturer.setTitle(R.string.localizable.adminMenuEditManufacturerTitle(), for: .normal)
         editManufacturer.action = { [weak self] in
             self?.presenter.pressedEditManufacturers()
         }
         editManufacturer.setupButton(superView: view, topViewConstraint: addTobacco.snp.bottom)
 
-        editTobacco.setTitle("Изменить табаки", for: .normal)
+        editTobacco.setTitle(R.string.localizable.adminMenuEditTobaccoTitle(), for: .normal)
         editTobacco.action = { [weak self] in
             self?.presenter.pressedEditTobacco()
         }
         editTobacco.setupButton(superView: view, topViewConstraint: editManufacturer.snp.bottom)
 
-        upgradeDBVersion.setTitle("Повысить версию базы данных", for: .normal)
+        upgradeDBVersion.setTitle(R.string.localizable.adminMenuUpgradeVersionTitle(), for: .normal)
         upgradeDBVersion.action = { [weak self] in
             self?.presenter.pressedUpgradeBDVersion()
         }
@@ -77,10 +77,11 @@ class AdminMenuViewController: UIViewController {
     }
 
     private func setupRightButtonNavigationBar() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "log out",
-                                                            style: .done,
-                                                            target: self,
-                                                            action: #selector(touchRightButtonNavBar))
+        let button = UIButton()
+        button.setTitle(R.string.localizable.adminMenuLogoutTitle(), for: .normal)
+        button.setTitleColor(R.color.primarySubtitle(), for: .normal)
+        button.addTarget(self, action: #selector(touchRightButtonNavBar), for: .touchUpInside)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
     }
 
     @objc

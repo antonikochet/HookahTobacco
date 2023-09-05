@@ -69,17 +69,15 @@ class AddTobaccoLineViewController: HTScrollContentViewController, BottomSheetPr
                                   bottomConstant: -spacingBetweenViews)
     }
     private func setupView() {
-        view.backgroundColor = .white
+        view.backgroundColor = R.color.primaryBackground()
     }
     private func setupCloseButton() {
         closeButton.action = { [weak self] in
             self?.presenter.pressedCloseButton()
         }
         closeButton.buttonSize = 36.0
-        closeButton.backgroundColor = .systemGray3
-        closeButton.image = UIImage(systemName: "multiply")
-        closeButton.imageColor = .white
-        closeButton.createCornerRadius()
+        closeButton.imageSize = 36.0
+        closeButton.image = R.image.close()
         contentScrollView.addSubview(closeButton)
         closeButton.snp.makeConstraints { make in
             make.leading.top.equalToSuperview().offset(sidePadding)
@@ -87,8 +85,8 @@ class AddTobaccoLineViewController: HTScrollContentViewController, BottomSheetPr
     }
     private func setupNameView() {
         contentScrollView.addSubview(nameView)
-        nameView.setupView(textLabel: "Название линейки",
-                           placeholder: "Введите название линейки",
+        nameView.setupView(textLabel: R.string.localizable.addTobaccoLineNameTextFieldTitle(),
+                           placeholder: R.string.localizable.addTobaccoLineNameTextFieldPlaceholder(),
                            delegate: self)
         nameView.snp.makeConstraints { make in
             make.top.equalTo(closeButton.snp.bottom).offset(topMargin)
@@ -97,9 +95,11 @@ class AddTobaccoLineViewController: HTScrollContentViewController, BottomSheetPr
     }
     private func setupPacketingFormatsView() {
         contentScrollView.addSubview(packetingFormatsView)
-        packetingFormatsView.setupView(textLabel: "Вес упаковок",
-                                       placeholder: "Введите вес через запятую",
-                                       delegate: self)
+        packetingFormatsView.setupView(
+            textLabel: R.string.localizable.addTobaccoLinePacketingFormatsTextFieldTitle(),
+            placeholder: R.string.localizable.addTobaccoLinePacketingFormatsTextFieldPlaceholder(),
+            delegate: self
+        )
         packetingFormatsView.snp.makeConstraints { make in
             make.top.equalTo(nameView.snp.bottom).offset(topMargin)
             make.leading.trailing.equalToSuperview().inset(sidePadding)
@@ -138,7 +138,7 @@ class AddTobaccoLineViewController: HTScrollContentViewController, BottomSheetPr
     private func setupDescriptionView() {
         contentScrollView.addSubview(descriptionView)
         descriptionView.heightTextView = 120
-        descriptionView.setupView(textLabel: "Описание", delegate: self)
+        descriptionView.setupView(textLabel: R.string.localizable.addTobaccoLineDescriptionTitle(), delegate: self)
         descriptionView.snp.makeConstraints { make in
             make.top.equalTo(tobaccoLeafTypeView.snp.bottom).offset(topMargin)
             make.leading.trailing.equalToSuperview().inset(sidePadding)
@@ -146,7 +146,7 @@ class AddTobaccoLineViewController: HTScrollContentViewController, BottomSheetPr
         }
     }
     private func setupDoneButton() {
-        doneButton.setTitle("Готово", for: .normal)
+        doneButton.setTitle(R.string.localizable.addTobaccoLineAddButtonTitle(), for: .normal)
         doneButton.action = { [weak self] in
             guard let self else { return }
             self.presenter.pressedDoneButton(AddTobaccoLineEntity.ViewModel(
@@ -192,11 +192,17 @@ extension AddTobaccoLineViewController: AddTobaccoLineViewInputProtocol {
     func setupView(_ viewModel: AddTobaccoLineEntity.EnterData) {
         nameView.text = viewModel.name
         packetingFormatsView.text = viewModel.packetingFormats
-        tobaccoTypeView.setupView(textLabel: "Тип табака", segmentTitles: viewModel.tobaccoTypes)
+        tobaccoTypeView.setupView(
+            textLabel: R.string.localizable.addTobaccoLineTypeTitle(),
+            segmentTitles: viewModel.tobaccoTypes)
         tobaccoTypeView.selectedIndex = viewModel.selectedTobaccoTypeIndex
-        baseSwitchView.setupView(textLabel: "Базовая линейка: ", isOn: viewModel.isBaseLine)
+        baseSwitchView.setupView(
+            textLabel: R.string.localizable.addTobaccoLineSwitchTitle(),
+            isOn: viewModel.isBaseLine)
         if viewModel.isBaseLine { nameView.disableTextField() } else { nameView.enableTextField() }
-        tobaccoLeafTypeView.setupView(textLabel: "Типы листа табака", segmentTitles: viewModel.tobaccoLeafTypes)
+        tobaccoLeafTypeView.setupView(
+            textLabel: R.string.localizable.addTobaccoLineTypeLeafTitle(),
+            segmentTitles: viewModel.tobaccoLeafTypes)
         tobaccoLeafTypeView.selectedIndex = viewModel.selectedTobaccoLeafTypeIndex
         defineHiddenTobaccoLeafView(index: viewModel.selectedTobaccoTypeIndex)
         descriptionView.text = viewModel.description

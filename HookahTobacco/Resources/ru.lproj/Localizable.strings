@@ -12,8 +12,10 @@
 "general.clear" = "Очистить";
 "general.allClear" = "очистить все";
 "general.close" = "Закрыть";
+"general.absent" = "Отсутствует";
+"general.basicLine" = "Базовая линейка";
 
-// MARK: - Tobacco list
+// MARK: - TobaccoList screen
 "searchBar.placeholder.text" = "Поиск";
 "title.none" = "Табаки";
 "title.favorite" = "Любимые табаки";
@@ -29,17 +31,17 @@
 "add.want.message" = "Вы добавили табак в список \"Хочу купить\"";
 "delete.want.message" = "Вы убрали табак из списка \"Хочу купить\"";
 
-// MARK: - Tobacco filter
+// MARK: - TobaccoFilter screen
 "tobaccoFilter.empty.title" = "Фильтров нет";
 "tobaccoFilter.empty.message" = "По вашему выбору нет табаков";
 "tobaccoFilter.empty.button.title" = "Сбросить фильтра";
 "tobaccoFilter.applyButton.title" = "Применить фильтры";
 
-// MARK: - Manufacturer list
+// MARK: - ManufacturerList screen
 "manufacteurerList.title" = "Производители табаков";
 "manufacteurerList.empty.title" = "Производителей нет";
 
-// MARK: - Manufacturer detail
+// MARK: - ManufacturerDetail screen
 "manufacteurerDetail.country.title" = "Страна производителя: %@";
 "manufacteurerDetail.description.title" = "Описание: \n%@";
 "manufacteurerDetail.link.title" = "Сайт производителя: %@";
@@ -47,8 +49,82 @@
 "manufacteurerDetail.empty.title" = "Упс... Список табаков пуст";
 "manufacteurerDetail.empty.message" = "В базу данных еще не внесли табаки производителя...";
 
-// MARK: Profile screen
+// MARK: - Profile screen
 "profile.logout" = "Выйти";
 "profile.adminButton.title" = "Меню админа";
 "profile.favoriteButton.title" = "Мне нравится";
 "profile.wantToBuyButton.title" = "Хочу купить";
+
+// MARK: - Admin screens
+// MARK: - AddTaste screen
+"addTaste.addButton.add" = "Добавить вкус";
+"addTaste.addButton.edit" = "Изменить вкус";
+"addTaste.empty.taste" = "Название вкуса не введено";
+"addTaste.empty.type" = "Нужно выбрать хотя бы один тип вкуса";
+"addTaste.empty.addType" = "Название типа вкуса не введено";
+"addTaste.tasteTextField.text" = "Вкус";
+"addTaste.tasteTextField.placeholder" = "Введите вкус";
+"addTaste.typeLabel.text" = "Выбрать тип вкуса табака";
+"addTaste.addTypeButton.title" = "Добавить тип вкуса";
+"addTaste.typeTextField.text" = "Название типа вкуса";
+"addTaste.typeTextField.placeholder" = "Введите название";
+"addTaste.typeAddButton.title" = "Создать тип";
+
+// MARK: - AddTastes screen
+"addTastes.title" = "Добавление вкусов";
+"addTastes.search.placeholder" = "Фильтр вкусов";
+"addTastes.navbar.done" = "Готово";
+
+// MARK: - AdminMenu screen
+"adminMenu.title" = "Меню";
+"adminMenu.addManufacturer.title" = "Добавить производителя";
+"adminMenu.editManufacturer.title" = "Изменить производителей";
+"adminMenu.addTobacco.title" = "Добавить табак";
+"adminMenu.editTobacco.title" = "Изменить табаки";
+"adminMenu.upgradeVersion.title" = "Повысить версию базы данных";
+"adminMenu.logout.title" = "Выйти";
+
+// MARK: - AddTobacco screen
+"addTobacco.addButton.add.title" = "Добавить табак";
+"addTobacco.addButton.edit.title" = "Изменить табак";
+"addTobacco.name.empty.message" = "Название табака не введено, поле является обязательным!";
+"addTobacco.manufacturer.empty.message" = "Не выбран производитель для табака!";
+"addTobacco.tobaccoLine.empty.message" = "Не выбрана линейка табака!";
+"addTobacco.image.empty.message" = "Изображение не было выбрано для табака!";
+"addTobacco.nameTextField.title" = "Название";
+"addTobacco.nameTextField.placeholder" = "Введите название табака...";
+"addTobacco.manufacturer.text" = "Выбрать производителя табака";
+"addTobacco.tasteButton.title" = "Добавить вкусы";
+"addTobacco.description.title" = "Описание табака (не обязательно)";
+"addTobacco.tobaccoLine.title" = "Выбрать линейку табака";
+
+// MARK: - AddManufacturer screen
+"addManufacturer.addButton.add.title" = "Добавить производителя";
+"addManufacturer.addButton.edit.title" = "Изменить производителя";
+"addManufacturer.name.empty.message" = "Название производства не введено, поле является обязательным!";
+"addManufacturer.image.empty.message" = "Не выбрано изображение";
+"addManufacturer.country.empty.message" = "Страна производителя не введена, поле является обязательным!";
+"addManufacturer.notIdManufacturer.empty.message" = "Для добавления линеек табака нужно добавить производителя на сервер";
+"addManufacturer.nameTextField.title" = "Название";
+"addManufacturer.nameTextField.placeholder" = "Введите название производителя...";
+"addManufacturer.country.text" = "Страна производителя";
+"addManufacturer.description.title" = "Описание производителя (не обязательно)";
+"addManufacturer.linkTextField.title" = "Ссылка на сайт производител (не обяз.)";
+"addManufacturer.linkTextField.placeholder" = "Введите ссылку";
+"addManufacturer.addTobaccoLineButton.title" = "Добавить Линейку табаков";
+
+// MARK: - AddTobaccoLine screen
+"addTobaccoLine.name.empty.message" = "Имя линейки табака не введено";
+"addTobaccoLine.packetingFormats.empty.message" = "Не введен вес упаковок в линейке";
+"addTobaccoLine.type.empty.message" = "Не выбран тип табака";
+"addTobaccoLine.description.empty.message" = "Описание линейки табака не введено";
+"addTobaccoLine.typeleaf.empty.message" = "Сорта табаков не выбраны для линейки";
+"addTobaccoLine.nameTextField.title" = "Название линейки";
+"addTobaccoLine.nameTextField.placeholder" = "Введите название линейки";
+"addTobaccoLine.packetingFormatsTextField.title" = "Вес упаковок";
+"addTobaccoLine.packetingFormatsTextField.placeholder" = "Введите вес через запятую";
+"addTobaccoLine.description.title" = "Описание";
+"addTobaccoLine.addButton.title" = "Готово";
+"addTobaccoLine.type.title" = "Тип табака";
+"addTobaccoLine.switch.title" = "Базовая линейка: ";
+"addTobaccoLine.typeLeaf.title" = "Типы листа табака";
