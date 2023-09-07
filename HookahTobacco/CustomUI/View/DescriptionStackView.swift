@@ -63,7 +63,6 @@ final class DescriptionStackView: UIView {
     private func setupStackView() {
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
-        stackView.spacing = LayoutValues.StackView.spacing
 
         addSubview(stackView)
         stackView.snp.makeConstraints { make in

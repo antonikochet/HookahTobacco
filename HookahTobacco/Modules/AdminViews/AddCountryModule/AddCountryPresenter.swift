@@ -32,7 +32,8 @@ class AddCountryPresenter {
             let row = TableRow<AddCountryTableViewCell>(item: item).on(.click) { [weak self] options in
                 guard let self else { return }
                 self.editingCountry = options.item.country
-                self.view.showAddView(text: options.item.country.name, titleButton: "Изменить страну")
+                self.view.showAddView(text: options.item.country.name,
+                                      titleButton: R.string.localizable.addCountryAddButtonEditTitle())
             }
             rows.append(row)
         }
@@ -91,12 +92,12 @@ extension AddCountryPresenter: AddCountryViewOutputProtocol {
     }
 
     func pressedAddButton() {
-        view.showAddView(text: "", titleButton: "Добавить страну")
+        view.showAddView(text: "", titleButton: R.string.localizable.addCountryAddButtonAddTitle())
     }
 
     func pressedAddNewButton(_ name: String) {
         guard !name.isEmpty else {
-            router.showError(with: "Не введено название страны")
+            router.showError(with: R.string.localizable.addCountryNameEmptyMessage())
             return
         }
         view.showBlockLoading()

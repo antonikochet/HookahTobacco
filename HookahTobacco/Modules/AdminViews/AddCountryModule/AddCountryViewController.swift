@@ -34,7 +34,7 @@ class AddCountryViewController: BaseViewController {
     private let addTextFieldView = AddTextFieldView()
     private let addNewButton = ApplyButton(style: .primary)
     private let closeAddViewButton = IconButton()
-    private let tableView = UITableView(frame: .zero, style: .grouped)
+    private let tableView = UITableView()
 
     private var tableViewTopToAddButtonConstraint: Constraint?
     private var tableViewTopToAddViewConstraint: Constraint?
@@ -63,54 +63,53 @@ class AddCountryViewController: BaseViewController {
         setupTableView()
     }
     private func setupView() {
-        title = "Добавление стран"
-        view.backgroundColor = .systemBackground
+        title = R.string.localizable.addCountryTitle()
+        view.backgroundColor = R.color.primaryBackground()
     }
     private func setupAddCountryButton() {
-        addButton.setTitle("Добавить новую страну", for: .normal)
+        addButton.setTitle(R.string.localizable.addCountryAddNewCountryButtonTitle(), for: .normal)
         addButton.action = { [weak self] in
             self?.presenter.pressedAddButton()
         }
         view.addSubview(addButton)
         addButton.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(spacingBetweenViews)
-            make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(16.0)
+            make.leading.trailing.equalToSuperview().inset(32.0)
         }
     }
     private func setupAddView() {
         view.addSubview(addView)
         addView.layer.cornerRadius = 12
-        addView.layer.borderColor = UIColor.black.cgColor
+        addView.layer.borderColor = R.color.primaryBlack()?.cgColor
         addView.layer.borderWidth = 1.0
         addView.clipsToBounds = true
-        addView.backgroundColor = .systemGray6
+        addView.backgroundColor = R.color.secondaryBackground()
         addView.isHidden = true
         addView.snp.makeConstraints { make in
-            make.top.equalTo(addButton.snp.bottom).offset(spacingBetweenViews)
-            make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
+            make.top.equalTo(addButton.snp.bottom).offset(16.0)
+            make.leading.trailing.equalToSuperview().inset(32.0)
         }
     }
     private func setupAddTextFieldView() {
         addView.addSubview(addTextFieldView)
-        addTextFieldView.setupView(textLabel: "Название страны",
-                                   placeholder: "Введите название")
+        addTextFieldView.setupView(textLabel: R.string.localizable.addCountryCountryTextFieldText(),
+                                   placeholder: R.string.localizable.addCountryCountryTextFieldPlaceholder())
         addTextFieldView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(spacingBetweenViews)
-            make.leading.trailing.equalToSuperview().inset(spacingBetweenViews)
+            make.top.equalToSuperview().offset(16.0)
+            make.leading.trailing.equalToSuperview().inset(32.0)
         }
     }
     private func setupAddNewCountryButton() {
-        addNewButton.setTitle("Добавить страну", for: .normal)
+        addNewButton.setTitle(R.string.localizable.addCountryAddButtonAddTitle(), for: .normal)
         addNewButton.action = { [weak self] in
             guard let self else { return }
             self.presenter.pressedAddNewButton(self.addTextFieldView.text ?? "")
         }
         addView.addSubview(addNewButton)
         addNewButton.snp.makeConstraints { make in
-            make.top.equalTo(addTextFieldView.snp.bottom).offset(spacingBetweenViews)
-            make.leading.trailing.equalToSuperview().inset(spacingBetweenViews)
-            make.height.equalTo(40)
-            make.bottom.equalToSuperview().inset(spacingBetweenViews)
+            make.top.equalTo(addTextFieldView.snp.bottom).offset(16.0)
+            make.leading.trailing.equalToSuperview().inset(16.0)
+            make.bottom.equalToSuperview().inset(16.0)
         }
     }
     private func setupCloseAddViewButton() {
@@ -119,16 +118,15 @@ class AddCountryViewController: BaseViewController {
             guard let self else { return }
             self.presenter.pressedCloseAddView()
         }
-        closeAddViewButton.imageSize = 20.0
-        closeAddViewButton.image = UIImage(systemName: "multiply")
-        closeAddViewButton.backgroundColor = .systemGray2
-        closeAddViewButton.imageColor = .white
-        closeAddViewButton.createCornerRadius()
+        closeAddViewButton.image = R.image.close()
         closeAddViewButton.snp.makeConstraints { make in
             make.top.trailing.equalToSuperview().inset(10)
         }
     }
     private func setupTableView() {
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0.0
+        }
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             tableViewTopToAddViewConstraint = make.top.equalTo(addView.snp.bottom)

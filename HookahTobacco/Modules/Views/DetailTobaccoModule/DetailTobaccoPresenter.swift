@@ -25,20 +25,27 @@ class DetailTobaccoPresenter {
     }
 
     private func createViewModel(_ tobacco: Tobacco) -> DetailTobaccoViewModel {
-        let description = !tobacco.description.isEmpty ? .description + tobacco.description : nil
-        let packetingFormat = tobacco.line.packetingFormat.compactMap { String($0) + .gram }
-                                                          .joined(separator: ", ")
+        let description = (!tobacco.description.isEmpty ?
+                           R.string.localizable.detailTobaccoDescriptionTitle(tobacco.description) :
+                            nil)
+        let packetingFormat = tobacco.line.packetingFormat.compactMap {
+            String($0) + R.string.localizable.generalGram()
+        }.joined(separator: ", ")
         let tobaccoLeafType = (tobacco.line.tobaccoType.rawValue == TobaccoType.tobacco.rawValue ?
                                tobacco.line.tobaccoLeafType?.map { $0.name }.joined(separator: ", ") :
                                 nil)
         var info: [DescriptionStackViewItem] = []
         if !tobacco.line.isBase {
-            info.append(DescriptionStackViewItem(name: .nameOfLine, description: tobacco.line.name))
+            info.append(DescriptionStackViewItem(name: R.string.localizable.detailTobaccoNameLineTitle(),
+                                                 description: tobacco.line.name))
         }
-        info.append(DescriptionStackViewItem(name: .packagingFormat, description: packetingFormat))
-        info.append(DescriptionStackViewItem(name: .tobaccoType, description: tobacco.line.tobaccoType.name))
+        info.append(DescriptionStackViewItem(name: R.string.localizable.detailTobaccoPackagingFormatTitle(),
+                                             description: packetingFormat))
+        info.append(DescriptionStackViewItem(name: R.string.localizable.detailTobaccoTobaccoTypeTitle(),
+                                             description: tobacco.line.tobaccoType.name))
         if let tobaccoLeafType {
-            info.append(DescriptionStackViewItem(name: .tobaccoLeafType, description: tobaccoLeafType))
+            info.append(DescriptionStackViewItem(name: R.string.localizable.detailTobaccoTobaccoLeafTypeTitle(),
+                                                 description: tobaccoLeafType))
         }
 
         return DetailTobaccoViewModel(
@@ -89,13 +96,4 @@ extension DetailTobaccoPresenter: DetailTobaccoViewOutputProtocol {
         tasteDirector = CustomCollectionDirector(collectionView: tasteCollectionView)
         interactor.receiveStartingDataView()
     }
-}
-
-private extension String {
-    static let description = "Описание: "
-    static let gram = " гр."
-    static let nameOfLine = "Название линейки"
-    static let packagingFormat = "Формат фасовки табака"
-    static let tobaccoType = "Тип табака"
-    static let tobaccoLeafType = "Типы листа"
 }

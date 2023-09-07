@@ -38,10 +38,15 @@ class DetailTobaccoViewController: HTScrollContentViewController {
     private let infoStackView = UIStackView()
     private let descriptionLabel = UILabel()
     private let nameManufacturerLabel = UILabel()
+
+    override var stackViewInset: UIEdgeInsets {
+        UIEdgeInsets(horizontal: 16.0, vertical: 16.0)
+    }
+
     // MARK: - ViewController Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = R.color.primaryBackground()
 
         setup()
         presenter.viewDidLoad()
@@ -56,74 +61,57 @@ class DetailTobaccoViewController: HTScrollContentViewController {
         setupInfoStackView()
         setupDescriptionLabel()
         setupManufacturerLabel()
-        setupConstrainsScrollView()
+        setupConstrainsScrollView(top: view.safeAreaLayoutGuide.snp.top,
+                                  bottom: view.safeAreaLayoutGuide.snp.bottom)
     }
     private func setupImages() {
+        let view = UIView()
+        stackView.addArrangedSubview(view)
+        view.snp.makeConstraints { make in
+            make.width.equalToSuperview()
+            make.height.equalTo(view.snp.width)
+        }
+
         imageView.contentMode = .scaleAspectFit
 
-        contentScrollView.addSubview(imageView)
+        view.addSubview(imageView)
         imageView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(LayoutValues.ImageView.top)
-            make.leading.trailing.equalToSuperview().inset(LayoutValues.ImageView.horizPadding)
+            make.leading.trailing.equalToSuperview().inset(16.0)
             make.height.equalTo(imageView.snp.width)
         }
     }
     private func setupNameLabel() {
-        nameLabel.font = Fonts.name
+        nameLabel.font = UIFont.appFont(size: 30, weight: .bold)
         nameLabel.textAlignment = .center
         nameLabel.adjustsFontSizeToFitWidth = true
         nameLabel.minimumScaleFactor = 0.7
         nameLabel.numberOfLines = 0
 
-        contentScrollView.addSubview(nameLabel)
-        nameLabel.snp.makeConstraints { make in
-            make.top.equalTo(imageView.snp.bottom).offset(LayoutValues.NameLabel.top)
-            make.leading.trailing.equalToSuperview()
-            make.height.equalTo(nameLabel.font.lineHeight)
-        }
+        stackView.addArrangedSubview(nameLabel)
     }
     private func setupTasteCollectionView() {
-        contentScrollView.addSubview(tasteCollectionView)
-
-        tasteCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(nameLabel.snp.bottom).offset(LayoutValues.TasteCollectionView.top)
-            make.leading.trailing.equalToSuperview().inset(LayoutValues.TasteCollectionView.horizPadding)
-        }
+        stackView.addArrangedSubview(tasteCollectionView)
     }
     private func setupInfoStackView() {
         infoStackView.axis = .vertical
-        infoStackView.spacing = LayoutValues.InfoStackView.spacing
+        infoStackView.spacing = 16.0
         infoStackView.distribution = .fillProportionally
 
-        contentScrollView.addSubview(infoStackView)
-        infoStackView.snp.makeConstraints { make in
-            make.top.equalTo(tasteCollectionView.snp.bottom).offset(LayoutValues.InfoStackView.top)
-            make.leading.trailing.equalToSuperview().inset(LayoutValues.InfoStackView.horizPadding)
-        }
+        stackView.addArrangedSubview(infoStackView)
     }
     private func setupDescriptionLabel() {
-        descriptionLabel.font = Fonts.description
+        descriptionLabel.font = UIFont.appFont(size: 16, weight: .regular)
         descriptionLabel.lineBreakMode = .byWordWrapping
         descriptionLabel.numberOfLines = 0
 
-        contentScrollView.addSubview(descriptionLabel)
-        descriptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(infoStackView.snp.bottom).offset(LayoutValues.DescriptionLabel.top)
-            make.leading.trailing.equalToSuperview().inset(LayoutValues.DescriptionLabel.horizPadding)
-            make.height.equalTo(0)
-        }
+        stackView.addArrangedSubview(descriptionLabel)
     }
     private func setupManufacturerLabel() {
-        nameManufacturerLabel.font = Fonts.nameManufacturer
+        nameManufacturerLabel.font = UIFont.appFont(size: 28, weight: .bold)
         nameManufacturerLabel.textAlignment = .right
         nameManufacturerLabel.numberOfLines = 1
 
-        contentScrollView.addSubview(nameManufacturerLabel)
-        nameManufacturerLabel.snp.makeConstraints { make in
-            make.top.equalTo(descriptionLabel.snp.bottom).offset(LayoutValues.NameManufacturerLabel.top)
-            make.leading.trailing.equalToSuperview().inset(LayoutValues.NameManufacturerLabel.horizPadding)
-            make.bottom.equalToSuperview().inset(LayoutValues.NameManufacturerLabel.bottom)
-        }
+        stackView.addArrangedSubview(nameManufacturerLabel)
     }
 
     // MARK: - Private methods
@@ -154,43 +142,6 @@ extension DetailTobaccoViewController: DetailTobaccoViewInputProtocol {
         nameLabel.text = viewModel.name
         configureInfoStackView(with: viewModel)
         descriptionLabel.text = viewModel.description
-        descriptionLabel.snp.updateConstraints { make in
-            make.height.equalTo(viewModel.description?.height(width: view.frame.width - (sideSpacingConstraint + 2),
-                                                              font: descriptionLabel.font) ?? 0)
-        }
         nameManufacturerLabel.text = viewModel.nameManufacturer
     }
-}
-
-private struct LayoutValues {
-    struct ImageView {
-        static let top: CGFloat = 16.0
-        static let horizPadding: CGFloat = 16.0
-    }
-    struct NameLabel {
-        static let top: CGFloat = 16.0
-    }
-    struct TasteCollectionView {
-        static let top: CGFloat = 16.0
-        static let horizPadding: CGFloat = 32.0
-    }
-    struct InfoStackView {
-        static let spacing: CGFloat = 16.0
-        static let top: CGFloat = 16.0
-        static let horizPadding: CGFloat = 32.0
-    }
-    struct DescriptionLabel {
-        static let top: CGFloat = 16.0
-        static let horizPadding: CGFloat = 32.0
-    }
-    struct NameManufacturerLabel {
-        static let top: CGFloat = 16.0
-        static let horizPadding: CGFloat = 32.0
-        static let bottom: CGFloat = 16.0
-    }
-}
-private struct Fonts {
-    static let name = UIFont.appFont(size: 30, weight: .bold)
-    static let description = UIFont.appFont(size: 16, weight: .regular)
-    static let nameManufacturer = UIFont.appFont(size: 28, weight: .bold)
 }

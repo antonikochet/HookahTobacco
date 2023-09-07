@@ -14,6 +14,7 @@
 "general.close" = "Закрыть";
 "general.absent" = "Отсутствует";
 "general.basicLine" = "Базовая линейка";
+"general.gram" = " гр.";
 
 // MARK: - TobaccoList screen
 "searchBar.placeholder.text" = "Поиск";
@@ -54,6 +55,13 @@
 "profile.adminButton.title" = "Меню админа";
 "profile.favoriteButton.title" = "Мне нравится";
 "profile.wantToBuyButton.title" = "Хочу купить";
+
+// MARK: - DetailTobacco screen
+"detailTobacco.description.title" = "Описание: %@";
+"detailTobacco.nameLine.title" = "Название линейки";
+"detailTobacco.packagingFormat.title" = "Формат фасовки табака";
+"detailTobacco.tobaccoType.title" = "Тип табака";
+"detailTobacco.tobaccoLeafType.title" = "Типы листа";
 
 // MARK: - Admin screens
 // MARK: - AddTaste screen
@@ -128,3 +136,13 @@
 "addTobaccoLine.type.title" = "Тип табака";
 "addTobaccoLine.switch.title" = "Базовая линейка: ";
 "addTobaccoLine.typeLeaf.title" = "Типы листа табака";
+
+// MARK: - AddCountry screen
+"addCountry.title" = "Добавление стран";
+"addCountry.addButton.edit.title" = "Изменить страну";
+"addCountry.addButton.add.title" = "Добавить страну";
+"addCountry.addNewCountryButton.title" = "Добавить новую страну";
+"addCountry.country.error.message" = "В списке нет такой страны с uid: %@";
+"addCountry.countryTextField.text" = "Название страны";
+"addCountry.countryTextField.placeholder" = "Введите название";
+"addCountry.name.empty.message" = "Не введено название страны";

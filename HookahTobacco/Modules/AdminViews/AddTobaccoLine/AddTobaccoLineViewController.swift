@@ -31,8 +31,6 @@ class AddTobaccoLineViewController: HTScrollContentViewController, BottomSheetPr
     var presenter: AddTobaccoLineViewOutputProtocol!
 
     // MARK: - Private properties
-    private let sidePadding: CGFloat = 16.0
-    private let topMargin: CGFloat = 8.0
 
     // MARK: - UI properties
     private let nameView = AddTextFieldView()
@@ -43,6 +41,10 @@ class AddTobaccoLineViewController: HTScrollContentViewController, BottomSheetPr
     private let descriptionView = AddTextView()
     private let doneButton = ApplyButton(style: .primary)
     private let closeButton = IconButton()
+
+    override var stackViewInset: UIEdgeInsets {
+        UIEdgeInsets(horizontal: 16.0, vertical: 16.0)
+    }
 
     // MARK: - ViewController Lifecycle
     override func viewDidLoad() {
@@ -66,84 +68,60 @@ class AddTobaccoLineViewController: HTScrollContentViewController, BottomSheetPr
         setupDoneButton()
         setupConstrainsScrollView(top: view.safeAreaLayoutGuide.snp.top,
                                   bottom: doneButton.snp.top,
-                                  bottomConstant: -spacingBetweenViews)
+                                  bottomConstant: -16.0)
     }
     private func setupView() {
         view.backgroundColor = R.color.primaryBackground()
+        stackView.spacing = 8.0
     }
     private func setupCloseButton() {
+        let view = UIView()
+        stackView.addArrangedSubview(view)
+
         closeButton.action = { [weak self] in
             self?.presenter.pressedCloseButton()
         }
         closeButton.buttonSize = 36.0
         closeButton.imageSize = 36.0
         closeButton.image = R.image.close()
-        contentScrollView.addSubview(closeButton)
+        view.addSubview(closeButton)
         closeButton.snp.makeConstraints { make in
-            make.leading.top.equalToSuperview().offset(sidePadding)
+            make.leading.top.equalToSuperview().offset(8.0)
+            make.bottom.equalToSuperview().inset(8.0)
         }
     }
     private func setupNameView() {
-        contentScrollView.addSubview(nameView)
+        stackView.addArrangedSubview(nameView)
         nameView.setupView(textLabel: R.string.localizable.addTobaccoLineNameTextFieldTitle(),
                            placeholder: R.string.localizable.addTobaccoLineNameTextFieldPlaceholder(),
                            delegate: self)
-        nameView.snp.makeConstraints { make in
-            make.top.equalTo(closeButton.snp.bottom).offset(topMargin)
-            make.leading.trailing.equalToSuperview().inset(sidePadding)
-        }
     }
     private func setupPacketingFormatsView() {
-        contentScrollView.addSubview(packetingFormatsView)
+        stackView.addArrangedSubview(packetingFormatsView)
         packetingFormatsView.setupView(
             textLabel: R.string.localizable.addTobaccoLinePacketingFormatsTextFieldTitle(),
             placeholder: R.string.localizable.addTobaccoLinePacketingFormatsTextFieldPlaceholder(),
             delegate: self
         )
-        packetingFormatsView.snp.makeConstraints { make in
-            make.top.equalTo(nameView.snp.bottom).offset(topMargin)
-            make.leading.trailing.equalToSuperview().inset(sidePadding)
-        }
     }
     private func setupTobaccoTypeView() {
-        contentScrollView.addSubview(tobaccoTypeView)
+        stackView.addArrangedSubview(tobaccoTypeView)
         tobaccoTypeView.delegate = self
-        tobaccoTypeView.snp.makeConstraints { make in
-            make.top.equalTo(packetingFormatsView.snp.bottom).offset(topMargin)
-            make.leading.trailing.equalToSuperview().inset(sidePadding)
-            make.height.equalTo(tobaccoTypeView.heightView)
-        }
     }
     private func setupBaseSwitchView() {
-        contentScrollView.addSubview(baseSwitchView)
+        stackView.addArrangedSubview(baseSwitchView)
         baseSwitchView.didChangeSwitch = { [weak self] isOn in
             guard let self else { return }
             if isOn { nameView.disableTextField() } else { nameView.enableTextField() }
         }
-        baseSwitchView.snp.makeConstraints { make in
-            make.top.equalTo(tobaccoTypeView.snp.bottom).offset(topMargin)
-            make.leading.trailing.equalToSuperview().inset(sidePadding)
-            make.height.equalTo(baseSwitchView.heightView)
-        }
     }
     private func setupTobaccoLeafTypeView() {
-        contentScrollView.addSubview(tobaccoLeafTypeView)
-
-        tobaccoLeafTypeView.snp.makeConstraints { make in
-            make.top.equalTo(baseSwitchView.snp.bottom).offset(topMargin)
-            make.leading.trailing.equalToSuperview().inset(sidePadding)
-            make.height.equalTo(tobaccoLeafTypeView.heightView)
-        }
+        stackView.addArrangedSubview(tobaccoLeafTypeView)
     }
     private func setupDescriptionView() {
-        contentScrollView.addSubview(descriptionView)
+        stackView.addArrangedSubview(descriptionView)
         descriptionView.heightTextView = 120
         descriptionView.setupView(textLabel: R.string.localizable.addTobaccoLineDescriptionTitle(), delegate: self)
-        descriptionView.snp.makeConstraints { make in
-            make.top.equalTo(tobaccoLeafTypeView.snp.bottom).offset(topMargin)
-            make.leading.trailing.equalToSuperview().inset(sidePadding)
-            make.bottom.equalToSuperview()
-        }
     }
     private func setupDoneButton() {
         doneButton.setTitle(R.string.localizable.addTobaccoLineAddButtonTitle(), for: .normal)
@@ -160,7 +138,7 @@ class AddTobaccoLineViewController: HTScrollContentViewController, BottomSheetPr
         }
         view.addSubview(doneButton)
         doneButton.snp.makeConstraints { make in
-            make.top.equalTo(contentScrollView.snp.bottom).offset(sidePadding)
+            make.top.equalTo(contentScrollView.snp.bottom).offset(16.0)
             make.width.equalToSuperview().multipliedBy(0.5)
             make.bottom.equalToSuperview().inset(32.0)
             make.centerX.equalToSuperview()

@@ -10,18 +10,20 @@ import SnapKit
 
 class HTScrollContentViewController: BaseViewController {
     // MARK: - Public UI
-    let contentScrollView = UIView()
+    let stackView = UIStackView()
+    
+    var stackViewInset: UIEdgeInsets {
+        UIEdgeInsets()
+    }
 
     // MARK: - Private UI
+    let contentScrollView = UIView()
     private let scrollView = UIScrollView()
-
-    // MARK: - ViewController Lifecycle
-    override func viewDidLayoutSubviews() {
-        contentScrollView.invalidateIntrinsicContentSize()
-    }
 
     // MARK: - Setups
     func setupSubviews() {
+        scrollView.contentInsetAdjustmentBehavior = .never
+        scrollView.delaysContentTouches = false
         view.addSubview(scrollView)
 
         scrollView.addSubview(contentScrollView)
@@ -30,6 +32,13 @@ class HTScrollContentViewController: BaseViewController {
             make.width.equalToSuperview()
         }
 
+        stackView.axis = .vertical
+        stackView.distribution = .equalSpacing
+        stackView.spacing = 16.0
+        contentScrollView.addSubview(stackView)
+        stackView.snp.makeConstraints {
+            $0.edges.equalToSuperview().inset(stackViewInset)
+        }
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideViewTapped))
         view.addGestureRecognizer(tapGesture)
     }

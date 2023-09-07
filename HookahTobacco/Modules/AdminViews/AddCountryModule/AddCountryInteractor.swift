@@ -93,7 +93,7 @@ extension AddCountryInteractor: AddCountryInteractorInputProtocol {
 
     func editCountry(_ name: String, with uid: Int) {
         guard let index = countries.firstIndex(where: { $0.uid == uid }) else {
-            presenter.receivedError(with: "В списке нет такой страны с uid: \(uid)")
+            presenter.receivedError(with: R.string.localizable.addCountryCountryErrorMessage("\(uid)"))
             return
         }
         let country = countries[index]

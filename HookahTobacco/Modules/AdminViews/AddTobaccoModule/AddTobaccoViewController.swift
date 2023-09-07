@@ -47,10 +47,13 @@ final class AddTobaccoViewController: HTScrollContentViewController {
     private let tasteButton = ApplyButton(style: .primary)
     private let descriptionView = AddTextView()
     private let tobaccoLinePickerView = AddPickerView()
+    private let imageContainerView = UIView()
     private let imagePickerView = ImageButtonPickerView()
     private let addedButton = ApplyButton(style: .primary )
 
-    private var descriptionViewTopToTasteButtonConstraint: Constraint?
+    override var stackViewInset: UIEdgeInsets {
+        UIEdgeInsets(horizontal: 16.0, vertical: 16.0)
+    }
 
     // MARK: - ViewController Lifecycle
     override func viewDidLoad() {
@@ -80,33 +83,21 @@ final class AddTobaccoViewController: HTScrollContentViewController {
         setupImagePickerView()
         setupConstrainsScrollView(top: view.safeAreaLayoutGuide,
                                   bottom: addedButton.snp.top,
-                                  bottomConstant: -spacingBetweenViews)
+                                  bottomConstant: -16.0)
     }
     private func setupNameView() {
-        contentScrollView.addSubview(nameView)
+        stackView.addArrangedSubview(nameView)
         nameView.setupView(textLabel: R.string.localizable.addTobaccoNameTextFieldTitle(),
                            placeholder: R.string.localizable.addTobaccoNameTextFieldPlaceholder(),
                            delegate: self)
-        nameView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(topSpacingFromSuperview)
-            make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
-        }
     }
     private func setupManufacturerPickerView() {
-        contentScrollView.addSubview(manufacturerPickerView)
+        stackView.addArrangedSubview(manufacturerPickerView)
         manufacturerPickerView.setupView(text: R.string.localizable.addTobaccoManufacturerText())
         manufacturerPickerView.delegate = self
-        manufacturerPickerView.snp.makeConstraints { make in
-            make.top.equalTo(nameView.snp.bottom).offset(spacingBetweenViews)
-            make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
-        }
     }
     private func setupTasteCollectionView() {
-        contentScrollView.addSubview(tasteCollectionView)
-        tasteCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(manufacturerPickerView.snp.bottom).offset(spacingBetweenViews)
-            make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
-        }
+        stackView.addArrangedSubview(tasteCollectionView)
         let tapTasteCollection = UITapGestureRecognizer(target: self, action: #selector(touchForSelectTastes))
         tasteCollectionView.addGestureRecognizer(tapTasteCollection)
     }
@@ -115,29 +106,16 @@ final class AddTobaccoViewController: HTScrollContentViewController {
         tasteButton.action = { [weak self] in
             self?.presenter.didTouchSelectedTastes()
         }
-        contentScrollView.addSubview(tasteButton)
-        tasteButton.snp.makeConstraints { make in
-            make.top.equalTo(tasteCollectionView.snp.bottom).offset(spacingBetweenViews)
-            make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
-        }
+        stackView.addArrangedSubview(tasteButton)
     }
     private func setupDescriptionView() {
-        contentScrollView.addSubview(descriptionView)
+        stackView.addArrangedSubview(descriptionView)
         descriptionView.setupView(textLabel: R.string.localizable.addTobaccoDescriptionTitle())
-        descriptionView.snp.makeConstraints { make in
-            descriptionViewTopToTasteButtonConstraint = make.top.equalTo(tasteButton.snp.bottom).offset(spacingBetweenViews).constraint
-            make.top.equalTo(tasteCollectionView.snp.bottom).offset(spacingBetweenViews).priority(.medium)
-            make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
-        }
     }
     private func setupTobaccoLinePickerView() {
-        contentScrollView.addSubview(tobaccoLinePickerView)
+        stackView.addArrangedSubview(tobaccoLinePickerView)
         tobaccoLinePickerView.setupView(text: R.string.localizable.addTobaccoTobaccoLineTitle())
         tobaccoLinePickerView.delegate = self
-        tobaccoLinePickerView.snp.makeConstraints { make in
-            make.top.equalTo(descriptionView.snp.bottom).offset(spacingBetweenViews)
-            make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
-        }
     }
     private func setupAddedButton() {
         addedButton.action = { [weak self] in
@@ -149,21 +127,17 @@ final class AddTobaccoViewController: HTScrollContentViewController {
         }
         view.addSubview(addedButton)
         addedButton.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(spacingBetweenViews)
-            make.height.equalTo(50)
+            make.leading.trailing.equalToSuperview().inset(32.0)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(16.0)
         }
     }
     private func setupImagePickerView() {
-        contentScrollView.addSubview(imagePickerView)
+        stackView.addArrangedSubview(imageContainerView)
+        imageContainerView.addSubview(imagePickerView)
         imagePickerView.snp.makeConstraints { make in
-            make.top.equalTo(tobaccoLinePickerView.snp.bottom).inset(-spacingBetweenViews)
+            make.top.bottom.equalToSuperview()
             make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().inset(spacingBetweenViews)
-            make.width.greaterThanOrEqualToSuperview().dividedBy(3)
-            make.width.lessThanOrEqualToSuperview().dividedBy(2)
-            make.height.equalTo(imagePickerView.snp.width)
-            make.bottom.equalToSuperview().inset(16.0)
+            make.size.equalTo(150)
         }
         imagePickerView.delegate = self
     }
@@ -221,7 +195,13 @@ extension AddTobaccoViewController: AddTobaccoViewInputProtocol {
 
     func updateTasteButton(isShow: Bool) {
         tasteButton.isHidden = !isShow
-        descriptionViewTopToTasteButtonConstraint?.isActive = isShow
+        if isShow {
+            if let index = stackView.arrangedSubviews.firstIndex(of: descriptionView) {
+                stackView.insertArrangedSubview(tasteButton, at: index)
+            }
+        } else {
+            stackView.removeArrangedSubview(tasteButton)
+        }
     }
 }
 
@@ -286,8 +266,4 @@ extension AddTobaccoViewController: AddPickerViewDelegate {
         }
         return -1
     }
-}
-
-extension AddTobaccoViewController {
-    var imageHeightRelativeToWidth: CGFloat { 0.5 }
 }
