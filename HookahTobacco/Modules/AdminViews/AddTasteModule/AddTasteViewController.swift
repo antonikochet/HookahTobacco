@@ -34,7 +34,7 @@ class AddTasteViewController: BaseViewController, BottomSheetPresenter {
     // MARK: - UI properties
     private let tasteTextFieldView = AddTextFieldView()
     private let typeSelectLabel = UILabel()
-    private let typeSelectTableView = UITableView(frame: .zero, style: .grouped)
+    private let typeSelectTableView = UITableView()
     private let openAddTypeButton = ApplyButton(style: .secondary)
     private let addTypeView = UIView()
     private let addTypeTextFieldView = AddTextFieldView()
@@ -43,7 +43,6 @@ class AddTasteViewController: BaseViewController, BottomSheetPresenter {
     private let addButton = ApplyButton(style: .primary)
 
     private var addButtonTopToAddTypeButtonConstraint: Constraint?
-    private var addButtonTopToAddTypeViewConstraint: Constraint?
 
     // MARK: - ViewController Lifecycle
     override func viewDidLoad() {
@@ -74,30 +73,32 @@ class AddTasteViewController: BaseViewController, BottomSheetPresenter {
                                      placeholder: R.string.localizable.addTasteTasteTextFieldPlaceholder(),
                                      delegate: self)
         tasteTextFieldView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(spacingBetweenViews)
-            make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
+            make.top.equalTo(view.snp.top).offset(16.0)
+            make.leading.trailing.equalToSuperview().inset(32.0)
         }
     }
     private func setupTypeSelectLabel() {
         view.addSubview(typeSelectLabel)
-        typeSelectLabel.font = UIFont.appFont(size: 16.0, weight: .regular)
-        typeSelectLabel.textColor = R.color.primaryTitle()
+        typeSelectLabel.setForTitleName()
         typeSelectLabel.text = R.string.localizable.addTasteTypeLabelText()
         typeSelectLabel.snp.makeConstraints { make in
-            make.top.equalTo(tasteTextFieldView.snp.bottom).offset(spacingBetweenViews)
-            make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
+            make.top.equalTo(tasteTextFieldView.snp.bottom).offset(16.0)
+            make.leading.trailing.equalToSuperview().inset(32.0)
         }
     }
     private func setupTypeSelectTableView() {
         view.addSubview(typeSelectTableView)
+        if #available(iOS 15.0, *) {
+            typeSelectTableView.sectionHeaderTopPadding = 0.0
+        }
         typeSelectTableView.backgroundColor = R.color.secondaryBackground()
         typeSelectTableView.layer.cornerRadius = 6
         typeSelectTableView.layer.borderColor = R.color.primarySubtitle()?.cgColor
         typeSelectTableView.layer.borderWidth = 1
         typeSelectTableView.snp.makeConstraints { make in
-            make.top.equalTo(typeSelectLabel.snp.bottom).offset(spacingBetweenViews)
-            make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
-            make.height.equalTo(0)
+            make.top.equalTo(typeSelectLabel.snp.bottom).offset(8.0)
+            make.leading.trailing.equalToSuperview().inset(32.0)
+            make.height.equalTo(0).priority(999)
         }
     }
     private func setupOpenAddTypeButton() {
@@ -107,14 +108,13 @@ class AddTasteViewController: BaseViewController, BottomSheetPresenter {
             self.addTypeView.isHidden = false
             self.addTypeTextFieldView.isHidden = false
             self.addTypeButton.isHidden = false
-            self.addButtonTopToAddTypeViewConstraint?.isActive = true
             self.addButtonTopToAddTypeButtonConstraint?.isActive = false
             self.sheetViewController?.updateIntrinsicHeight()
         }
         view.addSubview(openAddTypeButton)
         openAddTypeButton.snp.makeConstraints { make in
-            make.top.equalTo(typeSelectTableView.snp.bottom).offset(spacingBetweenViews)
-            make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
+            make.top.equalTo(typeSelectTableView.snp.bottom).offset(16.0)
+            make.leading.trailing.equalToSuperview().inset(32.0)
         }
     }
     private func setupAddTypeView() {
@@ -160,7 +160,6 @@ class AddTasteViewController: BaseViewController, BottomSheetPresenter {
             self.addTypeView.isHidden = true
             self.addTypeTextFieldView.isHidden = true
             self.addTypeButton.isHidden = true
-            self.addButtonTopToAddTypeViewConstraint?.isActive = false
             self.addButtonTopToAddTypeButtonConstraint?.isActive = true
             self.sheetViewController?.updateIntrinsicHeight()
         }
@@ -176,14 +175,12 @@ class AddTasteViewController: BaseViewController, BottomSheetPresenter {
         }
         view.addSubview(addButton)
         addButton.snp.makeConstraints { make in
-            addButtonTopToAddTypeViewConstraint = make.top.equalTo(addTypeView.snp.bottom)
-                                                          .offset(spacingBetweenViews).constraint
+            make.top.equalTo(addTypeView.snp.bottom).offset(spacingBetweenViews).priority(.medium)
             addButtonTopToAddTypeButtonConstraint = make.top.equalTo(openAddTypeButton.snp.bottom)
                                                           .offset(spacingBetweenViews).constraint
             make.leading.trailing.equalToSuperview().inset(sideSpacingConstraint)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(spacingBetweenViews)
         }
-        addButtonTopToAddTypeViewConstraint?.isActive = false
     }
 
     // MARK: - Private methods
@@ -205,14 +202,14 @@ extension AddTasteViewController: AddTasteViewInputProtocol {
 
     func updateHeightTableView(_ newHeight: CGFloat) {
         typeSelectTableView.snp.updateConstraints { make in
-            make.height.equalTo(newHeight)
+            make.height.equalTo(newHeight).priority(999)
         }
+        sheetViewController?.updateIntrinsicHeight()
     }
 
     func hideAddType() {
         addTypeTextFieldView.text = ""
         addTypeView.isHidden = true
-        addButtonTopToAddTypeViewConstraint?.isActive = false
         addButtonTopToAddTypeButtonConstraint?.isActive = true
         sheetViewController?.updateIntrinsicHeight()
     }

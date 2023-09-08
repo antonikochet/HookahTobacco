@@ -15,7 +15,7 @@ final class LoadingView: UIView {
         }
     }
 
-    var activityIndicatorColor: UIColor = .white {
+    var activityIndicatorColor: UIColor? = R.color.primaryWhite() {
         didSet {
             activityIndicator.color = activityIndicatorColor
         }

@@ -74,6 +74,7 @@ class TobaccoListViewController: BaseViewController {
     private func setupSearchBar() {
         view.addSubview(searchBar)
         searchBar.delegate = self
+        searchBar.tintColor = R.color.secondarySubtitle()
         searchBar.placeholder = R.string.localizable.searchBarPlaceholderText()
         searchBar.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)

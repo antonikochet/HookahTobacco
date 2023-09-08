@@ -37,7 +37,6 @@ class AddCountryViewController: BaseViewController {
     private let tableView = UITableView()
 
     private var tableViewTopToAddButtonConstraint: Constraint?
-    private var tableViewTopToAddViewConstraint: Constraint?
 
     // MARK: - ViewController Lifecycle
     override func viewDidLoad() {
@@ -129,14 +128,12 @@ class AddCountryViewController: BaseViewController {
         }
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
-            tableViewTopToAddViewConstraint = make.top.equalTo(addView.snp.bottom)
-                                                    .offset(spacingBetweenViews).constraint
+            make.top.equalTo(addView.snp.bottom).offset(16.0).priority(.medium)
             tableViewTopToAddButtonConstraint = make.top.equalTo(addButton.snp.bottom)
-                                                    .offset(spacingBetweenViews).constraint
-            make.leading.trailing.equalToSuperview()
+                .offset(16.0).constraint
+            make.leading.trailing.equalToSuperview().inset(16.0)
             make.bottom.equalToSuperview()
         }
-        tableViewTopToAddViewConstraint?.isActive = false
     }
 
     // MARK: - Private methods
@@ -157,7 +154,6 @@ extension AddCountryViewController: AddCountryViewInputProtocol {
         addView.isHidden = false
         addTextFieldView.isHidden = false
         addNewButton.isHidden = false
-        tableViewTopToAddViewConstraint?.isActive = true
         tableViewTopToAddButtonConstraint?.isActive = false
     }
 
@@ -166,7 +162,6 @@ extension AddCountryViewController: AddCountryViewInputProtocol {
         addView.isHidden = true
         addTextFieldView.isHidden = true
         addNewButton.isHidden = true
-        tableViewTopToAddViewConstraint?.isActive = false
         tableViewTopToAddButtonConstraint?.isActive = true
     }
 }

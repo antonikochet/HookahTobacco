@@ -68,8 +68,8 @@ extension AddTastePresenter: AddTasteInteractorOutputProtocol {
         selectedTypes = taste.typeTaste
         view.setupContent(taste: taste.taste,
                           addButtonText: (isEdit ?
-                                            R.string.localizable.addTasteAddButtonAdd() :
-                                            R.string.localizable.addTasteAddButtonEdit()))
+                                            R.string.localizable.addTasteAddButtonEdit() :
+                                            R.string.localizable.addTasteAddButtonAdd()))
     }
 
     func receivedSuccessTypes(_ types: [TasteType]) {
