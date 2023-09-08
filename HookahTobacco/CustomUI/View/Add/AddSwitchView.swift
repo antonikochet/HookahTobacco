@@ -21,16 +21,8 @@ class AddSwitchView: UIView {
     var didChangeSwitch: ((Bool) -> Void)?
 
     // MARK: - Private UI
-    private let label: UILabel = {
-        let label = UILabel()
-        return label
-    }()
-
-    private let switchView: UISwitch = {
-        let switchView = UISwitch()
-        switchView.isOn = false
-        return switchView
-    }()
+    private let label = UILabel()
+    private let switchView = UISwitch()
 
     // MARK: - Initializers
     init() {
@@ -39,8 +31,7 @@ class AddSwitchView: UIView {
     }
 
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setupSubviews()
+        fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: - Setups
@@ -48,26 +39,28 @@ class AddSwitchView: UIView {
         addSubview(label)
         addSubview(switchView)
 
+        label.setForTitleName()
         label.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview()
             make.leading.equalToSuperview()
             make.centerY.equalToSuperview()
-            make.width.equalTo(0)
+            make.trailing.equalTo(switchView.snp.leading).inset(8.0)
         }
 
+        switchView.isOn = false
+        switchView.onTintColor = R.color.primaryGreen()
+        switchView.tintColor = R.color.fourthBackground()
         switchView.addTarget(self, action: #selector(didChangeSwitchValue), for: .valueChanged)
         switchView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.equalTo(label.snp.trailing).offset(8)
-            make.trailing.bottom.equalToSuperview()
+            make.top.bottom.equalToSuperview()
+            make.centerY.equalToSuperview()
+            make.trailing.equalToSuperview().inset(8)
         }
     }
 
     // MARK: - Public methods
     func setupView(textLabel: String, isOn: Bool) {
         label.text = textLabel
-        label.snp.updateConstraints { make in
-            make.width.equalTo(textLabel.sizeOfString(usingFont: label.font).width)
-        }
         switchView.isOn = isOn
     }
 

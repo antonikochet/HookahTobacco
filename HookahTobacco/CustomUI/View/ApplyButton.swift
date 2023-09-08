@@ -11,7 +11,7 @@ final class ApplyButton: UIButton {
 
     // MARK: - Private properties
     private var style: Style
-    
+
     // MARK: - Public properties
     var action: CompletionBlock?
 
@@ -24,7 +24,7 @@ final class ApplyButton: UIButton {
             setbackgroundColor()
         }
     }
-    
+
     // MARK: - Init
     init(style: Style) {
         self.style = style

@@ -20,14 +20,7 @@ class AddMultiSegmentedControlView: UIView {
         }
     }
 
-    var heightView: CGFloat {
-        label.font.lineHeight +
-        topMargin + heightSegmentedControl
-    }
-
     // MARK: - Provate properties
-    private let heightSegmentedControl: CGFloat = 30.0
-    private let topMargin: CGFloat = 8.0
 
     // MARK: - Private UI
     private let label = UILabel()
@@ -40,8 +33,7 @@ class AddMultiSegmentedControlView: UIView {
     }
 
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setupSubviews()
+        fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: - Setups
@@ -49,18 +41,16 @@ class AddMultiSegmentedControlView: UIView {
         addSubview(label)
         addSubview(segmentedControl)
 
+        label.setForTitleName()
         label.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
         }
 
+        segmentedControl.selectedBackgroundColor = R.color.primaryPurple()
+        segmentedControl.tintColor = R.color.primaryTitle()
         segmentedControl.snp.makeConstraints { make in
             make.top.equalTo(label.snp.bottom).offset(8)
             make.leading.trailing.bottom.equalToSuperview()
-            make.height.equalTo(heightSegmentedControl)
-        }
-
-        snp.makeConstraints { make in
-            make.height.equalTo(heightView)
         }
     }
 
@@ -76,16 +66,10 @@ class AddMultiSegmentedControlView: UIView {
 
     func showView() {
         isHidden = false
-        snp.updateConstraints { make in
-            make.height.equalTo(heightView)
-        }
     }
 
     func hideView() {
         segmentedControl.selectedSegmentIndexes = []
         isHidden = true
-        snp.updateConstraints { make in
-            make.height.equalTo(0)
-        }
     }
 }

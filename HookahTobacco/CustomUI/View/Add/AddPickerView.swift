@@ -32,48 +32,32 @@ class AddPickerView: UIView {
 
     private let isAddButton: Bool
 
-    private let label: UILabel = {
-        let label = UILabel()
-        return label
-    }()
-
     var viewHeight: CGFloat {
-        label.font.lineHeight + 16 + 31
+        label.intrinsicContentSize.height + 4 + 34
     }
 
-    private let textField: UITextField = {
-        let textField = UITextField()
-        textField.borderStyle = .roundedRect
-        textField.textAlignment = .center
-        textField.backgroundColor = UIColor(white: 0.95, alpha: 0.8)
-        return textField
-    }()
-
+    private let label = UILabel()
+    private let textField = UITextField()
     private let pickerView = UIPickerView()
-
-    private lazy var addButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(systemName: "plus.circle.fill")?.withRenderingMode(.alwaysOriginal), for: .normal)
-        button.tintColor = .systemGreen
-        return button
-    }()
+    private lazy var addButton = IconButton()
 
     // MARK: init
     init(isAddButton: Bool = false) {
         self.isAddButton = isAddButton
         super.init(frame: .zero)
-        setup()
+        setupUI()
     }
 
     required init?(coder: NSCoder) {
-        self.isAddButton = false
-        super.init(coder: coder)
-        setup()
+        fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: public methods
     func setupView(text: String) {
         label.text = text
+        snp.updateConstraints { make in
+            make.height.equalTo(viewHeight)
+        }
     }
 
     func showView() {
@@ -95,35 +79,53 @@ class AddPickerView: UIView {
     }
 
     // MARK: private methods
-    private func setup() {
+    private func setupUI() {
+        setupLabel()
+        setupTextField()
+        if isAddButton {
+            setupAddButton()
+        }
+        setupPickerView()
+        snp.makeConstraints { make in
+            make.height.equalTo(viewHeight)
+        }
+    }
+    private func setupLabel() {
+        label.setForTitleName()
         addSubview(label)
         label.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
             make.height.equalTo(label.font.lineHeight)
         }
-
+    }
+    private func setupTextField() {
+        textField.borderStyle = .roundedRect
+        textField.textAlignment = .center
+        textField.backgroundColor = R.color.inputBackground()
+        textField.textColor = R.color.primaryBlack()
         addSubview(textField)
         textField.delegate = self
         textField.snp.makeConstraints { make in
-            make.top.equalTo(label.snp.bottom).offset(16)
+            make.top.equalTo(label.snp.bottom).offset(4)
             make.leading.equalToSuperview()
             if !isAddButton {
                 make.trailing.equalToSuperview()
             }
-            make.height.equalTo(31)
         }
-
-        if isAddButton {
-            addSubview(addButton)
-            addButton.snp.makeConstraints { make in
-                make.leading.equalTo(textField.snp.trailing).offset(4)
-                make.centerY.equalTo(textField.snp.centerY)
-                make.size.equalTo(CGSize(width: 24, height: 24))
-                make.trailing.equalToSuperview()
-            }
-            addButton.addTarget(self, action: #selector(touchAddButton), for: .touchUpInside)
+    }
+    private func setupAddButton() {
+        addButton.action = { [weak self] in
+            self?.addButtonAction?()
         }
-
+        addButton.image = R.image.add()
+        addSubview(addButton)
+        addButton.snp.makeConstraints { make in
+            make.leading.equalTo(textField.snp.trailing).offset(8)
+            make.centerY.equalTo(textField.snp.centerY)
+            make.trailing.equalToSuperview()
+        }
+    }
+    private func setupPickerView() {
         addSubview(pickerView)
         pickerView.delegate = self
         pickerView.dataSource = self
@@ -131,10 +133,6 @@ class AddPickerView: UIView {
             make.top.equalTo(textField.snp.bottom)
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(0)
-        }
-
-        snp.makeConstraints { make in
-            make.height.equalTo(viewHeight)
         }
     }
 

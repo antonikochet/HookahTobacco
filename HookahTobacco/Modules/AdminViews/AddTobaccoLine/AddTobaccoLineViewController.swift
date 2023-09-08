@@ -106,7 +106,9 @@ class AddTobaccoLineViewController: HTScrollContentViewController, BottomSheetPr
     }
     private func setupTobaccoTypeView() {
         stackView.addArrangedSubview(tobaccoTypeView)
-        tobaccoTypeView.delegate = self
+        tobaccoTypeView.didTouchSegmentedControl = { [weak self] index in
+            self?.defineHiddenTobaccoLeafView(index: index)
+        }
     }
     private func setupBaseSwitchView() {
         stackView.addArrangedSubview(baseSwitchView)
@@ -219,12 +221,5 @@ extension AddTobaccoLineViewController: UITextViewDelegate {
         setOffset(.zero)
         updateBottomDoneButtonConstraint(32.0)
         print(contentScrollView.frame)
-    }
-}
-
-// MARK: - AddSegmentedControlViewDelegate implementation
-extension AddTobaccoLineViewController: AddSegmentedControlViewDelegate {
-    func didTouchSegmentedControl(_ view: AddSegmentedControlView, touchIndex: Int) {
-        defineHiddenTobaccoLeafView(index: touchIndex)
     }
 }

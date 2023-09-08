@@ -18,27 +18,13 @@ class AddTextFieldView: UIView {
 
     override var intrinsicContentSize: CGSize {
         CGSize(width: .greatestFiniteMagnitude, height: (label.intrinsicContentSize.height +
-                                                         8.0 +
+                                                         4.0 +
                                                          textField.intrinsicContentSize.height)
         )
     }
     // MARK: private properties UI
-    private let label: UILabel = {
-        let label = UILabel()
-        return label
-    }()
-
-    private let textField: UITextField = {
-        let text = UITextField()
-        text.textColor = .black
-        text.borderStyle = .roundedRect
-        text.clearButtonMode = .whileEditing
-        text.returnKeyType = .next
-        text.autocorrectionType = .no
-        text.autocapitalizationType = .none
-        text.backgroundColor = UIColor(white: 0.95, alpha: 0.8)
-        return text
-    }()
+    private let label = UILabel()
+    private let textField = UITextField()
 
     // MARK: init
     init() {
@@ -56,7 +42,7 @@ class AddTextFieldView: UIView {
         label.text = textLabel
         textField.attributedPlaceholder = NSAttributedString(
             string: placeholder,
-            attributes: [.foregroundColor: UIColor(white: 0.15, alpha: 0.6)]
+            attributes: [.foregroundColor: R.color.secondarySubtitle() ?? .systemGray5]
         )
         textField.delegate = delegate
     }
@@ -97,16 +83,24 @@ class AddTextFieldView: UIView {
         addSubview(label)
         addSubview(textField)
 
+        label.setForTitleName()
         label.snp.makeConstraints { make in
             make.top.equalTo(snp.top)
             make.leading.trailing.equalTo(self)
         }
 
+        textField.textColor = R.color.primaryBlack()
+        textField.tintColor = R.color.primaryBlack()
+        textField.borderStyle = .roundedRect
+        textField.clearButtonMode = .whileEditing
+        textField.returnKeyType = .next
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
+        textField.backgroundColor = R.color.inputBackground()
         textField.snp.makeConstraints { make in
-            make.top.equalTo(label.snp.bottom).offset(8)
+            make.top.equalTo(label.snp.bottom).offset(4)
             make.leading.trailing.equalTo(self)
             make.bottom.equalTo(self.snp.bottom)
-            make.height.equalTo(31)
         }
     }
 }

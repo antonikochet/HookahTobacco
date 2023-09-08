@@ -174,10 +174,12 @@ class TobaccoFiltersPresenter {
 
     private func reloadFilters() {
         if filters.isEmpty {
-            let action = ActionWithTitle(title: R.string.localizable.tobaccoFilterEmptyButtonTitle(), action: { [weak self] in
-                self?.touchAllClearButton()
-                self?.view.hideInfoView()
-            })
+            let action = ActionWithTitle(
+                title: R.string.localizable.tobaccoFilterEmptyButtonTitle(),
+                action: { [weak self] in
+                    self?.touchAllClearButton()
+                    self?.view.hideInfoView()
+                })
             var viewModel = InfoViewModel(image: R.image.notFound(),
                                           title: R.string.localizable.tobaccoFilterEmptyTitle(),
                                           subtitle: R.string.localizable.tobaccoFilterEmptyMessage(),

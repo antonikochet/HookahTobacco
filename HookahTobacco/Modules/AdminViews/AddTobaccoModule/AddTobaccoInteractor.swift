@@ -220,6 +220,7 @@ extension AddTobaccoInteractor: AddTobaccoInteractorInputProtocol {
         presenter.initialDataForPresentation(pTobacco,
                                              isEditing: isEditing)
         presenter.initialSelectedManufacturer(manufacturer?.name)
+        presenter.initialTastes([])
         presenter.initialSelectedTobaccoLine(
             selectedTobaccoLine.flatMap { $0.isBase ? R.string.localizable.generalBasicLine() : $0.name }
         )

@@ -68,6 +68,7 @@
 		38B0FCCE2AA0D82D0061B849 /* FilterTobaccoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B0FCCD2AA0D82D0061B849 /* FilterTobaccoCollectionViewCell.swift */; };
 		38B9FF5D2A93C168007E1516 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 38B9FF5C2A93C168007E1516 /* Moya */; };
 		38BF3D9A2A95040F007331E1 /* CustomTableDirector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38BF3D992A95040F007331E1 /* CustomTableDirector.swift */; };
+		38C138172AABA0210066FCA0 /* extension+UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C138162AABA0210066FCA0 /* extension+UILabel.swift */; };
 		38C3ACBF2A8BCACC001D79EB /* DatePickerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C3ACBA2A8BCACC001D79EB /* DatePickerPresenter.swift */; };
 		38C3ACC02A8BCACC001D79EB /* DatePickerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C3ACBB2A8BCACC001D79EB /* DatePickerRouter.swift */; };
 		38C3ACC12A8BCACC001D79EB /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C3ACBC2A8BCACC001D79EB /* DatePickerViewController.swift */; };
@@ -340,6 +341,7 @@
 		38AFD1202A92633000800342 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		38B0FCCD2AA0D82D0061B849 /* FilterTobaccoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTobaccoCollectionViewCell.swift; sourceTree = "<group>"; };
 		38BF3D992A95040F007331E1 /* CustomTableDirector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableDirector.swift; sourceTree = "<group>"; };
+		38C138162AABA0210066FCA0 /* extension+UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extension+UILabel.swift"; sourceTree = "<group>"; };
 		38C3ACBA2A8BCACC001D79EB /* DatePickerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerPresenter.swift; sourceTree = "<group>"; };
 		38C3ACBB2A8BCACC001D79EB /* DatePickerRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerRouter.swift; sourceTree = "<group>"; };
 		38C3ACBC2A8BCACC001D79EB /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
@@ -1056,6 +1058,7 @@
 				38A027B92A0A7B6400D3C3E7 /* extention + Encodable.swift */,
 				3818E0392A80FE8600C9D02C /* extension+SheetViewController.swift */,
 				385505382A8154D800855E50 /* extension+UIVisualEffectView.swift */,
+				38C138162AABA0210066FCA0 /* extension+UILabel.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -1991,6 +1994,7 @@
 				38CE8CD52A89715100B00307 /* ProfileEditModule.swift in Sources */,
 				B9631C4A2921AB7100BBC09B /* CustomCollectionView.swift in Sources */,
 				B981B5272938DE3000A02D9F /* AddSegmentedControlView.swift in Sources */,
+				38C138172AABA0210066FCA0 /* extension+UILabel.swift in Sources */,
 				B9DBE50E290DE11F005B185C /* HTNavigationController.swift in Sources */,
 				B97EE9F0292BA1480090B344 /* RealmDataBaseServiresAssembly.swift in Sources */,
 				3869D3972A7EADBA00C9BF5C /* SelectTasteTypeTableViewCell.swift in Sources */,

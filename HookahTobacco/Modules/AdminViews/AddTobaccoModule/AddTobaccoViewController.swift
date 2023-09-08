@@ -196,10 +196,14 @@ extension AddTobaccoViewController: AddTobaccoViewInputProtocol {
     func updateTasteButton(isShow: Bool) {
         tasteButton.isHidden = !isShow
         if isShow {
-            if let index = stackView.arrangedSubviews.firstIndex(of: descriptionView) {
+            if let index = stackView.arrangedSubviews.firstIndex(of: tasteCollectionView) {
                 stackView.insertArrangedSubview(tasteButton, at: index)
             }
+            stackView.removeArrangedSubview(tasteCollectionView)
         } else {
+            if let index = stackView.arrangedSubviews.firstIndex(of: tasteButton) {
+                stackView.insertArrangedSubview(tasteCollectionView, at: index)
+            }
             stackView.removeArrangedSubview(tasteButton)
         }
     }

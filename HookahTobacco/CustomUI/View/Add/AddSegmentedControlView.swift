@@ -8,13 +8,9 @@
 import UIKit
 import SnapKit
 
-protocol AddSegmentedControlViewDelegate: AnyObject {
-    func didTouchSegmentedControl(_ view: AddSegmentedControlView, touchIndex: Int)
-}
-
 class AddSegmentedControlView: UIView {
     // MARK: - Public properties
-    weak var delegate: AddSegmentedControlViewDelegate?
+    var didTouchSegmentedControl: CompletionBlockWithParam<Int>?
 
     var selectedIndex: Int {
         get {
@@ -25,25 +21,12 @@ class AddSegmentedControlView: UIView {
         }
     }
 
-    var heightView: CGFloat {
-        label.font.lineHeight +
-        topMargin + heightSegmentedControl
-    }
-
     // MARK: - Provate properties
-    private let heightSegmentedControl: CGFloat = 30.0
     private let topMargin: CGFloat = 8.0
 
     // MARK: - Private UI
-    private let label: UILabel = {
-        let label = UILabel()
-        return label
-    }()
-
-    private let segmentedControl: UISegmentedControl = {
-        let segmentControl = UISegmentedControl()
-        return segmentControl
-    }()
+    private let label = UILabel()
+    private let segmentedControl = UISegmentedControl()
 
     // MARK: - Initializers
     init() {
@@ -52,8 +35,7 @@ class AddSegmentedControlView: UIView {
     }
 
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setupSubviews()
+        fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: - Setups
@@ -61,20 +43,20 @@ class AddSegmentedControlView: UIView {
         addSubview(label)
         addSubview(segmentedControl)
 
-        segmentedControl.addTarget(self, action: #selector(didTouchSegment), for: .valueChanged)
+        label.setForTitleName()
         label.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
         }
 
+        segmentedControl.addTarget(self, action: #selector(didTouchSegment), for: .valueChanged)
         segmentedControl.snp.makeConstraints { make in
             make.top.equalTo(label.snp.bottom).offset(8)
             make.leading.trailing.bottom.equalToSuperview()
-            make.height.equalTo(heightSegmentedControl)
         }
     }
 
     @objc private func didTouchSegment() {
-        delegate?.didTouchSegmentedControl(self, touchIndex: segmentedControl.selectedSegmentIndex)
+        didTouchSegmentedControl?(segmentedControl.selectedSegmentIndex)
     }
 
     // MARK: - Public methods

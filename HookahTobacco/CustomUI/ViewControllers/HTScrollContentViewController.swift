@@ -11,7 +11,7 @@ import SnapKit
 class HTScrollContentViewController: BaseViewController {
     // MARK: - Public UI
     let stackView = UIStackView()
-    
+
     var stackViewInset: UIEdgeInsets {
         UIEdgeInsets()
     }
