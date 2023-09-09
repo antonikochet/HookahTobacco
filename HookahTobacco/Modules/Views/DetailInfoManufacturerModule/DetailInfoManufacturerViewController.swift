@@ -24,7 +24,7 @@ class DetailInfoManufacturerViewController: UIViewController {
     var presenter: DetailInfoManufacturerViewOutputProtocol!
 
     // MARK: - UI properties
-    private var tableView = UITableView()
+    private var tableView = UITableView(frame: .zero, style: .grouped)
 
     // MARK: - Life Cycle ViewController
     override func viewDidLoad() {

@@ -126,6 +126,7 @@ class AddCountryViewController: BaseViewController {
         if #available(iOS 15.0, *) {
             tableView.sectionHeaderTopPadding = 0.0
         }
+        tableView.backgroundColor = .clear
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.top.equalTo(addView.snp.bottom).offset(16.0).priority(.medium)
