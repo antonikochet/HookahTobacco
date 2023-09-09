@@ -10,7 +10,11 @@ import UIKit
 class HTNavigationController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        // setup navigationBar
+        setupNavigationBar()
+    }
+
+    override func viewDidLayoutSubviews() {
+        setStatusBar(backgroundColor: R.color.barsBackground())
     }
 
     func setupTabBarItem(with title: String,
@@ -19,5 +23,23 @@ class HTNavigationController: UINavigationController {
         self.tabBarItem = UITabBarItem(title: title,
                                        image: image?.withRenderingMode(.alwaysTemplate),
                                        selectedImage: selectedImage?.withRenderingMode(.alwaysTemplate))
+    }
+
+    private func setupNavigationBar() {
+        navigationBar.tintColor = R.color.secondarySubtitle()
+        navigationBar.barTintColor = R.color.barsBackground()
+        navigationBar.backgroundColor = R.color.barsBackground()
+    }
+
+    private func setStatusBar(backgroundColor: UIColor?) {
+        let statusBarFrame: CGRect
+        if #available(iOS 13.0, *) {
+            statusBarFrame = view.window?.windowScene?.statusBarManager?.statusBarFrame ?? CGRect.zero
+        } else {
+            statusBarFrame = UIApplication.shared.statusBarFrame
+        }
+        let statusBarView = UIView(frame: statusBarFrame)
+        statusBarView.backgroundColor = backgroundColor
+        view.addSubview(statusBarView)
     }
 }
