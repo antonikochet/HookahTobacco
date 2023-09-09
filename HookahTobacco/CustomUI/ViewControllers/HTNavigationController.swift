@@ -29,6 +29,7 @@ class HTNavigationController: UINavigationController {
         navigationBar.tintColor = R.color.secondarySubtitle()
         navigationBar.barTintColor = R.color.barsBackground()
         navigationBar.backgroundColor = R.color.barsBackground()
+        navigationBar.setBackgroundImage(UIImage(), for: .default)
     }
 
     private func setStatusBar(backgroundColor: UIColor?) {

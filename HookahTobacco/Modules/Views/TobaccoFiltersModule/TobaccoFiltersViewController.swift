@@ -25,7 +25,10 @@ protocol TobaccoFiltersViewOutputProtocol: AnyObject {
 }
 
 class TobaccoFiltersViewController: BaseViewController, BottomSheetPresenter {
-    var sizes: [SheetSize] = [.fullscreen]
+    // MARK: - BottomSheetPresenter
+    var sizes: [SheetSize] = [.marginFromTop(50.0)]
+    var isShowGrip: Bool = false
+
     // MARK: - Public properties
     var presenter: TobaccoFiltersViewOutputProtocol!
 

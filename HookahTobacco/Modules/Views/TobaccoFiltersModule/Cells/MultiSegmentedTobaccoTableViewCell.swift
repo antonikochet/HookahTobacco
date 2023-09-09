@@ -68,7 +68,7 @@ final class MultiSegmentedTobaccoTableViewCell: UITableViewCell, ConfigurableCel
         segmentedControl.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(16.0)
             make.leading.trailing.equalToSuperview().inset(36.0)
-            make.bottom.equalToSuperview().inset(16.0)
+            make.bottom.equalToSuperview().inset(16.0).priority(999)
         }
     }
     private func setupSeparatorView() {

@@ -86,7 +86,7 @@ final class CategoriesTobaccoFiltersViewCellTableViewCell: UITableViewCell, Conf
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(16.0)
             make.leading.trailing.equalToSuperview().inset(8.0)
-            make.bottom.equalToSuperview().inset(16.0)
+            make.bottom.equalToSuperview().inset(16.0).priority(999)
         }
     }
     private func setupSeparatorView() {
