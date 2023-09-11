@@ -83,7 +83,7 @@ class AddTastesViewController: UIViewController {
         addButton.action = { [weak self] in
             self?.presenter.didTouchAdd()
         }
-        addButton.buttonSize = 50.0
+        addButton.size = 50.0
         addButton.imageSize = 25.0
         addButton.image = UIImage(systemName: "plus")
         addButton.backgroundColor = R.color.primaryPurple()
@@ -92,10 +92,11 @@ class AddTastesViewController: UIViewController {
     }
 
     private func setupNavigationItem() {
-        let button = UIButton()
-        button.setTitle(R.string.localizable.addTastesNavbarDone(), for: .normal)
-        button.setTitleColor(R.color.secondarySubtitle(), for: .normal)
-        button.addTarget(self, action: #selector(didTouchDoneButton), for: .touchUpInside)
+        let button = Button(style: .secondary)
+        button.setTitle(R.string.localizable.addTastesNavbarDone())
+        button.action = { [weak self] in
+            self?.presenter.selectedTastesDone()
+        }
         let doneButton = UIBarButtonItem(customView: button)
         navigationItem.rightBarButtonItem = doneButton
     }
@@ -103,9 +104,7 @@ class AddTastesViewController: UIViewController {
     // MARK: - Private methods
 
     // MARK: - Selectors
-    @objc private func didTouchDoneButton() {
-        presenter.selectedTastesDone()
-    }
+
 }
 
 // MARK: - ViewInputProtocol implementation

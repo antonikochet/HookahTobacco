@@ -81,7 +81,7 @@ class AddTobaccoLineViewController: HTScrollContentViewController, BottomSheetPr
         closeButton.action = { [weak self] in
             self?.presenter.pressedCloseButton()
         }
-        closeButton.buttonSize = 36.0
+        closeButton.size = 36.0
         closeButton.imageSize = 36.0
         closeButton.image = R.image.close()
         view.addSubview(closeButton)

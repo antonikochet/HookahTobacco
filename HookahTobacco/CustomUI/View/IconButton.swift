@@ -8,50 +8,14 @@
 import UIKit
 import SnapKit
 
-final class IconButton: UIView {
+final class IconButton: IconView {
     // MARK: - Public properties
     public var action: CompletionBlock?
 
-    public var buttonSize: CGFloat = 24.0 {
-        didSet {
-            snp.updateConstraints { make in
-                make.size.equalTo(buttonSize)
-            }
-        }
-    }
-
-    public var imageSize: CGFloat = 24.0 {
-        didSet {
-            imageView.snp.updateConstraints { make in
-                make.size.equalTo(imageSize < buttonSize ? imageSize : buttonSize)
-            }
-        }
-    }
-
-    public var imageColor: UIColor? = .clear {
-        didSet {
-            imageView.image = imageView.image?.withTintColor(imageColor ?? .black, renderingMode: .alwaysOriginal)
-        }
-    }
-
-    public var image: UIImage? {
-        get {
-            imageView.image
-        }
-        set {
-            imageView.image = newValue
-        }
-    }
-
-    // MARK: - private UI
-    private var imageView: UIImageView = UIImageView()
-
-    // MARK: - Private properties
-
     // MARK: - Init
-    init() {
-        super.init(frame: .zero)
-        setupUI()
+    override init() {
+        super.init()
+        setupAction()
     }
 
     required init?(coder: NSCoder) {
@@ -59,39 +23,9 @@ final class IconButton: UIView {
     }
 
     // MARK: - Setup
-    private func setupUI() {
-        setupView()
-        setupImageView()
-    }
-    private func setupView() {
+    private func setupAction() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapPressed))
         addGestureRecognizer(tap)
-        backgroundColor = .clear
-
-        snp.makeConstraints { make in
-            make.size.equalTo(buttonSize)
-        }
-    }
-    private func setupImageView() {
-        imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = .clear
-        addSubview(imageView)
-        imageView.snp.makeConstraints { make in
-            make.centerX.centerY.equalToSuperview()
-            make.size.equalTo(imageSize)
-        }
-    }
-
-    // MARK: - Public methods
-    func createCornerRadius(_ radius: CGFloat? = nil) {
-        let newRadius: CGFloat
-        if let radius {
-            newRadius = radius
-        } else {
-            newRadius = buttonSize / 2.0
-        }
-        layer.cornerRadius = newRadius
-        clipsToBounds = true
     }
 
     // MARK: - Selectors

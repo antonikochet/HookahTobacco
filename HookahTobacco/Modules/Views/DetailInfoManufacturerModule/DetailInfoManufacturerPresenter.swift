@@ -57,7 +57,10 @@ class DetailInfoManufacturerPresenter {
         return item
     }
     private func createTobaccoRow(at item: TobaccoListTableCellItem) -> Row {
-        TableRow<TobaccoListCell>(item: item)
+        TableRow<TobaccoListCell>(item: item).on(.select) { [weak self] options in
+            guard let tobacco = self?.tobaccos.first(where: { $0.name == options.item.name }) else { return }
+            self?.router.openDetailTobacco(tobacco)
+        }
     }
 
     private func setupContentView(_ manufacturer: Manufacturer?, _ tobaccos: [String: [Tobacco]]?) {

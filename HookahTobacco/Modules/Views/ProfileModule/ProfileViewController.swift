@@ -47,10 +47,11 @@ final class ProfileViewController: BaseViewController {
     }
 
     private func setupScreen() {
-        let button = UIButton()
-        button.setTitle(R.string.localizable.profileLogout(), for: .normal)
-        button.setTitleColor(R.color.primarySubtitle(), for: .normal)
-        button.addTarget(self, action: #selector(touchRightButtonNavBar), for: .touchUpInside)
+        let button = Button(style: .third)
+        button.setTitle(R.string.localizable.profileLogout())
+        button.action = { [weak self] in
+            self?.presenter.pressedLogoutButton()
+        }
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
     }
 
@@ -66,9 +67,7 @@ final class ProfileViewController: BaseViewController {
     // MARK: - Private methods
 
     // MARK: - Selectors
-    @objc private func touchRightButtonNavBar() {
-        presenter.pressedLogoutButton()
-    }
+
 }
 
 // MARK: - ViewInputProtocol implementation

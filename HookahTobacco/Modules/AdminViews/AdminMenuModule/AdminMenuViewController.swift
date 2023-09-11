@@ -77,16 +77,12 @@ class AdminMenuViewController: UIViewController {
     }
 
     private func setupRightButtonNavigationBar() {
-        let button = UIButton()
-        button.setTitle(R.string.localizable.adminMenuLogoutTitle(), for: .normal)
-        button.setTitleColor(R.color.primarySubtitle(), for: .normal)
-        button.addTarget(self, action: #selector(touchRightButtonNavBar), for: .touchUpInside)
+        let button = Button(style: .third)
+        button.setTitle(R.string.localizable.adminMenuLogoutTitle())
+        button.action = { [weak self] in
+            self?.presenter.pressedLogoutButton()
+        }
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
-    }
-
-    @objc
-    private func touchRightButtonNavBar() {
-        presenter.pressedLogoutButton()
     }
 }
 

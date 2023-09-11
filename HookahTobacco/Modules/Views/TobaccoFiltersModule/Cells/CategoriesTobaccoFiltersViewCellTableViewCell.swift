@@ -29,7 +29,7 @@ final class CategoriesTobaccoFiltersViewCellTableViewCell: UITableViewCell, Conf
     // MARK: - UI properties
     private let titleLabel = UILabel()
     private let collectionView = CustomCollectionView()
-    private let clearButton = UIButton()
+    private let clearButton = Button(style: .secondary)
     private let separatorView = UIView()
 
     // MARK: - Initializers
@@ -58,15 +58,15 @@ final class CategoriesTobaccoFiltersViewCellTableViewCell: UITableViewCell, Conf
         backgroundColor = .clear
     }
     private func setupClearButton() {
-        clearButton.setTitle(R.string.localizable.generalClear(), for: .normal)
-        clearButton.setTitleColor(R.color.secondarySubtitle(), for: .normal)
-        clearButton.addTarget(self, action: #selector(touchClearButton), for: .touchUpInside)
+        clearButton.setTitle(R.string.localizable.generalClear())
+        clearButton.action = { [weak self] in
+            self?.item?.clearAction?()
+        }
         clearButton.isHidden = true
         contentView.addSubview(clearButton)
         clearButton.snp.makeConstraints { make in
             make.centerY.equalTo(titleLabel.snp.centerY)
             make.trailing.equalToSuperview().inset(8.0)
-            make.width.equalTo(100)
         }
     }
     private func setupTitleLabel() {
@@ -124,7 +124,4 @@ final class CategoriesTobaccoFiltersViewCellTableViewCell: UITableViewCell, Conf
     }
 
     // MARK: - Selectors
-    @objc private func touchClearButton() {
-        item?.clearAction?()
-    }
 }

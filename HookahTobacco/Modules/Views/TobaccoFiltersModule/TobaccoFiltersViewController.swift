@@ -33,11 +33,11 @@ class TobaccoFiltersViewController: BaseViewController, BottomSheetPresenter {
     var presenter: TobaccoFiltersViewOutputProtocol!
 
     // MARK: - UI properties
-    private let closeButton = UIButton()
+    private let closeButton = Button(style: .third)
     private let tableView = UITableView()
     private let counterLabel = UILabel()
     private let applyButton = ApplyButton(style: .primary)
-    private let clearAllButton = ApplyButton(style: .secondary)
+    private let clearAllButton = Button(style: .third)
 
     // MARK: - ViewController Lifecycle
     override func viewDidLoad() {
@@ -63,15 +63,11 @@ class TobaccoFiltersViewController: BaseViewController, BottomSheetPresenter {
         clearAllButton.action = { [weak self] in
             self?.presenter.touchAllClearButton()
         }
-        clearAllButton.setTitle(R.string.localizable.generalAllClear(), for: .normal)
-        clearAllButton.backgroundColor = .clear
-        clearAllButton.titleLabel?.font = UIFont.appFont(size: 18.0, weight: .semibold)
-        clearAllButton.setTitleColor(R.color.primaryPurple(), for: .normal)
+        clearAllButton.setTitle(R.string.localizable.generalAllClear())
         view.addSubview(clearAllButton)
         clearAllButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(8.0)
-            make.size.equalTo(CGSize(width: 150, height: 22))
         }
     }
     private func setupApplyButton() {
@@ -99,14 +95,13 @@ class TobaccoFiltersViewController: BaseViewController, BottomSheetPresenter {
         }
     }
     private func setupCloseButton() {
-        closeButton.setTitle(R.string.localizable.generalClose(), for: .normal)
-        closeButton.setTitleColor(R.color.primarySubtitle(), for: .normal)
-        closeButton.backgroundColor = .clear
-        closeButton.addTarget(self, action: #selector(touchCloseButton), for: .touchUpInside)
+        closeButton.setTitle(R.string.localizable.generalClose())
+        closeButton.action = { [weak self] in
+            self?.presenter.touchCloseButton()
+        }
         view.addSubview(closeButton)
         closeButton.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(8.0)
-            make.width.equalTo(80)
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(8.0)
         }
     }
@@ -125,9 +120,7 @@ class TobaccoFiltersViewController: BaseViewController, BottomSheetPresenter {
     // MARK: - Private methods
 
     // MARK: - Selectors
-    @objc private func touchCloseButton() {
-        presenter.touchCloseButton()
-    }
+
 }
 
 // MARK: - ViewInputProtocol implementation

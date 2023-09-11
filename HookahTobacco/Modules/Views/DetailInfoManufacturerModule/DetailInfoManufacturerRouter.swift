@@ -10,7 +10,7 @@
 import UIKit
 
 protocol DetailInfoManufacturerRouterProtocol: RouterProtocol {
-
+    func openDetailTobacco(_ tobacco: Tobacco)
 }
 
 class DetailInfoManufacturerRouter: DetailInfoManufacturerRouterProtocol {
@@ -18,5 +18,10 @@ class DetailInfoManufacturerRouter: DetailInfoManufacturerRouterProtocol {
 
     required init(_ appRouter: AppRouterProtocol) {
         self.appRouter = appRouter
+    }
+
+    func openDetailTobacco(_ tobacco: Tobacco) {
+        let data = DetailTobaccoDataModule(tobacco: tobacco)
+        appRouter.pushViewController(module: DetailTobaccoModule.self, moduleData: data, animateDisplay: true)
     }
 }

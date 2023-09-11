@@ -58,7 +58,7 @@ class ImageButtonPickerView: UIView {
         removeButton.action = { [weak self] in
             self?.image = nil
         }
-        removeButton.buttonSize = 16.0
+        removeButton.size = 16.0
         removeButton.imageSize = 16.0
         removeButton.image = R.image.close()
         removeButton.isHidden = true
