@@ -19,7 +19,17 @@ class BaseViewController: UIViewController {
     private var blockView: UIView?
     private var loadingView: LoadingView?
 
+    // MARK: - ViewController lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupAction()
+    }
+
     // MARK: - Setups
+    private func setupAction() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
+        view.addGestureRecognizer(tapGesture)
+    }
     private func setupBlockView() -> UIView {
         let blockView = UIView()
         blockView.backgroundColor = .systemGray6.withAlphaComponent(0.1)
@@ -63,6 +73,16 @@ class BaseViewController: UIViewController {
             }
         }
         infoView.configure(viewModel: viewModel)
+    }
+
+    // MARK: - Public methods
+    func hideViewTapped() {
+        view.endEditing(true)
+    }
+
+    // MARK: - Selectors
+    @objc private func viewTapped() {
+        hideViewTapped()
     }
 }
 

@@ -39,8 +39,6 @@ class HTScrollContentViewController: BaseViewController {
         stackView.snp.makeConstraints {
             $0.edges.equalToSuperview().inset(stackViewInset)
         }
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideViewTapped))
-        view.addGestureRecognizer(tapGesture)
     }
 
     func setupConstrainsScrollView(
@@ -78,7 +76,5 @@ class HTScrollContentViewController: BaseViewController {
     }
 
     // MARK: - Selectors
-    @objc func hideViewTapped() {
-        view.endEditing(true)
-    }
+
 }
