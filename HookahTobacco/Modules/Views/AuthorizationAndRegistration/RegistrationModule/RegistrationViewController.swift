@@ -37,10 +37,6 @@ final class RegistrationViewController: BaseViewController {
         setupUI()
     }
 
-    override func viewDidLayoutSubviews() {
-        registrationButton.createCornerRadius()
-    }
-
     // MARK: - Setups
     private func setupUI() {
         setupScreen()

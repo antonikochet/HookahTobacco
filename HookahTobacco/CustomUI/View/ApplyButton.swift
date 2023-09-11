@@ -16,7 +16,7 @@ final class ApplyButton: UIButton {
     var action: CompletionBlock?
 
     override var intrinsicContentSize: CGSize {
-        CGSize(width: 220, height: 50)
+        CGSize(width: 300, height: 50)
     }
 
     override var isEnabled: Bool {

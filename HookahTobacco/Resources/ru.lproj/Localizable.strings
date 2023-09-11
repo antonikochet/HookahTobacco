@@ -56,6 +56,16 @@
 "profile.favoriteButton.title" = "Мне нравится";
 "profile.wantToBuyButton.title" = "Хочу купить";
 
+// MARK: - Login screen
+"login.title.text" = "Авторизоваться";
+"login.subtitle.text" = "Войдите в свой аккаунт или зарегистрируйтесь";
+"login.emailTextField.title" = "email/username";
+"login.passwordTextField.title" = "Пароль";
+"login.loginButton.title" = "Войти";
+"login.registrationButton.title" = "Зарегистрироваться";
+"login.login.error.message" = "username или email не введен";
+"login.password.error.message" = "Пароль не введен";
+
 // MARK: - DetailTobacco screen
 "detailTobacco.description.title" = "Описание: %@";
 "detailTobacco.nameLine.title" = "Название линейки";

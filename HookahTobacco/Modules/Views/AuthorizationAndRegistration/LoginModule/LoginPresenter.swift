@@ -17,26 +17,34 @@ class LoginPresenter {
 
 extension LoginPresenter: LoginInteractorOutputProtocol {
     func receivedSuccessWhileLogin() {
+        view.hideLoading()
         router.showProfileView()
     }
 
     func receivedError(_ error: HTError) {
+        view.hideLoading()
         router.showError(with: error.message)
     }
 }
 
 extension LoginPresenter: LoginViewOutputProtocol {
     func pressedButtonLogin(with login: String?, and password: String?) {
-        guard let email = login, !email.isEmpty else {
-            router.showError(with: "Логин не введен!")
+        var isError = false
+        var email = login ?? ""
+        var pass = password ?? ""
+        if email.isEmpty {
+            view.showEmailError(R.string.localizable.loginLoginErrorMessage())
+            isError = true
+        }
+        if pass.isEmpty {
+            view.showPasswordError(R.string.localizable.loginPasswordErrorMessage())
+            isError = true
+        }
+        if isError {
             return
         }
-        guard let pass = password, !pass.isEmpty else {
-            router.showError(with: "Пароль не введен!")
-            return
-        }
-
         interactor.userLoginSystem(with: email, and: pass)
+        view.showBlockLoading()
     }
 
     func pressedButtonRegistration() {

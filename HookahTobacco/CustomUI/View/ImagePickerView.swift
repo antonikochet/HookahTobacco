@@ -64,11 +64,6 @@ class ImagePickerView: UIView {
         setup()
     }
 
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        selectImageButton.createCornerRadius()
-    }
-
     private func setup() {
         addSubview(selectImageButton)
         selectImageButton.snp.makeConstraints { make in

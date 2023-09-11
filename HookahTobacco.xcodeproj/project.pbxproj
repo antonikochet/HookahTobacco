@@ -56,6 +56,7 @@
 		3899EB6E2AAF36D80047AD4D /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3899EB6D2AAF36D80047AD4D /* Button.swift */; };
 		3899EB712AAF374A0047AD4D /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3899EB702AAF374A0047AD4D /* IconView.swift */; };
 		3899EB732AAF56940047AD4D /* extension+CGSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3899EB722AAF56940047AD4D /* extension+CGSize.swift */; };
+		3899EB762AAF699C0047AD4D /* TextFieldWithLeftLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3899EB752AAF699C0047AD4D /* TextFieldWithLeftLabel.swift */; };
 		38A027BA2A0A7B6400D3C3E7 /* extention + Encodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A027B92A0A7B6400D3C3E7 /* extention + Encodable.swift */; };
 		38A0EB362AA4EF7200CB0D13 /* RswiftLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 38A0EB352AA4EF7200CB0D13 /* RswiftLibrary */; };
 		38A8B1EC2A91747C009FAFF7 /* PresenterrProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A8B1EB2A91747C009FAFF7 /* PresenterrProtocol.swift */; };
@@ -141,7 +142,6 @@
 		B9488F7D2934E9DB00D8B3B1 /* TobaccoLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9488F7C2934E9DB00D8B3B1 /* TobaccoLine.swift */; };
 		B949D7AB293D15900019BEFC /* SystemSubscriberProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B949D7AA293D15900019BEFC /* SystemSubscriberProtocol.swift */; };
 		B949D7AD293D2D0F0019BEFC /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B949D7AC293D2D0F0019BEFC /* ToastView.swift */; };
-		B94B7717290C239E002C5660 /* extention + UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94B7716290C239E002C5660 /* extention + UIButton.swift */; };
 		B94B771A290C2738002C5660 /* AddTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94B7719290C2738002C5660 /* AddTextView.swift */; };
 		B94B771C290C3785002C5660 /* AddPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94B771B290C3785002C5660 /* AddPickerView.swift */; };
 		B94E17B9292126DD0008CB73 /* AddTastesModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E17B7292126DD0008CB73 /* AddTastesModule.swift */; };
@@ -333,6 +333,7 @@
 		3899EB6D2AAF36D80047AD4D /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		3899EB702AAF374A0047AD4D /* IconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
 		3899EB722AAF56940047AD4D /* extension+CGSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extension+CGSize.swift"; sourceTree = "<group>"; };
+		3899EB752AAF699C0047AD4D /* TextFieldWithLeftLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithLeftLabel.swift; sourceTree = "<group>"; };
 		38A027B92A0A7B6400D3C3E7 /* extention + Encodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extention + Encodable.swift"; sourceTree = "<group>"; };
 		38A8B1EB2A91747C009FAFF7 /* PresenterrProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterrProtocol.swift; sourceTree = "<group>"; };
 		38A8B1ED2A91A08A009FAFF7 /* BaseApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseApiService.swift; sourceTree = "<group>"; };
@@ -419,7 +420,6 @@
 		B9488F7C2934E9DB00D8B3B1 /* TobaccoLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TobaccoLine.swift; sourceTree = "<group>"; };
 		B949D7AA293D15900019BEFC /* SystemSubscriberProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemSubscriberProtocol.swift; sourceTree = "<group>"; };
 		B949D7AC293D2D0F0019BEFC /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
-		B94B7716290C239E002C5660 /* extention + UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extention + UIButton.swift"; sourceTree = "<group>"; };
 		B94B7719290C2738002C5660 /* AddTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTextView.swift; sourceTree = "<group>"; };
 		B94B771B290C3785002C5660 /* AddPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPickerView.swift; sourceTree = "<group>"; };
 		B94E17B7292126DD0008CB73 /* AddTastesModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTastesModule.swift; sourceTree = "<group>"; };
@@ -1058,7 +1058,6 @@
 				B9E98A9129107BC000E1389B /* extension+String.swift */,
 				B9A4708228D2B84500CA6FAA /* extention + UIFont.swift */,
 				B9677CF128D8917000EF9FC6 /* extention + UIViewController.swift */,
-				B94B7716290C239E002C5660 /* extention + UIButton.swift */,
 				B9631C4D2922487500BBC09B /* extention + UIEdgeInsets.swift */,
 				B9CA939C2969C01C00F258F3 /* extension + TableKit.swift */,
 				38A027B92A0A7B6400D3C3E7 /* extention + Encodable.swift */,
@@ -1413,6 +1412,7 @@
 				3899EB6D2AAF36D80047AD4D /* Button.swift */,
 				385505362A814A7A00855E50 /* LoadingView.swift */,
 				38AFD1202A92633000800342 /* InfoView.swift */,
+				3899EB752AAF699C0047AD4D /* TextFieldWithLeftLabel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1881,6 +1881,7 @@
 				B981829F292A5F7700DEA9F0 /* RealmProvider.swift in Sources */,
 				B98E1DD628F0812500964B8F /* LoginPresenter.swift in Sources */,
 				38DDDE562A8694C000EA19A3 /* Api+Authorization.swift in Sources */,
+				3899EB762AAF699C0047AD4D /* TextFieldWithLeftLabel.swift in Sources */,
 				382F0C3D2A7D936600E2F277 /* AddTobaccoLinePresenter.swift in Sources */,
 				B97D05BC292998AC00F4629B /* TasteRealmObject.swift in Sources */,
 				3818E03C2A81342700C9D02C /* ApplyButton.swift in Sources */,
@@ -2012,7 +2013,6 @@
 				B9E8DA4A28F77A8300CCA034 /* ManufacturerListInteractor.swift in Sources */,
 				382F0C412A7D936600E2F277 /* AddTobaccoLineEntity.swift in Sources */,
 				B9EE237D29102B710098E4E0 /* DetailInfoManufacturerTableCell.swift in Sources */,
-				B94B7717290C239E002C5660 /* extention + UIButton.swift in Sources */,
 				B98182A1292A6BDB00DEA9F0 /* HTRealmProtocol.swift in Sources */,
 				B92A46B42967313B0006B787 /* ProfileAssembly.swift in Sources */,
 				3818E0382A80FD1C00C9D02C /* BottomSheetPresenter.swift in Sources */,

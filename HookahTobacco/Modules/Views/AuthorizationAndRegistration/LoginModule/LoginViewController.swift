@@ -10,7 +10,9 @@
 import UIKit
 import SnapKit
 
-protocol LoginViewInputProtocol: AnyObject {
+protocol LoginViewInputProtocol: ViewProtocol {
+    func showEmailError(_ message: String)
+    func showPasswordError(_ message: String)
 }
 
 protocol LoginViewOutputProtocol {
@@ -18,15 +20,17 @@ protocol LoginViewOutputProtocol {
     func pressedButtonRegistration()
 }
 
-class LoginViewController: UIViewController {
+class LoginViewController: BaseViewController {
     // MARK: - Public properties
     var presenter: LoginViewOutputProtocol!
 
     // MARK: - UI properties
-    private let emailTextField = UITextField()
-    private let passwordTextField = UITextField()
-    private let loginButton = UIButton.createAppBigButton(.loginButtonText, fontSise: 25)
-    private let registrationButton = UIButton()
+    private let titleLabel = UILabel()
+    private let subtitleLabel = UILabel()
+    private let emailTextField = TextFieldWithLeftLabel(rounding: .up, type: .text)
+    private let passwordTextField = TextFieldWithLeftLabel(rounding: .down, type: .password)
+    private let loginButton = ApplyButton(style: .primary)
+    private let registrationButton = Button(style: .third)
 
     // MARK: - ViewController Lifecycle
     override func viewDidLoad() {
@@ -37,6 +41,8 @@ class LoginViewController: UIViewController {
     // MARK: - Setups
     private func setupUI() {
         setupScreen()
+        setupTitleLabel()
+        setupSubtitleLabel()
         setupEmailTextField()
         setupPasswordTextField()
         setupLoginButton()
@@ -44,127 +50,91 @@ class LoginViewController: UIViewController {
     }
 
     private func setupScreen() {
-        title = .title
-        view.backgroundColor = Colors.View.background
-        overrideUserInterfaceStyle = .light
+        view.backgroundColor = R.color.primaryBackground()
+    }
+    private func setupTitleLabel() {
+        titleLabel.text = R.string.localizable.loginTitleText()
+        titleLabel.font = UIFont.appFont(size: 30.0, weight: .bold)
+        titleLabel.textColor = R.color.primaryTitle()
+        titleLabel.numberOfLines = 1
+        titleLabel.textAlignment = .left
+        view.addSubview(titleLabel)
+        titleLabel.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(24.0)
+        }
+    }
+    private func setupSubtitleLabel() {
+        subtitleLabel.text = R.string.localizable.loginSubtitleText()
+        subtitleLabel.font = UIFont.appFont(size: 14.0, weight: .regular)
+        subtitleLabel.textColor = R.color.primaryTitle()
+        subtitleLabel.numberOfLines = 0
+        subtitleLabel.textAlignment = .left
+        view.addSubview(subtitleLabel)
+        subtitleLabel.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(8.0)
+            make.leading.trailing.equalToSuperview().inset(24.0)
+        }
     }
     private func setupEmailTextField() {
-        emailTextField.textColor = Colors.TextField.text
-        emailTextField.borderStyle = .roundedRect
-        emailTextField.clearButtonMode = .whileEditing
-        emailTextField.keyboardType = .emailAddress
-        emailTextField.placeholder = .emailPlaceholder
-        emailTextField.textContentType = .emailAddress
-        emailTextField.autocapitalizationType = .none
-        emailTextField.backgroundColor = Colors.TextField.background
-        emailTextField.delegate = self
+        emailTextField.setupView(title: R.string.localizable.loginEmailTextFieldTitle())
+        emailTextField.didEndEditing = { [weak self] in
+            if self?.emailTextField.text?.isEmpty ?? true {
+                self?.emailTextField.setError(message: R.string.localizable.loginLoginErrorMessage())
+            }
+        }
         view.addSubview(emailTextField)
         emailTextField.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(LayoutValues.TextField.horizPadding)
-            make.height.equalTo(LayoutValues.TextField.height)
+            make.top.equalTo(subtitleLabel.snp.bottom).offset(24.0)
+            make.leading.trailing.equalToSuperview().inset(24.0)
         }
     }
     private func setupPasswordTextField() {
-        passwordTextField.textColor = Colors.TextField.text
-        passwordTextField.borderStyle = .roundedRect
-        passwordTextField.clearButtonMode = .whileEditing
-        passwordTextField.textContentType = .password
-        passwordTextField.placeholder = .passwordPlaceholder
-        passwordTextField.isSecureTextEntry = true
-        passwordTextField.backgroundColor = Colors.TextField.background
-        passwordTextField.delegate = self
+        passwordTextField.setupView(title: R.string.localizable.loginPasswordTextFieldTitle())
+        passwordTextField.didEndEditing = { [weak self] in
+            if self?.passwordTextField.text?.isEmpty ?? true {
+                self?.passwordTextField.setError(message: R.string.localizable.loginPasswordErrorMessage())
+            }
+        }
         view.addSubview(passwordTextField)
         passwordTextField.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.top.equalTo(emailTextField.snp.bottom).offset(LayoutValues.TextField.top)
-            make.leading.trailing.equalToSuperview().inset(LayoutValues.TextField.horizPadding)
-            make.height.equalTo(LayoutValues.TextField.height)
+            make.top.equalTo(emailTextField.snp.bottom).offset(16.0)
+            make.leading.trailing.equalToSuperview().inset(24.0)
         }
     }
     private func setupLoginButton() {
-        view.addSubview(loginButton)
-        loginButton.layer.cornerRadius = LayoutValues.LoginButtom.cornerRadius
-        loginButton.snp.makeConstraints { make in
-            make.top.equalTo(passwordTextField.snp.bottom).offset(LayoutValues.LoginButtom.top)
-            make.leading.trailing.equalToSuperview().inset(LayoutValues.LoginButtom.horizPadding)
-            make.height.equalTo(LayoutValues.LoginButtom.height)
+        loginButton.setTitle(R.string.localizable.loginLoginButtonTitle(), for: .normal)
+        loginButton.action = { [weak self] in
+            guard let self else { return }
+            self.presenter.pressedButtonLogin(with: self.emailTextField.text,
+                                              and: self.passwordTextField.text)
         }
-        loginButton.addTarget(self, action: #selector(touchLoginButton), for: .touchUpInside)
+        view.addSubview(loginButton)
+        loginButton.snp.makeConstraints { make in
+            make.top.equalTo(passwordTextField.snp.bottom).offset(36.0)
+            make.leading.trailing.equalToSuperview().inset(45.0)
+        }
     }
     private func setupRegistrationButton() {
-        registrationButton.setTitle(.registrationButtonText, for: .normal)
-        registrationButton.setTitleColor(Colors.RegistrationButton.text, for: .normal)
-        registrationButton.backgroundColor = Colors.RegistrationButton.background
-        registrationButton.titleLabel?.font = Fonts.registrationButtonText
+        registrationButton.setTitle(R.string.localizable.loginRegistrationButtonTitle())
+        registrationButton.action = { [weak self] in
+            self?.presenter.pressedButtonRegistration()
+        }
 
         view.addSubview(registrationButton)
         registrationButton.snp.makeConstraints { make in
-            make.top.equalTo(loginButton.snp.bottom).offset(LayoutValues.RegistrationButton.top)
+            make.top.equalTo(loginButton.snp.bottom).offset(16.0)
             make.centerX.equalToSuperview()
         }
-        registrationButton.addTarget(self, action: #selector(touchRegistrationButton), for: .touchUpInside)
-    }
-
-    @objc private func touchLoginButton() {
-        presenter.pressedButtonLogin(with: emailTextField.text, and: passwordTextField.text)
-    }
-    @objc private func touchRegistrationButton() {
-        presenter.pressedButtonRegistration()
     }
 }
 
 extension LoginViewController: LoginViewInputProtocol {
-}
+    func showEmailError(_ message: String) {
+        emailTextField.setError(message: message)
+    }
 
-extension LoginViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == emailTextField {
-            passwordTextField.becomeFirstResponder()
-            return true
-        } else if textField == passwordTextField {
-            passwordTextField.resignFirstResponder()
-            return true
-        }
-        return false
+    func showPasswordError(_ message: String) {
+        passwordTextField.setError(message: message)
     }
-}
-
-private extension String {
-    static let loginButtonText = "Войти / Log in"
-    static let title = "Log in"
-    static let emailPlaceholder = "email"
-    static let passwordPlaceholder = "password"
-    static let registrationButtonText = "Регистрация"
-}
-private struct LayoutValues {
-    struct TextField {
-        static let top: CGFloat = 24.0
-        static let horizPadding: CGFloat = 32.0
-        static let height: CGFloat = 40.0
-    }
-    struct LoginButtom {
-        static let top: CGFloat = 36.0
-        static let horizPadding: CGFloat = 48.0
-        static let height: CGFloat = 50.0
-        static let cornerRadius: CGFloat = height / 2.0
-    }
-    struct RegistrationButton {
-        static let top: CGFloat = 48.0
-    }
-}
-private struct Colors {
-    struct View {
-        static let background: UIColor = .white
-    }
-    struct TextField {
-        static let text: UIColor = .black
-        static let background: UIColor = UIColor(white: 0.95, alpha: 0.8)
-    }
-    struct RegistrationButton {
-        static let text: UIColor = .systemBlue
-        static let background: UIColor = .clear
-    }
-}
-private struct Fonts {
-    static let registrationButtonText = UIFont.appFont(size: 18, weight: .medium)
 }
