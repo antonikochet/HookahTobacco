@@ -40,7 +40,6 @@ extension RegistrationInteractor: RegistrationInteractorInputProtocol {
         registrationService.checkRegistrationData(email: email, username: username) { [weak self] error in
             guard let self else { return }
             if let error {
-                // TODO: переделат под показ ошибок под полями
                 self.presenter.receivedError(error)
                 return
             }

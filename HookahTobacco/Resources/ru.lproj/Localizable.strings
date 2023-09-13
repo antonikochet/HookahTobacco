@@ -66,6 +66,18 @@
 "login.login.error.message" = "username или email не введен";
 "login.password.error.message" = "Пароль не введен";
 
+// MARK: - Registration screen
+"registration.username.title" = "имя пользователя";
+"registration.email.title" = "email";
+"registration.password.title" = "пароль";
+"registration.repeatPassword.title" = "повторный пароль";
+"registration.continueButton.title" = "Продолжить";
+"registration.textField.emptyError.message" = "Обязательное поле";
+"registration.email.notValid.message" = "Email не валидный";
+"registration.password.notEquals.message" = "Введенные пароли различаются!";
+"registration.titleLabel.text" = "Регистрация";
+"registration.subtitleLabel.text" = "Присоединяйся к нашему сообществу любителей кальяна";
+
 // MARK: - DetailTobacco screen
 "detailTobacco.description.title" = "Описание: %@";
 "detailTobacco.nameLine.title" = "Название линейки";

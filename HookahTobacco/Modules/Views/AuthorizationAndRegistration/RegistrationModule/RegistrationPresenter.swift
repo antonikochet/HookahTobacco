@@ -37,36 +37,50 @@ extension RegistrationPresenter: RegistrationInteractorOutputProtocol {
 
     func receivedError(_ error: HTError) {
         view.hideLoading()
-        router.showError(with: error.message)
+        if case let .apiError(apiErrors) = error {
+            apiErrors.forEach { error in
+                if error.fieldName == User.CodingKeys.username.rawValue {
+                    view.showFieldError(error.message, field: .username)
+                } else if error.fieldName == User.CodingKeys.email.rawValue {
+                    view.showFieldError(error.message, field: .email)
+                } else {
+                    router.showError(with: error.message)
+                }
+            }
+        } else {
+            router.showError(with: error.message)
+        }
     }
 }
 
 // MARK: - ViewOutputProtocol implementation
 extension RegistrationPresenter: RegistrationViewOutputProtocol {
     func pressedRegistrationButton(username: String, email: String, pass: String, repeatPass: String) {
-        guard !username.isEmpty else {
-            router.showError(with: "Имя пользователя не введено!")
-            return
+        var isError = false
+        if username.isEmpty {
+            view.showFieldError(R.string.localizable.registrationTextFieldEmptyErrorMessage(), field: .username)
+            isError = true
         }
-        guard !email.isEmpty else {
-            router.showError(with: "Email не введен!")
-            return
+        if email.isEmpty {
+            view.showFieldError(R.string.localizable.registrationTextFieldEmptyErrorMessage(), field: .email)
+            isError = true
+        } else if !email.isEmailValid() {
+            view.showFieldError(R.string.localizable.registrationEmailNotValidMessage(), field: .email)
+            isError = true
         }
-        guard email.isEmailValid() else {
-            router.showError(with: "Email не валидный")
-            return
+        if pass.isEmpty {
+            view.showFieldError(R.string.localizable.registrationTextFieldEmptyErrorMessage(), field: .password)
+            isError = true
         }
-        guard !pass.isEmpty else {
-            router.showError(with: "Пароль не введен!")
-            return
-        }
-        guard !repeatPass.isEmpty else {
-            router.showError(with: "Повторный пароль не введен!")
-            return
+        if repeatPass.isEmpty {
+            view.showFieldError(R.string.localizable.registrationTextFieldEmptyErrorMessage(), field: .repearPassword)
+            isError = true
+        } else if pass != repeatPass {
+            view.showFieldError(R.string.localizable.registrationPasswordNotEqualsMessage(), field: .repearPassword)
+            isError = true
         }
         // TODO: добавить проверку ввода пароля
-        guard pass == repeatPass else {
-            router.showError(with: "Введенные пароли различаются!")
+        guard !isError, !username.isEmpty, !email.isEmpty, !pass.isEmpty, !repeatPass.isEmpty else {
             return
         }
 

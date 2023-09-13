@@ -10,25 +10,40 @@
 import UIKit
 import SnapKit
 
-protocol RegistrationViewInputProtocol: ViewProtocol {
+enum RegistrationInputFields {
+    case username
+    case email
+    case password
+    case repearPassword
+}
 
+protocol RegistrationViewInputProtocol: ViewProtocol {
+    func showFieldError(_ message: String?, field: RegistrationInputFields)
 }
 
 protocol RegistrationViewOutputProtocol: AnyObject {
     func pressedRegistrationButton(username: String, email: String, pass: String, repeatPass: String)
 }
 
-final class RegistrationViewController: BaseViewController {
+final class RegistrationViewController: HTScrollContentViewController {
     // MARK: - Public properties
     var presenter: RegistrationViewOutputProtocol!
 
+    override var stackViewInset: UIEdgeInsets {
+        UIEdgeInsets(horizontal: 24, vertical: 0)
+    }
+
     // MARK: - UI properties
-    private let registrationLabel = UILabel()
-    private let usernameTextFieldView = AddTextFieldView()
-    private let emailTextFieldView = AddTextFieldView()
-    private let passTextFieldView = AddTextFieldView()
-    private let repeatPassTextFieldView = AddTextFieldView()
-    private let registrationButton = ApplyButton(style: .primary)
+    private let titleLabel = UILabel()
+    private let subtitleLabel = UILabel()
+    private let usernameTextFieldView = TextFieldWithLeftLabel(rounding: .up, type: .text)
+    private let emailTextFieldView = TextFieldWithLeftLabel(rounding: .down, type: .email)
+    private let passTextFieldView = TextFieldWithLeftLabel(rounding: .up, type: .password)
+    private let repeatPassTextFieldView = TextFieldWithLeftLabel(rounding: .down, type: .password)
+    private let continueButton = ApplyButton(style: .primary)
+
+    // MARK: - Private properties
+    private var isNextTextField: Bool = false
 
     // MARK: - ViewController Lifecycle
     override func viewDidLoad() {
@@ -39,81 +54,105 @@ final class RegistrationViewController: BaseViewController {
 
     // MARK: - Setups
     private func setupUI() {
+        setupSubviews()
         setupScreen()
-        setupRegistrationLabel()
+        setupTitleLabel()
+        setupSubtitleLabel()
         setupUsername()
         setupEmail()
         setupPass()
         setupRepeatPass()
         setupRegistrationButton()
+        setupConstrainsScrollView(top: view.safeAreaLayoutGuide.snp.top, topConstant: 48)
     }
 
     private func setupScreen() {
-        view.backgroundColor = Colors.View.background
-        overrideUserInterfaceStyle = .light
+        view.backgroundColor = R.color.primaryBackground()
+        stackView.spacing = 24.0
+        stackView.distribution = .fill
     }
-    private func setupRegistrationLabel() {
-        view.addSubview(registrationLabel)
-        registrationLabel.font = Fonts.registrationLabel
-        registrationLabel.textAlignment = .center
-        registrationLabel.text = .registrationLabelText
-
-        registrationLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(LayoutValues.RegistrationLabel.top)
-            make.leading.trailing.equalToSuperview()
-            make.height.equalTo(Fonts.registrationLabel.lineHeight)
-        }
+    private func setupTitleLabel() {
+        titleLabel.text = R.string.localizable.registrationTitleLabelText()
+        titleLabel.font = UIFont.appFont(size: 30.0, weight: .bold)
+        titleLabel.textColor = R.color.primaryTitle()
+        titleLabel.numberOfLines = 1
+        titleLabel.textAlignment = .left
+        stackView.addArrangedSubview(titleLabel)
+    }
+    private func setupSubtitleLabel() {
+        subtitleLabel.text = R.string.localizable.registrationSubtitleLabelText()
+        subtitleLabel.font = UIFont.appFont(size: 16.0, weight: .regular)
+        subtitleLabel.textColor = R.color.primaryTitle()
+        subtitleLabel.numberOfLines = 0
+        subtitleLabel.textAlignment = .left
+        stackView.addArrangedSubview(subtitleLabel)
+        stackView.setCustomSpacing(8.0, after: titleLabel)
     }
     private func setupUsername() {
-        view.addSubview(usernameTextFieldView)
-        usernameTextFieldView.setupView(textLabel: .usernameLabelText,
-                                        placeholder: .usernamePlaceholder,
-                                        delegate: self)
-        usernameTextFieldView.snp.makeConstraints { make in
-            make.top.equalTo(registrationLabel.snp.bottom).offset(LayoutValues.Label.top)
-            make.leading.trailing.equalToSuperview().inset(LayoutValues.Label.horizPadding)
+        usernameTextFieldView.setupView(title: R.string.localizable.registrationUsernameTitle())
+        usernameTextFieldView.didEndEditing = { [weak self] in
+            guard let self else { return }
+            self.textFieldDidEndEditingAction(self.usernameTextFieldView)
         }
+        usernameTextFieldView.didBeginEditing = { [weak self] in
+            self?.setOffset(.zero)
+        }
+        usernameTextFieldView.shouldBeginEditing = { [weak self] in
+            self?.isNextTextField = true
+            return true
+        }
+        stackView.addArrangedSubview(usernameTextFieldView)
     }
     private func setupEmail() {
-        view.addSubview(emailTextFieldView)
-        emailTextFieldView.setupView(textLabel: .emailLabelText,
-                                     placeholder: .emailPlaceholder,
-                                     delegate: self)
-        emailTextFieldView.setKeyboardType(.emailAddress)
-        emailTextFieldView.setTextContentType(.emailAddress)
-        emailTextFieldView.snp.makeConstraints { make in
-            make.top.equalTo(usernameTextFieldView.snp.bottom).offset(LayoutValues.Label.top)
-            make.leading.trailing.equalToSuperview().inset(LayoutValues.Label.horizPadding)
+        emailTextFieldView.setupView(title: R.string.localizable.registrationEmailTitle())
+        emailTextFieldView.didEndEditing = { [weak self] in
+            guard let self else { return }
+            self.textFieldDidEndEditingAction(self.emailTextFieldView)
         }
+        emailTextFieldView.didBeginEditing = { [weak self] in
+            self?.setOffset(.zero)
+        }
+        emailTextFieldView.shouldBeginEditing = { [weak self] in
+            self?.isNextTextField = true
+            return true
+        }
+        stackView.addArrangedSubview(emailTextFieldView)
+        stackView.setCustomSpacing(12.0, after: usernameTextFieldView)
     }
     private func setupPass() {
-        view.addSubview(passTextFieldView)
-        passTextFieldView.setupView(textLabel: .passwordLabelText,
-                                    placeholder: .passwordPlaceholder,
-                                    delegate: self)
-        passTextFieldView.setTextContentType(.password)
-        passTextFieldView.setIsSecureTextEntry(true)
-        passTextFieldView.snp.makeConstraints { make in
-            make.top.equalTo(emailTextFieldView.snp.bottom).offset(LayoutValues.Label.top)
-            make.leading.trailing.equalToSuperview().inset(LayoutValues.Label.horizPadding)
+        passTextFieldView.setupView(title: R.string.localizable.registrationPasswordTitle())
+        passTextFieldView.didEndEditing = { [weak self] in
+            guard let self else { return }
+            self.textFieldDidEndEditingAction(self.passTextFieldView)
         }
+        passTextFieldView.shouldBeginEditing = { [weak self] in
+            self?.isNextTextField = true
+            return true
+        }
+        passTextFieldView.didBeginEditing = { [weak self] in
+            self?.setOffset(CGPoint(x: 0, y: 50))
+        }
+        stackView.addArrangedSubview(passTextFieldView)
     }
     private func setupRepeatPass() {
-        view.addSubview(repeatPassTextFieldView)
-        repeatPassTextFieldView.setupView(textLabel: .repeatPasswordLabelText,
-                                          placeholder: .repeatPasswordPlaceholder,
-                                          delegate: self)
-        repeatPassTextFieldView.setTextContentType(.password)
-        repeatPassTextFieldView.setIsSecureTextEntry(true)
-        repeatPassTextFieldView.snp.makeConstraints { make in
-            make.top.equalTo(passTextFieldView.snp.bottom).offset(LayoutValues.Label.top)
-            make.leading.trailing.equalToSuperview().inset(LayoutValues.Label.horizPadding)
+        repeatPassTextFieldView.setupView(title: R.string.localizable.registrationRepeatPasswordTitle())
+        repeatPassTextFieldView.didEndEditing = { [weak self] in
+            guard let self else { return }
+            self.textFieldDidEndEditingAction(self.repeatPassTextFieldView)
         }
+        repeatPassTextFieldView.shouldBeginEditing = { [weak self] in
+            self?.isNextTextField = true
+            return true
+        }
+        repeatPassTextFieldView.didBeginEditing = { [weak self] in
+            self?.setOffset(CGPoint(x: 0, y: 100))
+        }
+        stackView.addArrangedSubview(repeatPassTextFieldView)
+        stackView.setCustomSpacing(12.0, after: passTextFieldView)
     }
     private func setupRegistrationButton() {
-        view.addSubview(registrationButton)
-        registrationButton.setTitle(.registrationButtonText, for: .normal)
-        registrationButton.action = { [weak self] in
+        continueButton.setTitle(R.string.localizable.registrationContinueButtonTitle(), for: .normal)
+        continueButton.action = { [weak self] in
             guard let self else { return }
             self.presenter.pressedRegistrationButton(
                 username: self.usernameTextFieldView.text ?? "",
@@ -122,15 +161,20 @@ final class RegistrationViewController: BaseViewController {
                 repeatPass: self.repeatPassTextFieldView.text ?? ""
             )
         }
-        registrationButton.titleLabel?.font = UIFont.appFont(size: 22, weight: .semibold)
-        registrationButton.snp.makeConstraints { make in
-            make.top.equalTo(repeatPassTextFieldView.snp.bottom).offset(LayoutValues.RegistrationButton.top)
-            make.leading.trailing.equalToSuperview().inset(LayoutValues.RegistrationButton.horizPadding)
-            make.height.equalTo(LayoutValues.RegistrationButton.height)
-        }
+        stackView.addArrangedSubview(continueButton)
+        stackView.setCustomSpacing(36.0, after: repeatPassTextFieldView)
     }
 
     // MARK: - Private methods
+    private func textFieldDidEndEditingAction(_ textField: TextFieldWithLeftLabel) {
+        if !isNextTextField {
+            setOffset(.zero)
+        }
+        isNextTextField = false
+        if textField.text?.isEmpty ?? true {
+            textField.setError(message: R.string.localizable.registrationTextFieldEmptyErrorMessage())
+        }
+    }
 
     // MARK: - Selectors
 
@@ -138,66 +182,16 @@ final class RegistrationViewController: BaseViewController {
 
 // MARK: - ViewInputProtocol implementation
 extension RegistrationViewController: RegistrationViewInputProtocol {
-
-}
-
-// MARK: - UITextFieldDelegate implementation
-extension RegistrationViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if usernameTextFieldView.isMyTextField(textField) {
-            return emailTextFieldView.becomeFirstResponderTextField()
-        } else if emailTextFieldView.isMyTextField(textField) {
-            return passTextFieldView.becomeFirstResponderTextField()
-        } else if passTextFieldView.isMyTextField(textField) {
-            return repeatPassTextFieldView.becomeFirstResponderTextField()
-        } else {
-            return view.endEditing(true)
+    func showFieldError(_ message: String?, field: RegistrationInputFields) {
+        switch field {
+        case .username:
+            usernameTextFieldView.setError(message: message)
+        case .email:
+            emailTextFieldView.setError(message: message)
+        case .password:
+            passTextFieldView.setError(message: message)
+        case .repearPassword:
+            repeatPassTextFieldView.setError(message: message)
         }
     }
-}
-
-private extension String {
-    static let registrationLabelText = "Регистрация"
-    static let usernameLabelText = "Имя пользователя"
-    static let usernamePlaceholder = "Введите пользователя"
-    static let emailLabelText = "Email"
-    static let emailPlaceholder = "Введите email"
-    static let passwordLabelText = "Пароль"
-    static let passwordPlaceholder = "password"
-    static let repeatPasswordLabelText = "Повторите пароль"
-    static let repeatPasswordPlaceholder = "Повторите пароль"
-    static let registrationButtonText = "Продолжить регистрацию"
-}
-private struct LayoutValues {
-    struct RegistrationLabel {
-        static let top: CGFloat = 32.0
-    }
-    struct Label {
-        static let top: CGFloat = 16.0
-        static let horizPadding: CGFloat = 24.0
-    }
-    struct TextField {
-        static let top: CGFloat = 4.0
-        static let horizPadding: CGFloat = 24.0
-    }
-    struct RegistrationButton {
-        static let top: CGFloat = 48.0
-        static let height: CGFloat = 60.0
-        static let horizPadding: CGFloat = 20.0
-        static let cornerRadius: CGFloat = height / 2.0
-    }
-}
-private struct Colors {
-    struct View {
-        static let background: UIColor = .white
-    }
-    struct TextField {
-        static let text: UIColor = .black
-        static let background: UIColor = UIColor(white: 0.95, alpha: 0.8)
-    }
-}
-private struct Fonts {
-    static let registrationButtonText = UIFont.appFont(size: 18, weight: .medium)
-    static let registrationLabel = UIFont.appFont(size: 35, weight: .bold)
-    static let label = UIFont.appFont(size: 16, weight: .regular)
 }

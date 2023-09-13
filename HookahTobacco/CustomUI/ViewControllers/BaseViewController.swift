@@ -28,6 +28,7 @@ class BaseViewController: UIViewController {
     // MARK: - Setups
     private func setupAction() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
+        tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
     }
     private func setupBlockView() -> UIView {

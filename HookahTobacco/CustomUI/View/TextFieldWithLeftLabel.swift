@@ -50,6 +50,8 @@ final class TextFieldWithLeftLabel: UIView {
 
     var didBeginEditing: CompletionBlock?
     var didEndEditing: CompletionBlock?
+    var shouldBeginEditing: (() -> Bool)?
+    var shouldEndEditing: (() -> Bool)?
 
     override var intrinsicContentSize: CGSize {
         return CGSize(width: .greatestFiniteMagnitude,
@@ -106,6 +108,8 @@ final class TextFieldWithLeftLabel: UIView {
         textField.leftViewMode = .always
         textField.rightView = createPaddingView()
         textField.rightViewMode = .always
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
         textField.delegate = self
         setupRoundingTextField()
         addSubview(textField)
@@ -177,6 +181,14 @@ extension TextFieldWithLeftLabel: UITextFieldDelegate {
         textField.leftView = titleLabel
         textField.textAlignment = .right
         didEndEditing?()
+    }
+
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        return shouldEndEditing?() ?? true
+    }
+
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        return shouldBeginEditing?() ?? true
     }
 }
 
