@@ -15,7 +15,7 @@ protocol RegistrationUserProtocol: Encodable {
     var firstName: String? { get }
     var lastName: String? { get }
     var dateOfBirth: Date? { get }
-    var image: Data? { get }
+    var gender: Gender? { get }
 }
 
 protocol RegistrationServiceProtocol {

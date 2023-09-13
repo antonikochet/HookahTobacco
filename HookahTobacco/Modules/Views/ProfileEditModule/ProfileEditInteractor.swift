@@ -70,7 +70,8 @@ extension ProfileEditInteractor: ProfileEditInteractorInputProtocol {
             repeatPassword: user.repeatPassword,
             firstName: newUser.firstName,
             lastName: newUser.lastName,
-            dateOfBirth: newUser.dateOfBirth
+            dateOfBirth: newUser.dateOfBirth,
+            gender: newUser.gender
         )
         if isRegistration {
             sendRegistrationData(user)

@@ -15,6 +15,7 @@ protocol UserProtocol {
     var lastName: String? { get }
     var isAdmin: Bool { get }
     var dateOfBirth: Date? { get }
+    var gender: Gender? { get }
 }
 
 protocol AuthServiceProtocol {

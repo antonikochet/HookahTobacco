@@ -44,7 +44,7 @@ class AddSwitchView: UIView {
             make.top.bottom.equalToSuperview()
             make.leading.equalToSuperview()
             make.centerY.equalToSuperview()
-            make.trailing.equalTo(switchView.snp.leading).inset(8.0)
+            make.trailing.equalTo(switchView.snp.leading).inset(-8.0)
         }
 
         switchView.isOn = false

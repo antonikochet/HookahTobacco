@@ -78,6 +78,19 @@
 "registration.titleLabel.text" = "Регистрация";
 "registration.subtitleLabel.text" = "Присоединяйся к нашему сообществу любителей кальяна";
 
+// MARK: - ProfileEdit screen
+"profileEdit.firstName.title" = "Имя";
+"profileEdit.lastName.title" = "Фамилия";
+"profileEdit.dateOfBirth.title" = "Дата рождения";
+"profileEdit.sex.title" = "Пол";
+"profileEdit.agreementTextView.text" = "Я принимаю пользовательское соглашение и даю согласие на обработку персональных данных";
+"profileEdit.titleLabel.text.registration" = "Регистрация";
+"profileEdit.titleLabel.text.edit" = "Изменить данные";
+"profileEdit.button.title.registration" = "Регистрация";
+"profileEdit.button.title.edit" = "Сохранить";
+"profileEdit.bottomSheet.dateOfBirth.title" = "День рождение";
+"profileEdit.bottomSheet.sex.title" = "Выберете пол";
+
 // MARK: - DetailTobacco screen
 "detailTobacco.description.title" = "Описание: %@";
 "detailTobacco.nameLine.title" = "Название линейки";

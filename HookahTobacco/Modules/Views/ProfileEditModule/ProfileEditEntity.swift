@@ -19,5 +19,6 @@ struct ProfileEditEntity {
         let firstName: String
         let lastName: String
         let dateOfBirth: Date?
+        let gender: Gender?
     }
 }

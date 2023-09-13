@@ -17,6 +17,7 @@ class ProfileEditPresenter {
 
     // MARK: - Private properties
     private var dateOfBirth: Date?
+    private var gender: Gender?
 
     private lazy var dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
@@ -32,17 +33,36 @@ class ProfileEditPresenter {
             view.setupDateOfBirth("")
         }
     }
+
+    private func updateGender(_ newGender: Gender?) {
+        if let newGender {
+            view.setupGender(newGender.name)
+        } else {
+            view.setupGender("")
+        }
+    }
 }
 
 // MARK: - InteractorOutputProtocol implementation
 extension ProfileEditPresenter: ProfileEditInteractorOutputProtocol {
     func receivedStartData(_ user: RegistrationUserProtocol, isRegistration: Bool) {
         view.hideLoading()
-        view.setupView(ProfileEditEntity.EnterData(
-            firstName: user.firstName ?? "",
-            lastName: user.lastName ?? ""
-        ))
+        view.setupCloseButton(isShow: !isRegistration)
+        view.setupView(
+            ProfileEditEntity.EnterData(
+                firstName: user.firstName ?? "",
+                lastName: user.lastName ?? ""
+            ),
+            title: (isRegistration ?
+                    R.string.localizable.profileEditTitleLabelTextRegistration() :
+                        R.string.localizable.profileEditTitleLabelTextEdit()),
+            buttonTitle: (isRegistration ?
+                          R.string.localizable.profileEditButtonTitleRegistration() :
+                            R.string.localizable.profileEditButtonTitleEdit()))
+        dateOfBirth = user.dateOfBirth
         updateDateOfBirth(user.dateOfBirth)
+        gender = user.gender
+        updateGender(gender)
     }
 
     func receivedSuccessRegistration() {
@@ -85,16 +105,25 @@ extension ProfileEditPresenter: ProfileEditViewOutputProtocol {
         interactor.sendNewData(ProfileEditEntity.User(
             firstName: entity.firstName,
             lastName: entity.lastName,
-            dateOfBirth: dateOfBirth
+            dateOfBirth: dateOfBirth,
+            gender: gender
         ))
     }
 
     func pressedDateOfBirthTextField() {
         router.showDatePickerView(date: dateOfBirth,
-                                  title: "День рождение",
+                                  title: R.string.localizable.profileEditBottomSheetDateOfBirthTitle(),
                                   minDate: nil,
                                   maxDate: nil,
                                   delegate: self)
+    }
+
+    func pressedSexTextField() {
+        // TODO: добавить метод который будет показывать bottom sheet с выбором пола
+    }
+
+    func pressedCloseButton() {
+        router.dismissEditProfileView()
     }
 }
 
@@ -102,5 +131,12 @@ extension ProfileEditPresenter: DatePickerOutputModule {
     func receivedNewDate(_ newDate: Date) {
         dateOfBirth = newDate
         updateDateOfBirth(dateOfBirth)
+    }
+}
+
+extension ProfileEditPresenter {
+    func receiveNewData(_ newIndex: Int) {
+        gender = Gender(rawValue: newIndex)
+        updateGender(gender)
     }
 }

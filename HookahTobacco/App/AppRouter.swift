@@ -141,7 +141,7 @@ class AppRouter: AppRouterProtocol {
     }
 
     func dismissView(animated: Bool, completion: CompletionBlock? = nil) {
-        guard let navigationController = receiveContainer() else { return }
+        guard let navigationController = topViewController(controller: appWindow.rootViewController) else { return }
         navigationController.dismiss(animated: true)
         completion?()
     }
@@ -149,7 +149,7 @@ class AppRouter: AppRouterProtocol {
     func presentViewModally(module: ModuleProtocol.Type, moduleData data: DataModuleProtocol? = nil) {
         guard let module = receiveModule(module, data),
               let view = module.createModule(self) as? BottomSheetPresenter,
-              let navigationController = receiveContainer() else { return }
+              let navigationController = topViewController(controller: appWindow.rootViewController) else { return }
         view.present(from: navigationController, swipeToDismissListenerClosure: nil)
     }
 

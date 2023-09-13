@@ -20,7 +20,7 @@ struct RegistrationUser: RegistrationUserProtocol {
     var firstName: String?
     var lastName: String?
     var dateOfBirth: Date?
-    var image: Data?
+    var gender: Gender?
 
     fileprivate var isEdit: Bool = false
 
@@ -31,7 +31,7 @@ struct RegistrationUser: RegistrationUserProtocol {
          firstName: String? = nil,
          lastName: String? = nil,
          dateOfBirth: Date? = nil,
-         image: Data? = nil) {
+         gender: Gender? = nil) {
         self.username = username
         self.email = email
         self.password = password
@@ -39,7 +39,7 @@ struct RegistrationUser: RegistrationUserProtocol {
         self.firstName = firstName
         self.lastName = lastName
         self.dateOfBirth = dateOfBirth
-        self.image = image
+        self.gender = gender
     }
 }
 
@@ -79,6 +79,6 @@ extension RegistrationUser {
         self.firstName = user.firstName
         self.lastName = user.lastName
         self.dateOfBirth = user.dateOfBirth
-        self.image = nil // user.image
+        self.gender = user.gender
     }
 }

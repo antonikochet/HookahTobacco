@@ -33,7 +33,6 @@ class HTScrollContentViewController: BaseViewController {
         }
 
         stackView.axis = .vertical
-        stackView.distribution = .equalSpacing
         stackView.spacing = 16.0
         contentScrollView.addSubview(stackView)
         stackView.snp.makeConstraints {
