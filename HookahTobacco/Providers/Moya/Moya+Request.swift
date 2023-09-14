@@ -6,6 +6,7 @@
 //
 
 import Moya
+import Foundation
 
 typealias MoyaCompletion<T> = (Result<T, Error>) -> Void
 
@@ -22,7 +23,7 @@ extension MoyaProviderType {
             switch result {
             case let .success(response):
                 do {
-                    let data = try response.map(T.self)
+                    let data = try response.map(T.self, using: JSONDecoder.defaultDecoder)
                     completion(.success(data))
                 } catch {
                     completion(.failure(error))
