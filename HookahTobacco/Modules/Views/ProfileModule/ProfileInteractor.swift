@@ -17,7 +17,6 @@ protocol ProfileInteractorInputProtocol: AnyObject {
 protocol ProfileInteractorOutputProtocol: PresenterrProtocol {
     func receivedProfileInfoSuccess(_ user: UserProtocol)
     func receivedLogoutSuccess()
-    func receivedLogoutError(_ message: String)
 }
 
 final class ProfileInteractor {

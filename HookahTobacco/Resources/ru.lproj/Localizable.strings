@@ -90,6 +90,7 @@
 "profileEdit.button.title.edit" = "Сохранить";
 "profileEdit.bottomSheet.dateOfBirth.title" = "День рождение";
 "profileEdit.bottomSheet.sex.title" = "Выберете пол";
+"profileEdit.textField.emptyError.message" = "Обязательное поле";
 
 // MARK: - DetailTobacco screen
 "detailTobacco.description.title" = "Описание: %@";

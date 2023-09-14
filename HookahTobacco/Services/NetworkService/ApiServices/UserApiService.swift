@@ -21,6 +21,15 @@ extension UserApiService: UserNetworkingServiceProtocol {
         }
     }
 
+    func updateUser(_ user: RegistrationUserProtocol, completion: CompletionResultBlock<UserProtocol>?) {
+        let target = Api.Users.patch(user)
+        sendRequest(object: User.self, target: target) { user in
+            completion?(.success(user))
+        } failure: { error in
+            completion?(.failure(error))
+        }
+    }
+
     func receiveFavoriteTobaccos(page: Int, completion: CompletionResultBlock<PageResponse<Tobacco>>?) {
         let target = Api.Users.getFavoritesTobacco(page: page)
         sendRequest(object: PageResponse<Tobacco>.self,

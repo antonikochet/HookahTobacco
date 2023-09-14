@@ -18,6 +18,7 @@ class ProfileEditPresenter {
     // MARK: - Private properties
     private var dateOfBirth: Date?
     private var gender: Gender?
+    private var isRegistration: Bool = false
 
     private lazy var dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
@@ -47,18 +48,21 @@ class ProfileEditPresenter {
 extension ProfileEditPresenter: ProfileEditInteractorOutputProtocol {
     func receivedStartData(_ user: RegistrationUserProtocol, isRegistration: Bool) {
         view.hideLoading()
-        view.setupCloseButton(isShow: !isRegistration)
+        self.isRegistration = isRegistration
         view.setupView(
             ProfileEditEntity.EnterData(
                 firstName: user.firstName ?? "",
-                lastName: user.lastName ?? ""
+                lastName: user.lastName ?? "",
+                username: user.username,
+                email: user.email
             ),
             title: (isRegistration ?
                     R.string.localizable.profileEditTitleLabelTextRegistration() :
                         R.string.localizable.profileEditTitleLabelTextEdit()),
             buttonTitle: (isRegistration ?
                           R.string.localizable.profileEditButtonTitleRegistration() :
-                            R.string.localizable.profileEditButtonTitleEdit()))
+                            R.string.localizable.profileEditButtonTitleEdit()),
+            isRegistration: isRegistration)
         dateOfBirth = user.dateOfBirth
         updateDateOfBirth(user.dateOfBirth)
         gender = user.gender
@@ -73,16 +77,28 @@ extension ProfileEditPresenter: ProfileEditInteractorOutputProtocol {
         }
     }
 
-    func receivedSuccessEditProfile() {
+    func receivedSuccessEditProfile(_ user: UserProtocol) {
         view.hideLoading()
-        router.showSuccess(delay: 2.0) { [weak self] in
-            self?.router.dismissEditProfileView()
+        router.showSuccess(delay: 1.0) { [weak self] in
+            self?.router.dismissEditProfileView(user)
         }
     }
 
     func receivedError(_ error: HTError) {
-        router.showError(with: error.message)
         view.hideLoading()
+        if case let .apiError(apiErrors) = error {
+            apiErrors.forEach { error in
+                if error.fieldName == User.CodingKeys.username.rawValue {
+                    view.showFieldError(error.message, field: .username)
+                } else if error.fieldName == User.CodingKeys.email.rawValue {
+                    view.showFieldError(error.message, field: .email)
+                } else {
+                    router.showError(with: error.message)
+                }
+            }
+        } else {
+            router.showError(with: error.message)
+        }
     }
 }
 
@@ -93,18 +109,32 @@ extension ProfileEditPresenter: ProfileEditViewOutputProtocol {
     }
 
     func pressedButton(_ entity: ProfileEditEntity.EnterData) {
-        guard !entity.firstName.isEmpty else {
-            router.showError(with: "Не ввели имя")
-            return
+        var isError = false
+        if entity.firstName.isEmpty {
+            view.showFieldError(R.string.localizable.profileEditTextFieldEmptyErrorMessage(), field: .firstName)
+            isError = true
         }
-        guard !entity.lastName.isEmpty else {
-            router.showError(with: "Не ввели фамилию")
+        if !isRegistration {
+            if entity.username.isEmpty {
+                view.showFieldError(R.string.localizable.profileEditTextFieldEmptyErrorMessage(), field: .username)
+                isError = true
+            }
+            if entity.email.isEmpty {
+                view.showFieldError(R.string.localizable.profileEditTextFieldEmptyErrorMessage(), field: .email)
+                isError = true
+            }
+        }
+
+        if isError {
             return
         }
 
+        view.showBlockLoading()
         interactor.sendNewData(ProfileEditEntity.User(
             firstName: entity.firstName,
             lastName: entity.lastName,
+            username: entity.username,
+            email: entity.email,
             dateOfBirth: dateOfBirth,
             gender: gender
         ))
@@ -119,14 +149,18 @@ extension ProfileEditPresenter: ProfileEditViewOutputProtocol {
     }
 
     func pressedSexTextField() {
-        // TODO: добавить метод который будет показывать bottom sheet с выбором пола
+        router.showSexView(title: R.string.localizable.profileEditBottomSheetSexTitle(),
+                           items: Gender.allCases.map { $0.name },
+                           selectedIndex: gender?.rawValue,
+                           output: self)
     }
 
     func pressedCloseButton() {
-        router.dismissEditProfileView()
+        router.dismissEditProfileView(nil)
     }
 }
 
+// MARK: - DatePickerOutputModule implementation
 extension ProfileEditPresenter: DatePickerOutputModule {
     func receivedNewDate(_ newDate: Date) {
         dateOfBirth = newDate
@@ -134,8 +168,10 @@ extension ProfileEditPresenter: DatePickerOutputModule {
     }
 }
 
-extension ProfileEditPresenter {
-    func receiveNewData(_ newIndex: Int) {
+// MARK: - SelectListBottomSheetOutputModule implementation
+extension ProfileEditPresenter: SelectListBottomSheetOutputModule {
+    func receiveNewData(_ newIndex: Int?) {
+        guard let newIndex else { return }
         gender = Gender(rawValue: newIndex)
         updateGender(gender)
     }

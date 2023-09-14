@@ -13,11 +13,15 @@ struct ProfileEditEntity {
     struct EnterData {
         let firstName: String
         let lastName: String
+        let username: String
+        let email: String
     }
 
     struct User {
         let firstName: String
         let lastName: String
+        let username: String
+        let email: String
         let dateOfBirth: Date?
         let gender: Gender?
     }

@@ -5,12 +5,13 @@
 //  Created by Anton Kochetkov on 11.08.2023.
 //
 
+import Foundation
 import Moya
 
 extension Api {
     enum Users {
         case get
-        case patch
+        case patch(RegistrationUserProtocol)
         case changePassword
         case resetPassword
         case getFavoritesTobacco(page: Int)
@@ -53,6 +54,10 @@ extension Api.Users: DefaultTarget {
 
     var task: Moya.Task {
         switch self {
+        case .patch(let user):
+            let encoder = JSONEncoder()
+            encoder.dateEncodingStrategy = .formatted(DateFormatter(format: "yyyy-MM-dd"))
+            return .requestCustomJSONEncodable(user, encoder: encoder)
         case .getFavoritesTobacco(let page):
             return .requestParameters(parameters: ["page": page], encoding: URLEncoding())
         case .getBuyToTobacco(let page):

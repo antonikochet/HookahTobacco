@@ -22,7 +22,8 @@ struct RegistrationUser: RegistrationUserProtocol {
     var dateOfBirth: Date?
     var gender: Gender?
 
-    fileprivate var isEdit: Bool = false
+    var isEdit: Bool = false
+    var isEditUsername: Bool = false
 
     init(username: String,
          email: String,
@@ -47,7 +48,9 @@ extension RegistrationUser {
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
 
-        try container.encode(username, forKey: .username)
+        if isEditUsername {
+            try container.encode(username, forKey: .username)
+        }
         try container.encode(email, forKey: .email)
         if !isEdit {
             try container.encode(password, forKey: .password)
@@ -65,7 +68,6 @@ extension RegistrationUser {
         case firstName = "first_name"
         case lastName = "last_name"
         case dateOfBirth = "date_of_birth"
-        case image
     }
 }
 

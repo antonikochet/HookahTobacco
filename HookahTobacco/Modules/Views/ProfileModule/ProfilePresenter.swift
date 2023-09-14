@@ -92,10 +92,6 @@ extension ProfilePresenter: ProfileInteractorOutputProtocol {
     func receivedLogoutSuccess() {
         router.showLoginView()
     }
-
-    func receivedLogoutError(_ message: String) {
-        router.showError(with: message)
-    }
 }
 
 // MARK: - ViewOutputProtocol implementation
@@ -112,5 +108,11 @@ extension ProfilePresenter: ProfileViewOutputProtocol {
 
     func pressedLogoutButton() {
         interactor.logout()
+    }
+}
+
+extension ProfilePresenter: ProfileEditOutputModule {
+    func receivedUpdateUser(_ user: UserProtocol) {
+        setupContentView(user)
     }
 }

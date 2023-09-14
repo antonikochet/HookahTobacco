@@ -23,7 +23,7 @@ protocol GetDataNetworkingServiceProtocol {
 
 protocol UserNetworkingServiceProtocol {
     func receiveUser(completion: CompletionResultBlock<UserProtocol>?)
-//    func updateUser(_ user: UserProtocol, completion: CompletionResultBlock<UserProtocol>?)
+    func updateUser(_ user: RegistrationUserProtocol, completion: CompletionResultBlock<UserProtocol>?)
     func receiveFavoriteTobaccos(page: Int, completion: CompletionResultBlock<PageResponse<Tobacco>>?)
     func receiveWantToBuyTobaccos(page: Int, completion: CompletionResultBlock<PageResponse<Tobacco>>?)
     func updateFavoriteTobacco(_ tobaccos: [Tobacco], completion: CompletionResultBlock<[Tobacco]>?)

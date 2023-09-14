@@ -11,11 +11,17 @@ import UIKit
 import FittedSheets
 import SnapKit
 
+enum ProfileEditInputFields {
+    case firstName
+    case username
+    case email
+}
+
 protocol ProfileEditViewInputProtocol: ViewProtocol {
-    func setupView(_ data: ProfileEditEntity.EnterData, title: String, buttonTitle: String)
+    func setupView(_ data: ProfileEditEntity.EnterData, title: String, buttonTitle: String, isRegistration: Bool)
     func setupDateOfBirth(_ date: String)
     func setupGender(_ gender: String)
-    func setupCloseButton(isShow: Bool)
+    func showFieldError(_ message: String, field: ProfileEditInputFields)
 }
 
 protocol ProfileEditViewOutputProtocol: AnyObject {
@@ -28,7 +34,8 @@ protocol ProfileEditViewOutputProtocol: AnyObject {
 
 class ProfileEditViewController: HTScrollContentViewController, BottomSheetPresenter {
     // MARK: - BottomSheetPresenter
-    var sizes: [SheetSize] = [.fullscreen]
+    var sizes: [SheetSize] = [.marginFromTop(50)]
+    var isShowGrip: Bool = false
 
     // MARK: - Public properties
     var presenter: ProfileEditViewOutputProtocol!
@@ -36,6 +43,7 @@ class ProfileEditViewController: HTScrollContentViewController, BottomSheetPrese
     override var stackViewInset: UIEdgeInsets {
         UIEdgeInsets(horizontal: 24, vertical: 0)
     }
+
     // MARK: - UI properties
     // TODO: добавить email, username при режиме редактирования
     private let closeView = UIView()
@@ -43,12 +51,17 @@ class ProfileEditViewController: HTScrollContentViewController, BottomSheetPrese
     private let titleLabel = UILabel()
     private let firstNameFieldView = TextFieldWithLeftLabel(rounding: .up, type: .text)
     private let lastNameFieldView = TextFieldWithLeftLabel(rounding: .down, type: .text)
+    private let usernameTextFieldView = TextFieldWithLeftLabel(rounding: .up, type: .text)
+    private let emailTextFieldView = TextFieldWithLeftLabel(rounding: .down, type: .email)
     private let dateOfBirthFieldView = TextFieldWithLeftLabel(rounding: .up, type: .text)
     private let sexFieldView = TextFieldWithLeftLabel(rounding: .down, type: .text)
     private let agreementStackView = UIStackView()
     private let agreementTextView = UITextView()
     private let agreementSwitch = UISwitch()
     private let button = ApplyButton(style: .primary)
+
+    // MARK: - Private properties
+    private var isNextTextField: Bool = false
 
     // MARK: - ViewController Lifecycle
     override func viewDidLoad() {
@@ -66,6 +79,8 @@ class ProfileEditViewController: HTScrollContentViewController, BottomSheetPrese
         setupTitleLabel()
         setupFirstNameFieldView()
         setupLastNameFieldView()
+        setupUsername()
+        setupEmail()
         setupDateOfBirthFieldView()
         setupSexFieldView()
         setupAgreementSwitchView()
@@ -87,7 +102,7 @@ class ProfileEditViewController: HTScrollContentViewController, BottomSheetPrese
         closeView.addSubview(closeButton)
         closeButton.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview().inset(8.0)
-            make.leading.equalToSuperview().offset(-16.0)
+            make.trailing.equalToSuperview()
         }
         stackView.addArrangedSubview(closeView)
     }
@@ -100,28 +115,85 @@ class ProfileEditViewController: HTScrollContentViewController, BottomSheetPrese
     }
     private func setupFirstNameFieldView() {
         firstNameFieldView.setupView(title: R.string.localizable.profileEditFirstNameTitle())
+        firstNameFieldView.didEndEditing = { [weak self] in
+            guard let self else { return }
+            self.textFieldDidEndEditingAction(self.firstNameFieldView)
+        }
+        firstNameFieldView.didBeginEditing = { [weak self] in
+            self?.setOffset(.zero)
+        }
+        firstNameFieldView.shouldBeginEditing = { [weak self] in
+            self?.isNextTextField = true
+            return true
+        }
         stackView.addArrangedSubview(firstNameFieldView)
         stackView.setCustomSpacing(36, after: titleLabel)
     }
     private func setupLastNameFieldView() {
         lastNameFieldView.setupView(title: R.string.localizable.profileEditLastNameTitle())
+        lastNameFieldView.didEndEditing = { [weak self] in
+            guard let self else { return }
+            self.textFieldDidEndEditingAction(self.lastNameFieldView, isRequired: false)
+        }
+        lastNameFieldView.didBeginEditing = { [weak self] in
+            self?.setOffset(.zero)
+        }
+        lastNameFieldView.shouldBeginEditing = { [weak self] in
+            self?.isNextTextField = true
+            return true
+        }
         stackView.addArrangedSubview(lastNameFieldView)
+    }
+    private func setupUsername() {
+        usernameTextFieldView.setupView(title: R.string.localizable.registrationUsernameTitle())
+        usernameTextFieldView.didEndEditing = { [weak self] in
+            guard let self else { return }
+            self.textFieldDidEndEditingAction(self.usernameTextFieldView)
+        }
+        usernameTextFieldView.didBeginEditing = { [weak self] in
+            self?.setOffset(CGPoint(x: 0, y: 30))
+        }
+        usernameTextFieldView.shouldBeginEditing = { [weak self] in
+            self?.isNextTextField = true
+            return true
+        }
+        stackView.addArrangedSubview(usernameTextFieldView)
+        stackView.setCustomSpacing(24.0, after: lastNameFieldView)
+    }
+    private func setupEmail() {
+        emailTextFieldView.setupView(title: R.string.localizable.registrationEmailTitle())
+        emailTextFieldView.didEndEditing = { [weak self] in
+            guard let self else { return }
+            self.textFieldDidEndEditingAction(self.emailTextFieldView)
+        }
+        emailTextFieldView.didBeginEditing = { [weak self] in
+            self?.setOffset(CGPoint(x: 0, y: 60))
+        }
+        emailTextFieldView.shouldBeginEditing = { [weak self] in
+            self?.isNextTextField = true
+            return true
+        }
+        stackView.addArrangedSubview(emailTextFieldView)
     }
     private func setupDateOfBirthFieldView() {
         dateOfBirthFieldView.setupView(title: R.string.localizable.profileEditDateOfBirthTitle())
         dateOfBirthFieldView.didBeginEditing = { [weak self] in
-            self?.view.endEditing(true)
+            self?.setOffset(.zero)
             self?.presenter.pressedDateOfBirthTextField()
+            self?.isNextTextField = false
+            self?.view.endEditing(true)
         }
         stackView.addArrangedSubview(dateOfBirthFieldView)
-        stackView.setCustomSpacing(24, after: lastNameFieldView)
+        stackView.setCustomSpacing(24, after: emailTextFieldView)
     }
     private func setupSexFieldView() {
         sexFieldView.setupView(title: R.string.localizable.profileEditSexTitle())
         sexFieldView.didBeginEditing = { [weak self] in
-                self?.view.endEditing(true)
+            self?.setOffset(.zero)
             self?.presenter.pressedSexTextField()
-            }
+            self?.isNextTextField = false
+            self?.view.endEditing(true)
+        }
         stackView.addArrangedSubview(sexFieldView)
     }
     private func setupAgreementSwitchView() {
@@ -154,13 +226,25 @@ class ProfileEditViewController: HTScrollContentViewController, BottomSheetPrese
             guard let self else { return }
             self.presenter.pressedButton(ProfileEditEntity.EnterData(
                 firstName: self.firstNameFieldView.text ?? "",
-                lastName: self.lastNameFieldView.text ?? ""
+                lastName: self.lastNameFieldView.text ?? "",
+                username: self.usernameTextFieldView.text ?? "",
+                email: self.emailTextFieldView.text ?? ""
             ))
         }
         stackView.addArrangedSubview(button)
         stackView.setCustomSpacing(36, after: agreementStackView)
     }
+
     // MARK: - Private methods
+    private func textFieldDidEndEditingAction(_ textField: TextFieldWithLeftLabel, isRequired: Bool = true) {
+        if !isNextTextField {
+            setOffset(.zero)
+        }
+        isNextTextField = false
+        if textField.text?.isEmpty ?? true && isRequired {
+            textField.setError(message: R.string.localizable.registrationTextFieldEmptyErrorMessage())
+        }
+    }
 
     // MARK: - Selectors
     @objc private func changedAgreementSwitch() {
@@ -170,11 +254,22 @@ class ProfileEditViewController: HTScrollContentViewController, BottomSheetPrese
 
 // MARK: - ViewInputProtocol implementation
 extension ProfileEditViewController: ProfileEditViewInputProtocol {
-    func setupView(_ data: ProfileEditEntity.EnterData, title: String, buttonTitle: String) {
+    func setupView(_ data: ProfileEditEntity.EnterData, title: String, buttonTitle: String, isRegistration: Bool) {
         titleLabel.text = title
         button.setTitle(buttonTitle, for: .normal)
         firstNameFieldView.text = data.firstName
         lastNameFieldView.text = data.lastName
+        usernameTextFieldView.text = data.username
+        emailTextFieldView.text = data.email
+
+        if isRegistration {
+            closeButton.removeFromSuperview()
+            closeView.snp.makeConstraints { make in
+                make.height.equalTo(50)
+            }
+            usernameTextFieldView.removeFromSuperview()
+            emailTextFieldView.removeFromSuperview()
+        }
     }
 
     func setupDateOfBirth(_ date: String) {
@@ -185,12 +280,14 @@ extension ProfileEditViewController: ProfileEditViewInputProtocol {
         sexFieldView.text = gender
     }
 
-    func setupCloseButton(isShow: Bool) {
-        if !isShow {
-            closeButton.removeFromSuperview()
-            closeView.snp.makeConstraints { make in
-                make.size.equalTo(50)
-            }
+    func showFieldError(_ message: String, field: ProfileEditInputFields) {
+        switch field {
+        case .firstName:
+            firstNameFieldView.setError(message: message)
+        case .username:
+            usernameTextFieldView.setError(message: message)
+        case .email:
+            emailTextFieldView.setError(message: message)
         }
     }
 }

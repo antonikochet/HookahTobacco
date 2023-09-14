@@ -21,7 +21,7 @@ final class RegistrationRouter: RegistrationRouterProtocol {
     }
 
     func showProfileRegistrationView(user: RegistrationUserProtocol) {
-        let data = ProfileEditDataModule(isRegistration: true, user: user)
+        let data = ProfileEditDataModule(isRegistration: true, user: user, output: nil)
         appRouter.pushViewController(module: ProfileEditModule.self, moduleData: data, animateDisplay: true)
     }
 }
