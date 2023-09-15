@@ -98,9 +98,11 @@ class TobaccoListPresenter: NSObject {
         var title: String
         var message: String = ""
         var action: ActionWithTitle?
+        var topView: UIView?
         switch interactor.receiveTobaccoListInput() {
         case .none:
             title = R.string.localizable.infoTitleNone()
+            topView = view.getSearchView()
         case .favorite:
             title = R.string.localizable.infoTitleFavorite()
             message = R.string.localizable.infoMessageFavorite()
@@ -123,7 +125,7 @@ class TobaccoListPresenter: NSObject {
                                       title: title,
                                       subtitle: message,
                                       primaryAction: action)
-        viewModel.topView = view.getSearchView()
+        viewModel.topView = topView
         view.showInfoView(viewModel: viewModel)
     }
 

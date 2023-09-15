@@ -14,6 +14,7 @@ struct ProfileEditDependency {
     var appRouter: AppRouterProtocol
     var isRegistration: Bool
     var user: RegistrationUserProtocol
+    let output: ProfileEditOutputModule?
 }
 
 class ProfileEditAssembly: Assembly {
@@ -21,15 +22,18 @@ class ProfileEditAssembly: Assembly {
 
         container.register(ProfileEditRouterProtocol.self) { (_, dependency: ProfileEditDependency) in
             let router = ProfileEditRouter(dependency.appRouter)
+            router.output = dependency.output
             return router
         }
 
         container.register(ProfileEditInteractorInputProtocol.self) { (resolver, dependency: ProfileEditDependency) in
             // here resolve dependency injection
             let registrationService = resolver.resolve(RegistrationServiceProtocol.self)!
+            let userNetworkingService = resolver.resolve(UserNetworkingServiceProtocol.self)!
             return ProfileEditInteractor(isRegistration: dependency.isRegistration,
                                          user: dependency.user,
-                                         registrationService: registrationService)
+                                         registrationService: registrationService,
+                                         userNetworkingService: userNetworkingService)
         }
 
         container.register(ProfileEditViewOutputProtocol.self) { _ in

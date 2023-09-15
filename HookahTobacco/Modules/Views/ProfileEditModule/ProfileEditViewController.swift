@@ -55,7 +55,7 @@ class ProfileEditViewController: HTScrollContentViewController, BottomSheetPrese
     private let emailTextFieldView = TextFieldWithLeftLabel(rounding: .down, type: .email)
     private let dateOfBirthFieldView = TextFieldWithLeftLabel(rounding: .up, type: .text)
     private let sexFieldView = TextFieldWithLeftLabel(rounding: .down, type: .text)
-    private let agreementStackView = UIStackView()
+    private let agreementView = UIView()
     private let agreementTextView = UITextView()
     private let agreementSwitch = UISwitch()
     private let button = ApplyButton(style: .primary)
@@ -178,10 +178,10 @@ class ProfileEditViewController: HTScrollContentViewController, BottomSheetPrese
     private func setupDateOfBirthFieldView() {
         dateOfBirthFieldView.setupView(title: R.string.localizable.profileEditDateOfBirthTitle())
         dateOfBirthFieldView.didBeginEditing = { [weak self] in
+            self?.view.endEditing(true)
             self?.setOffset(.zero)
             self?.presenter.pressedDateOfBirthTextField()
             self?.isNextTextField = false
-            self?.view.endEditing(true)
         }
         stackView.addArrangedSubview(dateOfBirthFieldView)
         stackView.setCustomSpacing(24, after: emailTextFieldView)
@@ -189,15 +189,28 @@ class ProfileEditViewController: HTScrollContentViewController, BottomSheetPrese
     private func setupSexFieldView() {
         sexFieldView.setupView(title: R.string.localizable.profileEditSexTitle())
         sexFieldView.didBeginEditing = { [weak self] in
+            self?.view.endEditing(true)
             self?.setOffset(.zero)
             self?.presenter.pressedSexTextField()
             self?.isNextTextField = false
-            self?.view.endEditing(true)
         }
         stackView.addArrangedSubview(sexFieldView)
     }
     private func setupAgreementSwitchView() {
+        agreementSwitch.thumbTintColor = R.color.primaryPurple()
+        agreementSwitch.tintColor = R.color.fourthBackground()
+        agreementSwitch.onTintColor = R.color.fourthBackground()
+        agreementSwitch.isOn = true
+        agreementSwitch.addTarget(self, action: #selector(changedAgreementSwitch), for: .valueChanged)
+        agreementView.addSubview(agreementSwitch)
+        agreementSwitch.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.width.equalTo(51)
+        }
+
         agreementTextView.font = UIFont.appFont(size: 16.0, weight: .regular)
+        agreementTextView.backgroundColor = .clear
         agreementTextView.textColor = R.color.primaryTitle()
         agreementTextView.textAlignment = .left
         agreementTextView.isEditable = false
@@ -207,19 +220,13 @@ class ProfileEditViewController: HTScrollContentViewController, BottomSheetPrese
         agreementTextView.minimumZoomScale = 1.0
         agreementTextView.delegate = self
         agreementTextView.isScrollEnabled = false
-        agreementStackView.addArrangedSubview(agreementTextView)
+        agreementView.addSubview(agreementTextView)
+        agreementTextView.snp.makeConstraints { make in
+            make.top.bottom.leading.equalToSuperview()
+            make.trailing.equalTo(agreementSwitch.snp.leading).inset(12)
+        }
 
-        agreementSwitch.thumbTintColor = R.color.primaryPurple()
-        agreementSwitch.tintColor = R.color.fourthBackground()
-        agreementSwitch.onTintColor = R.color.fourthBackground()
-        agreementSwitch.isOn = true
-        agreementSwitch.addTarget(self, action: #selector(changedAgreementSwitch), for: .valueChanged)
-        agreementStackView.addArrangedSubview(agreementSwitch)
-
-        agreementStackView.axis = .horizontal
-        agreementStackView.spacing = 12
-        agreementStackView.alignment = .center
-        stackView.addArrangedSubview(agreementStackView)
+        stackView.addArrangedSubview(agreementView)
     }
     private func setupButton() {
         button.action = { [weak self] in
@@ -232,7 +239,7 @@ class ProfileEditViewController: HTScrollContentViewController, BottomSheetPrese
             ))
         }
         stackView.addArrangedSubview(button)
-        stackView.setCustomSpacing(36, after: agreementStackView)
+        stackView.setCustomSpacing(36, after: agreementView)
     }
 
     // MARK: - Private methods

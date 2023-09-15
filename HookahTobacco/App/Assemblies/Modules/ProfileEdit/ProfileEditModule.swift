@@ -12,6 +12,7 @@ import UIKit
 struct ProfileEditDataModule: DataModuleProtocol {
     let isRegistration: Bool
     let user: RegistrationUserProtocol
+    let output: ProfileEditOutputModule?
 }
 
 class ProfileEditModule: ModuleProtocol {
@@ -26,7 +27,8 @@ class ProfileEditModule: ModuleProtocol {
         if let data = data as? ProfileEditDataModule {
             dependency = ProfileEditDependency(appRouter: appRouter,
                                                isRegistration: data.isRegistration,
-                                               user: data.user)
+                                               user: data.user,
+                                               output: data.output)
         } else {
             fatalError("В модуль ProfileEditModule не был передан ProfileEditDataModule")
         }
