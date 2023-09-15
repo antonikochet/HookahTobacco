@@ -8,14 +8,18 @@
 import Foundation
 import Moya
 import Alamofire
+import UIKit
 
 class BaseApiService {
     private let provider: MoyaProvider<MultiTarget>
+    private let authSettings: AuthSettingsProtocol
     private let handlerErrors: NetworkHandlerErrors
 
     init(provider: MoyaProvider<MultiTarget>,
+         authSettings: AuthSettingsProtocol,
          handlerErrors: NetworkHandlerErrors) {
         self.provider = provider
+        self.authSettings = authSettings
         self.handlerErrors = handlerErrors
     }
 
@@ -23,6 +27,22 @@ class BaseApiService {
         #if DEBUG
         print("‼️‼️‼️\n\(line)\n‼️‼️‼️")
         #endif
+    }
+
+    private func handlerError(_ error: Error, completion: CompletionBlockWithParam<HTError>) {
+        self.showError("\(error)")
+        let htError = handlerErrors.handlerError(error)
+        if case let .apiError(errors) = htError,
+           let apiError = errors.first,
+           apiError.code == "authentication_failed" {
+            authSettings.setToken(nil)
+            let router = (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.router
+            router?.presentAlert(type: .error(message: apiError.message), completion: {
+                router?.restartViewApp()
+            })
+            return
+        }
+        completion(htError)
     }
 
     func sendRequest<T: Decodable>(
@@ -37,8 +57,9 @@ class BaseApiService {
             case let .success(response):
                 completion?(response)
             case let .failure(error):
-                self.showError("\(error)")
-                failure?(self.handlerErrors.handlerError(error))
+                self.handlerError(error) { error in
+                    failure?(self.handlerErrors.handlerError(error))
+                }
             }
         }
     }
@@ -54,8 +75,9 @@ class BaseApiService {
             case let .success(response):
                 completion?(.success(response))
             case let .failure(error):
-                self.showError("\(error)")
-                completion?(.failure(self.handlerErrors.handlerError(error)))
+                self.handlerError(error) { error in
+                    completion?(.failure(self.handlerErrors.handlerError(error)))
+                }
             }
         }
     }
@@ -67,8 +89,9 @@ class BaseApiService {
             case let .success(data):
                 completion?(.success(data))
             case let .failure(error):
-                self.showError("\(error)")
-                completion?(.failure(self.handlerErrors.handlerError(error)))
+                self.handlerError(error) { error in
+                    completion?(.failure(self.handlerErrors.handlerError(error)))
+                }
             }
         }
     }

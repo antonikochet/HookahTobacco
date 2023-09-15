@@ -18,7 +18,7 @@ final class ApiAuthServices: BaseApiService {
          settings: AuthSettingsProtocol,
          handlerErrors: NetworkHandlerErrors) {
         self.settings = settings
-        super.init(provider: provider, handlerErrors: handlerErrors)
+        super.init(provider: provider, authSettings: settings, handlerErrors: handlerErrors)
     }
 
     // MARK: - Public methods

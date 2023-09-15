@@ -11,6 +11,7 @@ import Swinject
 protocol AppRouterProtocol {
     var resolver: Resolver { get }
 
+    func restartViewApp()
     func pushViewController(module: ModuleProtocol.Type,
                             moduleData data: DataModuleProtocol?,
                             animateDisplay: Bool)
@@ -102,6 +103,10 @@ class AppRouter: AppRouterProtocol {
     // MARK: - AppRouterProtocol
     var resolver: Resolver {
         assembler.resolver
+    }
+
+    func restartViewApp() {
+        assembleContainers()
     }
 
     func pushViewController(module: ModuleProtocol.Type,

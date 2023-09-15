@@ -10,6 +10,7 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    var router: AppRouterProtocol?
 
     func scene(_ scene: UIScene,
                willConnectTo session: UISceneSession,
@@ -30,6 +31,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         dataManager.subscribe(to: SystemNotificationType.self, subscriber: router)
         dataManager.start()
 
+        self.router = router
         window?.makeKeyAndVisible()
     }
 }
