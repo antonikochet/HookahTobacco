@@ -45,6 +45,14 @@ final class ProfilePresenter {
             rows.append(adminButtonCell)
         }
 
+        let editProfileItem = ButtonProfileTableViewCellItem(text: "Изменить данные") { [weak self] in
+            guard let self else { return }
+            let data = ProfileEditDataModule(isRegistration: false, user: RegistrationUser(user), output: self)
+            self.router.appRouter.presentViewModally(module: ProfileEditModule.self, moduleData: data)
+        }
+        let editProfileRow = TableRow<ButtonProfileTableViewCell>(item: editProfileItem)
+        rows.append(editProfileRow)
+
         // button for show tobacco list with filter: favorite
         let favoriteItem = ButtonProfileTableViewCellItem(
             text: R.string.localizable.profileFavoriteButtonTitle()

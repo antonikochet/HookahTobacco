@@ -653,6 +653,76 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		381E686C2AB733ED000AA9BC /* TobaccoScreen */ = {
+			isa = PBXGroup;
+			children = (
+				B981CB9E2930DB8500705422 /* DetailTobaccoModule */,
+				38041BE92AA0D24900DEEE6D /* TobaccoFiltersModule */,
+				B9B7274629096C5A00EB7323 /* TobaccoListModule */,
+			);
+			path = TobaccoScreen;
+			sourceTree = "<group>";
+		};
+		381E686D2AB73413000AA9BC /* ManufacturerScreen */ = {
+			isa = PBXGroup;
+			children = (
+				B95699AB28F709C000D9E584 /* ManufacturerListModule */,
+				B9EE23522910196B0098E4E0 /* DetailInfoManufacturerModule */,
+			);
+			path = ManufacturerScreen;
+			sourceTree = "<group>";
+		};
+		381E686E2AB7342A000AA9BC /* UsersScreen */ = {
+			isa = PBXGroup;
+			children = (
+				38CE8CC22A8955D500B00307 /* ProfileEditModule */,
+				B92A46A22966F9DC0006B787 /* ProfileModule */,
+			);
+			path = UsersScreen;
+			sourceTree = "<group>";
+		};
+		381E686F2AB7348D000AA9BC /* AdminsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				38F9B8A42A80353100EAC0A0 /* AddCountry */,
+				B9631C5A292400E400BBC09B /* AddTaste */,
+				382F0C422A7D93BC00E2F277 /* AddTobaccoLine */,
+				B94E17B62921268C0008CB73 /* AddTastes */,
+				B9E7ACA328F454B500A3D7E5 /* AddTobacco */,
+				B9E7ACA728F4673400A3D7E5 /* AdminMenu */,
+				B9E7ACB528F4959500A3D7E5 /* AddManufacturer */,
+			);
+			path = AdminsScreen;
+			sourceTree = "<group>";
+		};
+		381E68702AB73496000AA9BC /* TobaccoScreen */ = {
+			isa = PBXGroup;
+			children = (
+				B981CBA9293120CD00705422 /* DetailTobacco */,
+				38041BF52AA0D26500DEEE6D /* TobaccoFilters */,
+				B9ED910A2909D24500DC3A6D /* TobaccoList */,
+			);
+			path = TobaccoScreen;
+			sourceTree = "<group>";
+		};
+		381E68712AB734A8000AA9BC /* ManufacturerScreen */ = {
+			isa = PBXGroup;
+			children = (
+				B9E8DA4D28F7825200CCA034 /* ManufacturerList */,
+				B97181542911252100E5DB28 /* DetailInfoManufacturer */,
+			);
+			path = ManufacturerScreen;
+			sourceTree = "<group>";
+		};
+		381E68722AB734C8000AA9BC /* UsersScreen */ = {
+			isa = PBXGroup;
+			children = (
+				B92A46B0296731100006B787 /* Profile */,
+				38CE8CD22A89713E00B00307 /* ProfileEdit */,
+			);
+			path = UsersScreen;
+			sourceTree = "<group>";
+		};
 		382F0C372A7D934E00E2F277 /* AddTobaccoLine */ = {
 			isa = PBXGroup;
 			children = (
@@ -869,13 +939,13 @@
 			path = DatePickerModule;
 			sourceTree = "<group>";
 		};
-		38C3ACC42A8BD4AE001D79EB /* HelperViews */ = {
+		38C3ACC42A8BD4AE001D79EB /* HelperScreen */ = {
 			isa = PBXGroup;
 			children = (
 				384B94042AB3549500DBE89C /* SelectListBottomSheet */,
 				384B94032AB3548400DBE89C /* DatePicker */,
 			);
-			path = HelperViews;
+			path = HelperScreen;
 			sourceTree = "<group>";
 		};
 		38CE8CC22A8955D500B00307 /* ProfileEditModule */ = {
@@ -1638,21 +1708,11 @@
 		B9E7AC9F28F4518C00A3D7E5 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				38041BF52AA0D26500DEEE6D /* TobaccoFilters */,
-				38C3ACC42A8BD4AE001D79EB /* HelperViews */,
-				38CE8CD22A89713E00B00307 /* ProfileEdit */,
-				B92A46B0296731100006B787 /* Profile */,
-				B97181542911252100E5DB28 /* DetailInfoManufacturer */,
-				B9ED910A2909D24500DC3A6D /* TobaccoList */,
-				B9E8DA4D28F7825200CCA034 /* ManufacturerList */,
-				B9E7ACB528F4959500A3D7E5 /* AddManufacturer */,
-				B9E7ACA728F4673400A3D7E5 /* AdminMenu */,
-				B9E7ACA328F454B500A3D7E5 /* AddTobacco */,
-				B94E17B62921268C0008CB73 /* AddTastes */,
-				382F0C422A7D93BC00E2F277 /* AddTobaccoLine */,
-				B9631C5A292400E400BBC09B /* AddTaste */,
-				38F9B8A42A80353100EAC0A0 /* AddCountry */,
-				B981CBA9293120CD00705422 /* DetailTobacco */,
+				381E68722AB734C8000AA9BC /* UsersScreen */,
+				381E68712AB734A8000AA9BC /* ManufacturerScreen */,
+				381E68702AB73496000AA9BC /* TobaccoScreen */,
+				381E686F2AB7348D000AA9BC /* AdminsScreen */,
+				38C3ACC42A8BD4AE001D79EB /* HelperScreen */,
 				B9BA7943295B9C90009188D6 /* AuthorizationAndRegistration */,
 				B9EB024828F35B5F00B3B6DA /* ModuleProtocol.swift */,
 			);
@@ -1707,15 +1767,11 @@
 		B9E8DA5328F7835700CCA034 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				38C3ACB82A8BCA92001D79EB /* HelperViews */,
-				B9EE23522910196B0098E4E0 /* DetailInfoManufacturerModule */,
-				B95699AB28F709C000D9E584 /* ManufacturerListModule */,
-				B9B7274629096C5A00EB7323 /* TobaccoListModule */,
-				38041BE92AA0D24900DEEE6D /* TobaccoFiltersModule */,
-				B981CB9E2930DB8500705422 /* DetailTobaccoModule */,
+				381E686E2AB7342A000AA9BC /* UsersScreen */,
+				381E686D2AB73413000AA9BC /* ManufacturerScreen */,
+				381E686C2AB733ED000AA9BC /* TobaccoScreen */,
 				B9C925F0294F52D20085BB02 /* AuthorizationAndRegistration */,
-				B92A46A22966F9DC0006B787 /* ProfileModule */,
-				38CE8CC22A8955D500B00307 /* ProfileEditModule */,
+				38C3ACB82A8BCA92001D79EB /* HelperViews */,
 			);
 			path = Views;
 			sourceTree = "<group>";
