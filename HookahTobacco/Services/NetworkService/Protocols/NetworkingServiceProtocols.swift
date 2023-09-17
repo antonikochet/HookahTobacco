@@ -30,6 +30,11 @@ protocol UserNetworkingServiceProtocol {
     func updateWantToBuyTobacco(_ tobaccos: [Tobacco], completion: CompletionResultBlock<[Tobacco]>?)
 }
 
+protocol AppealsNetworkingServiceProtocol {
+    func receiveThemes(completion: CompletionResultBlock<ThemesAppealsResponse>?)
+    func createAppeal(_ appeal: CreateAppealEntity, completion: CompletionBlockWithParam<CreateAppealResponse>?)
+}
+
 protocol AdminNetworkingServiceProtocol {
     func addData<T: DataNetworkingServiceProtocol>(_ data: T, completion: CompletionResultBlock<T>?)
     func setData<T: DataNetworkingServiceProtocol>(_ data: T, completion: CompletionResultBlock<T>?)

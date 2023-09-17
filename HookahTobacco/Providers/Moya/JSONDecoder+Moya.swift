@@ -18,9 +18,13 @@ extension JSONDecoder {
             let container = try decoder.singleValueContainer()
             do {
                 let dateStr = try container.decode(String.self)
-                
+
                 let formatter = DateFormatter()
                 formatter.dateFormat = "yyyy-MM-dd"
+                if let date = formatter.date(from: dateStr) {
+                    return date
+                }
+                formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.ssssssZ"
                 if let date = formatter.date(from: dateStr) {
                     return date
                 }

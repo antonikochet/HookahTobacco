@@ -25,6 +25,11 @@ class ApiNetworkingServicesAssembly: Assembly {
                            authSettings: resolver.resolve(AuthSettingsProtocol.self)!,
                            handlerErrors: resolver.resolve(NetworkHandlerErrors.self)!)
         }
+        container.register(AppealsNetworkingServiceProtocol.self) { resolver in
+            AppealsApiService(provider: resolver.resolve(MoyaProvider.self)!,
+                              authSettings: resolver.resolve(AuthSettingsProtocol.self)!,
+                              handlerErrors: resolver.resolve(NetworkHandlerErrors.self)!)
+        }
         container.register(AdminNetworkingServiceProtocol.self) { resolver in
             AdminApiService(provider: resolver.resolve(MoyaProvider.self)!,
                             authSettings: resolver.resolve(AuthSettingsProtocol.self)!,

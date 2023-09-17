@@ -21,13 +21,17 @@ struct SelectListBottomSheetDependency {
 class SelectListBottomSheetAssembly: Assembly {
     func assemble(container: Container) {
 
-        container.register(SelectListBottomSheetRouterProtocol.self) { (_, dependency: SelectListBottomSheetDependency) in
+        container.register(
+            SelectListBottomSheetRouterProtocol.self
+        ) { (_, dependency: SelectListBottomSheetDependency) in
             let router = SelectListBottomSheetRouter(dependency.appRouter)
             router.output = dependency.output
             return router
         }
 
-        container.register(SelectListBottomSheetInteractorInputProtocol.self) { (_, dependency: SelectListBottomSheetDependency) in
+        container.register(
+            SelectListBottomSheetInteractorInputProtocol.self
+        ) { (_, dependency: SelectListBottomSheetDependency) in
             // here resolve dependency injection
 
             return SelectListBottomSheetInteractor(title: dependency.title,
@@ -41,9 +45,13 @@ class SelectListBottomSheetAssembly: Assembly {
         }
 
         // swiftlint:disable force_cast
-        container.register(SelectListBottomSheetViewController.self) { (resolver, dependency: SelectListBottomSheetDependency) in
+        container.register(
+            SelectListBottomSheetViewController.self
+        ) { (resolver, dependency: SelectListBottomSheetDependency) in
             let view = SelectListBottomSheetViewController()
-            let presenter = resolver.resolve(SelectListBottomSheetViewOutputProtocol.self) as! SelectListBottomSheetPresenter
+            let presenter = resolver.resolve(
+                SelectListBottomSheetViewOutputProtocol.self
+            ) as! SelectListBottomSheetPresenter
             let interactor = resolver.resolve(
                 SelectListBottomSheetInteractorInputProtocol.self, argument: dependency
             ) as! SelectListBottomSheetInteractor

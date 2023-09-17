@@ -45,7 +45,7 @@ final class SelectListBottomSheetTableViewCell: UITableViewCell, ConfigurableCel
         selectionStyle = .none
         backgroundColor = .clear
     }
-    
+
     private func setupCheckmarkIcon() {
         checkmarkIcon.image = R.image.checkmark()
         checkmarkIcon.isHidden = true

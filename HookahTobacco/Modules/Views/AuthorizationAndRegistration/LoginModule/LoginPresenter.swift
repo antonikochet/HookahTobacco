@@ -30,8 +30,8 @@ extension LoginPresenter: LoginInteractorOutputProtocol {
 extension LoginPresenter: LoginViewOutputProtocol {
     func pressedButtonLogin(with login: String?, and password: String?) {
         var isError = false
-        var email = login ?? ""
-        var pass = password ?? ""
+        let email = login ?? ""
+        let pass = password ?? ""
         if email.isEmpty {
             view.showEmailError(R.string.localizable.loginLoginErrorMessage())
             isError = true
