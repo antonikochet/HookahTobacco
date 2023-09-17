@@ -21,7 +21,7 @@ extension AppealsApiService: AppealsNetworkingServiceProtocol {
         )
     }
 
-    func createAppeal(_ appeal: CreateAppealEntity, completion: CompletionBlockWithParam<CreateAppealResponse>?) {
+    func createAppeal(_ appeal: CreateAppealEntity, completion: CompletionResultBlock<CreateAppealResponse>?) {
         let request = CreateAppealRequest(entity: appeal)
         let target = Api.Appeals.createAppeal(request)
         sendRequest(

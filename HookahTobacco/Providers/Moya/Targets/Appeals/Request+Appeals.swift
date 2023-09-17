@@ -15,6 +15,15 @@ struct CreateAppealEntity: Encodable {
     let theme: Int
     let message: String
     let contents: [URL]
+
+    enum CodingKeys: String, CodingKey {
+        case name
+        case email
+        case user
+        case theme
+        case message
+        case contents
+    }
 }
 
 struct CreateAppealRequest {
@@ -22,17 +31,13 @@ struct CreateAppealRequest {
 }
 
 extension CreateAppealRequest {
-    private var contentsKey: String {
-        "contents"
-    }
-
     func createRequest() -> Moya.Task {
         if entity.contents.isEmpty {
             return .requestJSONEncodable(entity)
         }
         var formDatas: [MultipartFormData] = []
         if var dict = try? entity.asDictionary() {
-            dict[contentsKey] = nil
+            dict[CreateAppealEntity.CodingKeys.contents.rawValue] = nil
             for (key, value) in dict {
                 var data: Data?
                 if let arrayValue = value as? [Any] {
@@ -46,7 +51,8 @@ extension CreateAppealRequest {
             }
         }
         for (index, content) in entity.contents.enumerated() {
-            formDatas.append(MultipartFormData(provider: .file(content), name: "\(contentsKey)[\(index)]"))
+            let name = "\(CreateAppealEntity.CodingKeys.contents.rawValue)[\(index)]"
+            formDatas.append(MultipartFormData(provider: .file(content), name: name))
         }
         return .uploadMultipart(formDatas)
     }

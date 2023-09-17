@@ -99,6 +99,23 @@
 "detailTobacco.tobaccoType.title" = "Тип табака";
 "detailTobacco.tobaccoLeafType.title" = "Типы листа";
 
+// MARK: - CreateAppeals screen
+"createAppeals.title" = "Создать обращение";
+"createAppeals.titleLabel.text" = "Новое обращение";
+"createAppeals.name.title" = "Ваше имя";
+"createAppeals.name.placeholder" = "Введите имя";
+"createAppeals.email.title" = "Email";
+"createAppeals.email.placeholder" = "Введите email";
+"createAppeals.theme.title" = "Тема";
+"createAppeals.theme.select" = "Выберите тему";
+"createAppeals.message.title" = "Текст обращения";
+"createAppeals.contents.title" = "Добавить файлы";
+"createAppeals.contents.subtitle" = "Вы можете прикрепить фото и/или видео для детализации своего обращения.";
+"createAppeals.sendButton.title" = "Отправить обращение";
+"createAppeals.selectThemeBottomSheet.title" = "Выберите тему";
+"createAppeals.textField.emptyError.message" = "Обязательное поле";
+"createAppeals.email.notValid.message" = "Email не валидный";
+
 // MARK: - Admin screens
 // MARK: - AddTaste screen
 "addTaste.addButton.add" = "Добавить вкус";

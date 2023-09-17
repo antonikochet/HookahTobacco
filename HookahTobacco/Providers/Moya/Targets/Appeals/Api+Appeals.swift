@@ -18,9 +18,9 @@ extension Api.Appeals: DefaultTarget {
     var path: String {
         switch self {
         case .getThemes:
-            return "api/v1/appeals/theme/"
+            return "v1/appeals/theme/"
         case .createAppeal:
-            return "api/v1/appeals/"
+            return "v1/appeals/"
         }
     }
 

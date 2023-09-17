@@ -32,7 +32,7 @@ protocol UserNetworkingServiceProtocol {
 
 protocol AppealsNetworkingServiceProtocol {
     func receiveThemes(completion: CompletionResultBlock<ThemesAppealsResponse>?)
-    func createAppeal(_ appeal: CreateAppealEntity, completion: CompletionBlockWithParam<CreateAppealResponse>?)
+    func createAppeal(_ appeal: CreateAppealEntity, completion: CompletionResultBlock<CreateAppealResponse>?)
 }
 
 protocol AdminNetworkingServiceProtocol {

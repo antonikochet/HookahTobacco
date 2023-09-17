@@ -10,7 +10,7 @@ import UIKit
 extension UILabel {
     func setForTitleName() {
         textColor = R.color.primaryTitle()
-        font = UIFont.appFont(size: 18.0, weight: .regular)
+        font = UIFont.appFont(size: 18.0, weight: .medium)
         numberOfLines = 0
     }
 }

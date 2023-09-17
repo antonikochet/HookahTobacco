@@ -53,6 +53,12 @@ final class ProfilePresenter {
         let editProfileRow = TableRow<ButtonProfileTableViewCell>(item: editProfileItem)
         rows.append(editProfileRow)
 
+        let createAppealItem = ButtonProfileTableViewCellItem(text: "Написать обращение") { [weak self] in
+            self?.router.showCreateAppeal()
+        }
+        let createAppealRow = TableRow<ButtonProfileTableViewCell>(item: createAppealItem)
+        rows.append(createAppealRow)
+
         // button for show tobacco list with filter: favorite
         let favoriteItem = ButtonProfileTableViewCellItem(
             text: R.string.localizable.profileFavoriteButtonTitle()

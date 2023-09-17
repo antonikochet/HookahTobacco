@@ -14,6 +14,7 @@ protocol ProfileRouterProtocol: RouterProtocol {
     func showLoginView()
     func showFavoriteList()
     func showWantToBuyList()
+    func showCreateAppeal()
 }
 
 final class ProfileRouter: ProfileRouterProtocol {
@@ -39,5 +40,9 @@ final class ProfileRouter: ProfileRouterProtocol {
     func showWantToBuyList() {
         let data = TobaccoListDataModile(isAdminMode: false, filter: .wantBuy)
         appRouter.pushViewController(module: TobaccoListModule.self, moduleData: data, animateDisplay: true)
+    }
+
+    func showCreateAppeal() {
+        appRouter.pushViewController(module: CreateAppealsModule.self, moduleData: nil, animateDisplay: true)
     }
 }

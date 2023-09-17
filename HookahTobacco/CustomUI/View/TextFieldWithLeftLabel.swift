@@ -106,8 +106,7 @@ final class TextFieldWithLeftLabel: UIView {
         textField.textAlignment = .right
         textField.leftView = titleLabel
         textField.leftViewMode = .always
-        textField.rightView = createPaddingView()
-        textField.rightViewMode = .always
+        textField.createPaddingView(LayoutValues.textFieldPadding, in: .right, with: .always)
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
         textField.delegate = self
@@ -150,15 +149,6 @@ final class TextFieldWithLeftLabel: UIView {
     }
 
     // MARK: - Private methods
-    private func createPaddingView() -> UIView {
-        let rect = CGRect(x: 0,
-                          y: 0,
-                          width: LayoutValues.textFieldPadding,
-                          height: LayoutValues.textFieldHeight)
-        let view = UIView(frame: rect)
-        return view
-    }
-
     private func setupRoundingTextField() {
         textField.isSecureTextEntry = type == .password
         textField.layer.masksToBounds = true
@@ -172,7 +162,7 @@ final class TextFieldWithLeftLabel: UIView {
 extension TextFieldWithLeftLabel: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         setError(message: nil)
-        textField.leftView = createPaddingView()
+        textField.createPaddingView(LayoutValues.textFieldPadding, in: .left, with: .always)
         textField.textAlignment = .left
         didBeginEditing?()
     }
