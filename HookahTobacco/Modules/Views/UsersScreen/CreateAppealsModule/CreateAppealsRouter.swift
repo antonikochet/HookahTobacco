@@ -15,6 +15,7 @@ protocol CreateAppealsRouterProtocol: RouterProtocol {
                          selectedIndex: Int?,
                          output: SelectListBottomSheetOutputModule?)
     func popView(_ response: CreateAppealResponse)
+    func showAlertSheet(title: String?, message: String?, actions: [AlertSheetAction])
 }
 
 class CreateAppealsRouter: CreateAppealsRouterProtocol {
@@ -39,5 +40,9 @@ class CreateAppealsRouter: CreateAppealsRouterProtocol {
         appRouter.popViewConroller(animated: true) { [appRouter] in
             // TODO: - показывать success bottom sheet
         }
+    }
+
+    func showAlertSheet(title: String?, message: String?, actions: [AlertSheetAction]) {
+        appRouter.presentAlert(type: .sheet(title: title, message: message, actions: actions), completion: nil)
     }
 }

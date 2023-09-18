@@ -117,6 +117,8 @@
 "createAppeals.email.notValid.message" = "Email не валидный";
 "createAppeals.maxSizeImage.message" = "Размер изображение не должен привышать %@ мб";
 "createAppeals.maxSizeVideo.message" = "Размер видео не должен привышать %@ мб";
+"createAppeals.alertSheet.camera.title" = "Камера";
+"createAppeals.alertSheet.gallery.title" = "Галерея";
 
 // MARK: - Admin screens
 // MARK: - AddTaste screen

@@ -44,7 +44,19 @@ class CreateAppealsPresenter {
 
         if contents.count < Constant.maxCountContent {
             let addItem = AddContentCreateAppealsCollectionCellItem { [weak self] in
-                self?.view.showImagePickerView(.picker)
+                self?.router.showAlertSheet(title: nil, message: nil, actions: [
+                    AlertSheetAction(title: R.string.localizable.generalCancel(), style: .cancel, action: {}),
+                    AlertSheetAction(title: R.string.localizable.createAppealsAlertSheetCameraTitle(),
+                                     style: .default,
+                                     action: {
+                        self?.view.showImagePickerView(.camera)
+                    }),
+                    AlertSheetAction(title: R.string.localizable.createAppealsAlertSheetGalleryTitle(),
+                                     style: .default,
+                                     action: {
+                        self?.view.showImagePickerView(.picker)
+                    })
+                ])
             }
             let addRow = CollectionItem<AddContentCreateAppealsCollectionViewCell>(item: addItem)
             rows.append(addRow)

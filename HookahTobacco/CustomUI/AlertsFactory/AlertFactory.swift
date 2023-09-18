@@ -7,11 +7,18 @@
 
 import UIKit
 
+struct AlertSheetAction {
+    let title: String
+    let style: UIAlertAction.Style
+    let action: CompletionBlock
+}
+
 struct AlertFactory {
 
     enum AlertType {
         case success(delay: Double)
         case error(message: String)
+        case sheet(title: String?, message: String?, actions: [AlertSheetAction])
         case toastSuccess(title: String? = nil,
                           message: String,
                           delay: Double,
@@ -37,6 +44,11 @@ struct AlertFactory {
             showSuccessAlert(.success, delay: delay, from: viewController, completion: completion)
         case .error(let message):
             showErrorAlert(with: message, from: viewController, completion: completion)
+        case let .sheet(title, message, actions):
+            showActionSheetAlert(title: title,
+                                 message: message,
+                                 actions: actions,
+                                 from: viewController)
         case let .toastSuccess(title, message, delay, position, isShowIcon):
             showToast(title: title,
                       message: message,
@@ -76,6 +88,20 @@ struct AlertFactory {
                                   completion: CompletionBlock? = nil) {
         let alert = PopupAlertView.createView(superview: viewController.view)
         alert.show(type, delay: delay, completion: completion)
+    }
+
+    private func showActionSheetAlert(title: String?,
+                                      message: String?,
+                                      actions: [AlertSheetAction],
+                                      from viewController: UIViewController) {
+        let alertVC = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+        for action in actions {
+            let act = UIAlertAction(title: action.title, style: action.style) { _ in
+                action.action()
+            }
+            alertVC.addAction(act)
+        }
+        viewController.present(alertVC, animated: true)
     }
     // swiftlint: disable:next function_parameter_count
     private func showToast(title: String?,
