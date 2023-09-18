@@ -182,8 +182,7 @@ extension CreateAppealsViewController: CreateAppealsViewInputProtocol {
         case .theme:
             themeTextFieldView.setError(message: message)
         case .message:
-            break
-//            messageTextView.setError(message: message)
+            messageTextView.setError(message: message)
         }
     }
 
@@ -242,7 +241,15 @@ extension CreateAppealsViewController: UITextFieldDelegate {
 
 // MARK: - UITextFieldDelegate implementation
 extension CreateAppealsViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        messageTextView.setError(message: nil)
+    }
 
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            messageTextView.setError(message: R.string.localizable.createAppealsTextFieldEmptyErrorMessage())
+        }
+    }
 }
 
 // MARK: - UIImagePickerControllerDelegate implementation

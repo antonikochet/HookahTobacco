@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 
 class AddTextView: UIView {
+    // MARK: - Public properties
     var text: String! {
         get { textView.text }
         set { textView.text = newValue }
@@ -23,57 +24,90 @@ class AddTextView: UIView {
     }
 
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: .greatestFiniteMagnitude,
-                      height: label.intrinsicContentSize.height + 8 + heightTextView)
+        CGSize(width: .greatestFiniteMagnitude,
+               height: (
+                titleLabel.intrinsicContentSize.height +
+                4 +
+                heightTextView +
+                (errorLabel.isHidden ? 0 : LayoutValues.errorLabelTop) +
+                (errorLabel.isHidden ? 0 : errorLabel.intrinsicContentSize.height))
+        )
     }
 
-    private let label = UILabel()
+    // MARK: - Private UI
+    private let titleLabel = UILabel()
     private let textView = UITextView()
+    private let errorLabel = UILabel()
 
+    // MARK: - Init
     init() {
         super.init(frame: .zero)
-        setupSubviews()
+        setupUI()
     }
 
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setupSubviews()
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: Setup UI
+    private func setupUI() {
+        setupTitleLabel()
+        setupTextView()
+        setupErrorLabel()
+    }
+    private func setupTitleLabel() {
+        titleLabel.setForTitleName()
+        addSubview(titleLabel)
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
+        }
+    }
+    private func setupTextView() {
+        textView.backgroundColor = R.color.inputBackground()
+        textView.textColor = R.color.primaryBlack()
+        textView.tintColor = R.color.primaryBlack()
+        textView.font = UIFont.appFont(size: 16, weight: .regular)
+        textView.layer.cornerRadius = 10
+        textView.textContainerInset = UIEdgeInsets(horizontal: 8, vertical: 4)
+        addSubview(textView)
+        textView.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(4)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(heightTextView)
+        }
+    }
+    private func setupErrorLabel() {
+        errorLabel.font = UIFont.appFont(size: 14.0, weight: .medium)
+        errorLabel.textColor = R.color.primaryRed()
+        errorLabel.numberOfLines = 0
+        errorLabel.textAlignment = .left
+        errorLabel.isHidden = true
+        addSubview(errorLabel)
+        errorLabel.snp.makeConstraints { make in
+            make.top.equalTo(textView.snp.bottom).offset(LayoutValues.errorLabelTop)
+            make.leading.trailing.equalToSuperview().inset(8)
+            make.bottom.equalToSuperview()
+        }
     }
 
     // MARK: public methods
     func setupView(textLabel: String, delegate: UITextViewDelegate? = nil) {
-        label.text = textLabel
+        titleLabel.text = textLabel
         textView.delegate = delegate
-    }
-
-    // MARK: private methods
-    private func setupSubviews() {
-        addSubview(label)
-        addSubview(textView)
-
-        label.setForTitleName()
-        label.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.trailing.equalToSuperview()
-        }
-
-        textView.backgroundColor = R.color.inputBackground()
-        textView.textColor = R.color.primaryBlack()
-        textView.tintColor = R.color.primaryBlack()
-        textView.font = UIFont.appFont(size: 17, weight: .regular)
-        textView.layer.cornerRadius = 10
-        textView.layer.borderColor = R.color.primaryTitle()?.withAlphaComponent(0.7).cgColor
-        textView.layer.borderWidth = 1
-        textView.snp.makeConstraints { make in
-            make.top.equalTo(label.snp.bottom).offset(8)
-            make.leading.trailing.equalToSuperview()
-            make.bottom.equalToSuperview()
-            make.height.equalTo(heightTextView)
-        }
     }
 
     @discardableResult
     override func becomeFirstResponder() -> Bool {
         textView.becomeFirstResponder()
     }
+
+    func setError(message: String?) {
+        errorLabel.text = message
+        errorLabel.isHidden = message == nil
+    }
+}
+
+private struct LayoutValues {
+    static let errorLabelTop: CGFloat = 2.0
 }
