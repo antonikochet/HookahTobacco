@@ -115,6 +115,8 @@
 "createAppeals.selectThemeBottomSheet.title" = "Выберите тему";
 "createAppeals.textField.emptyError.message" = "Обязательное поле";
 "createAppeals.email.notValid.message" = "Email не валидный";
+"createAppeals.maxSizeImage.message" = "Размер изображение не должен привышать %@ мб";
+"createAppeals.maxSizeVideo.message" = "Размер видео не должен привышать %@ мб";
 
 // MARK: - Admin screens
 // MARK: - AddTaste screen

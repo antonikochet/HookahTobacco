@@ -20,4 +20,15 @@ struct CreateAppealsEntity {
         let email: String
         let message: String
     }
+
+    enum ContentType {
+        case photo
+        case video
+    }
+    struct Content {
+        let url: URL
+        /// size in value bytes
+        let size: Int
+        let type: ContentType
+    }
 }

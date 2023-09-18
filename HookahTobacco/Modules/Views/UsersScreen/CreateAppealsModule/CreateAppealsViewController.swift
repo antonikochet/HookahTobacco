@@ -34,7 +34,7 @@ protocol CreateAppealsViewInputProtocol: ViewProtocol {
 protocol CreateAppealsViewOutputProtocol: AnyObject {
     func viewDidLoad()
     func pressedThemeView()
-    func selectContent(_ urlFile: URL)
+    func selectContent(_ content: CreateAppealsEntity.Content)
     func cancelSelectContent()
     func pressedSendButton(_ enterData: CreateAppealsEntity.EnterData)
 }
@@ -258,15 +258,18 @@ extension CreateAppealsViewController: UIImagePickerControllerDelegate & UINavig
         _ picker: UIImagePickerController,
         didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
     ) {
-        var url: URL?
-        if let imageURL = info[.imageURL] as? URL {
-            url = imageURL
-        } else if let videoURL = info[.mediaURL] as? URL {
-            url = videoURL
+        var content: CreateAppealsEntity.Content?
+        if let imageURL = info[.imageURL] as? URL,
+           let image = info[.originalImage] as? UIImage,
+           let imageData = image.jpegData(compressionQuality: 1) {
+            content = CreateAppealsEntity.Content(url: imageURL, size: imageData.count, type: .photo)
+        } else if let videoURL = info[.mediaURL] as? URL,
+            let videoData = try? Data(contentsOf: videoURL) {
+            content = CreateAppealsEntity.Content(url: videoURL, size: videoData.count, type: .video)
         }
-        guard let url else { return }
+        guard let content else { return }
         picker.dismiss(animated: true) { [weak self] in
-            self?.presenter.selectContent(url)
+            self?.presenter.selectContent(content)
         }
     }
 

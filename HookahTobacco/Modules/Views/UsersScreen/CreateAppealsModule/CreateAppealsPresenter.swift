@@ -42,11 +42,13 @@ class CreateAppealsPresenter {
             rows.append(row)
         }
 
-        let addItem = AddContentCreateAppealsCollectionCellItem { [weak self] in
-            self?.view.showImagePickerView(.picker)
+        if contents.count < Constant.maxCountContent {
+            let addItem = AddContentCreateAppealsCollectionCellItem { [weak self] in
+                self?.view.showImagePickerView(.picker)
+            }
+            let addRow = CollectionItem<AddContentCreateAppealsCollectionViewCell>(item: addItem)
+            rows.append(addRow)
         }
-        let addRow = CollectionItem<AddContentCreateAppealsCollectionViewCell>(item: addItem)
-        rows.append(addRow)
 
         let section = CollectionSection(items: rows)
 
@@ -134,11 +136,26 @@ extension CreateAppealsPresenter: CreateAppealsViewOutputProtocol {
                                output: self)
     }
 
-    func selectContent(_ urlFile: URL) {
+    func selectContent(_ content: CreateAppealsEntity.Content) {
+        let sizeInMb = Double(content.size) / 1024.0 / 1024.0
+        switch content.type {
+        case .photo:
+            if sizeInMb >= Constant.maxSizeImage {
+                router.showError(
+                    with: R.string.localizable.createAppealsMaxSizeImageMessage("\(Int(Constant.maxSizeImage))"))
+                return
+            }
+        case .video:
+            if sizeInMb >= Constant.maxSizeVideo {
+                router.showError(
+                    with: R.string.localizable.createAppealsMaxSizeVideoMessage("\(Int(Constant.maxSizeVideo))"))
+                return
+            }
+        }
         if let selectContentIndex {
-            contents[selectContentIndex] = urlFile
+            contents[selectContentIndex] = content.url
         } else {
-            contents.append(urlFile)
+            contents.append(content.url)
         }
         setupContentView()
     }
@@ -199,4 +216,10 @@ extension CreateAppealsPresenter: SelectListBottomSheetOutputModule {
 
 private extension String {
     static let notSelectThemeText = R.string.localizable.createAppealsThemeSelect()
+}
+
+private struct Constant {
+    static let maxCountContent = 10
+    static let maxSizeVideo = 30.0 // в мб
+    static let maxSizeImage = 15.0 // в мб
 }
