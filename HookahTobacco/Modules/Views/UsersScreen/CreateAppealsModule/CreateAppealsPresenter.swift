@@ -8,6 +8,9 @@
 //
 
 import Foundation
+import IVCollectionKit
+import UIKit
+import AVFoundation
 
 class CreateAppealsPresenter {
     // MARK: - Public properties
@@ -17,9 +20,54 @@ class CreateAppealsPresenter {
 
     // MARK: - Private properties
     private var themes: [ThemeAppeal] = []
+    private var contents: [URL] = []
+    private var selectContentIndex: Int?
+    private var contentDirector: CustomCollectionDirector?
 
     // MARK: - Private methods
+    private func setupContentView() {
+        guard let contentDirector else { return }
+        contentDirector.removeAll()
 
+        var rows: [AbstractCollectionItem] = []
+
+        for (index, content) in contents.enumerated() {
+            let item = ContentCreateAppealsCollectionCellItem(index: index,
+                                                              image: receivePreviewImage(url: content)
+            ) { [weak self] index in
+                self?.contents.remove(at: index)
+                self?.setupContentView()
+            }
+            let row = CollectionItem<ContentCreateAppealsCollectionViewCell>(item: item)
+            rows.append(row)
+        }
+
+        let addItem = AddContentCreateAppealsCollectionCellItem { [weak self] in
+            self?.view.showImagePickerView(.picker)
+        }
+        let addRow = CollectionItem<AddContentCreateAppealsCollectionViewCell>(item: addItem)
+        rows.append(addRow)
+
+        let section = CollectionSection(items: rows)
+
+        contentDirector += section
+        contentDirector.reload()
+    }
+
+    private func receivePreviewImage(url: URL) -> UIImage? {
+        if let imageData = try? Data(contentsOf: url),
+           let image = UIImage(data: imageData) {
+            return image
+        }
+        let asset = AVURLAsset(url: url)
+        let generator = AVAssetImageGenerator(asset: asset)
+        generator.appliesPreferredTrackTransform = true
+        if let cgImage = try? generator.copyCGImage(at: CMTime(seconds: 2, preferredTimescale: 60), actualTime: nil) {
+            return UIImage(cgImage: cgImage)
+        } else {
+            return nil
+        }
+    }
 }
 
 // MARK: - InteractorOutputProtocol implementation
@@ -30,6 +78,7 @@ extension CreateAppealsPresenter: CreateAppealsInteractorOutputProtocol {
         view.setupView(CreateAppealsEntity.ViewModel(name: user?.name ?? "",
                                                      email: user?.email ?? ""))
         view.setupThemeView(.notSelectThemeText)
+        setupContentView()
     }
 
     func receivedSuccessNewAppeal(_ response: CreateAppealResponse) {
@@ -62,6 +111,15 @@ extension CreateAppealsPresenter: CreateAppealsInteractorOutputProtocol {
 // MARK: - ViewOutputProtocol implementation
 extension CreateAppealsPresenter: CreateAppealsViewOutputProtocol {
     func viewDidLoad() {
+        let collectionView = view.getContentCollectionView()
+        collectionView.didSelect = { [weak self] indexPath in
+            guard let self else { return }
+            if indexPath.row != self.contents.count {
+                self.selectContentIndex = indexPath.row
+                self.view.showImagePickerView(.picker)
+            }
+        }
+        contentDirector = CustomCollectionDirector(collectionView: collectionView)
         view.showBlockLoading()
         interactor.receiveStaringData()
     }
@@ -74,6 +132,19 @@ extension CreateAppealsPresenter: CreateAppealsViewOutputProtocol {
                                items: items,
                                selectedIndex: index,
                                output: self)
+    }
+
+    func selectContent(_ urlFile: URL) {
+        if let selectContentIndex {
+            contents[selectContentIndex] = urlFile
+        } else {
+            contents.append(urlFile)
+        }
+        setupContentView()
+    }
+
+    func cancelSelectContent() {
+        selectContentIndex = nil
     }
 
     func pressedSendButton(_ enterData: CreateAppealsEntity.EnterData) {
@@ -103,7 +174,7 @@ extension CreateAppealsPresenter: CreateAppealsViewOutputProtocol {
         }
 
         view.showBlockLoading()
-        interactor.sendAppeal(enterData)
+        interactor.sendAppeal(enterData, contents: contents)
     }
 }
 
@@ -111,9 +182,15 @@ extension CreateAppealsPresenter: CreateAppealsViewOutputProtocol {
 extension CreateAppealsPresenter: SelectListBottomSheetOutputModule {
     func receiveNewData(_ newIndex: Int?) {
         if let newIndex {
+            let oldTheme = interactor.receiveSelectTheme()
             interactor.updateSelectedTheme(newIndex)
             let theme = themes[newIndex]
             view.setupThemeView(theme.name)
+            if oldTheme?.id != theme.id {
+                view.setupContentView(isShow: theme.isContent)
+                contents = []
+                setupContentView()
+            }
         } else {
             view.setupThemeView(.notSelectThemeText)
         }

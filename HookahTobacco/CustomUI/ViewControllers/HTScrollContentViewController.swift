@@ -24,6 +24,7 @@ class HTScrollContentViewController: BaseViewController {
     func setupSubviews() {
         scrollView.contentInsetAdjustmentBehavior = .never
         scrollView.delaysContentTouches = false
+        scrollView.showsHorizontalScrollIndicator = false
         view.addSubview(scrollView)
 
         scrollView.addSubview(contentScrollView)

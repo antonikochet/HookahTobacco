@@ -13,7 +13,7 @@ protocol CreateAppealsInteractorInputProtocol: AnyObject {
     func receiveStaringData()
     func receiveSelectTheme() -> ThemeAppeal?
     func updateSelectedTheme(_ index: Int)
-    func sendAppeal(_ data: CreateAppealsEntity.EnterData)
+    func sendAppeal(_ data: CreateAppealsEntity.EnterData, contents: [URL])
 }
 
 protocol CreateAppealsInteractorOutputProtocol: PresenterrProtocol {
@@ -79,14 +79,14 @@ extension CreateAppealsInteractor: CreateAppealsInteractorInputProtocol {
         selectedThemes = themes[index]
     }
 
-    func sendAppeal(_ data: CreateAppealsEntity.EnterData) {
+    func sendAppeal(_ data: CreateAppealsEntity.EnterData, contents: [URL]) {
         guard let selectedThemes else { return }
         let appeal = CreateAppealEntity(name: data.name,
                                         email: data.email,
                                         user: userId,
                                         theme: selectedThemes.id,
                                         message: data.message,
-                                        contents: [])
+                                        contents: contents)
         sendNewAppeals(appeal)
     }
 }

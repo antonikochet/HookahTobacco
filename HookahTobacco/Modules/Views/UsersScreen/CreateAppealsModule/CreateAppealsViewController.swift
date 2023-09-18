@@ -17,15 +17,25 @@ enum CreateAppealsInputType {
     case message
 }
 
+enum OpenImagePickerType {
+    case camera
+    case picker
+}
+
 protocol CreateAppealsViewInputProtocol: ViewProtocol {
+    func getContentCollectionView() -> CustomCollectionView
     func setupView(_ viewModel: CreateAppealsEntity.ViewModel)
     func setupThemeView(_ text: String)
     func showError(_ message: String, field: CreateAppealsInputType)
+    func setupContentView(isShow: Bool)
+    func showImagePickerView(_ type: OpenImagePickerType)
 }
 
 protocol CreateAppealsViewOutputProtocol: AnyObject {
     func viewDidLoad()
     func pressedThemeView()
+    func selectContent(_ urlFile: URL)
+    func cancelSelectContent()
     func pressedSendButton(_ enterData: CreateAppealsEntity.EnterData)
 }
 
@@ -34,7 +44,7 @@ class CreateAppealsViewController: HTScrollContentViewController {
     var presenter: CreateAppealsViewOutputProtocol!
 
     override var stackViewInset: UIEdgeInsets {
-        UIEdgeInsets(horizontal: 24.0, vertical: 0.0)
+        UIEdgeInsets(horizontal: 24.0, vertical: 4.0)
     }
 
     // MARK: - UI properties
@@ -43,7 +53,9 @@ class CreateAppealsViewController: HTScrollContentViewController {
     private let emailTextFieldView = AddTextFieldView()
     private let themeTextFieldView = AddTextFieldView()
     private let messageTextView = AddTextView()
-    // contents
+    private let titleContentLabel = UILabel()
+    private let subtitleContentLabel = UILabel()
+    private let contentCollectionView = CustomCollectionView()
     private let sendButton = ApplyButton(style: .primary)
 
     // MARK: - ViewController Lifecycle
@@ -65,8 +77,8 @@ class CreateAppealsViewController: HTScrollContentViewController {
         setupMessageTextView()
         setupContentsView()
         setupSendButton()
-        setupConstrainsScrollView(top: view.safeAreaLayoutGuide.snp.top, topConstant: 32.0,
-                                  bottom: sendButton.snp.top, bottomConstant: 24.0)
+        setupConstrainsScrollView(top: view.safeAreaLayoutGuide.snp.top, topConstant: 28.0,
+                                  bottom: sendButton.snp.top, bottomConstant: -8.0)
     }
     private func setupScreen() {
         view.backgroundColor = R.color.primaryBackground()
@@ -106,6 +118,21 @@ class CreateAppealsViewController: HTScrollContentViewController {
         messageTextView.setupView(textLabel: R.string.localizable.createAppealsMessageTitle(), delegate: self)
     }
     private func setupContentsView() {
+        setupContentTitleLabel()
+        setupContentSubtitleLabel()
+        setupContentCollectionView()
+    }
+    private func setupContentTitleLabel() {
+        titleContentLabel.text = R.string.localizable.createAppealsContentsTitle()
+        titleContentLabel.setForTitleName()
+    }
+    private func setupContentSubtitleLabel() {
+        subtitleContentLabel.text = R.string.localizable.createAppealsContentsSubtitle()
+        subtitleContentLabel.numberOfLines = 0
+        subtitleContentLabel.textColor = R.color.primarySubtitle()
+        subtitleContentLabel.font = UIFont.appFont(size: 14.0, weight: .regular)
+    }
+    private func setupContentCollectionView() {
 
     }
     private func setupSendButton() {
@@ -133,6 +160,10 @@ class CreateAppealsViewController: HTScrollContentViewController {
 
 // MARK: - ViewInputProtocol implementation
 extension CreateAppealsViewController: CreateAppealsViewInputProtocol {
+    func getContentCollectionView() -> CustomCollectionView {
+        contentCollectionView
+    }
+
     func setupView(_ viewModel: CreateAppealsEntity.ViewModel) {
         nameTextFieldView.text = viewModel.name
         emailTextFieldView.text = viewModel.email
@@ -154,6 +185,30 @@ extension CreateAppealsViewController: CreateAppealsViewInputProtocol {
             break
 //            messageTextView.setError(message: message)
         }
+    }
+
+    func setupContentView(isShow: Bool) {
+        if isShow {
+            stackView.addArrangedSubview(titleContentLabel)
+            stackView.addArrangedSubview(subtitleContentLabel)
+            stackView.setCustomSpacing(4.0, after: titleContentLabel)
+            stackView.addArrangedSubview(contentCollectionView)
+            stackView.setCustomSpacing(8.0, after: subtitleContentLabel)
+        } else {
+            stackView.removeArrangedSubviewCompletely(titleContentLabel)
+            stackView.removeArrangedSubviewCompletely(subtitleContentLabel)
+            stackView.removeArrangedSubviewCompletely(contentCollectionView)
+        }
+    }
+
+    func showImagePickerView(_ type: OpenImagePickerType) {
+        let imagePickerView = UIImagePickerController()
+        imagePickerView.delegate = self
+        if case .camera = type {
+            imagePickerView.sourceType = .camera
+        }
+        imagePickerView.mediaTypes = ["public.movie", "public.image"]
+        present(imagePickerView, animated: true)
     }
 }
 
@@ -188,4 +243,29 @@ extension CreateAppealsViewController: UITextFieldDelegate {
 // MARK: - UITextFieldDelegate implementation
 extension CreateAppealsViewController: UITextViewDelegate {
 
+}
+
+// MARK: - UIImagePickerControllerDelegate implementation
+extension CreateAppealsViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+    func imagePickerController(
+        _ picker: UIImagePickerController,
+        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
+    ) {
+        var url: URL?
+        if let imageURL = info[.imageURL] as? URL {
+            url = imageURL
+        } else if let videoURL = info[.mediaURL] as? URL {
+            url = videoURL
+        }
+        guard let url else { return }
+        picker.dismiss(animated: true) { [weak self] in
+            self?.presenter.selectContent(url)
+        }
+    }
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true) { [weak self] in
+            self?.presenter.cancelSelectContent()
+        }
+    }
 }
