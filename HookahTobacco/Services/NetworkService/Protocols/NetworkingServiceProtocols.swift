@@ -39,4 +39,7 @@ protocol AdminNetworkingServiceProtocol {
     func addData<T: DataNetworkingServiceProtocol>(_ data: T, completion: CompletionResultBlock<T>?)
     func setData<T: DataNetworkingServiceProtocol>(_ data: T, completion: CompletionResultBlock<T>?)
     func setDBVersion(_ newVersion: Int, completion: CompletionBlockWithParam<HTError?>?)
+    func receiveAppeals(completion: CompletionResultBlock<[AppealResponse]>?)
+    func updateAppeal(by id: Int, _ answer: String, completion: CompletionResultBlock<AppealResponse>?)
+    func handledAppeal(_ id: Int, completion: CompletionBlockWithParam<HTError?>?)
 }

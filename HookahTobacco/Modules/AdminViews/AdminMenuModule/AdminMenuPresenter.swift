@@ -52,6 +52,10 @@ extension AdminMenuPresenter: AdminMenuViewOutputProtocol {
         interactor.upgradeDBVersion()
     }
 
+    func pressedEditAppeals() {
+        router.showAppealsListModule()
+    }
+
     func pressedLogoutButton() {
         interactor.logout()
     }

@@ -73,4 +73,27 @@ extension AdminApiService: AdminNetworkingServiceProtocol {
     func setDBVersion(_ newVersion: Int, completion: CompletionBlockWithParam<HTError?>?) {
 
     }
+
+    func receiveAppeals(completion: CompletionResultBlock<[AppealResponse]>?) {
+        sendRequest(object: [AppealResponse].self,
+                    target: Api.Appeals.getList,
+                    completion: completion as? CompletionResultBlock)
+    }
+
+    func updateAppeal(by id: Int, _ answer: String, completion: CompletionResultBlock<AppealResponse>?) {
+        sendRequest(object: AppealResponse.self,
+                    target: Api.Appeals.updateAppeal(id: id, answer: answer),
+                    completion: completion as? CompletionResultBlock)
+    }
+
+    func handledAppeal(_ id: Int, completion: CompletionBlockWithParam<HTError?>?) {
+        sendRequest(object: EmptyResponse.self,
+                    target: Api.Appeals.handled(id: id)) { _ in
+            completion?(nil)
+        } failure: { error in
+            completion?(error)
+        }
+
+    }
+
 }

@@ -15,6 +15,7 @@ protocol AdminMenuRouterProtocol: RouterProtocol {
     func showManufacturerListModule()
     func showTobaccoListModule()
     func showLoginModule()
+    func showAppealsListModule()
 }
 
 class AdminMenuRouter: AdminMenuRouterProtocol {
@@ -44,5 +45,9 @@ class AdminMenuRouter: AdminMenuRouterProtocol {
 
     func showLoginModule() {
         appRouter.presentView(module: LoginModule.self, moduleData: nil, animated: true)
+    }
+
+    func showAppealsListModule() {
+        appRouter.pushViewController(module: AppealsListModule.self, moduleData: nil, animateDisplay: true)
     }
 }

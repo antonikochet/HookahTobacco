@@ -151,6 +151,7 @@
 "adminMenu.editTobacco.title" = "Изменить табаки";
 "adminMenu.upgradeVersion.title" = "Повысить версию базы данных";
 "adminMenu.logout.title" = "Выйти";
+"adminMenu.editAppeals.title" = "Обработка обращений";
 
 // MARK: - AddTobacco screen
 "addTobacco.addButton.add.title" = "Добавить табак";
@@ -206,3 +207,16 @@
 "addCountry.countryTextField.text" = "Название страны";
 "addCountry.countryTextField.placeholder" = "Введите название";
 "addCountry.name.empty.message" = "Не введено название страны";
+
+// MARK: - AppealsList screen
+"appealsList.title" = "Обращения";
+"appealsList.info.id.title" = "id";
+"appealsList.info.name.title" = "Имя";
+"appealsList.info.email.title" = "Email";
+"appealsList.info.theme.title" = "Тема";
+"appealsList.info.createdDate.title" = "Дата создания";
+"appealsList.info.status.title" = "Статус";
+"appealsList.info.handledDate.title" = "Дата обработки";
+"appealsList.statuc.notViewed" = "Необработанный";
+"appealsList.statuc.processing" = "Черновик";
+"appealsList.statuc.handled" = "Обработан";

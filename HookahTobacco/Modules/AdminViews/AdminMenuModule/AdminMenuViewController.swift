@@ -19,6 +19,7 @@ protocol AdminMenuViewOutputProtocol: AnyObject {
     func pressedEditManufacturers()
     func pressedEditTobacco()
     func pressedUpgradeBDVersion()
+    func pressedEditAppeals()
     func pressedLogoutButton()
 }
 
@@ -32,6 +33,7 @@ class AdminMenuViewController: UIViewController {
     private let editManufacturer = ApplyButton(style: .primary)
     private let editTobacco = ApplyButton(style: .primary)
     private let upgradeDBVersion = ApplyButton(style: .primary)
+    private let editAppeals = ApplyButton(style: .primary)
 
     // MARK: - Lifecycle ViewController
     override func viewDidLoad() {
@@ -74,6 +76,12 @@ class AdminMenuViewController: UIViewController {
             self?.presenter.pressedUpgradeBDVersion()
         }
         upgradeDBVersion.setupButton(superView: view, topViewConstraint: editTobacco.snp.bottom)
+
+        editAppeals.setTitle(R.string.localizable.adminMenuEditAppealsTitle(), for: .normal)
+        editAppeals.action = { [weak self] in
+            self?.presenter.pressedEditAppeals()
+        }
+        editAppeals.setupButton(superView: view, topViewConstraint: upgradeDBVersion.snp.bottom)
     }
 
     private func setupRightButtonNavigationBar() {
