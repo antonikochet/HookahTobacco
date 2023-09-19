@@ -97,7 +97,16 @@ extension CreateAppealsPresenter: CreateAppealsInteractorOutputProtocol {
 
     func receivedSuccessNewAppeal(_ response: CreateAppealResponse) {
         view.hideLoading()
-        router.popView(response)
+        let dateFormatter = DateFormatter(format: "dd.mm.YYYY hh:MM")
+        let title = R.string.localizable.createAppealsSuccessTitle("\(response.id)")
+        let message = R.string.localizable.createAppealsSuccessMessage(response.name,
+                                                                       response.theme,
+                                                                       dateFormatter.string(from: response.createdDate),
+                                                                       response.email)
+        router.popView(title: title,
+                       message: message,
+                       image: R.image.successBS(),
+                       titleForAction: R.string.localizable.createAppealsSuccessActionButtonTitle())
     }
 
     func receivedError(_ error: HTError) {

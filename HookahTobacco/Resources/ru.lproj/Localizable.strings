@@ -119,6 +119,9 @@
 "createAppeals.maxSizeVideo.message" = "Размер видео не должен привышать %@ мб";
 "createAppeals.alertSheet.camera.title" = "Камера";
 "createAppeals.alertSheet.gallery.title" = "Галерея";
+"createAppeals.successActionButton.title" = "Вернуться в профиль";
+"createAppeals.success.title" = "Обращение №%@ создано!";
+"createAppeals.success.message" = "%@, ваше обращение на тему %@ было создано в %@ и направлено разработчикам приложения. Копия обращения была отправлена на указанную вами почту: %@.\nПри необходимости, разработчики свяжутся с вами через указанную почту.";
 
 // MARK: - Admin screens
 // MARK: - AddTaste screen

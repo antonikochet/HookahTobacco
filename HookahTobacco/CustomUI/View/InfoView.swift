@@ -94,7 +94,7 @@ final class InfoView: UIView {
         titleLabel.font = UIFont.systemFont(ofSize: 20.0, weight: .semibold)
         titleLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
 
-        subtitleLabel.numberOfLines = 4
+        subtitleLabel.numberOfLines = 0
         subtitleLabel.textAlignment = .center
         subtitleLabel.textColor = R.color.primarySubtitle()
         subtitleLabel.font = UIFont.systemFont(ofSize: 16.0, weight: .regular)

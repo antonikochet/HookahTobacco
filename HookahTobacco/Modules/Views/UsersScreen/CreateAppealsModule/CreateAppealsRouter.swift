@@ -14,7 +14,7 @@ protocol CreateAppealsRouterProtocol: RouterProtocol {
                          items: [String],
                          selectedIndex: Int?,
                          output: SelectListBottomSheetOutputModule?)
-    func popView(_ response: CreateAppealResponse)
+    func popView(title: String, message: String, image: UIImage?, titleForAction: String)
     func showAlertSheet(title: String?, message: String?, actions: [AlertSheetAction])
 }
 
@@ -36,9 +36,18 @@ class CreateAppealsRouter: CreateAppealsRouterProtocol {
         appRouter.presentViewModally(module: SelectListBottomSheetModule.self, moduleData: data)
     }
 
-    func popView(_ response: CreateAppealResponse) {
+    func popView(title: String, message: String, image: UIImage?, titleForAction: String) {
         appRouter.popViewConroller(animated: true) { [appRouter] in
-            // TODO: - показывать success bottom sheet
+            let item = SuccessBottomSheetViewItem(
+                title: title,
+                message: message,
+                image: image,
+                primaryAction: ActionWithTitle(title: titleForAction, action: { [appRouter] in
+                    appRouter.dismissView(animated: true, completion: nil)
+                }),
+                secondaryAction: nil)
+            let data = SuccessBottomSheetDataModule(item: item)
+            appRouter.presentViewModally(module: SuccessBottomSheetModule.self, moduleData: data)
         }
     }
 

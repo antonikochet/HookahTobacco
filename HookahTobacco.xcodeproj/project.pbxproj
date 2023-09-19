@@ -59,6 +59,9 @@
 		385505372A814A7A00855E50 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385505362A814A7A00855E50 /* LoadingView.swift */; };
 		385505392A8154D800855E50 /* extension+UIVisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385505382A8154D800855E50 /* extension+UIVisualEffectView.swift */; };
 		3855053B2A8155FA00855E50 /* ViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3855053A2A8155FA00855E50 /* ViewProtocol.swift */; };
+		3858673C2AB987ED001776D9 /* SuccessBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385867372AB987ED001776D9 /* SuccessBottomSheetViewController.swift */; };
+		385867442AB98BDC001776D9 /* SuccessBottomSheetModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385867422AB98BDC001776D9 /* SuccessBottomSheetModule.swift */; };
+		385867452AB98BDC001776D9 /* SuccessBottomSheetAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385867432AB98BDC001776D9 /* SuccessBottomSheetAssembly.swift */; };
 		3869D3972A7EADBA00C9BF5C /* SelectTasteTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3869D3962A7EADBA00C9BF5C /* SelectTasteTypeTableViewCell.swift */; };
 		387121AC2A55ABD000B6005E /* Api+Tobacco.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387121AB2A55ABD000B6005E /* Api+Tobacco.swift */; };
 		387121AF2A55AD6700B6005E /* Response+Manufacturer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387121AE2A55AD6700B6005E /* Response+Manufacturer.swift */; };
@@ -358,6 +361,9 @@
 		385505362A814A7A00855E50 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		385505382A8154D800855E50 /* extension+UIVisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extension+UIVisualEffectView.swift"; sourceTree = "<group>"; };
 		3855053A2A8155FA00855E50 /* ViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewProtocol.swift; sourceTree = "<group>"; };
+		385867372AB987ED001776D9 /* SuccessBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessBottomSheetViewController.swift; sourceTree = "<group>"; };
+		385867422AB98BDC001776D9 /* SuccessBottomSheetModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessBottomSheetModule.swift; sourceTree = "<group>"; };
+		385867432AB98BDC001776D9 /* SuccessBottomSheetAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessBottomSheetAssembly.swift; sourceTree = "<group>"; };
 		3869D3962A7EADBA00C9BF5C /* SelectTasteTypeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTasteTypeTableViewCell.swift; sourceTree = "<group>"; };
 		387121AB2A55ABD000B6005E /* Api+Tobacco.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Api+Tobacco.swift"; sourceTree = "<group>"; };
 		387121AE2A55AD6700B6005E /* Response+Manufacturer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Response+Manufacturer.swift"; sourceTree = "<group>"; };
@@ -844,6 +850,23 @@
 			path = SelectListBottomSheet;
 			sourceTree = "<group>";
 		};
+		385867302AB98791001776D9 /* SuccessBottomSheetModule */ = {
+			isa = PBXGroup;
+			children = (
+				385867372AB987ED001776D9 /* SuccessBottomSheetViewController.swift */,
+			);
+			path = SuccessBottomSheetModule;
+			sourceTree = "<group>";
+		};
+		385867402AB98AB6001776D9 /* SuccessBottomSheet */ = {
+			isa = PBXGroup;
+			children = (
+				385867422AB98BDC001776D9 /* SuccessBottomSheetModule.swift */,
+				385867432AB98BDC001776D9 /* SuccessBottomSheetAssembly.swift */,
+			);
+			path = SuccessBottomSheet;
+			sourceTree = "<group>";
+		};
 		3869D3892A7E566700C9BF5C /* Add */ = {
 			isa = PBXGroup;
 			children = (
@@ -985,6 +1008,7 @@
 		38C3ACB82A8BCA92001D79EB /* HelperViews */ = {
 			isa = PBXGroup;
 			children = (
+				385867302AB98791001776D9 /* SuccessBottomSheetModule */,
 				384B93F42AB341E300DBE89C /* SelectListBottomSheetModule */,
 				38C3ACB92A8BCAAF001D79EB /* DatePickerModule */,
 			);
@@ -1005,6 +1029,7 @@
 		38C3ACC42A8BD4AE001D79EB /* HelperScreen */ = {
 			isa = PBXGroup;
 			children = (
+				385867402AB98AB6001776D9 /* SuccessBottomSheet */,
 				384B94042AB3549500DBE89C /* SelectListBottomSheet */,
 				384B94032AB3548400DBE89C /* DatePicker */,
 			);
@@ -2149,6 +2174,7 @@
 				38DDDE672A86C05000EA19A3 /* EmptyResponse.swift in Sources */,
 				3895E5062A5447AF005D87EE /* Moya+Request.swift in Sources */,
 				B98E1DB628F04A0F00964B8F /* AddManufacturerEntity.swift in Sources */,
+				385867442AB98BDC001776D9 /* SuccessBottomSheetModule.swift in Sources */,
 				384B94082AB354AA00DBE89C /* SelectListBottomSheetAssembly.swift in Sources */,
 				385505392A8154D800855E50 /* extension+UIVisualEffectView.swift in Sources */,
 				B9ED9103290989EF00DC3A6D /* TobaccoListRouter.swift in Sources */,
@@ -2170,6 +2196,7 @@
 				B97EE9F3292BB3C30090B344 /* UserSettingsService.swift in Sources */,
 				38DDDE6E2A86CC5300EA19A3 /* Api+User.swift in Sources */,
 				38C3ACC22A8BCACC001D79EB /* DatePickerInteractor.swift in Sources */,
+				385867452AB98BDC001776D9 /* SuccessBottomSheetAssembly.swift in Sources */,
 				B97EE9F6292BB3E50090B344 /* UserSettingsServiceProtocol.swift in Sources */,
 				3899EB6E2AAF36D80047AD4D /* Button.swift in Sources */,
 				B9ED9102290989EF00DC3A6D /* TobaccoListPresenter.swift in Sources */,
@@ -2243,6 +2270,7 @@
 				3895E5012A542D54005D87EE /* DefaultTarget.swift in Sources */,
 				384B94072AB354AA00DBE89C /* SelectListBottomSheetModule.swift in Sources */,
 				38DDDE5B2A8699E900EA19A3 /* ApiAuthServices.swift in Sources */,
+				3858673C2AB987ED001776D9 /* SuccessBottomSheetViewController.swift in Sources */,
 				B9BA7947295B9CE7009188D6 /* RegistrationModule.swift in Sources */,
 				38C3ACC82A8BD4C0001D79EB /* DatePickerAssembly.swift in Sources */,
 				38E8E6392A87B9B600041443 /* RealmProviderAssembly.swift in Sources */,
