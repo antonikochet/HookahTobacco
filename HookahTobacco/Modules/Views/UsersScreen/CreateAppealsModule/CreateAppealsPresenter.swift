@@ -10,7 +10,6 @@
 import Foundation
 import IVCollectionKit
 import UIKit
-import AVFoundation
 
 class CreateAppealsPresenter {
     // MARK: - Public properties
@@ -33,7 +32,7 @@ class CreateAppealsPresenter {
 
         for (index, content) in contents.enumerated() {
             let item = ContentCreateAppealsCollectionCellItem(index: index,
-                                                              image: receivePreviewImage(url: content)
+                                                              image: content.receivePreviewImage()
             ) { [weak self] index in
                 self?.contents.remove(at: index)
                 self?.setupContentView()
@@ -66,21 +65,6 @@ class CreateAppealsPresenter {
 
         contentDirector += section
         contentDirector.reload()
-    }
-
-    private func receivePreviewImage(url: URL) -> UIImage? {
-        if let imageData = try? Data(contentsOf: url),
-           let image = UIImage(data: imageData) {
-            return image
-        }
-        let asset = AVURLAsset(url: url)
-        let generator = AVAssetImageGenerator(asset: asset)
-        generator.appliesPreferredTrackTransform = true
-        if let cgImage = try? generator.copyCGImage(at: CMTime(seconds: 2, preferredTimescale: 60), actualTime: nil) {
-            return UIImage(cgImage: cgImage)
-        } else {
-            return nil
-        }
     }
 }
 

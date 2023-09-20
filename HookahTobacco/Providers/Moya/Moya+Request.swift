@@ -23,7 +23,7 @@ extension MoyaProviderType {
             switch result {
             case let .success(response):
                 do {
-                    let data = try response.map(T.self, using: JSONDecoder.defaultDecoder)
+                    let data = try response.map(T.self, using: JSONDecoder.defaultDecoder, failsOnEmptyData: false)
                     completion(.success(data))
                 } catch {
                     completion(.failure(error))

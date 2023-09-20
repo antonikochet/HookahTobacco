@@ -21,6 +21,7 @@ class AppealsListRouter: AppealsListRouterProtocol {
     }
 
     func showDetailAppeal(_ appeal: AppealResponse) {
-
+        let data = DetailAppealDataModule(appeal: appeal)
+        appRouter.pushViewController(module: DetailAppealModule.self, moduleData: data, animateDisplay: true)
     }
 }

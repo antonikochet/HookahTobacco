@@ -18,6 +18,7 @@ protocol AppealsListViewInputProtocol: ViewProtocol {
 
 protocol AppealsListViewOutputProtocol: AnyObject {
     func viewDidLoad()
+    func viewWillAppear()
     func didSelectStatus(by index: Int)
     func pressedApplyButton()
     func pressedClearButton()
@@ -45,6 +46,11 @@ class AppealsListViewController: BaseViewController {
 
         setupUI()
         presenter.viewDidLoad()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter.viewWillAppear()
     }
 
     // MARK: - Setups

@@ -224,3 +224,16 @@
 "appealsList.filter.status.title" = "Статус";
 "appealsList.filter.apply.title" = "Применить";
 "appealsList.filter.clear.title" = "Очистить";
+
+// MARK: - DetailAppeal screen
+"detailAppeal.contents.title" = "Контент";
+"detailAppeal.handledButton.title" = "Ответить пользователю";
+"detailAppeal.answer.title" = "Ответ";
+"detailAppeal.saveAnswer.title" = "Сохранить";
+"detailAppeal.info.id.title" = "id";
+"detailAppeal.info.name.title" = "Имя";
+"detailAppeal.info.email.title" = "Email";
+"detailAppeal.info.theme.title" = "Тема";
+"detailAppeal.info.createdDate.title" = "Дата создания";
+"detailAppeal.info.status.title" = "Статус";
+"detailAppeal.info.handledDate.title" = "Дата обработки";

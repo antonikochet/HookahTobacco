@@ -13,7 +13,7 @@ import IVCollectionKit
 struct ContentCreateAppealsCollectionCellItem {
     let index: Int
     let image: UIImage?
-    let removeButtonAction: CompletionBlockWithParam<Int>
+    let removeButtonAction: CompletionBlockWithParam<Int>?
 }
 
 final class ContentCreateAppealsCollectionViewCell: UICollectionViewCell, ConfigurableCollectionItem {
@@ -68,9 +68,10 @@ final class ContentCreateAppealsCollectionViewCell: UICollectionViewCell, Config
     func configure(item: ContentCreateAppealsCollectionCellItem) {
         self.item = item
         imageView.image = item.image
+        removeButton.isHidden = item.removeButtonAction == nil
         removeButton.action = { [weak self] in
             guard let item = self?.item else { return }
-            item.removeButtonAction(item.index)
+            item.removeButtonAction?(item.index)
         }
     }
 

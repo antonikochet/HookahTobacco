@@ -137,8 +137,12 @@ extension AppealsListPresenter: AppealsListViewOutputProtocol {
         }
         themesDirector = CustomCollectionDirector(collectionView: themesCollView)
         view.showLoading()
-        interactor.startingLoadingData()
         interactor.receiveThemes()
+    }
+
+    func viewWillAppear() {
+        oldContentHeight = 0.0
+        interactor.startingLoadingData()
     }
 
     func didSelectStatus(by index: Int) {
@@ -146,10 +150,12 @@ extension AppealsListPresenter: AppealsListViewOutputProtocol {
     }
 
     func pressedApplyButton() {
+        oldContentHeight = 0.0
         interactor.receiveAppeal(with: selectedThemes, status: selectedStatus)
     }
 
     func pressedClearButton() {
+        oldContentHeight = 0.0
         selectedThemes = []
         selectedStatus = nil
         view.clearStatus()

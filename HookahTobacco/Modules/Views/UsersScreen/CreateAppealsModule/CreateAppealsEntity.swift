@@ -9,6 +9,11 @@
 
 import Foundation
 
+enum ContentType {
+    case photo
+    case video
+}
+
 struct CreateAppealsEntity {
     struct ViewModel {
         let name: String
@@ -21,10 +26,6 @@ struct CreateAppealsEntity {
         let message: String
     }
 
-    enum ContentType {
-        case photo
-        case video
-    }
     struct Content {
         let url: URL
         /// size in value bytes

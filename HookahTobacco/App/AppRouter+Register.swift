@@ -51,6 +51,7 @@ extension AppRouter {
         registerModule(SuccessBottomSheetAssembly(),
                        SuccessBottomSheetModule.nameModule) { SuccessBottomSheetModule($0) }
         registerModule(AppealsListAssembly(), AppealsListModule.nameModule) { AppealsListModule($0) }
+        registerModule(DetailAppealAssembly(), DetailAppealModule.nameModule) { DetailAppealModule($0) }
     }
 
     func registerContainerControllers() {

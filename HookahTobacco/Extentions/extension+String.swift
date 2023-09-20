@@ -34,4 +34,13 @@ extension String {
     func isEmailValid() -> Bool {
         self ~= "[[\\p{L}]+$0-9._%+-]+@[[\\p{L}]+$0-9.-]+\\.[[\\p{L}]+$]{2,64}"
     }
+
+    func isImageType() -> Bool {
+        let imageFormats = ["jpg", "jpeg", "png", "gif"]
+        if URL(string: self) != nil {
+            let pathExtension = (self as NSString).pathExtension
+            return imageFormats.contains(pathExtension)
+        }
+        return false
+    }
 }
