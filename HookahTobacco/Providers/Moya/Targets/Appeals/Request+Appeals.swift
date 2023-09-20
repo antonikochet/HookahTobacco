@@ -57,3 +57,36 @@ extension CreateAppealRequest {
         return .uploadMultipart(formDatas)
     }
 }
+
+// MARK: - lList
+struct AppealFilterRequest {
+    let page: Int
+    let themes: [ThemeAppeal]
+    let status: AppealStatus?
+
+    func createRequest() -> Moya.Task {
+        var body: [String: Any] = [:]
+        let urlParams: [String: Any] = [
+            "page": page
+        ]
+        if !themes.isEmpty {
+            body["themes"] = themes.map { $0.id }
+        }
+        if let status {
+            switch status {
+            case .notViewed:
+                body["handled"] = false
+                body["answer"] = ""
+            case .processing:
+                body["handled"] = false
+                body["answer"] = 0
+            case .handled:
+                body["handled"] = true
+                body["answer"] = 0
+            }
+        }
+        return .requestCompositeParameters(bodyParameters: body,
+                                           bodyEncoding: JSONEncoding.default,
+                                           urlParameters: urlParams)
+    }
+}

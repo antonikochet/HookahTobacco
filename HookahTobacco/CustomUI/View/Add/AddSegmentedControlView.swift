@@ -51,7 +51,7 @@ class AddSegmentedControlView: UIView {
         segmentedControl.addTarget(self, action: #selector(didTouchSegment), for: .valueChanged)
         segmentedControl.snp.makeConstraints { make in
             make.top.equalTo(label.snp.bottom).offset(8)
-            make.leading.trailing.bottom.equalToSuperview()
+            make.leading.trailing.bottom.equalToSuperview().priority(999)
         }
     }
 

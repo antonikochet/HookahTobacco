@@ -74,9 +74,13 @@ extension AdminApiService: AdminNetworkingServiceProtocol {
 
     }
 
-    func receiveAppeals(completion: CompletionResultBlock<[AppealResponse]>?) {
-        sendRequest(object: [AppealResponse].self,
-                    target: Api.Appeals.getList,
+    func receiveAppeals(page: Int,
+                        status: AppealStatus?,
+                        themes: [ThemeAppeal],
+                        completion: CompletionResultBlock<PageResponse<AppealResponse>>?) {
+        let request = AppealFilterRequest(page: page, themes: themes, status: status)
+        sendRequest(object: PageResponse<AppealResponse>.self,
+                    target: Api.Appeals.list(request),
                     completion: completion as? CompletionResultBlock)
     }
 

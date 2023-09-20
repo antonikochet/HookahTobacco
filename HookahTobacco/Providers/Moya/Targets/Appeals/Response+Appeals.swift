@@ -78,7 +78,7 @@ struct AppealContent: Decodable {
     let file: String
 }
 
-enum AppealStatus: Int, Decodable {
+enum AppealStatus: Int, Decodable, CaseIterable {
     case notViewed = 0
     case processing
     case handled

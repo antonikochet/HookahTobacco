@@ -25,7 +25,9 @@ class AppealsListAssembly: Assembly {
         container.register(AppealsListInteractorInputProtocol.self) { resolver in
             // here resolve dependency injection
             let adminNetworkingService = resolver.resolve(AdminNetworkingServiceProtocol.self)!
-            return AppealsListInteractor(adminNetworkingService: adminNetworkingService)
+            let appealsNetworkingService = resolver.resolve(AppealsNetworkingServiceProtocol.self)!
+            return AppealsListInteractor(adminNetworkingService: adminNetworkingService,
+                                         appealsNetworkServise: appealsNetworkingService)
         }
 
         container.register(AppealsListViewOutputProtocol.self) { _ in

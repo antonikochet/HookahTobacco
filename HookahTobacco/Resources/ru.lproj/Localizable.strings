@@ -220,3 +220,7 @@
 "appealsList.statuc.notViewed" = "Необработанный";
 "appealsList.statuc.processing" = "Черновик";
 "appealsList.statuc.handled" = "Обработан";
+"appealsList.filter.theme.title" = "Темы";
+"appealsList.filter.status.title" = "Статус";
+"appealsList.filter.apply.title" = "Применить";
+"appealsList.filter.clear.title" = "Очистить";

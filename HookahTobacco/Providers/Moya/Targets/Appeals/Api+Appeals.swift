@@ -11,7 +11,7 @@ extension Api {
     enum Appeals {
         case getThemes
         case createAppeal(CreateAppealRequest)
-        case getList
+        case list(AppealFilterRequest)
         case updateAppeal(id: Int, answer: String)
         case handled(id: Int)
     }
@@ -22,8 +22,10 @@ extension Api.Appeals: DefaultTarget {
         switch self {
         case .getThemes:
             return "v1/appeals/theme/"
-        case .createAppeal, .getList:
+        case .list:
             return "v1/appeals/"
+        case .createAppeal:
+            return "v1/appeals/create/"
         case .updateAppeal(let id, _):
             return "v1/appeals/\(id)/"
         case .handled:
@@ -33,9 +35,9 @@ extension Api.Appeals: DefaultTarget {
 
     var method: Moya.Method {
         switch self {
-        case .getThemes, .getList:
+        case .getThemes:
             return .get
-        case .createAppeal, .handled:
+        case .createAppeal, .handled, .list:
             return .post
         case .updateAppeal:
             return .patch
@@ -44,6 +46,8 @@ extension Api.Appeals: DefaultTarget {
 
     var task: Moya.Task {
         switch self {
+        case .list(let request):
+            return request.createRequest()
         case .createAppeal(let request):
             return request.createRequest()
         case .updateAppeal(_, let answer):
