@@ -266,6 +266,21 @@ extension CreateAppealsViewController: UIImagePickerControllerDelegate & UINavig
         } else if let videoURL = info[.mediaURL] as? URL,
             let videoData = try? Data(contentsOf: videoURL) {
             content = CreateAppealsEntity.Content(url: videoURL, size: videoData.count, type: .video)
+        } else if picker.sourceType == .camera,
+                  let image = info[.originalImage] as? UIImage {
+            print(info[.originalImage])
+            let imageName = UUID().uuidString
+            let imagePath = FileManager.default
+                .urls(for: .documentDirectory, in: .userDomainMask)[0]
+                .appendingPathComponent(imageName).appendingPathExtension("jpg")
+            if let jpegData = image.jpegData(compressionQuality: 1.0) {
+                do {
+                    try jpegData.write(to: imagePath)
+                    content = CreateAppealsEntity.Content(url: imagePath, size: jpegData.count, type: .photo)
+                } catch {
+                    print(error)
+                }
+            }
         }
         guard let content else { return }
         picker.dismiss(animated: true) { [weak self] in

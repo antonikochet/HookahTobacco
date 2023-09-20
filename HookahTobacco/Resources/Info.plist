@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Доступ к камере используется для добавления изображений и видео при создании обращений</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Доступ к галерее используется для добавления изображений и видео при создании обращений</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Доступ к микрофону нужен при записи видео для создание обращения</string>
 	<key>API_URL</key>
 	<string>$(API_URL)</string>
 	<key>UIApplicationSceneManifest</key>

@@ -58,7 +58,7 @@ class BaseApiService {
                 completion?(response)
             case let .failure(error):
                 self.handlerError(error) { error in
-                    failure?(self.handlerErrors.handlerError(error))
+                    failure?(error)
                 }
             }
         }
@@ -76,7 +76,7 @@ class BaseApiService {
                 completion?(.success(response))
             case let .failure(error):
                 self.handlerError(error) { error in
-                    completion?(.failure(self.handlerErrors.handlerError(error)))
+                    completion?(.failure(error))
                 }
             }
         }
@@ -90,7 +90,7 @@ class BaseApiService {
                 completion?(.success(data))
             case let .failure(error):
                 self.handlerError(error) { error in
-                    completion?(.failure(self.handlerErrors.handlerError(error)))
+                    completion?(.failure(error))
                 }
             }
         }
