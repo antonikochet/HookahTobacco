@@ -30,6 +30,11 @@ class DetailAppealPresenter {
         let infoRow = setupInfoCell(appeal)
         rows.append(infoRow)
 
+        // message
+        let messageItem = AppealMessageTableViewCellItem(title: "Обращение", message: appeal.message)
+        let messageRow = TableRow<AppealMessageTableViewCell>(item: messageItem)
+        rows.append(messageRow)
+
         // contents
         if !contents.isEmpty {
             let item = DetailAppealContentTableViewCellItem(

@@ -22,6 +22,7 @@
 		38041BF92AA0D26500DEEE6D /* TobaccoFiltersAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38041BF72AA0D26500DEEE6D /* TobaccoFiltersAssembly.swift */; };
 		3813D6A92A6AB214009DDCBD /* ImageFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3813D6A82A6AB214009DDCBD /* ImageFormat.swift */; };
 		381569972A96A7650053D223 /* Request+User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381569962A96A7650053D223 /* Request+User.swift */; };
+		3818BA052ABC966000D8B7CD /* AppealMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3818BA042ABC966000D8B7CD /* AppealMessageTableViewCell.swift */; };
 		3818E0352A80FB1700C9D02C /* FittedSheets in Frameworks */ = {isa = PBXBuildFile; productRef = 3818E0342A80FB1700C9D02C /* FittedSheets */; };
 		3818E0382A80FD1C00C9D02C /* BottomSheetPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3818E0372A80FD1C00C9D02C /* BottomSheetPresenter.swift */; };
 		3818E03A2A80FE8600C9D02C /* extension+SheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3818E0392A80FE8600C9D02C /* extension+SheetViewController.swift */; };
@@ -342,6 +343,7 @@
 		38041BF72AA0D26500DEEE6D /* TobaccoFiltersAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TobaccoFiltersAssembly.swift; sourceTree = "<group>"; };
 		3813D6A82A6AB214009DDCBD /* ImageFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFormat.swift; sourceTree = "<group>"; };
 		381569962A96A7650053D223 /* Request+User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Request+User.swift"; sourceTree = "<group>"; };
+		3818BA042ABC966000D8B7CD /* AppealMessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppealMessageTableViewCell.swift; sourceTree = "<group>"; };
 		3818E0372A80FD1C00C9D02C /* BottomSheetPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetPresenter.swift; sourceTree = "<group>"; };
 		3818E0392A80FE8600C9D02C /* extension+SheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extension+SheetViewController.swift"; sourceTree = "<group>"; };
 		3818E03B2A81342700C9D02C /* ApplyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplyButton.swift; sourceTree = "<group>"; };
@@ -921,6 +923,7 @@
 			children = (
 				383F2FC12ABB0531007BE4A8 /* AppealAnswerTableViewCell.swift */,
 				383F2FC72ABB1419007BE4A8 /* DetailAppealContentTableViewCell.swift */,
+				3818BA042ABC966000D8B7CD /* AppealMessageTableViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -2278,6 +2281,7 @@
 				38F9B89D2A80047E00EAC0A0 /* AddCountryRouter.swift in Sources */,
 				382F0C462A7D93D700E2F277 /* AddTobaccoLineAssembly.swift in Sources */,
 				B94306CC2920277E00EADFA0 /* AddTastesInteractor.swift in Sources */,
+				3818BA052ABC966000D8B7CD /* AppealMessageTableViewCell.swift in Sources */,
 				B9D6E93929FDCDB1001D44D5 /* Country.swift in Sources */,
 				B9C7825A28ECE25800DBF8C6 /* AuthServiceProtocol.swift in Sources */,
 				38F9B8A32A802FE100EAC0A0 /* AddCountryTableViewCell.swift in Sources */,
