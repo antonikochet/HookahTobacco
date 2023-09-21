@@ -2,30 +2,20 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSCameraUsageDescription</key>
-	<string>Доступ к камере используется для добавления изображений и видео при создании обращений</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Доступ к галерее используется для добавления изображений и видео при создании обращений</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Доступ к микрофону нужен при записи видео для создание обращения</string>
 	<key>API_URL</key>
 	<string>$(API_URL)</string>
-	<key>UIApplicationSceneManifest</key>
-	<dict>
-		<key>UIApplicationSupportsMultipleScenes</key>
-		<false/>
-		<key>UISceneConfigurations</key>
+	<key>CFBundleURLTypes</key>
+	<array>
 		<dict>
-			<key>UIWindowSceneSessionRoleApplication</key>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+			<key>CFBundleURLSchemes</key>
 			<array>
-				<dict>
-					<key>UISceneConfigurationName</key>
-					<string>Default Configuration</string>
-					<key>UISceneDelegateClassName</key>
-					<string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
-				</dict>
+				<string>hookah-tobacco</string>
 			</array>
 		</dict>
-	</dict>
+	</array>
 </dict>
 </plist>

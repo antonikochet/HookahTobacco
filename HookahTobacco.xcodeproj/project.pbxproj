@@ -162,7 +162,6 @@
 		B904382E2985145D00BADEE3 /* DescriptionStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B904382D2985145D00BADEE3 /* DescriptionStackView.swift */; };
 		B9074144290F041B00499674 /* HTTabBarControllerAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9074143290F041B00499674 /* HTTabBarControllerAssembly.swift */; };
 		B90A79122899E2BF00B90193 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90A79112899E2BF00B90193 /* AppDelegate.swift */; };
-		B90A79142899E2BF00B90193 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90A79132899E2BF00B90193 /* SceneDelegate.swift */; };
 		B90A791B2899E2C200B90193 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B90A791A2899E2C200B90193 /* Assets.xcassets */; };
 		B90A792D289A8C2200B90193 /* Tobacco.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90A792C289A8C2200B90193 /* Tobacco.swift */; };
 		B90B671729A03EB5004460C8 /* ApiNetworkingServicesAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90B671629A03EB5004460C8 /* ApiNetworkingServicesAssembly.swift */; };
@@ -482,7 +481,6 @@
 		B9074143290F041B00499674 /* HTTabBarControllerAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTabBarControllerAssembly.swift; sourceTree = "<group>"; };
 		B90A790E2899E2BF00B90193 /* HookahTobacco.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HookahTobacco.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B90A79112899E2BF00B90193 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B90A79132899E2BF00B90193 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		B90A791A2899E2C200B90193 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B90A791F2899E2C200B90193 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B90A792C289A8C2200B90193 /* Tobacco.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tobacco.swift; sourceTree = "<group>"; };
@@ -1999,7 +1997,6 @@
 				3818E0362A80FD0C00C9D02C /* Protocols */,
 				B9EB023F28F31B2500B3B6DA /* Assemblies */,
 				B9E7AC9D28F4337100A3D7E5 /* AppRouter.swift */,
-				B90A79132899E2BF00B90193 /* SceneDelegate.swift */,
 				B90A79112899E2BF00B90193 /* AppDelegate.swift */,
 				B9027E04290FF613002E3C3A /* AppRouter+Register.swift */,
 			);
@@ -2351,7 +2348,6 @@
 				B9818299292A55B900DEA9F0 /* DataBaseServiceProtocol.swift in Sources */,
 				B92A46AA2966F9DC0006B787 /* ProfileViewController.swift in Sources */,
 				381E68A22AB747AD000AA9BC /* extension+UITextField.swift in Sources */,
-				B90A79142899E2BF00B90193 /* SceneDelegate.swift in Sources */,
 				B9E7ACB928F495B300A3D7E5 /* AddManufacturerAssembly.swift in Sources */,
 				38F9B8A72A80355300EAC0A0 /* AddCountryModule.swift in Sources */,
 				38CE8CD52A89715100B00307 /* ProfileEditModule.swift in Sources */,
@@ -2584,6 +2580,9 @@
 				DEVELOPMENT_TEAM = Q8BJ8563H3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = HookahTobacco/Resources/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Доступ к камере используется для добавления изображений и видео при создании обращений";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Доступ к микрофону нужен при записи видео для создание обращения";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Доступ к галерее используется для добавления изображений и видео при создании обращений";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -2676,6 +2675,9 @@
 				DEVELOPMENT_TEAM = Q8BJ8563H3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = HookahTobacco/Resources/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Доступ к камере используется для добавления изображений и видео при создании обращений";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Доступ к микрофону нужен при записи видео для создание обращения";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Доступ к галерее используется для добавления изображений и видео при создании обращений";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -2760,6 +2762,9 @@
 				DEVELOPMENT_TEAM = Q8BJ8563H3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = HookahTobacco/Resources/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Доступ к камере используется для добавления изображений и видео при создании обращений";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Доступ к микрофону нужен при записи видео для создание обращения";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Доступ к галерее используется для добавления изображений и видео при создании обращений";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;

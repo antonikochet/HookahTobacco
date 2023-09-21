@@ -36,7 +36,7 @@ class BaseApiService {
            let apiError = errors.first,
            apiError.code == "authentication_failed" {
             authSettings.setToken(nil)
-            let router = (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.router
+            let router = (UIApplication.shared.delegate as? AppDelegate)?.router
             router?.presentAlert(type: .error(message: apiError.message), completion: {
                 router?.restartViewApp()
             })
