@@ -8,8 +8,9 @@
 import Foundation
 
 struct CheckRegistrationRequest: Encodable {
-    let email: String?
-    let username: String?
+    let email: String
+    let username: String
+    let password: String
 }
 
 struct RegistrationUser: RegistrationUserProtocol {

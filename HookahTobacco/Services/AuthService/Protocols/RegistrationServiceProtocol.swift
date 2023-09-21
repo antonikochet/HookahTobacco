@@ -19,6 +19,6 @@ protocol RegistrationUserProtocol: Encodable {
 }
 
 protocol RegistrationServiceProtocol {
-    func checkRegistrationData(email: String?, username: String?, completion: CompletionBlockWithParam<HTError?>?)
+    func checkRegistrationData(email: String, username: String, password: String, completion: CompletionBlockWithParam<HTError?>?)
     func registration(user: RegistrationUserProtocol, completion: CompletionBlockWithParam<HTError?>?)
 }

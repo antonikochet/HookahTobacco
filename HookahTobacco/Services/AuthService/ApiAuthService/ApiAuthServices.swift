@@ -59,8 +59,8 @@ extension ApiAuthServices: AuthServiceProtocol {
 }
 
 extension ApiAuthServices: RegistrationServiceProtocol {
-    func checkRegistrationData(email: String?, username: String?, completion: CompletionBlockWithParam<HTError?>?) {
-        let request = CheckRegistrationRequest(email: email, username: username)
+    func checkRegistrationData(email: String, username: String, password: String, completion: CompletionBlockWithParam<HTError?>?) {
+        let request = CheckRegistrationRequest(email: email, username: username, password: password)
         let target = Api.Registration.check(request)
         sendRequest(object: EmptyResponse.self, target: target) { result in
             switch result {

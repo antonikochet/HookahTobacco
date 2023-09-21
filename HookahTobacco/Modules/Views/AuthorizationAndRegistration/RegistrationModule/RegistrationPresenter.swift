@@ -43,6 +43,8 @@ extension RegistrationPresenter: RegistrationInteractorOutputProtocol {
                     view.showFieldError(error.message, field: .username)
                 } else if error.fieldName == User.CodingKeys.email.rawValue {
                     view.showFieldError(error.message, field: .email)
+                } else if error.fieldName == "password" {
+                    view.showFieldError(error.message, field: .password)
                 } else {
                     router.showError(with: error.message)
                 }
@@ -79,7 +81,6 @@ extension RegistrationPresenter: RegistrationViewOutputProtocol {
             view.showFieldError(R.string.localizable.registrationPasswordNotEqualsMessage(), field: .repearPassword)
             isError = true
         }
-        // TODO: добавить проверку ввода пароля
         guard !isError, !username.isEmpty, !email.isEmpty, !pass.isEmpty, !repeatPass.isEmpty else {
             return
         }
@@ -88,6 +89,6 @@ extension RegistrationPresenter: RegistrationViewOutputProtocol {
         self.email = email
         self.password = pass
         view.showBlockLoading()
-        interactor.sendCheckRegistrationData(username: username, email: email)
+        interactor.sendCheckRegistrationData(username: username, email: email, password: pass)
     }
 }
