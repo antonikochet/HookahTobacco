@@ -43,7 +43,7 @@ final class RegistrationViewController: HTScrollContentViewController {
     private let continueButton = ApplyButton(style: .primary)
 
     // MARK: - Private properties
-    private var isNextTextField: Bool = false
+    private var offsetStackView: CGPoint = .zero
 
     // MARK: - ViewController Lifecycle
     override func viewDidLoad() {
@@ -89,63 +89,71 @@ final class RegistrationViewController: HTScrollContentViewController {
         stackView.setCustomSpacing(8.0, after: titleLabel)
     }
     private func setupUsername() {
+        let fieldOffset = CGPoint.zero
         usernameTextFieldView.setupView(title: R.string.localizable.registrationUsernameTitle())
         usernameTextFieldView.didEndEditing = { [weak self] in
             guard let self else { return }
             self.textFieldDidEndEditingAction(self.usernameTextFieldView)
         }
         usernameTextFieldView.didBeginEditing = { [weak self] in
-            self?.setOffset(.zero)
+            self?.setOffset(fieldOffset)
+            self?.offsetStackView = .zero
         }
         usernameTextFieldView.shouldBeginEditing = { [weak self] in
-            self?.isNextTextField = true
+            self?.offsetStackView = fieldOffset
             return true
         }
         stackView.addArrangedSubview(usernameTextFieldView)
     }
     private func setupEmail() {
+        let fieldOffset = CGPoint.zero
         emailTextFieldView.setupView(title: R.string.localizable.registrationEmailTitle())
         emailTextFieldView.didEndEditing = { [weak self] in
             guard let self else { return }
             self.textFieldDidEndEditingAction(self.emailTextFieldView)
         }
         emailTextFieldView.didBeginEditing = { [weak self] in
-            self?.setOffset(.zero)
+            self?.setOffset(fieldOffset)
+            self?.offsetStackView = .zero
         }
         emailTextFieldView.shouldBeginEditing = { [weak self] in
-            self?.isNextTextField = true
+            self?.offsetStackView = fieldOffset
             return true
         }
         stackView.addArrangedSubview(emailTextFieldView)
         stackView.setCustomSpacing(12.0, after: usernameTextFieldView)
     }
     private func setupPass() {
+        let fieldOffset = CGPoint(x: 0, y: 50)
         passTextFieldView.setupView(title: R.string.localizable.registrationPasswordTitle())
         passTextFieldView.didEndEditing = { [weak self] in
             guard let self else { return }
             self.textFieldDidEndEditingAction(self.passTextFieldView)
         }
         passTextFieldView.shouldBeginEditing = { [weak self] in
-            self?.isNextTextField = true
+            self?.offsetStackView = fieldOffset
             return true
         }
         passTextFieldView.didBeginEditing = { [weak self] in
-            self?.setOffset(CGPoint(x: 0, y: 50))
+            self?.setOffset(fieldOffset)
+            self?.offsetStackView = .zero
         }
         stackView.addArrangedSubview(passTextFieldView)
     }
     private func setupRepeatPass() {
+        let fieldOffset = CGPoint(x: 0, y: 100)
         repeatPassTextFieldView.setupView(title: R.string.localizable.registrationRepeatPasswordTitle())
         repeatPassTextFieldView.didEndEditing = { [weak self] in
             guard let self else { return }
             self.textFieldDidEndEditingAction(self.repeatPassTextFieldView)
         }
         repeatPassTextFieldView.shouldBeginEditing = { [weak self] in
-            self?.isNextTextField = true
+            self?.offsetStackView = fieldOffset
             return true
         }
         repeatPassTextFieldView.didBeginEditing = { [weak self] in
-            self?.setOffset(CGPoint(x: 0, y: 100))
+            self?.setOffset(fieldOffset)
+            self?.offsetStackView = .zero
         }
         stackView.addArrangedSubview(repeatPassTextFieldView)
         stackView.setCustomSpacing(12.0, after: passTextFieldView)
@@ -167,10 +175,7 @@ final class RegistrationViewController: HTScrollContentViewController {
 
     // MARK: - Private methods
     private func textFieldDidEndEditingAction(_ textField: TextFieldWithLeftLabel) {
-        if !isNextTextField {
-            setOffset(.zero)
-        }
-        isNextTextField = false
+        setOffset(offsetStackView)
         if textField.text?.isEmpty ?? true {
             textField.setError(message: R.string.localizable.registrationTextFieldEmptyErrorMessage())
         }

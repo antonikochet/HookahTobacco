@@ -151,6 +151,7 @@ final class TextFieldWithLeftLabel: UIView {
     // MARK: - Private methods
     private func setupRoundingTextField() {
         textField.isSecureTextEntry = type == .password
+        textField.textContentType = .oneTimeCode
         textField.layer.masksToBounds = true
         textField.layer.cornerRadius = 19.0
         textField.layer.maskedCorners = rounding.maskedCorners

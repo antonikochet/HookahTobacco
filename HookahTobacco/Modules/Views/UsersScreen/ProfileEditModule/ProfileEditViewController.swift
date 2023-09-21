@@ -61,7 +61,7 @@ class ProfileEditViewController: HTScrollContentViewController, BottomSheetPrese
     private let button = ApplyButton(style: .primary)
 
     // MARK: - Private properties
-    private var isNextTextField: Bool = false
+    private var offsetStackView: CGPoint = .zero
 
     // MARK: - ViewController Lifecycle
     override func viewDidLoad() {
@@ -114,63 +114,71 @@ class ProfileEditViewController: HTScrollContentViewController, BottomSheetPrese
         stackView.addArrangedSubview(titleLabel)
     }
     private func setupFirstNameFieldView() {
+        let fieldOffset = CGPoint.zero
         firstNameFieldView.setupView(title: R.string.localizable.profileEditFirstNameTitle())
         firstNameFieldView.didEndEditing = { [weak self] in
             guard let self else { return }
             self.textFieldDidEndEditingAction(self.firstNameFieldView)
         }
         firstNameFieldView.didBeginEditing = { [weak self] in
-            self?.setOffset(.zero)
+            self?.setOffset(fieldOffset)
+            self?.offsetStackView = .zero
         }
         firstNameFieldView.shouldBeginEditing = { [weak self] in
-            self?.isNextTextField = true
+            self?.offsetStackView = fieldOffset
             return true
         }
         stackView.addArrangedSubview(firstNameFieldView)
         stackView.setCustomSpacing(36, after: titleLabel)
     }
     private func setupLastNameFieldView() {
+        let fieldOffset = CGPoint.zero
         lastNameFieldView.setupView(title: R.string.localizable.profileEditLastNameTitle())
         lastNameFieldView.didEndEditing = { [weak self] in
             guard let self else { return }
             self.textFieldDidEndEditingAction(self.lastNameFieldView, isRequired: false)
         }
         lastNameFieldView.didBeginEditing = { [weak self] in
-            self?.setOffset(.zero)
+            self?.setOffset(fieldOffset)
+            self?.offsetStackView = .zero
         }
         lastNameFieldView.shouldBeginEditing = { [weak self] in
-            self?.isNextTextField = true
+            self?.offsetStackView = fieldOffset
             return true
         }
         stackView.addArrangedSubview(lastNameFieldView)
     }
     private func setupUsername() {
+        let fieldOffset = CGPoint(x: 0, y: 30)
         usernameTextFieldView.setupView(title: R.string.localizable.registrationUsernameTitle())
         usernameTextFieldView.didEndEditing = { [weak self] in
             guard let self else { return }
             self.textFieldDidEndEditingAction(self.usernameTextFieldView)
         }
         usernameTextFieldView.didBeginEditing = { [weak self] in
-            self?.setOffset(CGPoint(x: 0, y: 30))
+            self?.setOffset(fieldOffset)
+            self?.offsetStackView = .zero
         }
         usernameTextFieldView.shouldBeginEditing = { [weak self] in
-            self?.isNextTextField = true
+            self?.offsetStackView = fieldOffset
             return true
         }
         stackView.addArrangedSubview(usernameTextFieldView)
         stackView.setCustomSpacing(24.0, after: lastNameFieldView)
     }
     private func setupEmail() {
+        let fieldOffset = CGPoint(x: 0, y: 60)
         emailTextFieldView.setupView(title: R.string.localizable.registrationEmailTitle())
         emailTextFieldView.didEndEditing = { [weak self] in
             guard let self else { return }
             self.textFieldDidEndEditingAction(self.emailTextFieldView)
         }
         emailTextFieldView.didBeginEditing = { [weak self] in
-            self?.setOffset(CGPoint(x: 0, y: 60))
+            self?.setOffset(fieldOffset)
+            self?.offsetStackView = .zero
         }
         emailTextFieldView.shouldBeginEditing = { [weak self] in
-            self?.isNextTextField = true
+            self?.offsetStackView = fieldOffset
             return true
         }
         stackView.addArrangedSubview(emailTextFieldView)
@@ -180,8 +188,8 @@ class ProfileEditViewController: HTScrollContentViewController, BottomSheetPrese
         dateOfBirthFieldView.didBeginEditing = { [weak self] in
             self?.view.endEditing(true)
             self?.setOffset(.zero)
+            self?.offsetStackView = .zero
             self?.presenter.pressedDateOfBirthTextField()
-            self?.isNextTextField = false
         }
         stackView.addArrangedSubview(dateOfBirthFieldView)
         stackView.setCustomSpacing(24, after: emailTextFieldView)
@@ -191,8 +199,8 @@ class ProfileEditViewController: HTScrollContentViewController, BottomSheetPrese
         sexFieldView.didBeginEditing = { [weak self] in
             self?.view.endEditing(true)
             self?.setOffset(.zero)
+            self?.offsetStackView = .zero
             self?.presenter.pressedSexTextField()
-            self?.isNextTextField = false
         }
         stackView.addArrangedSubview(sexFieldView)
     }
@@ -244,10 +252,7 @@ class ProfileEditViewController: HTScrollContentViewController, BottomSheetPrese
 
     // MARK: - Private methods
     private func textFieldDidEndEditingAction(_ textField: TextFieldWithLeftLabel, isRequired: Bool = true) {
-        if !isNextTextField {
-            setOffset(.zero)
-        }
-        isNextTextField = false
+        setOffset(offsetStackView)
         if textField.text?.isEmpty ?? true && isRequired {
             textField.setError(message: R.string.localizable.registrationTextFieldEmptyErrorMessage())
         }
