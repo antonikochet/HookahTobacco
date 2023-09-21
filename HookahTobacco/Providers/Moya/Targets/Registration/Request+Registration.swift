@@ -60,6 +60,7 @@ extension RegistrationUser {
         try container.encode(firstName ?? "", forKey: .firstName)
         try container.encode(lastName ?? "", forKey: .lastName)
         try container.encodeIfPresent(dateOfBirth, forKey: .dateOfBirth)
+        try container.encode(gender?.rawValue, forKey: .gender)
     }
 
     enum CodingKeys: String, CodingKey {
@@ -69,6 +70,7 @@ extension RegistrationUser {
         case firstName = "first_name"
         case lastName = "last_name"
         case dateOfBirth = "date_of_birth"
+        case gender = "gender"
     }
 }
 

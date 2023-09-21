@@ -17,6 +17,7 @@ extension User: Decodable {
         lastName = try container.decode(String?.self, forKey: .lastName)
         isAdmin = try container.decode(Bool.self, forKey: .isAdmin)
         dateOfBirth = try container.decode(Date?.self, forKey: .dateOfBirth)
+        gender = try container.decode(Gender?.self, forKey: .gender)
     }
 
     enum CodingKeys: String, CodingKey {
@@ -26,6 +27,11 @@ extension User: Decodable {
         case firstName = "first_name"
         case lastName = "last_name"
         case dateOfBirth = "date_of_birth"
+        case gender = "gender"
         case isAdmin = "is_admin"
     }
+}
+
+extension Gender: Decodable {
+
 }
