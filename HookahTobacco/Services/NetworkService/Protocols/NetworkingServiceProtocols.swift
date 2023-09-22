@@ -28,6 +28,7 @@ protocol UserNetworkingServiceProtocol {
     func receiveWantToBuyTobaccos(page: Int, completion: CompletionResultBlock<PageResponse<Tobacco>>?)
     func updateFavoriteTobacco(_ tobaccos: [Tobacco], completion: CompletionResultBlock<[Tobacco]>?)
     func updateWantToBuyTobacco(_ tobaccos: [Tobacco], completion: CompletionResultBlock<[Tobacco]>?)
+    func receiveAgreementURLs(_ types: [TypeAgreementURLs], completion: CompletionResultBlock<[AgreementURLsResponse]>?)
 }
 
 protocol AppealsNetworkingServiceProtocol {

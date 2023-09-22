@@ -64,6 +64,7 @@
 		383F2FC22ABB0531007BE4A8 /* AppealAnswerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383F2FC12ABB0531007BE4A8 /* AppealAnswerTableViewCell.swift */; };
 		383F2FC52ABB12EA007BE4A8 /* extension+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383F2FC42ABB12EA007BE4A8 /* extension+URL.swift */; };
 		383F2FC82ABB1419007BE4A8 /* DetailAppealContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383F2FC72ABB1419007BE4A8 /* DetailAppealContentTableViewCell.swift */; };
+		384672B22ABE15BB0071C262 /* Response+User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384672B12ABE15BB0071C262 /* Response+User.swift */; };
 		3848022F2A57189C00DA595B /* Request+Manufacturer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3848022E2A57189C00DA595B /* Request+Manufacturer.swift */; };
 		384B93FA2AB3421000DBE89C /* SelectListBottomSheetPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384B93F52AB3421000DBE89C /* SelectListBottomSheetPresenter.swift */; };
 		384B93FB2AB3421000DBE89C /* SelectListBottomSheetRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384B93F62AB3421000DBE89C /* SelectListBottomSheetRouter.swift */; };
@@ -383,6 +384,7 @@
 		383F2FC12ABB0531007BE4A8 /* AppealAnswerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppealAnswerTableViewCell.swift; sourceTree = "<group>"; };
 		383F2FC42ABB12EA007BE4A8 /* extension+URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extension+URL.swift"; sourceTree = "<group>"; };
 		383F2FC72ABB1419007BE4A8 /* DetailAppealContentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAppealContentTableViewCell.swift; sourceTree = "<group>"; };
+		384672B12ABE15BB0071C262 /* Response+User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Response+User.swift"; sourceTree = "<group>"; };
 		3848022E2A57189C00DA595B /* Request+Manufacturer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Request+Manufacturer.swift"; sourceTree = "<group>"; };
 		384B93F52AB3421000DBE89C /* SelectListBottomSheetPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectListBottomSheetPresenter.swift; sourceTree = "<group>"; };
 		384B93F62AB3421000DBE89C /* SelectListBottomSheetRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectListBottomSheetRouter.swift; sourceTree = "<group>"; };
@@ -1223,6 +1225,7 @@
 				38DDDE6D2A86CC5300EA19A3 /* Api+User.swift */,
 				38DDDE6F2A86CF8700EA19A3 /* User+Codable.swift */,
 				381569962A96A7650053D223 /* Request+User.swift */,
+				384672B12ABE15BB0071C262 /* Response+User.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -2258,6 +2261,7 @@
 				B9EB024928F35B5F00B3B6DA /* ModuleProtocol.swift in Sources */,
 				38ADAF542A8FB78000DDB30B /* HTError.swift in Sources */,
 				38DDDE622A86B93A00EA19A3 /* AuthSettingsProtocol.swift in Sources */,
+				384672B22ABE15BB0071C262 /* Response+User.swift in Sources */,
 				383F2FBE2ABB02C5007BE4A8 /* DetailAppealModule.swift in Sources */,
 				381E689B2AB74373000AA9BC /* CreateAppealsPresenter.swift in Sources */,
 				B9C925F9294F53720085BB02 /* RegistrationViewController.swift in Sources */,

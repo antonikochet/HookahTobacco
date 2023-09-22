@@ -21,6 +21,7 @@ protocol ProfileEditRouterProtocol: RouterProtocol {
                      items: [String],
                      selectedIndex: Int?,
                      output: SelectListBottomSheetOutputModule?)
+    func showWebView(_ url: URL)
 }
 
 protocol ProfileEditOutputModule: AnyObject {
@@ -69,5 +70,10 @@ class ProfileEditRouter: ProfileEditRouterProtocol {
                                                    selectedIndex: selectedIndex,
                                                    output: output)
         appRouter.presentViewModally(module: SelectListBottomSheetModule.self, moduleData: data)
+    }
+
+    func showWebView(_ url: URL) {
+        print(url)
+        // open web view
     }
 }

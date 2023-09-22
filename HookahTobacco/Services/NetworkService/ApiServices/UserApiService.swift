@@ -57,4 +57,12 @@ extension UserApiService: UserNetworkingServiceProtocol {
         )
         sendRequest(object: [Tobacco].self, target: target, completion: completion as? CompletionResultBlock)
     }
+
+    func receiveAgreementURLs(_ types: [TypeAgreementURLs],
+                              completion: CompletionResultBlock<[AgreementURLsResponse]>?) {
+        let target = Api.Users.getUrls(AgreementURLsRequest(urls: types))
+        sendRequest(object: [AgreementURLsResponse].self,
+                    target: target,
+                    completion: completion as? CompletionResultBlock)
+    }
 }

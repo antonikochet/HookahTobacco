@@ -18,6 +18,7 @@ protocol ProfileEditInteractorOutputProtocol: PresenterrProtocol {
     func receivedStartData(_ user: RegistrationUserProtocol, isRegistration: Bool)
     func receivedSuccessRegistration()
     func receivedSuccessEditProfile(_ user: UserProtocol)
+    func receivedAgreementURLs(_ agreementURLs: [AgreementURLsResponse])
 }
 
 class ProfileEditInteractor {
@@ -66,10 +67,25 @@ class ProfileEditInteractor {
             }
         }
     }
+
+    private func receiveAgreementURLs() {
+        userNetworkingService.receiveAgreementURLs(
+            [.consentPersonalData, .userAgreement]
+        ) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let response):
+                self.presenter.receivedAgreementURLs(response)
+            case .failure:
+                break
+            }
+        }
+    }
 }
 // MARK: - InputProtocol implementation 
 extension ProfileEditInteractor: ProfileEditInteractorInputProtocol {
     func receiveStartData() {
+        receiveAgreementURLs()
         presenter.receivedStartData(user, isRegistration: isRegistration)
     }
 

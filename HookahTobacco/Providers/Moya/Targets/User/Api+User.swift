@@ -18,6 +18,7 @@ extension Api {
         case getBuyToTobacco(page: Int)
         case updateFavoriteTobaccos([UpdateTobaccosUser])
         case updateWantBuyTobaccos([UpdateTobaccosUser])
+        case getUrls(AgreementURLsRequest)
     }
 }
 
@@ -38,6 +39,8 @@ extension Api.Users: DefaultTarget {
             return "v1/user/update-favorite-tobacco/"
         case .updateWantBuyTobaccos:
             return "v1/user/update-wish-tobacco/"
+        case .getUrls:
+            return "v1/urls/"
         }
     }
 
@@ -47,7 +50,7 @@ extension Api.Users: DefaultTarget {
             return .get
         case .patch:
             return .patch
-        case .changePassword, .resetPassword, .updateFavoriteTobaccos, .updateWantBuyTobaccos:
+        case .changePassword, .resetPassword, .updateFavoriteTobaccos, .updateWantBuyTobaccos, .getUrls:
             return .post
         }
     }
@@ -66,6 +69,8 @@ extension Api.Users: DefaultTarget {
             return .requestJSONEncodable(tobaccos)
         case .updateWantBuyTobaccos(let tobaccos):
             return .requestJSONEncodable(tobaccos)
+        case .getUrls(let request):
+            return .requestJSONEncodable(request)
         default:
             return .requestPlain
         }

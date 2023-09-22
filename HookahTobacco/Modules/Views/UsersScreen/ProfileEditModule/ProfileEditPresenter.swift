@@ -84,6 +84,25 @@ extension ProfileEditPresenter: ProfileEditInteractorOutputProtocol {
         }
     }
 
+    func receivedAgreementURLs(_ agreementURLs: [AgreementURLsResponse]) {
+        let text = R.string.localizable.profileEditAgreementTextViewText()
+        let resultText = NSMutableAttributedString(string: text)
+        for agreementURL in agreementURLs {
+            guard let url = URL(string: agreementURL.url) else { continue }
+            var range: NSRange?
+            switch agreementURL.code {
+            case .userAgreement:
+                range = (text as NSString).range(of: R.string.localizable.profileEditUserAgreement())
+            case .consentPersonalData:
+                range = (text as NSString).range(of: R.string.localizable.profileEditPersonalData())
+            }
+            if let range {
+                resultText.addAttribute(.link, value: url, range: range)
+            }
+        }
+        view.setupAgreementTextView(resultText)
+    }
+
     func receivedError(_ error: HTError) {
         view.hideLoading()
         if case let .apiError(apiErrors) = error {
@@ -157,6 +176,10 @@ extension ProfileEditPresenter: ProfileEditViewOutputProtocol {
 
     func pressedCloseButton() {
         router.dismissEditProfileView(nil)
+    }
+
+    func pressedAgreementText(_ url: URL) {
+        router.showWebView(url)
     }
 }
 

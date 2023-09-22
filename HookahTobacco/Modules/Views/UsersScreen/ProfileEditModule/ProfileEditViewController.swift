@@ -22,6 +22,7 @@ protocol ProfileEditViewInputProtocol: ViewProtocol {
     func setupDateOfBirth(_ date: String)
     func setupGender(_ gender: String)
     func showFieldError(_ message: String, field: ProfileEditInputFields)
+    func setupAgreementTextView(_ text: NSMutableAttributedString)
 }
 
 protocol ProfileEditViewOutputProtocol: AnyObject {
@@ -30,6 +31,7 @@ protocol ProfileEditViewOutputProtocol: AnyObject {
     func pressedDateOfBirthTextField()
     func pressedSexTextField()
     func pressedCloseButton()
+    func pressedAgreementText(_ url: URL)
 }
 
 class ProfileEditViewController: HTScrollContentViewController, BottomSheetPresenter {
@@ -208,7 +210,7 @@ class ProfileEditViewController: HTScrollContentViewController, BottomSheetPrese
         agreementSwitch.thumbTintColor = R.color.primaryPurple()
         agreementSwitch.tintColor = R.color.fourthBackground()
         agreementSwitch.onTintColor = R.color.fourthBackground()
-        agreementSwitch.isOn = true
+        agreementSwitch.isOn = false
         agreementSwitch.addTarget(self, action: #selector(changedAgreementSwitch), for: .valueChanged)
         agreementView.addSubview(agreementSwitch)
         agreementSwitch.snp.makeConstraints { make in
@@ -228,6 +230,9 @@ class ProfileEditViewController: HTScrollContentViewController, BottomSheetPrese
         agreementTextView.minimumZoomScale = 1.0
         agreementTextView.delegate = self
         agreementTextView.isScrollEnabled = false
+        agreementTextView.linkTextAttributes = [
+            .foregroundColor: R.color.primaryPurple() ?? .purple
+        ]
         agreementView.addSubview(agreementTextView)
         agreementTextView.snp.makeConstraints { make in
             make.top.bottom.leading.equalToSuperview()
@@ -237,6 +242,7 @@ class ProfileEditViewController: HTScrollContentViewController, BottomSheetPrese
         stackView.addArrangedSubview(agreementView)
     }
     private func setupButton() {
+        button.isEnabled = false
         button.action = { [weak self] in
             guard let self else { return }
             self.presenter.pressedButton(ProfileEditEntity.EnterData(
@@ -302,13 +308,20 @@ extension ProfileEditViewController: ProfileEditViewInputProtocol {
             emailTextFieldView.setError(message: message)
         }
     }
+
+    func setupAgreementTextView(_ text: NSMutableAttributedString) {
+        let range = (text.string as NSString).range(of: text.string)
+        text.addAttribute(.font, value: UIFont.appFont(size: 16.0, weight: .regular), range: range)
+        text.addAttribute(.foregroundColor, value: R.color.primaryTitle() ?? .black, range: range)
+        agreementTextView.attributedText = text
+    }
 }
 
 extension ProfileEditViewController: UITextViewDelegate {
     func textView(_ textView: UITextView,
                   shouldInteractWith URL: URL,
                   in characterRange: NSRange) -> Bool {
-        // TODO: open webview with agreement
+        presenter.pressedAgreementText(URL)
         return false
     }
 }
