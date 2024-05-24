@@ -13,8 +13,6 @@ class DataManagerAssembly: Assembly {
         container.register(DataManager.self) { resolver in
             DataManager(
                 getDataNetworkingService: resolver.resolve(GetDataNetworkingServiceProtocol.self)!,
-                dataBaseService: resolver.resolve(DataBaseServiceProtocol.self)!,
-                userDefaultsService: resolver.resolve(UserSettingsServiceProtocol.self)!,
                 imageService: resolver.resolve(ImageStorageServiceProtocol.self)!
             )
         }

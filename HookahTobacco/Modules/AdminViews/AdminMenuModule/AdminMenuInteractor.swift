@@ -54,17 +54,6 @@ extension AdminMenuInteractor: AdminMenuInteractorInputProtocol {
     }
 
     func upgradeDBVersion() {
-        getDataManager.getDataBaseVersion { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let version):
-                self.adminNetworkingService.setDBVersion(version + 1) { error in
-                    if let error { self.presenter.receivedError(error)
-                    } else { self.presenter.showAlert() }
-                }
-            case .failure(let error):
-                self.presenter.receivedError(error)
-            }
-        }
+        
     }
 }

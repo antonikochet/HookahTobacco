@@ -119,8 +119,4 @@ extension DataApiService: GetDataNetworkingServiceProtocol {
             completion?(.failure(error))
         }
     }
-
-    func getDataBaseVersion(completion: CompletionResultBlock<Int>?) {
-
-    }
 }

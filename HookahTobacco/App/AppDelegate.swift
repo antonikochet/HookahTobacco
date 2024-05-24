@@ -30,7 +30,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let dataManager = router.resolver.resolve(DataManager.self)!
         dataManager.subscribe(to: SystemNotificationType.self, subscriber: router)
-        dataManager.start()
 
         self.router = router
         window?.makeKeyAndVisible()
