@@ -8,6 +8,5 @@
 import Foundation
 
 protocol UserSettingsServiceProtocol {
-    func getDataBaseVersion() -> Int
-    func setDataBaseVersion(_ newValue: Int)
+    
 }

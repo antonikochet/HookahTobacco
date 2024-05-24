@@ -86,7 +86,7 @@ extension ManufacturerListPresenter: ManufacturerListInteractorOutputProtocol {
         view.hideLoading()
         view.endRefreshing()
         switch error {
-        case .apiError, .databaseError:
+        case .apiError:
             router.showError(with: error.message)
         case .noInternetConnection, .unexpectedError, .unknownError, .serverNotAvailable:
             if isDownloadData {

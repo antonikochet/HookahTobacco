@@ -18,7 +18,6 @@ protocol GetDataNetworkingServiceProtocol {
     func updateTobaccoFilters(filters: TobaccoFilters, completion: CompletionResultBlock<TobaccoFilters>?)
     func receiveImage(for url: String, completion: CompletionResultBlock<Data>?)
     func receiveTobaccos(for manufacturer: Manufacturer, completion: CompletionResultBlock<[Tobacco]>?)
-    func getDataBaseVersion(completion: CompletionResultBlock<Int>?)
 }
 
 protocol UserNetworkingServiceProtocol {

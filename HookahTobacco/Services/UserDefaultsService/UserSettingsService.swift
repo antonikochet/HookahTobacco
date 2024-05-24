@@ -52,7 +52,7 @@ class UserSettingsService {
 private extension UserSettingsService {
     // MARK: - Enum of keys UserDefaults values
     private enum UserDefaultsKeys: String {
-        case dataBaseVersion
+        case none
     }
     // MARK: - Enum of keys Keychain values
     private enum KeychainKeys: String {
@@ -62,13 +62,7 @@ private extension UserSettingsService {
 
 // MARK: - UserSettingsServiceProtocol implementation
 extension UserSettingsService: UserSettingsServiceProtocol {
-    func getDataBaseVersion() -> Int {
-        return getValue(key: .dataBaseVersion) ?? -1
-    }
-
-    func setDataBaseVersion(_ newValue: Int) {
-        saveValue(newValue, key: .dataBaseVersion)
-    }
+    
 }
 
 // MARK: - AuthSettingsProtocol implementation

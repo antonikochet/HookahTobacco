@@ -15,5 +15,4 @@ protocol DataManagerProtocol {
 
     func receiveData<T: DataManagerType>(typeData: T.Type, completion: ReceiveCompletion<T>?)
     func receiveImage(for url: String, completion: CompletionResultBlock<Data>?)
-    func receiveTastes(at ids: [Int], completion: ReceiveCompletion<Taste>?)
 }

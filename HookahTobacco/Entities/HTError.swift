@@ -13,7 +13,6 @@ enum HTError: Error {
     case serverNotAvailable
     case unknownError(Error)
     case apiError([ApiError])
-    case databaseError(DataBaseError)
 
     var message: String {
         switch self {
@@ -28,8 +27,6 @@ enum HTError: Error {
         case .apiError(let errors):
             return errors.map({ "\($0.fieldName != nil ? $0.fieldName! + ": " : "")\($0.message)" })
                 .joined(separator: "\n")
-        case .databaseError(let error):
-            return error.errorDescription ?? ""
         }
     }
 }
@@ -44,8 +41,6 @@ extension HTError: Equatable {
         case (.unknownError, .unknownError):
             return true
         case (.apiError, .apiError):
-            return true
-        case (.databaseError, .databaseError):
             return true
         default:
             return false
