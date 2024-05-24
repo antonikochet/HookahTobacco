@@ -11,7 +11,6 @@ extension AppRouter {
     func registerProviders() {
         apply(assemblies: [
             MoyaProviderAssembly(),
-            RealmProviderAssembly()
         ])
     }
 
@@ -20,7 +19,6 @@ extension AppRouter {
             UserDefaultsServiceAssembly(),
             ApiNetworkingServicesAssembly(),
             ApiAuthServiceAssembly(),
-            RealmDataBaseServiresAssembly(),
             ImageStorageServiceAssembly(),
             DataManagerAssembly()
         ])
