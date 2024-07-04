@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import SwiftUI
 
 struct DescriptionStackViewItem {
     let name: String
@@ -75,6 +76,32 @@ final class DescriptionStackView: UIView {
         nameLabel.text = item.name
         descriptionLabel.text = item.description
     }
+}
+
+// TODO: - переименовать после удаления uikit
+struct DescriptionStackViewUI: View {
+    
+    let viewModel: DescriptionStackViewItem
+    
+    var body: some View {
+        HStack {
+            Text(viewModel.name)
+                .font(.appFont(size: 16.0, weight: .regular))
+                .foregroundStyle(Color("primary-title")) // TODO: - переделать под R.swift
+            Spacer()
+            Text(viewModel.description)
+                .font(.appFont(size: 16.0, weight: .light))
+                .foregroundStyle(Color("primary-subtitle"))
+        }
+    }
+}
+
+#Preview {
+    DescriptionStackViewUI(viewModel: DescriptionStackViewItem(
+        name: "Тип",
+        description: "Табак"
+    ))
+    .padding()
 }
 
 private struct LayoutValues {
