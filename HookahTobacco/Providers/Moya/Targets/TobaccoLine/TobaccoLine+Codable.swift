@@ -19,14 +19,29 @@ extension VarietyTobaccoLeaf: Codable {
 
     init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        let value = try container.decode(Int.self)
-        if let val = VarietyTobaccoLeaf(rawValue: value) {
+        if let intValue = try? container.decode(Int.self),
+           let val = VarietyTobaccoLeaf(rawValue: intValue) {
             self = val
+        } else if let strValue = try? container.decode(String.self) {
+            switch strValue {
+            case "Burley":
+                self = .burley
+            case "Oriental":
+                self = .oriental
+            case "Virginia":
+                self = .virginia
+            default:
+                throw DecodingError.typeMismatch(
+                    String.self,
+                    .init(codingPath: [],
+                          debugDescription: "Failed to decode value \(strValue) to type VarietyTobaccoLeaf")
+                )
+            }
         } else {
             throw DecodingError.typeMismatch(
                 String.self,
                 .init(codingPath: [],
-                      debugDescription: "Failed to decode value \(value) to type VarietyTobaccoLeaf")
+                      debugDescription: "Failed to decode value to type VarietyTobaccoLeaf")
             )
         }
     }
