@@ -28,8 +28,7 @@ class ManufacturerListInteractor {
     weak var presenter: ManufacturerListInteractorOutputProtocol!
 
     // MARK: - Dependency
-    private var getDataManager: DataManagerProtocol
-    private var updateDataManager: ObserverProtocol
+    private let getDataNetworkingService: GetDataNetworkingServiceProtocol
 
     // MARK: - Private properties
     private var manufacturers: [Manufacturer] = []
@@ -37,22 +36,15 @@ class ManufacturerListInteractor {
 
     // MARK: - Initializers
     init(_ isAdminMode: Bool,
-         getDataManager: DataManagerProtocol,
-         updateDataManager: ObserverProtocol
+         getDataNetworkingService: GetDataNetworkingServiceProtocol
     ) {
         self.isAdminMode = isAdminMode
-        self.getDataManager = getDataManager
-        self.updateDataManager = updateDataManager
-        self.updateDataManager.subscribe(to: Manufacturer.self, subscriber: self)
-    }
-
-    deinit {
-        updateDataManager.unsubscribe(to: Manufacturer.self, subscriber: self)
+        self.getDataNetworkingService = getDataNetworkingService
     }
 
     // MARK: - Private methods
     private func receiveManufacturers() {
-        getDataManager.receiveData(typeData: Manufacturer.self) { [weak self] result in
+        getDataNetworkingService.receiveData(type: Manufacturer.self) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let data):
@@ -70,7 +62,7 @@ class ManufacturerListInteractor {
     private func receiveImage(for manufacturer: Manufacturer, at index: Int) {
         let urlImage = manufacturer.urlImage
         guard !urlImage.isEmpty else { return }
-        getDataManager.receiveImage(for: urlImage) { [weak self] result in
+        getDataNetworkingService.receiveImage(for: urlImage) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let data):
@@ -108,22 +100,5 @@ extension ManufacturerListInteractor: ManufacturerListInteractorInputProtocol {
 
     func updateData() {
         receiveManufacturers()
-    }
-}
-
-// MARK: - UpdateDataSubscriberProtocol implementation
-extension ManufacturerListInteractor: UpdateDataSubscriberProtocol {
-    func notify<T>(for type: T.Type, notification: UpdateDataNotification<[T]>) {
-        switch notification {
-        case .update(let data):
-            if let newManufacturers = data as? [Manufacturer] {
-                manufacturers = newManufacturers
-                presenter.receivedManufacturersSuccess(with: newManufacturers)
-                newManufacturers.enumerated().forEach { receiveImage(for: $1, at: $0)
-                }
-            }
-        case .error(let error):
-            presenter.receivedError(error)
-        }
     }
 }

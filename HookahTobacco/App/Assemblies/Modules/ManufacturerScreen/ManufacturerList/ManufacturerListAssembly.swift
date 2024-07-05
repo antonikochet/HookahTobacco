@@ -26,12 +26,10 @@ class ManufacturerListAssembly: Assembly {
             ManufacturerListInteractorInputProtocol.self
         ) { (resolver, dependency: ManufacturerListDependency) in
             // here resolve dependency injection
-            let getDataManager = resolver.resolve(DataManagerProtocol.self)!
-            let updateDataManager = resolver.resolve(ObserverProtocol.self)!
+            let getDataNetworkingService = resolver.resolve(GetDataNetworkingServiceProtocol.self)!
 
             return ManufacturerListInteractor(dependency.isAdminMode,
-                                              getDataManager: getDataManager,
-                                              updateDataManager: updateDataManager)
+                                              getDataNetworkingService: getDataNetworkingService)
         }
 
         container.register(ManufacturerListViewOutputProtocol.self) { _ in

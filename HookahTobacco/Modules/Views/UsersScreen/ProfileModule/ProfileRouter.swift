@@ -10,7 +10,6 @@
 import UIKit
 
 protocol ProfileRouterProtocol: RouterProtocol {
-    func showAdminMenu()
     func showLoginView()
     func showFavoriteList()
     func showWantToBuyList()
@@ -22,10 +21,6 @@ final class ProfileRouter: ProfileRouterProtocol {
 
     init(_ appRouter: AppRouterProtocol) {
         self.appRouter = appRouter
-    }
-
-    func showAdminMenu() {
-        appRouter.pushViewController(module: AdminMenuModule.self, moduleData: nil, animateDisplay: true)
     }
 
     func showLoginView() {

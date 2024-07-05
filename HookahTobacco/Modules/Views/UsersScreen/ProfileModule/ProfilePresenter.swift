@@ -34,17 +34,6 @@ final class ProfilePresenter {
         let profileCell = TableRow<ProfileTableViewCell>(item: profileItem)
         rows.append(profileCell)
 
-        // admin button if user is admin
-        if user.isAdmin {
-            let adminButtonItem = ButtonProfileTableViewCellItem(
-                text: R.string.localizable.profileAdminButtonTitle()
-            ) { [weak self] in
-                self?.router.showAdminMenu()
-            }
-            let adminButtonCell = TableRow<ButtonProfileTableViewCell>(item: adminButtonItem)
-            rows.append(adminButtonCell)
-        }
-
         let editProfileItem = ButtonProfileTableViewCellItem(text: "Изменить данные") { [weak self] in
             guard let self else { return }
             let data = ProfileEditDataModule(isRegistration: false, user: RegistrationUser(user), output: self)

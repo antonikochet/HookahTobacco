@@ -22,7 +22,6 @@
 		38041BF92AA0D26500DEEE6D /* TobaccoFiltersAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38041BF72AA0D26500DEEE6D /* TobaccoFiltersAssembly.swift */; };
 		3813D6A92A6AB214009DDCBD /* ImageFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3813D6A82A6AB214009DDCBD /* ImageFormat.swift */; };
 		381569972A96A7650053D223 /* Request+User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381569962A96A7650053D223 /* Request+User.swift */; };
-		3818BA052ABC966000D8B7CD /* AppealMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3818BA042ABC966000D8B7CD /* AppealMessageTableViewCell.swift */; };
 		3818E0352A80FB1700C9D02C /* FittedSheets in Frameworks */ = {isa = PBXBuildFile; productRef = 3818E0342A80FB1700C9D02C /* FittedSheets */; };
 		3818E0382A80FD1C00C9D02C /* BottomSheetPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3818E0372A80FD1C00C9D02C /* BottomSheetPresenter.swift */; };
 		3818E03A2A80FE8600C9D02C /* extension+SheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3818E0392A80FE8600C9D02C /* extension+SheetViewController.swift */; };
@@ -39,31 +38,8 @@
 		381E68A22AB747AD000AA9BC /* extension+UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381E68A12AB747AD000AA9BC /* extension+UITextField.swift */; };
 		381E68A72AB7924D000AA9BC /* CreateAppealsModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381E68A52AB7924D000AA9BC /* CreateAppealsModule.swift */; };
 		381E68A82AB7924D000AA9BC /* CreateAppealsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381E68A62AB7924D000AA9BC /* CreateAppealsAssembly.swift */; };
-		381F44752AB9E3B800FA717A /* AppealsListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381F44702AB9E3B800FA717A /* AppealsListPresenter.swift */; };
-		381F44762AB9E3B800FA717A /* AppealsListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381F44712AB9E3B800FA717A /* AppealsListRouter.swift */; };
-		381F44772AB9E3B800FA717A /* AppealsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381F44722AB9E3B800FA717A /* AppealsListViewController.swift */; };
-		381F44782AB9E3B800FA717A /* AppealsListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381F44732AB9E3B800FA717A /* AppealsListInteractor.swift */; };
-		381F44792AB9E3B800FA717A /* AppealsListEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381F44742AB9E3B800FA717A /* AppealsListEntity.swift */; };
-		381F447D2AB9F1D600FA717A /* AppealTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381F447C2AB9F1D600FA717A /* AppealTableViewCell.swift */; };
-		381F44832AB9F85A00FA717A /* AppealsListModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381F44812AB9F85A00FA717A /* AppealsListModule.swift */; };
-		381F44842AB9F85A00FA717A /* AppealsListAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381F44822AB9F85A00FA717A /* AppealsListAssembly.swift */; };
-		382F0C3D2A7D936600E2F277 /* AddTobaccoLinePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382F0C382A7D936600E2F277 /* AddTobaccoLinePresenter.swift */; };
-		382F0C3E2A7D936600E2F277 /* AddTobaccoLineRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382F0C392A7D936600E2F277 /* AddTobaccoLineRouter.swift */; };
-		382F0C3F2A7D936600E2F277 /* AddTobaccoLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382F0C3A2A7D936600E2F277 /* AddTobaccoLineViewController.swift */; };
-		382F0C402A7D936600E2F277 /* AddTobaccoLineInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382F0C3B2A7D936600E2F277 /* AddTobaccoLineInteractor.swift */; };
-		382F0C412A7D936600E2F277 /* AddTobaccoLineEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382F0C3C2A7D936600E2F277 /* AddTobaccoLineEntity.swift */; };
-		382F0C452A7D93D700E2F277 /* AddTobaccoLineModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382F0C432A7D93D700E2F277 /* AddTobaccoLineModule.swift */; };
-		382F0C462A7D93D700E2F277 /* AddTobaccoLineAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382F0C442A7D93D700E2F277 /* AddTobaccoLineAssembly.swift */; };
 		3838B1752A98A2A900AB3D8C /* PageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3838B1742A98A2A900AB3D8C /* PageResponse.swift */; };
-		383F2FB42ABAFB5B007BE4A8 /* DetailAppealPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383F2FAF2ABAFB5B007BE4A8 /* DetailAppealPresenter.swift */; };
-		383F2FB52ABAFB5B007BE4A8 /* DetailAppealRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383F2FB02ABAFB5B007BE4A8 /* DetailAppealRouter.swift */; };
-		383F2FB62ABAFB5B007BE4A8 /* DetailAppealViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383F2FB12ABAFB5B007BE4A8 /* DetailAppealViewController.swift */; };
-		383F2FB72ABAFB5B007BE4A8 /* DetailAppealInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383F2FB22ABAFB5B007BE4A8 /* DetailAppealInteractor.swift */; };
-		383F2FBE2ABB02C5007BE4A8 /* DetailAppealModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383F2FBC2ABB02C5007BE4A8 /* DetailAppealModule.swift */; };
-		383F2FBF2ABB02C5007BE4A8 /* DetailAppealAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383F2FBD2ABB02C5007BE4A8 /* DetailAppealAssembly.swift */; };
-		383F2FC22ABB0531007BE4A8 /* AppealAnswerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383F2FC12ABB0531007BE4A8 /* AppealAnswerTableViewCell.swift */; };
 		383F2FC52ABB12EA007BE4A8 /* extension+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383F2FC42ABB12EA007BE4A8 /* extension+URL.swift */; };
-		383F2FC82ABB1419007BE4A8 /* DetailAppealContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383F2FC72ABB1419007BE4A8 /* DetailAppealContentTableViewCell.swift */; };
 		384672B22ABE15BB0071C262 /* Response+User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384672B12ABE15BB0071C262 /* Response+User.swift */; };
 		3848022F2A57189C00DA595B /* Request+Manufacturer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3848022E2A57189C00DA595B /* Request+Manufacturer.swift */; };
 		384B93FA2AB3421000DBE89C /* SelectListBottomSheetPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384B93F52AB3421000DBE89C /* SelectListBottomSheetPresenter.swift */; };
@@ -81,11 +57,260 @@
 		3858673C2AB987ED001776D9 /* SuccessBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385867372AB987ED001776D9 /* SuccessBottomSheetViewController.swift */; };
 		385867442AB98BDC001776D9 /* SuccessBottomSheetModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385867422AB98BDC001776D9 /* SuccessBottomSheetModule.swift */; };
 		385867452AB98BDC001776D9 /* SuccessBottomSheetAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385867432AB98BDC001776D9 /* SuccessBottomSheetAssembly.swift */; };
-		3869D3972A7EADBA00C9BF5C /* SelectTasteTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3869D3962A7EADBA00C9BF5C /* SelectTasteTypeTableViewCell.swift */; };
-		386CB3932C370FBC00D73C71 /* DetailTobaccoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386CB3922C370FBC00D73C71 /* DetailTobaccoViewModel.swift */; };
-		386CB3962C370FC900D73C71 /* DetailTobaccoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386CB3952C370FC900D73C71 /* DetailTobaccoView.swift */; };
-		386CB3AA2C37165300D73C71 /* Mock+Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386CB3A92C37165300D73C71 /* Mock+Entities.swift */; };
-		386CB3B22C38311E00D73C71 /* HTImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386CB3B12C38311E00D73C71 /* HTImage.swift */; };
+		386CB3CE2C38565100D73C71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386CB3CD2C38565100D73C71 /* AppDelegate.swift */; };
+		386CB3DA2C38565200D73C71 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 386CB3D82C38565200D73C71 /* LaunchScreen.storyboard */; };
+		386CB3E22C38574500D73C71 /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7AC9D28F4337100A3D7E5 /* AppRouter.swift */; };
+		386CB3E42C3857AE00D73C71 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 386CB3E32C3857AE00D73C71 /* Swinject */; };
+		386CB3E52C3857C000D73C71 /* ModuleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EB024828F35B5F00B3B6DA /* ModuleProtocol.swift */; };
+		386CB3E62C3858F000D73C71 /* GlobalConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90B671C29A049D0004460C8 /* GlobalConstant.swift */; };
+		386CB3E72C38590400D73C71 /* HTError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38ADAF532A8FB78000DDB30B /* HTError.swift */; };
+		386CB3E82C38590F00D73C71 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3802046629FE6D1A000193A1 /* ApiError.swift */; };
+		386CB3E92C38593F00D73C71 /* AlertFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B989B87029338CD6007ECC59 /* AlertFactory.swift */; };
+		386CB3EA2C38594600D73C71 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B949D7AC293D2D0F0019BEFC /* ToastView.swift */; };
+		386CB3EB2C38595200D73C71 /* PopupAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B989B87229339668007ECC59 /* PopupAlertView.swift */; };
+		386CB3ED2C38598300D73C71 /* AppRouter+Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386CB3EC2C38598300D73C71 /* AppRouter+Register.swift */; };
+		386CB3EE2C3859D300D73C71 /* HTNavigationControllerAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DBE511290DE2C3005B185C /* HTNavigationControllerAssembly.swift */; };
+		386CB3EF2C3859EC00D73C71 /* HTNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DBE50D290DE11F005B185C /* HTNavigationController.swift */; };
+		386CB3F12C385A1A00D73C71 /* RswiftLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 386CB3F02C385A1A00D73C71 /* RswiftLibrary */; };
+		386CB3F92C385A7100D73C71 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 386CB3F82C385A7100D73C71 /* SnapKit */; };
+		386CB3FB2C385A8300D73C71 /* HTTabBarControllerAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9074143290F041B00499674 /* HTTabBarControllerAssembly.swift */; };
+		386CB3FC2C385A8B00D73C71 /* HTTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DBE50A290DD8B1005B185C /* HTTabBarController.swift */; };
+		386CB3FD2C385AB100D73C71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B90A791A2899E2C200B90193 /* Assets.xcassets */; };
+		386CB3FF2C385AC400D73C71 /* BottomSheetPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3818E0372A80FD1C00C9D02C /* BottomSheetPresenter.swift */; };
+		386CB4022C385ACE00D73C71 /* FittedSheets in Frameworks */ = {isa = PBXBuildFile; productRef = 386CB4012C385ACE00D73C71 /* FittedSheets */; };
+		386CB4032C385AE200D73C71 /* extension+SheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3818E0392A80FE8600C9D02C /* extension+SheetViewController.swift */; };
+		386CB4042C385B0300D73C71 /* SystemSubscriberProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B949D7AA293D15900019BEFC /* SystemSubscriberProtocol.swift */; };
+		386CB4062C385B2900D73C71 /* ObserverProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B30A1B29325FFF00204913 /* ObserverProtocol.swift */; };
+		386CB4082C385B6000D73C71 /* extension+UIVisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385505382A8154D800855E50 /* extension+UIVisualEffectView.swift */; };
+		386CB4092C385B7600D73C71 /* extention + UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A4708228D2B84500CA6FAA /* extention + UIFont.swift */; };
+		386CB40B2C385D3D00D73C71 /* AuthServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C7825928ECE25800DBF8C6 /* AuthServiceProtocol.swift */; };
+		386CB40C2C385D4B00D73C71 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE5F2A86B1CA00EA19A3 /* User.swift */; };
+		386CB40D2C385F1400D73C71 /* ProfileAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A46B22967313B0006B787 /* ProfileAssembly.swift */; };
+		386CB40E2C385F3C00D73C71 /* ProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A46A72966F9DC0006B787 /* ProfileInteractor.swift */; };
+		386CB40F2C385F4300D73C71 /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A46A32966F9DC0006B787 /* ProfilePresenter.swift */; };
+		386CB4112C385F5000D73C71 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A46A62966F9DC0006B787 /* ProfileViewController.swift */; };
+		386CB4122C385F6700D73C71 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385505362A814A7A00855E50 /* LoadingView.swift */; };
+		386CB4132C385F7200D73C71 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385505342A814A4F00855E50 /* BaseViewController.swift */; };
+		386CB4142C385F7E00D73C71 /* ViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3855053A2A8155FA00855E50 /* ViewProtocol.swift */; };
+		386CB4152C385F9100D73C71 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38AFD1202A92633000800342 /* InfoView.swift */; };
+		386CB4162C385FA000D73C71 /* ApplyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3818E03B2A81342700C9D02C /* ApplyButton.swift */; };
+		386CB4172C385FD200D73C71 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A46AC2966FA430006B787 /* ProfileTableViewCell.swift */; };
+		386CB41A2C385FDE00D73C71 /* TableKit in Frameworks */ = {isa = PBXBuildFile; productRef = 386CB4192C385FDE00D73C71 /* TableKit */; };
+		386CB41B2C38600800D73C71 /* ButtonProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A46AE29672ACC0006B787 /* ButtonProfileTableViewCell.swift */; };
+		386CB41C2C38601100D73C71 /* AnonymousInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A66BCA296897F600B6D6E7 /* AnonymousInfoTableViewCell.swift */; };
+		386CB41E2C3860C300D73C71 /* RouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7ACA028F4528000A3D7E5 /* RouterProtocol.swift */; };
+		386CB41F2C3860CE00D73C71 /* PresenterrProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A8B1EB2A91747C009FAFF7 /* PresenterrProtocol.swift */; };
+		386CB4202C3860DF00D73C71 /* ProfileModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A46B12967313B0006B787 /* ProfileModule.swift */; };
+		386CB4212C38613800D73C71 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 38A8BC6C2AA51B500074CC3C /* Localizable.strings */; };
+		386CB4232C38615600D73C71 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3899EB6D2AAF36D80047AD4D /* Button.swift */; };
+		386CB4242C38615C00D73C71 /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3899EB702AAF374A0047AD4D /* IconView.swift */; };
+		386CB4252C38617100D73C71 /* extension+CGSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3899EB722AAF56940047AD4D /* extension+CGSize.swift */; };
+		386CB4262C38618B00D73C71 /* extention + UIEdgeInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9631C4D2922487500BBC09B /* extention + UIEdgeInsets.swift */; };
+		386CB4272C38619700D73C71 /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F9B8922A7FE0DD00EAC0A0 /* IconButton.swift */; };
+		386CB42F2C3862BB00D73C71 /* ProfileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386CB42E2C3862BB00D73C71 /* ProfileRouter.swift */; };
+		386CB4302C38630C00D73C71 /* ProfileEditRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CE8CC42A8955F300B00307 /* ProfileEditRouter.swift */; };
+		386CB4322C38631D00D73C71 /* DatePickerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C3ACBB2A8BCACC001D79EB /* DatePickerRouter.swift */; };
+		386CB4332C38633A00D73C71 /* DatePickerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C3ACC52A8BD4C0001D79EB /* DatePickerModule.swift */; };
+		386CB4342C38635400D73C71 /* DatePickerAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C3ACC62A8BD4C0001D79EB /* DatePickerAssembly.swift */; };
+		386CB4352C38636F00D73C71 /* SelectListBottomSheetModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384B94052AB354AA00DBE89C /* SelectListBottomSheetModule.swift */; };
+		386CB4362C38637100D73C71 /* SelectListBottomSheetAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384B94062AB354AA00DBE89C /* SelectListBottomSheetAssembly.swift */; };
+		386CB4372C38638000D73C71 /* SelectListBottomSheetInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384B93F82AB3421000DBE89C /* SelectListBottomSheetInteractor.swift */; };
+		386CB4382C38638200D73C71 /* SelectListBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384B93F72AB3421000DBE89C /* SelectListBottomSheetViewController.swift */; };
+		386CB4392C38638400D73C71 /* SelectListBottomSheetRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384B93F62AB3421000DBE89C /* SelectListBottomSheetRouter.swift */; };
+		386CB43A2C38638600D73C71 /* SelectListBottomSheetPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384B93F52AB3421000DBE89C /* SelectListBottomSheetPresenter.swift */; };
+		386CB43B2C38638A00D73C71 /* SelectListBottomSheetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384B94012AB347AB00DBE89C /* SelectListBottomSheetTableViewCell.swift */; };
+		386CB43C2C38638D00D73C71 /* DatePickerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C3ACBA2A8BCACC001D79EB /* DatePickerPresenter.swift */; };
+		386CB43D2C38639100D73C71 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C3ACBC2A8BCACC001D79EB /* DatePickerViewController.swift */; };
+		386CB43E2C38639400D73C71 /* DatePickerInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C3ACBD2A8BCACC001D79EB /* DatePickerInteractor.swift */; };
+		386CB4402C38640700D73C71 /* ProfileEditModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CE8CD32A89715100B00307 /* ProfileEditModule.swift */; };
+		386CB4412C38641400D73C71 /* ProfileEditAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CE8CD42A89715100B00307 /* ProfileEditAssembly.swift */; };
+		386CB4422C38642400D73C71 /* RegistrationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C925F2294F53720085BB02 /* RegistrationPresenter.swift */; };
+		386CB4432C38642900D73C71 /* RegistrationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C925F3294F53720085BB02 /* RegistrationRouter.swift */; };
+		386CB4442C38642B00D73C71 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C925F4294F53720085BB02 /* RegistrationViewController.swift */; };
+		386CB4452C38642E00D73C71 /* RegistrationInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C925F5294F53720085BB02 /* RegistrationInteractor.swift */; };
+		386CB4462C38644A00D73C71 /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C92608294F77570085BB02 /* AuthError.swift */; };
+		386CB4472C38645100D73C71 /* RegistrationServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C92600294F6DB20085BB02 /* RegistrationServiceProtocol.swift */; };
+		386CB4482C38645300D73C71 /* AuthSettingsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE612A86B93A00EA19A3 /* AuthSettingsProtocol.swift */; };
+		386CB4492C38645900D73C71 /* ApiAuthServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE5A2A8699E900EA19A3 /* ApiAuthServices.swift */; };
+		386CB44A2C38646C00D73C71 /* NetworkHandlerErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3802046329FE6AB8000193A1 /* NetworkHandlerErrors.swift */; };
+		386CB44B2C38648500D73C71 /* BaseApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A8B1ED2A91A08A009FAFF7 /* BaseApiService.swift */; };
+		386CB44C2C38649A00D73C71 /* Moya+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3895E5052A5447AF005D87EE /* Moya+Request.swift */; };
+		386CB44D2C3864A200D73C71 /* JSONDecoder+Moya.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384B94092AB372BA00DBE89C /* JSONDecoder+Moya.swift */; };
+		386CB44E2C3864A800D73C71 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3895E5022A542FB7005D87EE /* Api.swift */; };
+		386CB44F2C3864B000D73C71 /* Moya+Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3887C6D22A58713A00A96AE2 /* Moya+Config.swift */; };
+		386CB4502C3864CC00D73C71 /* AuthorizationPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE742A86DC9C00EA19A3 /* AuthorizationPlugin.swift */; };
+		386CB4512C3864CF00D73C71 /* HandlerErrorPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3887C6D02A58711800A96AE2 /* HandlerErrorPlugin.swift */; };
+		386CB4532C3864EB00D73C71 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 386CB4522C3864EB00D73C71 /* Moya */; };
+		386CB4552C3864F500D73C71 /* EmptyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE662A86C05000EA19A3 /* EmptyResponse.swift */; };
+		386CB4562C3864F800D73C71 /* PageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3838B1742A98A2A900AB3D8C /* PageResponse.swift */; };
+		386CB4572C38650400D73C71 /* DefaultTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3895E5002A542D54005D87EE /* DefaultTarget.swift */; };
+		386CB4582C38650700D73C71 /* Api+Authorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE552A8694C000EA19A3 /* Api+Authorization.swift */; };
+		386CB4592C38650C00D73C71 /* Request+Authorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE572A8697BB00EA19A3 /* Request+Authorization.swift */; };
+		386CB45A2C38651500D73C71 /* Response+Authorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE632A86BCE500EA19A3 /* Response+Authorization.swift */; };
+		386CB45B2C38651A00D73C71 /* Api+Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E8E6442A87D12000041443 /* Api+Registration.swift */; };
+		386CB45C2C38651E00D73C71 /* Request+Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E8E6462A87D30E00041443 /* Request+Registration.swift */; };
+		386CB45D2C3865B800D73C71 /* extension+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E98A9129107BC000E1389B /* extension+String.swift */; };
+		386CB45F2C3865F700D73C71 /* HTScrollContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ACB677291D15AE001D65CE /* HTScrollContentViewController.swift */; };
+		386CB4602C38662600D73C71 /* TextFieldWithLeftLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3899EB752AAF699C0047AD4D /* TextFieldWithLeftLabel.swift */; };
+		386CB4622C38663400D73C71 /* extension+UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381E68A12AB747AD000AA9BC /* extension+UITextField.swift */; };
+		386CB4632C38665F00D73C71 /* ProfileEditPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CE8CC32A8955F300B00307 /* ProfileEditPresenter.swift */; };
+		386CB4642C38666400D73C71 /* ProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CE8CC52A8955F300B00307 /* ProfileEditViewController.swift */; };
+		386CB4652C38666F00D73C71 /* ProfileEditInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CE8CC62A8955F300B00307 /* ProfileEditInteractor.swift */; };
+		386CB4662C38667100D73C71 /* ProfileEditEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CE8CC72A8955F300B00307 /* ProfileEditEntity.swift */; };
+		386CB4672C38668500D73C71 /* Response+User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384672B12ABE15BB0071C262 /* Response+User.swift */; };
+		386CB4682C38668E00D73C71 /* Request+User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381569962A96A7650053D223 /* Request+User.swift */; };
+		386CB4692C3866E200D73C71 /* User+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE6F2A86CF8700EA19A3 /* User+Codable.swift */; };
+		386CB46B2C38671400D73C71 /* ApiNetworkingServicesAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90B671629A03EB5004460C8 /* ApiNetworkingServicesAssembly.swift */; };
+		386CB46D2C38679A00D73C71 /* ApiHandlerErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3802046129FE6A7C000193A1 /* ApiHandlerErrors.swift */; };
+		386CB46F2C3867B900D73C71 /* NetworkingServiceProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38AFD11E2A925C5100800342 /* NetworkingServiceProtocols.swift */; };
+		386CB4702C3867C000D73C71 /* DataNetworkingServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98EE1EE2936CC7400F97E1A /* DataNetworkingServiceProtocol.swift */; };
+		386CB4712C3867CC00D73C71 /* Tobacco.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90A792C289A8C2200B90193 /* Tobacco.swift */; };
+		386CB4722C3867D000D73C71 /* Manufacturer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D6055828D4CB590058D19E /* Manufacturer.swift */; };
+		386CB4732C3867D400D73C71 /* Taste.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94306C02920181100EADFA0 /* Taste.swift */; };
+		386CB4742C3867D700D73C71 /* TobaccoLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9488F7C2934E9DB00D8B3B1 /* TobaccoLine.swift */; };
+		386CB4752C3867DD00D73C71 /* TasteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D6E93029FDC806001D44D5 /* TasteType.swift */; };
+		386CB4762C3867DF00D73C71 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D6E93829FDCDB1001D44D5 /* Country.swift */; };
+		386CB4772C38681600D73C71 /* Tobacco+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B902AE4529F40B1D00BF6AD6 /* Tobacco+Codable.swift */; };
+		386CB4792C38683800D73C71 /* Manufacturer+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B902AE3D29F405EA00BF6AD6 /* Manufacturer+Codable.swift */; };
+		386CB47A2C38684B00D73C71 /* Country+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D6E93A29FDCE24001D44D5 /* Country+Codable.swift */; };
+		386CB47B2C38684E00D73C71 /* TasteType+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D6E93229FDC974001D44D5 /* TasteType+Codable.swift */; };
+		386CB47C2C38685100D73C71 /* TobaccoLine+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B902AE3F29F408B300BF6AD6 /* TobaccoLine+Codable.swift */; };
+		386CB47D2C38685500D73C71 /* Taste+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D6E92E29FDC651001D44D5 /* Taste+Codable.swift */; };
+		386CB47E2C38687A00D73C71 /* Response+Appeals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381E688D2AB73675000AA9BC /* Response+Appeals.swift */; };
+		386CB4802C38687D00D73C71 /* Request+Appeals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381E688B2AB7366B000AA9BC /* Request+Appeals.swift */; };
+		386CB4812C38688000D73C71 /* Api+Appeals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381E68892AB735B8000AA9BC /* Api+Appeals.swift */; };
+		386CB4822C38691300D73C71 /* MoyaProviderAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE722A86DAC400EA19A3 /* MoyaProviderAssembly.swift */; };
+		386CB4842C38699100D73C71 /* UserApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38AFD1182A92322800800342 /* UserApiService.swift */; };
+		386CB4852C3869A600D73C71 /* Api+User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE6D2A86CC5300EA19A3 /* Api+User.swift */; };
+		386CB4862C3869B400D73C71 /* DataApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38AFD11A2A9238B600800342 /* DataApiService.swift */; };
+		386CB4872C3869B800D73C71 /* AppealsApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381E68902AB741C9000AA9BC /* AppealsApiService.swift */; };
+		386CB4882C3869BE00D73C71 /* AdminApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38AFD11C2A92415600800342 /* AdminApiService.swift */; };
+		386CB4892C3869CA00D73C71 /* Api+Manufacturer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3895E4FE2A542D41005D87EE /* Api+Manufacturer.swift */; };
+		386CB48A2C3869CC00D73C71 /* Request+Manufacturer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3848022E2A57189C00DA595B /* Request+Manufacturer.swift */; };
+		386CB48B2C3869CF00D73C71 /* Response+Manufacturer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387121AE2A55AD6700B6005E /* Response+Manufacturer.swift */; };
+		386CB48C2C3869D400D73C71 /* Api+Tobacco.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387121AB2A55ABD000B6005E /* Api+Tobacco.swift */; };
+		386CB48D2C3869D700D73C71 /* Request+Tobacco.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3887C6CD2A585C9400A96AE2 /* Request+Tobacco.swift */; };
+		386CB48E2C3869D900D73C71 /* Response+Tobacco.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38041BCE2A9E45BB00DEEE6D /* Response+Tobacco.swift */; };
+		386CB48F2C3869DE00D73C71 /* Api+Taste.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387121B22A55AE7F00B6005E /* Api+Taste.swift */; };
+		386CB4902C3869E400D73C71 /* Api+TobaccoLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387121B52A55B1E100B6005E /* Api+TobaccoLine.swift */; };
+		386CB4912C3869E900D73C71 /* Api+TasteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387121B82A55B2A800B6005E /* Api+TasteType.swift */; };
+		386CB4922C3869EE00D73C71 /* Api+Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387121BB2A55B34F00B6005E /* Api+Country.swift */; };
+		386CB4932C386A1F00D73C71 /* extention + Encodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A027B92A0A7B6400D3C3E7 /* extention + Encodable.swift */; };
+		386CB49D2C386B1C00D73C71 /* ImageFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3813D6A82A6AB214009DDCBD /* ImageFormat.swift */; };
+		386CB4A42C386B6C00D73C71 /* MultiSelectSegmentedControl in Frameworks */ = {isa = PBXBuildFile; productRef = 386CB4A32C386B6C00D73C71 /* MultiSelectSegmentedControl */; settings = {ATTRIBUTES = (Required, ); }; };
+		386CB4A72C3882E500D73C71 /* LoginAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7ACB228F492ED00A3D7E5 /* LoginAssembly.swift */; };
+		386CB4A92C38831300D73C71 /* LoginModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7ACB128F492ED00A3D7E5 /* LoginModule.swift */; };
+		386CB4AA2C38832500D73C71 /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DD028F0812500964B8F /* LoginPresenter.swift */; };
+		386CB4AC2C38832B00D73C71 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DD228F0812500964B8F /* LoginViewController.swift */; };
+		386CB4AD2C38832D00D73C71 /* LoginInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DD328F0812500964B8F /* LoginInteractor.swift */; };
+		386CB4B22C388EC200D73C71 /* LoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386CB4B12C388EC200D73C71 /* LoginRouter.swift */; };
+		386CB4B32C388F8300D73C71 /* ApiAuthServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE682A86C46000EA19A3 /* ApiAuthServiceAssembly.swift */; };
+		386CB4B62C3890AD00D73C71 /* UserDefaultsServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97EE9F8292BBEE10090B344 /* UserDefaultsServiceAssembly.swift */; };
+		386CB4B82C3890CC00D73C71 /* UserSettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97EE9F2292BB3C30090B344 /* UserSettingsService.swift */; };
+		386CB4B92C3890D300D73C71 /* UserSettingsServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97EE9F5292BB3E50090B344 /* UserSettingsServiceProtocol.swift */; };
+		386CB4BB2C38911100D73C71 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 386CB4BA2C38911100D73C71 /* KeychainAccess */; };
+		386CB4BF2C3895DE00D73C71 /* AddManufacturerAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7ACB728F495B300A3D7E5 /* AddManufacturerAssembly.swift */; };
+		386CB4C02C3895E100D73C71 /* AddManufacturerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7ACB628F495B300A3D7E5 /* AddManufacturerModule.swift */; };
+		386CB4C32C38964A00D73C71 /* AddManufacturerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DAB28F04A0F00964B8F /* AddManufacturerPresenter.swift */; };
+		386CB4C42C38964E00D73C71 /* AddManufacturerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DAC28F04A0F00964B8F /* AddManufacturerRouter.swift */; };
+		386CB4C52C38965100D73C71 /* AddManufacturerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DAD28F04A0F00964B8F /* AddManufacturerViewController.swift */; };
+		386CB4C62C38965400D73C71 /* AddManufacturerInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DAE28F04A0F00964B8F /* AddManufacturerInteractor.swift */; };
+		386CB4C72C38965800D73C71 /* AddManufacturerEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DB028F04A0F00964B8F /* AddManufacturerEntity.swift */; };
+		386CB4CA2C38967900D73C71 /* IVCollectionKit in Frameworks */ = {isa = PBXBuildFile; productRef = 386CB4C92C38967900D73C71 /* IVCollectionKit */; };
+		386CB4CB2C3896E600D73C71 /* AddPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94B771B290C3785002C5660 /* AddPickerView.swift */; };
+		386CB4CD2C3896F700D73C71 /* extension+UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C138162AABA0210066FCA0 /* extension+UILabel.swift */; };
+		386CB4CE2C38972D00D73C71 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DBE934290B0C07004D7B97 /* ImagePickerView.swift */; };
+		386CB4D02C38978A00D73C71 /* DataManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97EE9E2292B70790090B344 /* DataManagerProtocol.swift */; };
+		386CB4D12C38979100D73C71 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97EE9E6292B85910090B344 /* DataManager.swift */; };
+		386CB4D22C38979F00D73C71 /* ImageStorageServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B982803E292FA32900BF3A93 /* ImageStorageServiceProtocol.swift */; };
+		386CB4D32C3897A200D73C71 /* ImageStorageServiceDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9828049292FB97C00BF3A93 /* ImageStorageServiceDataProtocol.swift */; };
+		386CB4D42C3897A800D73C71 /* ImageStorageError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9828044292FA40E00BF3A93 /* ImageStorageError.swift */; };
+		386CB4D52C3897AE00D73C71 /* SandboxImageStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9828040292FA3BA00BF3A93 /* SandboxImageStorageService.swift */; };
+		386CB4D62C3897B200D73C71 /* NamedImageStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9828047292FB95600BF3A93 /* NamedImageStorage.swift */; };
+		386CB4D72C3897CB00D73C71 /* UpdateDataSubscriberProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B30A1D2932602A00204913 /* UpdateDataSubscriberProtocol.swift */; };
+		386CB4D92C3897E600D73C71 /* CustomCollectionDirector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38041BE62AA0C40D00DEEE6D /* CustomCollectionDirector.swift */; };
+		386CB4DB2C3897E800D73C71 /* CustomCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9631C4B2921ACBE00BBC09B /* CustomCollectionViewLayout.swift */; };
+		386CB4DC2C3897EB00D73C71 /* CustomCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9631C492921AB7100BBC09B /* CustomCollectionView.swift */; };
+		386CB4DD2C3897EE00D73C71 /* TasteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94306D5292053BA00EADFA0 /* TasteCollectionViewCell.swift */; };
+		386CB4DF2C38993200D73C71 /* AddCountryModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F9B8A52A80355300EAC0A0 /* AddCountryModule.swift */; };
+		386CB4E02C38993600D73C71 /* AddCountryAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F9B8A62A80355300EAC0A0 /* AddCountryAssembly.swift */; };
+		386CB4E12C38995700D73C71 /* AddCountryEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F9B89B2A80047E00EAC0A0 /* AddCountryEntity.swift */; };
+		386CB4E22C38995B00D73C71 /* AddCountryInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F9B89A2A80047E00EAC0A0 /* AddCountryInteractor.swift */; };
+		386CB4E32C38995E00D73C71 /* AddCountryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F9B8992A80047E00EAC0A0 /* AddCountryViewController.swift */; };
+		386CB4E42C38996000D73C71 /* AddCountryRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F9B8982A80047E00EAC0A0 /* AddCountryRouter.swift */; };
+		386CB4E52C38996400D73C71 /* AddCountryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F9B8972A80047E00EAC0A0 /* AddCountryPresenter.swift */; };
+		386CB4E62C38996A00D73C71 /* AddCountryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F9B8A22A802FE100EAC0A0 /* AddCountryTableViewCell.swift */; };
+		386CB4E82C3899D300D73C71 /* AddTobaccoLineModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382F0C432A7D93D700E2F277 /* AddTobaccoLineModule.swift */; };
+		386CB4E92C3899D600D73C71 /* AddTobaccoLineAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382F0C442A7D93D700E2F277 /* AddTobaccoLineAssembly.swift */; };
+		386CB4EA2C3899FE00D73C71 /* AddTobaccoLinePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382F0C382A7D936600E2F277 /* AddTobaccoLinePresenter.swift */; };
+		386CB4EB2C389A0100D73C71 /* AddTobaccoLineRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382F0C392A7D936600E2F277 /* AddTobaccoLineRouter.swift */; };
+		386CB4EC2C389A0500D73C71 /* AddTobaccoLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382F0C3A2A7D936600E2F277 /* AddTobaccoLineViewController.swift */; };
+		386CB4ED2C389A0800D73C71 /* AddTobaccoLineInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382F0C3B2A7D936600E2F277 /* AddTobaccoLineInteractor.swift */; };
+		386CB4EE2C389A0B00D73C71 /* AddTobaccoLineEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382F0C3C2A7D936600E2F277 /* AddTobaccoLineEntity.swift */; };
+		386CB4EF2C389A2D00D73C71 /* AddTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A4708528D2BB6400CA6FAA /* AddTextFieldView.swift */; };
+		386CB4F02C389A3400D73C71 /* AddTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94B7719290C2738002C5660 /* AddTextView.swift */; };
+		386CB4F12C389A3E00D73C71 /* AddSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9781D31293A45A700654567 /* AddSwitchView.swift */; };
+		386CB4F22C389A4300D73C71 /* AddSegmentedControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B981B5262938DE3000A02D9F /* AddSegmentedControlView.swift */; };
+		386CB4F32C389A4A00D73C71 /* AddMultiSegmentedControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D2D2A8293B808F00F2F591 /* AddMultiSegmentedControlView.swift */; };
+		386CB4F42C389A9700D73C71 /* ImageButtonPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9567C91291C4BC300CF6176 /* ImageButtonPickerView.swift */; };
+		386CB4F62C389AC400D73C71 /* extention + UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9677CF128D8917000EF9FC6 /* extention + UIViewController.swift */; };
+		386CB4F92C389CB200D73C71 /* AddTobaccoModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EB024A28F3604E00B3B6DA /* AddTobaccoModule.swift */; };
+		386CB4FA2C389CB500D73C71 /* AddTobaccoAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EB024628F3252500B3B6DA /* AddTobaccoAssembly.swift */; };
+		386CB4FB2C389CF400D73C71 /* AddTobaccoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DDF28F08D4400964B8F /* AddTobaccoPresenter.swift */; };
+		386CB4FC2C389CF700D73C71 /* AddTobaccoRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DE028F08D4400964B8F /* AddTobaccoRouter.swift */; };
+		386CB4FD2C389CFA00D73C71 /* AddTobaccoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DE128F08D4400964B8F /* AddTobaccoViewController.swift */; };
+		386CB4FE2C389CFE00D73C71 /* AddTobaccoInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DE228F08D4400964B8F /* AddTobaccoInteractor.swift */; };
+		386CB4FF2C389D0100D73C71 /* AddTobaccoEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DE428F08D4400964B8F /* AddTobaccoEntity.swift */; };
+		386CB5012C389D6200D73C71 /* AddTastesModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E17B7292126DD0008CB73 /* AddTastesModule.swift */; };
+		386CB5022C389D6500D73C71 /* AddTastesAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E17B8292126DD0008CB73 /* AddTastesAssembly.swift */; };
+		386CB5042C389D8C00D73C71 /* AddTastesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94306C72920277E00EADFA0 /* AddTastesInteractor.swift */; };
+		386CB5052C389D9000D73C71 /* AddTastesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94306C62920277E00EADFA0 /* AddTastesViewController.swift */; };
+		386CB5062C389D9300D73C71 /* AddTastesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94306C52920277E00EADFA0 /* AddTastesRouter.swift */; };
+		386CB5072C389D9700D73C71 /* AddTastesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94306C42920277E00EADFA0 /* AddTastesPresenter.swift */; };
+		386CB5082C389D9F00D73C71 /* AddTastesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94306D229204EE700EADFA0 /* AddTastesTableViewCell.swift */; };
+		386CB50A2C389DF300D73C71 /* AddTasteInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9631C532923E9EE00BBC09B /* AddTasteInteractor.swift */; };
+		386CB50B2C389DF700D73C71 /* AddTasteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9631C522923E9EE00BBC09B /* AddTasteViewController.swift */; };
+		386CB50C2C389DFC00D73C71 /* AddTasteRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9631C512923E9EE00BBC09B /* AddTasteRouter.swift */; };
+		386CB50D2C389E0200D73C71 /* AddTastePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9631C502923E9EE00BBC09B /* AddTastePresenter.swift */; };
+		386CB50E2C389E0700D73C71 /* SelectTasteTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3869D3962A7EADBA00C9BF5C /* SelectTasteTypeTableViewCell.swift */; };
+		386CB50F2C389E2C00D73C71 /* CustomTableDirector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38BF3D992A95040F007331E1 /* CustomTableDirector.swift */; };
+		386CB5122C389E5800D73C71 /* AddTasteModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9631C5B292400FB00BBC09B /* AddTasteModule.swift */; };
+		386CB5132C389E5A00D73C71 /* AddTasteAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9631C5C292400FB00BBC09B /* AddTasteAssembly.swift */; };
+		386CB5152C389E8C00D73C71 /* extension + TableKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CA939C2969C01C00F258F3 /* extension + TableKit.swift */; };
+		386CB51A2C38A14900D73C71 /* DetailAppealModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383F2FBC2ABB02C5007BE4A8 /* DetailAppealModule.swift */; };
+		386CB51B2C38A14D00D73C71 /* DetailAppealAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383F2FBD2ABB02C5007BE4A8 /* DetailAppealAssembly.swift */; };
+		386CB51C2C38A15100D73C71 /* AppealsListModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381F44812AB9F85A00FA717A /* AppealsListModule.swift */; };
+		386CB51D2C38A15600D73C71 /* AppealsListAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381F44822AB9F85A00FA717A /* AppealsListAssembly.swift */; };
+		386CB51E2C38A16300D73C71 /* AdminMenuModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7ACAC28F46AFB00A3D7E5 /* AdminMenuModule.swift */; };
+		386CB51F2C38A16600D73C71 /* AdminMenuAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7ACAD28F46AFB00A3D7E5 /* AdminMenuAssembly.swift */; };
+		386CB5202C38A1C800D73C71 /* DetailAppealInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383F2FB22ABAFB5B007BE4A8 /* DetailAppealInteractor.swift */; };
+		386CB5212C38A1CC00D73C71 /* DetailAppealViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383F2FB12ABAFB5B007BE4A8 /* DetailAppealViewController.swift */; };
+		386CB5222C38A1D100D73C71 /* DetailAppealRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383F2FB02ABAFB5B007BE4A8 /* DetailAppealRouter.swift */; };
+		386CB5232C38A1D500D73C71 /* DetailAppealPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383F2FAF2ABAFB5B007BE4A8 /* DetailAppealPresenter.swift */; };
+		386CB5242C38A1DB00D73C71 /* AppealAnswerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383F2FC12ABB0531007BE4A8 /* AppealAnswerTableViewCell.swift */; };
+		386CB5252C38A1E000D73C71 /* DetailAppealContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383F2FC72ABB1419007BE4A8 /* DetailAppealContentTableViewCell.swift */; };
+		386CB5262C38A1E400D73C71 /* AppealMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3818BA042ABC966000D8B7CD /* AppealMessageTableViewCell.swift */; };
+		386CB5272C38A1F000D73C71 /* AppealTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381F447C2AB9F1D600FA717A /* AppealTableViewCell.swift */; };
+		386CB5282C38A1F400D73C71 /* AppealsListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381F44702AB9E3B800FA717A /* AppealsListPresenter.swift */; };
+		386CB5292C38A1F800D73C71 /* AppealsListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381F44712AB9E3B800FA717A /* AppealsListRouter.swift */; };
+		386CB52A2C38A1FE00D73C71 /* AppealsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381F44722AB9E3B800FA717A /* AppealsListViewController.swift */; };
+		386CB52B2C38A20200D73C71 /* AppealsListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381F44732AB9E3B800FA717A /* AppealsListInteractor.swift */; };
+		386CB52C2C38A20600D73C71 /* AppealsListEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381F44742AB9E3B800FA717A /* AppealsListEntity.swift */; };
+		386CB52D2C38A21A00D73C71 /* AdminMenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DEC28F0DBCF00964B8F /* AdminMenuPresenter.swift */; };
+		386CB52E2C38A21E00D73C71 /* AdminMenuRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DED28F0DBCF00964B8F /* AdminMenuRouter.swift */; };
+		386CB52F2C38A22100D73C71 /* AdminMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DEE28F0DBCF00964B8F /* AdminMenuViewController.swift */; };
+		386CB5302C38A22600D73C71 /* AdminMenuInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DEF28F0DBCF00964B8F /* AdminMenuInteractor.swift */; };
+		386CB5312C38A26500D73C71 /* CreateAppealsEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381E689A2AB74373000AA9BC /* CreateAppealsEntity.swift */; };
+		386CB5332C38A28300D73C71 /* DescriptionStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B904382D2985145D00BADEE3 /* DescriptionStackView.swift */; };
+		386CB5362C38A2BA00D73C71 /* ContentCreateAppealsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38EEBE532AB876A5008F9F19 /* ContentCreateAppealsTableViewCell.swift */; };
+		386CB5372C38A2DB00D73C71 /* FilterTobaccoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B0FCCD2AA0D82D0061B849 /* FilterTobaccoCollectionViewCell.swift */; };
+		386CB5442C38A7C500D73C71 /* DataManagerAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97EE9ED292BA0710090B344 /* DataManagerAssembly.swift */; };
+		386CB5562C38AAD700D73C71 /* ImageStorageServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B982804B292FD4EB00BF3A93 /* ImageStorageServiceAssembly.swift */; };
+		386CB55B2C38AD3200D73C71 /* DetailTobaccoModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386CB5582C38AD3200D73C71 /* DetailTobaccoModule.swift */; };
+		386CB55C2C38AD3200D73C71 /* DetailTobaccoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386CB5592C38AD3200D73C71 /* DetailTobaccoView.swift */; };
+		386CB55D2C38AD3200D73C71 /* DetailTobaccoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386CB55A2C38AD3200D73C71 /* DetailTobaccoViewModel.swift */; };
+		386CB55F2C38AD4B00D73C71 /* HTImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386CB55E2C38AD4B00D73C71 /* HTImage.swift */; };
+		386CB5622C38AD9300D73C71 /* Mock+Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386CB5612C38AD9300D73C71 /* Mock+Entities.swift */; };
 		387121AC2A55ABD000B6005E /* Api+Tobacco.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387121AB2A55ABD000B6005E /* Api+Tobacco.swift */; };
 		387121AF2A55AD6700B6005E /* Response+Manufacturer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387121AE2A55AD6700B6005E /* Response+Manufacturer.swift */; };
 		387121B32A55AE7F00B6005E /* Api+Taste.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387121B22A55AE7F00B6005E /* Api+Taste.swift */; };
@@ -151,14 +376,6 @@
 		38E8E6472A87D30E00041443 /* Request+Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E8E6462A87D30E00041443 /* Request+Registration.swift */; };
 		38EEBE542AB876A5008F9F19 /* ContentCreateAppealsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38EEBE532AB876A5008F9F19 /* ContentCreateAppealsTableViewCell.swift */; };
 		38F9B8932A7FE0DD00EAC0A0 /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F9B8922A7FE0DD00EAC0A0 /* IconButton.swift */; };
-		38F9B89C2A80047E00EAC0A0 /* AddCountryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F9B8972A80047E00EAC0A0 /* AddCountryPresenter.swift */; };
-		38F9B89D2A80047E00EAC0A0 /* AddCountryRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F9B8982A80047E00EAC0A0 /* AddCountryRouter.swift */; };
-		38F9B89E2A80047E00EAC0A0 /* AddCountryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F9B8992A80047E00EAC0A0 /* AddCountryViewController.swift */; };
-		38F9B89F2A80047E00EAC0A0 /* AddCountryInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F9B89A2A80047E00EAC0A0 /* AddCountryInteractor.swift */; };
-		38F9B8A02A80047E00EAC0A0 /* AddCountryEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F9B89B2A80047E00EAC0A0 /* AddCountryEntity.swift */; };
-		38F9B8A32A802FE100EAC0A0 /* AddCountryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F9B8A22A802FE100EAC0A0 /* AddCountryTableViewCell.swift */; };
-		38F9B8A72A80355300EAC0A0 /* AddCountryModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F9B8A52A80355300EAC0A0 /* AddCountryModule.swift */; };
-		38F9B8A82A80355300EAC0A0 /* AddCountryAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F9B8A62A80355300EAC0A0 /* AddCountryAssembly.swift */; };
 		B9027E05290FF613002E3C3A /* AppRouter+Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9027E04290FF613002E3C3A /* AppRouter+Register.swift */; };
 		B902AE3E29F405EA00BF6AD6 /* Manufacturer+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B902AE3D29F405EA00BF6AD6 /* Manufacturer+Codable.swift */; };
 		B902AE4029F408B300BF6AD6 /* TobaccoLine+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B902AE3F29F408B300BF6AD6 /* TobaccoLine+Codable.swift */; };
@@ -179,74 +396,34 @@
 		B92A46B32967313B0006B787 /* ProfileModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A46B12967313B0006B787 /* ProfileModule.swift */; };
 		B92A46B42967313B0006B787 /* ProfileAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A46B22967313B0006B787 /* ProfileAssembly.swift */; };
 		B94306C12920181100EADFA0 /* Taste.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94306C02920181100EADFA0 /* Taste.swift */; };
-		B94306C92920277E00EADFA0 /* AddTastesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94306C42920277E00EADFA0 /* AddTastesPresenter.swift */; };
-		B94306CA2920277E00EADFA0 /* AddTastesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94306C52920277E00EADFA0 /* AddTastesRouter.swift */; };
-		B94306CB2920277E00EADFA0 /* AddTastesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94306C62920277E00EADFA0 /* AddTastesViewController.swift */; };
-		B94306CC2920277E00EADFA0 /* AddTastesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94306C72920277E00EADFA0 /* AddTastesInteractor.swift */; };
-		B94306D329204EE700EADFA0 /* AddTastesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94306D229204EE700EADFA0 /* AddTastesTableViewCell.swift */; };
 		B94306D6292053BA00EADFA0 /* TasteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94306D5292053BA00EADFA0 /* TasteCollectionViewCell.swift */; };
 		B9488F7D2934E9DB00D8B3B1 /* TobaccoLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9488F7C2934E9DB00D8B3B1 /* TobaccoLine.swift */; };
-		B949D7AB293D15900019BEFC /* SystemSubscriberProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B949D7AA293D15900019BEFC /* SystemSubscriberProtocol.swift */; };
 		B949D7AD293D2D0F0019BEFC /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B949D7AC293D2D0F0019BEFC /* ToastView.swift */; };
 		B94B771A290C2738002C5660 /* AddTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94B7719290C2738002C5660 /* AddTextView.swift */; };
 		B94B771C290C3785002C5660 /* AddPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94B771B290C3785002C5660 /* AddPickerView.swift */; };
-		B94E17B9292126DD0008CB73 /* AddTastesModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E17B7292126DD0008CB73 /* AddTastesModule.swift */; };
-		B94E17BA292126DD0008CB73 /* AddTastesAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94E17B8292126DD0008CB73 /* AddTastesAssembly.swift */; };
 		B9567C92291C4BC300CF6176 /* ImageButtonPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9567C91291C4BC300CF6176 /* ImageButtonPickerView.swift */; };
 		B9631C4A2921AB7100BBC09B /* CustomCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9631C492921AB7100BBC09B /* CustomCollectionView.swift */; };
 		B9631C4C2921ACBE00BBC09B /* CustomCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9631C4B2921ACBE00BBC09B /* CustomCollectionViewLayout.swift */; };
 		B9631C4E2922487500BBC09B /* extention + UIEdgeInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9631C4D2922487500BBC09B /* extention + UIEdgeInsets.swift */; };
-		B9631C552923E9EE00BBC09B /* AddTastePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9631C502923E9EE00BBC09B /* AddTastePresenter.swift */; };
-		B9631C562923E9EE00BBC09B /* AddTasteRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9631C512923E9EE00BBC09B /* AddTasteRouter.swift */; };
-		B9631C572923E9EE00BBC09B /* AddTasteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9631C522923E9EE00BBC09B /* AddTasteViewController.swift */; };
-		B9631C582923E9EE00BBC09B /* AddTasteInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9631C532923E9EE00BBC09B /* AddTasteInteractor.swift */; };
-		B9631C5D292400FB00BBC09B /* AddTasteModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9631C5B292400FB00BBC09B /* AddTasteModule.swift */; };
-		B9631C5E292400FB00BBC09B /* AddTasteAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9631C5C292400FB00BBC09B /* AddTasteAssembly.swift */; };
 		B9677CF228D8917000EF9FC6 /* extention + UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9677CF128D8917000EF9FC6 /* extention + UIViewController.swift */; };
 		B97181572911254100E5DB28 /* DetailInfoManufacturerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97181552911254100E5DB28 /* DetailInfoManufacturerModule.swift */; };
 		B97181582911254100E5DB28 /* DetailInfoManufacturerAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97181562911254100E5DB28 /* DetailInfoManufacturerAssembly.swift */; };
 		B9781D32293A45A800654567 /* AddSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9781D31293A45A700654567 /* AddSwitchView.swift */; };
-		B97EE9E3292B70790090B344 /* DataManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97EE9E2292B70790090B344 /* DataManagerProtocol.swift */; };
-		B97EE9E7292B85910090B344 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97EE9E6292B85910090B344 /* DataManager.swift */; };
-		B97EE9EE292BA0710090B344 /* DataManagerAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97EE9ED292BA0710090B344 /* DataManagerAssembly.swift */; };
 		B97EE9F3292BB3C30090B344 /* UserSettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97EE9F2292BB3C30090B344 /* UserSettingsService.swift */; };
 		B97EE9F6292BB3E50090B344 /* UserSettingsServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97EE9F5292BB3E50090B344 /* UserSettingsServiceProtocol.swift */; };
 		B97EE9F9292BBEE10090B344 /* UserDefaultsServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97EE9F8292BBEE10090B344 /* UserDefaultsServiceAssembly.swift */; };
 		B981B5272938DE3000A02D9F /* AddSegmentedControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B981B5262938DE3000A02D9F /* AddSegmentedControlView.swift */; };
-		B981CBAC293120EF00705422 /* DetailTobaccoModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B981CBAA293120EF00705422 /* DetailTobaccoModule.swift */; };
-		B982803F292FA32900BF3A93 /* ImageStorageServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B982803E292FA32900BF3A93 /* ImageStorageServiceProtocol.swift */; };
-		B9828041292FA3BA00BF3A93 /* SandboxImageStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9828040292FA3BA00BF3A93 /* SandboxImageStorageService.swift */; };
-		B9828045292FA40E00BF3A93 /* ImageStorageError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9828044292FA40E00BF3A93 /* ImageStorageError.swift */; };
-		B9828048292FB95600BF3A93 /* NamedImageStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9828047292FB95600BF3A93 /* NamedImageStorage.swift */; };
-		B982804A292FB97C00BF3A93 /* ImageStorageServiceDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9828049292FB97C00BF3A93 /* ImageStorageServiceDataProtocol.swift */; };
-		B982804C292FD4EB00BF3A93 /* ImageStorageServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B982804B292FD4EB00BF3A93 /* ImageStorageServiceAssembly.swift */; };
 		B989B87129338CD6007ECC59 /* AlertFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B989B87029338CD6007ECC59 /* AlertFactory.swift */; };
 		B989B87329339668007ECC59 /* PopupAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B989B87229339668007ECC59 /* PopupAlertView.swift */; };
-		B98E1DB128F04A0F00964B8F /* AddManufacturerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DAB28F04A0F00964B8F /* AddManufacturerPresenter.swift */; };
-		B98E1DB228F04A0F00964B8F /* AddManufacturerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DAC28F04A0F00964B8F /* AddManufacturerRouter.swift */; };
-		B98E1DB328F04A0F00964B8F /* AddManufacturerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DAD28F04A0F00964B8F /* AddManufacturerViewController.swift */; };
-		B98E1DB428F04A0F00964B8F /* AddManufacturerInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DAE28F04A0F00964B8F /* AddManufacturerInteractor.swift */; };
-		B98E1DB628F04A0F00964B8F /* AddManufacturerEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DB028F04A0F00964B8F /* AddManufacturerEntity.swift */; };
 		B98E1DD628F0812500964B8F /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DD028F0812500964B8F /* LoginPresenter.swift */; };
 		B98E1DD728F0812500964B8F /* LoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DD128F0812500964B8F /* LoginRouter.swift */; };
 		B98E1DD828F0812500964B8F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DD228F0812500964B8F /* LoginViewController.swift */; };
 		B98E1DD928F0812500964B8F /* LoginInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DD328F0812500964B8F /* LoginInteractor.swift */; };
-		B98E1DE528F08D4400964B8F /* AddTobaccoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DDF28F08D4400964B8F /* AddTobaccoPresenter.swift */; };
-		B98E1DE628F08D4400964B8F /* AddTobaccoRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DE028F08D4400964B8F /* AddTobaccoRouter.swift */; };
-		B98E1DE728F08D4400964B8F /* AddTobaccoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DE128F08D4400964B8F /* AddTobaccoViewController.swift */; };
-		B98E1DE828F08D4400964B8F /* AddTobaccoInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DE228F08D4400964B8F /* AddTobaccoInteractor.swift */; };
-		B98E1DEA28F08D4400964B8F /* AddTobaccoEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DE428F08D4400964B8F /* AddTobaccoEntity.swift */; };
-		B98E1DF228F0DBCF00964B8F /* AdminMenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DEC28F0DBCF00964B8F /* AdminMenuPresenter.swift */; };
-		B98E1DF328F0DBCF00964B8F /* AdminMenuRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DED28F0DBCF00964B8F /* AdminMenuRouter.swift */; };
-		B98E1DF428F0DBCF00964B8F /* AdminMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DEE28F0DBCF00964B8F /* AdminMenuViewController.swift */; };
-		B98E1DF528F0DBCF00964B8F /* AdminMenuInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DEF28F0DBCF00964B8F /* AdminMenuInteractor.swift */; };
 		B98EE1EF2936CC7400F97E1A /* DataNetworkingServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98EE1EE2936CC7400F97E1A /* DataNetworkingServiceProtocol.swift */; };
 		B9A4708328D2B84500CA6FAA /* extention + UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A4708228D2B84500CA6FAA /* extention + UIFont.swift */; };
 		B9A4708628D2BB6400CA6FAA /* AddTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A4708528D2BB6400CA6FAA /* AddTextFieldView.swift */; };
 		B9A66BCB296897F600B6D6E7 /* AnonymousInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A66BCA296897F600B6D6E7 /* AnonymousInfoTableViewCell.swift */; };
 		B9ACB678291D15AE001D65CE /* HTScrollContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ACB677291D15AE001D65CE /* HTScrollContentViewController.swift */; };
-		B9B30A1C29325FFF00204913 /* ObserverProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B30A1B29325FFF00204913 /* ObserverProtocol.swift */; };
-		B9B30A1E2932602A00204913 /* UpdateDataSubscriberProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B30A1D2932602A00204913 /* UpdateDataSubscriberProtocol.swift */; };
 		B9B358CC291169E2001D178F /* EmptyTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B358CB291169E2001D178F /* EmptyTableCell.swift */; };
 		B9BA7947295B9CE7009188D6 /* RegistrationModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BA7945295B9CE7009188D6 /* RegistrationModule.swift */; };
 		B9BA7948295B9CE7009188D6 /* RegistrationAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BA7946295B9CE7009188D6 /* RegistrationAssembly.swift */; };
@@ -277,12 +454,8 @@
 		B9DBE935290B0C07004D7B97 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DBE934290B0C07004D7B97 /* ImagePickerView.swift */; };
 		B9E7AC9E28F4337100A3D7E5 /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7AC9D28F4337100A3D7E5 /* AppRouter.swift */; };
 		B9E7ACA128F4528000A3D7E5 /* RouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7ACA028F4528000A3D7E5 /* RouterProtocol.swift */; };
-		B9E7ACAE28F46AFB00A3D7E5 /* AdminMenuModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7ACAC28F46AFB00A3D7E5 /* AdminMenuModule.swift */; };
-		B9E7ACAF28F46AFB00A3D7E5 /* AdminMenuAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7ACAD28F46AFB00A3D7E5 /* AdminMenuAssembly.swift */; };
 		B9E7ACB328F492ED00A3D7E5 /* LoginModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7ACB128F492ED00A3D7E5 /* LoginModule.swift */; };
 		B9E7ACB428F492ED00A3D7E5 /* LoginAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7ACB228F492ED00A3D7E5 /* LoginAssembly.swift */; };
-		B9E7ACB828F495B300A3D7E5 /* AddManufacturerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7ACB628F495B300A3D7E5 /* AddManufacturerModule.swift */; };
-		B9E7ACB928F495B300A3D7E5 /* AddManufacturerAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7ACB728F495B300A3D7E5 /* AddManufacturerAssembly.swift */; };
 		B9E8DA4728F77A8300CCA034 /* ManufacturerListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E8DA4128F77A8200CCA034 /* ManufacturerListPresenter.swift */; };
 		B9E8DA4828F77A8300CCA034 /* ManufacturerListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E8DA4228F77A8300CCA034 /* ManufacturerListRouter.swift */; };
 		B9E8DA4928F77A8300CCA034 /* ManufacturerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E8DA4328F77A8300CCA034 /* ManufacturerListViewController.swift */; };
@@ -292,9 +465,7 @@
 		B9E8DA5728F783B400CCA034 /* ManufacturerListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E8DA5628F783B400CCA034 /* ManufacturerListTableViewCell.swift */; };
 		B9E98A9229107BC000E1389B /* extension+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E98A9129107BC000E1389B /* extension+String.swift */; };
 		B9EB023B28F3159A00B3B6DA /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = B9EB023A28F3159A00B3B6DA /* Swinject */; };
-		B9EB024728F3252500B3B6DA /* AddTobaccoAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EB024628F3252500B3B6DA /* AddTobaccoAssembly.swift */; };
 		B9EB024928F35B5F00B3B6DA /* ModuleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EB024828F35B5F00B3B6DA /* ModuleProtocol.swift */; };
-		B9EB024B28F3604E00B3B6DA /* AddTobaccoModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EB024A28F3604E00B3B6DA /* AddTobaccoModule.swift */; };
 		B9ED9102290989EF00DC3A6D /* TobaccoListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ED90FD290989EF00DC3A6D /* TobaccoListPresenter.swift */; };
 		B9ED9103290989EF00DC3A6D /* TobaccoListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ED90FE290989EF00DC3A6D /* TobaccoListRouter.swift */; };
 		B9ED9104290989EF00DC3A6D /* TobaccoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ED90FF290989EF00DC3A6D /* TobaccoListViewController.swift */; };
@@ -383,10 +554,19 @@
 		385867422AB98BDC001776D9 /* SuccessBottomSheetModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessBottomSheetModule.swift; sourceTree = "<group>"; };
 		385867432AB98BDC001776D9 /* SuccessBottomSheetAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessBottomSheetAssembly.swift; sourceTree = "<group>"; };
 		3869D3962A7EADBA00C9BF5C /* SelectTasteTypeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTasteTypeTableViewCell.swift; sourceTree = "<group>"; };
-		386CB3922C370FBC00D73C71 /* DetailTobaccoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTobaccoViewModel.swift; sourceTree = "<group>"; };
-		386CB3952C370FC900D73C71 /* DetailTobaccoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTobaccoView.swift; sourceTree = "<group>"; };
-		386CB3A92C37165300D73C71 /* Mock+Entities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Mock+Entities.swift"; sourceTree = "<group>"; };
-		386CB3B12C38311E00D73C71 /* HTImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTImage.swift; sourceTree = "<group>"; };
+		386CB3CB2C38565100D73C71 /* HookahTobaccoAdmin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HookahTobaccoAdmin.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		386CB3CD2C38565100D73C71 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		386CB3D62C38565200D73C71 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		386CB3D92C38565200D73C71 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		386CB3DB2C38565200D73C71 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		386CB3EC2C38598300D73C71 /* AppRouter+Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppRouter+Register.swift"; sourceTree = "<group>"; };
+		386CB42E2C3862BB00D73C71 /* ProfileRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRouter.swift; sourceTree = "<group>"; };
+		386CB4B12C388EC200D73C71 /* LoginRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRouter.swift; sourceTree = "<group>"; };
+		386CB5582C38AD3200D73C71 /* DetailTobaccoModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTobaccoModule.swift; sourceTree = "<group>"; };
+		386CB5592C38AD3200D73C71 /* DetailTobaccoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTobaccoView.swift; sourceTree = "<group>"; };
+		386CB55A2C38AD3200D73C71 /* DetailTobaccoViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTobaccoViewModel.swift; sourceTree = "<group>"; };
+		386CB55E2C38AD4B00D73C71 /* HTImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTImage.swift; sourceTree = "<group>"; };
+		386CB5612C38AD9300D73C71 /* Mock+Entities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Mock+Entities.swift"; sourceTree = "<group>"; };
 		387121AB2A55ABD000B6005E /* Api+Tobacco.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Api+Tobacco.swift"; sourceTree = "<group>"; };
 		387121AE2A55AD6700B6005E /* Response+Manufacturer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Response+Manufacturer.swift"; sourceTree = "<group>"; };
 		387121B22A55AE7F00B6005E /* Api+Taste.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Api+Taste.swift"; sourceTree = "<group>"; };
@@ -515,7 +695,6 @@
 		B97EE9F5292BB3E50090B344 /* UserSettingsServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsServiceProtocol.swift; sourceTree = "<group>"; };
 		B97EE9F8292BBEE10090B344 /* UserDefaultsServiceAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsServiceAssembly.swift; sourceTree = "<group>"; };
 		B981B5262938DE3000A02D9F /* AddSegmentedControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSegmentedControlView.swift; sourceTree = "<group>"; };
-		B981CBAA293120EF00705422 /* DetailTobaccoModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTobaccoModule.swift; sourceTree = "<group>"; };
 		B982803E292FA32900BF3A93 /* ImageStorageServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStorageServiceProtocol.swift; sourceTree = "<group>"; };
 		B9828040292FA3BA00BF3A93 /* SandboxImageStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SandboxImageStorageService.swift; sourceTree = "<group>"; };
 		B9828044292FA40E00BF3A93 /* ImageStorageError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStorageError.swift; sourceTree = "<group>"; };
@@ -608,6 +787,22 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		386CB3C82C38565100D73C71 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				386CB4022C385ACE00D73C71 /* FittedSheets in Frameworks */,
+				386CB3F92C385A7100D73C71 /* SnapKit in Frameworks */,
+				386CB4532C3864EB00D73C71 /* Moya in Frameworks */,
+				386CB41A2C385FDE00D73C71 /* TableKit in Frameworks */,
+				386CB4BB2C38911100D73C71 /* KeychainAccess in Frameworks */,
+				386CB4CA2C38967900D73C71 /* IVCollectionKit in Frameworks */,
+				386CB3E42C3857AE00D73C71 /* Swinject in Frameworks */,
+				386CB3F12C385A1A00D73C71 /* RswiftLibrary in Frameworks */,
+				386CB4A42C386B6C00D73C71 /* MultiSelectSegmentedControl in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B90A790B2899E2BF00B90193 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -712,21 +907,6 @@
 				381E68A02AB7438B000AA9BC /* CreateAppealsModule */,
 			);
 			path = UsersScreen;
-			sourceTree = "<group>";
-		};
-		381E686F2AB7348D000AA9BC /* AdminsScreen */ = {
-			isa = PBXGroup;
-			children = (
-				381F447F2AB9F84A00FA717A /* Appeals */,
-				38F9B8A42A80353100EAC0A0 /* AddCountry */,
-				B9631C5A292400E400BBC09B /* AddTaste */,
-				382F0C422A7D93BC00E2F277 /* AddTobaccoLine */,
-				B94E17B62921268C0008CB73 /* AddTastes */,
-				B9E7ACA328F454B500A3D7E5 /* AddTobacco */,
-				B9E7ACA728F4673400A3D7E5 /* AdminMenu */,
-				B9E7ACB528F4959500A3D7E5 /* AddManufacturer */,
-			);
-			path = AdminsScreen;
 			sourceTree = "<group>";
 		};
 		381E68702AB73496000AA9BC /* TobaccoScreen */ = {
@@ -963,6 +1143,144 @@
 				3869D3962A7EADBA00C9BF5C /* SelectTasteTypeTableViewCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		386CB3CC2C38565100D73C71 /* HookahTobaccoAdmin */ = {
+			isa = PBXGroup;
+			children = (
+				386CB3E12C38573700D73C71 /* App */,
+				386CB42A2C38628800D73C71 /* Modules */,
+				386CB5522C38AA9000D73C71 /* Services */,
+				B97EE9DF292B6FDF0090B344 /* Managers */,
+				386CB4292C38626600D73C71 /* Resources */,
+			);
+			path = HookahTobaccoAdmin;
+			sourceTree = "<group>";
+		};
+		386CB3E12C38573700D73C71 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				386CB3CD2C38565100D73C71 /* AppDelegate.swift */,
+				386CB3EC2C38598300D73C71 /* AppRouter+Register.swift */,
+				386CB4BD2C38954200D73C71 /* Assemblies */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		386CB4292C38626600D73C71 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				386CB3D82C38565200D73C71 /* LaunchScreen.storyboard */,
+				386CB3DB2C38565200D73C71 /* Info.plist */,
+				386CB3D62C38565200D73C71 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		386CB42A2C38628800D73C71 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				381F446E2AB9E39300FA717A /* Appeals */,
+				B98E1DEB28F0DBAA00964B8F /* AdminMenuModule */,
+				386CB4C12C38961000D73C71 /* Add */,
+				386CB42B2C38629600D73C71 /* Views */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		386CB42B2C38629600D73C71 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				386CB4AF2C388EAF00D73C71 /* AuthorizationAndRegistration */,
+				386CB42C2C38629F00D73C71 /* UsersScreen */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		386CB42C2C38629F00D73C71 /* UsersScreen */ = {
+			isa = PBXGroup;
+			children = (
+				386CB42D2C3862A800D73C71 /* ProfileModule */,
+			);
+			path = UsersScreen;
+			sourceTree = "<group>";
+		};
+		386CB42D2C3862A800D73C71 /* ProfileModule */ = {
+			isa = PBXGroup;
+			children = (
+				386CB42E2C3862BB00D73C71 /* ProfileRouter.swift */,
+			);
+			path = ProfileModule;
+			sourceTree = "<group>";
+		};
+		386CB4AF2C388EAF00D73C71 /* AuthorizationAndRegistration */ = {
+			isa = PBXGroup;
+			children = (
+				386CB4B02C388EB700D73C71 /* LoginModule */,
+			);
+			path = AuthorizationAndRegistration;
+			sourceTree = "<group>";
+		};
+		386CB4B02C388EB700D73C71 /* LoginModule */ = {
+			isa = PBXGroup;
+			children = (
+				386CB4B12C388EC200D73C71 /* LoginRouter.swift */,
+			);
+			path = LoginModule;
+			sourceTree = "<group>";
+		};
+		386CB4BD2C38954200D73C71 /* Assemblies */ = {
+			isa = PBXGroup;
+			children = (
+				386CB5412C38A7A000D73C71 /* Modules */,
+				386CB5432C38A7AE00D73C71 /* Services */,
+			);
+			path = Assemblies;
+			sourceTree = "<group>";
+		};
+		386CB4C12C38961000D73C71 /* Add */ = {
+			isa = PBXGroup;
+			children = (
+				B98E1DAA28F049E500964B8F /* AddManufacturerModule */,
+				38F9B8962A80043B00EAC0A0 /* AddCountryModule */,
+				382F0C372A7D934E00E2F277 /* AddTobaccoLine */,
+				B98E1DDE28F08D2800964B8F /* AddTobaccoModule */,
+				B94306C329201F7B00EADFA0 /* AddTastesModule */,
+				B9631C4F2923E9CE00BBC09B /* AddTasteModule */,
+			);
+			path = Add;
+			sourceTree = "<group>";
+		};
+		386CB5412C38A7A000D73C71 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				B9E7ACA728F4673400A3D7E5 /* AdminMenu */,
+				B9E7ACB528F4959500A3D7E5 /* AddManufacturer */,
+				38F9B8A42A80353100EAC0A0 /* AddCountry */,
+				382F0C422A7D93BC00E2F277 /* AddTobaccoLine */,
+				B9E7ACA328F454B500A3D7E5 /* AddTobacco */,
+				B94E17B62921268C0008CB73 /* AddTastes */,
+				B9631C5A292400E400BBC09B /* AddTaste */,
+				381F447F2AB9F84A00FA717A /* Appeals */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		386CB5432C38A7AE00D73C71 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				B97EE9ED292BA0710090B344 /* DataManagerAssembly.swift */,
+				B982804B292FD4EB00BF3A93 /* ImageStorageServiceAssembly.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		386CB5522C38AA9000D73C71 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				B982803C292FA2CE00BF3A93 /* ImageStorageService */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		387121AD2A55ABD500B6005E /* Tobacco */ = {
@@ -1262,7 +1580,6 @@
 			isa = PBXGroup;
 			children = (
 				B9E8DA5328F7835700CCA034 /* Views */,
-				B9D705F928E3A6730079AD23 /* AdminViews */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -1270,6 +1587,7 @@
 		B9027E07290FF737002E3C3A /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				386CB5612C38AD9300D73C71 /* Mock+Entities.swift */,
 				B90A792C289A8C2200B90193 /* Tobacco.swift */,
 				B9D6055828D4CB590058D19E /* Manufacturer.swift */,
 				B94306C02920181100EADFA0 /* Taste.swift */,
@@ -1278,7 +1596,6 @@
 				B9D6E93829FDCDB1001D44D5 /* Country.swift */,
 				38DDDE5F2A86B1CA00EA19A3 /* User.swift */,
 				38ADAF532A8FB78000DDB30B /* HTError.swift */,
-				386CB3A92C37165300D73C71 /* Mock+Entities.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -1300,6 +1617,7 @@
 			isa = PBXGroup;
 			children = (
 				B90A79102899E2BF00B90193 /* HookahTobacco */,
+				386CB3CC2C38565100D73C71 /* HookahTobaccoAdmin */,
 				B90A790F2899E2BF00B90193 /* Products */,
 				B9D6056A28D508800058D19E /* Frameworks */,
 			);
@@ -1309,6 +1627,7 @@
 			isa = PBXGroup;
 			children = (
 				B90A790E2899E2BF00B90193 /* HookahTobacco.app */,
+				386CB3CB2C38565100D73C71 /* HookahTobaccoAdmin.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1323,7 +1642,6 @@
 				B91EB76728A141F400502221 /* Extentions */,
 				38DDDE5C2A869A6500EA19A3 /* Providers */,
 				B90A792E289C2ABE00B90193 /* Services */,
-				B97EE9DF292B6FDF0090B344 /* Managers */,
 				B9027E08290FF775002E3C3A /* Resources */,
 				B9D6E94029FDDCCF001D44D5 /* Supporting Files */,
 			);
@@ -1335,7 +1653,6 @@
 			children = (
 				B9D6057228D53BFD0058D19E /* AuthService */,
 				B948D83428CD284900E35884 /* NetworkService */,
-				B982803C292FA2CE00BF3A93 /* ImageStorageService */,
 				B97EE9F4292BB3C90090B344 /* UserDefaultsService */,
 			);
 			path = Services;
@@ -1520,9 +1837,7 @@
 			children = (
 				B90B671629A03EB5004460C8 /* ApiNetworkingServicesAssembly.swift */,
 				38DDDE682A86C46000EA19A3 /* ApiAuthServiceAssembly.swift */,
-				B982804B292FD4EB00BF3A93 /* ImageStorageServiceAssembly.swift */,
 				B97EE9F8292BBEE10090B344 /* UserDefaultsServiceAssembly.swift */,
-				B97EE9ED292BA0710090B344 /* DataManagerAssembly.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1530,9 +1845,9 @@
 		B981CB9E2930DB8500705422 /* DetailTobaccoModule */ = {
 			isa = PBXGroup;
 			children = (
-				386CB3922C370FBC00D73C71 /* DetailTobaccoViewModel.swift */,
-				386CB3952C370FC900D73C71 /* DetailTobaccoView.swift */,
-				B981CBAA293120EF00705422 /* DetailTobaccoModule.swift */,
+				386CB5582C38AD3200D73C71 /* DetailTobaccoModule.swift */,
+				386CB5592C38AD3200D73C71 /* DetailTobaccoView.swift */,
+				386CB55A2C38AD3200D73C71 /* DetailTobaccoViewModel.swift */,
 			);
 			path = DetailTobaccoModule;
 			sourceTree = "<group>";
@@ -1644,7 +1959,7 @@
 				385505362A814A7A00855E50 /* LoadingView.swift */,
 				38AFD1202A92633000800342 /* InfoView.swift */,
 				3899EB752AAF699C0047AD4D /* TextFieldWithLeftLabel.swift */,
-				386CB3B12C38311E00D73C71 /* HTImage.swift */,
+				386CB55E2C38AD4B00D73C71 /* HTImage.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1797,28 +2112,12 @@
 			path = Configurations;
 			sourceTree = "<group>";
 		};
-		B9D705F928E3A6730079AD23 /* AdminViews */ = {
-			isa = PBXGroup;
-			children = (
-				381F446E2AB9E39300FA717A /* Appeals */,
-				B9631C4F2923E9CE00BBC09B /* AddTasteModule */,
-				B94306C329201F7B00EADFA0 /* AddTastesModule */,
-				B98E1DEB28F0DBAA00964B8F /* AdminMenuModule */,
-				B98E1DDE28F08D2800964B8F /* AddTobaccoModule */,
-				B98E1DAA28F049E500964B8F /* AddManufacturerModule */,
-				382F0C372A7D934E00E2F277 /* AddTobaccoLine */,
-				38F9B8962A80043B00EAC0A0 /* AddCountryModule */,
-			);
-			path = AdminViews;
-			sourceTree = "<group>";
-		};
 		B9E7AC9F28F4518C00A3D7E5 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
 				381E68722AB734C8000AA9BC /* UsersScreen */,
 				381E68712AB734A8000AA9BC /* ManufacturerScreen */,
 				381E68702AB73496000AA9BC /* TobaccoScreen */,
-				381E686F2AB7348D000AA9BC /* AdminsScreen */,
 				38C3ACC42A8BD4AE001D79EB /* HelperScreen */,
 				B9BA7943295B9C90009188D6 /* AuthorizationAndRegistration */,
 				B9EB024828F35B5F00B3B6DA /* ModuleProtocol.swift */,
@@ -1931,6 +2230,35 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		386CB3CA2C38565100D73C71 /* HookahTobaccoAdmin */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 386CB3DF2C38565200D73C71 /* Build configuration list for PBXNativeTarget "HookahTobaccoAdmin" */;
+			buildPhases = (
+				386CB3C72C38565100D73C71 /* Sources */,
+				386CB3C82C38565100D73C71 /* Frameworks */,
+				386CB3C92C38565100D73C71 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				386CB3F62C385A4F00D73C71 /* PBXTargetDependency */,
+			);
+			name = HookahTobaccoAdmin;
+			packageProductDependencies = (
+				386CB3E32C3857AE00D73C71 /* Swinject */,
+				386CB3F02C385A1A00D73C71 /* RswiftLibrary */,
+				386CB3F82C385A7100D73C71 /* SnapKit */,
+				386CB4012C385ACE00D73C71 /* FittedSheets */,
+				386CB4192C385FDE00D73C71 /* TableKit */,
+				386CB4522C3864EB00D73C71 /* Moya */,
+				386CB4A32C386B6C00D73C71 /* MultiSelectSegmentedControl */,
+				386CB4BA2C38911100D73C71 /* KeychainAccess */,
+				386CB4C92C38967900D73C71 /* IVCollectionKit */,
+			);
+			productName = HookahTobaccoAdmin;
+			productReference = 386CB3CB2C38565100D73C71 /* HookahTobaccoAdmin.app */;
+			productType = "com.apple.product-type.application";
+		};
 		B90A790D2899E2BF00B90193 /* HookahTobacco */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B90A79222899E2C200B90193 /* Build configuration list for PBXNativeTarget "HookahTobacco" */;
@@ -1970,9 +2298,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1340;
+				LastSwiftUpdateCheck = 1520;
 				LastUpgradeCheck = 1340;
 				TargetAttributes = {
+					386CB3CA2C38565100D73C71 = {
+						CreatedOnToolsVersion = 15.2;
+					};
 					B90A790D2899E2BF00B90193 = {
 						CreatedOnToolsVersion = 13.4;
 					};
@@ -1985,6 +2316,7 @@
 			knownRegions = (
 				en,
 				ru,
+				Base,
 			);
 			mainGroup = B90A79052899E2BF00B90193;
 			packageReferences = (
@@ -2004,11 +2336,22 @@
 			projectRoot = "";
 			targets = (
 				B90A790D2899E2BF00B90193 /* HookahTobacco */,
+				386CB3CA2C38565100D73C71 /* HookahTobaccoAdmin */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		386CB3C92C38565100D73C71 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				386CB3DA2C38565200D73C71 /* LaunchScreen.storyboard in Resources */,
+				386CB4212C38613800D73C71 /* Localizable.strings in Resources */,
+				386CB3FD2C385AB100D73C71 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B90A790C2899E2BF00B90193 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2064,60 +2407,285 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		386CB3C72C38565100D73C71 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				386CB47D2C38685500D73C71 /* Taste+Codable.swift in Sources */,
+				386CB4552C3864F500D73C71 /* EmptyResponse.swift in Sources */,
+				386CB4C02C3895E100D73C71 /* AddManufacturerModule.swift in Sources */,
+				386CB43B2C38638A00D73C71 /* SelectListBottomSheetTableViewCell.swift in Sources */,
+				386CB4422C38642400D73C71 /* RegistrationPresenter.swift in Sources */,
+				386CB4F62C389AC400D73C71 /* extention + UIViewController.swift in Sources */,
+				386CB4B32C388F8300D73C71 /* ApiAuthServiceAssembly.swift in Sources */,
+				386CB3FF2C385AC400D73C71 /* BottomSheetPresenter.swift in Sources */,
+				386CB4C62C38965400D73C71 /* AddManufacturerInteractor.swift in Sources */,
+				386CB4EC2C389A0500D73C71 /* AddTobaccoLineViewController.swift in Sources */,
+				386CB4DF2C38993200D73C71 /* AddCountryModule.swift in Sources */,
+				386CB4C52C38965100D73C71 /* AddManufacturerViewController.swift in Sources */,
+				386CB4762C3867DF00D73C71 /* Country.swift in Sources */,
+				386CB40B2C385D3D00D73C71 /* AuthServiceProtocol.swift in Sources */,
+				386CB4642C38666400D73C71 /* ProfileEditViewController.swift in Sources */,
+				386CB46D2C38679A00D73C71 /* ApiHandlerErrors.swift in Sources */,
+				386CB3EA2C38594600D73C71 /* ToastView.swift in Sources */,
+				386CB4CD2C3896F700D73C71 /* extension+UILabel.swift in Sources */,
+				386CB4F22C389A4300D73C71 /* AddSegmentedControlView.swift in Sources */,
+				386CB4D52C3897AE00D73C71 /* SandboxImageStorageService.swift in Sources */,
+				386CB4472C38645100D73C71 /* RegistrationServiceProtocol.swift in Sources */,
+				386CB47B2C38684E00D73C71 /* TasteType+Codable.swift in Sources */,
+				386CB4662C38667100D73C71 /* ProfileEditEntity.swift in Sources */,
+				386CB4172C385FD200D73C71 /* ProfileTableViewCell.swift in Sources */,
+				386CB5232C38A1D500D73C71 /* DetailAppealPresenter.swift in Sources */,
+				386CB4F32C389A4A00D73C71 /* AddMultiSegmentedControlView.swift in Sources */,
+				386CB4D02C38978A00D73C71 /* DataManagerProtocol.swift in Sources */,
+				386CB46B2C38671400D73C71 /* ApiNetworkingServicesAssembly.swift in Sources */,
+				386CB51B2C38A14D00D73C71 /* DetailAppealAssembly.swift in Sources */,
+				386CB5372C38A2DB00D73C71 /* FilterTobaccoCollectionViewCell.swift in Sources */,
+				386CB4462C38644A00D73C71 /* AuthError.swift in Sources */,
+				386CB4FB2C389CF400D73C71 /* AddTobaccoPresenter.swift in Sources */,
+				386CB52C2C38A20600D73C71 /* AppealsListEntity.swift in Sources */,
+				386CB4672C38668500D73C71 /* Response+User.swift in Sources */,
+				386CB3EB2C38595200D73C71 /* PopupAlertView.swift in Sources */,
+				386CB4562C3864F800D73C71 /* PageResponse.swift in Sources */,
+				386CB50C2C389DFC00D73C71 /* AddTasteRouter.swift in Sources */,
+				386CB4E52C38996400D73C71 /* AddCountryPresenter.swift in Sources */,
+				386CB5262C38A1E400D73C71 /* AppealMessageTableViewCell.swift in Sources */,
+				386CB4592C38650C00D73C71 /* Request+Authorization.swift in Sources */,
+				386CB4412C38641400D73C71 /* ProfileEditAssembly.swift in Sources */,
+				386CB4E32C38995E00D73C71 /* AddCountryViewController.swift in Sources */,
+				386CB51D2C38A15600D73C71 /* AppealsListAssembly.swift in Sources */,
+				386CB4F92C389CB200D73C71 /* AddTobaccoModule.swift in Sources */,
+				386CB5302C38A22600D73C71 /* AdminMenuInteractor.swift in Sources */,
+				386CB4E82C3899D300D73C71 /* AddTobaccoLineModule.swift in Sources */,
+				386CB4442C38642B00D73C71 /* RegistrationViewController.swift in Sources */,
+				386CB4C42C38964E00D73C71 /* AddManufacturerRouter.swift in Sources */,
+				386CB4242C38615C00D73C71 /* IconView.swift in Sources */,
+				386CB4502C3864CC00D73C71 /* AuthorizationPlugin.swift in Sources */,
+				386CB4E62C38996A00D73C71 /* AddCountryTableViewCell.swift in Sources */,
+				386CB5282C38A1F400D73C71 /* AppealsListPresenter.swift in Sources */,
+				386CB4742C3867D700D73C71 /* TobaccoLine.swift in Sources */,
+				386CB43A2C38638600D73C71 /* SelectListBottomSheetPresenter.swift in Sources */,
+				386CB5202C38A1C800D73C71 /* DetailAppealInteractor.swift in Sources */,
+				386CB51F2C38A16600D73C71 /* AdminMenuAssembly.swift in Sources */,
+				386CB4152C385F9100D73C71 /* InfoView.swift in Sources */,
+				386CB4712C3867CC00D73C71 /* Tobacco.swift in Sources */,
+				386CB41F2C3860CE00D73C71 /* PresenterrProtocol.swift in Sources */,
+				386CB44D2C3864A200D73C71 /* JSONDecoder+Moya.swift in Sources */,
+				386CB42F2C3862BB00D73C71 /* ProfileRouter.swift in Sources */,
+				386CB4CB2C3896E600D73C71 /* AddPickerView.swift in Sources */,
+				386CB4392C38638400D73C71 /* SelectListBottomSheetRouter.swift in Sources */,
+				386CB5052C389D9000D73C71 /* AddTastesViewController.swift in Sources */,
+				386CB4702C3867C000D73C71 /* DataNetworkingServiceProtocol.swift in Sources */,
+				386CB52A2C38A1FE00D73C71 /* AppealsListViewController.swift in Sources */,
+				386CB4EF2C389A2D00D73C71 /* AddTextFieldView.swift in Sources */,
+				386CB4862C3869B400D73C71 /* DataApiService.swift in Sources */,
+				386CB4AA2C38832500D73C71 /* LoginPresenter.swift in Sources */,
+				386CB4D12C38979100D73C71 /* DataManager.swift in Sources */,
+				386CB50E2C389E0700D73C71 /* SelectTasteTypeTableViewCell.swift in Sources */,
+				386CB3FB2C385A8300D73C71 /* HTTabBarControllerAssembly.swift in Sources */,
+				386CB47E2C38687A00D73C71 /* Response+Appeals.swift in Sources */,
+				386CB4362C38637100D73C71 /* SelectListBottomSheetAssembly.swift in Sources */,
+				386CB4122C385F6700D73C71 /* LoadingView.swift in Sources */,
+				386CB4D42C3897A800D73C71 /* ImageStorageError.swift in Sources */,
+				386CB4512C3864CF00D73C71 /* HandlerErrorPlugin.swift in Sources */,
+				386CB4252C38617100D73C71 /* extension+CGSize.swift in Sources */,
+				386CB4262C38618B00D73C71 /* extention + UIEdgeInsets.swift in Sources */,
+				386CB4D32C3897A200D73C71 /* ImageStorageServiceDataProtocol.swift in Sources */,
+				386CB4682C38668E00D73C71 /* Request+User.swift in Sources */,
+				386CB3CE2C38565100D73C71 /* AppDelegate.swift in Sources */,
+				386CB4A72C3882E500D73C71 /* LoginAssembly.swift in Sources */,
+				386CB4AD2C38832D00D73C71 /* LoginInteractor.swift in Sources */,
+				386CB51C2C38A15100D73C71 /* AppealsListModule.swift in Sources */,
+				386CB5242C38A1DB00D73C71 /* AppealAnswerTableViewCell.swift in Sources */,
+				386CB4922C3869EE00D73C71 /* Api+Country.swift in Sources */,
+				386CB41C2C38601100D73C71 /* AnonymousInfoTableViewCell.swift in Sources */,
+				386CB4B82C3890CC00D73C71 /* UserSettingsService.swift in Sources */,
+				386CB4112C385F5000D73C71 /* ProfileViewController.swift in Sources */,
+				386CB47A2C38684B00D73C71 /* Country+Codable.swift in Sources */,
+				386CB51E2C38A16300D73C71 /* AdminMenuModule.swift in Sources */,
+				386CB4DC2C3897EB00D73C71 /* CustomCollectionView.swift in Sources */,
+				386CB48F2C3869DE00D73C71 /* Api+Taste.swift in Sources */,
+				386CB52E2C38A21E00D73C71 /* AdminMenuRouter.swift in Sources */,
+				386CB4062C385B2900D73C71 /* ObserverProtocol.swift in Sources */,
+				386CB4BF2C3895DE00D73C71 /* AddManufacturerAssembly.swift in Sources */,
+				386CB44A2C38646C00D73C71 /* NetworkHandlerErrors.swift in Sources */,
+				386CB4E12C38995700D73C71 /* AddCountryEntity.swift in Sources */,
+				386CB5072C389D9700D73C71 /* AddTastesPresenter.swift in Sources */,
+				386CB4622C38663400D73C71 /* extension+UITextField.swift in Sources */,
+				386CB5212C38A1CC00D73C71 /* DetailAppealViewController.swift in Sources */,
+				386CB5132C389E5A00D73C71 /* AddTasteAssembly.swift in Sources */,
+				386CB45B2C38651A00D73C71 /* Api+Registration.swift in Sources */,
+				386CB5062C389D9300D73C71 /* AddTastesRouter.swift in Sources */,
+				386CB4B92C3890D300D73C71 /* UserSettingsServiceProtocol.swift in Sources */,
+				386CB4732C3867D400D73C71 /* Taste.swift in Sources */,
+				386CB4ED2C389A0800D73C71 /* AddTobaccoLineInteractor.swift in Sources */,
+				386CB46F2C3867B900D73C71 /* NetworkingServiceProtocols.swift in Sources */,
+				386CB3ED2C38598300D73C71 /* AppRouter+Register.swift in Sources */,
+				386CB4082C385B6000D73C71 /* extension+UIVisualEffectView.swift in Sources */,
+				386CB4F42C389A9700D73C71 /* ImageButtonPickerView.swift in Sources */,
+				386CB44F2C3864B000D73C71 /* Moya+Config.swift in Sources */,
+				386CB4772C38681600D73C71 /* Tobacco+Codable.swift in Sources */,
+				386CB40D2C385F1400D73C71 /* ProfileAssembly.swift in Sources */,
+				386CB50A2C389DF300D73C71 /* AddTasteInteractor.swift in Sources */,
+				386CB45C2C38651E00D73C71 /* Request+Registration.swift in Sources */,
+				386CB48C2C3869D400D73C71 /* Api+Tobacco.swift in Sources */,
+				386CB4792C38683800D73C71 /* Manufacturer+Codable.swift in Sources */,
+				386CB5562C38AAD700D73C71 /* ImageStorageServiceAssembly.swift in Sources */,
+				386CB3E72C38590400D73C71 /* HTError.swift in Sources */,
+				386CB5012C389D6200D73C71 /* AddTastesModule.swift in Sources */,
+				386CB45F2C3865F700D73C71 /* HTScrollContentViewController.swift in Sources */,
+				386CB4162C385FA000D73C71 /* ApplyButton.swift in Sources */,
+				386CB4FC2C389CF700D73C71 /* AddTobaccoRouter.swift in Sources */,
+				386CB4DB2C3897E800D73C71 /* CustomCollectionViewLayout.swift in Sources */,
+				386CB52D2C38A21A00D73C71 /* AdminMenuPresenter.swift in Sources */,
+				386CB4FA2C389CB500D73C71 /* AddTobaccoAssembly.swift in Sources */,
+				386CB52B2C38A20200D73C71 /* AppealsListInteractor.swift in Sources */,
+				386CB40C2C385D4B00D73C71 /* User.swift in Sources */,
+				386CB48E2C3869D900D73C71 /* Response+Tobacco.swift in Sources */,
+				386CB4632C38665F00D73C71 /* ProfileEditPresenter.swift in Sources */,
+				386CB5442C38A7C500D73C71 /* DataManagerAssembly.swift in Sources */,
+				386CB4432C38642900D73C71 /* RegistrationRouter.swift in Sources */,
+				386CB41E2C3860C300D73C71 /* RouterProtocol.swift in Sources */,
+				386CB3E22C38574500D73C71 /* AppRouter.swift in Sources */,
+				386CB4572C38650400D73C71 /* DefaultTarget.swift in Sources */,
+				386CB4EE2C389A0B00D73C71 /* AddTobaccoLineEntity.swift in Sources */,
+				386CB43C2C38638D00D73C71 /* DatePickerPresenter.swift in Sources */,
+				386CB4FE2C389CFE00D73C71 /* AddTobaccoInteractor.swift in Sources */,
+				386CB41B2C38600800D73C71 /* ButtonProfileTableViewCell.swift in Sources */,
+				386CB4D92C3897E600D73C71 /* CustomCollectionDirector.swift in Sources */,
+				386CB3FC2C385A8B00D73C71 /* HTTabBarController.swift in Sources */,
+				386CB4142C385F7E00D73C71 /* ViewProtocol.swift in Sources */,
+				386CB50F2C389E2C00D73C71 /* CustomTableDirector.swift in Sources */,
+				386CB4DD2C3897EE00D73C71 /* TasteCollectionViewCell.swift in Sources */,
+				386CB5272C38A1F000D73C71 /* AppealTableViewCell.swift in Sources */,
+				386CB4372C38638000D73C71 /* SelectListBottomSheetInteractor.swift in Sources */,
+				386CB4272C38619700D73C71 /* IconButton.swift in Sources */,
+				386CB4452C38642E00D73C71 /* RegistrationInteractor.swift in Sources */,
+				386CB3E62C3858F000D73C71 /* GlobalConstant.swift in Sources */,
+				386CB43E2C38639400D73C71 /* DatePickerInteractor.swift in Sources */,
+				386CB4822C38691300D73C71 /* MoyaProviderAssembly.swift in Sources */,
+				386CB5082C389D9F00D73C71 /* AddTastesTableViewCell.swift in Sources */,
+				386CB44B2C38648500D73C71 /* BaseApiService.swift in Sources */,
+				386CB48A2C3869CC00D73C71 /* Request+Manufacturer.swift in Sources */,
+				386CB4402C38640700D73C71 /* ProfileEditModule.swift in Sources */,
+				386CB3E92C38593F00D73C71 /* AlertFactory.swift in Sources */,
+				386CB5222C38A1D100D73C71 /* DetailAppealRouter.swift in Sources */,
+				386CB5252C38A1E000D73C71 /* DetailAppealContentTableViewCell.swift in Sources */,
+				386CB4812C38688000D73C71 /* Api+Appeals.swift in Sources */,
+				386CB5122C389E5800D73C71 /* AddTasteModule.swift in Sources */,
+				386CB4912C3869E900D73C71 /* Api+TasteType.swift in Sources */,
+				386CB4382C38638200D73C71 /* SelectListBottomSheetViewController.swift in Sources */,
+				386CB4D62C3897B200D73C71 /* NamedImageStorage.swift in Sources */,
+				386CB4FD2C389CFA00D73C71 /* AddTobaccoViewController.swift in Sources */,
+				386CB50D2C389E0200D73C71 /* AddTastePresenter.swift in Sources */,
+				386CB4E92C3899D600D73C71 /* AddTobaccoLineAssembly.swift in Sources */,
+				386CB4092C385B7600D73C71 /* extention + UIFont.swift in Sources */,
+				386CB3E52C3857C000D73C71 /* ModuleProtocol.swift in Sources */,
+				386CB4332C38633A00D73C71 /* DatePickerModule.swift in Sources */,
+				386CB4D72C3897CB00D73C71 /* UpdateDataSubscriberProtocol.swift in Sources */,
+				386CB4842C38699100D73C71 /* UserApiService.swift in Sources */,
+				386CB4202C3860DF00D73C71 /* ProfileModule.swift in Sources */,
+				386CB5042C389D8C00D73C71 /* AddTastesInteractor.swift in Sources */,
+				386CB44E2C3864A800D73C71 /* Api.swift in Sources */,
+				386CB40F2C385F4300D73C71 /* ProfilePresenter.swift in Sources */,
+				386CB4CE2C38972D00D73C71 /* ImagePickerView.swift in Sources */,
+				386CB4352C38636F00D73C71 /* SelectListBottomSheetModule.swift in Sources */,
+				386CB4582C38650700D73C71 /* Api+Authorization.swift in Sources */,
+				386CB43D2C38639100D73C71 /* DatePickerViewController.swift in Sources */,
+				386CB45D2C3865B800D73C71 /* extension+String.swift in Sources */,
+				386CB4E22C38995B00D73C71 /* AddCountryInteractor.swift in Sources */,
+				386CB4932C386A1F00D73C71 /* extention + Encodable.swift in Sources */,
+				386CB4E02C38993600D73C71 /* AddCountryAssembly.swift in Sources */,
+				386CB4802C38687D00D73C71 /* Request+Appeals.swift in Sources */,
+				386CB5332C38A28300D73C71 /* DescriptionStackView.swift in Sources */,
+				386CB4B62C3890AD00D73C71 /* UserDefaultsServiceAssembly.swift in Sources */,
+				386CB3EE2C3859D300D73C71 /* HTNavigationControllerAssembly.swift in Sources */,
+				386CB3E82C38590F00D73C71 /* ApiError.swift in Sources */,
+				386CB4042C385B0300D73C71 /* SystemSubscriberProtocol.swift in Sources */,
+				386CB4852C3869A600D73C71 /* Api+User.swift in Sources */,
+				386CB4322C38631D00D73C71 /* DatePickerRouter.swift in Sources */,
+				386CB4A92C38831300D73C71 /* LoginModule.swift in Sources */,
+				386CB4B22C388EC200D73C71 /* LoginRouter.swift in Sources */,
+				386CB4342C38635400D73C71 /* DatePickerAssembly.swift in Sources */,
+				386CB4872C3869B800D73C71 /* AppealsApiService.swift in Sources */,
+				386CB5152C389E8C00D73C71 /* extension + TableKit.swift in Sources */,
+				386CB4EA2C3899FE00D73C71 /* AddTobaccoLinePresenter.swift in Sources */,
+				386CB4722C3867D000D73C71 /* Manufacturer.swift in Sources */,
+				386CB4032C385AE200D73C71 /* extension+SheetViewController.swift in Sources */,
+				386CB5362C38A2BA00D73C71 /* ContentCreateAppealsTableViewCell.swift in Sources */,
+				386CB40E2C385F3C00D73C71 /* ProfileInteractor.swift in Sources */,
+				386CB4D22C38979F00D73C71 /* ImageStorageServiceProtocol.swift in Sources */,
+				386CB44C2C38649A00D73C71 /* Moya+Request.swift in Sources */,
+				386CB5022C389D6500D73C71 /* AddTastesAssembly.swift in Sources */,
+				386CB4882C3869BE00D73C71 /* AdminApiService.swift in Sources */,
+				386CB3EF2C3859EC00D73C71 /* HTNavigationController.swift in Sources */,
+				386CB4C72C38965800D73C71 /* AddManufacturerEntity.swift in Sources */,
+				386CB45A2C38651500D73C71 /* Response+Authorization.swift in Sources */,
+				386CB49D2C386B1C00D73C71 /* ImageFormat.swift in Sources */,
+				386CB4482C38645300D73C71 /* AuthSettingsProtocol.swift in Sources */,
+				386CB4652C38666F00D73C71 /* ProfileEditInteractor.swift in Sources */,
+				386CB47C2C38685100D73C71 /* TobaccoLine+Codable.swift in Sources */,
+				386CB51A2C38A14900D73C71 /* DetailAppealModule.swift in Sources */,
+				386CB4232C38615600D73C71 /* Button.swift in Sources */,
+				386CB4492C38645900D73C71 /* ApiAuthServices.swift in Sources */,
+				386CB4302C38630C00D73C71 /* ProfileEditRouter.swift in Sources */,
+				386CB4892C3869CA00D73C71 /* Api+Manufacturer.swift in Sources */,
+				386CB4FF2C389D0100D73C71 /* AddTobaccoEntity.swift in Sources */,
+				386CB4E42C38996000D73C71 /* AddCountryRouter.swift in Sources */,
+				386CB4F02C389A3400D73C71 /* AddTextView.swift in Sources */,
+				386CB4F12C389A3E00D73C71 /* AddSwitchView.swift in Sources */,
+				386CB4C32C38964A00D73C71 /* AddManufacturerPresenter.swift in Sources */,
+				386CB50B2C389DF700D73C71 /* AddTasteViewController.swift in Sources */,
+				386CB52F2C38A22100D73C71 /* AdminMenuViewController.swift in Sources */,
+				386CB4902C3869E400D73C71 /* Api+TobaccoLine.swift in Sources */,
+				386CB4692C3866E200D73C71 /* User+Codable.swift in Sources */,
+				386CB5312C38A26500D73C71 /* CreateAppealsEntity.swift in Sources */,
+				386CB4EB2C389A0100D73C71 /* AddTobaccoLineRouter.swift in Sources */,
+				386CB48D2C3869D700D73C71 /* Request+Tobacco.swift in Sources */,
+				386CB4132C385F7200D73C71 /* BaseViewController.swift in Sources */,
+				386CB5292C38A1F800D73C71 /* AppealsListRouter.swift in Sources */,
+				386CB4AC2C38832B00D73C71 /* LoginViewController.swift in Sources */,
+				386CB48B2C3869CF00D73C71 /* Response+Manufacturer.swift in Sources */,
+				386CB4602C38662600D73C71 /* TextFieldWithLeftLabel.swift in Sources */,
+				386CB4752C3867DD00D73C71 /* TasteType.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B90A790A2899E2BF00B90193 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				38CE8CCB2A8955F300B00307 /* ProfileEditInteractor.swift in Sources */,
 				B9D6E92F29FDC651001D44D5 /* Taste+Codable.swift in Sources */,
-				B94E17B9292126DD0008CB73 /* AddTastesModule.swift in Sources */,
 				B94306D6292053BA00EADFA0 /* TasteCollectionViewCell.swift in Sources */,
 				38DDDE602A86B1CA00EA19A3 /* User.swift in Sources */,
 				B94306C12920181100EADFA0 /* Taste.swift in Sources */,
-				B949D7AB293D15900019BEFC /* SystemSubscriberProtocol.swift in Sources */,
 				38AFD1212A92633000800342 /* InfoView.swift in Sources */,
-				383F2FB62ABAFB5B007BE4A8 /* DetailAppealViewController.swift in Sources */,
 				B902AE3E29F405EA00BF6AD6 /* Manufacturer+Codable.swift in Sources */,
 				3802046229FE6A7C000193A1 /* ApiHandlerErrors.swift in Sources */,
-				B9E7ACAF28F46AFB00A3D7E5 /* AdminMenuAssembly.swift in Sources */,
-				B9828048292FB95600BF3A93 /* NamedImageStorage.swift in Sources */,
 				B9EE2378291023F00098E4E0 /* DetailInfoManufacturerViewController.swift in Sources */,
-				382F0C3F2A7D936600E2F277 /* AddTobaccoLineViewController.swift in Sources */,
 				385505352A814A4F00855E50 /* BaseViewController.swift in Sources */,
-				B98E1DE528F08D4400964B8F /* AddTobaccoPresenter.swift in Sources */,
 				387121B32A55AE7F00B6005E /* Api+Taste.swift in Sources */,
-				B98E1DEA28F08D4400964B8F /* AddTobaccoEntity.swift in Sources */,
 				38CE8CCA2A8955F300B00307 /* ProfileEditViewController.swift in Sources */,
 				38BF3D9A2A95040F007331E1 /* CustomTableDirector.swift in Sources */,
-				383F2FB42ABAFB5B007BE4A8 /* DetailAppealPresenter.swift in Sources */,
 				B9C925F7294F53720085BB02 /* RegistrationPresenter.swift in Sources */,
 				3855053B2A8155FA00855E50 /* ViewProtocol.swift in Sources */,
 				B989B87329339668007ECC59 /* PopupAlertView.swift in Sources */,
+				386CB55F2C38AD4B00D73C71 /* HTImage.swift in Sources */,
 				B9631C4C2921ACBE00BBC09B /* CustomCollectionViewLayout.swift in Sources */,
 				B9ED9104290989EF00DC3A6D /* TobaccoListViewController.swift in Sources */,
 				384B94022AB347AB00DBE89C /* SelectListBottomSheetTableViewCell.swift in Sources */,
 				B98E1DD628F0812500964B8F /* LoginPresenter.swift in Sources */,
 				38DDDE562A8694C000EA19A3 /* Api+Authorization.swift in Sources */,
 				3899EB762AAF699C0047AD4D /* TextFieldWithLeftLabel.swift in Sources */,
-				382F0C3D2A7D936600E2F277 /* AddTobaccoLinePresenter.swift in Sources */,
 				3818E03C2A81342700C9D02C /* ApplyButton.swift in Sources */,
 				B9DBE512290DE2C3005B185C /* HTNavigationControllerAssembly.swift in Sources */,
 				3887C6CE2A585C9400A96AE2 /* Request+Tobacco.swift in Sources */,
-				B94306C92920277E00EADFA0 /* AddTastesPresenter.swift in Sources */,
-				B9B30A1E2932602A00204913 /* UpdateDataSubscriberProtocol.swift in Sources */,
 				38041BF82AA0D26500DEEE6D /* TobaccoFiltersModule.swift in Sources */,
-				B9828041292FA3BA00BF3A93 /* SandboxImageStorageService.swift in Sources */,
-				B98E1DB428F04A0F00964B8F /* AddManufacturerInteractor.swift in Sources */,
-				B9828045292FA40E00BF3A93 /* ImageStorageError.swift in Sources */,
 				B9E8DA4828F77A8300CCA034 /* ManufacturerListRouter.swift in Sources */,
-				386CB3B22C38311E00D73C71 /* HTImage.swift in Sources */,
 				B98E1DD728F0812500964B8F /* LoginRouter.swift in Sources */,
 				B9027E05290FF613002E3C3A /* AppRouter+Register.swift in Sources */,
-				382F0C3E2A7D936600E2F277 /* AddTobaccoLineRouter.swift in Sources */,
-				B98E1DF228F0DBCF00964B8F /* AdminMenuPresenter.swift in Sources */,
-				B97EE9EE292BA0710090B344 /* DataManagerAssembly.swift in Sources */,
 				B90A79122899E2BF00B90193 /* AppDelegate.swift in Sources */,
-				B9631C5E292400FB00BBC09B /* AddTasteAssembly.swift in Sources */,
 				38041BF42AA0D24900DEEE6D /* TobaccoFiltersViewController.swift in Sources */,
 				B9E8DA5028F7827900CCA034 /* ManufacturerListModule.swift in Sources */,
 				38CE8CD62A89715100B00307 /* ProfileEditAssembly.swift in Sources */,
@@ -2136,22 +2704,16 @@
 				381E689F2AB74373000AA9BC /* CreateAppealsEntity.swift in Sources */,
 				381E688E2AB73676000AA9BC /* Response+Appeals.swift in Sources */,
 				B902AE4029F408B300BF6AD6 /* TobaccoLine+Codable.swift in Sources */,
-				B9B30A1C29325FFF00204913 /* ObserverProtocol.swift in Sources */,
 				B9E98A9229107BC000E1389B /* extension+String.swift in Sources */,
-				B982804A292FB97C00BF3A93 /* ImageStorageServiceDataProtocol.swift in Sources */,
-				B9EB024B28F3604E00B3B6DA /* AddTobaccoModule.swift in Sources */,
 				B9EB024928F35B5F00B3B6DA /* ModuleProtocol.swift in Sources */,
 				38ADAF542A8FB78000DDB30B /* HTError.swift in Sources */,
 				38DDDE622A86B93A00EA19A3 /* AuthSettingsProtocol.swift in Sources */,
 				384672B22ABE15BB0071C262 /* Response+User.swift in Sources */,
-				383F2FBE2ABB02C5007BE4A8 /* DetailAppealModule.swift in Sources */,
 				381E689B2AB74373000AA9BC /* CreateAppealsPresenter.swift in Sources */,
 				B9C925F9294F53720085BB02 /* RegistrationViewController.swift in Sources */,
-				381F44792AB9E3B800FA717A /* AppealsListEntity.swift in Sources */,
 				38DDDE692A86C46000EA19A3 /* ApiAuthServiceAssembly.swift in Sources */,
 				B989B87129338CD6007ECC59 /* AlertFactory.swift in Sources */,
 				3887C6D32A58713A00A96AE2 /* Moya+Config.swift in Sources */,
-				B9631C562923E9EE00BBC09B /* AddTasteRouter.swift in Sources */,
 				B92A46AF29672ACC0006B787 /* ButtonProfileTableViewCell.swift in Sources */,
 				38DDDE752A86DC9C00EA19A3 /* AuthorizationPlugin.swift in Sources */,
 				B9EE2377291023F00098E4E0 /* DetailInfoManufacturerRouter.swift in Sources */,
@@ -2159,13 +2721,8 @@
 				38E8E6452A87D12000041443 /* Api+Registration.swift in Sources */,
 				B9E7ACB428F492ED00A3D7E5 /* LoginAssembly.swift in Sources */,
 				B904382E2985145D00BADEE3 /* DescriptionStackView.swift in Sources */,
-				38F9B89D2A80047E00EAC0A0 /* AddCountryRouter.swift in Sources */,
-				382F0C462A7D93D700E2F277 /* AddTobaccoLineAssembly.swift in Sources */,
-				B94306CC2920277E00EADFA0 /* AddTastesInteractor.swift in Sources */,
-				3818BA052ABC966000D8B7CD /* AppealMessageTableViewCell.swift in Sources */,
 				B9D6E93929FDCDB1001D44D5 /* Country.swift in Sources */,
 				B9C7825A28ECE25800DBF8C6 /* AuthServiceProtocol.swift in Sources */,
-				38F9B8A32A802FE100EAC0A0 /* AddCountryTableViewCell.swift in Sources */,
 				3848022F2A57189C00DA595B /* Request+Manufacturer.swift in Sources */,
 				38041BF92AA0D26500DEEE6D /* TobaccoFiltersAssembly.swift in Sources */,
 				38BD85A52AB87A2300768FA2 /* AddContentCreateAppealsTableViewCell.swift in Sources */,
@@ -2177,24 +2734,20 @@
 				384B93FD2AB3421000DBE89C /* SelectListBottomSheetInteractor.swift in Sources */,
 				38DDDE672A86C05000EA19A3 /* EmptyResponse.swift in Sources */,
 				3895E5062A5447AF005D87EE /* Moya+Request.swift in Sources */,
-				B98E1DB628F04A0F00964B8F /* AddManufacturerEntity.swift in Sources */,
 				385867442AB98BDC001776D9 /* SuccessBottomSheetModule.swift in Sources */,
 				384B94082AB354AA00DBE89C /* SelectListBottomSheetAssembly.swift in Sources */,
+				386CB55C2C38AD3200D73C71 /* DetailTobaccoView.swift in Sources */,
 				385505392A8154D800855E50 /* extension+UIVisualEffectView.swift in Sources */,
 				B9ED9103290989EF00DC3A6D /* TobaccoListRouter.swift in Sources */,
 				387121BC2A55B34F00B6005E /* Api+Country.swift in Sources */,
 				38AFD11F2A925C5100800342 /* NetworkingServiceProtocols.swift in Sources */,
 				385505372A814A7A00855E50 /* LoadingView.swift in Sources */,
 				381E688C2AB7366B000AA9BC /* Request+Appeals.swift in Sources */,
-				382F0C452A7D93D700E2F277 /* AddTobaccoLineModule.swift in Sources */,
 				381E688A2AB735B8000AA9BC /* Api+Appeals.swift in Sources */,
-				B982804C292FD4EB00BF3A93 /* ImageStorageServiceAssembly.swift in Sources */,
-				B98E1DF328F0DBCF00964B8F /* AdminMenuRouter.swift in Sources */,
 				B902AE4629F40B1D00BF6AD6 /* Tobacco+Codable.swift in Sources */,
-				B98E1DF528F0DBCF00964B8F /* AdminMenuInteractor.swift in Sources */,
 				B9ED910929098AA000DC3A6D /* TobaccoListCell.swift in Sources */,
+				386CB55B2C38AD3200D73C71 /* DetailTobaccoModule.swift in Sources */,
 				384B93FB2AB3421000DBE89C /* SelectListBottomSheetRouter.swift in Sources */,
-				B9631C5D292400FB00BBC09B /* AddTasteModule.swift in Sources */,
 				38041BF12AA0D24900DEEE6D /* TobaccoFiltersRouter.swift in Sources */,
 				B9D6055928D4CB590058D19E /* Manufacturer.swift in Sources */,
 				B97EE9F3292BB3C30090B344 /* UserSettingsService.swift in Sources */,
@@ -2206,39 +2759,27 @@
 				B9ED9102290989EF00DC3A6D /* TobaccoListPresenter.swift in Sources */,
 				381E68912AB741C9000AA9BC /* AppealsApiService.swift in Sources */,
 				B90B671D29A049D0004460C8 /* GlobalConstant.swift in Sources */,
-				382F0C402A7D936600E2F277 /* AddTobaccoLineInteractor.swift in Sources */,
-				B94306D329204EE700EADFA0 /* AddTastesTableViewCell.swift in Sources */,
-				B97EE9E3292B70790090B344 /* DataManagerProtocol.swift in Sources */,
 				384B93FA2AB3421000DBE89C /* SelectListBottomSheetPresenter.swift in Sources */,
 				B9A4708328D2B84500CA6FAA /* extention + UIFont.swift in Sources */,
-				B98E1DE828F08D4400964B8F /* AddTobaccoInteractor.swift in Sources */,
 				3802046429FE6AB8000193A1 /* NetworkHandlerErrors.swift in Sources */,
-				383F2FC82ABB1419007BE4A8 /* DetailAppealContentTableViewCell.swift in Sources */,
 				3899EB732AAF56940047AD4D /* extension+CGSize.swift in Sources */,
 				38DDDE642A86BCE500EA19A3 /* Response+Authorization.swift in Sources */,
 				B92A46AD2966FA430006B787 /* ProfileTableViewCell.swift in Sources */,
 				B97181582911254100E5DB28 /* DetailInfoManufacturerAssembly.swift in Sources */,
-				B9EB024728F3252500B3B6DA /* AddTobaccoAssembly.swift in Sources */,
 				B98E1DD928F0812500964B8F /* LoginInteractor.swift in Sources */,
-				38F9B89C2A80047E00EAC0A0 /* AddCountryPresenter.swift in Sources */,
 				38041BE72AA0C40D00DEEE6D /* CustomCollectionDirector.swift in Sources */,
+				386CB55D2C38AD3200D73C71 /* DetailTobaccoViewModel.swift in Sources */,
 				381E689D2AB74373000AA9BC /* CreateAppealsViewController.swift in Sources */,
 				B9C92601294F6DB20085BB02 /* RegistrationServiceProtocol.swift in Sources */,
-				B94306CA2920277E00EADFA0 /* AddTastesRouter.swift in Sources */,
 				B9D2D2A9293B808F00F2F591 /* AddMultiSegmentedControlView.swift in Sources */,
 				B92A46AA2966F9DC0006B787 /* ProfileViewController.swift in Sources */,
 				381E68A22AB747AD000AA9BC /* extension+UITextField.swift in Sources */,
-				B9E7ACB928F495B300A3D7E5 /* AddManufacturerAssembly.swift in Sources */,
-				38F9B8A72A80355300EAC0A0 /* AddCountryModule.swift in Sources */,
 				38CE8CD52A89715100B00307 /* ProfileEditModule.swift in Sources */,
 				B9631C4A2921AB7100BBC09B /* CustomCollectionView.swift in Sources */,
 				B981B5272938DE3000A02D9F /* AddSegmentedControlView.swift in Sources */,
 				38C138172AABA0210066FCA0 /* extension+UILabel.swift in Sources */,
 				B9DBE50E290DE11F005B185C /* HTNavigationController.swift in Sources */,
-				3869D3972A7EADBA00C9BF5C /* SelectTasteTypeTableViewCell.swift in Sources */,
-				386CB3AA2C37165300D73C71 /* Mock+Entities.swift in Sources */,
 				B9E8DA4A28F77A8300CCA034 /* ManufacturerListInteractor.swift in Sources */,
-				382F0C412A7D936600E2F277 /* AddTobaccoLineEntity.swift in Sources */,
 				B9EE237D29102B710098E4E0 /* DetailInfoManufacturerTableCell.swift in Sources */,
 				B92A46B42967313B0006B787 /* ProfileAssembly.swift in Sources */,
 				3818E0382A80FD1C00C9D02C /* BottomSheetPresenter.swift in Sources */,
@@ -2246,11 +2787,7 @@
 				38C3ACC02A8BCACC001D79EB /* DatePickerRouter.swift in Sources */,
 				B9D6E93329FDC974001D44D5 /* TasteType+Codable.swift in Sources */,
 				38CE8CC82A8955F300B00307 /* ProfileEditPresenter.swift in Sources */,
-				386CB3962C370FC900D73C71 /* DetailTobaccoView.swift in Sources */,
-				38F9B8A02A80047E00EAC0A0 /* AddCountryEntity.swift in Sources */,
-				B94306CB2920277E00EADFA0 /* AddTastesViewController.swift in Sources */,
 				3802046729FE6D1A000193A1 /* ApiError.swift in Sources */,
-				381F44772AB9E3B800FA717A /* AppealsListViewController.swift in Sources */,
 				381569972A96A7650053D223 /* Request+User.swift in Sources */,
 				38041BF02AA0D24900DEEE6D /* CategoriesTobaccoFiltersViewCellTableViewCell.swift in Sources */,
 				B9E8DA5128F7827900CCA034 /* ManufacturerListAssembly.swift in Sources */,
@@ -2265,21 +2802,18 @@
 				B9A66BCB296897F600B6D6E7 /* AnonymousInfoTableViewCell.swift in Sources */,
 				B949D7AD293D2D0F0019BEFC /* ToastView.swift in Sources */,
 				387121AF2A55AD6700B6005E /* Response+Manufacturer.swift in Sources */,
-				38F9B8A82A80355300EAC0A0 /* AddCountryAssembly.swift in Sources */,
 				B9ED910D2909D26100DC3A6D /* TobaccoListModule.swift in Sources */,
 				3895E5012A542D54005D87EE /* DefaultTarget.swift in Sources */,
 				384B94072AB354AA00DBE89C /* SelectListBottomSheetModule.swift in Sources */,
 				38DDDE5B2A8699E900EA19A3 /* ApiAuthServices.swift in Sources */,
 				3858673C2AB987ED001776D9 /* SuccessBottomSheetViewController.swift in Sources */,
+				386CB5622C38AD9300D73C71 /* Mock+Entities.swift in Sources */,
 				B9BA7947295B9CE7009188D6 /* RegistrationModule.swift in Sources */,
 				38C3ACC82A8BD4C0001D79EB /* DatePickerAssembly.swift in Sources */,
 				B9781D32293A45A800654567 /* AddSwitchView.swift in Sources */,
-				B9E7ACB828F495B300A3D7E5 /* AddManufacturerModule.swift in Sources */,
 				B9CA939D2969C01C00F258F3 /* extension + TableKit.swift in Sources */,
 				B9DBE935290B0C07004D7B97 /* ImagePickerView.swift in Sources */,
 				38C3ACC72A8BD4C0001D79EB /* DatePickerModule.swift in Sources */,
-				B97EE9E7292B85910090B344 /* DataManager.swift in Sources */,
-				B98E1DE628F08D4400964B8F /* AddTobaccoRouter.swift in Sources */,
 				3813D6A92A6AB214009DDCBD /* ImageFormat.swift in Sources */,
 				383F2FC52ABB12EA007BE4A8 /* extension+URL.swift in Sources */,
 				38041BF32AA0D24900DEEE6D /* TobaccoFiltersInteractor.swift in Sources */,
@@ -2290,76 +2824,55 @@
 				38CE8CCC2A8955F300B00307 /* ProfileEditEntity.swift in Sources */,
 				B97181572911254100E5DB28 /* DetailInfoManufacturerModule.swift in Sources */,
 				38DE7EC12AA278BE00DE4D01 /* MultiSegmentedTobaccoTableViewCell.swift in Sources */,
-				381F44782AB9E3B800FA717A /* AppealsListInteractor.swift in Sources */,
 				B9A4708628D2BB6400CA6FAA /* AddTextFieldView.swift in Sources */,
 				38C3ACBF2A8BCACC001D79EB /* DatePickerPresenter.swift in Sources */,
 				384B940A2AB372BA00DBE89C /* JSONDecoder+Moya.swift in Sources */,
 				B92A46AB2966F9DC0006B787 /* ProfileInteractor.swift in Sources */,
-				381F44832AB9F85A00FA717A /* AppealsListModule.swift in Sources */,
 				B9EE2376291023F00098E4E0 /* DetailInfoManufacturerPresenter.swift in Sources */,
-				B94E17BA292126DD0008CB73 /* AddTastesAssembly.swift in Sources */,
 				38041BCF2A9E45BB00DEEE6D /* Response+Tobacco.swift in Sources */,
-				B98E1DF428F0DBCF00964B8F /* AdminMenuViewController.swift in Sources */,
-				381F44842AB9F85A00FA717A /* AppealsListAssembly.swift in Sources */,
 				B9E7AC9E28F4337100A3D7E5 /* AppRouter.swift in Sources */,
 				38AFD1192A92322800800342 /* UserApiService.swift in Sources */,
-				38F9B89E2A80047E00EAC0A0 /* AddCountryViewController.swift in Sources */,
 				384B93FC2AB3421000DBE89C /* SelectListBottomSheetViewController.swift in Sources */,
 				B98EE1EF2936CC7400F97E1A /* DataNetworkingServiceProtocol.swift in Sources */,
 				381E68A72AB7924D000AA9BC /* CreateAppealsModule.swift in Sources */,
 				B94B771A290C2738002C5660 /* AddTextView.swift in Sources */,
 				3895E5032A542FB7005D87EE /* Api.swift in Sources */,
-				B9631C582923E9EE00BBC09B /* AddTasteInteractor.swift in Sources */,
 				381E68A82AB7924D000AA9BC /* CreateAppealsAssembly.swift in Sources */,
 				387121AC2A55ABD000B6005E /* Api+Tobacco.swift in Sources */,
 				B9C92609294F77570085BB02 /* AuthError.swift in Sources */,
-				B98E1DB328F04A0F00964B8F /* AddManufacturerViewController.swift in Sources */,
 				3899EB712AAF374A0047AD4D /* IconView.swift in Sources */,
 				B92A46A82966F9DC0006B787 /* ProfilePresenter.swift in Sources */,
 				B9C925FA294F53720085BB02 /* RegistrationInteractor.swift in Sources */,
 				B9677CF228D8917000EF9FC6 /* extention + UIViewController.swift in Sources */,
 				B9E7ACA128F4528000A3D7E5 /* RouterProtocol.swift in Sources */,
-				B98E1DE728F08D4400964B8F /* AddTobaccoViewController.swift in Sources */,
 				B9BA7948295B9CE7009188D6 /* RegistrationAssembly.swift in Sources */,
-				383F2FBF2ABB02C5007BE4A8 /* DetailAppealAssembly.swift in Sources */,
 				381E689C2AB74373000AA9BC /* CreateAppealsRouter.swift in Sources */,
 				38A8B1EC2A91747C009FAFF7 /* PresenterrProtocol.swift in Sources */,
 				B9E8DA5728F783B400CCA034 /* ManufacturerListTableViewCell.swift in Sources */,
-				38F9B89F2A80047E00EAC0A0 /* AddCountryInteractor.swift in Sources */,
-				B981CBAC293120EF00705422 /* DetailTobaccoModule.swift in Sources */,
-				383F2FC22ABB0531007BE4A8 /* AppealAnswerTableViewCell.swift in Sources */,
-				381F44752AB9E3B800FA717A /* AppealsListPresenter.swift in Sources */,
-				B9631C572923E9EE00BBC09B /* AddTasteViewController.swift in Sources */,
-				381F44762AB9E3B800FA717A /* AppealsListRouter.swift in Sources */,
-				B9E7ACAE28F46AFB00A3D7E5 /* AdminMenuModule.swift in Sources */,
-				383F2FB72ABAFB5B007BE4A8 /* DetailAppealInteractor.swift in Sources */,
 				B9E8DA4728F77A8300CCA034 /* ManufacturerListPresenter.swift in Sources */,
 				3887C6D12A58711800A96AE2 /* HandlerErrorPlugin.swift in Sources */,
-				B98E1DB228F04A0F00964B8F /* AddManufacturerRouter.swift in Sources */,
 				38F9B8932A7FE0DD00EAC0A0 /* IconButton.swift in Sources */,
 				38AFD11B2A9238B600800342 /* DataApiService.swift in Sources */,
-				B982803F292FA32900BF3A93 /* ImageStorageServiceProtocol.swift in Sources */,
-				386CB3932C370FBC00D73C71 /* DetailTobaccoViewModel.swift in Sources */,
 				3838B1752A98A2A900AB3D8C /* PageResponse.swift in Sources */,
 				381E689E2AB74373000AA9BC /* CreateAppealsInteractor.swift in Sources */,
 				B98E1DD828F0812500964B8F /* LoginViewController.swift in Sources */,
-				381F447D2AB9F1D600FA717A /* AppealTableViewCell.swift in Sources */,
 				B9D6E93B29FDCE24001D44D5 /* Country+Codable.swift in Sources */,
 				B9C7B958296AE1C700D5A78B /* DetailManufacturerLineHeaderView.swift in Sources */,
 				387121B62A55B1E100B6005E /* Api+TobaccoLine.swift in Sources */,
-				383F2FB52ABAFB5B007BE4A8 /* DetailAppealRouter.swift in Sources */,
 				B94B771C290C3785002C5660 /* AddPickerView.swift in Sources */,
 				38A8B1EE2A91A08A009FAFF7 /* BaseApiService.swift in Sources */,
 				B92A46A92966F9DC0006B787 /* ProfileRouter.swift in Sources */,
-				B9631C552923E9EE00BBC09B /* AddTastePresenter.swift in Sources */,
 				38A027BA2A0A7B6400D3C3E7 /* extention + Encodable.swift in Sources */,
-				B98E1DB128F04A0F00964B8F /* AddManufacturerPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		386CB3F62C385A4F00D73C71 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 386CB3F52C385A4F00D73C71 /* RswiftGenerateInternalResources */;
+		};
 		38A0EB382AA4EFC500CB0D13 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			productRef = 38A0EB372AA4EFC500CB0D13 /* RswiftGenerateInternalResources */;
@@ -2367,6 +2880,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		386CB3D82C38565200D73C71 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				386CB3D92C38565200D73C71 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
 		38A8BC6C2AA51B500074CC3C /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -2379,6 +2900,168 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		386CB3DC2C38565200D73C71 /* localDebug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = Q8BJ8563H3;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HookahTobaccoAdmin/Resources/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.kochetkov.anton.HookahTobaccoAdmin;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = localDebug;
+		};
+		386CB3DD2C38565200D73C71 /* dev */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q8BJ8563H3;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HookahTobaccoAdmin/Resources/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.kochetkov.anton.HookahTobaccoAdmin;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = dev;
+		};
+		386CB3DE2C38565200D73C71 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q8BJ8563H3;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HookahTobaccoAdmin/Resources/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.kochetkov.anton.HookahTobaccoAdmin;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
 		38C3ACD42A8D33AD001D79EB /* dev */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 38C3ACD32A8D337A001D79EB /* dev.xcconfig */;
@@ -2431,7 +3114,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -2469,6 +3152,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ru.kochetkovAnton.HookahTobacco1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2527,7 +3213,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -2563,6 +3249,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.kochetkovAnton.HookahTobacco;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2614,7 +3303,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -2650,6 +3339,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.kochetkovAnton.HookahTobacco;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2659,6 +3351,16 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		386CB3DF2C38565200D73C71 /* Build configuration list for PBXNativeTarget "HookahTobaccoAdmin" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				386CB3DC2C38565200D73C71 /* localDebug */,
+				386CB3DD2C38565200D73C71 /* dev */,
+				386CB3DE2C38565200D73C71 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		B90A79092899E2BF00B90193 /* Build configuration list for PBXProject "HookahTobacco" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -2774,6 +3476,56 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3818E0332A80FB1700C9D02C /* XCRemoteSwiftPackageReference "FittedSheets" */;
 			productName = FittedSheets;
+		};
+		386CB3E32C3857AE00D73C71 /* Swinject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B9EB023928F3159A00B3B6DA /* XCRemoteSwiftPackageReference "Swinject" */;
+			productName = Swinject;
+		};
+		386CB3F02C385A1A00D73C71 /* RswiftLibrary */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 38A0EB342AA4EF7200CB0D13 /* XCRemoteSwiftPackageReference "R.swift" */;
+			productName = RswiftLibrary;
+		};
+		386CB3F52C385A4F00D73C71 /* RswiftGenerateInternalResources */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 38A0EB342AA4EF7200CB0D13 /* XCRemoteSwiftPackageReference "R.swift" */;
+			productName = "plugin:RswiftGenerateInternalResources";
+		};
+		386CB3F82C385A7100D73C71 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B9D6056928D4FFDA0058D19E /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		386CB4012C385ACE00D73C71 /* FittedSheets */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3818E0332A80FB1700C9D02C /* XCRemoteSwiftPackageReference "FittedSheets" */;
+			productName = FittedSheets;
+		};
+		386CB4192C385FDE00D73C71 /* TableKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B9D6DA3C2965ECB200B142AC /* XCRemoteSwiftPackageReference "TableKit" */;
+			productName = TableKit;
+		};
+		386CB4522C3864EB00D73C71 /* Moya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 38B9FF5B2A93C168007E1516 /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = Moya;
+		};
+		386CB4A32C386B6C00D73C71 /* MultiSelectSegmentedControl */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B9D2D2A5293B805100F2F591 /* XCRemoteSwiftPackageReference "MultiSelectSegmentedControl" */;
+			productName = MultiSelectSegmentedControl;
+		};
+		386CB4BA2C38911100D73C71 /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 38E8E6402A87C6B400041443 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
+		};
+		386CB4C92C38967900D73C71 /* IVCollectionKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 38041BE32A9FB8CA00DEEE6D /* XCRemoteSwiftPackageReference "CollectionKit" */;
+			productName = IVCollectionKit;
 		};
 		38A0EB352AA4EF7200CB0D13 /* RswiftLibrary */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -185,7 +185,7 @@ extension TobaccoListPresenter: TobaccoListInteractorOutputProtocol {
     }
 
     func receivedDataForEditing(_ tobacco: Tobacco) {
-        router.showAddTobacco(tobacco, delegate: self)
+        router.showAddTobacco(tobacco)//, delegate: self)
     }
 
     func showMessageUser(_ message: String) {
@@ -252,11 +252,11 @@ extension TobaccoListPresenter: TobaccoListViewOutputProtocol {
 }
 
 // MARK: - AddTobaccoOutputModule implementation
-extension TobaccoListPresenter: AddTobaccoOutputModule {
-    func sendChangedTobacco(_ tobacco: Tobacco) {
-        interactor.receivedDataFromOutside(tobacco)
-    }
-}
+//extension TobaccoListPresenter: AddTobaccoOutputModule {
+//    func sendChangedTobacco(_ tobacco: Tobacco) {
+//        interactor.receivedDataFromOutside(tobacco)
+//    }
+//}
 
 // MARK: - TobaccoFiltersOutputModule implementation
 extension TobaccoListPresenter: TobaccoFiltersOutputModule {

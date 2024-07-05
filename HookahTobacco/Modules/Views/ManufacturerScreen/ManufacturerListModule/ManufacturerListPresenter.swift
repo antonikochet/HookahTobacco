@@ -109,7 +109,7 @@ extension ManufacturerListPresenter: ManufacturerListInteractorOutputProtocol {
     }
 
     func receivedDataForEditing(_ manufacturer: Manufacturer) {
-        router.showAddManufacturer(manufacturer, delegate: self)
+        router.showAddManufacturer(manufacturer) //, delegate: self)
     }
 }
 
@@ -128,8 +128,8 @@ extension ManufacturerListPresenter: ManufacturerListViewOutputProtocol {
 }
 
 // MARK: - OutputModule implementation
-extension ManufacturerListPresenter: AddManufacturerOutputModule {
-    func sendChangedManufacturer(_ manufacture: Manufacturer) {
-        interactor.receivedDataFromOutside(manufacture)
-    }
-}
+//extension ManufacturerListPresenter: AddManufacturerOutputModule {
+//    func sendChangedManufacturer(_ manufacture: Manufacturer) {
+//        interactor.receivedDataFromOutside(manufacture)
+//    }
+//}

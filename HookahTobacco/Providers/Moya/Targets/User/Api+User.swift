@@ -7,6 +7,7 @@
 
 import Foundation
 import Moya
+import SweeterSwift
 
 extension Api {
     enum Users {
