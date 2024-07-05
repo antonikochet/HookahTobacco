@@ -277,7 +277,6 @@
 		386CB5122C389E5800D73C71 /* AddTasteModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9631C5B292400FB00BBC09B /* AddTasteModule.swift */; };
 		386CB5132C389E5A00D73C71 /* AddTasteAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9631C5C292400FB00BBC09B /* AddTasteAssembly.swift */; };
 		386CB5152C389E8C00D73C71 /* extension + TableKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CA939C2969C01C00F258F3 /* extension + TableKit.swift */; };
-		386CB5172C389EBF00D73C71 /* ImageStorageServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B982804B292FD4EB00BF3A93 /* ImageStorageServiceAssembly.swift */; };
 		386CB51A2C38A14900D73C71 /* DetailAppealModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383F2FBC2ABB02C5007BE4A8 /* DetailAppealModule.swift */; };
 		386CB51B2C38A14D00D73C71 /* DetailAppealAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383F2FBD2ABB02C5007BE4A8 /* DetailAppealAssembly.swift */; };
 		386CB51C2C38A15100D73C71 /* AppealsListModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381F44812AB9F85A00FA717A /* AppealsListModule.swift */; };
@@ -306,6 +305,7 @@
 		386CB5362C38A2BA00D73C71 /* ContentCreateAppealsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38EEBE532AB876A5008F9F19 /* ContentCreateAppealsTableViewCell.swift */; };
 		386CB5372C38A2DB00D73C71 /* FilterTobaccoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B0FCCD2AA0D82D0061B849 /* FilterTobaccoCollectionViewCell.swift */; };
 		386CB5442C38A7C500D73C71 /* DataManagerAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97EE9ED292BA0710090B344 /* DataManagerAssembly.swift */; };
+		386CB5562C38AAD700D73C71 /* ImageStorageServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B982804B292FD4EB00BF3A93 /* ImageStorageServiceAssembly.swift */; };
 		387121AC2A55ABD000B6005E /* Api+Tobacco.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387121AB2A55ABD000B6005E /* Api+Tobacco.swift */; };
 		387121AF2A55AD6700B6005E /* Response+Manufacturer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387121AE2A55AD6700B6005E /* Response+Manufacturer.swift */; };
 		387121B32A55AE7F00B6005E /* Api+Taste.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387121B22A55AE7F00B6005E /* Api+Taste.swift */; };
@@ -414,12 +414,6 @@
 		B981CBA72930DBAD00705422 /* DetailTobaccoInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B981CBA22930DBAD00705422 /* DetailTobaccoInteractor.swift */; };
 		B981CBAC293120EF00705422 /* DetailTobaccoModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B981CBAA293120EF00705422 /* DetailTobaccoModule.swift */; };
 		B981CBAD293120EF00705422 /* DetailTobaccoAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B981CBAB293120EF00705422 /* DetailTobaccoAssembly.swift */; };
-		B982803F292FA32900BF3A93 /* ImageStorageServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B982803E292FA32900BF3A93 /* ImageStorageServiceProtocol.swift */; };
-		B9828041292FA3BA00BF3A93 /* SandboxImageStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9828040292FA3BA00BF3A93 /* SandboxImageStorageService.swift */; };
-		B9828045292FA40E00BF3A93 /* ImageStorageError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9828044292FA40E00BF3A93 /* ImageStorageError.swift */; };
-		B9828048292FB95600BF3A93 /* NamedImageStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9828047292FB95600BF3A93 /* NamedImageStorage.swift */; };
-		B982804A292FB97C00BF3A93 /* ImageStorageServiceDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9828049292FB97C00BF3A93 /* ImageStorageServiceDataProtocol.swift */; };
-		B982804C292FD4EB00BF3A93 /* ImageStorageServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B982804B292FD4EB00BF3A93 /* ImageStorageServiceAssembly.swift */; };
 		B989B87129338CD6007ECC59 /* AlertFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B989B87029338CD6007ECC59 /* AlertFactory.swift */; };
 		B989B87329339668007ECC59 /* PopupAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B989B87229339668007ECC59 /* PopupAlertView.swift */; };
 		B98E1DD628F0812500964B8F /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DD028F0812500964B8F /* LoginPresenter.swift */; };
@@ -1166,6 +1160,7 @@
 			children = (
 				386CB3E12C38573700D73C71 /* App */,
 				386CB42A2C38628800D73C71 /* Modules */,
+				386CB5522C38AA9000D73C71 /* Services */,
 				B97EE9DF292B6FDF0090B344 /* Managers */,
 				386CB4292C38626600D73C71 /* Resources */,
 			);
@@ -1285,6 +1280,15 @@
 			isa = PBXGroup;
 			children = (
 				B97EE9ED292BA0710090B344 /* DataManagerAssembly.swift */,
+				B982804B292FD4EB00BF3A93 /* ImageStorageServiceAssembly.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		386CB5522C38AA9000D73C71 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				B982803C292FA2CE00BF3A93 /* ImageStorageService */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1658,7 +1662,6 @@
 			children = (
 				B9D6057228D53BFD0058D19E /* AuthService */,
 				B948D83428CD284900E35884 /* NetworkService */,
-				B982803C292FA2CE00BF3A93 /* ImageStorageService */,
 				B97EE9F4292BB3C90090B344 /* UserDefaultsService */,
 			);
 			path = Services;
@@ -1843,7 +1846,6 @@
 			children = (
 				B90B671629A03EB5004460C8 /* ApiNetworkingServicesAssembly.swift */,
 				38DDDE682A86C46000EA19A3 /* ApiAuthServiceAssembly.swift */,
-				B982804B292FD4EB00BF3A93 /* ImageStorageServiceAssembly.swift */,
 				B97EE9F8292BBEE10090B344 /* UserDefaultsServiceAssembly.swift */,
 			);
 			path = Services;
@@ -2547,6 +2549,7 @@
 				386CB45C2C38651E00D73C71 /* Request+Registration.swift in Sources */,
 				386CB48C2C3869D400D73C71 /* Api+Tobacco.swift in Sources */,
 				386CB4792C38683800D73C71 /* Manufacturer+Codable.swift in Sources */,
+				386CB5562C38AAD700D73C71 /* ImageStorageServiceAssembly.swift in Sources */,
 				386CB3E72C38590400D73C71 /* HTError.swift in Sources */,
 				386CB5012C389D6200D73C71 /* AddTastesModule.swift in Sources */,
 				386CB45F2C3865F700D73C71 /* HTScrollContentViewController.swift in Sources */,
@@ -2558,7 +2561,6 @@
 				386CB52B2C38A20200D73C71 /* AppealsListInteractor.swift in Sources */,
 				386CB40C2C385D4B00D73C71 /* User.swift in Sources */,
 				386CB48E2C3869D900D73C71 /* Response+Tobacco.swift in Sources */,
-				386CB5172C389EBF00D73C71 /* ImageStorageServiceAssembly.swift in Sources */,
 				386CB4632C38665F00D73C71 /* ProfileEditPresenter.swift in Sources */,
 				386CB5442C38A7C500D73C71 /* DataManagerAssembly.swift in Sources */,
 				386CB4432C38642900D73C71 /* RegistrationRouter.swift in Sources */,
@@ -2680,7 +2682,6 @@
 				38AFD1212A92633000800342 /* InfoView.swift in Sources */,
 				B902AE3E29F405EA00BF6AD6 /* Manufacturer+Codable.swift in Sources */,
 				3802046229FE6A7C000193A1 /* ApiHandlerErrors.swift in Sources */,
-				B9828048292FB95600BF3A93 /* NamedImageStorage.swift in Sources */,
 				B9EE2378291023F00098E4E0 /* DetailInfoManufacturerViewController.swift in Sources */,
 				385505352A814A4F00855E50 /* BaseViewController.swift in Sources */,
 				387121B32A55AE7F00B6005E /* Api+Taste.swift in Sources */,
@@ -2699,8 +2700,6 @@
 				B9DBE512290DE2C3005B185C /* HTNavigationControllerAssembly.swift in Sources */,
 				3887C6CE2A585C9400A96AE2 /* Request+Tobacco.swift in Sources */,
 				38041BF82AA0D26500DEEE6D /* TobaccoFiltersModule.swift in Sources */,
-				B9828041292FA3BA00BF3A93 /* SandboxImageStorageService.swift in Sources */,
-				B9828045292FA40E00BF3A93 /* ImageStorageError.swift in Sources */,
 				B9E8DA4828F77A8300CCA034 /* ManufacturerListRouter.swift in Sources */,
 				B98E1DD728F0812500964B8F /* LoginRouter.swift in Sources */,
 				B9027E05290FF613002E3C3A /* AppRouter+Register.swift in Sources */,
@@ -2724,7 +2723,6 @@
 				381E688E2AB73676000AA9BC /* Response+Appeals.swift in Sources */,
 				B902AE4029F408B300BF6AD6 /* TobaccoLine+Codable.swift in Sources */,
 				B9E98A9229107BC000E1389B /* extension+String.swift in Sources */,
-				B982804A292FB97C00BF3A93 /* ImageStorageServiceDataProtocol.swift in Sources */,
 				B981CBAD293120EF00705422 /* DetailTobaccoAssembly.swift in Sources */,
 				B9EB024928F35B5F00B3B6DA /* ModuleProtocol.swift in Sources */,
 				38ADAF542A8FB78000DDB30B /* HTError.swift in Sources */,
@@ -2765,7 +2763,6 @@
 				385505372A814A7A00855E50 /* LoadingView.swift in Sources */,
 				381E688C2AB7366B000AA9BC /* Request+Appeals.swift in Sources */,
 				381E688A2AB735B8000AA9BC /* Api+Appeals.swift in Sources */,
-				B982804C292FD4EB00BF3A93 /* ImageStorageServiceAssembly.swift in Sources */,
 				B902AE4629F40B1D00BF6AD6 /* Tobacco+Codable.swift in Sources */,
 				B9ED910929098AA000DC3A6D /* TobaccoListCell.swift in Sources */,
 				384B93FB2AB3421000DBE89C /* SelectListBottomSheetRouter.swift in Sources */,
@@ -2876,7 +2873,6 @@
 				3887C6D12A58711800A96AE2 /* HandlerErrorPlugin.swift in Sources */,
 				38F9B8932A7FE0DD00EAC0A0 /* IconButton.swift in Sources */,
 				38AFD11B2A9238B600800342 /* DataApiService.swift in Sources */,
-				B982803F292FA32900BF3A93 /* ImageStorageServiceProtocol.swift in Sources */,
 				3838B1752A98A2A900AB3D8C /* PageResponse.swift in Sources */,
 				381E689E2AB74373000AA9BC /* CreateAppealsInteractor.swift in Sources */,
 				B98E1DD828F0812500964B8F /* LoginViewController.swift in Sources */,
