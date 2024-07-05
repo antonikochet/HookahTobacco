@@ -1,6 +1,6 @@
 //
 //  SystemSubscriberProtocol.swift
-//  HookahTobacco
+//  HookahTobaccoAdmin
 //
 //  Created by антон кочетков on 04.12.2022.
 //

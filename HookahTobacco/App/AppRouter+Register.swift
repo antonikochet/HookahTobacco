@@ -19,8 +19,7 @@ extension AppRouter {
             UserDefaultsServiceAssembly(),
             ApiNetworkingServicesAssembly(),
             ApiAuthServiceAssembly(),
-            ImageStorageServiceAssembly(),
-            DataManagerAssembly()
+            ImageStorageServiceAssembly()
         ])
     }
 

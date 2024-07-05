@@ -1,6 +1,6 @@
 //
 //  DataManagerAssembly.swift
-//  HookahTobacco
+//  HookahTobaccoAdmin
 //
 //  Created by антон кочетков on 21.11.2022.
 //

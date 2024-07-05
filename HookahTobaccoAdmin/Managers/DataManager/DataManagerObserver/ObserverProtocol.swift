@@ -1,6 +1,6 @@
 //
 //  ObserverProtocol.swift
-//  HookahTobacco
+//  HookahTobaccoAdmin
 //
 //  Created by антон кочетков on 26.11.2022.
 //
