@@ -25,6 +25,10 @@ extension AppRouter {
     func registerAppModules() {
         registerModule(ProfileAssembly(), ProfileModule.nameModule) { ProfileModule($0) }
         registerModule(LoginAssembly(), LoginModule.nameModule) { LoginModule($0) }
+        
+        registerModule(AddManufacturerAssembly(), AddManufacturerModule.nameModule) { AddManufacturerModule($0) }
+        registerModule(AddCountryAssembly(), AddCountryModule.nameModule) { AddCountryModule($0) }
+        registerModule(AddTobaccoLineAssembly(), AddTobaccoLineModule.nameModule) { AddTobaccoLineModule($0) }
     }
 
     func registerContainerControllers() {

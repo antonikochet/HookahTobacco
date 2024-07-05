@@ -47,13 +47,6 @@
 		381F447D2AB9F1D600FA717A /* AppealTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381F447C2AB9F1D600FA717A /* AppealTableViewCell.swift */; };
 		381F44832AB9F85A00FA717A /* AppealsListModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381F44812AB9F85A00FA717A /* AppealsListModule.swift */; };
 		381F44842AB9F85A00FA717A /* AppealsListAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381F44822AB9F85A00FA717A /* AppealsListAssembly.swift */; };
-		382F0C3D2A7D936600E2F277 /* AddTobaccoLinePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382F0C382A7D936600E2F277 /* AddTobaccoLinePresenter.swift */; };
-		382F0C3E2A7D936600E2F277 /* AddTobaccoLineRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382F0C392A7D936600E2F277 /* AddTobaccoLineRouter.swift */; };
-		382F0C3F2A7D936600E2F277 /* AddTobaccoLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382F0C3A2A7D936600E2F277 /* AddTobaccoLineViewController.swift */; };
-		382F0C402A7D936600E2F277 /* AddTobaccoLineInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382F0C3B2A7D936600E2F277 /* AddTobaccoLineInteractor.swift */; };
-		382F0C412A7D936600E2F277 /* AddTobaccoLineEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382F0C3C2A7D936600E2F277 /* AddTobaccoLineEntity.swift */; };
-		382F0C452A7D93D700E2F277 /* AddTobaccoLineModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382F0C432A7D93D700E2F277 /* AddTobaccoLineModule.swift */; };
-		382F0C462A7D93D700E2F277 /* AddTobaccoLineAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382F0C442A7D93D700E2F277 /* AddTobaccoLineAssembly.swift */; };
 		3838B1752A98A2A900AB3D8C /* PageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3838B1742A98A2A900AB3D8C /* PageResponse.swift */; };
 		383F2FB42ABAFB5B007BE4A8 /* DetailAppealPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383F2FAF2ABAFB5B007BE4A8 /* DetailAppealPresenter.swift */; };
 		383F2FB52ABAFB5B007BE4A8 /* DetailAppealRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383F2FB02ABAFB5B007BE4A8 /* DetailAppealRouter.swift */; };
@@ -234,6 +227,51 @@
 		386CB4B82C3890CC00D73C71 /* UserSettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97EE9F2292BB3C30090B344 /* UserSettingsService.swift */; };
 		386CB4B92C3890D300D73C71 /* UserSettingsServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97EE9F5292BB3E50090B344 /* UserSettingsServiceProtocol.swift */; };
 		386CB4BB2C38911100D73C71 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 386CB4BA2C38911100D73C71 /* KeychainAccess */; };
+		386CB4BF2C3895DE00D73C71 /* AddManufacturerAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7ACB728F495B300A3D7E5 /* AddManufacturerAssembly.swift */; };
+		386CB4C02C3895E100D73C71 /* AddManufacturerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7ACB628F495B300A3D7E5 /* AddManufacturerModule.swift */; };
+		386CB4C32C38964A00D73C71 /* AddManufacturerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DAB28F04A0F00964B8F /* AddManufacturerPresenter.swift */; };
+		386CB4C42C38964E00D73C71 /* AddManufacturerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DAC28F04A0F00964B8F /* AddManufacturerRouter.swift */; };
+		386CB4C52C38965100D73C71 /* AddManufacturerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DAD28F04A0F00964B8F /* AddManufacturerViewController.swift */; };
+		386CB4C62C38965400D73C71 /* AddManufacturerInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DAE28F04A0F00964B8F /* AddManufacturerInteractor.swift */; };
+		386CB4C72C38965800D73C71 /* AddManufacturerEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DB028F04A0F00964B8F /* AddManufacturerEntity.swift */; };
+		386CB4CA2C38967900D73C71 /* IVCollectionKit in Frameworks */ = {isa = PBXBuildFile; productRef = 386CB4C92C38967900D73C71 /* IVCollectionKit */; };
+		386CB4CB2C3896E600D73C71 /* AddPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94B771B290C3785002C5660 /* AddPickerView.swift */; };
+		386CB4CD2C3896F700D73C71 /* extension+UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C138162AABA0210066FCA0 /* extension+UILabel.swift */; };
+		386CB4CE2C38972D00D73C71 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DBE934290B0C07004D7B97 /* ImagePickerView.swift */; };
+		386CB4D02C38978A00D73C71 /* DataManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97EE9E2292B70790090B344 /* DataManagerProtocol.swift */; };
+		386CB4D12C38979100D73C71 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97EE9E6292B85910090B344 /* DataManager.swift */; };
+		386CB4D22C38979F00D73C71 /* ImageStorageServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B982803E292FA32900BF3A93 /* ImageStorageServiceProtocol.swift */; };
+		386CB4D32C3897A200D73C71 /* ImageStorageServiceDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9828049292FB97C00BF3A93 /* ImageStorageServiceDataProtocol.swift */; };
+		386CB4D42C3897A800D73C71 /* ImageStorageError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9828044292FA40E00BF3A93 /* ImageStorageError.swift */; };
+		386CB4D52C3897AE00D73C71 /* SandboxImageStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9828040292FA3BA00BF3A93 /* SandboxImageStorageService.swift */; };
+		386CB4D62C3897B200D73C71 /* NamedImageStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9828047292FB95600BF3A93 /* NamedImageStorage.swift */; };
+		386CB4D72C3897CB00D73C71 /* UpdateDataSubscriberProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B30A1D2932602A00204913 /* UpdateDataSubscriberProtocol.swift */; };
+		386CB4D92C3897E600D73C71 /* CustomCollectionDirector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38041BE62AA0C40D00DEEE6D /* CustomCollectionDirector.swift */; };
+		386CB4DB2C3897E800D73C71 /* CustomCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9631C4B2921ACBE00BBC09B /* CustomCollectionViewLayout.swift */; };
+		386CB4DC2C3897EB00D73C71 /* CustomCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9631C492921AB7100BBC09B /* CustomCollectionView.swift */; };
+		386CB4DD2C3897EE00D73C71 /* TasteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94306D5292053BA00EADFA0 /* TasteCollectionViewCell.swift */; };
+		386CB4DF2C38993200D73C71 /* AddCountryModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F9B8A52A80355300EAC0A0 /* AddCountryModule.swift */; };
+		386CB4E02C38993600D73C71 /* AddCountryAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F9B8A62A80355300EAC0A0 /* AddCountryAssembly.swift */; };
+		386CB4E12C38995700D73C71 /* AddCountryEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F9B89B2A80047E00EAC0A0 /* AddCountryEntity.swift */; };
+		386CB4E22C38995B00D73C71 /* AddCountryInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F9B89A2A80047E00EAC0A0 /* AddCountryInteractor.swift */; };
+		386CB4E32C38995E00D73C71 /* AddCountryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F9B8992A80047E00EAC0A0 /* AddCountryViewController.swift */; };
+		386CB4E42C38996000D73C71 /* AddCountryRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F9B8982A80047E00EAC0A0 /* AddCountryRouter.swift */; };
+		386CB4E52C38996400D73C71 /* AddCountryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F9B8972A80047E00EAC0A0 /* AddCountryPresenter.swift */; };
+		386CB4E62C38996A00D73C71 /* AddCountryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F9B8A22A802FE100EAC0A0 /* AddCountryTableViewCell.swift */; };
+		386CB4E82C3899D300D73C71 /* AddTobaccoLineModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382F0C432A7D93D700E2F277 /* AddTobaccoLineModule.swift */; };
+		386CB4E92C3899D600D73C71 /* AddTobaccoLineAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382F0C442A7D93D700E2F277 /* AddTobaccoLineAssembly.swift */; };
+		386CB4EA2C3899FE00D73C71 /* AddTobaccoLinePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382F0C382A7D936600E2F277 /* AddTobaccoLinePresenter.swift */; };
+		386CB4EB2C389A0100D73C71 /* AddTobaccoLineRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382F0C392A7D936600E2F277 /* AddTobaccoLineRouter.swift */; };
+		386CB4EC2C389A0500D73C71 /* AddTobaccoLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382F0C3A2A7D936600E2F277 /* AddTobaccoLineViewController.swift */; };
+		386CB4ED2C389A0800D73C71 /* AddTobaccoLineInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382F0C3B2A7D936600E2F277 /* AddTobaccoLineInteractor.swift */; };
+		386CB4EE2C389A0B00D73C71 /* AddTobaccoLineEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382F0C3C2A7D936600E2F277 /* AddTobaccoLineEntity.swift */; };
+		386CB4EF2C389A2D00D73C71 /* AddTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A4708528D2BB6400CA6FAA /* AddTextFieldView.swift */; };
+		386CB4F02C389A3400D73C71 /* AddTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94B7719290C2738002C5660 /* AddTextView.swift */; };
+		386CB4F12C389A3E00D73C71 /* AddSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9781D31293A45A700654567 /* AddSwitchView.swift */; };
+		386CB4F22C389A4300D73C71 /* AddSegmentedControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B981B5262938DE3000A02D9F /* AddSegmentedControlView.swift */; };
+		386CB4F32C389A4A00D73C71 /* AddMultiSegmentedControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D2D2A8293B808F00F2F591 /* AddMultiSegmentedControlView.swift */; };
+		386CB4F42C389A9700D73C71 /* ImageButtonPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9567C91291C4BC300CF6176 /* ImageButtonPickerView.swift */; };
+		386CB4F62C389AC400D73C71 /* extention + UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9677CF128D8917000EF9FC6 /* extention + UIViewController.swift */; };
 		387121AC2A55ABD000B6005E /* Api+Tobacco.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387121AB2A55ABD000B6005E /* Api+Tobacco.swift */; };
 		387121AF2A55AD6700B6005E /* Response+Manufacturer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387121AE2A55AD6700B6005E /* Response+Manufacturer.swift */; };
 		387121B32A55AE7F00B6005E /* Api+Taste.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387121B22A55AE7F00B6005E /* Api+Taste.swift */; };
@@ -299,14 +337,6 @@
 		38E8E6472A87D30E00041443 /* Request+Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E8E6462A87D30E00041443 /* Request+Registration.swift */; };
 		38EEBE542AB876A5008F9F19 /* ContentCreateAppealsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38EEBE532AB876A5008F9F19 /* ContentCreateAppealsTableViewCell.swift */; };
 		38F9B8932A7FE0DD00EAC0A0 /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F9B8922A7FE0DD00EAC0A0 /* IconButton.swift */; };
-		38F9B89C2A80047E00EAC0A0 /* AddCountryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F9B8972A80047E00EAC0A0 /* AddCountryPresenter.swift */; };
-		38F9B89D2A80047E00EAC0A0 /* AddCountryRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F9B8982A80047E00EAC0A0 /* AddCountryRouter.swift */; };
-		38F9B89E2A80047E00EAC0A0 /* AddCountryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F9B8992A80047E00EAC0A0 /* AddCountryViewController.swift */; };
-		38F9B89F2A80047E00EAC0A0 /* AddCountryInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F9B89A2A80047E00EAC0A0 /* AddCountryInteractor.swift */; };
-		38F9B8A02A80047E00EAC0A0 /* AddCountryEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F9B89B2A80047E00EAC0A0 /* AddCountryEntity.swift */; };
-		38F9B8A32A802FE100EAC0A0 /* AddCountryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F9B8A22A802FE100EAC0A0 /* AddCountryTableViewCell.swift */; };
-		38F9B8A72A80355300EAC0A0 /* AddCountryModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F9B8A52A80355300EAC0A0 /* AddCountryModule.swift */; };
-		38F9B8A82A80355300EAC0A0 /* AddCountryAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F9B8A62A80355300EAC0A0 /* AddCountryAssembly.swift */; };
 		B9027E05290FF613002E3C3A /* AppRouter+Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9027E04290FF613002E3C3A /* AppRouter+Register.swift */; };
 		B902AE3E29F405EA00BF6AD6 /* Manufacturer+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B902AE3D29F405EA00BF6AD6 /* Manufacturer+Codable.swift */; };
 		B902AE4029F408B300BF6AD6 /* TobaccoLine+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B902AE3F29F408B300BF6AD6 /* TobaccoLine+Codable.swift */; };
@@ -375,11 +405,6 @@
 		B982804C292FD4EB00BF3A93 /* ImageStorageServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B982804B292FD4EB00BF3A93 /* ImageStorageServiceAssembly.swift */; };
 		B989B87129338CD6007ECC59 /* AlertFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B989B87029338CD6007ECC59 /* AlertFactory.swift */; };
 		B989B87329339668007ECC59 /* PopupAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B989B87229339668007ECC59 /* PopupAlertView.swift */; };
-		B98E1DB128F04A0F00964B8F /* AddManufacturerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DAB28F04A0F00964B8F /* AddManufacturerPresenter.swift */; };
-		B98E1DB228F04A0F00964B8F /* AddManufacturerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DAC28F04A0F00964B8F /* AddManufacturerRouter.swift */; };
-		B98E1DB328F04A0F00964B8F /* AddManufacturerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DAD28F04A0F00964B8F /* AddManufacturerViewController.swift */; };
-		B98E1DB428F04A0F00964B8F /* AddManufacturerInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DAE28F04A0F00964B8F /* AddManufacturerInteractor.swift */; };
-		B98E1DB628F04A0F00964B8F /* AddManufacturerEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DB028F04A0F00964B8F /* AddManufacturerEntity.swift */; };
 		B98E1DD628F0812500964B8F /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DD028F0812500964B8F /* LoginPresenter.swift */; };
 		B98E1DD728F0812500964B8F /* LoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DD128F0812500964B8F /* LoginRouter.swift */; };
 		B98E1DD828F0812500964B8F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DD228F0812500964B8F /* LoginViewController.swift */; };
@@ -434,8 +459,6 @@
 		B9E7ACAF28F46AFB00A3D7E5 /* AdminMenuAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7ACAD28F46AFB00A3D7E5 /* AdminMenuAssembly.swift */; };
 		B9E7ACB328F492ED00A3D7E5 /* LoginModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7ACB128F492ED00A3D7E5 /* LoginModule.swift */; };
 		B9E7ACB428F492ED00A3D7E5 /* LoginAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7ACB228F492ED00A3D7E5 /* LoginAssembly.swift */; };
-		B9E7ACB828F495B300A3D7E5 /* AddManufacturerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7ACB628F495B300A3D7E5 /* AddManufacturerModule.swift */; };
-		B9E7ACB928F495B300A3D7E5 /* AddManufacturerAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7ACB728F495B300A3D7E5 /* AddManufacturerAssembly.swift */; };
 		B9E8DA4728F77A8300CCA034 /* ManufacturerListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E8DA4128F77A8200CCA034 /* ManufacturerListPresenter.swift */; };
 		B9E8DA4828F77A8300CCA034 /* ManufacturerListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E8DA4228F77A8300CCA034 /* ManufacturerListRouter.swift */; };
 		B9E8DA4928F77A8300CCA034 /* ManufacturerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E8DA4328F77A8300CCA034 /* ManufacturerListViewController.swift */; };
@@ -779,6 +802,7 @@
 				386CB4532C3864EB00D73C71 /* Moya in Frameworks */,
 				386CB41A2C385FDE00D73C71 /* TableKit in Frameworks */,
 				386CB4BB2C38911100D73C71 /* KeychainAccess in Frameworks */,
+				386CB4CA2C38967900D73C71 /* IVCollectionKit in Frameworks */,
 				386CB3E42C3857AE00D73C71 /* Swinject in Frameworks */,
 				386CB3F12C385A1A00D73C71 /* RswiftLibrary in Frameworks */,
 				386CB4A42C386B6C00D73C71 /* MultiSelectSegmentedControl in Frameworks */,
@@ -895,13 +919,10 @@
 			isa = PBXGroup;
 			children = (
 				381F447F2AB9F84A00FA717A /* Appeals */,
-				38F9B8A42A80353100EAC0A0 /* AddCountry */,
 				B9631C5A292400E400BBC09B /* AddTaste */,
-				382F0C422A7D93BC00E2F277 /* AddTobaccoLine */,
 				B94E17B62921268C0008CB73 /* AddTastes */,
 				B9E7ACA328F454B500A3D7E5 /* AddTobacco */,
 				B9E7ACA728F4673400A3D7E5 /* AdminMenu */,
-				B9E7ACB528F4959500A3D7E5 /* AddManufacturer */,
 			);
 			path = AdminsScreen;
 			sourceTree = "<group>";
@@ -1158,6 +1179,7 @@
 			children = (
 				386CB3CD2C38565100D73C71 /* AppDelegate.swift */,
 				386CB3EC2C38598300D73C71 /* AppRouter+Register.swift */,
+				386CB4BD2C38954200D73C71 /* Assemblies */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -1175,6 +1197,7 @@
 		386CB42A2C38628800D73C71 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				386CB4C12C38961000D73C71 /* Add */,
 				386CB42B2C38629600D73C71 /* Views */,
 			);
 			path = Modules;
@@ -1219,6 +1242,26 @@
 				386CB4B12C388EC200D73C71 /* LoginRouter.swift */,
 			);
 			path = LoginModule;
+			sourceTree = "<group>";
+		};
+		386CB4BD2C38954200D73C71 /* Assemblies */ = {
+			isa = PBXGroup;
+			children = (
+				B9E7ACB528F4959500A3D7E5 /* AddManufacturer */,
+				38F9B8A42A80353100EAC0A0 /* AddCountry */,
+				382F0C422A7D93BC00E2F277 /* AddTobaccoLine */,
+			);
+			path = Assemblies;
+			sourceTree = "<group>";
+		};
+		386CB4C12C38961000D73C71 /* Add */ = {
+			isa = PBXGroup;
+			children = (
+				B98E1DAA28F049E500964B8F /* AddManufacturerModule */,
+				38F9B8962A80043B00EAC0A0 /* AddCountryModule */,
+				382F0C372A7D934E00E2F277 /* AddTobaccoLine */,
+			);
+			path = Add;
 			sourceTree = "<group>";
 		};
 		387121AD2A55ABD500B6005E /* Tobacco */ = {
@@ -2071,9 +2114,6 @@
 				B94306C329201F7B00EADFA0 /* AddTastesModule */,
 				B98E1DEB28F0DBAA00964B8F /* AdminMenuModule */,
 				B98E1DDE28F08D2800964B8F /* AddTobaccoModule */,
-				B98E1DAA28F049E500964B8F /* AddManufacturerModule */,
-				382F0C372A7D934E00E2F277 /* AddTobaccoLine */,
-				38F9B8962A80043B00EAC0A0 /* AddCountryModule */,
 			);
 			path = AdminViews;
 			sourceTree = "<group>";
@@ -2220,6 +2260,7 @@
 				386CB4522C3864EB00D73C71 /* Moya */,
 				386CB4A32C386B6C00D73C71 /* MultiSelectSegmentedControl */,
 				386CB4BA2C38911100D73C71 /* KeychainAccess */,
+				386CB4C92C38967900D73C71 /* IVCollectionKit */,
 			);
 			productName = HookahTobaccoAdmin;
 			productReference = 386CB3CB2C38565100D73C71 /* HookahTobaccoAdmin.app */;
@@ -2379,29 +2420,45 @@
 			files = (
 				386CB47D2C38685500D73C71 /* Taste+Codable.swift in Sources */,
 				386CB4552C3864F500D73C71 /* EmptyResponse.swift in Sources */,
+				386CB4C02C3895E100D73C71 /* AddManufacturerModule.swift in Sources */,
 				386CB43B2C38638A00D73C71 /* SelectListBottomSheetTableViewCell.swift in Sources */,
 				386CB4422C38642400D73C71 /* RegistrationPresenter.swift in Sources */,
+				386CB4F62C389AC400D73C71 /* extention + UIViewController.swift in Sources */,
 				386CB4B32C388F8300D73C71 /* ApiAuthServiceAssembly.swift in Sources */,
 				386CB3FF2C385AC400D73C71 /* BottomSheetPresenter.swift in Sources */,
+				386CB4C62C38965400D73C71 /* AddManufacturerInteractor.swift in Sources */,
+				386CB4EC2C389A0500D73C71 /* AddTobaccoLineViewController.swift in Sources */,
+				386CB4DF2C38993200D73C71 /* AddCountryModule.swift in Sources */,
+				386CB4C52C38965100D73C71 /* AddManufacturerViewController.swift in Sources */,
 				386CB4762C3867DF00D73C71 /* Country.swift in Sources */,
 				386CB40B2C385D3D00D73C71 /* AuthServiceProtocol.swift in Sources */,
 				386CB4642C38666400D73C71 /* ProfileEditViewController.swift in Sources */,
 				386CB46D2C38679A00D73C71 /* ApiHandlerErrors.swift in Sources */,
 				386CB3EA2C38594600D73C71 /* ToastView.swift in Sources */,
+				386CB4CD2C3896F700D73C71 /* extension+UILabel.swift in Sources */,
+				386CB4F22C389A4300D73C71 /* AddSegmentedControlView.swift in Sources */,
+				386CB4D52C3897AE00D73C71 /* SandboxImageStorageService.swift in Sources */,
 				386CB4472C38645100D73C71 /* RegistrationServiceProtocol.swift in Sources */,
 				386CB47B2C38684E00D73C71 /* TasteType+Codable.swift in Sources */,
 				386CB4662C38667100D73C71 /* ProfileEditEntity.swift in Sources */,
 				386CB4172C385FD200D73C71 /* ProfileTableViewCell.swift in Sources */,
+				386CB4F32C389A4A00D73C71 /* AddMultiSegmentedControlView.swift in Sources */,
+				386CB4D02C38978A00D73C71 /* DataManagerProtocol.swift in Sources */,
 				386CB46B2C38671400D73C71 /* ApiNetworkingServicesAssembly.swift in Sources */,
 				386CB4462C38644A00D73C71 /* AuthError.swift in Sources */,
 				386CB4672C38668500D73C71 /* Response+User.swift in Sources */,
 				386CB3EB2C38595200D73C71 /* PopupAlertView.swift in Sources */,
 				386CB4562C3864F800D73C71 /* PageResponse.swift in Sources */,
+				386CB4E52C38996400D73C71 /* AddCountryPresenter.swift in Sources */,
 				386CB4592C38650C00D73C71 /* Request+Authorization.swift in Sources */,
 				386CB4412C38641400D73C71 /* ProfileEditAssembly.swift in Sources */,
+				386CB4E32C38995E00D73C71 /* AddCountryViewController.swift in Sources */,
+				386CB4E82C3899D300D73C71 /* AddTobaccoLineModule.swift in Sources */,
 				386CB4442C38642B00D73C71 /* RegistrationViewController.swift in Sources */,
+				386CB4C42C38964E00D73C71 /* AddManufacturerRouter.swift in Sources */,
 				386CB4242C38615C00D73C71 /* IconView.swift in Sources */,
 				386CB4502C3864CC00D73C71 /* AuthorizationPlugin.swift in Sources */,
+				386CB4E62C38996A00D73C71 /* AddCountryTableViewCell.swift in Sources */,
 				386CB4742C3867D700D73C71 /* TobaccoLine.swift in Sources */,
 				386CB43A2C38638600D73C71 /* SelectListBottomSheetPresenter.swift in Sources */,
 				386CB4152C385F9100D73C71 /* InfoView.swift in Sources */,
@@ -2409,17 +2466,22 @@
 				386CB41F2C3860CE00D73C71 /* PresenterrProtocol.swift in Sources */,
 				386CB44D2C3864A200D73C71 /* JSONDecoder+Moya.swift in Sources */,
 				386CB42F2C3862BB00D73C71 /* ProfileRouter.swift in Sources */,
+				386CB4CB2C3896E600D73C71 /* AddPickerView.swift in Sources */,
 				386CB4392C38638400D73C71 /* SelectListBottomSheetRouter.swift in Sources */,
 				386CB4702C3867C000D73C71 /* DataNetworkingServiceProtocol.swift in Sources */,
+				386CB4EF2C389A2D00D73C71 /* AddTextFieldView.swift in Sources */,
 				386CB4862C3869B400D73C71 /* DataApiService.swift in Sources */,
 				386CB4AA2C38832500D73C71 /* LoginPresenter.swift in Sources */,
+				386CB4D12C38979100D73C71 /* DataManager.swift in Sources */,
 				386CB3FB2C385A8300D73C71 /* HTTabBarControllerAssembly.swift in Sources */,
 				386CB47E2C38687A00D73C71 /* Response+Appeals.swift in Sources */,
 				386CB4362C38637100D73C71 /* SelectListBottomSheetAssembly.swift in Sources */,
 				386CB4122C385F6700D73C71 /* LoadingView.swift in Sources */,
+				386CB4D42C3897A800D73C71 /* ImageStorageError.swift in Sources */,
 				386CB4512C3864CF00D73C71 /* HandlerErrorPlugin.swift in Sources */,
 				386CB4252C38617100D73C71 /* extension+CGSize.swift in Sources */,
 				386CB4262C38618B00D73C71 /* extention + UIEdgeInsets.swift in Sources */,
+				386CB4D32C3897A200D73C71 /* ImageStorageServiceDataProtocol.swift in Sources */,
 				386CB4682C38668E00D73C71 /* Request+User.swift in Sources */,
 				386CB3CE2C38565100D73C71 /* AppDelegate.swift in Sources */,
 				386CB4A72C3882E500D73C71 /* LoginAssembly.swift in Sources */,
@@ -2429,16 +2491,21 @@
 				386CB4B82C3890CC00D73C71 /* UserSettingsService.swift in Sources */,
 				386CB4112C385F5000D73C71 /* ProfileViewController.swift in Sources */,
 				386CB47A2C38684B00D73C71 /* Country+Codable.swift in Sources */,
+				386CB4DC2C3897EB00D73C71 /* CustomCollectionView.swift in Sources */,
 				386CB48F2C3869DE00D73C71 /* Api+Taste.swift in Sources */,
 				386CB4062C385B2900D73C71 /* ObserverProtocol.swift in Sources */,
+				386CB4BF2C3895DE00D73C71 /* AddManufacturerAssembly.swift in Sources */,
 				386CB44A2C38646C00D73C71 /* NetworkHandlerErrors.swift in Sources */,
+				386CB4E12C38995700D73C71 /* AddCountryEntity.swift in Sources */,
 				386CB4622C38663400D73C71 /* extension+UITextField.swift in Sources */,
 				386CB45B2C38651A00D73C71 /* Api+Registration.swift in Sources */,
 				386CB4B92C3890D300D73C71 /* UserSettingsServiceProtocol.swift in Sources */,
 				386CB4732C3867D400D73C71 /* Taste.swift in Sources */,
+				386CB4ED2C389A0800D73C71 /* AddTobaccoLineInteractor.swift in Sources */,
 				386CB46F2C3867B900D73C71 /* NetworkingServiceProtocols.swift in Sources */,
 				386CB3ED2C38598300D73C71 /* AppRouter+Register.swift in Sources */,
 				386CB4082C385B6000D73C71 /* extension+UIVisualEffectView.swift in Sources */,
+				386CB4F42C389A9700D73C71 /* ImageButtonPickerView.swift in Sources */,
 				386CB44F2C3864B000D73C71 /* Moya+Config.swift in Sources */,
 				386CB4772C38681600D73C71 /* Tobacco+Codable.swift in Sources */,
 				386CB40D2C385F1400D73C71 /* ProfileAssembly.swift in Sources */,
@@ -2448,6 +2515,7 @@
 				386CB3E72C38590400D73C71 /* HTError.swift in Sources */,
 				386CB45F2C3865F700D73C71 /* HTScrollContentViewController.swift in Sources */,
 				386CB4162C385FA000D73C71 /* ApplyButton.swift in Sources */,
+				386CB4DB2C3897E800D73C71 /* CustomCollectionViewLayout.swift in Sources */,
 				386CB40C2C385D4B00D73C71 /* User.swift in Sources */,
 				386CB48E2C3869D900D73C71 /* Response+Tobacco.swift in Sources */,
 				386CB4632C38665F00D73C71 /* ProfileEditPresenter.swift in Sources */,
@@ -2455,10 +2523,13 @@
 				386CB41E2C3860C300D73C71 /* RouterProtocol.swift in Sources */,
 				386CB3E22C38574500D73C71 /* AppRouter.swift in Sources */,
 				386CB4572C38650400D73C71 /* DefaultTarget.swift in Sources */,
+				386CB4EE2C389A0B00D73C71 /* AddTobaccoLineEntity.swift in Sources */,
 				386CB43C2C38638D00D73C71 /* DatePickerPresenter.swift in Sources */,
 				386CB41B2C38600800D73C71 /* ButtonProfileTableViewCell.swift in Sources */,
+				386CB4D92C3897E600D73C71 /* CustomCollectionDirector.swift in Sources */,
 				386CB3FC2C385A8B00D73C71 /* HTTabBarController.swift in Sources */,
 				386CB4142C385F7E00D73C71 /* ViewProtocol.swift in Sources */,
+				386CB4DD2C3897EE00D73C71 /* TasteCollectionViewCell.swift in Sources */,
 				386CB4372C38638000D73C71 /* SelectListBottomSheetInteractor.swift in Sources */,
 				386CB4272C38619700D73C71 /* IconButton.swift in Sources */,
 				386CB4452C38642E00D73C71 /* RegistrationInteractor.swift in Sources */,
@@ -2472,18 +2543,24 @@
 				386CB4812C38688000D73C71 /* Api+Appeals.swift in Sources */,
 				386CB4912C3869E900D73C71 /* Api+TasteType.swift in Sources */,
 				386CB4382C38638200D73C71 /* SelectListBottomSheetViewController.swift in Sources */,
+				386CB4D62C3897B200D73C71 /* NamedImageStorage.swift in Sources */,
+				386CB4E92C3899D600D73C71 /* AddTobaccoLineAssembly.swift in Sources */,
 				386CB4092C385B7600D73C71 /* extention + UIFont.swift in Sources */,
 				386CB3E52C3857C000D73C71 /* ModuleProtocol.swift in Sources */,
 				386CB4332C38633A00D73C71 /* DatePickerModule.swift in Sources */,
+				386CB4D72C3897CB00D73C71 /* UpdateDataSubscriberProtocol.swift in Sources */,
 				386CB4842C38699100D73C71 /* UserApiService.swift in Sources */,
 				386CB4202C3860DF00D73C71 /* ProfileModule.swift in Sources */,
 				386CB44E2C3864A800D73C71 /* Api.swift in Sources */,
 				386CB40F2C385F4300D73C71 /* ProfilePresenter.swift in Sources */,
+				386CB4CE2C38972D00D73C71 /* ImagePickerView.swift in Sources */,
 				386CB4352C38636F00D73C71 /* SelectListBottomSheetModule.swift in Sources */,
 				386CB4582C38650700D73C71 /* Api+Authorization.swift in Sources */,
 				386CB43D2C38639100D73C71 /* DatePickerViewController.swift in Sources */,
 				386CB45D2C3865B800D73C71 /* extension+String.swift in Sources */,
+				386CB4E22C38995B00D73C71 /* AddCountryInteractor.swift in Sources */,
 				386CB4932C386A1F00D73C71 /* extention + Encodable.swift in Sources */,
+				386CB4E02C38993600D73C71 /* AddCountryAssembly.swift in Sources */,
 				386CB4802C38687D00D73C71 /* Request+Appeals.swift in Sources */,
 				386CB4B62C3890AD00D73C71 /* UserDefaultsServiceAssembly.swift in Sources */,
 				386CB3EE2C3859D300D73C71 /* HTNavigationControllerAssembly.swift in Sources */,
@@ -2495,12 +2572,15 @@
 				386CB4B22C388EC200D73C71 /* LoginRouter.swift in Sources */,
 				386CB4342C38635400D73C71 /* DatePickerAssembly.swift in Sources */,
 				386CB4872C3869B800D73C71 /* AppealsApiService.swift in Sources */,
+				386CB4EA2C3899FE00D73C71 /* AddTobaccoLinePresenter.swift in Sources */,
 				386CB4722C3867D000D73C71 /* Manufacturer.swift in Sources */,
 				386CB4032C385AE200D73C71 /* extension+SheetViewController.swift in Sources */,
 				386CB40E2C385F3C00D73C71 /* ProfileInteractor.swift in Sources */,
+				386CB4D22C38979F00D73C71 /* ImageStorageServiceProtocol.swift in Sources */,
 				386CB44C2C38649A00D73C71 /* Moya+Request.swift in Sources */,
 				386CB4882C3869BE00D73C71 /* AdminApiService.swift in Sources */,
 				386CB3EF2C3859EC00D73C71 /* HTNavigationController.swift in Sources */,
+				386CB4C72C38965800D73C71 /* AddManufacturerEntity.swift in Sources */,
 				386CB45A2C38651500D73C71 /* Response+Authorization.swift in Sources */,
 				386CB49D2C386B1C00D73C71 /* ImageFormat.swift in Sources */,
 				386CB4482C38645300D73C71 /* AuthSettingsProtocol.swift in Sources */,
@@ -2510,8 +2590,13 @@
 				386CB4492C38645900D73C71 /* ApiAuthServices.swift in Sources */,
 				386CB4302C38630C00D73C71 /* ProfileEditRouter.swift in Sources */,
 				386CB4892C3869CA00D73C71 /* Api+Manufacturer.swift in Sources */,
+				386CB4E42C38996000D73C71 /* AddCountryRouter.swift in Sources */,
+				386CB4F02C389A3400D73C71 /* AddTextView.swift in Sources */,
+				386CB4F12C389A3E00D73C71 /* AddSwitchView.swift in Sources */,
+				386CB4C32C38964A00D73C71 /* AddManufacturerPresenter.swift in Sources */,
 				386CB4902C3869E400D73C71 /* Api+TobaccoLine.swift in Sources */,
 				386CB4692C3866E200D73C71 /* User+Codable.swift in Sources */,
+				386CB4EB2C389A0100D73C71 /* AddTobaccoLineRouter.swift in Sources */,
 				386CB48D2C3869D700D73C71 /* Request+Tobacco.swift in Sources */,
 				386CB4132C385F7200D73C71 /* BaseViewController.swift in Sources */,
 				386CB4AC2C38832B00D73C71 /* LoginViewController.swift in Sources */,
@@ -2539,7 +2624,6 @@
 				B9E7ACAF28F46AFB00A3D7E5 /* AdminMenuAssembly.swift in Sources */,
 				B9828048292FB95600BF3A93 /* NamedImageStorage.swift in Sources */,
 				B9EE2378291023F00098E4E0 /* DetailInfoManufacturerViewController.swift in Sources */,
-				382F0C3F2A7D936600E2F277 /* AddTobaccoLineViewController.swift in Sources */,
 				385505352A814A4F00855E50 /* BaseViewController.swift in Sources */,
 				B98E1DE528F08D4400964B8F /* AddTobaccoPresenter.swift in Sources */,
 				387121B32A55AE7F00B6005E /* Api+Taste.swift in Sources */,
@@ -2556,7 +2640,6 @@
 				B98E1DD628F0812500964B8F /* LoginPresenter.swift in Sources */,
 				38DDDE562A8694C000EA19A3 /* Api+Authorization.swift in Sources */,
 				3899EB762AAF699C0047AD4D /* TextFieldWithLeftLabel.swift in Sources */,
-				382F0C3D2A7D936600E2F277 /* AddTobaccoLinePresenter.swift in Sources */,
 				3818E03C2A81342700C9D02C /* ApplyButton.swift in Sources */,
 				B9DBE512290DE2C3005B185C /* HTNavigationControllerAssembly.swift in Sources */,
 				3887C6CE2A585C9400A96AE2 /* Request+Tobacco.swift in Sources */,
@@ -2564,12 +2647,10 @@
 				B9B30A1E2932602A00204913 /* UpdateDataSubscriberProtocol.swift in Sources */,
 				38041BF82AA0D26500DEEE6D /* TobaccoFiltersModule.swift in Sources */,
 				B9828041292FA3BA00BF3A93 /* SandboxImageStorageService.swift in Sources */,
-				B98E1DB428F04A0F00964B8F /* AddManufacturerInteractor.swift in Sources */,
 				B9828045292FA40E00BF3A93 /* ImageStorageError.swift in Sources */,
 				B9E8DA4828F77A8300CCA034 /* ManufacturerListRouter.swift in Sources */,
 				B98E1DD728F0812500964B8F /* LoginRouter.swift in Sources */,
 				B9027E05290FF613002E3C3A /* AppRouter+Register.swift in Sources */,
-				382F0C3E2A7D936600E2F277 /* AddTobaccoLineRouter.swift in Sources */,
 				B98E1DF228F0DBCF00964B8F /* AdminMenuPresenter.swift in Sources */,
 				B97EE9EE292BA0710090B344 /* DataManagerAssembly.swift in Sources */,
 				B90A79122899E2BF00B90193 /* AppDelegate.swift in Sources */,
@@ -2617,13 +2698,10 @@
 				38E8E6452A87D12000041443 /* Api+Registration.swift in Sources */,
 				B9E7ACB428F492ED00A3D7E5 /* LoginAssembly.swift in Sources */,
 				B904382E2985145D00BADEE3 /* DescriptionStackView.swift in Sources */,
-				38F9B89D2A80047E00EAC0A0 /* AddCountryRouter.swift in Sources */,
-				382F0C462A7D93D700E2F277 /* AddTobaccoLineAssembly.swift in Sources */,
 				B94306CC2920277E00EADFA0 /* AddTastesInteractor.swift in Sources */,
 				3818BA052ABC966000D8B7CD /* AppealMessageTableViewCell.swift in Sources */,
 				B9D6E93929FDCDB1001D44D5 /* Country.swift in Sources */,
 				B9C7825A28ECE25800DBF8C6 /* AuthServiceProtocol.swift in Sources */,
-				38F9B8A32A802FE100EAC0A0 /* AddCountryTableViewCell.swift in Sources */,
 				3848022F2A57189C00DA595B /* Request+Manufacturer.swift in Sources */,
 				38041BF92AA0D26500DEEE6D /* TobaccoFiltersAssembly.swift in Sources */,
 				38BD85A52AB87A2300768FA2 /* AddContentCreateAppealsTableViewCell.swift in Sources */,
@@ -2635,7 +2713,6 @@
 				384B93FD2AB3421000DBE89C /* SelectListBottomSheetInteractor.swift in Sources */,
 				38DDDE672A86C05000EA19A3 /* EmptyResponse.swift in Sources */,
 				3895E5062A5447AF005D87EE /* Moya+Request.swift in Sources */,
-				B98E1DB628F04A0F00964B8F /* AddManufacturerEntity.swift in Sources */,
 				385867442AB98BDC001776D9 /* SuccessBottomSheetModule.swift in Sources */,
 				384B94082AB354AA00DBE89C /* SelectListBottomSheetAssembly.swift in Sources */,
 				385505392A8154D800855E50 /* extension+UIVisualEffectView.swift in Sources */,
@@ -2644,7 +2721,6 @@
 				38AFD11F2A925C5100800342 /* NetworkingServiceProtocols.swift in Sources */,
 				385505372A814A7A00855E50 /* LoadingView.swift in Sources */,
 				381E688C2AB7366B000AA9BC /* Request+Appeals.swift in Sources */,
-				382F0C452A7D93D700E2F277 /* AddTobaccoLineModule.swift in Sources */,
 				381E688A2AB735B8000AA9BC /* Api+Appeals.swift in Sources */,
 				B982804C292FD4EB00BF3A93 /* ImageStorageServiceAssembly.swift in Sources */,
 				B98E1DF328F0DBCF00964B8F /* AdminMenuRouter.swift in Sources */,
@@ -2664,7 +2740,6 @@
 				B9ED9102290989EF00DC3A6D /* TobaccoListPresenter.swift in Sources */,
 				381E68912AB741C9000AA9BC /* AppealsApiService.swift in Sources */,
 				B90B671D29A049D0004460C8 /* GlobalConstant.swift in Sources */,
-				382F0C402A7D936600E2F277 /* AddTobaccoLineInteractor.swift in Sources */,
 				B94306D329204EE700EADFA0 /* AddTastesTableViewCell.swift in Sources */,
 				B97EE9E3292B70790090B344 /* DataManagerProtocol.swift in Sources */,
 				384B93FA2AB3421000DBE89C /* SelectListBottomSheetPresenter.swift in Sources */,
@@ -2679,7 +2754,6 @@
 				B97181582911254100E5DB28 /* DetailInfoManufacturerAssembly.swift in Sources */,
 				B9EB024728F3252500B3B6DA /* AddTobaccoAssembly.swift in Sources */,
 				B98E1DD928F0812500964B8F /* LoginInteractor.swift in Sources */,
-				38F9B89C2A80047E00EAC0A0 /* AddCountryPresenter.swift in Sources */,
 				38041BE72AA0C40D00DEEE6D /* CustomCollectionDirector.swift in Sources */,
 				381E689D2AB74373000AA9BC /* CreateAppealsViewController.swift in Sources */,
 				B9C92601294F6DB20085BB02 /* RegistrationServiceProtocol.swift in Sources */,
@@ -2687,8 +2761,6 @@
 				B9D2D2A9293B808F00F2F591 /* AddMultiSegmentedControlView.swift in Sources */,
 				B92A46AA2966F9DC0006B787 /* ProfileViewController.swift in Sources */,
 				381E68A22AB747AD000AA9BC /* extension+UITextField.swift in Sources */,
-				B9E7ACB928F495B300A3D7E5 /* AddManufacturerAssembly.swift in Sources */,
-				38F9B8A72A80355300EAC0A0 /* AddCountryModule.swift in Sources */,
 				38CE8CD52A89715100B00307 /* ProfileEditModule.swift in Sources */,
 				B9631C4A2921AB7100BBC09B /* CustomCollectionView.swift in Sources */,
 				B981B5272938DE3000A02D9F /* AddSegmentedControlView.swift in Sources */,
@@ -2696,7 +2768,6 @@
 				B9DBE50E290DE11F005B185C /* HTNavigationController.swift in Sources */,
 				3869D3972A7EADBA00C9BF5C /* SelectTasteTypeTableViewCell.swift in Sources */,
 				B9E8DA4A28F77A8300CCA034 /* ManufacturerListInteractor.swift in Sources */,
-				382F0C412A7D936600E2F277 /* AddTobaccoLineEntity.swift in Sources */,
 				B9EE237D29102B710098E4E0 /* DetailInfoManufacturerTableCell.swift in Sources */,
 				B92A46B42967313B0006B787 /* ProfileAssembly.swift in Sources */,
 				3818E0382A80FD1C00C9D02C /* BottomSheetPresenter.swift in Sources */,
@@ -2704,7 +2775,6 @@
 				38C3ACC02A8BCACC001D79EB /* DatePickerRouter.swift in Sources */,
 				B9D6E93329FDC974001D44D5 /* TasteType+Codable.swift in Sources */,
 				38CE8CC82A8955F300B00307 /* ProfileEditPresenter.swift in Sources */,
-				38F9B8A02A80047E00EAC0A0 /* AddCountryEntity.swift in Sources */,
 				B94306CB2920277E00EADFA0 /* AddTastesViewController.swift in Sources */,
 				3802046729FE6D1A000193A1 /* ApiError.swift in Sources */,
 				381F44772AB9E3B800FA717A /* AppealsListViewController.swift in Sources */,
@@ -2722,7 +2792,6 @@
 				B9A66BCB296897F600B6D6E7 /* AnonymousInfoTableViewCell.swift in Sources */,
 				B949D7AD293D2D0F0019BEFC /* ToastView.swift in Sources */,
 				387121AF2A55AD6700B6005E /* Response+Manufacturer.swift in Sources */,
-				38F9B8A82A80355300EAC0A0 /* AddCountryAssembly.swift in Sources */,
 				B9ED910D2909D26100DC3A6D /* TobaccoListModule.swift in Sources */,
 				3895E5012A542D54005D87EE /* DefaultTarget.swift in Sources */,
 				384B94072AB354AA00DBE89C /* SelectListBottomSheetModule.swift in Sources */,
@@ -2731,7 +2800,6 @@
 				B9BA7947295B9CE7009188D6 /* RegistrationModule.swift in Sources */,
 				38C3ACC82A8BD4C0001D79EB /* DatePickerAssembly.swift in Sources */,
 				B9781D32293A45A800654567 /* AddSwitchView.swift in Sources */,
-				B9E7ACB828F495B300A3D7E5 /* AddManufacturerModule.swift in Sources */,
 				B9CA939D2969C01C00F258F3 /* extension + TableKit.swift in Sources */,
 				B9DBE935290B0C07004D7B97 /* ImagePickerView.swift in Sources */,
 				38C3ACC72A8BD4C0001D79EB /* DatePickerModule.swift in Sources */,
@@ -2760,7 +2828,6 @@
 				381F44842AB9F85A00FA717A /* AppealsListAssembly.swift in Sources */,
 				B9E7AC9E28F4337100A3D7E5 /* AppRouter.swift in Sources */,
 				38AFD1192A92322800800342 /* UserApiService.swift in Sources */,
-				38F9B89E2A80047E00EAC0A0 /* AddCountryViewController.swift in Sources */,
 				384B93FC2AB3421000DBE89C /* SelectListBottomSheetViewController.swift in Sources */,
 				B98EE1EF2936CC7400F97E1A /* DataNetworkingServiceProtocol.swift in Sources */,
 				381E68A72AB7924D000AA9BC /* CreateAppealsModule.swift in Sources */,
@@ -2770,7 +2837,6 @@
 				381E68A82AB7924D000AA9BC /* CreateAppealsAssembly.swift in Sources */,
 				387121AC2A55ABD000B6005E /* Api+Tobacco.swift in Sources */,
 				B9C92609294F77570085BB02 /* AuthError.swift in Sources */,
-				B98E1DB328F04A0F00964B8F /* AddManufacturerViewController.swift in Sources */,
 				3899EB712AAF374A0047AD4D /* IconView.swift in Sources */,
 				B92A46A82966F9DC0006B787 /* ProfilePresenter.swift in Sources */,
 				B981CBA72930DBAD00705422 /* DetailTobaccoInteractor.swift in Sources */,
@@ -2784,7 +2850,6 @@
 				381E689C2AB74373000AA9BC /* CreateAppealsRouter.swift in Sources */,
 				38A8B1EC2A91747C009FAFF7 /* PresenterrProtocol.swift in Sources */,
 				B9E8DA5728F783B400CCA034 /* ManufacturerListTableViewCell.swift in Sources */,
-				38F9B89F2A80047E00EAC0A0 /* AddCountryInteractor.swift in Sources */,
 				B981CBAC293120EF00705422 /* DetailTobaccoModule.swift in Sources */,
 				383F2FC22ABB0531007BE4A8 /* AppealAnswerTableViewCell.swift in Sources */,
 				381F44752AB9E3B800FA717A /* AppealsListPresenter.swift in Sources */,
@@ -2794,7 +2859,6 @@
 				383F2FB72ABAFB5B007BE4A8 /* DetailAppealInteractor.swift in Sources */,
 				B9E8DA4728F77A8300CCA034 /* ManufacturerListPresenter.swift in Sources */,
 				3887C6D12A58711800A96AE2 /* HandlerErrorPlugin.swift in Sources */,
-				B98E1DB228F04A0F00964B8F /* AddManufacturerRouter.swift in Sources */,
 				38F9B8932A7FE0DD00EAC0A0 /* IconButton.swift in Sources */,
 				38AFD11B2A9238B600800342 /* DataApiService.swift in Sources */,
 				B982803F292FA32900BF3A93 /* ImageStorageServiceProtocol.swift in Sources */,
@@ -2811,7 +2875,6 @@
 				B92A46A92966F9DC0006B787 /* ProfileRouter.swift in Sources */,
 				B9631C552923E9EE00BBC09B /* AddTastePresenter.swift in Sources */,
 				38A027BA2A0A7B6400D3C3E7 /* extention + Encodable.swift in Sources */,
-				B98E1DB128F04A0F00964B8F /* AddManufacturerPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3470,6 +3533,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 38E8E6402A87C6B400041443 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
 			productName = KeychainAccess;
+		};
+		386CB4C92C38967900D73C71 /* IVCollectionKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 38041BE32A9FB8CA00DEEE6D /* XCRemoteSwiftPackageReference "CollectionKit" */;
+			productName = IVCollectionKit;
 		};
 		38A0EB352AA4EF7200CB0D13 /* RswiftLibrary */ = {
 			isa = XCSwiftPackageProductDependency;

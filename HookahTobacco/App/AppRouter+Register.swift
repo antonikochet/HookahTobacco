@@ -28,7 +28,7 @@ extension AppRouter {
         registerModule(AddTobaccoAssembly(), AddTobaccoModule.nameModule) { AddTobaccoModule($0) }
         registerModule(AdminMenuAssembly(), AdminMenuModule.nameModule) { AdminMenuModule($0) }
         registerModule(LoginAssembly(), LoginModule.nameModule) { LoginModule($0) }
-        registerModule(AddManufacturerAssembly(), AddManufacturerModule.nameModule) { AddManufacturerModule($0) }
+        
         registerModule(ManufacturerListAssembly(), ManufacturerListModule.nameModule) { ManufacturerListModule($0) }
         registerModule(TobaccoListAssembly(), TobaccoListModule.nameModule) { TobaccoListModule($0) }
         registerModule(DetailInfoManufacturerAssembly(),
@@ -38,8 +38,6 @@ extension AppRouter {
         registerModule(DetailTobaccoAssembly(), DetailTobaccoModule.nameModule) { DetailTobaccoModule($0) }
         registerModule(RegistrationAssembly(), RegistrationModule.nameModule) { RegistrationModule($0) }
         registerModule(ProfileAssembly(), ProfileModule.nameModule) { ProfileModule($0) }
-        registerModule(AddTobaccoLineAssembly(), AddTobaccoLineModule.nameModule) { AddTobaccoLineModule($0) }
-        registerModule(AddCountryAssembly(), AddCountryModule.nameModule) { AddCountryModule($0) }
         registerModule(ProfileEditAssembly(), ProfileEditModule.nameModule) { ProfileEditModule($0) }
         registerModule(DatePickerAssembly(), DatePickerModule.nameModule) { DatePickerModule($0) }
         registerModule(TobaccoFiltersAssembly(), TobaccoFiltersModule.nameModule) { TobaccoFiltersModule($0) }

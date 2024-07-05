@@ -1,7 +1,7 @@
 //
 //
 //  AddManufacturerPresenter.swift
-//  HookahTobacco
+//  HookahTobaccoAdmin
 //
 //  Created by антон кочетков on 07.10.2022.
 //

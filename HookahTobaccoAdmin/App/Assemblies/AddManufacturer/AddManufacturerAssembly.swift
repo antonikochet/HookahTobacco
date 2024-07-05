@@ -1,7 +1,7 @@
 //
 //
 //  AddManufacturerAssembly.swift
-//  HookahTobacco
+//  HookahTobaccoAdmin
 //
 //  Created by антон кочетков on 10.10.2022.
 //
