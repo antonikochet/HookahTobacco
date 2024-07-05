@@ -50,6 +50,13 @@ class AppRouter: AppRouterProtocol {
         assembler.apply(assembly: assembly)
         registerModule.updateValue(createModuleClosure, forKey: nameModule)
     }
+    
+    func registerModule(
+        _ nameModule: String,
+        _ createModuleClosure: @escaping (DataModuleProtocol?) -> ModuleProtocol
+    ) {
+        registerModule.updateValue(createModuleClosure, forKey: nameModule)
+    }
 
     func startAppPresent(_ containers: [(module: ModuleProtocol.Type,
                                          tabBarItem: TabBarItemProtocol)]) {

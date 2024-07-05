@@ -8,17 +8,19 @@
 import SwiftUI
 
 struct DetailTobaccoView<ViewModel: DetailTobaccoViewModelOb>: View {
-    
+    // MARK: - Private properties
     @ObservedObject private var viewModel: ViewModel
     
+    // MARK: - Initializers
     init(viewModel: ViewModel) {
         self.viewModel = viewModel
     }
     
+    // MARK: - Body
     var body: some View {
         ScrollView {
             VStack {
-                image
+                HTImage(imageURL: viewModel.imageURL)
                 
                 Text(viewModel.name)
                     .font(.appFont(size: 30, weight: .bold))
@@ -45,28 +47,10 @@ struct DetailTobaccoView<ViewModel: DetailTobaccoViewModelOb>: View {
         .padding()
     }
     
-    var image: some View {
-        AsyncImage(url: viewModel.imageURL) { phase in
-            switch phase {
-            case .empty:
-                ZStack {
-                    Color.gray // TODO: - поменять цвет по фигме
-                    ProgressView()
-                }
-                .frame(height: 200)
-            case .success(let image):
-                image
-                    .resizable()
-                    .scaledToFit()
-            case .failure:
-                RoundedRectangle(cornerRadius: 24)
-                    .foregroundStyle(Color.gray) // TODO: - переделать цвет
-                    .frame(height: 200)
-            @unknown default:
-                EmptyView()
-            }
-        }
-    }
+    // MARK: - Subviews
+    
+    // MARK: - Private methods
+    
 }
 
 #Preview {

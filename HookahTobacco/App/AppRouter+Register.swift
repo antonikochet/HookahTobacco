@@ -35,7 +35,7 @@ extension AppRouter {
                        DetailInfoManufacturerModule.nameModule) { DetailInfoManufacturerModule($0) }
         registerModule(AddTastesAssembly(), AddTastesModule.nameModule) { AddTastesModule($0) }
         registerModule(AddTasteAssembly(), AddTasteModule.nameModule) { AddTasteModule($0) }
-        registerModule(DetailTobaccoAssembly(), DetailTobaccoModule.nameModule) { DetailTobaccoModule($0) }
+        registerModule(DetailTobaccoModule.nameModule) { DetailTobaccoModule($0) }
         registerModule(RegistrationAssembly(), RegistrationModule.nameModule) { RegistrationModule($0) }
         registerModule(ProfileAssembly(), ProfileModule.nameModule) { ProfileModule($0) }
         registerModule(AddTobaccoLineAssembly(), AddTobaccoLineModule.nameModule) { AddTobaccoLineModule($0) }

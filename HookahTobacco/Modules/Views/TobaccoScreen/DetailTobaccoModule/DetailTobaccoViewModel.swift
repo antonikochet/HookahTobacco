@@ -10,7 +10,7 @@ import Foundation
 // TODO: - переименовать протокол
 protocol DetailTobaccoViewModelOb: ObservableObject {
     var name: String { get }
-    var imageURL: URL? { get }
+    var imageURL: String { get }
     var tastes: [String] { get }
     var info: [DescriptionStackViewItem] { get }
     var description: String { get }
@@ -18,20 +18,24 @@ protocol DetailTobaccoViewModelOb: ObservableObject {
 }
 
 final class DetailTobaccoViewModelImpl: DetailTobaccoViewModelOb {
+    // MARK: - ViewModel properties
     @Published private(set) var name: String = ""
-    @Published private(set) var imageURL: URL?
+    @Published private(set) var imageURL: String
     @Published private(set) var tastes: [String] = []
     @Published private(set) var info: [DescriptionStackViewItem] = []
     @Published private(set) var description: String = ""
     @Published private(set) var nameManufacturer: String = ""
-    
+    // MARK: - Private properties
     private var tobacco: Tobacco
     
+    // MARK: - Dependency
+    
+    // MARK: - Initializers
     init(tobacco: Tobacco) {
         self.tobacco = tobacco
         
         self.name = tobacco.name
-        self.imageURL = URL(string: tobacco.imageURL)
+        self.imageURL = tobacco.imageURL
         self.tastes = tobacco.tastes.map { $0.taste }
         self.info = createInfo(tobacco: tobacco)
         self.description = (
@@ -42,6 +46,9 @@ final class DetailTobaccoViewModelImpl: DetailTobaccoViewModelOb {
         self.nameManufacturer = tobacco.nameManufacturer
     }
     
+    // MARK: - ViewModel methods
+    
+    // MARK: - Private methods
     private func createInfo(tobacco: Tobacco) -> [DescriptionStackViewItem] {
         let packetingFormat = tobacco.line.packetingFormat
             .compactMap {
