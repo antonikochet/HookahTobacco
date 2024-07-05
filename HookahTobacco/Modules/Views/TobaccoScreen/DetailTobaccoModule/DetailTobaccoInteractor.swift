@@ -22,16 +22,13 @@ class DetailTobaccoInteractor {
     weak var presenter: DetailTobaccoInteractorOutputProtocol!
 
     // MARK: - Dependency
-    private let getDataManager: DataManagerProtocol
 
     // MARK: - Private properties
     private var tobacco: Tobacco
 
     // MARK: - Initializers
-    init(_ tobacco: Tobacco,
-         getDataManager: DataManagerProtocol) {
+    init(_ tobacco: Tobacco) {
         self.tobacco = tobacco
-        self.getDataManager = getDataManager
     }
 
     // MARK: - Private methods

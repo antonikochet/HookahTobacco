@@ -11,7 +11,7 @@ import UIKit
 
 protocol TobaccoListRouterProtocol: RouterProtocol {
     func showDetail(for data: Tobacco)
-    func showAddTobacco(_ data: Tobacco, delegate: AddTobaccoOutputModule?)
+    func showAddTobacco(_ data: Tobacco)//, delegate: AddTobaccoOutputModule?)
     func showMessage(with message: String)
     func showFilter(_ filter: TobaccoFilters?, delegate: TobaccoFiltersOutputModule?)
 }
@@ -30,11 +30,11 @@ class TobaccoListRouter: TobaccoListRouterProtocol {
                                      animateDisplay: true)
     }
 
-    func showAddTobacco(_ data: Tobacco, delegate: AddTobaccoOutputModule?) {
-        let tData = AddTobaccoDataModule(editingTobacco: data, delegate: delegate)
-        appRouter.pushViewController(module: AddTobaccoModule.self,
-                                     moduleData: tData,
-                                     animateDisplay: true)
+    func showAddTobacco(_ data: Tobacco) {//, delegate: AddTobaccoOutputModule?) {
+//        let tData = AddTobaccoDataModule(editingTobacco: data, delegate: delegate)
+//        appRouter.pushViewController(module: AddTobaccoModule.self,
+//                                     moduleData: tData,
+//                                     animateDisplay: true)
     }
 
     func showMessage(with message: String) {

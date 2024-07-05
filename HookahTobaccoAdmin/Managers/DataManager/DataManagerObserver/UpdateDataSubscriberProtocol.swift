@@ -1,0 +1,17 @@
+//
+//  UpdateDataSubscriberProtocol.swift
+//  HookahTobaccoAdmin
+//
+//  Created by антон кочетков on 26.11.2022.
+//
+
+import Foundation
+
+enum UpdateDataNotification<T> {
+    case update(T)
+    case error(HTError)
+}
+
+protocol UpdateDataSubscriberProtocol: SubscriberProtocol {
+    func notify<T>(for type: T.Type, notification: UpdateDataNotification<[T]>)
+}

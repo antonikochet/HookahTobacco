@@ -45,7 +45,6 @@ class TobaccoListInteractor {
     // MARK: - Dependency
     private var getDataNetworkingService: GetDataNetworkingServiceProtocol
     private var userService: UserNetworkingServiceProtocol
-    private var updateDataManager: ObserverProtocol
 
     // MARK: - Private properties
     private var tobaccos: [Tobacco] = []
@@ -58,19 +57,12 @@ class TobaccoListInteractor {
     init(_ isAdminModel: Bool,
          input: TobaccoListInput,
          getDataNetworkingService: GetDataNetworkingServiceProtocol,
-         userService: UserNetworkingServiceProtocol,
-         updateDataManager: ObserverProtocol
+         userService: UserNetworkingServiceProtocol
     ) {
         self.isAdminMode = isAdminModel
         self.input = input
         self.getDataNetworkingService = getDataNetworkingService
         self.userService = userService
-        self.updateDataManager = updateDataManager
-        self.updateDataManager.subscribe(to: Tobacco.self, subscriber: self)
-    }
-
-    deinit {
-        self.updateDataManager.unsubscribe(to: Tobacco.self, subscriber: self)
     }
 
     // MARK: - Private methods
@@ -229,21 +221,5 @@ extension TobaccoListInteractor: TobaccoListInteractorInputProtocol {
 
     func receiveFilter() -> TobaccoFilters? {
         filters
-    }
-}
-
-    // MARK: - UpdateDataSubscriberProtocol implementation
-extension TobaccoListInteractor: UpdateDataSubscriberProtocol {
-    func notify<T>(for type: T.Type, notification: UpdateDataNotification<[T]>) {
-        switch notification {
-        case .update(let data):
-            if let newTobacco = data as? [Tobacco] {
-                tobaccos = newTobacco
-                presenter.receivedSuccess(tobaccos)
-                getImagesTobacco()
-            }
-        case .error(let error):
-                presenter.receivedError(error)
-        }
     }
 }

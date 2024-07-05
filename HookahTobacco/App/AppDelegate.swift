@@ -27,10 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         router.registerContainerControllers()
 
         router.assembleContainers()
-
-        let dataManager = router.resolver.resolve(DataManager.self)!
-        dataManager.subscribe(to: SystemNotificationType.self, subscriber: router)
-
+        
         self.router = router
         window?.makeKeyAndVisible()
 
