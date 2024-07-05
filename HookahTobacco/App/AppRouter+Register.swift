@@ -25,16 +25,12 @@ extension AppRouter {
     }
 
     func registerAppModules() {
-        registerModule(AddTobaccoAssembly(), AddTobaccoModule.nameModule) { AddTobaccoModule($0) }
-        registerModule(AdminMenuAssembly(), AdminMenuModule.nameModule) { AdminMenuModule($0) }
         registerModule(LoginAssembly(), LoginModule.nameModule) { LoginModule($0) }
         
         registerModule(ManufacturerListAssembly(), ManufacturerListModule.nameModule) { ManufacturerListModule($0) }
         registerModule(TobaccoListAssembly(), TobaccoListModule.nameModule) { TobaccoListModule($0) }
         registerModule(DetailInfoManufacturerAssembly(),
                        DetailInfoManufacturerModule.nameModule) { DetailInfoManufacturerModule($0) }
-        registerModule(AddTastesAssembly(), AddTastesModule.nameModule) { AddTastesModule($0) }
-        registerModule(AddTasteAssembly(), AddTasteModule.nameModule) { AddTasteModule($0) }
         registerModule(DetailTobaccoAssembly(), DetailTobaccoModule.nameModule) { DetailTobaccoModule($0) }
         registerModule(RegistrationAssembly(), RegistrationModule.nameModule) { RegistrationModule($0) }
         registerModule(ProfileAssembly(), ProfileModule.nameModule) { ProfileModule($0) }
@@ -46,8 +42,6 @@ extension AppRouter {
         registerModule(CreateAppealsAssembly(), CreateAppealsModule.nameModule) { CreateAppealsModule($0) }
         registerModule(SuccessBottomSheetAssembly(),
                        SuccessBottomSheetModule.nameModule) { SuccessBottomSheetModule($0) }
-        registerModule(AppealsListAssembly(), AppealsListModule.nameModule) { AppealsListModule($0) }
-        registerModule(DetailAppealAssembly(), DetailAppealModule.nameModule) { DetailAppealModule($0) }
     }
 
     func registerContainerControllers() {

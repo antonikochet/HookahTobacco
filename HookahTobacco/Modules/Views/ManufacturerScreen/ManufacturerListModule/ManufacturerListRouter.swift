@@ -11,7 +11,7 @@ import UIKit
 
 protocol ManufacturerListRouterProtocol: RouterProtocol {
     func showDetail(for manufacturer: Manufacturer)
-    func showAddManufacturer(_ data: Manufacturer, delegate: AddManufacturerOutputModule?)
+    func showAddManufacturer(_ data: Manufacturer) //, delegate: AddManufacturerOutputModule?)
 }
 
 class ManufacturerListRouter: ManufacturerListRouterProtocol {
@@ -28,10 +28,10 @@ class ManufacturerListRouter: ManufacturerListRouterProtocol {
                                      animateDisplay: true)
     }
 
-    func showAddManufacturer(_ data: Manufacturer, delegate: AddManufacturerOutputModule?) {
-        let data = AddManufacturerDataModule(editingManufacturer: data, delegate: delegate)
-        appRouter.pushViewController(module: AddManufacturerModule.self,
-                                     moduleData: data,
-                                     animateDisplay: true)
+    func showAddManufacturer(_ data: Manufacturer) {//}, delegate: AddManufacturerOutputModule?) {
+//        let data = AddManufacturerDataModule(editingManufacturer: data, delegate: delegate)
+//        appRouter.pushViewController(module: AddManufacturerModule.self,
+//                                     moduleData: data,
+//                                     animateDisplay: true)
     }
 }

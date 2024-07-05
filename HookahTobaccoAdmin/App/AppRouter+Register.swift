@@ -19,16 +19,24 @@ extension AppRouter {
             UserDefaultsServiceAssembly(),
             ApiNetworkingServicesAssembly(),
             ApiAuthServiceAssembly(),
+            ImageStorageServiceAssembly(),
+            DataManagerAssembly()
         ])
     }
 
     func registerAppModules() {
         registerModule(ProfileAssembly(), ProfileModule.nameModule) { ProfileModule($0) }
         registerModule(LoginAssembly(), LoginModule.nameModule) { LoginModule($0) }
+        registerModule(AdminMenuAssembly(), AdminMenuModule.nameModule) { AdminMenuModule($0) }
         
         registerModule(AddManufacturerAssembly(), AddManufacturerModule.nameModule) { AddManufacturerModule($0) }
         registerModule(AddCountryAssembly(), AddCountryModule.nameModule) { AddCountryModule($0) }
         registerModule(AddTobaccoLineAssembly(), AddTobaccoLineModule.nameModule) { AddTobaccoLineModule($0) }
+        registerModule(AddTobaccoAssembly(), AddTobaccoModule.nameModule) { AddTobaccoModule($0) }
+        registerModule(AddTastesAssembly(), AddTastesModule.nameModule) { AddTastesModule($0) }
+        registerModule(AddTasteAssembly(), AddTasteModule.nameModule) { AddTasteModule($0) }
+        registerModule(AppealsListAssembly(), AppealsListModule.nameModule) { AppealsListModule($0) }
+        registerModule(DetailAppealAssembly(), DetailAppealModule.nameModule) { DetailAppealModule($0) }
     }
 
     func registerContainerControllers() {
