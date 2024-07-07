@@ -10,6 +10,12 @@ import SwiftUI
 struct HTImage: View {
     
     let imageURL: String
+    let height: CGFloat?
+    
+    init(imageURL: String, height: CGFloat? = nil) {
+        self.imageURL = imageURL
+        self.height = height
+    }
     
     var body: some View {
         AsyncImage(url: URL(string: imageURL)) { phase in
@@ -19,15 +25,15 @@ struct HTImage: View {
                     Color.gray // TODO: - поменять цвет по фигме
                     ProgressView()
                 }
-                .frame(height: 200)
+                .frame(height: height)
             case .success(let image):
                 image
                     .resizable()
                     .scaledToFit()
             case .failure:
-                RoundedRectangle(cornerRadius: 24)
+                RoundedRectangle(cornerRadius: 16)
                     .foregroundStyle(Color.gray) // TODO: - переделать цвет
-                    .frame(height: 200)
+                    .frame(height: height)
             @unknown default:
                 EmptyView()
             }

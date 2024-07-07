@@ -20,7 +20,7 @@ struct DetailTobaccoView<ViewModel: DetailTobaccoViewModelOb>: View {
     var body: some View {
         ScrollView {
             VStack {
-                HTImage(imageURL: viewModel.imageURL)
+                HTImage(imageURL: viewModel.imageURL, height: 300)
                 
                 Text(viewModel.name)
                     .font(.appFont(size: 30, weight: .bold))
@@ -43,8 +43,8 @@ struct DetailTobaccoView<ViewModel: DetailTobaccoViewModelOb>: View {
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .padding(.top, 8)
             }
+            .padding()
         }
-        .padding()
     }
     
     // MARK: - Subviews

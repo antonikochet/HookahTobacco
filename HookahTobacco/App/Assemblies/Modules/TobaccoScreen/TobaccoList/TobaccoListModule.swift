@@ -8,6 +8,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 struct TobaccoListDataModile: DataModuleProtocol {
     let isAdminMode: Bool
@@ -27,6 +28,17 @@ class TobaccoListModule: ModuleProtocol {
             dependency.isAdminMode = data.isAdminMode
             dependency.filter = data.filter
         }
-        return appRouter.resolver.resolve(TobaccoListViewController.self, argument: dependency)
+        let viewModel = TobaccoListViewModelImpl(
+            getDataNetworkingService: appRouter.resolver.resolve(GetDataNetworkingServiceProtocol.self)!,
+            userService: appRouter.resolver.resolve(UserNetworkingServiceProtocol.self)!) { tobacco in
+                let moduleData = DetailTobaccoDataModule(tobacco: tobacco)
+                appRouter.pushViewController(
+                    module: DetailTobaccoModule.self,
+                    moduleData: moduleData,
+                    animateDisplay: true
+                )
+            }
+        let view = TobaccoListView(viewModel: viewModel)
+        return UIHostingController(rootView: view)
     }
 }

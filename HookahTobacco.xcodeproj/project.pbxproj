@@ -26,6 +26,9 @@
 		3818E0382A80FD1C00C9D02C /* BottomSheetPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3818E0372A80FD1C00C9D02C /* BottomSheetPresenter.swift */; };
 		3818E03A2A80FE8600C9D02C /* extension+SheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3818E0392A80FE8600C9D02C /* extension+SheetViewController.swift */; };
 		3818E03C2A81342700C9D02C /* ApplyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3818E03B2A81342700C9D02C /* ApplyButton.swift */; };
+		381910372C3B1500001CADC0 /* TobaccoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381910362C3B1500001CADC0 /* TobaccoView.swift */; };
+		3819103A2C3B151B001CADC0 /* TobaccoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381910382C3B151B001CADC0 /* TobaccoListView.swift */; };
+		3819103B2C3B151B001CADC0 /* TobaccoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381910392C3B151B001CADC0 /* TobaccoListViewModel.swift */; };
 		381E688A2AB735B8000AA9BC /* Api+Appeals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381E68892AB735B8000AA9BC /* Api+Appeals.swift */; };
 		381E688C2AB7366B000AA9BC /* Request+Appeals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381E688B2AB7366B000AA9BC /* Request+Appeals.swift */; };
 		381E688E2AB73676000AA9BC /* Response+Appeals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381E688D2AB73675000AA9BC /* Response+Appeals.swift */; };
@@ -499,6 +502,9 @@
 		3818E0372A80FD1C00C9D02C /* BottomSheetPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetPresenter.swift; sourceTree = "<group>"; };
 		3818E0392A80FE8600C9D02C /* extension+SheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extension+SheetViewController.swift"; sourceTree = "<group>"; };
 		3818E03B2A81342700C9D02C /* ApplyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplyButton.swift; sourceTree = "<group>"; };
+		381910362C3B1500001CADC0 /* TobaccoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TobaccoView.swift; sourceTree = "<group>"; };
+		381910382C3B151B001CADC0 /* TobaccoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TobaccoListView.swift; sourceTree = "<group>"; };
+		381910392C3B151B001CADC0 /* TobaccoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TobaccoListViewModel.swift; sourceTree = "<group>"; };
 		381E68892AB735B8000AA9BC /* Api+Appeals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Api+Appeals.swift"; sourceTree = "<group>"; };
 		381E688B2AB7366B000AA9BC /* Request+Appeals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Request+Appeals.swift"; sourceTree = "<group>"; };
 		381E688D2AB73675000AA9BC /* Response+Appeals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Response+Appeals.swift"; sourceTree = "<group>"; };
@@ -1982,6 +1988,8 @@
 				B9ED90FE290989EF00DC3A6D /* TobaccoListRouter.swift */,
 				B9ED90FF290989EF00DC3A6D /* TobaccoListViewController.swift */,
 				B9ED9100290989EF00DC3A6D /* TobaccoListInteractor.swift */,
+				381910382C3B151B001CADC0 /* TobaccoListView.swift */,
+				381910392C3B151B001CADC0 /* TobaccoListViewModel.swift */,
 			);
 			path = TobaccoListModule;
 			sourceTree = "<group>";
@@ -2053,6 +2061,7 @@
 		B9CA93A02969D6C000F258F3 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				381910362C3B1500001CADC0 /* TobaccoView.swift */,
 				B9ED910829098AA000DC3A6D /* TobaccoListCell.swift */,
 			);
 			path = Cell;
@@ -2719,6 +2728,7 @@
 				B9EE2377291023F00098E4E0 /* DetailInfoManufacturerRouter.swift in Sources */,
 				B9E7ACB328F492ED00A3D7E5 /* LoginModule.swift in Sources */,
 				38E8E6452A87D12000041443 /* Api+Registration.swift in Sources */,
+				381910372C3B1500001CADC0 /* TobaccoView.swift in Sources */,
 				B9E7ACB428F492ED00A3D7E5 /* LoginAssembly.swift in Sources */,
 				B904382E2985145D00BADEE3 /* DescriptionStackView.swift in Sources */,
 				B9D6E93929FDCDB1001D44D5 /* Country.swift in Sources */,
@@ -2822,6 +2832,7 @@
 				38CE8CC92A8955F300B00307 /* ProfileEditRouter.swift in Sources */,
 				38EEBE542AB876A5008F9F19 /* ContentCreateAppealsTableViewCell.swift in Sources */,
 				38CE8CCC2A8955F300B00307 /* ProfileEditEntity.swift in Sources */,
+				3819103A2C3B151B001CADC0 /* TobaccoListView.swift in Sources */,
 				B97181572911254100E5DB28 /* DetailInfoManufacturerModule.swift in Sources */,
 				38DE7EC12AA278BE00DE4D01 /* MultiSegmentedTobaccoTableViewCell.swift in Sources */,
 				B9A4708628D2BB6400CA6FAA /* AddTextFieldView.swift in Sources */,
@@ -2841,6 +2852,7 @@
 				387121AC2A55ABD000B6005E /* Api+Tobacco.swift in Sources */,
 				B9C92609294F77570085BB02 /* AuthError.swift in Sources */,
 				3899EB712AAF374A0047AD4D /* IconView.swift in Sources */,
+				3819103B2C3B151B001CADC0 /* TobaccoListViewModel.swift in Sources */,
 				B92A46A82966F9DC0006B787 /* ProfilePresenter.swift in Sources */,
 				B9C925FA294F53720085BB02 /* RegistrationInteractor.swift in Sources */,
 				B9677CF228D8917000EF9FC6 /* extention + UIViewController.swift in Sources */,
