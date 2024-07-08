@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ViewDidLoadModifier: ViewModifier {
     @State private var viewDidLoad = false
-    let action: CompletionBlock?
+    let action: VoidBlock?
     
     func body(content: Content) -> some View {
         content
@@ -23,7 +23,7 @@ struct ViewDidLoadModifier: ViewModifier {
 }
 
 extension View {
-    func onViewDidLoad(perform action: CompletionBlock? = nil) -> some View {
+    func onViewDidLoad(perform action: VoidBlock? = nil) -> some View {
         modifier(ViewDidLoadModifier(action: action))
     }
 }

@@ -35,13 +35,13 @@ final class TobaccoListViewModelImpl: BaseViewModelImpl, TobaccoListViewModel {
     private var userService: UserNetworkingServiceProtocol
     
     // MARK: - Routing
-    private var showDetailTobacco: CompletionBlockWithParam<Tobacco>
+    private var showDetailTobacco: BlockWithParam<Tobacco>
     
     // MARK: - Initializers
     init(
         getDataNetworkingService: GetDataNetworkingServiceProtocol,
         userService: UserNetworkingServiceProtocol,
-        showDetailTobacco: @escaping CompletionBlockWithParam<Tobacco>
+        showDetailTobacco: @escaping BlockWithParam<Tobacco>
     ) {
         self.getDataNetworkingService = getDataNetworkingService
         self.userService = userService
@@ -66,7 +66,7 @@ final class TobaccoListViewModelImpl: BaseViewModelImpl, TobaccoListViewModel {
     
     // MARK: - Private methods
     private func getTobacco(searchText: String? = nil) {
-        let completion: CompletionResultBlock<PageResponse<Tobacco>> = { [weak self] result in
+        let completion: ResultBlock<PageResponse<Tobacco>> = { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let response):

@@ -87,11 +87,11 @@ struct DescriptionStackViewUI: View {
         HStack {
             Text(viewModel.name)
                 .font(.appFont(size: 16.0, weight: .regular))
-                .foregroundStyle(Color("primary-title")) // TODO: - переделать под R.swift
+                .foregroundStyle(R.color.primaryTitle.color)
             Spacer()
             Text(viewModel.description)
                 .font(.appFont(size: 16.0, weight: .light))
-                .foregroundStyle(Color("primary-subtitle"))
+                .foregroundStyle(R.color.primarySubtitle.color)
         }
     }
 }

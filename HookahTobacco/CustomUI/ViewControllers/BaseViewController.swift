@@ -109,7 +109,7 @@ extension BaseViewController: ViewProtocol {
     }
 
     func showErrorView(title: String, message: String, image: UIImage?,
-                       refreshButtonTitle: String, buttonAction: CompletionBlock?) {
+                       refreshButtonTitle: String, buttonAction: VoidBlock?) {
         var primaryAction: ActionWithTitle?
         if buttonAction != nil {
             primaryAction = ActionWithTitle(title: refreshButtonTitle,

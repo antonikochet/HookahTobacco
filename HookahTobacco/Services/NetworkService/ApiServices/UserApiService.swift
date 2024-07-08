@@ -12,7 +12,7 @@ final class UserApiService: BaseApiService {
 }
 
 extension UserApiService: UserNetworkingServiceProtocol {
-    func receiveUser(completion: CompletionResultBlock<UserProtocol>?) {
+    func receiveUser(completion: ResultBlock<UserProtocol>?) {
         let target = Api.Users.get
         sendRequest(object: User.self, target: target) { user in
             completion?(.success(user))
@@ -21,7 +21,7 @@ extension UserApiService: UserNetworkingServiceProtocol {
         }
     }
 
-    func updateUser(_ user: RegistrationUserProtocol, completion: CompletionResultBlock<UserProtocol>?) {
+    func updateUser(_ user: RegistrationUserProtocol, completion: ResultBlock<UserProtocol>?) {
         let target = Api.Users.patch(user)
         sendRequest(object: User.self, target: target) { user in
             completion?(.success(user))
@@ -30,39 +30,39 @@ extension UserApiService: UserNetworkingServiceProtocol {
         }
     }
 
-    func receiveFavoriteTobaccos(page: Int, completion: CompletionResultBlock<PageResponse<Tobacco>>?) {
+    func receiveFavoriteTobaccos(page: Int, completion: ResultBlock<PageResponse<Tobacco>>?) {
         let target = Api.Users.getFavoritesTobacco(page: page)
         sendRequest(object: PageResponse<Tobacco>.self,
                     target: target,
-                    completion: completion as? CompletionResultBlock)
+                    completion: completion as? ResultBlock)
     }
 
-    func receiveWantToBuyTobaccos(page: Int, completion: CompletionResultBlock<PageResponse<Tobacco>>?) {
+    func receiveWantToBuyTobaccos(page: Int, completion: ResultBlock<PageResponse<Tobacco>>?) {
         let target = Api.Users.getBuyToTobacco(page: page)
         sendRequest(object: PageResponse<Tobacco>.self,
                     target: target,
-                    completion: completion as? CompletionResultBlock)
+                    completion: completion as? ResultBlock)
     }
 
-    func updateFavoriteTobacco(_ tobaccos: [Tobacco], completion: CompletionResultBlock<[Tobacco]>?) {
+    func updateFavoriteTobacco(_ tobaccos: [Tobacco], completion: ResultBlock<[Tobacco]>?) {
         let target = Api.Users.updateFavoriteTobaccos(
             tobaccos.map { UpdateTobaccosUser(id: $0.uid, flag: $0.isFavorite) }
         )
-        sendRequest(object: [Tobacco].self, target: target, completion: completion as? CompletionResultBlock)
+        sendRequest(object: [Tobacco].self, target: target, completion: completion as? ResultBlock)
     }
 
-    func updateWantToBuyTobacco(_ tobaccos: [Tobacco], completion: CompletionResultBlock<[Tobacco]>?) {
+    func updateWantToBuyTobacco(_ tobaccos: [Tobacco], completion: ResultBlock<[Tobacco]>?) {
         let target = Api.Users.updateWantBuyTobaccos(
             tobaccos.map { UpdateTobaccosUser(id: $0.uid, flag: $0.isWantBuy) }
         )
-        sendRequest(object: [Tobacco].self, target: target, completion: completion as? CompletionResultBlock)
+        sendRequest(object: [Tobacco].self, target: target, completion: completion as? ResultBlock)
     }
 
     func receiveAgreementURLs(_ types: [TypeAgreementURLs],
-                              completion: CompletionResultBlock<[AgreementURLsResponse]>?) {
+                              completion: ResultBlock<[AgreementURLsResponse]>?) {
         let target = Api.Users.getUrls(AgreementURLsRequest(urls: types))
         sendRequest(object: [AgreementURLsResponse].self,
                     target: target,
-                    completion: completion as? CompletionResultBlock)
+                    completion: completion as? ResultBlock)
     }
 }

@@ -26,7 +26,7 @@ class AddPickerView: UIView {
 
     var pickerViewHeight: CGFloat = 120
 
-    var addButtonAction: CompletionBlock?
+    var addButtonAction: VoidBlock?
 
     // MARK: private properties
 

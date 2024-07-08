@@ -33,7 +33,7 @@ struct TobaccoListView<ViewModel: TobaccoListViewModel>: View {
             .listStyle(.plain)
         }
         .navigationTitle(R.string.localizable.titleNone())
-        .background(Color("primary-background"))
+        .background(R.color.primaryBackground.color)
         .onViewDidLoad {
             viewModel.startReceiveTobacco()
         }

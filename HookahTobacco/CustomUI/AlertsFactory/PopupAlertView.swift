@@ -67,7 +67,7 @@ final class PopupAlertView: UIView {
         return alertView
     }
 
-    func show(_ type: PopupAlertView.AlertType, delay: Double, completion: CompletionBlock? = nil) {
+    func show(_ type: PopupAlertView.AlertType, delay: Double, completion: VoidBlock? = nil) {
         var image: UIImage?
         switch type {
         case .success:
@@ -86,7 +86,7 @@ final class PopupAlertView: UIView {
     }
 
     // MARK: - Private methods
-    private func hide(delay: Double, completion: CompletionBlock? = nil) {
+    private func hide(delay: Double, completion: VoidBlock? = nil) {
         UIView.animate(withDuration: TimeInterval(durationAnimate),
                        delay: TimeInterval(delay),
                        options: []) {

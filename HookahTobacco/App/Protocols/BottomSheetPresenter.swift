@@ -16,7 +16,7 @@ protocol BottomSheetPresenter where Self: UIViewController {
     var dismissOnPull: Bool { get }
 
     func present(from viewController: UIViewController,
-                 swipeToDismissListenerClosure: CompletionBlock?
+                 swipeToDismissListenerClosure: VoidBlock?
     )
 }
 
@@ -45,7 +45,7 @@ extension BottomSheetPresenter {
 
 extension BottomSheetPresenter {
     func present(from viewController: UIViewController,
-                 swipeToDismissListenerClosure: CompletionBlock?
+                 swipeToDismissListenerClosure: VoidBlock?
     ) {
         let options = SheetOptions(
             pullBarHeight: isShowGrip ? LayoutValues.BottomSheet.pullBarHeightWithGrip

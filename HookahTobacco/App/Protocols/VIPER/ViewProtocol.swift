@@ -12,14 +12,14 @@ protocol ViewProtocol: AnyObject {
     func showBlockLoading()
     func hideLoading()
     func showErrorView(title: String, message: String, image: UIImage?,
-                       refreshButtonTitle: String, buttonAction: CompletionBlock?)
+                       refreshButtonTitle: String, buttonAction: VoidBlock?)
     func hideErrorView()
     func showInfoView(viewModel: InfoViewModel)
     func hideInfoView()
 }
 
 extension ViewProtocol {
-    func showErrorView(title: String, message: String, image: UIImage?, buttonAction: CompletionBlock?) {
+    func showErrorView(title: String, message: String, image: UIImage?, buttonAction: VoidBlock?) {
         showErrorView(title: title,
                       message: message,
                       image: image,
@@ -27,14 +27,14 @@ extension ViewProtocol {
                       buttonAction: buttonAction)
     }
 
-    func showErrorView(title: String, message: String, buttonAction: CompletionBlock?) {
+    func showErrorView(title: String, message: String, buttonAction: VoidBlock?) {
         showErrorView(title: title,
                       message: message,
                       image: UIImage(named: "unexpectedError"),
                       buttonAction: buttonAction)
     }
 
-    func showErrorView(isUnexpectedError: Bool, buttonAction: CompletionBlock?) {
+    func showErrorView(isUnexpectedError: Bool, buttonAction: VoidBlock?) {
         let title = isUnexpectedError ? "Неизвестная ошибка" : "Отсутствует интернет"
         let message = (isUnexpectedError ?
                         "Произошла неизветная ошибка, попробуйте перезагрузить приложение" :

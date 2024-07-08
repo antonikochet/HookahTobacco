@@ -59,7 +59,7 @@ extension ApiAuthServices: AuthServiceProtocol {
 }
 
 extension ApiAuthServices: RegistrationServiceProtocol {
-    func checkRegistrationData(email: String, username: String, password: String, completion: CompletionBlockWithParam<HTError?>?) {
+    func checkRegistrationData(email: String, username: String, password: String, completion: BlockWithParam<HTError?>?) {
         let request = CheckRegistrationRequest(email: email, username: username, password: password)
         let target = Api.Registration.check(request)
         sendRequest(object: EmptyResponse.self, target: target) { result in
@@ -72,7 +72,7 @@ extension ApiAuthServices: RegistrationServiceProtocol {
         }
     }
 
-    func registration(user: RegistrationUserProtocol, completion: CompletionBlockWithParam<HTError?>?) {
+    func registration(user: RegistrationUserProtocol, completion: BlockWithParam<HTError?>?) {
         let target = Api.Registration.registration(user)
         sendRequest(object: LoginResponse.self, target: target) { [weak self] result in
             guard let self else { return }

@@ -17,8 +17,8 @@ struct TobaccoViewModel {
     var isWantBuy: Bool
     var isShowWantBuyButton: Bool
     
-    var favoriteAction: CompletionBlock?
-    var wantBuyAction: CompletionBlock?
+    var favoriteAction: VoidBlock?
+    var wantBuyAction: VoidBlock?
 }
 
 struct TobaccoView: View {
@@ -44,7 +44,7 @@ struct TobaccoView: View {
         }
         .padding(8)
         .background(RoundedRectangle(cornerRadius: 16)
-            .fill(Color("secondary-background")))
+            .fill(R.color.secondaryBackground.color))
     }
     
     var topInfoView: some View {

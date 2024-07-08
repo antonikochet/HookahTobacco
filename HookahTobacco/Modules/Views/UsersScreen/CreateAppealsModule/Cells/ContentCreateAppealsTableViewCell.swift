@@ -13,7 +13,7 @@ import IVCollectionKit
 struct ContentCreateAppealsCollectionCellItem {
     let index: Int
     let image: UIImage?
-    let removeButtonAction: CompletionBlockWithParam<Int>?
+    let removeButtonAction: BlockWithParam<Int>?
 }
 
 final class ContentCreateAppealsCollectionViewCell: UICollectionViewCell, ConfigurableCollectionItem {

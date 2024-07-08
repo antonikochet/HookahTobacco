@@ -18,7 +18,7 @@ extension RouterProtocol {
         showError(with: message, completion: nil)
     }
 
-    func showError(with message: String, completion: CompletionBlock?) {
+    func showError(with message: String, completion: VoidBlock?) {
         appRouter.presentAlert(type: .toastError(message: message,
                                                  delay: 6.0,
                                                  position: .top),
@@ -30,7 +30,7 @@ extension RouterProtocol {
         appRouter.presentAlert(type: .success(delay: delay), completion: nil)
     }
 
-    func showSuccess(delay: Double, with completion: CompletionBlock?) {
+    func showSuccess(delay: Double, with completion: VoidBlock?) {
         appRouter.presentAlert(type: .success(delay: delay), completion: completion)
     }
 }

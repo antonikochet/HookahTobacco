@@ -16,7 +16,7 @@ struct MultiSegmentedTobaccoTableViewCellItem {
     let title: String
     let itemsSegment: [String]
     let selectItems: [Int]
-    var didSelect: CompletionBlockWithParam<Int>?
+    var didSelect: BlockWithParam<Int>?
 }
 
 final class MultiSegmentedTobaccoTableViewCell: UITableViewCell, ConfigurableCell {

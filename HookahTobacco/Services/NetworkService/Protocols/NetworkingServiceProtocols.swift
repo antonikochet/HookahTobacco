@@ -9,40 +9,40 @@ import Foundation
 
 protocol GetDataNetworkingServiceProtocol {
     func receiveData<T: DataNetworkingServiceProtocol>(type: T.Type,
-                                                       completion: CompletionResultBlock<[T]>?)
+                                                       completion: ResultBlock<[T]>?)
     func receiveTobacco(page: Int,
                         search: String?,
                         filters: TobaccoFilters?,
-                        completion: CompletionResultBlock<PageResponse<Tobacco>>?)
-    func receiveTobaccoFilters(completion: CompletionResultBlock<TobaccoFilters>?)
-    func updateTobaccoFilters(filters: TobaccoFilters, completion: CompletionResultBlock<TobaccoFilters>?)
-    func receiveImage(for url: String, completion: CompletionResultBlock<Data>?)
-    func receiveTobaccos(for manufacturer: Manufacturer, completion: CompletionResultBlock<[Tobacco]>?)
+                        completion: ResultBlock<PageResponse<Tobacco>>?)
+    func receiveTobaccoFilters(completion: ResultBlock<TobaccoFilters>?)
+    func updateTobaccoFilters(filters: TobaccoFilters, completion: ResultBlock<TobaccoFilters>?)
+    func receiveImage(for url: String, completion: ResultBlock<Data>?)
+    func receiveTobaccos(for manufacturer: Manufacturer, completion: ResultBlock<[Tobacco]>?)
 }
 
 protocol UserNetworkingServiceProtocol {
-    func receiveUser(completion: CompletionResultBlock<UserProtocol>?)
-    func updateUser(_ user: RegistrationUserProtocol, completion: CompletionResultBlock<UserProtocol>?)
-    func receiveFavoriteTobaccos(page: Int, completion: CompletionResultBlock<PageResponse<Tobacco>>?)
-    func receiveWantToBuyTobaccos(page: Int, completion: CompletionResultBlock<PageResponse<Tobacco>>?)
-    func updateFavoriteTobacco(_ tobaccos: [Tobacco], completion: CompletionResultBlock<[Tobacco]>?)
-    func updateWantToBuyTobacco(_ tobaccos: [Tobacco], completion: CompletionResultBlock<[Tobacco]>?)
-    func receiveAgreementURLs(_ types: [TypeAgreementURLs], completion: CompletionResultBlock<[AgreementURLsResponse]>?)
+    func receiveUser(completion: ResultBlock<UserProtocol>?)
+    func updateUser(_ user: RegistrationUserProtocol, completion: ResultBlock<UserProtocol>?)
+    func receiveFavoriteTobaccos(page: Int, completion: ResultBlock<PageResponse<Tobacco>>?)
+    func receiveWantToBuyTobaccos(page: Int, completion: ResultBlock<PageResponse<Tobacco>>?)
+    func updateFavoriteTobacco(_ tobaccos: [Tobacco], completion: ResultBlock<[Tobacco]>?)
+    func updateWantToBuyTobacco(_ tobaccos: [Tobacco], completion: ResultBlock<[Tobacco]>?)
+    func receiveAgreementURLs(_ types: [TypeAgreementURLs], completion: ResultBlock<[AgreementURLsResponse]>?)
 }
 
 protocol AppealsNetworkingServiceProtocol {
-    func receiveThemes(completion: CompletionResultBlock<ThemesAppealsResponse>?)
-    func createAppeal(_ appeal: CreateAppealEntity, completion: CompletionResultBlock<CreateAppealResponse>?)
+    func receiveThemes(completion: ResultBlock<ThemesAppealsResponse>?)
+    func createAppeal(_ appeal: CreateAppealEntity, completion: ResultBlock<CreateAppealResponse>?)
 }
 
 protocol AdminNetworkingServiceProtocol {
-    func addData<T: DataNetworkingServiceProtocol>(_ data: T, completion: CompletionResultBlock<T>?)
-    func setData<T: DataNetworkingServiceProtocol>(_ data: T, completion: CompletionResultBlock<T>?)
-    func setDBVersion(_ newVersion: Int, completion: CompletionBlockWithParam<HTError?>?)
+    func addData<T: DataNetworkingServiceProtocol>(_ data: T, completion: ResultBlock<T>?)
+    func setData<T: DataNetworkingServiceProtocol>(_ data: T, completion: ResultBlock<T>?)
+    func setDBVersion(_ newVersion: Int, completion: BlockWithParam<HTError?>?)
     func receiveAppeals(page: Int,
                         status: AppealStatus?,
                         themes: [ThemeAppeal],
-                        completion: CompletionResultBlock<PageResponse<AppealResponse>>?)
-    func updateAppeal(by id: Int, _ answer: String, completion: CompletionResultBlock<AppealResponse>?)
-    func handledAppeal(_ id: Int, completion: CompletionBlockWithParam<HTError?>?)
+                        completion: ResultBlock<PageResponse<AppealResponse>>?)
+    func updateAppeal(by id: Int, _ answer: String, completion: ResultBlock<AppealResponse>?)
+    func handledAppeal(_ id: Int, completion: BlockWithParam<HTError?>?)
 }

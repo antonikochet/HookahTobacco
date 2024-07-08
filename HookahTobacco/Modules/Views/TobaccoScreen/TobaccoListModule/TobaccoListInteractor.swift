@@ -67,7 +67,7 @@ class TobaccoListInteractor {
 
     // MARK: - Private methods
     private func getTobacco(searchText: String? = nil) {
-        let completion: CompletionResultBlock<PageResponse<Tobacco>> = { [weak self] result in
+        let completion: ResultBlock<PageResponse<Tobacco>> = { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let response):

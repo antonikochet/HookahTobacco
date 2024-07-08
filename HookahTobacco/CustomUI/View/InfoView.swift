@@ -70,9 +70,9 @@ extension InfoViewModel {
 
 struct ActionWithTitle {
     let title: String
-    let action: CompletionBlock
+    let action: VoidBlock
 
-    init(title: String, action: @escaping CompletionBlock) {
+    init(title: String, action: @escaping VoidBlock) {
         self.title = title
         self.action = action
     }

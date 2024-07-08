@@ -14,29 +14,29 @@ final class DataApiService: BaseApiService {
 extension DataApiService: GetDataNetworkingServiceProtocol {
     func receiveData<T: DataNetworkingServiceProtocol>(
         type: T.Type,
-        completion: CompletionResultBlock<[T]>?
+        completion: ResultBlock<[T]>?
     ) {
         switch type {
         case is Manufacturer.Type:
             sendRequest(object: [Manufacturer].self,
                         target: Api.Manufacturer.list,
-                        completion: completion as? CompletionResultBlock)
+                        completion: completion as? ResultBlock)
         case is Taste.Type:
             sendRequest(object: [Taste].self,
                         target: Api.Tastes.list,
-                        completion: completion as? CompletionResultBlock)
+                        completion: completion as? ResultBlock)
         case is TobaccoLine.Type:
             sendRequest(object: [TobaccoLine].self,
                         target: Api.TobaccoLines.list,
-                        completion: completion as? CompletionResultBlock)
+                        completion: completion as? ResultBlock)
         case is TasteType.Type:
             sendRequest(object: [TasteType].self,
                         target: Api.TasteTypes.list,
-                        completion: completion as? CompletionResultBlock)
+                        completion: completion as? ResultBlock)
         case is Country.Type:
             sendRequest(object: [Country].self,
                         target: Api.Countries.list,
-                        completion: completion as? CompletionResultBlock)
+                        completion: completion as? ResultBlock)
         default:
             fatalError("Метод receiveData протокола GetDataNetworkingServiceProtocol" +
                        " не поддерживает для получения тип \(type)")
@@ -46,13 +46,13 @@ extension DataApiService: GetDataNetworkingServiceProtocol {
     func receiveTobacco(page: Int,
                         search: String?,
                         filters: TobaccoFilters?,
-                        completion: CompletionResultBlock<PageResponse<Tobacco>>?) {
+                        completion: ResultBlock<PageResponse<Tobacco>>?) {
         sendRequest(object: PageResponse<Tobacco>.self,
                     target: Api.Tobacco.list(page: page, search: search, filter: TobaccoFilterRequest(filters)),
-                    completion: completion as? CompletionResultBlock)
+                    completion: completion as? ResultBlock)
     }
 
-    func receiveTobaccoFilters(completion: CompletionResultBlock<TobaccoFilters>?) {
+    func receiveTobaccoFilters(completion: ResultBlock<TobaccoFilters>?) {
         sendRequest(object: TobaccoFilterResponse.self,
                     target: Api.Tobacco.getFilter) { result in
             switch result {
@@ -64,7 +64,7 @@ extension DataApiService: GetDataNetworkingServiceProtocol {
         }
     }
 
-    func updateTobaccoFilters(filters: TobaccoFilters, completion: CompletionResultBlock<TobaccoFilters>?) {
+    func updateTobaccoFilters(filters: TobaccoFilters, completion: ResultBlock<TobaccoFilters>?) {
         guard let request = TobaccoFilterRequest(filters) else { return }
         sendRequest(object: TobaccoFilterResponse.self,
                     target: Api.Tobacco.updateFilter(request)) { result in
@@ -77,7 +77,7 @@ extension DataApiService: GetDataNetworkingServiceProtocol {
         }
     }
 
-    func receiveImage(for url: String, completion: CompletionResultBlock<Data>?) {
+    func receiveImage(for url: String, completion: ResultBlock<Data>?) {
         receiveImage(url) { result in
             switch result {
             case let .success(data):
@@ -95,13 +95,13 @@ extension DataApiService: GetDataNetworkingServiceProtocol {
     func receiveDetailData<T: DataNetworkingServiceProtocol>(
         type: T.Type,
         uid: Int,
-        completion: CompletionResultBlock<T>?
+        completion: ResultBlock<T>?
     ) {
         switch type {
         case is Manufacturer.Type:
             sendRequest(object: Manufacturer.self,
                         target: Api.Manufacturer.detail(id: uid),
-                        completion: completion as? CompletionResultBlock)
+                        completion: completion as? ResultBlock)
         default:
             fatalError("Метод receiveData протокола GetDataNetworkingServiceProtocol" +
                        " не поддерживает для получения тип \(type)")
@@ -110,7 +110,7 @@ extension DataApiService: GetDataNetworkingServiceProtocol {
 
     func receiveTobaccos(
         for manufacturer: Manufacturer,
-        completion: CompletionResultBlock<[Tobacco]>?
+        completion: ResultBlock<[Tobacco]>?
     ) {
         let target = Api.Manufacturer.tobaccos(id: manufacturer.uid)
         sendRequest(object: TobaccosManufacturerResponse.self, target: target) { result in

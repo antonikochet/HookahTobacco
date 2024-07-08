@@ -14,7 +14,7 @@ struct AlertState {
     
     struct Action {
         let title: String
-        let action: CompletionBlock?
+        let action: VoidBlock?
     }
 }
 
@@ -62,7 +62,7 @@ extension BaseViewModelImpl {
     func showErrorView(
         title: String,
         message: String,
-        buttonAction: CompletionBlock?
+        buttonAction: VoidBlock?
     ) {
         showErrorView(
             title: title,
@@ -75,7 +75,7 @@ extension BaseViewModelImpl {
     
     func showErrorView(
         isUnexpectedError: Bool,
-        buttonAction: CompletionBlock?
+        buttonAction: VoidBlock?
     ) {
         let title = isUnexpectedError ? "Неизвестная ошибка" : "Отсутствует интернет"
         let message = (
@@ -98,7 +98,7 @@ extension BaseViewModelImpl {
         message: String,
         image: String?,
         refreshButtonTitle: String,
-        buttonAction: CompletionBlock?
+        buttonAction: VoidBlock?
     ) {
         var primaryAction: ActionWithTitle?
         if buttonAction != nil {

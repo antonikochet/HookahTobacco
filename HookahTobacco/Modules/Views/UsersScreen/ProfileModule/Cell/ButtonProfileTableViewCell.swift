@@ -12,7 +12,7 @@ import TableKit
 
 struct ButtonProfileTableViewCellItem {
     let text: String
-    let buttonAction: CompletionBlock?
+    let buttonAction: VoidBlock?
 }
 
 final class ButtonProfileTableViewCell: UITableViewCell, ConfigurableCell {
