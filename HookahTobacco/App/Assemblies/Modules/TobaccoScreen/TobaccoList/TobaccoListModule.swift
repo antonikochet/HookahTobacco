@@ -29,6 +29,7 @@ class TobaccoListModule: ModuleProtocol {
             dependency.filter = data.filter
         }
         let viewModel = TobaccoListViewModelImpl(
+            input: dependency.filter,
             getDataNetworkingService: appRouter.resolver.resolve(GetDataNetworkingServiceProtocol.self)!,
             userService: appRouter.resolver.resolve(UserNetworkingServiceProtocol.self)!) { tobacco in
                 let moduleData = DetailTobaccoDataModule(tobacco: tobacco)
@@ -37,6 +38,12 @@ class TobaccoListModule: ModuleProtocol {
                     moduleData: moduleData,
                     animateDisplay: true
                 )
+            } showFilterTobacco: { (filters, delegate) in
+                let moduleData = TobaccoFiltersDataModule(
+                    filters: filters,
+                    delegate: delegate
+                )
+                appRouter.presentViewModally(module: TobaccoFiltersModule.self, moduleData: moduleData)
             }
         let view = TobaccoListView(viewModel: viewModel)
         return UIHostingController(rootView: view)

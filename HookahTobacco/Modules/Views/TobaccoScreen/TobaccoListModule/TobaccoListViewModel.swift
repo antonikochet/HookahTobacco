@@ -8,27 +8,47 @@
 //
 
 import Foundation
+import Combine
 
 protocol TobaccoListViewModel: BaseViewModel {
     var tobaccos: [TobaccoViewModel] { get }
+    var hasFilter: Bool { get }
+    var title: String { get }
+    var isShowSearch: Bool { get }
+    var search: String { get set }
     func startReceiveTobacco()
     func receiveNextPage()
+    func refresh()
+    
     func showDetail(id: String)
+    func showFilter()
 }
 
 final class TobaccoListViewModelImpl: BaseViewModelImpl, TobaccoListViewModel {
     // MARK: - ViewModel properties
     @Published private(set) var tobaccos: [TobaccoViewModel] = []
+    @Published private(set) var hasFilter: Bool = false
+    @Published var search: String = ""
+    
+    private(set) var title: String
+    private(set) var isShowSearch: Bool
     
     // MARK: - Private properties
-    private var privateTobaccos: [Tobacco] = [] {
+    private var privateTobaccos: [Tobacco] = []
+    private var page: Int = 0
+    private var input: TobaccoListInput
+    private var filters: TobaccoFilters? {
         didSet {
-            tobaccos = privateTobaccos.map(createTobaccoViewModel)
+            if let filters, !filters.isAllEmpty {
+                hasFilter = true
+            } else {
+                hasFilter = false
+            }
         }
     }
-    private var page: Int = 0
-    private var filters: TobaccoFilters?
     private var isDownloadData: Bool = false
+    
+    var subscription: Set<AnyCancellable> = []
     
     // MARK: - Dependency
     private var getDataNetworkingService: GetDataNetworkingServiceProtocol
@@ -36,16 +56,43 @@ final class TobaccoListViewModelImpl: BaseViewModelImpl, TobaccoListViewModel {
     
     // MARK: - Routing
     private var showDetailTobacco: BlockWithParam<Tobacco>
+    private var showFilterTobacco: BlockWithParam<(filters: TobaccoFilters?, delegate: TobaccoFiltersOutputModule)>
     
     // MARK: - Initializers
     init(
+        input: TobaccoListInput,
         getDataNetworkingService: GetDataNetworkingServiceProtocol,
         userService: UserNetworkingServiceProtocol,
-        showDetailTobacco: @escaping BlockWithParam<Tobacco>
+        showDetailTobacco: @escaping BlockWithParam<Tobacco>,
+        showFilterTobacco: @escaping BlockWithParam<(filters: TobaccoFilters?, delegate: TobaccoFiltersOutputModule)>
     ) {
+        self.input = input
         self.getDataNetworkingService = getDataNetworkingService
         self.userService = userService
         self.showDetailTobacco = showDetailTobacco
+        self.showFilterTobacco = showFilterTobacco
+        
+        let title: String
+        switch input {
+        case .none:
+            title = R.string.localizable.titleNone()
+        case .favorite:
+            title = R.string.localizable.titleFavorite()
+        case .wantBuy:
+            title = R.string.localizable.titleWantBuy()
+        }
+        self.title = title
+        self.isShowSearch = input == .none
+        
+        super.init()
+        
+        $search
+            .debounce(for: .milliseconds(800), scheduler: RunLoop.main)
+            .removeDuplicates()
+            .sink { [weak self] search in
+                self?.infoView = nil
+                self?.startReceiveTobacco()
+            }.store(in: &subscription)
     }
     
     // MARK: - ViewModel methods
@@ -59,33 +106,46 @@ final class TobaccoListViewModelImpl: BaseViewModelImpl, TobaccoListViewModel {
         getTobacco()
     }
     
+    func refresh() {
+        startReceiveTobacco()
+    }
+    
     func showDetail(id: String) {
         guard let tobacco = privateTobaccos.first(where: { $0.id == id}) else { return }
         showDetailTobacco(tobacco)
     }
     
+    func showFilter() {
+        showFilterTobacco((filters, self))
+    }
+    
     // MARK: - Private methods
-    private func getTobacco(searchText: String? = nil) {
+    private func getTobacco() {
         let completion: ResultBlock<PageResponse<Tobacco>> = { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let response):
-                self.page = response.next ?? -1
-                privateTobaccos.append(contentsOf: response.results)
-                self.isDownloadData = true
+                self.handlerSuccess(response)
             case .failure(let error):
                 self.handlerError(error)
             }
             self.isLoading = false
         }
-        isLoading = true
         if page != -1 {
-            getDataNetworkingService.receiveTobacco(
-                page: page,
-                search: searchText,
-                filters: filters,
-                completion: completion
-            )
+            isLoading = true
+            switch input {
+            case .none:
+                getDataNetworkingService.receiveTobacco(
+                    page: page,
+                    search: search,
+                    filters: filters,
+                    completion: completion
+                )
+            case .favorite:
+                userService.receiveFavoriteTobaccos(page: page, completion: completion)
+            case .wantBuy:
+                userService.receiveWantToBuyTobaccos(page: page, completion: completion)
+            }
         }
     }
     
@@ -99,9 +159,15 @@ final class TobaccoListViewModelImpl: BaseViewModelImpl, TobaccoListViewModel {
             guard let self else { return }
             switch result {
             case .success(let tobaccos):
-                guard var newTobacco = tobaccos.first else { return }
+                guard let newTobacco = tobaccos.first else { return }
                 guard self.privateTobaccos.count > index else { return }
-                self.privateTobaccos[index] = newTobacco
+                if self.input != .favorite {
+                    self.privateTobaccos[index] = newTobacco
+                    self.tobaccos[index] = createTobaccoViewModel(newTobacco)
+                } else {
+                    self.privateTobaccos.remove(at: index)
+                    self.tobaccos.remove(at: index)
+                }
             case .failure(let error):
                 self.handlerError(error)
             }
@@ -119,9 +185,19 @@ final class TobaccoListViewModelImpl: BaseViewModelImpl, TobaccoListViewModel {
             guard let self else { return }
             switch result {
             case .success(let tobaccos):
-                guard var newTobacco = tobaccos.first else { return }
+                guard let newTobacco = tobaccos.first else { return }
                 guard self.privateTobaccos.count > index else { return }
-                self.privateTobaccos[index] = newTobacco
+                if self.input != .wantBuy {
+                    self.privateTobaccos[index] = newTobacco
+                    self.tobaccos[index] = createTobaccoViewModel(newTobacco)
+                    if newTobacco.isWantBuy {
+                    } else {
+                    }
+                } else {
+                    self.privateTobaccos.remove(at: index)
+                    self.tobaccos.remove(at: index)
+                }
+                
             case .failure(let error):
                 self.handlerError(error)
             }
@@ -130,6 +206,19 @@ final class TobaccoListViewModelImpl: BaseViewModelImpl, TobaccoListViewModel {
     }
     
     // MARK: - Helper methods
+    private func handlerSuccess(_ response: PageResponse<Tobacco>) {
+        page = response.next ?? -1
+        if privateTobaccos.isEmpty {
+            tobaccos.removeAll()
+        }
+        privateTobaccos.append(contentsOf: response.results)
+        tobaccos.append(contentsOf: response.results.map(createTobaccoViewModel))
+        isDownloadData = true
+        if privateTobaccos.isEmpty {
+            setupInfoView()
+        }
+    }
+    
     private func handlerError(_ error: HTError) {
         switch error {
         case .noInternetConnection, .unexpectedError, .unknownError, .serverNotAvailable:
@@ -144,6 +233,38 @@ final class TobaccoListViewModelImpl: BaseViewModelImpl, TobaccoListViewModel {
         default:
             showAlertError(message: error.message)
         }
+    }
+    
+    private func setupInfoView() {
+        var title: String
+        var message: String = ""
+        var action: ActionWithTitle?
+        switch input {
+        case .none:
+            title = R.string.localizable.infoTitleNone()
+        case .favorite:
+            title = R.string.localizable.infoTitleFavorite()
+            message = R.string.localizable.infoMessageFavorite()
+        case .wantBuy:
+            title = R.string.localizable.infoTitleWantBuy()
+            message = R.string.localizable.infoMessageWantBuy()
+        }
+        if !search.isEmpty {
+            title = R.string.localizable.infoTitleSearch()
+            message = R.string.localizable.infoMessageSearch()
+            action = ActionWithTitle(title: R.string.localizable.infoButtonSearchTitle()) { [weak self] in
+                self?.search = ""
+                self?.infoView = nil
+                self?.receiveNextPage()
+            }
+        }
+        
+        showInfoView(
+            title: title,
+            message: message,
+            image: R.image.notFound.name,
+            primaryAction: action
+        )
     }
     
     private func createTobaccoViewModel(_ tobacco: Tobacco) -> TobaccoViewModel {
@@ -164,5 +285,12 @@ final class TobaccoListViewModelImpl: BaseViewModelImpl, TobaccoListViewModel {
             self?.updateWantBuy(tobacco.id)
         }
         return viewModel
+    }
+}
+
+extension TobaccoListViewModelImpl: TobaccoFiltersOutputModule {
+    func receiveFilter(_ filters: TobaccoFilters?) {
+        self.filters = filters
+        startReceiveTobacco()
     }
 }
