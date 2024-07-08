@@ -7,6 +7,22 @@
 
 import SnapKit
 import UIKit
+import SwiftUI
+
+// TODO: - переименовать
+struct SInfoView: UIViewRepresentable {
+    
+    let viewModel: InfoViewModel
+    
+    func makeUIView(context content: Context) -> InfoView {
+        let view = InfoView()
+        return view
+    }
+    
+    func updateUIView(_ infoView: InfoView, context: Context) {
+        infoView.configure(viewModel: viewModel)
+    }
+}
 
 struct InfoViewModel {
     let image: UIImage?
@@ -24,6 +40,27 @@ struct InfoViewModel {
          primaryAction: ActionWithTitle?,
          secondaryAction: ActionWithTitle? = nil) {
         self.image = image
+        self.title = title
+        self.subtitle = subtitle
+        self.primaryAction = primaryAction
+        self.secondaryAction = secondaryAction
+    }
+}
+
+extension InfoViewModel {
+    /// инициализатор для SwiftUI
+    init(
+        image: String?,
+        title: String,
+        subtitle: String?,
+        primaryAction: ActionWithTitle?,
+        secondaryAction: ActionWithTitle? = nil
+    ) {
+        if let image {
+            self.image = UIImage(named: image)
+        } else {
+            self.image = nil
+        }
         self.title = title
         self.subtitle = subtitle
         self.primaryAction = primaryAction

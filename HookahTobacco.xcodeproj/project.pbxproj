@@ -29,6 +29,9 @@
 		381910372C3B1500001CADC0 /* TobaccoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381910362C3B1500001CADC0 /* TobaccoView.swift */; };
 		3819103A2C3B151B001CADC0 /* TobaccoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381910382C3B151B001CADC0 /* TobaccoListView.swift */; };
 		3819103B2C3B151B001CADC0 /* TobaccoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381910392C3B151B001CADC0 /* TobaccoListViewModel.swift */; };
+		3819103E2C3B403E001CADC0 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3819103D2C3B403E001CADC0 /* BaseViewModel.swift */; };
+		381910422C3BE3F8001CADC0 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381910412C3BE3F8001CADC0 /* BaseView.swift */; };
+		381910452C3BF874001CADC0 /* ViewDidLoadModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381910442C3BF874001CADC0 /* ViewDidLoadModifier.swift */; };
 		381E688A2AB735B8000AA9BC /* Api+Appeals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381E68892AB735B8000AA9BC /* Api+Appeals.swift */; };
 		381E688C2AB7366B000AA9BC /* Request+Appeals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381E688B2AB7366B000AA9BC /* Request+Appeals.swift */; };
 		381E688E2AB73676000AA9BC /* Response+Appeals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381E688D2AB73675000AA9BC /* Response+Appeals.swift */; };
@@ -505,6 +508,9 @@
 		381910362C3B1500001CADC0 /* TobaccoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TobaccoView.swift; sourceTree = "<group>"; };
 		381910382C3B151B001CADC0 /* TobaccoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TobaccoListView.swift; sourceTree = "<group>"; };
 		381910392C3B151B001CADC0 /* TobaccoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TobaccoListViewModel.swift; sourceTree = "<group>"; };
+		3819103D2C3B403E001CADC0 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
+		381910412C3BE3F8001CADC0 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		381910442C3BF874001CADC0 /* ViewDidLoadModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewDidLoadModifier.swift; sourceTree = "<group>"; };
 		381E68892AB735B8000AA9BC /* Api+Appeals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Api+Appeals.swift"; sourceTree = "<group>"; };
 		381E688B2AB7366B000AA9BC /* Request+Appeals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Request+Appeals.swift"; sourceTree = "<group>"; };
 		381E688D2AB73675000AA9BC /* Response+Appeals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Response+Appeals.swift"; sourceTree = "<group>"; };
@@ -880,10 +886,28 @@
 		3818E0362A80FD0C00C9D02C /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				381910402C3BE029001CADC0 /* MVVM */,
 				38A8B1E82A91743D009FAFF7 /* VIPER */,
 				3818E0372A80FD1C00C9D02C /* BottomSheetPresenter.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		381910402C3BE029001CADC0 /* MVVM */ = {
+			isa = PBXGroup;
+			children = (
+				3819103D2C3B403E001CADC0 /* BaseViewModel.swift */,
+				381910412C3BE3F8001CADC0 /* BaseView.swift */,
+			);
+			path = MVVM;
+			sourceTree = "<group>";
+		};
+		381910432C3BF853001CADC0 /* ViewModifiers */ = {
+			isa = PBXGroup;
+			children = (
+				381910442C3BF874001CADC0 /* ViewDidLoadModifier.swift */,
+			);
+			path = ViewModifiers;
 			sourceTree = "<group>";
 		};
 		381E686C2AB733ED000AA9BC /* TobaccoScreen */ = {
@@ -1565,6 +1589,7 @@
 			children = (
 				B9027E03290FEF2E002E3C3A /* ViewControllers */,
 				B992985D28DC965600C4E80F /* View */,
+				381910432C3BF853001CADC0 /* ViewModifiers */,
 				B989B86F29338C64007ECC59 /* AlertsFactory */,
 				38BF3D992A95040F007331E1 /* CustomTableDirector.swift */,
 			);
@@ -2676,6 +2701,7 @@
 				385505352A814A4F00855E50 /* BaseViewController.swift in Sources */,
 				387121B32A55AE7F00B6005E /* Api+Taste.swift in Sources */,
 				38CE8CCA2A8955F300B00307 /* ProfileEditViewController.swift in Sources */,
+				381910422C3BE3F8001CADC0 /* BaseView.swift in Sources */,
 				38BF3D9A2A95040F007331E1 /* CustomTableDirector.swift in Sources */,
 				B9C925F7294F53720085BB02 /* RegistrationPresenter.swift in Sources */,
 				3855053B2A8155FA00855E50 /* ViewProtocol.swift in Sources */,
@@ -2700,6 +2726,7 @@
 				38CE8CD62A89715100B00307 /* ProfileEditAssembly.swift in Sources */,
 				B9567C92291C4BC300CF6176 /* ImageButtonPickerView.swift in Sources */,
 				B9B358CC291169E2001D178F /* EmptyTableCell.swift in Sources */,
+				381910452C3BF874001CADC0 /* ViewDidLoadModifier.swift in Sources */,
 				B9488F7D2934E9DB00D8B3B1 /* TobaccoLine.swift in Sources */,
 				B9ACB678291D15AE001D65CE /* HTScrollContentViewController.swift in Sources */,
 				38DDDE702A86CF8700EA19A3 /* User+Codable.swift in Sources */,
@@ -2853,6 +2880,7 @@
 				B9C92609294F77570085BB02 /* AuthError.swift in Sources */,
 				3899EB712AAF374A0047AD4D /* IconView.swift in Sources */,
 				3819103B2C3B151B001CADC0 /* TobaccoListViewModel.swift in Sources */,
+				3819103E2C3B403E001CADC0 /* BaseViewModel.swift in Sources */,
 				B92A46A82966F9DC0006B787 /* ProfilePresenter.swift in Sources */,
 				B9C925FA294F53720085BB02 /* RegistrationInteractor.swift in Sources */,
 				B9677CF228D8917000EF9FC6 /* extention + UIViewController.swift in Sources */,

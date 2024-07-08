@@ -20,19 +20,21 @@ struct TobaccoListView<ViewModel: TobaccoListViewModel>: View {
     
     // MARK: - Body
     var body: some View {
-        List(viewModel.tobaccos, id: \.id) { viewModel in
-            TobaccoView(viewModel: viewModel)
-                .buttonStyle(.plain)
-                .listRowSeparator(.hidden)
-                .listRowInsets(.init(top: 4, leading: 8, bottom: 4, trailing: 8))
-                .onTapGesture {
-                    self.viewModel.showDetail(id: viewModel.id)
-                }
+        BaseView(viewModel: viewModel) {
+            List(viewModel.tobaccos, id: \.id) { viewModel in
+                TobaccoView(viewModel: viewModel)
+                    .buttonStyle(.plain)
+                    .listRowSeparator(.hidden)
+                    .listRowInsets(.init(top: 4, leading: 8, bottom: 4, trailing: 8))
+                    .onTapGesture {
+                        self.viewModel.showDetail(id: viewModel.id)
+                    }
+            }
+            .listStyle(.plain)
         }
-        .listStyle(.plain)
         .navigationTitle(R.string.localizable.titleNone())
         .background(Color("primary-background"))
-        .onAppear {
+        .onViewDidLoad {
             viewModel.startReceiveTobacco()
         }
     }
@@ -41,8 +43,4 @@ struct TobaccoListView<ViewModel: TobaccoListViewModel>: View {
     
     // MARK: - Private methods
     
-}
-
-#Preview {
-    TobaccoListView(viewModel: TobaccoListViewModelImpl())
 }
