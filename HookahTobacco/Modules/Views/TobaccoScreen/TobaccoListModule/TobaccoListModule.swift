@@ -11,7 +11,6 @@ import UIKit
 import SwiftUI
 
 struct TobaccoListDataModile: DataModuleProtocol {
-    let isAdminMode: Bool
     let filter: TobaccoListInput
 }
 
@@ -23,13 +22,12 @@ class TobaccoListModule: ModuleProtocol {
     }
 
     func createModule(_ appRouter: AppRouterProtocol) -> UIViewController? {
-        var dependency = TobaccoListDependency(appRouter: appRouter, isAdminMode: false, filter: .none)
+        var input: TobaccoListInput = .none
         if let data = data as? TobaccoListDataModile {
-            dependency.isAdminMode = data.isAdminMode
-            dependency.filter = data.filter
+            input = data.filter
         }
         let viewModel = TobaccoListViewModelImpl(
-            input: dependency.filter,
+            input: input,
             getDataNetworkingService: appRouter.resolver.resolve(GetDataNetworkingServiceProtocol.self)!,
             userService: appRouter.resolver.resolve(UserNetworkingServiceProtocol.self)!) { tobacco in
                 let moduleData = DetailTobaccoDataModule(tobacco: tobacco)

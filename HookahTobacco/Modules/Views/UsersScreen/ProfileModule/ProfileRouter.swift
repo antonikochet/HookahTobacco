@@ -28,12 +28,12 @@ final class ProfileRouter: ProfileRouterProtocol {
     }
 
     func showFavoriteList() {
-        let data = TobaccoListDataModile(isAdminMode: false, filter: .favorite)
+        let data = TobaccoListDataModile(filter: .favorite)
         appRouter.pushViewController(module: TobaccoListModule.self, moduleData: data, animateDisplay: true)
     }
 
     func showWantToBuyList() {
-        let data = TobaccoListDataModile(isAdminMode: false, filter: .wantBuy)
+        let data = TobaccoListDataModile(filter: .wantBuy)
         appRouter.pushViewController(module: TobaccoListModule.self, moduleData: data, animateDisplay: true)
     }
 

@@ -473,13 +473,8 @@
 		B9E98A9229107BC000E1389B /* extension+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E98A9129107BC000E1389B /* extension+String.swift */; };
 		B9EB023B28F3159A00B3B6DA /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = B9EB023A28F3159A00B3B6DA /* Swinject */; };
 		B9EB024928F35B5F00B3B6DA /* ModuleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EB024828F35B5F00B3B6DA /* ModuleProtocol.swift */; };
-		B9ED9102290989EF00DC3A6D /* TobaccoListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ED90FD290989EF00DC3A6D /* TobaccoListPresenter.swift */; };
-		B9ED9103290989EF00DC3A6D /* TobaccoListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ED90FE290989EF00DC3A6D /* TobaccoListRouter.swift */; };
-		B9ED9104290989EF00DC3A6D /* TobaccoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ED90FF290989EF00DC3A6D /* TobaccoListViewController.swift */; };
-		B9ED9105290989EF00DC3A6D /* TobaccoListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ED9100290989EF00DC3A6D /* TobaccoListInteractor.swift */; };
 		B9ED910929098AA000DC3A6D /* TobaccoListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ED910829098AA000DC3A6D /* TobaccoListCell.swift */; };
 		B9ED910D2909D26100DC3A6D /* TobaccoListModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ED910B2909D26100DC3A6D /* TobaccoListModule.swift */; };
-		B9ED910E2909D26100DC3A6D /* TobaccoListAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ED910C2909D26100DC3A6D /* TobaccoListAssembly.swift */; };
 		B9EE2376291023F00098E4E0 /* DetailInfoManufacturerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EE2371291023F00098E4E0 /* DetailInfoManufacturerPresenter.swift */; };
 		B9EE2377291023F00098E4E0 /* DetailInfoManufacturerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EE2372291023F00098E4E0 /* DetailInfoManufacturerRouter.swift */; };
 		B9EE2378291023F00098E4E0 /* DetailInfoManufacturerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EE2373291023F00098E4E0 /* DetailInfoManufacturerViewController.swift */; };
@@ -786,13 +781,8 @@
 		B9EB024628F3252500B3B6DA /* AddTobaccoAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTobaccoAssembly.swift; sourceTree = "<group>"; };
 		B9EB024828F35B5F00B3B6DA /* ModuleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleProtocol.swift; sourceTree = "<group>"; };
 		B9EB024A28F3604E00B3B6DA /* AddTobaccoModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTobaccoModule.swift; sourceTree = "<group>"; };
-		B9ED90FD290989EF00DC3A6D /* TobaccoListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TobaccoListPresenter.swift; sourceTree = "<group>"; };
-		B9ED90FE290989EF00DC3A6D /* TobaccoListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TobaccoListRouter.swift; sourceTree = "<group>"; };
-		B9ED90FF290989EF00DC3A6D /* TobaccoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TobaccoListViewController.swift; sourceTree = "<group>"; };
-		B9ED9100290989EF00DC3A6D /* TobaccoListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TobaccoListInteractor.swift; sourceTree = "<group>"; };
 		B9ED910829098AA000DC3A6D /* TobaccoListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TobaccoListCell.swift; sourceTree = "<group>"; };
 		B9ED910B2909D26100DC3A6D /* TobaccoListModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TobaccoListModule.swift; sourceTree = "<group>"; };
-		B9ED910C2909D26100DC3A6D /* TobaccoListAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TobaccoListAssembly.swift; sourceTree = "<group>"; };
 		B9EE2371291023F00098E4E0 /* DetailInfoManufacturerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfoManufacturerPresenter.swift; sourceTree = "<group>"; };
 		B9EE2372291023F00098E4E0 /* DetailInfoManufacturerRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfoManufacturerRouter.swift; sourceTree = "<group>"; };
 		B9EE2373291023F00098E4E0 /* DetailInfoManufacturerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfoManufacturerViewController.swift; sourceTree = "<group>"; };
@@ -945,7 +935,6 @@
 			isa = PBXGroup;
 			children = (
 				38041BF52AA0D26500DEEE6D /* TobaccoFilters */,
-				B9ED910A2909D24500DC3A6D /* TobaccoList */,
 			);
 			path = TobaccoScreen;
 			sourceTree = "<group>";
@@ -2012,10 +2001,7 @@
 			isa = PBXGroup;
 			children = (
 				B9CA93A02969D6C000F258F3 /* Cell */,
-				B9ED90FD290989EF00DC3A6D /* TobaccoListPresenter.swift */,
-				B9ED90FE290989EF00DC3A6D /* TobaccoListRouter.swift */,
-				B9ED90FF290989EF00DC3A6D /* TobaccoListViewController.swift */,
-				B9ED9100290989EF00DC3A6D /* TobaccoListInteractor.swift */,
+				B9ED910B2909D26100DC3A6D /* TobaccoListModule.swift */,
 				381910382C3B151B001CADC0 /* TobaccoListView.swift */,
 				381910392C3B151B001CADC0 /* TobaccoListViewModel.swift */,
 			);
@@ -2090,7 +2076,6 @@
 			isa = PBXGroup;
 			children = (
 				381910362C3B1500001CADC0 /* TobaccoView.swift */,
-				B9ED910829098AA000DC3A6D /* TobaccoListCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -2101,6 +2086,7 @@
 				B9B358CB291169E2001D178F /* EmptyTableCell.swift */,
 				B9EE237C29102B710098E4E0 /* DetailInfoManufacturerTableCell.swift */,
 				B9C7B957296AE1C700D5A78B /* DetailManufacturerLineHeaderView.swift */,
+				B9ED910829098AA000DC3A6D /* TobaccoListCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -2241,15 +2227,6 @@
 				B9DBE511290DE2C3005B185C /* HTNavigationControllerAssembly.swift */,
 			);
 			path = Assemblies;
-			sourceTree = "<group>";
-		};
-		B9ED910A2909D24500DC3A6D /* TobaccoList */ = {
-			isa = PBXGroup;
-			children = (
-				B9ED910B2909D26100DC3A6D /* TobaccoListModule.swift */,
-				B9ED910C2909D26100DC3A6D /* TobaccoListAssembly.swift */,
-			);
-			path = TobaccoList;
 			sourceTree = "<group>";
 		};
 		B9EE23522910196B0098E4E0 /* DetailInfoManufacturerModule */ = {
@@ -2712,7 +2689,6 @@
 				B989B87329339668007ECC59 /* PopupAlertView.swift in Sources */,
 				386CB55F2C38AD4B00D73C71 /* HTImage.swift in Sources */,
 				B9631C4C2921ACBE00BBC09B /* CustomCollectionViewLayout.swift in Sources */,
-				B9ED9104290989EF00DC3A6D /* TobaccoListViewController.swift in Sources */,
 				384B94022AB347AB00DBE89C /* SelectListBottomSheetTableViewCell.swift in Sources */,
 				B98E1DD628F0812500964B8F /* LoginPresenter.swift in Sources */,
 				38DDDE562A8694C000EA19A3 /* Api+Authorization.swift in Sources */,
@@ -2734,8 +2710,6 @@
 				B9488F7D2934E9DB00D8B3B1 /* TobaccoLine.swift in Sources */,
 				B9ACB678291D15AE001D65CE /* HTScrollContentViewController.swift in Sources */,
 				38DDDE702A86CF8700EA19A3 /* User+Codable.swift in Sources */,
-				B9ED910E2909D26100DC3A6D /* TobaccoListAssembly.swift in Sources */,
-				B9ED9105290989EF00DC3A6D /* TobaccoListInteractor.swift in Sources */,
 				B9C925F8294F53720085BB02 /* RegistrationRouter.swift in Sources */,
 				38DDDE732A86DAC400EA19A3 /* MoyaProviderAssembly.swift in Sources */,
 				B9EE2379291023F00098E4E0 /* DetailInfoManufacturerInteractor.swift in Sources */,
@@ -2779,7 +2753,6 @@
 				384B94082AB354AA00DBE89C /* SelectListBottomSheetAssembly.swift in Sources */,
 				386CB55C2C38AD3200D73C71 /* DetailTobaccoView.swift in Sources */,
 				385505392A8154D800855E50 /* extension+UIVisualEffectView.swift in Sources */,
-				B9ED9103290989EF00DC3A6D /* TobaccoListRouter.swift in Sources */,
 				387121BC2A55B34F00B6005E /* Api+Country.swift in Sources */,
 				38AFD11F2A925C5100800342 /* NetworkingServiceProtocols.swift in Sources */,
 				385505372A814A7A00855E50 /* LoadingView.swift in Sources */,
@@ -2797,7 +2770,6 @@
 				385867452AB98BDC001776D9 /* SuccessBottomSheetAssembly.swift in Sources */,
 				B97EE9F6292BB3E50090B344 /* UserSettingsServiceProtocol.swift in Sources */,
 				3899EB6E2AAF36D80047AD4D /* Button.swift in Sources */,
-				B9ED9102290989EF00DC3A6D /* TobaccoListPresenter.swift in Sources */,
 				381E68912AB741C9000AA9BC /* AppealsApiService.swift in Sources */,
 				B90B671D29A049D0004460C8 /* GlobalConstant.swift in Sources */,
 				384B93FA2AB3421000DBE89C /* SelectListBottomSheetPresenter.swift in Sources */,

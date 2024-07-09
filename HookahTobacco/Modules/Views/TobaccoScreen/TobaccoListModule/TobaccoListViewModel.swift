@@ -10,6 +10,12 @@
 import Foundation
 import Combine
 
+enum TobaccoListInput {
+    case none
+    case favorite
+    case wantBuy
+}
+
 protocol TobaccoListViewModel: BaseViewModel {
     var tobaccos: [TobaccoViewModel] { get }
     var hasFilter: Bool { get }
@@ -90,7 +96,6 @@ final class TobaccoListViewModelImpl: BaseViewModelImpl, TobaccoListViewModel {
             .debounce(for: .milliseconds(800), scheduler: RunLoop.main)
             .removeDuplicates()
             .sink { [weak self] search in
-                self?.infoView = nil
                 self?.startReceiveTobacco()
             }.store(in: &subscription)
     }
@@ -207,6 +212,9 @@ final class TobaccoListViewModelImpl: BaseViewModelImpl, TobaccoListViewModel {
     
     // MARK: - Helper methods
     private func handlerSuccess(_ response: PageResponse<Tobacco>) {
+        if infoView != nil {
+            infoView = nil
+        }
         page = response.next ?? -1
         if privateTobaccos.isEmpty {
             tobaccos.removeAll()
@@ -254,8 +262,7 @@ final class TobaccoListViewModelImpl: BaseViewModelImpl, TobaccoListViewModel {
             message = R.string.localizable.infoMessageSearch()
             action = ActionWithTitle(title: R.string.localizable.infoButtonSearchTitle()) { [weak self] in
                 self?.search = ""
-                self?.infoView = nil
-                self?.receiveNextPage()
+                self?.startReceiveTobacco()
             }
         }
         

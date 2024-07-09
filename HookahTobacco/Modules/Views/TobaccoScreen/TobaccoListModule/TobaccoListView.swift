@@ -12,6 +12,7 @@ import SwiftUI
 struct TobaccoListView<ViewModel: TobaccoListViewModel>: View {
     // MARK: - Private properties
     @ObservedObject private var viewModel: ViewModel
+    @FocusState private var keyboardFocus: Bool
     
     // MARK: - Initializers
     init(viewModel: ViewModel) {
@@ -55,6 +56,7 @@ struct TobaccoListView<ViewModel: TobaccoListViewModel>: View {
             if !viewModel.search.isEmpty {
                 SwiftUI.Button(R.string.localizable.generalCancel()) {
                     viewModel.search = ""
+                    keyboardFocus = false
                 }
                 .tint(R.color.secondarySubtitle.color)
                 .font(.appFont(size: 16, weight: .medium))
@@ -66,6 +68,7 @@ struct TobaccoListView<ViewModel: TobaccoListViewModel>: View {
         .background(RoundedRectangle(cornerRadius: 10)
             .fill(R.color.inputBackground.color)
         )
+        .focused($keyboardFocus)
     }
     
     private var list: some View {
