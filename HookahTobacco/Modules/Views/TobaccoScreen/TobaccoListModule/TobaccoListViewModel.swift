@@ -142,7 +142,7 @@ final class TobaccoListViewModelImpl: BaseViewModelImpl, TobaccoListViewModel {
             case .none:
                 getDataNetworkingService.receiveTobacco(
                     page: page,
-                    search: search,
+                    search: search.isEmpty ? nil : search,
                     filters: filters,
                     completion: completion
                 )

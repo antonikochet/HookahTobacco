@@ -24,10 +24,15 @@ struct DetailTobaccoView<ViewModel: DetailTobaccoViewModelOb>: View {
                 
                 Text(viewModel.name)
                     .font(.appFont(size: 30, weight: .bold))
-                   
-                Text("Вкусы: \(viewModel.tastes.joined(separator: ", "))") // TODO: - передать
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.top, 8)
+                
+                ChipsContainerView(data: viewModel.tastes.map { ChipModel(title: $0) }) {
+                    Text($0.title)
+                        .foregroundStyle(R.color.primaryWhite.color)
+                        .padding(.vertical, 4)
+                        .padding(.horizontal, 8)
+                        .background(RoundedRectangle(cornerRadius: 8)
+                            .fill(R.color.primaryPurple.color))
+                }
                 
                 ForEach(viewModel.info, id: \.name) { viewModel in
                     DescriptionStackViewUI(viewModel: viewModel)
