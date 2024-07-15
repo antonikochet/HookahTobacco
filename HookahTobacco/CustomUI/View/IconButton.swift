@@ -10,7 +10,7 @@ import SnapKit
 
 final class IconButton: IconView {
     // MARK: - Public properties
-    public var action: CompletionBlock?
+    public var action: VoidBlock?
 
     // MARK: - Init
     override init() {

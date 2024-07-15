@@ -10,7 +10,7 @@ import SnapKit
 
 class AddSegmentedControlView: UIView {
     // MARK: - Public properties
-    var didTouchSegmentedControl: CompletionBlockWithParam<Int>?
+    var didTouchSegmentedControl: BlockWithParam<Int>?
 
     var selectedIndex: Int {
         get {

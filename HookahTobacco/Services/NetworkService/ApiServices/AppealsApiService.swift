@@ -12,22 +12,22 @@ final class AppealsApiService: BaseApiService {
 }
 
 extension AppealsApiService: AppealsNetworkingServiceProtocol {
-    func receiveThemes(completion: CompletionResultBlock<ThemesAppealsResponse>?) {
+    func receiveThemes(completion: ResultBlock<ThemesAppealsResponse>?) {
         let target = Api.Appeals.getThemes
         sendRequest(
             object: ThemesAppealsResponse.self,
             target: target,
-            completion: completion as? CompletionResultBlock
+            completion: completion as? ResultBlock
         )
     }
 
-    func createAppeal(_ appeal: CreateAppealEntity, completion: CompletionResultBlock<CreateAppealResponse>?) {
+    func createAppeal(_ appeal: CreateAppealEntity, completion: ResultBlock<CreateAppealResponse>?) {
         let request = CreateAppealRequest(entity: appeal)
         let target = Api.Appeals.createAppeal(request)
         sendRequest(
             object: CreateAppealResponse.self,
             target: target,
-            completion: completion as? CompletionResultBlock
+            completion: completion as? ResultBlock
         )
     }
 }

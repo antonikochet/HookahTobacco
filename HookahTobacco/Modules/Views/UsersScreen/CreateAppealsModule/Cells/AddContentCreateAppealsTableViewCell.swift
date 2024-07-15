@@ -11,7 +11,7 @@ import UIKit
 import IVCollectionKit
 
 struct AddContentCreateAppealsCollectionCellItem {
-    let addAction: CompletionBlock?
+    let addAction: VoidBlock?
 }
 
 final class AddContentCreateAppealsCollectionViewCell: UICollectionViewCell, ConfigurableCollectionItem {

@@ -48,8 +48,8 @@ final class TextFieldWithLeftLabel: UIView {
         }
     }
 
-    var didBeginEditing: CompletionBlock?
-    var didEndEditing: CompletionBlock?
+    var didBeginEditing: VoidBlock?
+    var didEndEditing: VoidBlock?
     var shouldBeginEditing: (() -> Bool)?
     var shouldEndEditing: (() -> Bool)?
 

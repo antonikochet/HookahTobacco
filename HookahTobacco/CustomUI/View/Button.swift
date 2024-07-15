@@ -61,7 +61,7 @@ extension Button {
 final class Button: UIView {
 
     // MARK: - Public properties
-    var action: CompletionBlock?
+    var action: VoidBlock?
 
     var isEnabled: Bool = true {
         didSet {

@@ -28,6 +28,7 @@
 "info.message.wantBuy" = "Пройдитесь по списку табаков и добавьте в список покупок табаки";
 "info.title.search" = "Ничего не найдено!";
 "info.message.search" = "По вашему запросу\n ничего не найдено\n 😢";
+"info.button.search.title" = "Попробовать заново";
 "info.button.title" = "Обновить";
 "add.want.message" = "Вы добавили табак в список \"Хочу купить\"";
 "delete.want.message" = "Вы убрали табак из списка \"Хочу купить\"";

@@ -14,23 +14,23 @@ extension SheetViewController {
         static var didSwipedToDismiss: UInt8 = 0
     }
 
-    var didSwipedToDismiss: CompletionBlock? {
+    var didSwipedToDismiss: VoidBlock? {
         get {
-          return objc_getAssociatedObject(self, &Keys.didSwipedToDismiss) as? CompletionBlock
+          return objc_getAssociatedObject(self, &Keys.didSwipedToDismiss) as? VoidBlock
         }
         set {
           if let newValue {
             objc_setAssociatedObject(
                 self,
                 &Keys.didSwipedToDismiss,
-                newValue as CompletionBlock?,
+                newValue as VoidBlock?,
                 .OBJC_ASSOCIATION_RETAIN_NONATOMIC
             )
           }
         }
       }
 
-    func addSwipeToDismissListener(callback: @escaping CompletionBlock) {
+    func addSwipeToDismissListener(callback: @escaping VoidBlock) {
         guard let gestureRecognizers = view.gestureRecognizers?
             .first(where: { $0.description.contains("InitialTouchPanGestureRecognizer") }) as? UIPanGestureRecognizer
         else { return }

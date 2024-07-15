@@ -10,7 +10,7 @@ import UIKit
 struct AlertSheetAction {
     let title: String
     let style: UIAlertAction.Style
-    let action: CompletionBlock
+    let action: VoidBlock
 }
 
 struct AlertFactory {
@@ -38,7 +38,7 @@ struct AlertFactory {
     // MARK: - Public methods
     func showAlert(_ type: AlertType,
                    from viewController: UIViewController,
-                   completion: CompletionBlock? = nil) {
+                   completion: VoidBlock? = nil) {
         switch type {
         case .success(let delay):
             showSuccessAlert(.success, delay: delay, from: viewController, completion: completion)
@@ -70,7 +70,7 @@ struct AlertFactory {
     // MARK: - Private methods
     private func showErrorAlert(with message: String,
                                 from viewController: UIViewController,
-                                completion: CompletionBlock? = nil) {
+                                completion: VoidBlock? = nil) {
         let alertVC = UIAlertController(title: "Ошибка",
                                         message: message,
                                         preferredStyle: .alert)
@@ -85,7 +85,7 @@ struct AlertFactory {
     private func showSuccessAlert(_ type: PopupAlertView.AlertType,
                                   delay: Double,
                                   from viewController: UIViewController,
-                                  completion: CompletionBlock? = nil) {
+                                  completion: VoidBlock? = nil) {
         let alert = PopupAlertView.createView(superview: viewController.view)
         alert.show(type, delay: delay, completion: completion)
     }

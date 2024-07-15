@@ -15,8 +15,8 @@ import IVCollectionKit
 struct CategoriesTobaccoFiltersViewCellTableViewCellItem {
     let title: String
     let items: [FilterTobaccoCollectionViewCellItem]
-    var didSelect: CompletionBlockWithParam<Int>?
-    var clearAction: CompletionBlock?
+    var didSelect: BlockWithParam<Int>?
+    var clearAction: VoidBlock?
 }
 
 final class CategoriesTobaccoFiltersViewCellTableViewCell: UITableViewCell, ConfigurableCell {

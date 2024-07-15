@@ -29,7 +29,7 @@ class BaseApiService {
         #endif
     }
 
-    private func handlerError(_ error: Error, completion: CompletionBlockWithParam<HTError>) {
+    private func handlerError(_ error: Error, completion: BlockWithParam<HTError>) {
         self.showError("\(error)")
         let htError = handlerErrors.handlerError(error)
         if case let .apiError(errors) = htError,
@@ -48,8 +48,8 @@ class BaseApiService {
     func sendRequest<T: Decodable>(
         object: T.Type,
         target: TargetType,
-        completion: CompletionBlockWithParam<T>?,
-        failure: CompletionBlockWithParam<HTError>?
+        completion: BlockWithParam<T>?,
+        failure: BlockWithParam<HTError>?
     ) {
         provider.request(object: object, target: MultiTarget(target)) { [weak self] result in
             guard let self else { return }
@@ -67,7 +67,7 @@ class BaseApiService {
     func sendRequest<T: Decodable>(
         object: T.Type,
         target: TargetType,
-        completion: CompletionResultBlock<T>?
+        completion: ResultBlock<T>?
     ) {
         provider.request(object: object, target: MultiTarget(target)) { [weak self] result in
             guard let self else { return }
@@ -82,7 +82,7 @@ class BaseApiService {
         }
     }
 
-    func receiveImage(_ url: String, completion: CompletionResultBlock<Data?>?) {
+    func receiveImage(_ url: String, completion: ResultBlock<Data?>?) {
         AF.request(url).response { [weak self] response in
             guard let self else { return }
             switch response.result {

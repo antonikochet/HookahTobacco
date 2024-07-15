@@ -13,7 +13,7 @@ final class ApplyButton: UIButton {
     private var style: Style
 
     // MARK: - Public properties
-    var action: CompletionBlock?
+    var action: VoidBlock?
 
     override var intrinsicContentSize: CGSize {
         CGSize(width: 300, height: 50)
