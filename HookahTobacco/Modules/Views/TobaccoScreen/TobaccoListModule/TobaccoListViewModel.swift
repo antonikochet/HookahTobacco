@@ -196,11 +196,15 @@ final class TobaccoListViewModelImpl: BaseViewModelImpl, TobaccoListViewModel {
                     self.privateTobaccos[index] = newTobacco
                     self.tobaccos[index] = createTobaccoViewModel(newTobacco)
                     if newTobacco.isWantBuy {
+                        // TODO: - добавить toast
+//                        self.showToast(R.string.localizable.addWantMessage())
                     } else {
+//                        self.showToast(R.string.localizable.deleteWantMessage())
                     }
                 } else {
                     self.privateTobaccos.remove(at: index)
                     self.tobaccos.remove(at: index)
+//                    self.showToast(R.string.localizable.deleteWantMessage())
                 }
                 
             case .failure(let error):
@@ -277,7 +281,7 @@ final class TobaccoListViewModelImpl: BaseViewModelImpl, TobaccoListViewModel {
     private func createTobaccoViewModel(_ tobacco: Tobacco) -> TobaccoViewModel {
         var viewModel = TobaccoViewModel(
             id: tobacco.id,
-            imageURL: tobacco.description,
+            imageURL: tobacco.imageURL,
             name: tobacco.name,
             tasty: tobacco.tastes.map { $0.taste }.joined(separator: ", "),
             manufacturerName: tobacco.nameManufacturer,
