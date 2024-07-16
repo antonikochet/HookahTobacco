@@ -26,24 +26,23 @@ class TobaccoListModule: ModuleProtocol {
         if let data = data as? TobaccoListDataModile {
             input = data.filter
         }
-        let viewModel = TobaccoListViewModelImpl(
-            input: input,
-            getDataNetworkingService: appRouter.resolver.resolve(GetDataNetworkingServiceProtocol.self)!,
-            userService: appRouter.resolver.resolve(UserNetworkingServiceProtocol.self)!) { tobacco in
-                let moduleData = DetailTobaccoDataModule(tobacco: tobacco)
-                appRouter.pushViewController(
-                    module: DetailTobaccoModule.self,
-                    moduleData: moduleData,
-                    animateDisplay: true
-                )
-            } showFilterTobacco: { (filters, delegate) in
-                let moduleData = TobaccoFiltersDataModule(
-                    filters: filters,
-                    delegate: delegate
-                )
-                appRouter.presentViewModally(module: TobaccoFiltersModule.self, moduleData: moduleData)
-            }
-        let view = TobaccoListView(viewModel: viewModel)
-        return UIHostingController(rootView: view)
+        let assembly = TobaccoListAssembly(
+            filter: input
+        ) { tobacco in
+            let moduleData = DetailTobaccoDataModule(tobacco: tobacco)
+            appRouter.pushViewController(
+                module: DetailTobaccoModule.self,
+                moduleData: moduleData,
+                animateDisplay: true
+            )
+        } showFilterTobacco: { (filters, delegate) in
+            let moduleData = TobaccoFiltersDataModule(
+                filters: filters,
+                delegate: delegate
+            )
+            appRouter.presentViewModally(module: TobaccoFiltersModule.self, moduleData: moduleData)
+        }
+
+        return assembly.assemble(resolver: appRouter.resolver)
     }
 }

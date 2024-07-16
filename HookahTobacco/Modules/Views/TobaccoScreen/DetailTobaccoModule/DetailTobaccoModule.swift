@@ -26,9 +26,7 @@ class DetailTobaccoModule: ModuleProtocol {
             print("В DetailTobaccoModule не были переданы необходимые данные")
             return nil
         }
-        let viewModel = DetailTobaccoViewModelImpl(tobacco: data.tobacco)
-        let view = DetailTobaccoView(viewModel: viewModel)
-        let hostVC = UIHostingController(rootView: view)
-        return hostVC
+        let assembly = DetailTobaccoAssembly(tobacco: data.tobacco)
+        return assembly.assemble(resolver: appRouter.resolver)
     }
 }
