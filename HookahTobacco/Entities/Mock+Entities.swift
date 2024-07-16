@@ -20,21 +20,51 @@ extension Tobacco {
             isFavorite: false,
             isWantBuy: false
         )
-        }
+    }
+    
+    static func mock(tasteCount: Int = 2, isFavorite: Bool = false, isWantBuy: Bool = false) -> Self {
+        .init(
+            name: "Test Tobacco",
+            tastes: Taste.arrayMock(tasteCount),
+            idManufacturer: 1,
+            nameManufacturer: "Test Tobacco Manufacturer",
+            description: "Test Tobacco description Test Tobacco description Test Tobacco description Test Tobacco description Test Tobacco description",
+            line: TobaccoLine.mock,
+            imageURL: "http://127.0.0.1:8000/media/images/manufacturers/Adalya.png",
+            isFavorite: isFavorite,
+            isWantBuy: isWantBuy
+        )
+    }
+    
+    static func arrayMock(_ count: Int = 2, tastesCount: Int = 2) -> [Self] {
+        Array(repeating: Self.mock(tasteCount: tastesCount), count: count)
+    }
 }
 
 extension Taste {
     static var mock: Self {
+        mock()
+    }
+    
+    static func mock(typeCount: Int = 1) -> Self {
         .init(
             taste: "Test Taste",
-            typeTaste: [TasteType.mock]
+            typeTaste: TasteType.arrayMock(typeCount)
         )
+    }
+    
+    static func arrayMock(_ count: Int = 2) -> [Self] {
+        Array(repeating: Self.mock, count: count)
     }
 }
 
 extension TasteType {
     static var mock: Self {
         .init(name: "Test TasteType")
+    }
+    
+    static func arrayMock(_ count: Int = 2) -> [Self] {
+        Array(repeating: Self.mock, count: count)
     }
 }
 
@@ -61,6 +91,10 @@ extension Manufacturer {
             link: "http://test.test",
             lines: [.mock, .mock]
         )
+    }
+    
+    static func arrayMock(_ count: Int = 4) -> [Self] {
+        Array(repeating: Self.mock, count: count)
     }
 }
 

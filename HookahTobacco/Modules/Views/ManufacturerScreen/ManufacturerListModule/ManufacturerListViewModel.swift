@@ -115,9 +115,7 @@ final class ManufacturerListViewModelMock: BaseViewModelImpl, ManufacturerListVi
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
             guard let self else { return }
             
-            let manufacturers: [Manufacturer] = [
-                .mock, .mock, .mock, .mock, .mock
-            ]
+            let manufacturers = Manufacturer.arrayMock(8)
             if isEmpty {
                 self.showErrorView(
                     title: R.string.localizable.manufacteurerListEmptyTitle(),
