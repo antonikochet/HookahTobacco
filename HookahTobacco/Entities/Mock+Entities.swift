@@ -50,3 +50,22 @@ extension TobaccoLine {
         )
     }
 }
+
+extension Manufacturer {
+    static var mock: Self {
+        .init(
+            name: "Test Manufacturer",
+            country: Country.mock,
+            description: "Test Manufacturer description Test Manufacturer description",
+            urlImage: "http://127.0.0.1:8000/media/images/manufacturers/Must_Have.png",
+            link: "http://test.test",
+            lines: [.mock, .mock]
+        )
+    }
+}
+
+extension Country {
+    static var mock: Self {
+        .init(name: "Test Country")
+    }
+}

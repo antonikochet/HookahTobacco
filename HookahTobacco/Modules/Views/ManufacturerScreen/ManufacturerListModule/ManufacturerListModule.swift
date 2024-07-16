@@ -9,10 +9,6 @@
 
 import UIKit
 
-struct ManufacturerListDataModile: DataModuleProtocol {
-    let isAdminMode: Bool
-}
-
 class ManufacturerListModule: ModuleProtocol {
     private var data: DataModuleProtocol?
 
@@ -21,10 +17,14 @@ class ManufacturerListModule: ModuleProtocol {
     }
 
     func createModule(_ appRouter: AppRouterProtocol) -> UIViewController? {
-        var dependency = ManufacturerListDependency(appRouter: appRouter, isAdminMode: false)
-        if let data = data as? ManufacturerListDataModile {
-            dependency.isAdminMode = data.isAdminMode
+        let assembly = ManufacturerListAssembly { manufacturer in
+            let data = DetailInfoManufacturerDataModule(manufacturer: manufacturer)
+            appRouter.pushViewController(
+                module: DetailInfoManufacturerModule.self,
+                moduleData: data,
+                animateDisplay: true
+            )
         }
-        return appRouter.resolver.resolve(ManufacturerListViewController.self, argument: dependency)
+        return assembly.assemble(resolver: appRouter.resolver)
     }
 }
