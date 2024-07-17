@@ -8,28 +8,17 @@
 import Foundation
 
 extension Tobacco {
-    static var mock: Self {
-        .init(
-            name: "Test Tobacco",
-            tastes: [Taste.mock],
-            idManufacturer: 1,
-            nameManufacturer: "Test Tobacco Manufacturer",
-            description: "Test Tobacco description Test Tobacco description Test Tobacco description Test Tobacco description Test Tobacco description",
-            line: TobaccoLine.mock,
-            imageURL: "http://127.0.0.1:8000/media/images/manufacturers/Adalya.png",
-            isFavorite: false,
-            isWantBuy: false
-        )
-    }
     
-    static func mock(tasteCount: Int = 2, isFavorite: Bool = false, isWantBuy: Bool = false) -> Self {
+    static func mock(id: Int = 0, tasteCount: Int = 2, repeatDescription: Int = 3, isFavorite: Bool = false, isWantBuy: Bool = false) -> Self {
         .init(
+            id: String(id),
+            uid: id,
             name: "Test Tobacco",
             tastes: Taste.arrayMock(tasteCount),
             idManufacturer: 1,
             nameManufacturer: "Test Tobacco Manufacturer",
-            description: "Test Tobacco description Test Tobacco description Test Tobacco description Test Tobacco description Test Tobacco description",
-            line: TobaccoLine.mock,
+            description: Array(repeating: "Test Tobacco description", count: repeatDescription).joined(separator: " "),
+            line: TobaccoLine.mock(),
             imageURL: "http://127.0.0.1:8000/media/images/manufacturers/Adalya.png",
             isFavorite: isFavorite,
             isWantBuy: isWantBuy
@@ -37,24 +26,22 @@ extension Tobacco {
     }
     
     static func arrayMock(_ count: Int = 2, tastesCount: Int = 2) -> [Self] {
-        Array(repeating: Self.mock(tasteCount: tastesCount), count: count)
+        (0..<count).map { id in .mock(id: id, tasteCount: tastesCount) }
     }
 }
 
 extension Taste {
-    static var mock: Self {
-        mock()
-    }
-    
-    static func mock(typeCount: Int = 1) -> Self {
+    static func mock(id: Int = 0, typeCount: Int = 1) -> Self {
         .init(
+            id: String(id),
+            uid: id,
             taste: "Test Taste",
             typeTaste: TasteType.arrayMock(typeCount)
         )
     }
     
-    static func arrayMock(_ count: Int = 2) -> [Self] {
-        Array(repeating: Self.mock, count: count)
+    static func arrayMock(_ count: Int = 2, typeCount: Int = 1) -> [Self] {
+        (0..<count).map { id in Self.mock(id: id, typeCount: typeCount) }
     }
 }
 
@@ -69,37 +56,52 @@ extension TasteType {
 }
 
 extension TobaccoLine {
-    static var mock: Self {
-        .init(
-            name: "Test TobaccoLine",
+    static func mock(id: Int = 0) -> Self {
+        return .init(
+            id: String(id),
+            uid: id,
+            name: "Test TobaccoLine \(id)",
             packetingFormat: [100, 150],
             tobaccoType: .tobacco,
             tobaccoLeafType: [VarietyTobaccoLeaf.burley],
-            description: "Test TobaccoLine description", 
+            description: "Test TobaccoLine description",
             isBase: true
         )
+    }
+    
+    static func arrayMock(_ count: Int = 3) -> [Self] {
+        (0..<count).map { id in .mock(id: id) }
     }
 }
 
 extension Manufacturer {
-    static var mock: Self {
+    static func mock(id: Int = 0, countLines: Int = 2) -> Self {
         .init(
+            id: String(id),
+            uid: id,
             name: "Test Manufacturer",
             country: Country.mock,
             description: "Test Manufacturer description Test Manufacturer description",
             urlImage: "http://127.0.0.1:8000/media/images/manufacturers/Must_Have.png",
             link: "http://test.test",
-            lines: [.mock, .mock]
+            lines: (0..<countLines).map { id in TobaccoLine.mock(id: id) }
         )
     }
     
-    static func arrayMock(_ count: Int = 4) -> [Self] {
-        Array(repeating: Self.mock, count: count)
+    static func arrayMock(_ count: Int = 4, countLines: Int = 2) -> [Self] {
+        (0..<count).map { id in Self.mock(id: id, countLines: countLines) }
     }
 }
 
 extension Country {
     static var mock: Self {
         .init(name: "Test Country")
+    }
+}
+
+private extension String {
+    static func randomString(length: Int) -> String {
+        let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        return String((0..<length).map { _ in letters.randomElement()! })
     }
 }

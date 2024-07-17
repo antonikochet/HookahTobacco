@@ -46,7 +46,7 @@ struct ManufacturerCellView: View {
 }
 
 #Preview {
-    let manufacturer = Manufacturer.mock
+    let manufacturer = Manufacturer.mock()
     let viewModel = ManufacturerCellViewModel(
         id: manufacturer.uid,
         name: manufacturer.name,

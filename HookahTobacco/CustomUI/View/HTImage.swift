@@ -42,6 +42,6 @@ struct HTImage: View {
 }
 
 #Preview {
-    HTImage(imageURL: Tobacco.mock.imageURL)
+    HTImage(imageURL: Tobacco.mock().imageURL)
         .padding()
 }

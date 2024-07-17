@@ -61,7 +61,7 @@ struct DetailTobaccoView<ViewModel: DetailTobaccoViewModelOb>: View {
 #Preview {
     NavigationView {
         DetailTobaccoView(viewModel: DetailTobaccoViewModelImpl(
-            tobacco: Tobacco.mock
+            tobacco: Tobacco.mock()
         ))
     }
 }

@@ -280,13 +280,7 @@ final class TobaccoListViewModelImpl: BaseViewModelImpl, TobaccoListViewModel {
     
     private func createTobaccoViewModel(_ tobacco: Tobacco) -> TobaccoViewModel {
         var viewModel = TobaccoViewModel(
-            id: tobacco.id,
-            imageURL: tobacco.imageURL,
-            name: tobacco.name,
-            tasty: tobacco.tastes.map { $0.taste }.joined(separator: ", "),
-            manufacturerName: tobacco.nameManufacturer,
-            isFavorite: tobacco.isFavorite,
-            isWantBuy: tobacco.isWantBuy,
+            tobacco,
             isShowWantBuyButton: true
         )
         viewModel.favoriteAction = { [weak self] in

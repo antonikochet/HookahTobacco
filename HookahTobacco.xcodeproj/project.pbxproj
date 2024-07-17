@@ -333,6 +333,9 @@
 		387F20912C46B2A100874808 /* ManufacturerListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387F208E2C46B2A100874808 /* ManufacturerListView.swift */; };
 		387F20922C46B2A100874808 /* ManufacturerListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387F208F2C46B2A100874808 /* ManufacturerListViewModel.swift */; };
 		387F20942C46B2DE00874808 /* ManufacturerCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387F20932C46B2DE00874808 /* ManufacturerCellView.swift */; };
+		387F209F2C47C9E700874808 /* DetailManufacturerAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387F209C2C47C9E700874808 /* DetailManufacturerAssembly.swift */; };
+		387F20A02C47C9E700874808 /* DetailManufacturerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387F209D2C47C9E700874808 /* DetailManufacturerView.swift */; };
+		387F20A12C47C9E700874808 /* DetailManufacturerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387F209E2C47C9E700874808 /* DetailManufacturerViewModel.swift */; };
 		3887C6CE2A585C9400A96AE2 /* Request+Tobacco.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3887C6CD2A585C9400A96AE2 /* Request+Tobacco.swift */; };
 		3887C6D12A58711800A96AE2 /* HandlerErrorPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3887C6D02A58711800A96AE2 /* HandlerErrorPlugin.swift */; };
 		3887C6D32A58713A00A96AE2 /* Moya+Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3887C6D22A58713A00A96AE2 /* Moya+Config.swift */; };
@@ -594,6 +597,9 @@
 		387F208E2C46B2A100874808 /* ManufacturerListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManufacturerListView.swift; sourceTree = "<group>"; };
 		387F208F2C46B2A100874808 /* ManufacturerListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManufacturerListViewModel.swift; sourceTree = "<group>"; };
 		387F20932C46B2DE00874808 /* ManufacturerCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManufacturerCellView.swift; sourceTree = "<group>"; };
+		387F209C2C47C9E700874808 /* DetailManufacturerAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailManufacturerAssembly.swift; sourceTree = "<group>"; };
+		387F209D2C47C9E700874808 /* DetailManufacturerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailManufacturerView.swift; sourceTree = "<group>"; };
+		387F209E2C47C9E700874808 /* DetailManufacturerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailManufacturerViewModel.swift; sourceTree = "<group>"; };
 		3887C6CD2A585C9400A96AE2 /* Request+Tobacco.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Request+Tobacco.swift"; sourceTree = "<group>"; };
 		3887C6D02A58711800A96AE2 /* HandlerErrorPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandlerErrorPlugin.swift; sourceTree = "<group>"; };
 		3887C6D22A58713A00A96AE2 /* Moya+Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Moya+Config.swift"; sourceTree = "<group>"; };
@@ -1392,8 +1398,20 @@
 			isa = PBXGroup;
 			children = (
 				B95699AB28F709C000D9E584 /* ManufacturerListModule */,
+				387F209B2C47C99B00874808 /* DetailManufacturerModule */,
 			);
 			path = ManufacturerScreens;
+			sourceTree = "<group>";
+		};
+		387F209B2C47C99B00874808 /* DetailManufacturerModule */ = {
+			isa = PBXGroup;
+			children = (
+				387F20A22C47D22000874808 /* Views */,
+				387F209C2C47C9E700874808 /* DetailManufacturerAssembly.swift */,
+				387F209D2C47C9E700874808 /* DetailManufacturerView.swift */,
+				387F209E2C47C9E700874808 /* DetailManufacturerViewModel.swift */,
+			);
+			path = DetailManufacturerModule;
 			sourceTree = "<group>";
 		};
 		3887C6CF2A5870FC00A96AE2 /* Plugins */ = {
@@ -2786,6 +2804,7 @@
 				381E688A2AB735B8000AA9BC /* Api+Appeals.swift in Sources */,
 				B902AE4629F40B1D00BF6AD6 /* Tobacco+Codable.swift in Sources */,
 				B9ED910929098AA000DC3A6D /* TobaccoListCell.swift in Sources */,
+				387F20A02C47C9E700874808 /* DetailManufacturerView.swift in Sources */,
 				386CB55B2C38AD3200D73C71 /* DetailTobaccoModule.swift in Sources */,
 				384B93FB2AB3421000DBE89C /* SelectListBottomSheetRouter.swift in Sources */,
 				38041BF12AA0D24900DEEE6D /* TobaccoFiltersRouter.swift in Sources */,
@@ -2834,6 +2853,7 @@
 				B9074144290F041B00499674 /* HTTabBarControllerAssembly.swift in Sources */,
 				B92A46B32967313B0006B787 /* ProfileModule.swift in Sources */,
 				B9D6E93129FDC806001D44D5 /* TasteType.swift in Sources */,
+				387F209F2C47C9E700874808 /* DetailManufacturerAssembly.swift in Sources */,
 				B90B671729A03EB5004460C8 /* ApiNetworkingServicesAssembly.swift in Sources */,
 				38E8E6472A87D30E00041443 /* Request+Registration.swift in Sources */,
 				3818E03A2A80FE8600C9D02C /* extension+SheetViewController.swift in Sources */,
@@ -2866,6 +2886,7 @@
 				B9A4708628D2BB6400CA6FAA /* AddTextFieldView.swift in Sources */,
 				38C3ACBF2A8BCACC001D79EB /* DatePickerPresenter.swift in Sources */,
 				387F20912C46B2A100874808 /* ManufacturerListView.swift in Sources */,
+				387F20A12C47C9E700874808 /* DetailManufacturerViewModel.swift in Sources */,
 				384B940A2AB372BA00DBE89C /* JSONDecoder+Moya.swift in Sources */,
 				B92A46AB2966F9DC0006B787 /* ProfileInteractor.swift in Sources */,
 				B9EE2376291023F00098E4E0 /* DetailInfoManufacturerPresenter.swift in Sources */,

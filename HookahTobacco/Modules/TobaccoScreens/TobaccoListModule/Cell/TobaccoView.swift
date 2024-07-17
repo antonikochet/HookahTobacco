@@ -19,6 +19,24 @@ struct TobaccoViewModel {
     
     var favoriteAction: VoidBlock?
     var wantBuyAction: VoidBlock?
+    
+    init(
+        _ tobacco: Tobacco,
+        isShowWantBuyButton: Bool,
+        favoriteAction: VoidBlock? = nil,
+        wantBuyAction: VoidBlock? = nil
+    ) {
+        self.id = tobacco.id
+        self.imageURL = tobacco.imageURL
+        self.name = tobacco.name
+        self.tasty = tobacco.tastes.map { $0.taste }.joined(separator: ", ")
+        self.manufacturerName = tobacco.nameManufacturer
+        self.isFavorite = tobacco.isFavorite
+        self.isWantBuy = tobacco.isWantBuy
+        self.isShowWantBuyButton = isShowWantBuyButton
+        self.favoriteAction = favoriteAction
+        self.wantBuyAction = wantBuyAction
+    }
 }
 
 struct TobaccoView: View {
@@ -66,13 +84,15 @@ struct TobaccoView: View {
                 SwiftUI.Button {
                     viewModel.favoriteAction?()
                 } label: {
-                    Image(viewModel.isFavorite ? "heart-fill" : "heart")
+                    (viewModel.isFavorite ? R.image.heartFill : R.image.heart).image
                 }
                 
-                SwiftUI.Button {
-                    viewModel.wantBuyAction?()
-                } label: {
-                    Image(viewModel.isWantBuy ? "basket-fill" : "basket")
+                if viewModel.isShowWantBuyButton {
+                    SwiftUI.Button {
+                        viewModel.wantBuyAction?()
+                    } label: {
+                        (viewModel.isWantBuy ? R.image.basketFill : R.image.basket).image
+                    }
                 }
             }
         }
@@ -80,15 +100,9 @@ struct TobaccoView: View {
 }
 
 #Preview {
-    let tobacco = Tobacco.mock
+    let tobacco = Tobacco.mock()
     return TobaccoView(viewModel: TobaccoViewModel(
-        id: "",
-        imageURL: tobacco.imageURL,
-        name: tobacco.name,
-        tasty: tobacco.tastes.map { $0.taste }.joined(separator: ", "),
-        manufacturerName: tobacco.nameManufacturer,
-        isFavorite: tobacco.isFavorite,
-        isWantBuy: tobacco.isWantBuy,
+        tobacco,
         isShowWantBuyButton: true
     ))
     .previewLayout(.fixed(width: 375, height: 100))
