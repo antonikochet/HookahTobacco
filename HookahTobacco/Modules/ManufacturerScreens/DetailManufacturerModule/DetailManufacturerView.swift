@@ -21,29 +21,32 @@ struct DetailManufacturerView<ViewModel: DetailManufacturerViewModel>: View {
     // MARK: - Body
     var body: some View {
         BaseView(viewModel: viewModel) {
-            List {
-                infoViewCell
-                
-                
+            ScrollView {
+                LazyVStack(alignment: .leading) {
+                    HTImage(imageURL: viewModel.imageURL, height: 300)
+                        .padding(EdgeInsets(top: 16, leading: 32, bottom: 24, trailing: 32))
+                    
+                    infoView
+                        .padding(.horizontal, 16)
+                    
+                    tobaccoSections
+                        .frame(maxWidth: .infinity)
+                    
+                    if !viewModel.link.isEmpty {
+                        // TODO: - добавить обработку открытия сайта
+                        Text("[Cайт](\(viewModel.link))")
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                            .padding(.horizontal, 16)
+                            .padding(.bottom)
+                    }
+                }
             }
-            .listStyle(.plain)
         }
         .navigationTitle(viewModel.title)
         .navigationBarTitleDisplayMode(.inline)
     }
     
     // MARK: - Subviews
-    private var infoViewCell: some View {
-        Section {
-            HTImage(imageURL: viewModel.imageURL, height: 300)
-                .padding(EdgeInsets(top: 16, leading: 16, bottom: 24, trailing: 16))
-            
-            infoView
-        }
-        .listRowSeparator(.hidden)
-        .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
-    }
-    
     private var infoView: some View {
         VStack(alignment: .leading) {
             Text(viewModel.country)
@@ -60,6 +63,32 @@ struct DetailManufacturerView<ViewModel: DetailManufacturerViewModel>: View {
         .foregroundStyle(R.color.primaryTitle.color)
     }
     
+    private var tobaccoSections: some View {
+        Group {
+            if viewModel.tobaccoLines.isEmpty {
+                NotFoundView(
+                    title: R.string.localizable.manufacteurerDetailEmptyTitle(),
+                    subtitle: R.string.localizable.manufacteurerDetailEmptyMessage()
+                )
+                .padding()
+            } else {
+                ForEach(viewModel.tobaccoLines) { viewModel in
+                    DetailManufacturerTobaccoLineView(
+                        title: viewModel.title,
+                        description: viewModel.description) {
+                            ForEach(viewModel.tobaccos, id: \.id) { viewModel in
+                                TobaccoView(viewModel: viewModel)
+                                    .onTapGesture {
+                                        self.viewModel.showDetail(id: viewModel.id)
+                                    }
+                            }
+                        }
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 4)
+                }
+            }
+        }
+    }
     // MARK: - Private methods
     
 }

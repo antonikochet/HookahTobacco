@@ -26,7 +26,7 @@ protocol TobaccoListViewModel: BaseViewModel {
     func receiveNextPage()
     func refresh()
     
-    func showDetail(id: String)
+    func showDetail(id: Int)
     func showFilter()
 }
 
@@ -115,8 +115,8 @@ final class TobaccoListViewModelImpl: BaseViewModelImpl, TobaccoListViewModel {
         startReceiveTobacco()
     }
     
-    func showDetail(id: String) {
-        guard let tobacco = privateTobaccos.first(where: { $0.id == id}) else { return }
+    func showDetail(id: Int) {
+        guard let tobacco = privateTobaccos.first(where: { $0.uid == id}) else { return }
         showDetailTobacco(tobacco)
     }
     
@@ -154,8 +154,8 @@ final class TobaccoListViewModelImpl: BaseViewModelImpl, TobaccoListViewModel {
         }
     }
     
-    private func updateFavorite(_ id: String) {
-        guard let index = privateTobaccos.firstIndex(where: { $0.id == id }) else { return }
+    private func updateFavorite(_ id: Int) {
+        guard let index = privateTobaccos.firstIndex(where: { $0.uid == id }) else { return }
         var tobacco = privateTobaccos[index]
         tobacco.isFlagsChanged = true
         tobacco.isFavorite.toggle()
@@ -180,8 +180,8 @@ final class TobaccoListViewModelImpl: BaseViewModelImpl, TobaccoListViewModel {
         }
     }
     
-    private func updateWantBuy(_ id: String) {
-        guard let index = privateTobaccos.firstIndex(where: { $0.id == id }) else { return }
+    private func updateWantBuy(_ id: Int) {
+        guard let index = privateTobaccos.firstIndex(where: { $0.uid == id }) else { return }
         var tobacco = privateTobaccos[index]
         tobacco.isFlagsChanged = true
         tobacco.isWantBuy.toggle()
@@ -284,10 +284,10 @@ final class TobaccoListViewModelImpl: BaseViewModelImpl, TobaccoListViewModel {
             isShowWantBuyButton: true
         )
         viewModel.favoriteAction = { [weak self] in
-            self?.updateFavorite(tobacco.id)
+            self?.updateFavorite(tobacco.uid)
         }
         viewModel.wantBuyAction = { [weak self] in
-            self?.updateWantBuy(tobacco.id)
+            self?.updateWantBuy(tobacco.uid)
         }
         return viewModel
     }

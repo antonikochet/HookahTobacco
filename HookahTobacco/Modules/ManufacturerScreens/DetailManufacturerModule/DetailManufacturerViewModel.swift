@@ -16,6 +16,8 @@ protocol DetailManufacturerViewModel: BaseViewModel {
     var description: String { get }
     var link: String { get }
     var tobaccoLines: [DetailManufacturerTobaccoLineViewModel] { get }
+    
+    func showDetail(id: Int)
 }
 
 final class DetailManufacturerViewModelImpl: BaseViewModelImpl, DetailManufacturerViewModel {
@@ -36,16 +38,19 @@ final class DetailManufacturerViewModelImpl: BaseViewModelImpl, DetailManufactur
     private var userNetworkingService: UserNetworkingServiceProtocol
     
     // MARK: - Routing
+    private var showDetailTobacco: BlockWithParam<Tobacco>
     
     // MARK: - Initializers
     init(
         manufacturer: Manufacturer,
         getDataNetworkingService: GetDataNetworkingServiceProtocol,
-        userNetworkingService: UserNetworkingServiceProtocol
+        userNetworkingService: UserNetworkingServiceProtocol,
+        showDetailTobacco: @escaping BlockWithParam<Tobacco>
     ) {
         self.manufacturer = manufacturer
         self.getDataNetworkingService = getDataNetworkingService
         self.userNetworkingService = userNetworkingService
+        self.showDetailTobacco = showDetailTobacco
         
         self.title = manufacturer.name
         self.imageURL = manufacturer.urlImage
@@ -59,6 +64,10 @@ final class DetailManufacturerViewModelImpl: BaseViewModelImpl, DetailManufactur
     }
     
     // MARK: - ViewModel methods
+    func showDetail(id: Int) {
+        guard let tobacco = tobaccos.first(where: { $0.uid == id }) else { return }
+        showDetailTobacco(tobacco)
+    }
     
     // MARK: - Private methods
     private func receiveTobacco() {
@@ -84,7 +93,7 @@ final class DetailManufacturerViewModelImpl: BaseViewModelImpl, DetailManufactur
             guard let self else { return }
             switch result {
             case .success(let tobaccos):
-                guard var newTobacco = tobaccos.first else { return }
+                guard let newTobacco = tobaccos.first else { return }
                 self.tobaccos[index] = newTobacco
                 self.updateTobaccoLines()
             case .failure(let error):
@@ -100,6 +109,7 @@ final class DetailManufacturerViewModelImpl: BaseViewModelImpl, DetailManufactur
     }
     
     private func updateTobaccoLines() {
+        // TODO: - убрать прыгание секций при изменения табаков
         let tobaccoDict = Dictionary(grouping: tobaccos) { tobacco in
             tobacco.line.uid
         }
@@ -141,7 +151,11 @@ final class DetailManufacturerViewModelMock: BaseViewModelImpl, DetailManufactur
     @Published private(set) var tobaccoLines: [DetailManufacturerTobaccoLineViewModel]
     
     // MARK: - ViewModel methods
+    func showDetail(id: Int) {
+        print("show tobacco for id: \(id)")
+    }
     
+    // MARK: - Init
     override init() {
         let manufacturer = Manufacturer.mock(countLines: 4)
         self.title = manufacturer.name
@@ -156,7 +170,14 @@ final class DetailManufacturerViewModelMock: BaseViewModelImpl, DetailManufactur
                 id: tobaccoLine.uid,
                 title: tobaccoLine.name,
                 description: tobaccoLine.description,
-                tobaccos: Tobacco.arrayMock(5).map { .init($0, isShowWantBuyButton: false) }
+                tobaccos: Tobacco.arrayMock(5).map { tobacco in
+                        .init(
+                            tobacco,
+                            isShowWantBuyButton: false,
+                            favoriteAction: {
+                                print("update favorite for \(tobacco.id)")
+                            })
+                }
             )
         }
     }

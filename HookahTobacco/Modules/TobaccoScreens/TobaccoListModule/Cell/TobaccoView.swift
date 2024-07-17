@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct TobaccoViewModel {
-    let id: String
+struct TobaccoViewModel: Identifiable {
+    let id: Int
     let imageURL: String
     let name: String
     let tasty: String
@@ -26,7 +26,7 @@ struct TobaccoViewModel {
         favoriteAction: VoidBlock? = nil,
         wantBuyAction: VoidBlock? = nil
     ) {
-        self.id = tobacco.id
+        self.id = tobacco.uid
         self.imageURL = tobacco.imageURL
         self.name = tobacco.name
         self.tasty = tobacco.tastes.map { $0.taste }.joined(separator: ", ")

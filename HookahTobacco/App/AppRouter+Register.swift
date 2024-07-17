@@ -27,12 +27,11 @@ extension AppRouter {
         registerModule(TobaccoListModule.nameModule) { TobaccoListModule($0) }
         registerModule(DetailTobaccoModule.nameModule) { DetailTobaccoModule($0) }
         registerModule(ManufacturerListModule.nameModule) { ManufacturerListModule($0) }
+        registerModule(DetailInfoManufacturerModule.nameModule) { DetailInfoManufacturerModule($0) }
         
         // UIKit Module
         registerModule(LoginAssembly(), LoginModule.nameModule) { LoginModule($0) }
         
-        registerModule(DetailInfoManufacturerAssembly(),
-                       DetailInfoManufacturerModule.nameModule) { DetailInfoManufacturerModule($0) }
         registerModule(RegistrationAssembly(), RegistrationModule.nameModule) { RegistrationModule($0) }
         registerModule(ProfileAssembly(), ProfileModule.nameModule) { ProfileModule($0) }
         registerModule(ProfileEditAssembly(), ProfileEditModule.nameModule) { ProfileEditModule($0) }
