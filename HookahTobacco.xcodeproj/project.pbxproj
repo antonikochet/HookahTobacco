@@ -911,9 +911,7 @@
 		381E686C2AB733ED000AA9BC /* TobaccoScreen */ = {
 			isa = PBXGroup;
 			children = (
-				B981CB9E2930DB8500705422 /* DetailTobaccoModule */,
 				38041BE92AA0D24900DEEE6D /* TobaccoFiltersModule */,
-				B9B7274629096C5A00EB7323 /* TobaccoListModule */,
 			);
 			path = TobaccoScreen;
 			sourceTree = "<group>";
@@ -921,7 +919,6 @@
 		381E686D2AB73413000AA9BC /* ManufacturerScreen */ = {
 			isa = PBXGroup;
 			children = (
-				B95699AB28F709C000D9E584 /* ManufacturerListModule */,
 				B9EE23522910196B0098E4E0 /* DetailInfoManufacturerModule */,
 			);
 			path = ManufacturerScreen;
@@ -1382,6 +1379,23 @@
 			path = Country;
 			sourceTree = "<group>";
 		};
+		387F20982C47C56D00874808 /* TobaccoScreens */ = {
+			isa = PBXGroup;
+			children = (
+				B9B7274629096C5A00EB7323 /* TobaccoListModule */,
+				B981CB9E2930DB8500705422 /* DetailTobaccoModule */,
+			);
+			path = TobaccoScreens;
+			sourceTree = "<group>";
+		};
+		387F209A2C47C58C00874808 /* ManufacturerScreens */ = {
+			isa = PBXGroup;
+			children = (
+				B95699AB28F709C000D9E584 /* ManufacturerListModule */,
+			);
+			path = ManufacturerScreens;
+			sourceTree = "<group>";
+		};
 		3887C6CF2A5870FC00A96AE2 /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
@@ -1614,6 +1628,8 @@
 		B9027E06290FF6C2002E3C3A /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				387F209A2C47C58C00874808 /* ManufacturerScreens */,
+				387F20982C47C56D00874808 /* TobaccoScreens */,
 				B9E8DA5328F7835700CCA034 /* Views */,
 			);
 			path = Modules;
