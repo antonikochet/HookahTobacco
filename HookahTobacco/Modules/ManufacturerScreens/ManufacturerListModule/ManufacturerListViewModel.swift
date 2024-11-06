@@ -1,0 +1,143 @@
+//
+//
+//  ManufacturerListViewModel.swift
+//  HookahTobacco
+//
+//  Created by Антон Кочетков on 16.07.2024.
+//
+//
+
+import Foundation
+
+protocol ManufacturerListViewModel: BaseViewModel {
+    var manufacturers: [ManufacturerCellViewModel] { get }
+    
+    func startReceiveManufacturers()
+    func showDetail(id: Int)
+}
+
+final class ManufacturerListViewModelImpl: BaseViewModelImpl, ManufacturerListViewModel {
+    // MARK: - ViewModel properties
+    @Published private(set) var manufacturers: [ManufacturerCellViewModel] = []
+    
+    // MARK: - Private properties
+    private var privateManufacturers: [Manufacturer] = []
+    private var isDownloadData = false
+    
+    // MARK: - Dependency
+    private let getDataNetworkingService: GetDataNetworkingServiceProtocol
+    
+    // MARK: - Routing
+    private var showDetailManufacturer: BlockWithParam<Manufacturer>
+    
+    // MARK: - Initializers
+    init(
+        getDataNetworkingService: GetDataNetworkingServiceProtocol,
+        showDetailManufacturer: @escaping BlockWithParam<Manufacturer>
+    ) {
+        self.getDataNetworkingService = getDataNetworkingService
+        self.showDetailManufacturer = showDetailManufacturer
+    }
+    
+    // MARK: - ViewModel methods
+    func startReceiveManufacturers() {
+        receiveManufacturers()
+    }
+    
+    func showDetail(id: Int) {
+        guard let manufacturer = privateManufacturers.first(where: { $0.uid == id }) else { return }
+        showDetailManufacturer(manufacturer)
+    }
+    
+    // MARK: - Private methods
+    private func receiveManufacturers() {
+        isLoading = true
+        getDataNetworkingService.receiveData(type: Manufacturer.self) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let data):
+                self.handlerSuccess(data)
+            case .failure(let error):
+                self.handlerError(error)
+            }
+            self.isLoading = false
+        }
+    }
+    
+    private func handlerSuccess(_ manufacturers: [Manufacturer]) {
+        isDownloadData = true
+        if manufacturers.isEmpty {
+            showErrorView(
+                title: R.string.localizable.manufacteurerListEmptyTitle(),
+                message: "",
+                buttonAction: nil
+            )
+            return
+        }
+        privateManufacturers = manufacturers
+        self.manufacturers = manufacturers.map {
+            .init(
+                id: $0.uid,
+                name: $0.name,
+                county: $0.country.name,
+                imageURL: $0.urlImage
+            )
+        }
+    }
+    
+    private func handlerError(_ error: HTError) {
+        switch error {
+        case .apiError:
+            showAlertError(message: error.message)
+        case .noInternetConnection, .unexpectedError, .unknownError, .serverNotAvailable:
+            if isDownloadData {
+                showAlertError(message: error.message)
+            } else {
+                showErrorView(isUnexpectedError: error != .noInternetConnection) { [weak self] in
+                    self?.infoView = nil
+                    self?.receiveManufacturers()
+                }
+            }
+        }
+    }
+}
+
+#if DEBUG
+final class ManufacturerListViewModelMock: BaseViewModelImpl, ManufacturerListViewModel {
+    // MARK: - ViewModel properties
+    @Published private(set) var manufacturers: [ManufacturerCellViewModel] = []
+    
+    // MARK: - ViewModel methods
+    func startReceiveManufacturers() {
+        let isEmpty = false
+        
+        isLoading = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            guard let self else { return }
+            
+            let manufacturers = Manufacturer.arrayMock(8)
+            if isEmpty {
+                self.showErrorView(
+                    title: R.string.localizable.manufacteurerListEmptyTitle(),
+                    message: "",
+                    buttonAction: nil
+                )
+            } else {
+                self.manufacturers = manufacturers.map {
+                    .init(
+                        id: $0.uid,
+                        name: $0.name,
+                        county: $0.country.name,
+                        imageURL: $0.urlImage
+                    )
+                }
+            }
+            self.isLoading = false
+        }
+    }
+    
+    func showDetail(id: Int) {
+        
+    }
+}
+#endif
