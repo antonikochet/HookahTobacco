@@ -6,8 +6,8 @@
 //
 
 import Foundation
+import HookahTobaccoCore
 
-protocol AuthSettingsProtocol {
-    func getToken() -> String?
+protocol AuthSettingsProtocol: AuthGettingProtocol {
     func setToken(_ token: String?)
 }

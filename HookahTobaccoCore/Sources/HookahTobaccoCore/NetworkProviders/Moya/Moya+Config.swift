@@ -1,8 +1,8 @@
 //
 //  Moya+Config.swift
-//  HookahTobacco
 //
-//  Created by Anton Kochetkov on 07.07.2023.
+//
+//  Created by Антон Кочетков on 07.07.2023.
 //
 
 import Foundation
@@ -17,7 +17,7 @@ extension MoyaProvider {
         return Session(configuration: configuration, startRequestsImmediately: false)
     }
 
-    static func makeWithPlugins(_ additionalPlugins: [PluginType]) -> MoyaProvider {
+    static public func makeWithPlugins(_ additionalPlugins: [PluginType]) -> MoyaProvider {
         var plugins: [PluginType] = []
 
         #if DEBUG

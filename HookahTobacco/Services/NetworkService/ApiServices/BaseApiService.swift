@@ -9,6 +9,7 @@ import Foundation
 import Moya
 import Alamofire
 import UIKit
+import HookahTobaccoCore
 
 class BaseApiService {
     private let provider: MoyaProvider<MultiTarget>

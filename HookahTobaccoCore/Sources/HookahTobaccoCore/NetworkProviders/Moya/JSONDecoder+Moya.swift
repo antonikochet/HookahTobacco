@@ -1,8 +1,8 @@
 //
 //  JSONDecoder+Moya.swift
-//  HookahTobacco
 //
-//  Created by Anton Kochetkov on 14.09.2023.
+//
+//  Created by Антон Кочетков on 14.09.2023.
 //
 
 import Foundation

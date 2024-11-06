@@ -8,9 +8,9 @@
 import Moya
 import Foundation
 
-typealias MoyaCompletion<T> = (Result<T, Error>) -> Void
+public typealias MoyaCompletion<T> = (Result<T, Error>) -> Void
 
-extension MoyaProviderType {
+public extension MoyaProviderType {
 
     @discardableResult
     func request<T: Decodable>(

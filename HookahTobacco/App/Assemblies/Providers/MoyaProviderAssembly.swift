@@ -8,16 +8,17 @@
 import Foundation
 import Swinject
 import Moya
+import HookahTobaccoCore
 
 class MoyaProviderAssembly: Assembly {
     func assemble(container: Container) {
-        container.register(MoyaProvider.self) { resolver in
+        container.register(MoyaProvider<MultiTarget>.self) { resolver in
             let authSettings = resolver.resolve(AuthSettingsProtocol.self)!
-            let plagins: [PluginType] = [
-                AuthorizationPlugin(authSettings: authSettings),
+            let plugins: [PluginType] = [
+                AuthorizationPlugin(authGettingProtocol: authSettings),
                 HandlerErrorPlugin()
             ]
-            return MoyaProvider<MultiTarget>.makeWithPlugins(plagins)
+            return MoyaProvider<MultiTarget>.makeWithPlugins(plugins)
         }
     }
 }
