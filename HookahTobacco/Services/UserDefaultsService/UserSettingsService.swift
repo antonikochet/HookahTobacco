@@ -7,6 +7,7 @@
 
 import Foundation
 import KeychainAccess
+import HookahTobaccoCore
 
 class UserSettingsService {
 

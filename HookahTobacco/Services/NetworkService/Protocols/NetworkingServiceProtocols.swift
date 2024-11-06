@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import HookahTobaccoCore
 
 protocol GetDataNetworkingServiceProtocol {
     func receiveData<T: DataNetworkingServiceProtocol>(type: T.Type,
@@ -28,11 +29,6 @@ protocol UserNetworkingServiceProtocol {
     func updateFavoriteTobacco(_ tobaccos: [Tobacco], completion: ResultBlock<[Tobacco]>?)
     func updateWantToBuyTobacco(_ tobaccos: [Tobacco], completion: ResultBlock<[Tobacco]>?)
     func receiveAgreementURLs(_ types: [TypeAgreementURLs], completion: ResultBlock<[AgreementURLsResponse]>?)
-}
-
-protocol AppealsNetworkingServiceProtocol {
-    func receiveThemes(completion: ResultBlock<ThemesAppealsResponse>?)
-    func createAppeal(_ appeal: CreateAppealEntity, completion: ResultBlock<CreateAppealResponse>?)
 }
 
 protocol AdminNetworkingServiceProtocol {

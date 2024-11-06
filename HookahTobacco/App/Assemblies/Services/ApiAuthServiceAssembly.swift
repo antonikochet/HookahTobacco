@@ -8,6 +8,7 @@
 import Foundation
 import Swinject
 import Moya
+import HookahTobaccoCore
 
 class ApiAuthServiceAssembly: Assembly {
     func assemble(container: Container) {

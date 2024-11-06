@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import HookahTobaccoCore
 
 enum HTError: Error {
     case noInternetConnection
@@ -27,6 +28,25 @@ enum HTError: Error {
         case .apiError(let errors):
             return errors.map({ "\($0.fieldName != nil ? $0.fieldName! + ": " : "")\($0.message)" })
                 .joined(separator: "\n")
+        }
+    }
+    
+    static func createError(_ domainError: DomainError) -> HTError {
+        switch domainError {
+        case .noInternetConnection:
+            return .noInternetConnection
+        case .unexpectedError:
+            return .unexpectedError
+        case .serverNotAvailable:
+            return .serverNotAvailable
+        case .encodableMapping(let error):
+            return .unknownError(error)
+        case .parameterEncoding(let error):
+            return .unknownError(error)
+        case .error(let array):
+            return .apiError(array.map { .init(code: $0.code, message: $0.message, fieldName: $0.fieldName) })
+        case .unknownError(let error):
+            return .unknownError(error)
         }
     }
 }

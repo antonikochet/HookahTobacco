@@ -7,6 +7,7 @@
 
 import Foundation
 import Swinject
+import HookahTobaccoCore
 
 class UserDefaultsServiceAssembly: Assembly {
     func assemble(container: Container) {

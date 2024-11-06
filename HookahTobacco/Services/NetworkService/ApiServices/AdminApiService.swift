@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import HookahTobaccoCore
 
 final class AdminApiService: BaseApiService {
 

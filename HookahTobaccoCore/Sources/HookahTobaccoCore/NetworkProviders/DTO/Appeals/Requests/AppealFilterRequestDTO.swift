@@ -1,27 +1,27 @@
 //
-//  Request+Appeals.swift
-//  HookahTobacco
+//  AppealFilterRequestDTO.swift
+//  
 //
-//  Created by Anton Kochetkov on 17.09.2023.
+//  Created by Антон Кочетков on 06.11.2024.
 //
 
 import Foundation
 import Moya
-import HookahTobaccoCore
 
-// MARK: - lList
-struct AppealFilterRequest {
+struct AppealFilterRequestDTO {
     let page: Int
-    let themes: [ThemeAppeal]
+    let themeIds: [Int]
     let status: AppealStatus?
+}
 
+extension AppealFilterRequestDTO: CreateTaskProtocol {
     func createRequest() -> Moya.Task {
         var body: [String: Any] = [:]
         let urlParams: [String: Any] = [
             "page": page
         ]
-        if !themes.isEmpty {
-            body["themes"] = themes.map { $0.id }
+        if !themeIds.isEmpty {
+            body["themes"] = themeIds
         }
         if let status {
             switch status {
@@ -30,7 +30,7 @@ struct AppealFilterRequest {
                 body["answer"] = ""
             case .processing:
                 body["handled"] = false
-                body["answer"] = 0
+                body["answer"] = 0 // TODO: - разобраться что тут происходит
             case .handled:
                 body["handled"] = true
                 body["answer"] = 0

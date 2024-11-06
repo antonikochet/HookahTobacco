@@ -6,57 +6,18 @@
 //
 
 import Foundation
-
-// MARK: - getThemes
-struct ThemesAppealsResponse: Decodable {
-    let themes: [ThemeAppeal]
-    let user: ThemeAppealUser?
-}
-
-struct ThemeAppeal: Decodable {
-    let id: Int
-    let name: String
-    let isContent: Bool
-
-    enum CodingKeys: String, CodingKey {
-        case id, name
-        case isContent = "is_content"
-    }
-}
-
-struct ThemeAppealUser: Decodable {
-    let id: Int
-    let name: String
-    let email: String
-}
-
-// MARK: - createAppeal
-struct CreateAppealResponse: Decodable {
-    let id: Int
-    let name: String
-    let email: String
-    let theme: String
-    let createdDate: Date
-
-    enum CodingKeys: String, CodingKey {
-        case id
-        case name
-        case email
-        case theme
-        case createdDate = "created_date"
-    }
-}
+import HookahTobaccoCore
 
 // MARK: - getList
 struct AppealResponse: Decodable {
     let id: Int
     let name: String
     let email: String
-    let theme: ThemeAppeal
+//    let theme: ThemeAppeal
     let message: String
     let contents: [AppealContent]
     let createdDate: Date
-    let status: AppealStatus
+//    let status: AppealStatus
     let handledDate: Date?
     let replyMessage: String
 
@@ -64,11 +25,11 @@ struct AppealResponse: Decodable {
         case id
         case name
         case email
-        case theme
+//        case theme
         case createdDate = "created_date"
         case message
         case contents
-        case status
+//        case status
         case handledDate = "handled_date"
         case replyMessage = "reply_message"
     }
@@ -76,10 +37,4 @@ struct AppealResponse: Decodable {
 
 struct AppealContent: Decodable {
     let file: String
-}
-
-enum AppealStatus: Int, Decodable, CaseIterable {
-    case notViewed = 0
-    case processing
-    case handled
 }

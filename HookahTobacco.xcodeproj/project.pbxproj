@@ -33,10 +33,8 @@
 		381910422C3BE3F8001CADC0 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381910412C3BE3F8001CADC0 /* BaseView.swift */; };
 		381910452C3BF874001CADC0 /* ViewDidLoadModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381910442C3BF874001CADC0 /* ViewDidLoadModifier.swift */; };
 		3819104B2C3C0722001CADC0 /* extension+RswiftResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3819104A2C3C0722001CADC0 /* extension+RswiftResources.swift */; };
-		381E688A2AB735B8000AA9BC /* Api+Appeals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381E68892AB735B8000AA9BC /* Api+Appeals.swift */; };
 		381E688C2AB7366B000AA9BC /* Request+Appeals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381E688B2AB7366B000AA9BC /* Request+Appeals.swift */; };
 		381E688E2AB73676000AA9BC /* Response+Appeals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381E688D2AB73675000AA9BC /* Response+Appeals.swift */; };
-		381E68912AB741C9000AA9BC /* AppealsApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381E68902AB741C9000AA9BC /* AppealsApiService.swift */; };
 		381E689B2AB74373000AA9BC /* CreateAppealsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381E68962AB74373000AA9BC /* CreateAppealsPresenter.swift */; };
 		381E689C2AB74373000AA9BC /* CreateAppealsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381E68972AB74373000AA9BC /* CreateAppealsRouter.swift */; };
 		381E689D2AB74373000AA9BC /* CreateAppealsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381E68982AB74373000AA9BC /* CreateAppealsViewController.swift */; };
@@ -63,6 +61,7 @@
 		3858673C2AB987ED001776D9 /* SuccessBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385867372AB987ED001776D9 /* SuccessBottomSheetViewController.swift */; };
 		385867442AB98BDC001776D9 /* SuccessBottomSheetModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385867422AB98BDC001776D9 /* SuccessBottomSheetModule.swift */; };
 		385867452AB98BDC001776D9 /* SuccessBottomSheetAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385867432AB98BDC001776D9 /* SuccessBottomSheetAssembly.swift */; };
+		385A45EC2CDCC56E0016DBDB /* HookahTobaccoCore in Frameworks */ = {isa = PBXBuildFile; productRef = 385A45EB2CDCC56E0016DBDB /* HookahTobaccoCore */; };
 		3861B08E2C3ECD39009E3061 /* ChipsContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3861B08D2C3ECD39009E3061 /* ChipsContainerView.swift */; };
 		386CB3CE2C38565100D73C71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386CB3CD2C38565100D73C71 /* AppDelegate.swift */; };
 		386CB3DA2C38565200D73C71 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 386CB3D82C38565200D73C71 /* LaunchScreen.storyboard */; };
@@ -137,7 +136,6 @@
 		386CB4452C38642E00D73C71 /* RegistrationInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C925F5294F53720085BB02 /* RegistrationInteractor.swift */; };
 		386CB4462C38644A00D73C71 /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C92608294F77570085BB02 /* AuthError.swift */; };
 		386CB4472C38645100D73C71 /* RegistrationServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C92600294F6DB20085BB02 /* RegistrationServiceProtocol.swift */; };
-		386CB4482C38645300D73C71 /* AuthSettingsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE612A86B93A00EA19A3 /* AuthSettingsProtocol.swift */; };
 		386CB4492C38645900D73C71 /* ApiAuthServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE5A2A8699E900EA19A3 /* ApiAuthServices.swift */; };
 		386CB44A2C38646C00D73C71 /* NetworkHandlerErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3802046329FE6AB8000193A1 /* NetworkHandlerErrors.swift */; };
 		386CB44B2C38648500D73C71 /* BaseApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A8B1ED2A91A08A009FAFF7 /* BaseApiService.swift */; };
@@ -180,12 +178,10 @@
 		386CB47D2C38685500D73C71 /* Taste+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D6E92E29FDC651001D44D5 /* Taste+Codable.swift */; };
 		386CB47E2C38687A00D73C71 /* Response+Appeals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381E688D2AB73675000AA9BC /* Response+Appeals.swift */; };
 		386CB4802C38687D00D73C71 /* Request+Appeals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381E688B2AB7366B000AA9BC /* Request+Appeals.swift */; };
-		386CB4812C38688000D73C71 /* Api+Appeals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381E68892AB735B8000AA9BC /* Api+Appeals.swift */; };
 		386CB4822C38691300D73C71 /* MoyaProviderAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE722A86DAC400EA19A3 /* MoyaProviderAssembly.swift */; };
 		386CB4842C38699100D73C71 /* UserApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38AFD1182A92322800800342 /* UserApiService.swift */; };
 		386CB4852C3869A600D73C71 /* Api+User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE6D2A86CC5300EA19A3 /* Api+User.swift */; };
 		386CB4862C3869B400D73C71 /* DataApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38AFD11A2A9238B600800342 /* DataApiService.swift */; };
-		386CB4872C3869B800D73C71 /* AppealsApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381E68902AB741C9000AA9BC /* AppealsApiService.swift */; };
 		386CB4882C3869BE00D73C71 /* AdminApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38AFD11C2A92415600800342 /* AdminApiService.swift */; };
 		386CB4892C3869CA00D73C71 /* Api+Manufacturer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3895E4FE2A542D41005D87EE /* Api+Manufacturer.swift */; };
 		386CB48A2C3869CC00D73C71 /* Request+Manufacturer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3848022E2A57189C00DA595B /* Request+Manufacturer.swift */; };
@@ -374,7 +370,6 @@
 		38DDDE582A8697BB00EA19A3 /* Request+Authorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE572A8697BB00EA19A3 /* Request+Authorization.swift */; };
 		38DDDE5B2A8699E900EA19A3 /* ApiAuthServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE5A2A8699E900EA19A3 /* ApiAuthServices.swift */; };
 		38DDDE602A86B1CA00EA19A3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE5F2A86B1CA00EA19A3 /* User.swift */; };
-		38DDDE622A86B93A00EA19A3 /* AuthSettingsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE612A86B93A00EA19A3 /* AuthSettingsProtocol.swift */; };
 		38DDDE642A86BCE500EA19A3 /* Response+Authorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE632A86BCE500EA19A3 /* Response+Authorization.swift */; };
 		38DDDE672A86C05000EA19A3 /* EmptyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE662A86C05000EA19A3 /* EmptyResponse.swift */; };
 		38DDDE692A86C46000EA19A3 /* ApiAuthServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE682A86C46000EA19A3 /* ApiAuthServiceAssembly.swift */; };
@@ -382,6 +377,7 @@
 		38DDDE702A86CF8700EA19A3 /* User+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE6F2A86CF8700EA19A3 /* User+Codable.swift */; };
 		38DDDE732A86DAC400EA19A3 /* MoyaProviderAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE722A86DAC400EA19A3 /* MoyaProviderAssembly.swift */; };
 		38DE7EC12AA278BE00DE4D01 /* MultiSegmentedTobaccoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DE7EC02AA278BE00DE4D01 /* MultiSegmentedTobaccoTableViewCell.swift */; };
+		38E4D4252CDBEC69001AC833 /* Api+Appeals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E4D4242CDBEC69001AC833 /* Api+Appeals.swift */; };
 		38E8E6422A87C6B400041443 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 38E8E6412A87C6B400041443 /* KeychainAccess */; };
 		38E8E6452A87D12000041443 /* Api+Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E8E6442A87D12000041443 /* Api+Registration.swift */; };
 		38E8E6472A87D30E00041443 /* Request+Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E8E6462A87D30E00041443 /* Request+Registration.swift */; };
@@ -498,10 +494,8 @@
 		381910412C3BE3F8001CADC0 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		381910442C3BF874001CADC0 /* ViewDidLoadModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewDidLoadModifier.swift; sourceTree = "<group>"; };
 		3819104A2C3C0722001CADC0 /* extension+RswiftResources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extension+RswiftResources.swift"; sourceTree = "<group>"; };
-		381E68892AB735B8000AA9BC /* Api+Appeals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Api+Appeals.swift"; sourceTree = "<group>"; };
 		381E688B2AB7366B000AA9BC /* Request+Appeals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Request+Appeals.swift"; sourceTree = "<group>"; };
 		381E688D2AB73675000AA9BC /* Response+Appeals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Response+Appeals.swift"; sourceTree = "<group>"; };
-		381E68902AB741C9000AA9BC /* AppealsApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppealsApiService.swift; sourceTree = "<group>"; };
 		381E68962AB74373000AA9BC /* CreateAppealsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAppealsPresenter.swift; sourceTree = "<group>"; };
 		381E68972AB74373000AA9BC /* CreateAppealsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAppealsRouter.swift; sourceTree = "<group>"; };
 		381E68982AB74373000AA9BC /* CreateAppealsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAppealsViewController.swift; sourceTree = "<group>"; };
@@ -626,7 +620,6 @@
 		38DDDE572A8697BB00EA19A3 /* Request+Authorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Request+Authorization.swift"; sourceTree = "<group>"; };
 		38DDDE5A2A8699E900EA19A3 /* ApiAuthServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiAuthServices.swift; sourceTree = "<group>"; };
 		38DDDE5F2A86B1CA00EA19A3 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		38DDDE612A86B93A00EA19A3 /* AuthSettingsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSettingsProtocol.swift; sourceTree = "<group>"; };
 		38DDDE632A86BCE500EA19A3 /* Response+Authorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Response+Authorization.swift"; sourceTree = "<group>"; };
 		38DDDE662A86C05000EA19A3 /* EmptyResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyResponse.swift; sourceTree = "<group>"; };
 		38DDDE682A86C46000EA19A3 /* ApiAuthServiceAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiAuthServiceAssembly.swift; sourceTree = "<group>"; };
@@ -634,6 +627,7 @@
 		38DDDE6F2A86CF8700EA19A3 /* User+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+Codable.swift"; sourceTree = "<group>"; };
 		38DDDE722A86DAC400EA19A3 /* MoyaProviderAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaProviderAssembly.swift; sourceTree = "<group>"; };
 		38DE7EC02AA278BE00DE4D01 /* MultiSegmentedTobaccoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSegmentedTobaccoTableViewCell.swift; sourceTree = "<group>"; };
+		38E4D4242CDBEC69001AC833 /* Api+Appeals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Api+Appeals.swift"; sourceTree = "<group>"; };
 		38E8E6442A87D12000041443 /* Api+Registration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Api+Registration.swift"; sourceTree = "<group>"; };
 		38E8E6462A87D30E00041443 /* Request+Registration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Request+Registration.swift"; sourceTree = "<group>"; };
 		38EEBE532AB876A5008F9F19 /* ContentCreateAppealsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentCreateAppealsTableViewCell.swift; sourceTree = "<group>"; };
@@ -780,6 +774,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				386CB4022C385ACE00D73C71 /* FittedSheets in Frameworks */,
+				385A45EC2CDCC56E0016DBDB /* HookahTobaccoCore in Frameworks */,
 				386CB3F92C385A7100D73C71 /* SnapKit in Frameworks */,
 				386CB4532C3864EB00D73C71 /* Moya in Frameworks */,
 				386CB41A2C385FDE00D73C71 /* TableKit in Frameworks */,
@@ -935,7 +930,7 @@
 		381E68882AB735A0000AA9BC /* Appeals */ = {
 			isa = PBXGroup;
 			children = (
-				381E68892AB735B8000AA9BC /* Api+Appeals.swift */,
+				38E4D4242CDBEC69001AC833 /* Api+Appeals.swift */,
 				381E688B2AB7366B000AA9BC /* Request+Appeals.swift */,
 				381E688D2AB73675000AA9BC /* Response+Appeals.swift */,
 			);
@@ -1810,7 +1805,6 @@
 				38A8B1ED2A91A08A009FAFF7 /* BaseApiService.swift */,
 				38AFD1182A92322800800342 /* UserApiService.swift */,
 				38AFD11A2A9238B600800342 /* DataApiService.swift */,
-				381E68902AB741C9000AA9BC /* AppealsApiService.swift */,
 				38AFD11C2A92415600800342 /* AdminApiService.swift */,
 				3802046129FE6A7C000193A1 /* ApiHandlerErrors.swift */,
 				3802046529FE6D06000193A1 /* Models */,
@@ -2072,7 +2066,6 @@
 			children = (
 				B9C7825928ECE25800DBF8C6 /* AuthServiceProtocol.swift */,
 				B9C92600294F6DB20085BB02 /* RegistrationServiceProtocol.swift */,
-				38DDDE612A86B93A00EA19A3 /* AuthSettingsProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -2256,6 +2249,7 @@
 				386CB4A32C386B6C00D73C71 /* MultiSelectSegmentedControl */,
 				386CB4BA2C38911100D73C71 /* KeychainAccess */,
 				386CB4C92C38967900D73C71 /* IVCollectionKit */,
+				385A45EB2CDCC56E0016DBDB /* HookahTobaccoCore */,
 			);
 			productName = HookahTobaccoAdmin;
 			productReference = 386CB3CB2C38565100D73C71 /* HookahTobaccoAdmin.app */;
@@ -2570,7 +2564,6 @@
 				386CB3E92C38593F00D73C71 /* AlertFactory.swift in Sources */,
 				386CB5222C38A1D100D73C71 /* DetailAppealRouter.swift in Sources */,
 				386CB5252C38A1E000D73C71 /* DetailAppealContentTableViewCell.swift in Sources */,
-				386CB4812C38688000D73C71 /* Api+Appeals.swift in Sources */,
 				386CB5122C389E5800D73C71 /* AddTasteModule.swift in Sources */,
 				386CB4912C3869E900D73C71 /* Api+TasteType.swift in Sources */,
 				386CB4382C38638200D73C71 /* SelectListBottomSheetViewController.swift in Sources */,
@@ -2606,7 +2599,6 @@
 				386CB4A92C38831300D73C71 /* LoginModule.swift in Sources */,
 				386CB4B22C388EC200D73C71 /* LoginRouter.swift in Sources */,
 				386CB4342C38635400D73C71 /* DatePickerAssembly.swift in Sources */,
-				386CB4872C3869B800D73C71 /* AppealsApiService.swift in Sources */,
 				386CB5152C389E8C00D73C71 /* extension + TableKit.swift in Sources */,
 				386CB4EA2C3899FE00D73C71 /* AddTobaccoLinePresenter.swift in Sources */,
 				386CB4722C3867D000D73C71 /* Manufacturer.swift in Sources */,
@@ -2620,7 +2612,6 @@
 				386CB4C72C38965800D73C71 /* AddManufacturerEntity.swift in Sources */,
 				386CB45A2C38651500D73C71 /* Response+Authorization.swift in Sources */,
 				386CB49D2C386B1C00D73C71 /* ImageFormat.swift in Sources */,
-				386CB4482C38645300D73C71 /* AuthSettingsProtocol.swift in Sources */,
 				386CB4652C38666F00D73C71 /* ProfileEditInteractor.swift in Sources */,
 				386CB47C2C38685100D73C71 /* TobaccoLine+Codable.swift in Sources */,
 				386CB51A2C38A14900D73C71 /* DetailAppealModule.swift in Sources */,
@@ -2706,7 +2697,6 @@
 				B9E98A9229107BC000E1389B /* extension+String.swift in Sources */,
 				B9EB024928F35B5F00B3B6DA /* ModuleProtocol.swift in Sources */,
 				38ADAF542A8FB78000DDB30B /* HTError.swift in Sources */,
-				38DDDE622A86B93A00EA19A3 /* AuthSettingsProtocol.swift in Sources */,
 				384672B22ABE15BB0071C262 /* Response+User.swift in Sources */,
 				381E689B2AB74373000AA9BC /* CreateAppealsPresenter.swift in Sources */,
 				B9C925F9294F53720085BB02 /* RegistrationViewController.swift in Sources */,
@@ -2739,7 +2729,6 @@
 				385505372A814A7A00855E50 /* LoadingView.swift in Sources */,
 				387F20A82C47DED400874808 /* DetailManufacturerTobaccoLineView.swift in Sources */,
 				381E688C2AB7366B000AA9BC /* Request+Appeals.swift in Sources */,
-				381E688A2AB735B8000AA9BC /* Api+Appeals.swift in Sources */,
 				B902AE4629F40B1D00BF6AD6 /* Tobacco+Codable.swift in Sources */,
 				387F20A02C47C9E700874808 /* DetailManufacturerView.swift in Sources */,
 				386CB55B2C38AD3200D73C71 /* DetailTobaccoModule.swift in Sources */,
@@ -2754,7 +2743,6 @@
 				B97EE9F6292BB3E50090B344 /* UserSettingsServiceProtocol.swift in Sources */,
 				387F208B2C46B00100874808 /* DetailTobaccoAssembly.swift in Sources */,
 				3899EB6E2AAF36D80047AD4D /* Button.swift in Sources */,
-				381E68912AB741C9000AA9BC /* AppealsApiService.swift in Sources */,
 				B90B671D29A049D0004460C8 /* GlobalConstant.swift in Sources */,
 				384B93FA2AB3421000DBE89C /* SelectListBottomSheetPresenter.swift in Sources */,
 				B9A4708328D2B84500CA6FAA /* extention + UIFont.swift in Sources */,
@@ -2845,6 +2833,7 @@
 				B9BA7948295B9CE7009188D6 /* RegistrationAssembly.swift in Sources */,
 				381E689C2AB74373000AA9BC /* CreateAppealsRouter.swift in Sources */,
 				38A8B1EC2A91747C009FAFF7 /* PresenterrProtocol.swift in Sources */,
+				38E4D4252CDBEC69001AC833 /* Api+Appeals.swift in Sources */,
 				38F9B8932A7FE0DD00EAC0A0 /* IconButton.swift in Sources */,
 				38AFD11B2A9238B600800342 /* DataApiService.swift in Sources */,
 				3838B1752A98A2A900AB3D8C /* PageResponse.swift in Sources */,
@@ -3481,6 +3470,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 38A0EB342AA4EF7200CB0D13 /* XCRemoteSwiftPackageReference "R.swift" */;
 			productName = "plugin:RswiftGenerateInternalResources";
+		};
+		385A45EB2CDCC56E0016DBDB /* HookahTobaccoCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = HookahTobaccoCore;
 		};
 		386CB3E32C3857AE00D73C71 /* Swinject */ = {
 			isa = XCSwiftPackageProductDependency;
