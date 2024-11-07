@@ -65,6 +65,7 @@
 		385A45FB2CDD4CDF0016DBDB /* HookahTobaccoCoreAdmin in Frameworks */ = {isa = PBXBuildFile; productRef = 385A45FA2CDD4CDF0016DBDB /* HookahTobaccoCoreAdmin */; };
 		385A45FE2CDD4FBE0016DBDB /* SendingMetricErrorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385A45F72CDD326A0016DBDB /* SendingMetricErrorMock.swift */; };
 		385A46022CDD510C0016DBDB /* extension+RswiftResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3819104A2C3C0722001CADC0 /* extension+RswiftResources.swift */; };
+		385A46072CDD597D0016DBDB /* RepoAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385A46062CDD597D0016DBDB /* RepoAssembly.swift */; };
 		3861B08E2C3ECD39009E3061 /* ChipsContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3861B08D2C3ECD39009E3061 /* ChipsContainerView.swift */; };
 		386CB3CE2C38565100D73C71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386CB3CD2C38565100D73C71 /* AppDelegate.swift */; };
 		386CB3DA2C38565200D73C71 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 386CB3D82C38565200D73C71 /* LaunchScreen.storyboard */; };
@@ -139,7 +140,7 @@
 		386CB4452C38642E00D73C71 /* RegistrationInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C925F5294F53720085BB02 /* RegistrationInteractor.swift */; };
 		386CB4462C38644A00D73C71 /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C92608294F77570085BB02 /* AuthError.swift */; };
 		386CB4472C38645100D73C71 /* RegistrationServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C92600294F6DB20085BB02 /* RegistrationServiceProtocol.swift */; };
-		386CB4492C38645900D73C71 /* ApiAuthServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE5A2A8699E900EA19A3 /* ApiAuthServices.swift */; };
+		386CB4492C38645900D73C71 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE5A2A8699E900EA19A3 /* AuthService.swift */; };
 		386CB44A2C38646C00D73C71 /* NetworkHandlerErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3802046329FE6AB8000193A1 /* NetworkHandlerErrors.swift */; };
 		386CB44B2C38648500D73C71 /* BaseApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A8B1ED2A91A08A009FAFF7 /* BaseApiService.swift */; };
 		386CB44E2C3864A800D73C71 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3895E5022A542FB7005D87EE /* Api.swift */; };
@@ -147,9 +148,6 @@
 		386CB4552C3864F500D73C71 /* EmptyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE662A86C05000EA19A3 /* EmptyResponse.swift */; };
 		386CB4562C3864F800D73C71 /* PageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3838B1742A98A2A900AB3D8C /* PageResponse.swift */; };
 		386CB4572C38650400D73C71 /* DefaultTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3895E5002A542D54005D87EE /* DefaultTarget.swift */; };
-		386CB4582C38650700D73C71 /* Api+Authorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE552A8694C000EA19A3 /* Api+Authorization.swift */; };
-		386CB4592C38650C00D73C71 /* Request+Authorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE572A8697BB00EA19A3 /* Request+Authorization.swift */; };
-		386CB45A2C38651500D73C71 /* Response+Authorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE632A86BCE500EA19A3 /* Response+Authorization.swift */; };
 		386CB45B2C38651A00D73C71 /* Api+Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E8E6442A87D12000041443 /* Api+Registration.swift */; };
 		386CB45C2C38651E00D73C71 /* Request+Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E8E6462A87D30E00041443 /* Request+Registration.swift */; };
 		386CB45D2C3865B800D73C71 /* extension+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E98A9129107BC000E1389B /* extension+String.swift */; };
@@ -203,7 +201,7 @@
 		386CB4AC2C38832B00D73C71 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DD228F0812500964B8F /* LoginViewController.swift */; };
 		386CB4AD2C38832D00D73C71 /* LoginInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98E1DD328F0812500964B8F /* LoginInteractor.swift */; };
 		386CB4B22C388EC200D73C71 /* LoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386CB4B12C388EC200D73C71 /* LoginRouter.swift */; };
-		386CB4B32C388F8300D73C71 /* ApiAuthServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE682A86C46000EA19A3 /* ApiAuthServiceAssembly.swift */; };
+		386CB4B32C388F8300D73C71 /* AuthServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE682A86C46000EA19A3 /* AuthServiceAssembly.swift */; };
 		386CB4B62C3890AD00D73C71 /* UserDefaultsServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97EE9F8292BBEE10090B344 /* UserDefaultsServiceAssembly.swift */; };
 		386CB4B82C3890CC00D73C71 /* UserSettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97EE9F2292BB3C30090B344 /* UserSettingsService.swift */; };
 		386CB4B92C3890D300D73C71 /* UserSettingsServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97EE9F5292BB3E50090B344 /* UserSettingsServiceProtocol.swift */; };
@@ -367,13 +365,10 @@
 		38CE8CCC2A8955F300B00307 /* ProfileEditEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CE8CC72A8955F300B00307 /* ProfileEditEntity.swift */; };
 		38CE8CD52A89715100B00307 /* ProfileEditModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CE8CD32A89715100B00307 /* ProfileEditModule.swift */; };
 		38CE8CD62A89715100B00307 /* ProfileEditAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CE8CD42A89715100B00307 /* ProfileEditAssembly.swift */; };
-		38DDDE562A8694C000EA19A3 /* Api+Authorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE552A8694C000EA19A3 /* Api+Authorization.swift */; };
-		38DDDE582A8697BB00EA19A3 /* Request+Authorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE572A8697BB00EA19A3 /* Request+Authorization.swift */; };
-		38DDDE5B2A8699E900EA19A3 /* ApiAuthServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE5A2A8699E900EA19A3 /* ApiAuthServices.swift */; };
+		38DDDE5B2A8699E900EA19A3 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE5A2A8699E900EA19A3 /* AuthService.swift */; };
 		38DDDE602A86B1CA00EA19A3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE5F2A86B1CA00EA19A3 /* User.swift */; };
-		38DDDE642A86BCE500EA19A3 /* Response+Authorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE632A86BCE500EA19A3 /* Response+Authorization.swift */; };
 		38DDDE672A86C05000EA19A3 /* EmptyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE662A86C05000EA19A3 /* EmptyResponse.swift */; };
-		38DDDE692A86C46000EA19A3 /* ApiAuthServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE682A86C46000EA19A3 /* ApiAuthServiceAssembly.swift */; };
+		38DDDE692A86C46000EA19A3 /* AuthServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE682A86C46000EA19A3 /* AuthServiceAssembly.swift */; };
 		38DDDE6E2A86CC5300EA19A3 /* Api+User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE6D2A86CC5300EA19A3 /* Api+User.swift */; };
 		38DDDE702A86CF8700EA19A3 /* User+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE6F2A86CF8700EA19A3 /* User+Codable.swift */; };
 		38DDDE732A86DAC400EA19A3 /* MoyaProviderAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE722A86DAC400EA19A3 /* MoyaProviderAssembly.swift */; };
@@ -544,6 +539,7 @@
 		385867422AB98BDC001776D9 /* SuccessBottomSheetModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessBottomSheetModule.swift; sourceTree = "<group>"; };
 		385867432AB98BDC001776D9 /* SuccessBottomSheetAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessBottomSheetAssembly.swift; sourceTree = "<group>"; };
 		385A45F72CDD326A0016DBDB /* SendingMetricErrorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendingMetricErrorMock.swift; sourceTree = "<group>"; };
+		385A46062CDD597D0016DBDB /* RepoAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoAssembly.swift; sourceTree = "<group>"; };
 		3861B08D2C3ECD39009E3061 /* ChipsContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipsContainerView.swift; sourceTree = "<group>"; };
 		3869D3962A7EADBA00C9BF5C /* SelectTasteTypeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTasteTypeTableViewCell.swift; sourceTree = "<group>"; };
 		386CB3CB2C38565100D73C71 /* HookahTobaccoAdmin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HookahTobaccoAdmin.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -615,13 +611,10 @@
 		38CE8CC72A8955F300B00307 /* ProfileEditEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditEntity.swift; sourceTree = "<group>"; };
 		38CE8CD32A89715100B00307 /* ProfileEditModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditModule.swift; sourceTree = "<group>"; };
 		38CE8CD42A89715100B00307 /* ProfileEditAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditAssembly.swift; sourceTree = "<group>"; };
-		38DDDE552A8694C000EA19A3 /* Api+Authorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Api+Authorization.swift"; sourceTree = "<group>"; };
-		38DDDE572A8697BB00EA19A3 /* Request+Authorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Request+Authorization.swift"; sourceTree = "<group>"; };
-		38DDDE5A2A8699E900EA19A3 /* ApiAuthServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiAuthServices.swift; sourceTree = "<group>"; };
+		38DDDE5A2A8699E900EA19A3 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		38DDDE5F2A86B1CA00EA19A3 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		38DDDE632A86BCE500EA19A3 /* Response+Authorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Response+Authorization.swift"; sourceTree = "<group>"; };
 		38DDDE662A86C05000EA19A3 /* EmptyResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyResponse.swift; sourceTree = "<group>"; };
-		38DDDE682A86C46000EA19A3 /* ApiAuthServiceAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiAuthServiceAssembly.swift; sourceTree = "<group>"; };
+		38DDDE682A86C46000EA19A3 /* AuthServiceAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServiceAssembly.swift; sourceTree = "<group>"; };
 		38DDDE6D2A86CC5300EA19A3 /* Api+User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Api+User.swift"; sourceTree = "<group>"; };
 		38DDDE6F2A86CF8700EA19A3 /* User+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+Codable.swift"; sourceTree = "<group>"; };
 		38DDDE722A86DAC400EA19A3 /* MoyaProviderAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaProviderAssembly.swift; sourceTree = "<group>"; };
@@ -1294,7 +1287,6 @@
 			isa = PBXGroup;
 			children = (
 				3895E5002A542D54005D87EE /* DefaultTarget.swift */,
-				38DDDE542A86949000EA19A3 /* Authorization */,
 				38E8E6432A87D0FE00041443 /* Registration */,
 				38DDDE6C2A86CC3A00EA19A3 /* User */,
 				3895E4FD2A542D2D005D87EE /* Manufacturer */,
@@ -1481,20 +1473,10 @@
 			path = ProfileEdit;
 			sourceTree = "<group>";
 		};
-		38DDDE542A86949000EA19A3 /* Authorization */ = {
-			isa = PBXGroup;
-			children = (
-				38DDDE552A8694C000EA19A3 /* Api+Authorization.swift */,
-				38DDDE572A8697BB00EA19A3 /* Request+Authorization.swift */,
-				38DDDE632A86BCE500EA19A3 /* Response+Authorization.swift */,
-			);
-			path = Authorization;
-			sourceTree = "<group>";
-		};
 		38DDDE592A8699BD00EA19A3 /* ApiAuthService */ = {
 			isa = PBXGroup;
 			children = (
-				38DDDE5A2A8699E900EA19A3 /* ApiAuthServices.swift */,
+				38DDDE5A2A8699E900EA19A3 /* AuthService.swift */,
 			);
 			path = ApiAuthService;
 			sourceTree = "<group>";
@@ -1869,7 +1851,8 @@
 			isa = PBXGroup;
 			children = (
 				B90B671629A03EB5004460C8 /* ApiNetworkingServicesAssembly.swift */,
-				38DDDE682A86C46000EA19A3 /* ApiAuthServiceAssembly.swift */,
+				385A46062CDD597D0016DBDB /* RepoAssembly.swift */,
+				38DDDE682A86C46000EA19A3 /* AuthServiceAssembly.swift */,
 				B97EE9F8292BBEE10090B344 /* UserDefaultsServiceAssembly.swift */,
 			);
 			path = Services;
@@ -2415,7 +2398,7 @@
 				385A46022CDD510C0016DBDB /* extension+RswiftResources.swift in Sources */,
 				386CB4422C38642400D73C71 /* RegistrationPresenter.swift in Sources */,
 				386CB4F62C389AC400D73C71 /* extention + UIViewController.swift in Sources */,
-				386CB4B32C388F8300D73C71 /* ApiAuthServiceAssembly.swift in Sources */,
+				386CB4B32C388F8300D73C71 /* AuthServiceAssembly.swift in Sources */,
 				386CB3FF2C385AC400D73C71 /* BottomSheetPresenter.swift in Sources */,
 				386CB4C62C38965400D73C71 /* AddManufacturerInteractor.swift in Sources */,
 				386CB4EC2C389A0500D73C71 /* AddTobaccoLineViewController.swift in Sources */,
@@ -2448,7 +2431,6 @@
 				386CB50C2C389DFC00D73C71 /* AddTasteRouter.swift in Sources */,
 				386CB4E52C38996400D73C71 /* AddCountryPresenter.swift in Sources */,
 				386CB5262C38A1E400D73C71 /* AppealMessageTableViewCell.swift in Sources */,
-				386CB4592C38650C00D73C71 /* Request+Authorization.swift in Sources */,
 				386CB4412C38641400D73C71 /* ProfileEditAssembly.swift in Sources */,
 				386CB4E32C38995E00D73C71 /* AddCountryViewController.swift in Sources */,
 				386CB51D2C38A15600D73C71 /* AppealsListAssembly.swift in Sources */,
@@ -2582,7 +2564,6 @@
 				386CB40F2C385F4300D73C71 /* ProfilePresenter.swift in Sources */,
 				386CB4CE2C38972D00D73C71 /* ImagePickerView.swift in Sources */,
 				386CB4352C38636F00D73C71 /* SelectListBottomSheetModule.swift in Sources */,
-				386CB4582C38650700D73C71 /* Api+Authorization.swift in Sources */,
 				386CB43D2C38639100D73C71 /* DatePickerViewController.swift in Sources */,
 				386CB45D2C3865B800D73C71 /* extension+String.swift in Sources */,
 				386CB4E22C38995B00D73C71 /* AddCountryInteractor.swift in Sources */,
@@ -2609,13 +2590,12 @@
 				386CB4882C3869BE00D73C71 /* AdminApiService.swift in Sources */,
 				386CB3EF2C3859EC00D73C71 /* HTNavigationController.swift in Sources */,
 				386CB4C72C38965800D73C71 /* AddManufacturerEntity.swift in Sources */,
-				386CB45A2C38651500D73C71 /* Response+Authorization.swift in Sources */,
 				386CB49D2C386B1C00D73C71 /* ImageFormat.swift in Sources */,
 				386CB4652C38666F00D73C71 /* ProfileEditInteractor.swift in Sources */,
 				386CB47C2C38685100D73C71 /* TobaccoLine+Codable.swift in Sources */,
 				386CB51A2C38A14900D73C71 /* DetailAppealModule.swift in Sources */,
 				386CB4232C38615600D73C71 /* Button.swift in Sources */,
-				386CB4492C38645900D73C71 /* ApiAuthServices.swift in Sources */,
+				386CB4492C38645900D73C71 /* AuthService.swift in Sources */,
 				385A45FE2CDD4FBE0016DBDB /* SendingMetricErrorMock.swift in Sources */,
 				386CB4302C38630C00D73C71 /* ProfileEditRouter.swift in Sources */,
 				386CB4892C3869CA00D73C71 /* Api+Manufacturer.swift in Sources */,
@@ -2670,7 +2650,6 @@
 				B9631C4C2921ACBE00BBC09B /* CustomCollectionViewLayout.swift in Sources */,
 				384B94022AB347AB00DBE89C /* SelectListBottomSheetTableViewCell.swift in Sources */,
 				B98E1DD628F0812500964B8F /* LoginPresenter.swift in Sources */,
-				38DDDE562A8694C000EA19A3 /* Api+Authorization.swift in Sources */,
 				3899EB762AAF699C0047AD4D /* TextFieldWithLeftLabel.swift in Sources */,
 				3818E03C2A81342700C9D02C /* ApplyButton.swift in Sources */,
 				B9DBE512290DE2C3005B185C /* HTNavigationControllerAssembly.swift in Sources */,
@@ -2689,6 +2668,7 @@
 				B9ACB678291D15AE001D65CE /* HTScrollContentViewController.swift in Sources */,
 				38DDDE702A86CF8700EA19A3 /* User+Codable.swift in Sources */,
 				B9C925F8294F53720085BB02 /* RegistrationRouter.swift in Sources */,
+				385A46072CDD597D0016DBDB /* RepoAssembly.swift in Sources */,
 				38DDDE732A86DAC400EA19A3 /* MoyaProviderAssembly.swift in Sources */,
 				B9631C4E2922487500BBC09B /* extention + UIEdgeInsets.swift in Sources */,
 				B9DBE50B290DD8B1005B185C /* HTTabBarController.swift in Sources */,
@@ -2700,7 +2680,7 @@
 				384672B22ABE15BB0071C262 /* Response+User.swift in Sources */,
 				381E689B2AB74373000AA9BC /* CreateAppealsPresenter.swift in Sources */,
 				B9C925F9294F53720085BB02 /* RegistrationViewController.swift in Sources */,
-				38DDDE692A86C46000EA19A3 /* ApiAuthServiceAssembly.swift in Sources */,
+				38DDDE692A86C46000EA19A3 /* AuthServiceAssembly.swift in Sources */,
 				B989B87129338CD6007ECC59 /* AlertFactory.swift in Sources */,
 				B92A46AF29672ACC0006B787 /* ButtonProfileTableViewCell.swift in Sources */,
 				B9E7ACB328F492ED00A3D7E5 /* LoginModule.swift in Sources */,
@@ -2747,7 +2727,6 @@
 				B9A4708328D2B84500CA6FAA /* extention + UIFont.swift in Sources */,
 				3802046429FE6AB8000193A1 /* NetworkHandlerErrors.swift in Sources */,
 				3899EB732AAF56940047AD4D /* extension+CGSize.swift in Sources */,
-				38DDDE642A86BCE500EA19A3 /* Response+Authorization.swift in Sources */,
 				B92A46AD2966FA430006B787 /* ProfileTableViewCell.swift in Sources */,
 				B98E1DD928F0812500964B8F /* LoginInteractor.swift in Sources */,
 				38041BE72AA0C40D00DEEE6D /* CustomCollectionDirector.swift in Sources */,
@@ -2785,7 +2764,7 @@
 				B9ED910D2909D26100DC3A6D /* TobaccoListModule.swift in Sources */,
 				3895E5012A542D54005D87EE /* DefaultTarget.swift in Sources */,
 				384B94072AB354AA00DBE89C /* SelectListBottomSheetModule.swift in Sources */,
-				38DDDE5B2A8699E900EA19A3 /* ApiAuthServices.swift in Sources */,
+				38DDDE5B2A8699E900EA19A3 /* AuthService.swift in Sources */,
 				3858673C2AB987ED001776D9 /* SuccessBottomSheetViewController.swift in Sources */,
 				386CB5622C38AD9300D73C71 /* Mock+Entities.swift in Sources */,
 				B9BA7947295B9CE7009188D6 /* RegistrationModule.swift in Sources */,
@@ -2798,7 +2777,6 @@
 				383F2FC52ABB12EA007BE4A8 /* extension+URL.swift in Sources */,
 				38041BF32AA0D24900DEEE6D /* TobaccoFiltersInteractor.swift in Sources */,
 				38B0FCCE2AA0D82D0061B849 /* FilterTobaccoCollectionViewCell.swift in Sources */,
-				38DDDE582A8697BB00EA19A3 /* Request+Authorization.swift in Sources */,
 				38CE8CC92A8955F300B00307 /* ProfileEditRouter.swift in Sources */,
 				38EEBE542AB876A5008F9F19 /* ContentCreateAppealsTableViewCell.swift in Sources */,
 				38CE8CCC2A8955F300B00307 /* ProfileEditEntity.swift in Sources */,

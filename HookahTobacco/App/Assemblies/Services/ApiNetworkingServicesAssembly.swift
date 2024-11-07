@@ -17,12 +17,6 @@ class ApiNetworkingServicesAssembly: Assembly {
         container.register(NetworkHandlerErrors.self) { _ in
             ApiHandlerErrors()
         }
-        container.register(HookahTobaccoNetwork.NetworkHandlerErrors.self) { _ in
-            HookahTobaccoNetwork.ApiHandlerErrors()
-        }
-        container.register(NetworkManagerProtocol.self) { resolver in
-            MoyaNetworkManager(networkProvider: resolver.resolve(MoyaProvider<MultiTarget>.self)!)
-        }
         
         // TODO: - перенести в отдельный Assembly
         container.register(SendingMetricErrorProtocol.self) { _ in
@@ -37,12 +31,6 @@ class ApiNetworkingServicesAssembly: Assembly {
             DataApiService(provider: resolver.resolve(MoyaProvider<MultiTarget>.self)!,
                            authSettings: resolver.resolve(AuthSettingsProtocol.self)!,
                            handlerErrors: resolver.resolve(NetworkHandlerErrors.self)!)
-        }
-        container.register(AppealsRepoProtocol.self) { resolver in
-            AppealsRepo(networkManager: resolver.resolve(NetworkManagerProtocol.self)!,
-                        authSettings: resolver.resolve(AuthSettingsProtocol.self)!,
-                        handlerErrors: resolver.resolve(HookahTobaccoNetwork.NetworkHandlerErrors.self)!,
-                        sendingErrorInMetric: resolver.resolve(SendingMetricErrorProtocol.self)!)
         }
         container.register(AdminNetworkingServiceProtocol.self) { resolver in
             AdminApiService(provider: resolver.resolve(MoyaProvider<MultiTarget>.self)!,

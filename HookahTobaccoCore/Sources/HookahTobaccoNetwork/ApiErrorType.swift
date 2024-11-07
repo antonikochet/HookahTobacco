@@ -1,5 +1,5 @@
 //
-//  ApiError.swift
+//  ApiErrorType.swift
 //  
 //
 //  Created by Антон Кочетков on 07.11.2024.

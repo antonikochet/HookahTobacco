@@ -1,6 +1,6 @@
 //
 //  Api+Authorization.swift
-//  HookahTobacco
+//
 //
 //  Created by Anton Kochetkov on 11.08.2023.
 //
@@ -8,14 +8,14 @@
 import Moya
 
 extension Api {
-    enum Authorization {
-        case login(LoginRequest)
+    public enum Authorization {
+        case login(LoginRequestDTO)
         case logout
     }
 }
 
 extension Api.Authorization: DefaultTarget {
-    var path: String {
+    public var path: String {
         switch self {
         case .login:
             return "v1/auth/login/"
@@ -24,11 +24,11 @@ extension Api.Authorization: DefaultTarget {
         }
     }
 
-    var method: Moya.Method {
+    public var method: Moya.Method {
         .post
     }
 
-    var task: Moya.Task {
+    public var task: Moya.Task {
         switch self {
         case .login(let request):
             return .requestJSONEncodable(request)

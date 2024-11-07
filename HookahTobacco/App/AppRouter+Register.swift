@@ -18,7 +18,8 @@ extension AppRouter {
         apply(assemblies: [
             UserDefaultsServiceAssembly(),
             ApiNetworkingServicesAssembly(),
-            ApiAuthServiceAssembly(),
+            RepoAssembly(),
+            AuthServiceAssembly(),
         ])
     }
 
