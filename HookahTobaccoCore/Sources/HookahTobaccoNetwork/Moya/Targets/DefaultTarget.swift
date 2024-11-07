@@ -1,6 +1,6 @@
 //
 //  DefaultTarget.swift
-//  
+//
 //
 //  Created by Anton Kochetkov on 04.07.2023.
 //
@@ -13,11 +13,11 @@ public protocol DefaultTarget: TargetType {
 }
 
 extension DefaultTarget {
-    var baseURL: URL {
+    public var baseURL: URL {
         Api.baseURL
     }
 
-    var headers: [String: String]? {
+    public var headers: [String: String]? {
         return nil
     }
 }

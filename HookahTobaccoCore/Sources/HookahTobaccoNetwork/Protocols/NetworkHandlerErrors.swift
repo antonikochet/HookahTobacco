@@ -6,5 +6,5 @@
 //
 
 public protocol NetworkHandlerErrors {
-    func handlerError(_ error: Error) -> DomainError
+    func handlerError(_ error: Error) -> ApiErrorType
 }

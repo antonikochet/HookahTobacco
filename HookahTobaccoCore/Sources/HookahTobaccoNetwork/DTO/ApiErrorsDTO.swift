@@ -10,8 +10,8 @@ struct ApiErrorsDTO: Decodable {
     let errors: [ApiErrorDTO]
 }
 
-struct ApiErrorDTO: Decodable {
-    let error: String
-    let message: String
-    let field_name: String?
+public struct ApiErrorDTO: Decodable {
+    public let error: String
+    public let message: String
+    public let field_name: String?
 }

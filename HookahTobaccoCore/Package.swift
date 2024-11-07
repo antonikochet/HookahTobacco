@@ -12,7 +12,10 @@ let package = Package(
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "HookahTobaccoCore",
-            targets: ["HookahTobaccoCore"])
+            targets: ["HookahTobaccoCore"]),
+        .library(
+            name: "HookahTobaccoNetwork",
+            targets: ["HookahTobaccoNetwork"])
     ],
     dependencies: [
         .package(url: "https://github.com/Moya/Moya.git", from: "15.0.0")
@@ -22,6 +25,9 @@ let package = Package(
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
             name: "HookahTobaccoCore",
+            dependencies: ["HookahTobaccoNetwork"]),
+        .target(
+            name: "HookahTobaccoNetwork",
             dependencies: ["Moya"])
     ]
 )

@@ -8,6 +8,7 @@
 import Foundation
 import Moya
 import Alamofire
+import HookahTobaccoNetwork
 
 public class BaseRepo {
     private let networkManager: NetworkManagerProtocol
@@ -32,15 +33,27 @@ public class BaseRepo {
 
     private func handlerError(_ error: Error, completion: BlockWithParam<DomainError>) {
         self.showError("\(error)")
-        let domainError = handlerErrors.handlerError(error)
-        // TODO: - добавить протокол который будет отправлять в метрику данные об не юзер ошибке
+        let apiError = handlerErrors.handlerError(error)
+        let domainError = DomainError(apiError: apiError)
+        switch apiError {
+        case .parameterEncoding(let error), .encodableMapping(let error):
+            break // TODO: - добавить протокол который будет отправлять в метрику данные об не юзер ошибке
+        default:
+            break
+        }
         completion(domainError)
     }
     
     private func handlerError(_ error: Error) -> DomainError {
         self.showError("\(error)")
-        let domainError = handlerErrors.handlerError(error)
-        // TODO: - добавить протокол который будет отправлять в метрику данные об не юзер ошибке
+        let apiError = handlerErrors.handlerError(error)
+        let domainError = DomainError(apiError: apiError)
+        switch apiError {
+        case .parameterEncoding(let error), .encodableMapping(let error):
+            break // TODO: - добавить протокол который будет отправлять в метрику данные об не юзер ошибке
+        default:
+            break
+        }
         return domainError
     }
 

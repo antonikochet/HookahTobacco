@@ -5,6 +5,8 @@
 //  Created by Anton Kochetkov on 17.09.2023.
 //
 
+import HookahTobaccoNetwork
+
 public struct ThemesAppeal {
     public let themes: [ThemeAppeal]
     public let user: ThemeAppealUser?

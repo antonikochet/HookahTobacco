@@ -8,7 +8,7 @@
 import Foundation
 import Moya
 
-struct CreateAppealRequestDTO: Encodable {
+public struct CreateAppealRequestDTO: Encodable {
     let name: String
     let email: String
     let user: Int?
@@ -16,13 +16,20 @@ struct CreateAppealRequestDTO: Encodable {
     let message: String
     let contents: [URL]
     
-    init(entity: CreateAppealEntity) {
-        self.name = entity.name
-        self.email = entity.email
-        self.user = entity.user
-        self.theme = entity.theme
-        self.message = entity.message
-        self.contents = entity.contents
+    public init(
+        name: String,
+        email: String,
+        user: Int?,
+        theme: Int,
+        message: String,
+        contents: [URL]
+    ) {
+        self.name = name
+        self.email = email
+        self.user = user
+        self.theme = theme
+        self.message = message
+        self.contents = contents
     }
     
     enum CodingKeys: String, CodingKey {

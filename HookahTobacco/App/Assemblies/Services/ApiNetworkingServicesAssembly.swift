@@ -9,6 +9,7 @@ import Foundation
 import Swinject
 import Moya
 import HookahTobaccoCore
+import HookahTobaccoNetwork
 
 class ApiNetworkingServicesAssembly: Assembly {
     func assemble(container: Container) {
@@ -16,11 +17,11 @@ class ApiNetworkingServicesAssembly: Assembly {
         container.register(NetworkHandlerErrors.self) { _ in
             ApiHandlerErrors()
         }
-        container.register(HookahTobaccoCore.NetworkHandlerErrors.self) { _ in
-            HookahTobaccoCore.ApiHandlerErrors()
+        container.register(HookahTobaccoNetwork.NetworkHandlerErrors.self) { _ in
+            HookahTobaccoNetwork.ApiHandlerErrors()
         }
         container.register(NetworkManagerProtocol.self) { resolver in
-            HookahTobaccoCore.MoyaNetworkManager(networkProvider: resolver.resolve(MoyaProvider<MultiTarget>.self)!)
+            MoyaNetworkManager(networkProvider: resolver.resolve(MoyaProvider<MultiTarget>.self)!)
         }
         container.register(UserNetworkingServiceProtocol.self) { resolver in
             UserApiService(provider: resolver.resolve(MoyaProvider<MultiTarget>.self)!,
@@ -35,7 +36,7 @@ class ApiNetworkingServicesAssembly: Assembly {
         container.register(AppealsRepoProtocol.self) { resolver in
             AppealsRepo(networkManager: resolver.resolve(NetworkManagerProtocol.self)!,
                         authSettings: resolver.resolve(AuthSettingsProtocol.self)!,
-                        handlerErrors: resolver.resolve(HookahTobaccoCore.NetworkHandlerErrors.self)!)
+                        handlerErrors: resolver.resolve(HookahTobaccoNetwork.NetworkHandlerErrors.self)!)
         }
         container.register(AdminNetworkingServiceProtocol.self) { resolver in
             AdminApiService(provider: resolver.resolve(MoyaProvider<MultiTarget>.self)!,

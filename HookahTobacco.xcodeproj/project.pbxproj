@@ -62,6 +62,7 @@
 		385867442AB98BDC001776D9 /* SuccessBottomSheetModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385867422AB98BDC001776D9 /* SuccessBottomSheetModule.swift */; };
 		385867452AB98BDC001776D9 /* SuccessBottomSheetAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385867432AB98BDC001776D9 /* SuccessBottomSheetAssembly.swift */; };
 		385A45EC2CDCC56E0016DBDB /* HookahTobaccoCore in Frameworks */ = {isa = PBXBuildFile; productRef = 385A45EB2CDCC56E0016DBDB /* HookahTobaccoCore */; };
+		385A45F22CDD18870016DBDB /* HookahTobaccoNetwork in Frameworks */ = {isa = PBXBuildFile; productRef = 385A45F12CDD18870016DBDB /* HookahTobaccoNetwork */; };
 		3861B08E2C3ECD39009E3061 /* ChipsContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3861B08D2C3ECD39009E3061 /* ChipsContainerView.swift */; };
 		386CB3CE2C38565100D73C71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386CB3CD2C38565100D73C71 /* AppDelegate.swift */; };
 		386CB3DA2C38565200D73C71 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 386CB3D82C38565200D73C71 /* LaunchScreen.storyboard */; };
@@ -797,6 +798,7 @@
 				38041BE52A9FB8CB00DEEE6D /* IVCollectionKit in Frameworks */,
 				38E8E6422A87C6B400041443 /* KeychainAccess in Frameworks */,
 				3899FC672CDBB02600DA73BD /* HookahTobaccoCore in Frameworks */,
+				385A45F22CDD18870016DBDB /* HookahTobaccoNetwork in Frameworks */,
 				B9D6056C28D508800058D19E /* SnapKit in Frameworks */,
 				B9C9ECFB29128F2F000A359B /* FirebaseCrashlytics in Frameworks */,
 				38B9FF5D2A93C168007E1516 /* Moya in Frameworks */,
@@ -2283,6 +2285,7 @@
 				38041BE42A9FB8CB00DEEE6D /* IVCollectionKit */,
 				38A0EB352AA4EF7200CB0D13 /* RswiftLibrary */,
 				3899FC662CDBB02600DA73BD /* HookahTobaccoCore */,
+				385A45F12CDD18870016DBDB /* HookahTobaccoNetwork */,
 			);
 			productName = HookahTobacco;
 			productReference = B90A790E2899E2BF00B90193 /* HookahTobacco.app */;
@@ -3474,6 +3477,10 @@
 		385A45EB2CDCC56E0016DBDB /* HookahTobaccoCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = HookahTobaccoCore;
+		};
+		385A45F12CDD18870016DBDB /* HookahTobaccoNetwork */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = HookahTobaccoNetwork;
 		};
 		386CB3E32C3857AE00D73C71 /* Swinject */ = {
 			isa = XCSwiftPackageProductDependency;

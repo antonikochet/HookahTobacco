@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import HookahTobaccoNetwork
 
 public struct CreatedAppeal {
     public let id: Int

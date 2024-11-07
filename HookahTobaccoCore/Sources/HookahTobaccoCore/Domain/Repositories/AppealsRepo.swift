@@ -5,6 +5,8 @@
 //  Created by Антон Кочетков on 06.11.2024.
 //
 
+import HookahTobaccoNetwork
+
 public protocol AppealsRepoProtocol {
     func fetchThemes(completion: ResultBlock<ThemesAppeal>?)
     func createAppeal(_ appeal: CreateAppealEntity, completion: ResultBlock<CreatedAppeal>?)
@@ -42,5 +44,18 @@ public final class AppealsRepo: BaseRepo, AppealsRepoProtocol {
                 completion?(.failure(error))
             }
         }
+    }
+}
+
+private extension CreateAppealRequestDTO {
+    init(entity: CreateAppealEntity) {
+        self.init(
+            name: entity.name,
+            email: entity.email,
+            user: entity.user,
+            theme: entity.theme,
+            message: entity.message,
+            contents: entity.contents
+        )
     }
 }

@@ -8,7 +8,7 @@
 import Foundation
 import Moya
 
-struct Api {
+public struct Api {
     
 }
 

@@ -9,6 +9,7 @@ import Foundation
 import Swinject
 import Moya
 import HookahTobaccoCore
+import HookahTobaccoNetwork
 
 class MoyaProviderAssembly: Assembly {
     func assemble(container: Container) {

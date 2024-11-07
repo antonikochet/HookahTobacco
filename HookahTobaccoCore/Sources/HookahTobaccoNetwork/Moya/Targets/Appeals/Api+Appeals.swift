@@ -8,7 +8,7 @@
 import Moya
 
 extension Api {
-    enum Appeals {
+    public enum Appeals {
         case getThemes
         case createAppeal(CreateAppealRequestDTO)
         case list(AppealFilterRequestDTO)
@@ -18,7 +18,7 @@ extension Api {
 }
 
 extension Api.Appeals: DefaultTarget {
-    var path: String {
+    public var path: String {
         switch self {
         case .getThemes:
             return "v1/appeals/theme/"
@@ -33,7 +33,7 @@ extension Api.Appeals: DefaultTarget {
         }
     }
 
-    var method: Moya.Method {
+    public var method: Moya.Method {
         switch self {
         case .getThemes:
             return .get
@@ -44,7 +44,7 @@ extension Api.Appeals: DefaultTarget {
         }
     }
 
-    var task: Moya.Task {
+    public var task: Moya.Task {
         switch self {
         case .list(let request):
             return request.createRequest()

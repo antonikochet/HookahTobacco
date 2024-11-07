@@ -14,7 +14,7 @@ public struct ApiHandlerErrors: NetworkHandlerErrors {
         
     }
     
-    public func handlerError(_ error: Error) -> DomainError {
+    public func handlerError(_ error: Error) -> ApiErrorType {
         if let apiError = handlerMoyaError(error) {
             return apiError
         } else if let afError = handlerAFError(error) {
@@ -24,7 +24,7 @@ public struct ApiHandlerErrors: NetworkHandlerErrors {
         }
     }
 
-    private func handlerMoyaError(_ error: Error) -> DomainError? {
+    private func handlerMoyaError(_ error: Error) -> ApiErrorType? {
         guard let moyaError = error as? MoyaError else { return nil }
         switch moyaError {
         case .encodableMapping(let error):
@@ -42,15 +42,14 @@ public struct ApiHandlerErrors: NetworkHandlerErrors {
         }
     }
 
-    private func handlerApiError(response: Response) -> DomainError? {
+    private func handlerApiError(response: Response) -> ApiErrorType? {
         if let apiErrorDTO = try? response.map(ApiErrorsDTO.self) {
-            let apiErrors = ApiErrors(dto: apiErrorDTO)
-            return .error(apiErrors.errors)
+            return .apiError(apiErrorDTO.errors)
         }
         return .unexpectedError
     }
 
-    private func handlerAFError(_ error: Error) -> DomainError? {
+    private func handlerAFError(_ error: Error) -> ApiErrorType? {
         guard let afError = error.asAFError else { return nil }
         switch afError {
         case let .sessionTaskFailed(error):
