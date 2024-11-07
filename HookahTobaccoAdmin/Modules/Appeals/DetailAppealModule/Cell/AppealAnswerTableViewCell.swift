@@ -13,7 +13,7 @@ import TableKit
 struct AppealAnswerTableViewCellItem {
     let anwser: String
     let isEnableSaveButton: Bool
-    let touchSaveAnswer: CompletionBlockWithParam<String>
+    let touchSaveAnswer: BlockWithParam<String>
 }
 
 final class AppealAnswerTableViewCell: UITableViewCell, ConfigurableCell {

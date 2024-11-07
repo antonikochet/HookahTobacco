@@ -11,6 +11,8 @@ import Foundation
 import TableKit
 import UIKit
 import IVCollectionKit
+import HookahTobaccoCore
+import HookahTobaccoCoreAdmin
 
 class AppealsListPresenter: NSObject {
     // MARK: - Public properties
@@ -29,7 +31,7 @@ class AppealsListPresenter: NSObject {
     private var oldContentHeight: CGFloat = 0.0
 
     // MARK: - Private methods
-    private func setupAppealsContent(_ appeals: [AppealResponse]) {
+    private func setupAppealsContent(_ appeals: [AppealEntity]) {
         guard let tableDirector else { return }
         tableDirector.clear()
 
@@ -96,7 +98,7 @@ class AppealsListPresenter: NSObject {
 
 // MARK: - InteractorOutputProtocol implementation
 extension AppealsListPresenter: AppealsListInteractorOutputProtocol {
-    func receivedAppeals(_ appeals: [AppealResponse]) {
+    func receivedAppeals(_ appeals: [AppealEntity]) {
         isLoadingData = false
         isError = false
         setupAppealsContent(appeals)
@@ -108,7 +110,7 @@ extension AppealsListPresenter: AppealsListInteractorOutputProtocol {
         setupThemesFilterContent()
     }
 
-    func receivedAppeal(_ appeal: AppealResponse) {
+    func receivedAppeal(_ appeal: AppealEntity) {
         router.showDetailAppeal(appeal)
     }
 

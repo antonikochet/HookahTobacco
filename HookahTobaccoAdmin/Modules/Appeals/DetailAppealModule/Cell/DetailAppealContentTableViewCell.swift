@@ -23,7 +23,7 @@ struct DetailAppealContent {
 struct DetailAppealContentTableViewCellItem {
     let title: String
     let contents: [DetailAppealContent]
-    let didSelect: CompletionBlockWithParam<Int>?
+    let didSelect: BlockWithParam<Int>?
 }
 
 final class DetailAppealContentTableViewCell: UITableViewCell, ConfigurableCell {

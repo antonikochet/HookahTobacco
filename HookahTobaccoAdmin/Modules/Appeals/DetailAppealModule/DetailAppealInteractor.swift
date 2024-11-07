@@ -8,6 +8,7 @@
 //
 
 import Foundation
+import HookahTobaccoCoreAdmin
 
 protocol DetailAppealInteractorInputProtocol: AnyObject {
     func startingShowData()
@@ -17,7 +18,7 @@ protocol DetailAppealInteractorInputProtocol: AnyObject {
 }
 
 protocol DetailAppealInteractorOutputProtocol: PresenterrProtocol {
-    func showData(appeal: AppealResponse, contents: [DetailAppealContent])
+    func showData(appeal: AppealEntity, contents: [DetailAppealContent])
     func receivedSuccessHandled()
     func receivedURLContent(_ url: URL)
 }
@@ -27,46 +28,46 @@ class DetailAppealInteractor {
     weak var presenter: DetailAppealInteractorOutputProtocol!
 
     // MARK: - Dependency
-    private let adminNetworkingService: AdminNetworkingServiceProtocol
+    private let adminAppealsRepo: AdminAppealsRepoProtocol
     private let dataNetworingService: GetDataNetworkingServiceProtocol
 
     // MARK: - Private properties
-    private var appeal: AppealResponse
+    private var appeal: AppealEntity
     private var contents: [DetailAppealContent] = []
 
     // MARK: - Initializers
-    init(appeal: AppealResponse,
-         adminNetworkingService: AdminNetworkingServiceProtocol,
+    init(appeal: AppealEntity,
+         adminAppealsRepo: AdminAppealsRepoProtocol,
          dataNetworingService: GetDataNetworkingServiceProtocol) {
         self.appeal = appeal
-        self.adminNetworkingService = adminNetworkingService
+        self.adminAppealsRepo = adminAppealsRepo
         self.dataNetworingService = dataNetworingService
     }
     // MARK: - Private methods
     private func sendNewAnswerRequest(_ answer: String) {
-        adminNetworkingService.updateAppeal(by: appeal.id, answer) { [weak self] result in
+        adminAppealsRepo.updateAppeal(by: appeal.id, answer) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let newAppeal):
                 self.appeal = newAppeal
                 self.presenter.showData(appeal: newAppeal, contents: self.contents)
             case .failure(let error):
-                self.presenter.receivedError(error)
+                self.presenter.receivedError(HTError.createError(error))
             }
         }
     }
 
     private func sendHandledRequest() {
-        adminNetworkingService.handledAppeal(appeal.id) { [weak self] error in
+        adminAppealsRepo.handledAppeal(appeal.id) { [weak self] error in
             if let error {
-                self?.presenter.receivedError(error)
+                self?.presenter.receivedError(HTError.createError(error))
                 return
             }
             self?.presenter.receivedSuccessHandled()
         }
     }
 
-    private func receiveContents(completion: @escaping CompletionBlock) {
+    private func receiveContents(completion: @escaping VoidBlock) {
         let dispatchGroup = DispatchGroup()
         if !appeal.contents.isEmpty {
             for content in appeal.contents {

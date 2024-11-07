@@ -84,7 +84,7 @@ class DataManager {
     }
 
     private func receiveImageFromNetwork(for url: String,
-                                         completion: CompletionResultBlock<Data>?) {
+                                         completion: ResultBlock<Data>?) {
         getDataNetworkingService.receiveImage(for: url) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -131,7 +131,7 @@ extension DataManager: DataManagerProtocol {
         receiveDataFromNetwork(typeData: typeData, completion: completion)
     }
 
-    func receiveImage(for url: String, completion: CompletionResultBlock<Data>?) {
+    func receiveImage(for url: String, completion: ResultBlock<Data>?) {
         imageWorkingQueue.async {
             do {
                 if let named = self.convertNamedImageInImageService(from: url) {

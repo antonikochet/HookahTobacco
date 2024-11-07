@@ -22,7 +22,7 @@ public struct ThemeAppeal {
     public let name: String
     public let isContent: Bool
     
-    internal init(dto: ThemeAppealDTO) {
+    public init(dto: ThemeAppealDTO) {
         self.id = dto.id
         self.name = dto.name
         self.isContent = dto.is_content

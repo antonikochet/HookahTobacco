@@ -11,6 +11,16 @@ public struct AppealFilterRequestDTO {
     let page: Int
     let themeIds: [Int]
     let status: String?
+    
+    public init(
+        page: Int,
+        themeIds: [Int],
+        status: String?
+    ) {
+        self.page = page
+        self.themeIds = themeIds
+        self.status = status
+    }
 }
 
 extension AppealFilterRequestDTO: CreateTaskProtocol {

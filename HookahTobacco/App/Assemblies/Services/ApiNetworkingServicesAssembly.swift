@@ -23,6 +23,11 @@ class ApiNetworkingServicesAssembly: Assembly {
         container.register(NetworkManagerProtocol.self) { resolver in
             MoyaNetworkManager(networkProvider: resolver.resolve(MoyaProvider<MultiTarget>.self)!)
         }
+        
+        // TODO: - перенести в отдельный Assembly
+        container.register(SendingMetricErrorProtocol.self) { _ in
+            SendingMetricErrorMock()
+        }
         container.register(UserNetworkingServiceProtocol.self) { resolver in
             UserApiService(provider: resolver.resolve(MoyaProvider<MultiTarget>.self)!,
                            authSettings: resolver.resolve(AuthSettingsProtocol.self)!,
@@ -36,7 +41,8 @@ class ApiNetworkingServicesAssembly: Assembly {
         container.register(AppealsRepoProtocol.self) { resolver in
             AppealsRepo(networkManager: resolver.resolve(NetworkManagerProtocol.self)!,
                         authSettings: resolver.resolve(AuthSettingsProtocol.self)!,
-                        handlerErrors: resolver.resolve(HookahTobaccoNetwork.NetworkHandlerErrors.self)!)
+                        handlerErrors: resolver.resolve(HookahTobaccoNetwork.NetworkHandlerErrors.self)!,
+                        sendingErrorInMetric: resolver.resolve(SendingMetricErrorProtocol.self)!)
         }
         container.register(AdminNetworkingServiceProtocol.self) { resolver in
             AdminApiService(provider: resolver.resolve(MoyaProvider<MultiTarget>.self)!,

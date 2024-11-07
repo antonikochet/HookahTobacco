@@ -10,19 +10,22 @@ import Moya
 import Alamofire
 import HookahTobaccoNetwork
 
-public class BaseRepo {
+open class BaseRepo {
     private let networkManager: NetworkManagerProtocol
     private let authSettings: AuthSettingsProtocol
     private let handlerErrors: NetworkHandlerErrors
+    private let sendingErrorInMetric: SendingMetricErrorProtocol
 
     public init(
         networkManager: NetworkManagerProtocol,
         authSettings: AuthSettingsProtocol,
-        handlerErrors: NetworkHandlerErrors
+        handlerErrors: NetworkHandlerErrors,
+        sendingErrorInMetric: SendingMetricErrorProtocol
     ) {
         self.networkManager = networkManager
         self.authSettings = authSettings
         self.handlerErrors = handlerErrors
+        self.sendingErrorInMetric = sendingErrorInMetric
     }
 
     private func showError(_ line: String) {
@@ -37,7 +40,7 @@ public class BaseRepo {
         let domainError = DomainError(apiError: apiError)
         switch apiError {
         case .parameterEncoding(let error), .encodableMapping(let error):
-            break // TODO: - добавить протокол который будет отправлять в метрику данные об не юзер ошибке
+            sendingErrorInMetric.send(error)
         default:
             break
         }
@@ -50,14 +53,14 @@ public class BaseRepo {
         let domainError = DomainError(apiError: apiError)
         switch apiError {
         case .parameterEncoding(let error), .encodableMapping(let error):
-            break // TODO: - добавить протокол который будет отправлять в метрику данные об не юзер ошибке
+            sendingErrorInMetric.send(error)
         default:
             break
         }
         return domainError
     }
 
-    func sendRequest<T: Decodable>(
+    public func sendRequest<T: Decodable>(
         object: T.Type,
         target: DefaultTarget,
         completion: BlockWithParam<T>?,
@@ -76,7 +79,7 @@ public class BaseRepo {
         }
     }
 
-    func sendRequest<T: Decodable>(
+    public func sendRequest<T: Decodable>(
         object: T.Type,
         target: DefaultTarget,
         completion: ResultBlock<T>?
@@ -94,7 +97,7 @@ public class BaseRepo {
         }
     }
     
-    func sendRequest<T: Decodable, Target: DefaultTarget>(
+    public func sendRequest<T: Decodable, Target: DefaultTarget>(
         object: T.Type,
         target: Target
     ) async throws -> T {
@@ -106,7 +109,7 @@ public class BaseRepo {
     }
 
     // TODO: - подумать нужен ли он тут именно?
-    func receiveImage(_ url: String, completion: ResultBlock<Data?>?) {
+    public func receiveImage(_ url: String, completion: ResultBlock<Data?>?) {
         AF.request(url).response { [weak self] response in
             guard let self else { return }
             switch response.result {
@@ -121,7 +124,7 @@ public class BaseRepo {
     }
     
     // TODO: - подумать нужен ли он тут именно?
-    func receiveImage(_ url: String) async throws -> Data? {
+    public func receiveImage(_ url: String) async throws -> Data? {
         return try await withCheckedThrowingContinuation { continuation in
             AF.request(url).response { [weak self] response in
                 guard let self else { return }

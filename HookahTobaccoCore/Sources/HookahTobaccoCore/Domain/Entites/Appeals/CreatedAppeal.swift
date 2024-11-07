@@ -20,6 +20,6 @@ public struct CreatedAppeal {
         self.name = dto.name
         self.email = dto.email
         self.theme = dto.theme
-        self.createdDate = TextFormatter.createDate(from: dto.created_date, format: "yyyy-MM-dd'T'HH:mm:ssZZZZZ")
+        self.createdDate = TextFormatter.createDate(from: dto.created_date, format: .fullServer)
     }
 }

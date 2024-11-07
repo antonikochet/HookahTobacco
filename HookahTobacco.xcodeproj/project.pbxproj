@@ -33,8 +33,6 @@
 		381910422C3BE3F8001CADC0 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381910412C3BE3F8001CADC0 /* BaseView.swift */; };
 		381910452C3BF874001CADC0 /* ViewDidLoadModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381910442C3BF874001CADC0 /* ViewDidLoadModifier.swift */; };
 		3819104B2C3C0722001CADC0 /* extension+RswiftResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3819104A2C3C0722001CADC0 /* extension+RswiftResources.swift */; };
-		381E688C2AB7366B000AA9BC /* Request+Appeals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381E688B2AB7366B000AA9BC /* Request+Appeals.swift */; };
-		381E688E2AB73676000AA9BC /* Response+Appeals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381E688D2AB73675000AA9BC /* Response+Appeals.swift */; };
 		381E689B2AB74373000AA9BC /* CreateAppealsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381E68962AB74373000AA9BC /* CreateAppealsPresenter.swift */; };
 		381E689C2AB74373000AA9BC /* CreateAppealsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381E68972AB74373000AA9BC /* CreateAppealsRouter.swift */; };
 		381E689D2AB74373000AA9BC /* CreateAppealsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381E68982AB74373000AA9BC /* CreateAppealsViewController.swift */; };
@@ -63,6 +61,10 @@
 		385867452AB98BDC001776D9 /* SuccessBottomSheetAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385867432AB98BDC001776D9 /* SuccessBottomSheetAssembly.swift */; };
 		385A45EC2CDCC56E0016DBDB /* HookahTobaccoCore in Frameworks */ = {isa = PBXBuildFile; productRef = 385A45EB2CDCC56E0016DBDB /* HookahTobaccoCore */; };
 		385A45F22CDD18870016DBDB /* HookahTobaccoNetwork in Frameworks */ = {isa = PBXBuildFile; productRef = 385A45F12CDD18870016DBDB /* HookahTobaccoNetwork */; };
+		385A45F82CDD326A0016DBDB /* SendingMetricErrorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385A45F72CDD326A0016DBDB /* SendingMetricErrorMock.swift */; };
+		385A45FB2CDD4CDF0016DBDB /* HookahTobaccoCoreAdmin in Frameworks */ = {isa = PBXBuildFile; productRef = 385A45FA2CDD4CDF0016DBDB /* HookahTobaccoCoreAdmin */; };
+		385A45FE2CDD4FBE0016DBDB /* SendingMetricErrorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385A45F72CDD326A0016DBDB /* SendingMetricErrorMock.swift */; };
+		385A46022CDD510C0016DBDB /* extension+RswiftResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3819104A2C3C0722001CADC0 /* extension+RswiftResources.swift */; };
 		3861B08E2C3ECD39009E3061 /* ChipsContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3861B08D2C3ECD39009E3061 /* ChipsContainerView.swift */; };
 		386CB3CE2C38565100D73C71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386CB3CD2C38565100D73C71 /* AppDelegate.swift */; };
 		386CB3DA2C38565200D73C71 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 386CB3D82C38565200D73C71 /* LaunchScreen.storyboard */; };
@@ -177,8 +179,6 @@
 		386CB47B2C38684E00D73C71 /* TasteType+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D6E93229FDC974001D44D5 /* TasteType+Codable.swift */; };
 		386CB47C2C38685100D73C71 /* TobaccoLine+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B902AE3F29F408B300BF6AD6 /* TobaccoLine+Codable.swift */; };
 		386CB47D2C38685500D73C71 /* Taste+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D6E92E29FDC651001D44D5 /* Taste+Codable.swift */; };
-		386CB47E2C38687A00D73C71 /* Response+Appeals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381E688D2AB73675000AA9BC /* Response+Appeals.swift */; };
-		386CB4802C38687D00D73C71 /* Request+Appeals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381E688B2AB7366B000AA9BC /* Request+Appeals.swift */; };
 		386CB4822C38691300D73C71 /* MoyaProviderAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE722A86DAC400EA19A3 /* MoyaProviderAssembly.swift */; };
 		386CB4842C38699100D73C71 /* UserApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38AFD1182A92322800800342 /* UserApiService.swift */; };
 		386CB4852C3869A600D73C71 /* Api+User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE6D2A86CC5300EA19A3 /* Api+User.swift */; };
@@ -378,7 +378,6 @@
 		38DDDE702A86CF8700EA19A3 /* User+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE6F2A86CF8700EA19A3 /* User+Codable.swift */; };
 		38DDDE732A86DAC400EA19A3 /* MoyaProviderAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE722A86DAC400EA19A3 /* MoyaProviderAssembly.swift */; };
 		38DE7EC12AA278BE00DE4D01 /* MultiSegmentedTobaccoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DE7EC02AA278BE00DE4D01 /* MultiSegmentedTobaccoTableViewCell.swift */; };
-		38E4D4252CDBEC69001AC833 /* Api+Appeals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E4D4242CDBEC69001AC833 /* Api+Appeals.swift */; };
 		38E8E6422A87C6B400041443 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 38E8E6412A87C6B400041443 /* KeychainAccess */; };
 		38E8E6452A87D12000041443 /* Api+Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E8E6442A87D12000041443 /* Api+Registration.swift */; };
 		38E8E6472A87D30E00041443 /* Request+Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E8E6462A87D30E00041443 /* Request+Registration.swift */; };
@@ -495,8 +494,6 @@
 		381910412C3BE3F8001CADC0 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		381910442C3BF874001CADC0 /* ViewDidLoadModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewDidLoadModifier.swift; sourceTree = "<group>"; };
 		3819104A2C3C0722001CADC0 /* extension+RswiftResources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extension+RswiftResources.swift"; sourceTree = "<group>"; };
-		381E688B2AB7366B000AA9BC /* Request+Appeals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Request+Appeals.swift"; sourceTree = "<group>"; };
-		381E688D2AB73675000AA9BC /* Response+Appeals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Response+Appeals.swift"; sourceTree = "<group>"; };
 		381E68962AB74373000AA9BC /* CreateAppealsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAppealsPresenter.swift; sourceTree = "<group>"; };
 		381E68972AB74373000AA9BC /* CreateAppealsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAppealsRouter.swift; sourceTree = "<group>"; };
 		381E68982AB74373000AA9BC /* CreateAppealsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAppealsViewController.swift; sourceTree = "<group>"; };
@@ -546,6 +543,7 @@
 		385867372AB987ED001776D9 /* SuccessBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessBottomSheetViewController.swift; sourceTree = "<group>"; };
 		385867422AB98BDC001776D9 /* SuccessBottomSheetModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessBottomSheetModule.swift; sourceTree = "<group>"; };
 		385867432AB98BDC001776D9 /* SuccessBottomSheetAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessBottomSheetAssembly.swift; sourceTree = "<group>"; };
+		385A45F72CDD326A0016DBDB /* SendingMetricErrorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendingMetricErrorMock.swift; sourceTree = "<group>"; };
 		3861B08D2C3ECD39009E3061 /* ChipsContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipsContainerView.swift; sourceTree = "<group>"; };
 		3869D3962A7EADBA00C9BF5C /* SelectTasteTypeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTasteTypeTableViewCell.swift; sourceTree = "<group>"; };
 		386CB3CB2C38565100D73C71 /* HookahTobaccoAdmin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HookahTobaccoAdmin.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -628,7 +626,6 @@
 		38DDDE6F2A86CF8700EA19A3 /* User+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+Codable.swift"; sourceTree = "<group>"; };
 		38DDDE722A86DAC400EA19A3 /* MoyaProviderAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaProviderAssembly.swift; sourceTree = "<group>"; };
 		38DE7EC02AA278BE00DE4D01 /* MultiSegmentedTobaccoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSegmentedTobaccoTableViewCell.swift; sourceTree = "<group>"; };
-		38E4D4242CDBEC69001AC833 /* Api+Appeals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Api+Appeals.swift"; sourceTree = "<group>"; };
 		38E8E6442A87D12000041443 /* Api+Registration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Api+Registration.swift"; sourceTree = "<group>"; };
 		38E8E6462A87D30E00041443 /* Request+Registration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Request+Registration.swift"; sourceTree = "<group>"; };
 		38EEBE532AB876A5008F9F19 /* ContentCreateAppealsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentCreateAppealsTableViewCell.swift; sourceTree = "<group>"; };
@@ -782,6 +779,7 @@
 				386CB4BB2C38911100D73C71 /* KeychainAccess in Frameworks */,
 				386CB4CA2C38967900D73C71 /* IVCollectionKit in Frameworks */,
 				386CB3E42C3857AE00D73C71 /* Swinject in Frameworks */,
+				385A45FB2CDD4CDF0016DBDB /* HookahTobaccoCoreAdmin in Frameworks */,
 				386CB3F12C385A1A00D73C71 /* RswiftLibrary in Frameworks */,
 				386CB4A42C386B6C00D73C71 /* MultiSelectSegmentedControl in Frameworks */,
 			);
@@ -927,16 +925,6 @@
 				38CE8CD22A89713E00B00307 /* ProfileEdit */,
 			);
 			path = UsersScreen;
-			sourceTree = "<group>";
-		};
-		381E68882AB735A0000AA9BC /* Appeals */ = {
-			isa = PBXGroup;
-			children = (
-				38E4D4242CDBEC69001AC833 /* Api+Appeals.swift */,
-				381E688B2AB7366B000AA9BC /* Request+Appeals.swift */,
-				381E688D2AB73675000AA9BC /* Response+Appeals.swift */,
-			);
-			path = Appeals;
 			sourceTree = "<group>";
 		};
 		381E68A02AB7438B000AA9BC /* CreateAppealsModule */ = {
@@ -1114,6 +1102,14 @@
 				385867432AB98BDC001776D9 /* SuccessBottomSheetAssembly.swift */,
 			);
 			path = SuccessBottomSheet;
+			sourceTree = "<group>";
+		};
+		385A45F62CDD323C0016DBDB /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				385A45F72CDD326A0016DBDB /* SendingMetricErrorMock.swift */,
+			);
+			path = Analytics;
 			sourceTree = "<group>";
 		};
 		3861B08C2C3ECD1F009E3061 /* Clips */ = {
@@ -1307,7 +1303,6 @@
 				387121B42A55B1C500B6005E /* TobaccoLine */,
 				387121B72A55B29200B6005E /* TasteType */,
 				387121BA2A55B33C00B6005E /* Country */,
-				381E68882AB735A0000AA9BC /* Appeals */,
 			);
 			path = Targets;
 			sourceTree = "<group>";
@@ -1680,6 +1675,7 @@
 				B91EB76728A141F400502221 /* Extentions */,
 				38DDDE5C2A869A6500EA19A3 /* Providers */,
 				B90A792E289C2ABE00B90193 /* Services */,
+				385A45F62CDD323C0016DBDB /* Analytics */,
 				B9027E08290FF775002E3C3A /* Resources */,
 				B9D6E94029FDDCCF001D44D5 /* Supporting Files */,
 			);
@@ -2252,6 +2248,7 @@
 				386CB4BA2C38911100D73C71 /* KeychainAccess */,
 				386CB4C92C38967900D73C71 /* IVCollectionKit */,
 				385A45EB2CDCC56E0016DBDB /* HookahTobaccoCore */,
+				385A45FA2CDD4CDF0016DBDB /* HookahTobaccoCoreAdmin */,
 			);
 			productName = HookahTobaccoAdmin;
 			productReference = 386CB3CB2C38565100D73C71 /* HookahTobaccoAdmin.app */;
@@ -2415,6 +2412,7 @@
 				386CB4552C3864F500D73C71 /* EmptyResponse.swift in Sources */,
 				386CB4C02C3895E100D73C71 /* AddManufacturerModule.swift in Sources */,
 				386CB43B2C38638A00D73C71 /* SelectListBottomSheetTableViewCell.swift in Sources */,
+				385A46022CDD510C0016DBDB /* extension+RswiftResources.swift in Sources */,
 				386CB4422C38642400D73C71 /* RegistrationPresenter.swift in Sources */,
 				386CB4F62C389AC400D73C71 /* extention + UIViewController.swift in Sources */,
 				386CB4B32C388F8300D73C71 /* ApiAuthServiceAssembly.swift in Sources */,
@@ -2481,7 +2479,6 @@
 				386CB4D12C38979100D73C71 /* DataManager.swift in Sources */,
 				386CB50E2C389E0700D73C71 /* SelectTasteTypeTableViewCell.swift in Sources */,
 				386CB3FB2C385A8300D73C71 /* HTTabBarControllerAssembly.swift in Sources */,
-				386CB47E2C38687A00D73C71 /* Response+Appeals.swift in Sources */,
 				386CB4362C38637100D73C71 /* SelectListBottomSheetAssembly.swift in Sources */,
 				386CB4122C385F6700D73C71 /* LoadingView.swift in Sources */,
 				386CB4D42C3897A800D73C71 /* ImageStorageError.swift in Sources */,
@@ -2591,7 +2588,6 @@
 				386CB4E22C38995B00D73C71 /* AddCountryInteractor.swift in Sources */,
 				386CB4932C386A1F00D73C71 /* extention + Encodable.swift in Sources */,
 				386CB4E02C38993600D73C71 /* AddCountryAssembly.swift in Sources */,
-				386CB4802C38687D00D73C71 /* Request+Appeals.swift in Sources */,
 				386CB5332C38A28300D73C71 /* DescriptionStackView.swift in Sources */,
 				386CB4B62C3890AD00D73C71 /* UserDefaultsServiceAssembly.swift in Sources */,
 				386CB3EE2C3859D300D73C71 /* HTNavigationControllerAssembly.swift in Sources */,
@@ -2620,6 +2616,7 @@
 				386CB51A2C38A14900D73C71 /* DetailAppealModule.swift in Sources */,
 				386CB4232C38615600D73C71 /* Button.swift in Sources */,
 				386CB4492C38645900D73C71 /* ApiAuthServices.swift in Sources */,
+				385A45FE2CDD4FBE0016DBDB /* SendingMetricErrorMock.swift in Sources */,
 				386CB4302C38630C00D73C71 /* ProfileEditRouter.swift in Sources */,
 				386CB4892C3869CA00D73C71 /* Api+Manufacturer.swift in Sources */,
 				386CB4FF2C389D0100D73C71 /* AddTobaccoEntity.swift in Sources */,
@@ -2650,6 +2647,7 @@
 				38CE8CCB2A8955F300B00307 /* ProfileEditInteractor.swift in Sources */,
 				387F20822C46A7BF00874808 /* TobaccoListAssembly.swift in Sources */,
 				B9D6E92F29FDC651001D44D5 /* Taste+Codable.swift in Sources */,
+				385A45F82CDD326A0016DBDB /* SendingMetricErrorMock.swift in Sources */,
 				B94306D6292053BA00EADFA0 /* TasteCollectionViewCell.swift in Sources */,
 				38DDDE602A86B1CA00EA19A3 /* User.swift in Sources */,
 				B94306C12920181100EADFA0 /* Taste.swift in Sources */,
@@ -2695,7 +2693,6 @@
 				B9631C4E2922487500BBC09B /* extention + UIEdgeInsets.swift in Sources */,
 				B9DBE50B290DD8B1005B185C /* HTTabBarController.swift in Sources */,
 				381E689F2AB74373000AA9BC /* CreateAppealsEntity.swift in Sources */,
-				381E688E2AB73676000AA9BC /* Response+Appeals.swift in Sources */,
 				B902AE4029F408B300BF6AD6 /* TobaccoLine+Codable.swift in Sources */,
 				B9E98A9229107BC000E1389B /* extension+String.swift in Sources */,
 				B9EB024928F35B5F00B3B6DA /* ModuleProtocol.swift in Sources */,
@@ -2731,7 +2728,6 @@
 				38AFD11F2A925C5100800342 /* NetworkingServiceProtocols.swift in Sources */,
 				385505372A814A7A00855E50 /* LoadingView.swift in Sources */,
 				387F20A82C47DED400874808 /* DetailManufacturerTobaccoLineView.swift in Sources */,
-				381E688C2AB7366B000AA9BC /* Request+Appeals.swift in Sources */,
 				B902AE4629F40B1D00BF6AD6 /* Tobacco+Codable.swift in Sources */,
 				387F20A02C47C9E700874808 /* DetailManufacturerView.swift in Sources */,
 				386CB55B2C38AD3200D73C71 /* DetailTobaccoModule.swift in Sources */,
@@ -2836,7 +2832,6 @@
 				B9BA7948295B9CE7009188D6 /* RegistrationAssembly.swift in Sources */,
 				381E689C2AB74373000AA9BC /* CreateAppealsRouter.swift in Sources */,
 				38A8B1EC2A91747C009FAFF7 /* PresenterrProtocol.swift in Sources */,
-				38E4D4252CDBEC69001AC833 /* Api+Appeals.swift in Sources */,
 				38F9B8932A7FE0DD00EAC0A0 /* IconButton.swift in Sources */,
 				38AFD11B2A9238B600800342 /* DataApiService.swift in Sources */,
 				3838B1752A98A2A900AB3D8C /* PageResponse.swift in Sources */,
@@ -3481,6 +3476,10 @@
 		385A45F12CDD18870016DBDB /* HookahTobaccoNetwork */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = HookahTobaccoNetwork;
+		};
+		385A45FA2CDD4CDF0016DBDB /* HookahTobaccoCoreAdmin */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = HookahTobaccoCoreAdmin;
 		};
 		386CB3E32C3857AE00D73C71 /* Swinject */ = {
 			isa = XCSwiftPackageProductDependency;
