@@ -8,7 +8,7 @@
 import Moya
 import Foundation
 
-protocol DefaultTarget: TargetType {
+public protocol DefaultTarget: TargetType {
 
 }
 

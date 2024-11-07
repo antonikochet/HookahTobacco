@@ -8,17 +8,16 @@
 import Moya
 import Foundation
 
-public typealias MoyaCompletion<T> = (Result<T, Error>) -> Void
-
 public extension MoyaProviderType {
 
+    @available(*, deprecated, message: "Используй MoyaNetworkManager")
     @discardableResult
     func request<T: Decodable>(
         object: T.Type,
         target: Target,
         progress: ProgressBlock? = nil,
-        completion: @escaping MoyaCompletion<T>
-    ) -> Cancellable {
+        completion: @escaping NetworkCompletion<T>
+    ) -> Moya.Cancellable {
         request(target, callbackQueue: .main, progress: progress) { result in
             switch result {
             case let .success(response):

@@ -19,6 +19,9 @@ class ApiNetworkingServicesAssembly: Assembly {
         container.register(HookahTobaccoCore.NetworkHandlerErrors.self) { _ in
             HookahTobaccoCore.ApiHandlerErrors()
         }
+        container.register(NetworkManagerProtocol.self) { resolver in
+            HookahTobaccoCore.MoyaNetworkManager(networkProvider: resolver.resolve(MoyaProvider<MultiTarget>.self)!)
+        }
         container.register(UserNetworkingServiceProtocol.self) { resolver in
             UserApiService(provider: resolver.resolve(MoyaProvider<MultiTarget>.self)!,
                            authSettings: resolver.resolve(AuthSettingsProtocol.self)!,
@@ -30,7 +33,7 @@ class ApiNetworkingServicesAssembly: Assembly {
                            handlerErrors: resolver.resolve(NetworkHandlerErrors.self)!)
         }
         container.register(AppealsRepoProtocol.self) { resolver in
-            AppealsRepo(provider: resolver.resolve(MoyaProvider<MultiTarget>.self)!,
+            AppealsRepo(networkManager: resolver.resolve(NetworkManagerProtocol.self)!,
                         authSettings: resolver.resolve(AuthSettingsProtocol.self)!,
                         handlerErrors: resolver.resolve(HookahTobaccoCore.NetworkHandlerErrors.self)!)
         }
