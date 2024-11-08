@@ -8,6 +8,7 @@
 import Foundation
 import Swinject
 import HookahTobaccoCore
+import HookahTobaccoCoreAdmin
 
 struct AddTobaccoDependency {
     var appRouter: AppRouterProtocol
@@ -23,13 +24,13 @@ class AddTobaccoAssembly: Assembly {
         }
 
         container.register(AddTobaccoInteractorInputProtocol.self) { (resolver, dependency: AddTobaccoDependency) in
-            let getDataManager = resolver.resolve(GetDataNetworkingServiceProtocol.self)!
-            let adminNetworkingService = resolver.resolve(AdminNetworkingServiceProtocol.self)!
             let manufacturerRepo = resolver.resolve(ManufacturerRepoProtocol.self)!
+            let adminTobaccoRepo = resolver.resolve(AdminTobaccoRepoProtocol.self)!
+            let getDataManager = resolver.resolve(GetDataNetworkingServiceProtocol.self)!
             return AddTobaccoInteractor(dependency.tobacco,
                                         manufacturerRepo: manufacturerRepo,
-                                        getDataManager: getDataManager,
-                                        adminNetworkingService: adminNetworkingService)
+                                        adminTobaccoRepo: adminTobaccoRepo,
+                                        getDataManager: getDataManager)
         }
 
         container.register(AddTobaccoViewOutputProtocol.self) { _ in

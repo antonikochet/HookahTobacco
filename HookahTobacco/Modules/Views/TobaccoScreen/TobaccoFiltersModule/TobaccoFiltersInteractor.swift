@@ -8,16 +8,17 @@
 //
 
 import Foundation
+import HookahTobaccoCore
 
 protocol TobaccoFiltersInteractorInputProtocol: AnyObject {
     func receiveStartingData()
     func receiveBaseFilters()
-    func updateFilters(_ sendFilter: TobaccoFilters)
+    func updateFilters(_ sendFilter: TobaccoFilter)
 }
 
 protocol TobaccoFiltersInteractorOutputProtocol: PresenterrProtocol {
-    func receivedFilters(_ filters: TobaccoFilters)
-    func selectedFilters(_ selectedFilters: TobaccoFilters)
+    func receivedFilters(_ filters: TobaccoFilter)
+    func selectedFilters(_ selectedFilters: TobaccoFilter)
 }
 
 class TobaccoFiltersInteractor {
@@ -25,41 +26,41 @@ class TobaccoFiltersInteractor {
     weak var presenter: TobaccoFiltersInteractorOutputProtocol!
 
     // MARK: - Dependency
-    private let dataNetworkingService: GetDataNetworkingServiceProtocol
+    private let tobaccoRepo: TobaccoRepoProtocol
 
     // MARK: - Private properties
-    private var filters: TobaccoFilters?
-    private var baseFilters: TobaccoFilters?
+    private var filters: TobaccoFilter?
+    private var baseFilters: TobaccoFilter?
 
     // MARK: - Initializers
-    init(filters: TobaccoFilters?,
-         dataNetworkingService: GetDataNetworkingServiceProtocol) {
+    init(filters: TobaccoFilter?,
+         tobaccoRepo: TobaccoRepoProtocol) {
         self.filters = filters
-        self.dataNetworkingService = dataNetworkingService
+        self.tobaccoRepo = tobaccoRepo
     }
 
     // MARK: - Private methods
     private func receiveTobaccoFilters() {
-        dataNetworkingService.receiveTobaccoFilters { [weak self] result in
+        tobaccoRepo.fetchTobaccoFilters { [weak self] result in
             guard let self else { return }
             switch result {
             case let .success(filters):
                 self.baseFilters = filters
                 self.presenter.receivedFilters(filters)
             case let .failure(error):
-                self.presenter.receivedError(error)
+                self.presenter.receivedError(HTError.createError(error))
             }
         }
     }
 
-    private func sendTobaccoFilters(_ filters: TobaccoFilters) {
-        dataNetworkingService.updateTobaccoFilters(filters: filters) { [weak self] result in
+    private func sendTobaccoFilters(_ filters: TobaccoFilter) {
+        tobaccoRepo.updateTobaccoFilters(filters: filters) { [weak self] result in
             guard let self else { return }
             switch result {
             case let .success(filters):
                 self.presenter.receivedFilters(filters)
             case let .failure(error):
-                self.presenter.receivedError(error)
+                self.presenter.receivedError(HTError.createError(error))
             }
         }
     }
@@ -82,7 +83,7 @@ extension TobaccoFiltersInteractor: TobaccoFiltersInteractorInputProtocol {
             receiveTobaccoFilters()
         }
     }
-    func updateFilters(_ sendFilter: TobaccoFilters) {
+    func updateFilters(_ sendFilter: TobaccoFilter) {
         sendTobaccoFilters(sendFilter)
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import HookahTobaccoCore
 
 struct AddTobaccoDataModule: DataModuleProtocol {
     let editingTobacco: Tobacco

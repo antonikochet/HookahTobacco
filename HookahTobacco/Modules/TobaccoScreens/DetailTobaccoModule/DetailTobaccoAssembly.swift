@@ -8,6 +8,7 @@
 import Swinject
 import UIKit
 import SwiftUI
+import HookahTobaccoCore
 
 final class DetailTobaccoAssembly: AssemblyProtocol {
     

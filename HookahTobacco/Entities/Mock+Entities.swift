@@ -12,12 +12,11 @@ extension Tobacco {
     
     static func mock(id: Int = 0, tasteCount: Int = 2, repeatDescription: Int = 3, isFavorite: Bool = false, isWantBuy: Bool = false) -> Self {
         .init(
-            id: String(id),
-            uid: id,
+            id: id,
             name: "Test Tobacco",
             tastes: Taste.arrayMock(tasteCount),
-            idManufacturer: 1,
-            nameManufacturer: "Test Tobacco Manufacturer",
+            manufacturerID: 1,
+            manufacturerName: "Test Tobacco Manufacturer",
             description: Array(repeating: "Test Tobacco description", count: repeatDescription).joined(separator: " "),
             line: TobaccoLine.mock(),
             imageURL: "http://127.0.0.1:8000/media/images/manufacturers/Adalya.png",

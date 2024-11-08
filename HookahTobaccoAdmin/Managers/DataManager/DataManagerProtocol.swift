@@ -7,8 +7,6 @@
 
 import Foundation
 
-typealias DataManagerType = DataNetworkingServiceProtocol
-
 protocol DataManagerProtocol {
     typealias ReceiveCompletion<T> = (Result<[T], HTError>) -> Void
     typealias Completion = (HTError?) -> Void

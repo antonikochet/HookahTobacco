@@ -47,43 +47,6 @@ class BaseApiService {
         completion(htError)
     }
 
-    func sendRequest<T: Decodable>(
-        object: T.Type,
-        target: TargetType,
-        completion: BlockWithParam<T>?,
-        failure: BlockWithParam<HTError>?
-    ) {
-        provider.request(object: object, target: MultiTarget(target)) { [weak self] result in
-            guard let self else { return }
-            switch result {
-            case let .success(response):
-                completion?(response)
-            case let .failure(error):
-                self.handlerError(error) { error in
-                    failure?(error)
-                }
-            }
-        }
-    }
-
-    func sendRequest<T: Decodable>(
-        object: T.Type,
-        target: TargetType,
-        completion: ResultBlock<T>?
-    ) {
-        provider.request(object: object, target: MultiTarget(target)) { [weak self] result in
-            guard let self else { return }
-            switch result {
-            case let .success(response):
-                completion?(.success(response))
-            case let .failure(error):
-                self.handlerError(error) { error in
-                    completion?(.failure(error))
-                }
-            }
-        }
-    }
-
     func receiveImage(_ url: String, completion: ResultBlock<Data?>?) {
         AF.request(url).response { [weak self] response in
             guard let self else { return }

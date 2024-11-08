@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import HookahTobaccoCore
 
 struct DetailTobaccoView<ViewModel: DetailTobaccoViewModelOb>: View {
     // MARK: - Private properties

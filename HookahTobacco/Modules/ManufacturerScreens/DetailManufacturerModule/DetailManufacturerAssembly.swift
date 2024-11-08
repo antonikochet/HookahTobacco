@@ -27,9 +27,10 @@ final class DetailManufacturerAssembly: AssemblyProtocol {
     
     func assemble(resolver: Resolver) -> UIViewController {
         let viewModel = DetailManufacturerViewModelImpl(
-            manufacturer: manufacturer, 
+            manufacturer: manufacturer,
+            manufacturerRepo: resolver.resolve(ManufacturerRepoProtocol.self)!,
+            favoriteTobaccoRepo: resolver.resolve(FavoriteTobaccoRepoProtocol.self)!,
             getDataNetworkingService: resolver.resolve(GetDataNetworkingServiceProtocol.self)!,
-            userNetworkingService: resolver.resolve(UserNetworkingServiceProtocol.self)!,
             showDetailTobacco: showDetailTobacco
         )
         let view = DetailManufacturerView(viewModel: viewModel)

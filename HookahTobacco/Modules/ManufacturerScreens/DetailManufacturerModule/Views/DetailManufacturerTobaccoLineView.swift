@@ -65,7 +65,7 @@ struct DetailManufacturerTobaccoLineView<Content: View>: View {
             tobacco,
             isShowWantBuyButton: false,
             favoriteAction: {
-                print(tobacco.uid)
+                print(tobacco.id)
             }
         )
     }

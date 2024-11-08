@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import HookahTobaccoCore
 
 struct TobaccoViewModel: Identifiable {
     let id: Int
@@ -26,11 +27,11 @@ struct TobaccoViewModel: Identifiable {
         favoriteAction: VoidBlock? = nil,
         wantBuyAction: VoidBlock? = nil
     ) {
-        self.id = tobacco.uid
+        self.id = tobacco.id
         self.imageURL = tobacco.imageURL
         self.name = tobacco.name
         self.tasty = tobacco.tastes.map { $0.taste }.joined(separator: ", ")
-        self.manufacturerName = tobacco.nameManufacturer
+        self.manufacturerName = tobacco.manufacturerName
         self.isFavorite = tobacco.isFavorite
         self.isWantBuy = tobacco.isWantBuy
         self.isShowWantBuyButton = isShowWantBuyButton

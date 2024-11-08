@@ -54,5 +54,23 @@ final class RepoAssembly: Assembly {
                              handlerErrors: resolver.resolve(HookahTobaccoNetwork.NetworkHandlerErrors.self)!,
                              sendingErrorInMetric: resolver.resolve(SendingMetricErrorProtocol.self)!)
         }
+        container.register(FavoriteTobaccoRepoProtocol.self) { resolver in
+            FavoriteTobaccoRepo(networkManager: resolver.resolve(NetworkManagerProtocol.self)!,
+                                authSettings: resolver.resolve(AuthSettingsProtocol.self)!,
+                                handlerErrors: resolver.resolve(HookahTobaccoNetwork.NetworkHandlerErrors.self)!,
+                                sendingErrorInMetric: resolver.resolve(SendingMetricErrorProtocol.self)!)
+        }
+        container.register(WantBuyTobaccoRepoProtocol.self) { resolver in
+            WantBuyTobaccoRepo(networkManager: resolver.resolve(NetworkManagerProtocol.self)!,
+                               authSettings: resolver.resolve(AuthSettingsProtocol.self)!,
+                               handlerErrors: resolver.resolve(HookahTobaccoNetwork.NetworkHandlerErrors.self)!,
+                               sendingErrorInMetric: resolver.resolve(SendingMetricErrorProtocol.self)!)
+        }
+        container.register(TobaccoRepoProtocol.self) { resolver in
+            TobaccoRepo(networkManager: resolver.resolve(NetworkManagerProtocol.self)!,
+                        authSettings: resolver.resolve(AuthSettingsProtocol.self)!,
+                        handlerErrors: resolver.resolve(HookahTobaccoNetwork.NetworkHandlerErrors.self)!,
+                        sendingErrorInMetric: resolver.resolve(SendingMetricErrorProtocol.self)!)
+        }
     }
 }

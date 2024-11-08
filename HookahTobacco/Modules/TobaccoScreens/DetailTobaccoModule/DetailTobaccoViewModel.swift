@@ -44,7 +44,7 @@ final class DetailTobaccoViewModelImpl: DetailTobaccoViewModelOb {
             R.string.localizable.detailTobaccoDescriptionTitle(tobacco.description) :
             ""
         )
-        self.nameManufacturer = tobacco.nameManufacturer
+        self.nameManufacturer = tobacco.manufacturerName
     }
     
     // MARK: - ViewModel methods

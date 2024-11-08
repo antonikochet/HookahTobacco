@@ -1,6 +1,6 @@
 //
 //  Api+Tobacco.swift
-//  HookahTobacco
+//
 //
 //  Created by Anton Kochetkov on 05.07.2023.
 //
@@ -9,19 +9,18 @@ import Foundation
 import Moya
 
 extension Api {
-    enum Tobacco {
-        case list(page: Int, search: String?, filter: TobaccoFilterRequest?)
-        case create(TobaccoRequest)
-        case update(id: Int, TobaccoRequest)
+    public enum Tobacco {
+        case list(page: Int, search: String?, filter: TobaccoFilterRequestDTO?)
+        case create(TobaccoRequestDTO)
+        case update(id: Int, TobaccoRequestDTO)
         case delete(id: Int)
         case getFilter
-        case updateFilter(TobaccoFilterRequest)
+        case updateFilter(TobaccoFilterRequestDTO)
     }
 }
 
 extension Api.Tobacco: DefaultTarget {
-
-    var path: String {
+    public var path: String {
         switch self {
         case .list:
             return "v1/tobacco/"
@@ -36,7 +35,7 @@ extension Api.Tobacco: DefaultTarget {
         }
     }
 
-    var method: Moya.Method {
+    public var method: Moya.Method {
         switch self {
         case .getFilter:
             return .get
@@ -49,7 +48,7 @@ extension Api.Tobacco: DefaultTarget {
         }
     }
 
-    var task: Task {
+    public var task: Task {
         switch self {
         case let .list(page, search, filter):
             var params: [String: Any] = [

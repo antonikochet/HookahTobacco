@@ -35,8 +35,9 @@ final class DetailManufacturerViewModelImpl: BaseViewModelImpl, DetailManufactur
     private var tobaccos: [Tobacco] = []
     
     // MARK: - Dependency
+    private let manufacturerRepo: ManufacturerRepoProtocol
+    private let favoriteTobaccoRepo: FavoriteTobaccoRepoProtocol
     private var getDataNetworkingService: GetDataNetworkingServiceProtocol
-    private var userNetworkingService: UserNetworkingServiceProtocol
     
     // MARK: - Routing
     private var showDetailTobacco: BlockWithParam<Tobacco>
@@ -44,13 +45,15 @@ final class DetailManufacturerViewModelImpl: BaseViewModelImpl, DetailManufactur
     // MARK: - Initializers
     init(
         manufacturer: Manufacturer,
+        manufacturerRepo: ManufacturerRepoProtocol,
+        favoriteTobaccoRepo: FavoriteTobaccoRepoProtocol,
         getDataNetworkingService: GetDataNetworkingServiceProtocol,
-        userNetworkingService: UserNetworkingServiceProtocol,
         showDetailTobacco: @escaping BlockWithParam<Tobacco>
     ) {
         self.manufacturer = manufacturer
+        self.manufacturerRepo = manufacturerRepo
+        self.favoriteTobaccoRepo = favoriteTobaccoRepo
         self.getDataNetworkingService = getDataNetworkingService
-        self.userNetworkingService = userNetworkingService
         self.showDetailTobacco = showDetailTobacco
         
         self.title = manufacturer.name
@@ -66,31 +69,31 @@ final class DetailManufacturerViewModelImpl: BaseViewModelImpl, DetailManufactur
     
     // MARK: - ViewModel methods
     func showDetail(id: Int) {
-        guard let tobacco = tobaccos.first(where: { $0.uid == id }) else { return }
+        guard let tobacco = tobaccos.first(where: { $0.id == id }) else { return }
         showDetailTobacco(tobacco)
     }
     
     // MARK: - Private methods
     private func receiveTobacco() {
         isLoading = true
-        getDataNetworkingService.receiveTobaccos(for: manufacturer) { [weak self] result in
+        manufacturerRepo.fetchTobaccos(for: manufacturer) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let tobaccos):
                 self.handlerSuccess(tobaccos)
             case .failure(let error):
-                self.handlerError(error)
+                self.handlerError(HTError.createError(error))
             }
             self.isLoading = false
         }
     }
     
     private func updateFavorite(id: Int) {
-        guard let index = tobaccos.firstIndex(where: { $0.uid == id }) else { return }
+        guard let index = tobaccos.firstIndex(where: { $0.id == id }) else { return }
         var tobacco = tobaccos[index]
         tobacco.isFavorite.toggle()
         isLoading = true
-        userNetworkingService.updateFavoriteTobacco([tobacco]) { [weak self] result in
+        favoriteTobaccoRepo.update(tobaccos: [tobacco]) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let tobaccos):
@@ -98,7 +101,7 @@ final class DetailManufacturerViewModelImpl: BaseViewModelImpl, DetailManufactur
                 self.tobaccos[index] = newTobacco
                 self.updateTobaccoLines()
             case .failure(let error):
-                self.handlerError(error)
+                self.handlerError(HTError.createError(error))
             }
             self.isLoading = false
         }
@@ -123,7 +126,7 @@ final class DetailManufacturerViewModelImpl: BaseViewModelImpl, DetailManufactur
                     tobacco,
                     isShowWantBuyButton: false,
                     favoriteAction: { [weak self] in
-                        self?.updateFavorite(id: tobacco.uid)
+                        self?.updateFavorite(id: tobacco.id)
                     })
             }
             

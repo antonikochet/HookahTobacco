@@ -8,18 +8,7 @@
 import Foundation
 import HookahTobaccoCore
 
-protocol RegistrationUserProtocol: Encodable {
-    var username: String { get }
-    var email: String { get }
-    var password: String { get }
-    var repeatPassword: String { get }
-    var firstName: String? { get }
-    var lastName: String? { get }
-    var dateOfBirth: Date? { get }
-    var gender: Gender? { get }
-}
-
 protocol RegistrationServiceProtocol {
     func checkRegistrationData(email: String, username: String, password: String, completion: BlockWithParam<HTError?>?)
-    func registration(user: HookahTobaccoCore.RegistrationUser, completion: BlockWithParam<HTError?>?)
+    func registration(user: RegistrationUser, completion: BlockWithParam<HTError?>?)
 }

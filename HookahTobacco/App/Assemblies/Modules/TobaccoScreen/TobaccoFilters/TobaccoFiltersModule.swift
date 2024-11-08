@@ -8,9 +8,10 @@
 //
 
 import UIKit
+import HookahTobaccoCore
 
 struct TobaccoFiltersDataModule: DataModuleProtocol {
-    let filters: TobaccoFilters?
+    let filters: TobaccoFilter?
     let delegate: TobaccoFiltersOutputModule?
 }
 
