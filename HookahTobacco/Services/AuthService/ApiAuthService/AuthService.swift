@@ -13,12 +13,15 @@ final class AuthService {
 
     // MARK: - Private properties
     private let authRepo: AuthorizationRepoProtocol
+    private let registrationRepo: RegistrationRepoProtocol
     private let settings: AuthSettingsProtocol
 
     // MARK: - Init
     init(authRepo: AuthorizationRepoProtocol,
+         registrationRepo: RegistrationRepoProtocol,
          settings: AuthSettingsProtocol) {
         self.authRepo = authRepo
+        self.registrationRepo = registrationRepo
         self.settings = settings
     }
 
@@ -59,8 +62,25 @@ extension AuthService: AuthServiceProtocol {
 
 extension AuthService: RegistrationServiceProtocol {
     func checkRegistrationData(email: String, username: String, password: String, completion: BlockWithParam<HTError?>?) {
+        registrationRepo.checkRegistrationData(email: email, username: username, password: password) { error in
+            guard let error else {
+                completion?(nil)
+                return
+            }
+            completion?(HTError.createError(error))
+        }
     }
 
-    func registration(user: RegistrationUserProtocol, completion: BlockWithParam<HTError?>?) {
+    func registration(user: HookahTobaccoCore.RegistrationUser, completion: BlockWithParam<HTError?>?) {
+        registrationRepo.registration(user: user) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case let .success(response):
+                self.settings.setToken(response.token)
+                completion?(nil)
+            case let .failure(error):
+                completion?(HTError.createError(error))
+            }
+        }
     }
 }

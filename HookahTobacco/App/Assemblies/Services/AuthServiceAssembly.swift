@@ -14,8 +14,10 @@ class AuthServiceAssembly: Assembly {
     func assemble(container: Container) {
         container.register(AuthService.self) { resolver in
             let authRepo = resolver.resolve(AuthorizationRepoProtocol.self)!
+            let registrationRepo = resolver.resolve(RegistrationRepoProtocol.self)!
             let settings = resolver.resolve(AuthSettingsProtocol.self)!
             return AuthService(authRepo: authRepo,
+                               registrationRepo: registrationRepo,
                                settings: settings)
         }
         .inObjectScope(.container)

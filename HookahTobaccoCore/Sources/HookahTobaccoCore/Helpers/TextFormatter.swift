@@ -19,6 +19,10 @@ public final class TextFormatter {
         return dateFormatter.string(from: date)
     }
     
+    public static func dateToString(_ date: Date, format: Format) -> String {
+        dateToString(date, format: format.rawValue)
+    }
+    
     public static func createDate(from string: String, format: String) -> Date {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ru_RU")
@@ -31,6 +35,7 @@ public final class TextFormatter {
     }
     
     public enum Format: String {
+        case shortDate = "yyyy-MM-dd"
         case fullServer = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
     }
 }

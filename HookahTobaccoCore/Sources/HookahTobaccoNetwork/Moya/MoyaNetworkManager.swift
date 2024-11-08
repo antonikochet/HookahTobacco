@@ -8,7 +8,7 @@
 import Foundation
 import Moya
 
-final public class MoyaNetworkManager: NetworkManagerProtocol {
+public final class MoyaNetworkManager: NetworkManagerProtocol {
     
     private let networkProvider: MoyaProvider<MultiTarget>
     

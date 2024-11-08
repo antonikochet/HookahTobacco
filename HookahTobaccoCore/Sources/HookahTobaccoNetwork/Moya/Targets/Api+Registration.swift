@@ -1,25 +1,24 @@
 //
 //  Api+Registration.swift
-//  HookahTobacco
+//
 //
 //  Created by Anton Kochetkov on 12.08.2023.
 //
 
 import Foundation
 import Moya
-import SweeterSwift
 
 extension Api {
-    enum Registration {
-        case check(CheckRegistrationRequest)
-        case registration(RegistrationUserProtocol)
+    public enum Registration {
+        case check(CheckRegistrationDTO)
+        case registration(RegistrationUserDTO)
         case verifyEmail
         case resendEmail
     }
 }
 
 extension Api.Registration: DefaultTarget {
-    var path: String {
+    public var path: String {
         switch self {
         case .check:
             return "v1/auth/registration/check/"
@@ -32,18 +31,16 @@ extension Api.Registration: DefaultTarget {
         }
     }
 
-    var method: Moya.Method {
+    public var method: Moya.Method {
         .post
     }
 
-    var task: Moya.Task {
+    public var task: Moya.Task {
         switch self {
         case .check(let request):
             return .requestJSONEncodable(request)
         case .registration(let request):
-            let encoder = JSONEncoder()
-            encoder.dateEncodingStrategy = .formatted(DateFormatter(format: "yyyy-MM-dd"))
-            return .requestCustomJSONEncodable(request, encoder: encoder)
+            return .requestJSONEncodable(request)
         default:
             return .requestPlain
         }

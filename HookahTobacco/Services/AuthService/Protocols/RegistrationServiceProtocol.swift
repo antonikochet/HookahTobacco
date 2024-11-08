@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import HookahTobaccoCore
 
 protocol RegistrationUserProtocol: Encodable {
     var username: String { get }
@@ -20,5 +21,5 @@ protocol RegistrationUserProtocol: Encodable {
 
 protocol RegistrationServiceProtocol {
     func checkRegistrationData(email: String, username: String, password: String, completion: BlockWithParam<HTError?>?)
-    func registration(user: RegistrationUserProtocol, completion: BlockWithParam<HTError?>?)
+    func registration(user: HookahTobaccoCore.RegistrationUser, completion: BlockWithParam<HTError?>?)
 }

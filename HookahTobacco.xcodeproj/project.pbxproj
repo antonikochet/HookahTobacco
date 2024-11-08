@@ -148,7 +148,6 @@
 		386CB4552C3864F500D73C71 /* EmptyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE662A86C05000EA19A3 /* EmptyResponse.swift */; };
 		386CB4562C3864F800D73C71 /* PageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3838B1742A98A2A900AB3D8C /* PageResponse.swift */; };
 		386CB4572C38650400D73C71 /* DefaultTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3895E5002A542D54005D87EE /* DefaultTarget.swift */; };
-		386CB45B2C38651A00D73C71 /* Api+Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E8E6442A87D12000041443 /* Api+Registration.swift */; };
 		386CB45C2C38651E00D73C71 /* Request+Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E8E6462A87D30E00041443 /* Request+Registration.swift */; };
 		386CB45D2C3865B800D73C71 /* extension+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E98A9129107BC000E1389B /* extension+String.swift */; };
 		386CB45F2C3865F700D73C71 /* HTScrollContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ACB677291D15AE001D65CE /* HTScrollContentViewController.swift */; };
@@ -374,7 +373,6 @@
 		38DDDE732A86DAC400EA19A3 /* MoyaProviderAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DDDE722A86DAC400EA19A3 /* MoyaProviderAssembly.swift */; };
 		38DE7EC12AA278BE00DE4D01 /* MultiSegmentedTobaccoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DE7EC02AA278BE00DE4D01 /* MultiSegmentedTobaccoTableViewCell.swift */; };
 		38E8E6422A87C6B400041443 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 38E8E6412A87C6B400041443 /* KeychainAccess */; };
-		38E8E6452A87D12000041443 /* Api+Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E8E6442A87D12000041443 /* Api+Registration.swift */; };
 		38E8E6472A87D30E00041443 /* Request+Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E8E6462A87D30E00041443 /* Request+Registration.swift */; };
 		38EEBE542AB876A5008F9F19 /* ContentCreateAppealsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38EEBE532AB876A5008F9F19 /* ContentCreateAppealsTableViewCell.swift */; };
 		38F9B8932A7FE0DD00EAC0A0 /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F9B8922A7FE0DD00EAC0A0 /* IconButton.swift */; };
@@ -619,7 +617,6 @@
 		38DDDE6F2A86CF8700EA19A3 /* User+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+Codable.swift"; sourceTree = "<group>"; };
 		38DDDE722A86DAC400EA19A3 /* MoyaProviderAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaProviderAssembly.swift; sourceTree = "<group>"; };
 		38DE7EC02AA278BE00DE4D01 /* MultiSegmentedTobaccoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSegmentedTobaccoTableViewCell.swift; sourceTree = "<group>"; };
-		38E8E6442A87D12000041443 /* Api+Registration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Api+Registration.swift"; sourceTree = "<group>"; };
 		38E8E6462A87D30E00041443 /* Request+Registration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Request+Registration.swift"; sourceTree = "<group>"; };
 		38EEBE532AB876A5008F9F19 /* ContentCreateAppealsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentCreateAppealsTableViewCell.swift; sourceTree = "<group>"; };
 		38F9B8922A7FE0DD00EAC0A0 /* IconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
@@ -1287,7 +1284,6 @@
 			isa = PBXGroup;
 			children = (
 				3895E5002A542D54005D87EE /* DefaultTarget.swift */,
-				38E8E6432A87D0FE00041443 /* Registration */,
 				38DDDE6C2A86CC3A00EA19A3 /* User */,
 				3895E4FD2A542D2D005D87EE /* Manufacturer */,
 				387121AD2A55ABD500B6005E /* Tobacco */,
@@ -1504,6 +1500,7 @@
 				38DDDE6D2A86CC5300EA19A3 /* Api+User.swift */,
 				38DDDE6F2A86CF8700EA19A3 /* User+Codable.swift */,
 				381569962A96A7650053D223 /* Request+User.swift */,
+				38E8E6462A87D30E00041443 /* Request+Registration.swift */,
 				384672B12ABE15BB0071C262 /* Response+User.swift */,
 			);
 			path = User;
@@ -1515,15 +1512,6 @@
 				38DDDE722A86DAC400EA19A3 /* MoyaProviderAssembly.swift */,
 			);
 			path = Providers;
-			sourceTree = "<group>";
-		};
-		38E8E6432A87D0FE00041443 /* Registration */ = {
-			isa = PBXGroup;
-			children = (
-				38E8E6442A87D12000041443 /* Api+Registration.swift */,
-				38E8E6462A87D30E00041443 /* Request+Registration.swift */,
-			);
-			path = Registration;
 			sourceTree = "<group>";
 		};
 		38EEBE522AB87417008F9F19 /* Cells */ = {
@@ -2490,7 +2478,6 @@
 				386CB4622C38663400D73C71 /* extension+UITextField.swift in Sources */,
 				386CB5212C38A1CC00D73C71 /* DetailAppealViewController.swift in Sources */,
 				386CB5132C389E5A00D73C71 /* AddTasteAssembly.swift in Sources */,
-				386CB45B2C38651A00D73C71 /* Api+Registration.swift in Sources */,
 				386CB5062C389D9300D73C71 /* AddTastesRouter.swift in Sources */,
 				386CB4B92C3890D300D73C71 /* UserSettingsServiceProtocol.swift in Sources */,
 				386CB4732C3867D400D73C71 /* Taste.swift in Sources */,
@@ -2684,7 +2671,6 @@
 				B989B87129338CD6007ECC59 /* AlertFactory.swift in Sources */,
 				B92A46AF29672ACC0006B787 /* ButtonProfileTableViewCell.swift in Sources */,
 				B9E7ACB328F492ED00A3D7E5 /* LoginModule.swift in Sources */,
-				38E8E6452A87D12000041443 /* Api+Registration.swift in Sources */,
 				381910372C3B1500001CADC0 /* TobaccoView.swift in Sources */,
 				B9E7ACB428F492ED00A3D7E5 /* LoginAssembly.swift in Sources */,
 				B904382E2985145D00BADEE3 /* DescriptionStackView.swift in Sources */,
