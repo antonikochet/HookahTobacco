@@ -10,9 +10,9 @@ import Moya
 
 public final class MoyaNetworkManager: NetworkManagerProtocol {
     
-    private let networkProvider: MoyaProvider<MultiTarget>
+    private let networkProvider: MultiMoyaProvider
     
-    public init(networkProvider: MoyaProvider<MultiTarget>) {
+    public init(networkProvider: MultiMoyaProvider) {
         self.networkProvider = networkProvider
     }
     

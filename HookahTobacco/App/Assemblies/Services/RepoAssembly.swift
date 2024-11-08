@@ -6,7 +6,6 @@
 //
 
 import Swinject
-import Moya
 import HookahTobaccoNetwork
 import HookahTobaccoCore
 
@@ -16,7 +15,7 @@ final class RepoAssembly: Assembly {
             HookahTobaccoNetwork.ApiHandlerErrors()
         }
         container.register(NetworkManagerProtocol.self) { resolver in
-            MoyaNetworkManager(networkProvider: resolver.resolve(MoyaProvider<MultiTarget>.self)!)
+            MoyaNetworkManager(networkProvider: resolver.resolve(MultiMoyaProvider.self)!)
         }
         
         container.register(AuthorizationRepoProtocol.self) { resolver in
