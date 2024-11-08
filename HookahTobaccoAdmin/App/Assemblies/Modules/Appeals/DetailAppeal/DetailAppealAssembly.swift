@@ -9,6 +9,7 @@
 
 import Foundation
 import Swinject
+import HookahTobaccoCore
 import HookahTobaccoCoreAdmin
 
 struct DetailAppealDependency {
@@ -27,10 +28,10 @@ class DetailAppealAssembly: Assembly {
         container.register(DetailAppealInteractorInputProtocol.self) { (resolver, dependency: DetailAppealDependency) in
             // here resolve dependency injection
             let adminAppealsRepo = resolver.resolve(AdminAppealsRepoProtocol.self)!
-            let dataNetworingService = resolver.resolve(GetDataNetworkingServiceProtocol.self)!
+            let imageManager = resolver.resolve(ImageManagerProtocol.self)!
             return DetailAppealInteractor(appeal: dependency.appeal,
                                           adminAppealsRepo: adminAppealsRepo,
-                                          dataNetworingService: dataNetworingService)
+                                          imageManager: imageManager)
         }
 
         container.register(DetailAppealViewOutputProtocol.self) { _ in

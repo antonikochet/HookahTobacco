@@ -32,7 +32,7 @@ final class TobaccoListAssembly: AssemblyProtocol {
             tobaccoRepo: resolver.resolve(TobaccoRepoProtocol.self)!,
             favoriteTobaccoRepo: resolver.resolve(FavoriteTobaccoRepoProtocol.self)!,
             wantBuyTobaccoRepo: resolver.resolve(WantBuyTobaccoRepoProtocol.self)!,
-            getDataNetworkingService: resolver.resolve(GetDataNetworkingServiceProtocol.self)!,
+            imageManager: resolver.resolve(ImageManagerProtocol.self)!,
             showDetailTobacco: showDetailTobacco,
             showFilterTobacco: showFilterTobacco
             

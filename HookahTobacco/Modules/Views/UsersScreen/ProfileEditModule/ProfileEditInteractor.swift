@@ -65,7 +65,7 @@ class ProfileEditInteractor {
             case .success(let user):
                 self.presenter.receivedSuccessEditProfile(user)
             case .failure(let error):
-                self.presenter.receivedError(HTError.createError(error))
+                self.presenter.receivedError(error)
             }
         }
     }

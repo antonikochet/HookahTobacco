@@ -51,7 +51,7 @@ class AddCountryInteractor {
                 self.countries = counties
                 self.presenter.receivedSuccessCountries(counties)
             case .failure(let error):
-                self.presenter.receivedError(HTError.createError(error))
+                self.presenter.receivedError(error)
             }
         }
     }
@@ -64,7 +64,7 @@ class AddCountryInteractor {
                 self.countries.append(newCountry)
                 self.presenter.receivedSuccessAddCountry(showWithNew: self.countries)
             case .failure(let error):
-                self.presenter.receivedError(HTError.createError(error))
+                self.presenter.receivedError(error)
             }
         }
     }
@@ -77,7 +77,7 @@ class AddCountryInteractor {
                 self.countries[index] = editCountry
                 self.presenter.receivedSuccessAddCountry(showWithNew: self.countries)
             case .failure(let error):
-                self.presenter.receivedError(HTError.createError(error))
+                self.presenter.receivedError(error)
             }
         }
     }

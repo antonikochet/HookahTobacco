@@ -114,7 +114,7 @@ extension AppealsListPresenter: AppealsListInteractorOutputProtocol {
         router.showDetailAppeal(appeal)
     }
 
-    func receivedError(_ error: HTError) {
+    func receivedError(_ error: DomainError) {
         view.hideLoading()
         isError = true
         isLoadingData = false

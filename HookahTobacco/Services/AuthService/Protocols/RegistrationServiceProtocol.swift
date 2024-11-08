@@ -9,6 +9,6 @@ import Foundation
 import HookahTobaccoCore
 
 protocol RegistrationServiceProtocol {
-    func checkRegistrationData(email: String, username: String, password: String, completion: BlockWithParam<HTError?>?)
-    func registration(user: RegistrationUser, completion: BlockWithParam<HTError?>?)
+    func checkRegistrationData(email: String, username: String, password: String, completion: BlockWithParam<DomainError?>?)
+    func registration(user: RegistrationUser, completion: BlockWithParam<DomainError?>?)
 }

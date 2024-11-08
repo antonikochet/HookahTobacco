@@ -204,7 +204,7 @@ extension TobaccoFiltersPresenter: TobaccoFiltersInteractorOutputProtocol {
         view.hideLoading()
     }
 
-    func receivedError(_ error: HTError) {
+    func receivedError(_ error: DomainError) {
         view.hideLoading()
         if isDownloadData {
             router.showError(with: error.message)

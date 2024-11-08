@@ -94,9 +94,9 @@ extension CreateAppealsPresenter: CreateAppealsInteractorOutputProtocol {
                        titleForAction: R.string.localizable.createAppealsSuccessActionButtonTitle())
     }
 
-    func receivedError(_ error: HTError) {
+    func receivedError(_ error: DomainError) {
         view.hideLoading()
-        if case .apiError(let apiErrors) = error {
+        if case .error(let apiErrors) = error {
             for apiError in apiErrors {
                 if apiError.fieldName == CreateAppealEntity.Field.name.rawValue {
                     view.showError(apiError.message, field: .name)

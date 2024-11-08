@@ -105,7 +105,7 @@ extension AddTastesPresenter: AddTastesInteractorOutputProtocol {
         setupCollectionView(selectedTastes)
     }
 
-    func receivedError(_ error: HTError) {
+    func receivedError(_ error: DomainError) {
         router.showError(with: error.message)
     }
 

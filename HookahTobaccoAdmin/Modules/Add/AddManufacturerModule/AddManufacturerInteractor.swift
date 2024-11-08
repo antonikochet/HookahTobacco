@@ -41,7 +41,7 @@ class AddManufacturerInteractor {
     private let countryRepo: CountryRepoProtocol
     private let manufacturerRepo: ManufacturerRepoProtocol
     private let adminManufacturerRepo: AdminManufacturerRepoProtocol
-    private let getDataManager: DataManagerProtocol
+    private let imageManager: ImageManagerProtocol
 
     private var imageFileURL: URL?
     private var manufacturer: Manufacturer?
@@ -53,13 +53,13 @@ class AddManufacturerInteractor {
 
     // init for add manufacturer
     init(countryRepo: CountryRepoProtocol,
-         getDataManager: DataManagerProtocol,
          manufacturerRepo: ManufacturerRepoProtocol,
-         adminManufacturerRepo: AdminManufacturerRepoProtocol) {
+         adminManufacturerRepo: AdminManufacturerRepoProtocol,
+         imageManager: ImageManagerProtocol) {
         self.countryRepo = countryRepo
-        self.getDataManager = getDataManager
         self.manufacturerRepo = manufacturerRepo
         self.adminManufacturerRepo = adminManufacturerRepo
+        self.imageManager = imageManager
         self.isEditing = false
         getCountries()
     }
@@ -67,14 +67,14 @@ class AddManufacturerInteractor {
     // init for edit manufacturer
     init(_ manufacturer: Manufacturer,
          countryRepo: CountryRepoProtocol,
-         getDataManager: DataManagerProtocol,
          manufacturerRepo: ManufacturerRepoProtocol,
-         adminManufacturerRepo: AdminManufacturerRepoProtocol) {
+         adminManufacturerRepo: AdminManufacturerRepoProtocol,
+         imageManager: ImageManagerProtocol) {
         self.manufacturer = manufacturer
         self.countryRepo = countryRepo
-        self.getDataManager = getDataManager
         self.manufacturerRepo = manufacturerRepo
         self.adminManufacturerRepo = adminManufacturerRepo
+        self.imageManager = imageManager
         self.isEditing = true
         self.tobaccoLines = manufacturer.lines
         self.selectedCountry = manufacturer.country
@@ -93,7 +93,7 @@ class AddManufacturerInteractor {
                     self.presenter.showCountryForSelect(manufacturer.country.name)
                 }
             case .failure(let error):
-                self.presenter.receivedError(HTError.createError(error))
+                self.presenter.receivedError(error)
             }
         }
     }
@@ -106,14 +106,15 @@ class AddManufacturerInteractor {
             case .success:
                 self.presenter.receivedSuccessAddition()
             case .failure(let error):
-                self.presenter.receivedError(HTError.createError(error))
+                self.presenter.receivedError(error)
             }
         }
     }
 
     // MARK: - methods for changing manufacturer data
     private func receiveImage(for manufacturer: Manufacturer) {
-        getDataManager.receiveImage(for: manufacturer.urlImage) { [weak self] result in
+        guard let imageURL = URL(string: manufacturer.urlImage) else { return }
+        imageManager.fetchImage(imageURL) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let image):
@@ -133,7 +134,7 @@ class AddManufacturerInteractor {
                 manufacturer.image = new.image
                 self.presenter.receivedSuccessEditing(with: manufacturer)
             case .failure(let error):
-                self.presenter.receivedError(HTError.createError(error))
+                self.presenter.receivedError(error)
             }
         }
     }

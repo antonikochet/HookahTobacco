@@ -49,7 +49,7 @@ class CreateAppealsInteractor {
                 self.userId = response.user?.id
                 self.presenter.receivedStartingData(response.themes, response.user)
             case .failure(let error):
-                self.presenter.receivedError(HTError.createError(error))
+                self.presenter.receivedError(error)
             }
         }
     }
@@ -61,7 +61,7 @@ class CreateAppealsInteractor {
             case .success(let response):
                 self.presenter.receivedSuccessNewAppeal(response)
             case .failure(let error):
-                self.presenter.receivedError(HTError.createError(error))
+                self.presenter.receivedError(error)
             }
         }
     }

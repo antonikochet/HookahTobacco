@@ -1,20 +1,14 @@
 //
-//  HTError.swift
+//  extension+DomainError.swift
 //  HookahTobacco
 //
-//  Created by Anton Kochetkov on 18.08.2023.
+//  Created by Антон Кочетков on 09.11.2024.
 //
 
 import Foundation
 import HookahTobaccoCore
 
-enum HTError: Error {
-    case noInternetConnection
-    case unexpectedError
-    case serverNotAvailable
-    case unknownError(Error)
-    case apiError([ApiError])
-
+extension DomainError {
     var message: String {
         switch self {
         case .noInternetConnection:
@@ -25,38 +19,25 @@ enum HTError: Error {
             return "Сервер недоступен!"
         case .unknownError(let error):
             return "Произошла ошибка: \(error.localizedDescription)"
-        case .apiError(let errors):
+        case .error(let errors):
             return errors.map({ "\($0.fieldName != nil ? $0.fieldName! + ": " : "")\($0.message)" })
                 .joined(separator: "\n")
         }
     }
-    
-    static func createError(_ domainError: DomainError) -> HTError {
-        switch domainError {
-        case .noInternetConnection:
-            return .noInternetConnection
-        case .unexpectedError:
-            return .unexpectedError
-        case .serverNotAvailable:
-            return .serverNotAvailable
-        case .error(let array):
-            return .apiError(array.map { .init(code: $0.code, message: $0.message, fieldName: $0.fieldName) })
-        case .unknownError(let error):
-            return .unknownError(error)
-        }
-    }
 }
 
-extension HTError: Equatable {
-    static func == (lhs: HTError, rhs: HTError) -> Bool {
+extension DomainError: Equatable {
+    public static func == (lhs: DomainError, rhs: DomainError) -> Bool {
         switch (lhs, rhs) {
         case (.noInternetConnection, .noInternetConnection):
             return true
         case (.unexpectedError, .unexpectedError):
             return true
+        case (.serverNotAvailable, .serverNotAvailable):
+            return true
         case (.unknownError, .unknownError):
             return true
-        case (.apiError, .apiError):
+        case (.error, .error):
             return true
         default:
             return false

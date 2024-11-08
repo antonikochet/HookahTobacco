@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import HookahTobaccoCore
 
 protocol AuthServiceProtocol {
-    typealias AuthServiceCompletion = (HTError?) -> Void
+    typealias AuthServiceCompletion = (DomainError?) -> Void
     var isLoggedIn: Bool { get }
     func login(with name: String, password: String, completion: AuthServiceCompletion?)
     func logout(completion: AuthServiceCompletion?)

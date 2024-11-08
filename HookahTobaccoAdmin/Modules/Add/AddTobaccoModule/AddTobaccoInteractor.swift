@@ -40,7 +40,6 @@ class AddTobaccoInteractor {
 
     private let manufacturerRepo: ManufacturerRepoProtocol
     private let adminTobaccoRepo: AdminTobaccoRepoProtocol
-    private var getDataManager: GetDataNetworkingServiceProtocol
 
     private var manufacturers: [Manufacturer]? {
         didSet {
@@ -59,14 +58,12 @@ class AddTobaccoInteractor {
 
     init(_ tobacco: Tobacco? = nil,
          manufacturerRepo: ManufacturerRepoProtocol,
-         adminTobaccoRepo: AdminTobaccoRepoProtocol,
-         getDataManager: GetDataNetworkingServiceProtocol) {
+         adminTobaccoRepo: AdminTobaccoRepoProtocol) {
         isEditing = tobacco != nil
         self.tobacco = tobacco
         self.selectedTobaccoLine = tobacco?.line
         self.manufacturerRepo = manufacturerRepo
         self.adminTobaccoRepo = adminTobaccoRepo
-        self.getDataManager = getDataManager
         getManufacturers()
     }
 
@@ -78,7 +75,7 @@ class AddTobaccoInteractor {
                 self.manufacturers = data
                 self.initialSelectedManufacturer()
             case .failure(let error):
-                self.presenter.receivedError(HTError.createError(error))
+                self.presenter.receivedError(error)
             }
         }
     }
@@ -95,7 +92,7 @@ class AddTobaccoInteractor {
                 self.presenter.receivedSuccessAddition()
                 self.successAdded()
             case .failure(let error):
-                self.presenter.receivedError(HTError.createError(error))
+                self.presenter.receivedError(error)
             }
         }
     }
@@ -108,7 +105,7 @@ class AddTobaccoInteractor {
                 newTobacco.image = tobacco.image
                 self.presenter.receivedSuccessEditing(with: newTobacco)
             case .failure(let error):
-                self.presenter.receivedError(HTError.createError(error))
+                self.presenter.receivedError(error)
             }
         }
     }

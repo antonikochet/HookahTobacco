@@ -64,7 +64,7 @@ class AddTastesInteractor {
                 self.allTastes = data.sorted(by: { $0.taste < $1.taste })
                 self.presenter.initialAllTastes(self.allTastes, with: self.sortedSelectedTastes)
             case .failure(let error):
-                self.presenter.receivedError(HTError.createError(error))
+                self.presenter.receivedError(error)
             }
         }
     }

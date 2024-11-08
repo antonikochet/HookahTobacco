@@ -43,7 +43,7 @@ extension AuthService: AuthServiceProtocol {
                 self?.settings.setToken(login.token)
                 completion?(nil)
             case .failure(let error):
-                completion?(HTError.createError(error))
+                completion?(error)
             }
             
         }
@@ -55,23 +55,23 @@ extension AuthService: AuthServiceProtocol {
                 self?.settings.setToken(nil)
                 return
             }
-            completion?(HTError.createError(error))
+            completion?(error)
         }
     }
 }
 
 extension AuthService: RegistrationServiceProtocol {
-    func checkRegistrationData(email: String, username: String, password: String, completion: BlockWithParam<HTError?>?) {
+    func checkRegistrationData(email: String, username: String, password: String, completion: BlockWithParam<DomainError?>?) {
         registrationRepo.checkRegistrationData(email: email, username: username, password: password) { error in
             guard let error else {
                 completion?(nil)
                 return
             }
-            completion?(HTError.createError(error))
+            completion?(error)
         }
     }
 
-    func registration(user: HookahTobaccoCore.RegistrationUser, completion: BlockWithParam<HTError?>?) {
+    func registration(user: HookahTobaccoCore.RegistrationUser, completion: BlockWithParam<DomainError?>?) {
         registrationRepo.registration(user: user) { [weak self] result in
             guard let self else { return }
             switch result {
@@ -79,7 +79,7 @@ extension AuthService: RegistrationServiceProtocol {
                 self.settings.setToken(response.token)
                 completion?(nil)
             case let .failure(error):
-                completion?(HTError.createError(error))
+                completion?(error)
             }
         }
     }

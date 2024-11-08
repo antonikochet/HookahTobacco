@@ -23,11 +23,7 @@ class AdminMenuAssembly: Assembly {
         container.register(AdminMenuInteractorInputProtocol.self) { resolver in
             // here resolve dependency injection
             let authService = resolver.resolve(AuthServiceProtocol.self)!
-            let getDataManager = resolver.resolve(GetDataNetworkingServiceProtocol.self)!
-            let adminNetworkingService = resolver.resolve(AdminNetworkingServiceProtocol.self)!
-            return AdminMenuInteractor(authService: authService,
-                                       getDataManager: getDataManager,
-                                       adminNetworkingService: adminNetworkingService)
+            return AdminMenuInteractor(authService: authService)
         }
         container.register(AdminMenuViewOutputProtocol.self) { _ in
             let presenter = AdminMenuPresenter()

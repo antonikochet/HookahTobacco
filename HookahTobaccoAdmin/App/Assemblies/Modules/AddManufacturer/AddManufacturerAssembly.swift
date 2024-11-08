@@ -31,18 +31,18 @@ class AddManufacturerAssembly: Assembly {
             let countryRepo = resolver.resolve(CountryRepoProtocol.self)!
             let manufacturerRepo = resolver.resolve(ManufacturerRepoProtocol.self)!
             let adminManufacturerRepo = resolver.resolve(AdminManufacturerRepoProtocol.self)!
-            let getDataManager = resolver.resolve(DataManagerProtocol.self)!
+            let imageManager = resolver.resolve(ImageManagerProtocol.self)!
             if let manufacturer = dependency.manufacturer {
                 return AddManufacturerInteractor(manufacturer,
                                                  countryRepo: countryRepo,
-                                                 getDataManager: getDataManager, 
                                                  manufacturerRepo: manufacturerRepo,
-                                                 adminManufacturerRepo: adminManufacturerRepo)
+                                                 adminManufacturerRepo: adminManufacturerRepo,
+                                                 imageManager: imageManager)
             }
             return AddManufacturerInteractor(countryRepo: countryRepo,
-                                             getDataManager: getDataManager,
                                              manufacturerRepo: manufacturerRepo,
-                                             adminManufacturerRepo: adminManufacturerRepo)
+                                             adminManufacturerRepo: adminManufacturerRepo,
+                                             imageManager: imageManager)
         }
 
         container.register(AddManufacturerViewOutputProtocol.self) { _ in

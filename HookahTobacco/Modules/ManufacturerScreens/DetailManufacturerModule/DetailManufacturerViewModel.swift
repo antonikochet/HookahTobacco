@@ -37,7 +37,7 @@ final class DetailManufacturerViewModelImpl: BaseViewModelImpl, DetailManufactur
     // MARK: - Dependency
     private let manufacturerRepo: ManufacturerRepoProtocol
     private let favoriteTobaccoRepo: FavoriteTobaccoRepoProtocol
-    private var getDataNetworkingService: GetDataNetworkingServiceProtocol
+    private var imageManager: ImageManagerProtocol
     
     // MARK: - Routing
     private var showDetailTobacco: BlockWithParam<Tobacco>
@@ -47,13 +47,13 @@ final class DetailManufacturerViewModelImpl: BaseViewModelImpl, DetailManufactur
         manufacturer: Manufacturer,
         manufacturerRepo: ManufacturerRepoProtocol,
         favoriteTobaccoRepo: FavoriteTobaccoRepoProtocol,
-        getDataNetworkingService: GetDataNetworkingServiceProtocol,
+        imageManager: ImageManagerProtocol,
         showDetailTobacco: @escaping BlockWithParam<Tobacco>
     ) {
         self.manufacturer = manufacturer
         self.manufacturerRepo = manufacturerRepo
         self.favoriteTobaccoRepo = favoriteTobaccoRepo
-        self.getDataNetworkingService = getDataNetworkingService
+        self.imageManager = imageManager
         self.showDetailTobacco = showDetailTobacco
         
         self.title = manufacturer.name
@@ -82,7 +82,7 @@ final class DetailManufacturerViewModelImpl: BaseViewModelImpl, DetailManufactur
             case .success(let tobaccos):
                 self.handlerSuccess(tobaccos)
             case .failure(let error):
-                self.handlerError(HTError.createError(error))
+                self.handlerError(error)
             }
             self.isLoading = false
         }
@@ -101,7 +101,7 @@ final class DetailManufacturerViewModelImpl: BaseViewModelImpl, DetailManufactur
                 self.tobaccos[index] = newTobacco
                 self.updateTobaccoLines()
             case .failure(let error):
-                self.handlerError(HTError.createError(error))
+                self.handlerError(error)
             }
             self.isLoading = false
         }
@@ -139,7 +139,7 @@ final class DetailManufacturerViewModelImpl: BaseViewModelImpl, DetailManufactur
         }
     }
     
-    private func handlerError(_ error: HTError) {
+    private func handlerError(_ error: DomainError) {
         showAlertError(message: error.message)
     }
 }

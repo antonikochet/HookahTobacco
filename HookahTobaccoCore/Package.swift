@@ -21,7 +21,8 @@ let package = Package(
             targets: ["HookahTobaccoNetwork"])
     ],
     dependencies: [
-        .package(url: "https://github.com/Moya/Moya.git", from: "15.0.0")
+        .package(url: "https://github.com/Moya/Moya.git", from: "15.0.0"),
+        .package(url: "https://github.com/Alamofire/AlamofireImage.git", .upToNextMajor(from: "4.3.0"))
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -34,6 +35,6 @@ let package = Package(
             dependencies: ["HookahTobaccoNetwork"]),
         .target(
             name: "HookahTobaccoNetwork",
-            dependencies: ["Moya"])
+            dependencies: ["Moya", "AlamofireImage"])
     ]
 )

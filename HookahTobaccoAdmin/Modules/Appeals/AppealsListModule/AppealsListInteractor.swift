@@ -60,7 +60,7 @@ class AppealsListInteractor {
                 self.appeals.append(contentsOf: response.results)
                 self.presenter.receivedAppeals(self.appeals)
             case .failure(let error):
-                self.presenter.receivedError(HTError.createError(error))
+                self.presenter.receivedError(error)
             }
         }
     }
@@ -72,7 +72,7 @@ class AppealsListInteractor {
             case .success(let response):
                 self.presenter.receivedThemes(response.themes)
             case .failure(let error):
-                self.presenter.receivedError(HTError.createError(error))
+                self.presenter.receivedError(error)
             }
         }
     }

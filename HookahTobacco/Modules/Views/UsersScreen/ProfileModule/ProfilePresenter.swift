@@ -83,7 +83,7 @@ final class ProfilePresenter {
 
 // MARK: - InteractorOutputProtocol implementation
 extension ProfilePresenter: ProfileInteractorOutputProtocol {
-    func receivedError(_ error: HTError) {
+    func receivedError(_ error: DomainError) {
         view.hideLoading()
         router.showError(with: error.message)
     }

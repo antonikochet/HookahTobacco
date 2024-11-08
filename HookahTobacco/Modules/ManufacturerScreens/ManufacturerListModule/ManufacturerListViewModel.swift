@@ -59,7 +59,7 @@ final class ManufacturerListViewModelImpl: BaseViewModelImpl, ManufacturerListVi
             case .success(let data):
                 self.handlerSuccess(data)
             case .failure(let error):
-                self.handlerError(HTError.createError(error))
+                self.handlerError(error)
             }
             self.isLoading = false
         }
@@ -86,9 +86,9 @@ final class ManufacturerListViewModelImpl: BaseViewModelImpl, ManufacturerListVi
         }
     }
     
-    private func handlerError(_ error: HTError) {
+    private func handlerError(_ error: DomainError) {
         switch error {
-        case .apiError:
+        case .error:
             showAlertError(message: error.message)
         case .noInternetConnection, .unexpectedError, .unknownError, .serverNotAvailable:
             if isDownloadData {

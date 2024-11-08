@@ -11,16 +11,10 @@ import Swinject
 class DataManagerAssembly: Assembly {
     func assemble(container: Container) {
         container.register(DataManager.self) { resolver in
-            DataManager(
-                getDataNetworkingService: resolver.resolve(GetDataNetworkingServiceProtocol.self)!,
-                imageService: resolver.resolve(ImageStorageServiceProtocol.self)!
-            )
+            DataManager(imageService: resolver.resolve(ImageStorageServiceProtocol.self)!)
         }
         .inObjectScope(.container)
-
-        container.register(DataManagerProtocol.self) { resolver in
-            resolver.resolve(DataManager.self)!
-        }
+        
         container.register(ObserverProtocol.self) { resolver in
             resolver.resolve(DataManager.self)!
         }

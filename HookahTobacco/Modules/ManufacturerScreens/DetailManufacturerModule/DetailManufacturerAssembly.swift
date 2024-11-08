@@ -30,7 +30,7 @@ final class DetailManufacturerAssembly: AssemblyProtocol {
             manufacturer: manufacturer,
             manufacturerRepo: resolver.resolve(ManufacturerRepoProtocol.self)!,
             favoriteTobaccoRepo: resolver.resolve(FavoriteTobaccoRepoProtocol.self)!,
-            getDataNetworkingService: resolver.resolve(GetDataNetworkingServiceProtocol.self)!,
+            imageManager: resolver.resolve(ImageManagerProtocol.self)!,
             showDetailTobacco: showDetailTobacco
         )
         let view = DetailManufacturerView(viewModel: viewModel)

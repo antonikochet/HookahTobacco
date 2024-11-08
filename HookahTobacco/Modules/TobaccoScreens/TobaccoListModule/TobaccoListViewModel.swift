@@ -61,7 +61,7 @@ final class TobaccoListViewModelImpl: BaseViewModelImpl, TobaccoListViewModel {
     private let tobaccoRepo: TobaccoRepoProtocol
     private let favoriteTobaccoRepo: FavoriteTobaccoRepoProtocol
     private let wantBuyTobaccoRepo: WantBuyTobaccoRepoProtocol
-    private var getDataNetworkingService: GetDataNetworkingServiceProtocol
+    private var imageManager: ImageManagerProtocol
     
     // MARK: - Routing
     private var showDetailTobacco: BlockWithParam<Tobacco>
@@ -73,7 +73,7 @@ final class TobaccoListViewModelImpl: BaseViewModelImpl, TobaccoListViewModel {
         tobaccoRepo: TobaccoRepoProtocol,
         favoriteTobaccoRepo: FavoriteTobaccoRepoProtocol,
         wantBuyTobaccoRepo: WantBuyTobaccoRepoProtocol,
-        getDataNetworkingService: GetDataNetworkingServiceProtocol,
+        imageManager: ImageManagerProtocol,
         showDetailTobacco: @escaping BlockWithParam<Tobacco>,
         showFilterTobacco: @escaping BlockWithParam<(filters: TobaccoFilter?, delegate: TobaccoFiltersOutputModule)>
     ) {
@@ -81,7 +81,7 @@ final class TobaccoListViewModelImpl: BaseViewModelImpl, TobaccoListViewModel {
         self.tobaccoRepo = tobaccoRepo
         self.favoriteTobaccoRepo = favoriteTobaccoRepo
         self.wantBuyTobaccoRepo = wantBuyTobaccoRepo
-        self.getDataNetworkingService = getDataNetworkingService
+        self.imageManager = imageManager
         self.showDetailTobacco = showDetailTobacco
         self.showFilterTobacco = showFilterTobacco
         
@@ -139,7 +139,7 @@ final class TobaccoListViewModelImpl: BaseViewModelImpl, TobaccoListViewModel {
             case .success(let response):
                 self.handlerSuccess(response)
             case .failure(let error):
-                self.handlerError(HTError.createError(error))
+                self.handlerError(error)
             }
             self.isLoading = false
         }
@@ -181,7 +181,7 @@ final class TobaccoListViewModelImpl: BaseViewModelImpl, TobaccoListViewModel {
                     self.tobaccos.remove(at: index)
                 }
             case .failure(let error):
-                self.handlerError(HTError.createError(error))
+                self.handlerError(error)
             }
             self.isLoading = false
         }
@@ -215,7 +215,7 @@ final class TobaccoListViewModelImpl: BaseViewModelImpl, TobaccoListViewModel {
                 }
                 
             case .failure(let error):
-                self.handlerError(HTError.createError(error))
+                self.handlerError(error)
             }
             self.isLoading = false
         }
@@ -238,7 +238,7 @@ final class TobaccoListViewModelImpl: BaseViewModelImpl, TobaccoListViewModel {
         }
     }
     
-    private func handlerError(_ error: HTError) {
+    private func handlerError(_ error: DomainError) {
         switch error {
         case .noInternetConnection, .unexpectedError, .unknownError, .serverNotAvailable:
             if isDownloadData {

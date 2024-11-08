@@ -30,7 +30,6 @@ class DataManager {
     let imageWorkingQueue = DispatchQueue(label: "ru.HookahTobacco.DataManager.getImage")
 
     // MARK: - Dependency Network
-    private let getDataNetworkingService: GetDataNetworkingServiceProtocol
 
     // MARK: - Dependency DataBase
 
@@ -38,10 +37,7 @@ class DataManager {
     let imageService: ImageStorageServiceProtocol
 
     // MARK: - Initializers
-    init(getDataNetworkingService: GetDataNetworkingServiceProtocol,
-         imageService: ImageStorageServiceProtocol
-    ) {
-        self.getDataNetworkingService = getDataNetworkingService
+    init(imageService: ImageStorageServiceProtocol) {
         self.imageService = imageService
         subscribers = Dictionary(uniqueKeysWithValues: usedTypes.map {
             (String(describing: $0.self), [WeakSubject]())
@@ -72,27 +68,6 @@ class DataManager {
         return named
     }
 
-    private func receiveImageFromNetwork(for url: String,
-                                         completion: ResultBlock<Data>?) {
-        getDataNetworkingService.receiveImage(for: url) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let image):
-                if let named = self.convertNamedImageInImageService(from: url) {
-                    // TODO: - вернуть обратно сохранение изображений
-//                    do {
-//                        _ = try self.imageService.saveImage(image, for: named)
-//                    } catch {
-//                        print(error)
-//                    }
-                }
-                completion?(.success(image))
-            case .failure(let error):
-                completion?(.failure(error))
-            }
-        }
-    }
-
     // MARK: - Notification subscribers methods
     func notifySubscribers<T>(with type: T.Type, newState: UpdateDataNotification<[T]>) {
         let nameType = String(describing: type.self)
@@ -111,24 +86,6 @@ class DataManager {
                 subscribers.forEach { ($0.value as? SystemSubscriberProtocol)?.notify(notification) }
             }
         }
-    }
-}
-
-// MARK: - DataManagerProtocol implementation
-extension DataManager: DataManagerProtocol {
-    func receiveImage(for url: String, completion: ResultBlock<Data>?) {
-        imageWorkingQueue.async {
-            do {
-                if let named = self.convertNamedImageInImageService(from: url) {
-                    completion?(.success(try self.imageService.receiveImage(for: named)))
-                } else {
-                    self.receiveImageFromNetwork(for: url, completion: completion)
-                }
-            } catch {
-                self.receiveImageFromNetwork(for: url, completion: completion)
-            }
-        }
-        getDataNetworkingService.receiveImage(for: url, completion: completion)
     }
 }
 

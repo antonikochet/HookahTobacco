@@ -26,11 +26,9 @@ class AddTobaccoAssembly: Assembly {
         container.register(AddTobaccoInteractorInputProtocol.self) { (resolver, dependency: AddTobaccoDependency) in
             let manufacturerRepo = resolver.resolve(ManufacturerRepoProtocol.self)!
             let adminTobaccoRepo = resolver.resolve(AdminTobaccoRepoProtocol.self)!
-            let getDataManager = resolver.resolve(GetDataNetworkingServiceProtocol.self)!
             return AddTobaccoInteractor(dependency.tobacco,
                                         manufacturerRepo: manufacturerRepo,
-                                        adminTobaccoRepo: adminTobaccoRepo,
-                                        getDataManager: getDataManager)
+                                        adminTobaccoRepo: adminTobaccoRepo)
         }
 
         container.register(AddTobaccoViewOutputProtocol.self) { _ in

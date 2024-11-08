@@ -49,7 +49,7 @@ extension ProfileInteractor: ProfileInteractorInputProtocol {
             case .success(let user):
                 self.presenter.receivedProfileInfoSuccess(user)
             case .failure(let error):
-                self.presenter.receivedError(HTError.createError(error))
+                self.presenter.receivedError(error)
             }
         }
     }

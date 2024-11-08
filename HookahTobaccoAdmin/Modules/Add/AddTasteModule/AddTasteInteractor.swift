@@ -59,7 +59,7 @@ class AddTasteInteractor {
                 self?.tasteTypes = types
                 self?.presenter.receivedSuccessTypes(types)
             case .failure(let error):
-                self?.presenter.receivedError(HTError.createError(error))
+                self?.presenter.receivedError(error)
             }
         }
     }
@@ -71,7 +71,7 @@ class AddTasteInteractor {
             case .success(let newTaste):
                 self.presenter.receivedSuccess(newTaste)
             case .failure(let error):
-                self.presenter.receivedError(HTError.createError(error))
+                self.presenter.receivedError(error)
             }
         }
     }
@@ -83,7 +83,7 @@ class AddTasteInteractor {
             case .success(let taste):
                 self.presenter.receivedSuccess(taste)
             case .failure(let error):
-                self.presenter.receivedError(HTError.createError(error))
+                self.presenter.receivedError(error)
             }
         }
     }
@@ -98,7 +98,7 @@ class AddTasteInteractor {
                 self.presenter.receivedSuccessTypes(self.tasteTypes)
                 self.presenter.receivedSuccessNewType()
             case .failure(let error):
-                self.presenter.receivedError(HTError.createError(error))
+                self.presenter.receivedError(error)
             }
         }
     }

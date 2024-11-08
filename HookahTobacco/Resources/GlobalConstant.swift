@@ -6,12 +6,7 @@
 //
 
 import Foundation
+import HookahTobaccoCore
 
 typealias VoidBlock = () -> Void
 typealias BlockWithParam<T> = (T) -> Void
-typealias ResultBlockWithError<T, E: Error> = (Result<T, E>) -> Void
-typealias ResultBlock<T> = ResultBlockWithError<T, HTError>
-
-struct GlobalConstant {
-    static let apiURL = Bundle.main.object(forInfoDictionaryKey: "API_URL") as? String ?? ""
-}

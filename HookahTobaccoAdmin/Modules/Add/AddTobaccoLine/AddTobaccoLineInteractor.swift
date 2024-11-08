@@ -49,7 +49,7 @@ class AddTobaccoLineInteractor {
                 case .success(let newTobaccoLine):
                     self?.presenter.receivedSuccess(with: newTobaccoLine)
                 case .failure(let error):
-                    self?.presenter.receivedError(HTError.createError(error))
+                    self?.presenter.receivedError(error)
                 }
             }
         } else {
@@ -58,7 +58,7 @@ class AddTobaccoLineInteractor {
                 case .success(let newTobaccoLine):
                     self?.presenter.receivedSuccess(with: newTobaccoLine)
                 case .failure(let error):
-                    self?.presenter.receivedError(HTError.createError(error))
+                    self?.presenter.receivedError(error)
                 }
             }
         }

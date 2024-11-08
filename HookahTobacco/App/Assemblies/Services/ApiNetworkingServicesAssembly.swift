@@ -13,19 +13,9 @@ import HookahTobaccoNetwork
 
 class ApiNetworkingServicesAssembly: Assembly {
     func assemble(container: Container) {
-
-        container.register(NetworkHandlerErrors.self) { _ in
-            ApiHandlerErrors()
-        }
-        
         // TODO: - перенести в отдельный Assembly
         container.register(SendingMetricErrorProtocol.self) { _ in
             SendingMetricErrorMock()
-        }
-        container.register(GetDataNetworkingServiceProtocol.self) { resolver in
-            DataApiService(provider: resolver.resolve(MultiMoyaProvider.self)!,
-                           authSettings: resolver.resolve(AuthSettingsProtocol.self)!,
-                           handlerErrors: resolver.resolve(NetworkHandlerErrors.self)!)
         }
     }
 }

@@ -48,7 +48,7 @@ class TobaccoFiltersInteractor {
                 self.baseFilters = filters
                 self.presenter.receivedFilters(filters)
             case let .failure(error):
-                self.presenter.receivedError(HTError.createError(error))
+                self.presenter.receivedError(error)
             }
         }
     }
@@ -60,7 +60,7 @@ class TobaccoFiltersInteractor {
             case let .success(filters):
                 self.presenter.receivedFilters(filters)
             case let .failure(error):
-                self.presenter.receivedError(HTError.createError(error))
+                self.presenter.receivedError(error)
             }
         }
     }

@@ -104,9 +104,9 @@ extension ProfileEditPresenter: ProfileEditInteractorOutputProtocol {
         view.setupAgreementTextView(resultText)
     }
 
-    func receivedError(_ error: HTError) {
+    func receivedError(_ error: DomainError) {
         view.hideLoading()
-        if case let .apiError(apiErrors) = error {
+        if case let .error(apiErrors) = error {
             apiErrors.forEach { error in
                 if error.fieldName == User.Field.username.rawValue {
                     view.showFieldError(error.message, field: .username)

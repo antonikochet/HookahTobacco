@@ -8,6 +8,7 @@
 //
 
 import Foundation
+import HookahTobaccoCore
 import HookahTobaccoCoreAdmin
 
 protocol DetailAppealInteractorInputProtocol: AnyObject {
@@ -29,7 +30,7 @@ class DetailAppealInteractor {
 
     // MARK: - Dependency
     private let adminAppealsRepo: AdminAppealsRepoProtocol
-    private let dataNetworingService: GetDataNetworkingServiceProtocol
+    private let imageManager: ImageManagerProtocol
 
     // MARK: - Private properties
     private var appeal: AppealEntity
@@ -38,10 +39,10 @@ class DetailAppealInteractor {
     // MARK: - Initializers
     init(appeal: AppealEntity,
          adminAppealsRepo: AdminAppealsRepoProtocol,
-         dataNetworingService: GetDataNetworkingServiceProtocol) {
+         imageManager: ImageManagerProtocol) {
         self.appeal = appeal
         self.adminAppealsRepo = adminAppealsRepo
-        self.dataNetworingService = dataNetworingService
+        self.imageManager = imageManager
     }
     // MARK: - Private methods
     private func sendNewAnswerRequest(_ answer: String) {
@@ -52,7 +53,7 @@ class DetailAppealInteractor {
                 self.appeal = newAppeal
                 self.presenter.showData(appeal: newAppeal, contents: self.contents)
             case .failure(let error):
-                self.presenter.receivedError(HTError.createError(error))
+                self.presenter.receivedError(error)
             }
         }
     }
@@ -60,7 +61,7 @@ class DetailAppealInteractor {
     private func sendHandledRequest() {
         adminAppealsRepo.handledAppeal(appeal.id) { [weak self] error in
             if let error {
-                self?.presenter.receivedError(HTError.createError(error))
+                self?.presenter.receivedError(error)
                 return
             }
             self?.presenter.receivedSuccessHandled()
@@ -71,10 +72,11 @@ class DetailAppealInteractor {
         let dispatchGroup = DispatchGroup()
         if !appeal.contents.isEmpty {
             for content in appeal.contents {
+                guard let url = URL(string: content.file) else { continue }
                 dispatchGroup.enter()
-                dataNetworingService.receiveImage(for: content.file) { [weak self] result in
+                imageManager.fetchImage(url) { [weak self] result in
                     guard let self else { return }
-                    if case let .success(data) = result {
+                    if case let .success(data) = result, let data {
                         self.contents.append(DetailAppealContent(url: content.file,
                                                                  data: data))
                     }
