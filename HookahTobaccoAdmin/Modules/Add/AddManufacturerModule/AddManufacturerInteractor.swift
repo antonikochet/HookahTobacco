@@ -37,6 +37,7 @@ class AddManufacturerInteractor {
 
     weak var presenter: AddManufacturerInteractorOutputProtocol!
 
+    private let countryRepo: CountryRepoProtocol
     private var getDataManager: DataManagerProtocol
     private var adminNetworkingService: AdminNetworkingServiceProtocol
 
@@ -49,8 +50,10 @@ class AddManufacturerInteractor {
     private var selectedCountry: Country?
 
     // init for add manufacturer
-    init(getDataManager: DataManagerProtocol,
+    init(countryRepo: CountryRepoProtocol,
+         getDataManager: DataManagerProtocol,
          adminNetworkingService: AdminNetworkingServiceProtocol) {
+        self.countryRepo = countryRepo
         self.getDataManager = getDataManager
         self.adminNetworkingService = adminNetworkingService
         self.isEditing = false
@@ -59,9 +62,11 @@ class AddManufacturerInteractor {
 
     // init for edit manufacturer
     init(_ manufacturer: Manufacturer,
+         countryRepo: CountryRepoProtocol,
          getDataManager: DataManagerProtocol,
          adminNetworkingService: AdminNetworkingServiceProtocol) {
         self.manufacturer = manufacturer
+        self.countryRepo = countryRepo
         self.getDataManager = getDataManager
         self.adminNetworkingService = adminNetworkingService
         self.isEditing = true
@@ -72,7 +77,7 @@ class AddManufacturerInteractor {
 
     // MARK: - private methods
     private func getCountries() {
-        getDataManager.receiveData(typeData: Country.self) { [weak self] result in
+        countryRepo.fetchCountry { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let countries):
@@ -82,7 +87,7 @@ class AddManufacturerInteractor {
                     self.presenter.showCountryForSelect(manufacturer.country.name)
                 }
             case .failure(let error):
-                self.presenter.receivedError(error)
+                self.presenter.receivedError(HTError.createError(error))
             }
         }
     }
@@ -221,8 +226,8 @@ extension AddManufacturerInteractor: AddManufacturerInteractorInputProtocol {
 
     func receivedCountriesAfterUpdate(_ newCountries: [Country]) {
         if let selectedCountry {
-            let uid = selectedCountry.uid
-            if let newSelectedCountry = newCountries.first(where: { $0.uid == uid }) {
+            let id = selectedCountry.id
+            if let newSelectedCountry = newCountries.first(where: { $0.id == id }) {
                 self.selectedCountry = newSelectedCountry
             }
         }

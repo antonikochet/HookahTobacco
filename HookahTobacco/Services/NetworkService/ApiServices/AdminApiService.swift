@@ -22,10 +22,6 @@ extension AdminApiService: AdminNetworkingServiceProtocol {
             sendRequest(object: Tobacco.self,
                         target: Api.Tobacco.create(TobaccoRequest(tobacco: tobacco)),
                         completion: completion as? ResultBlock)
-        } else if let country = data as? Country {
-            sendRequest(object: Country.self,
-                        target: Api.Countries.create(country),
-                        completion: completion as? ResultBlock)
         } else {
             fatalError("не реализовано добавоение в бд для типа \(type(of: data))")
         }
@@ -41,10 +37,6 @@ extension AdminApiService: AdminNetworkingServiceProtocol {
             sendRequest(object: Tobacco.self,
                         target: Api.Tobacco.update(id: tobacco.uid,
                                                    TobaccoRequest(tobacco: tobacco)),
-                        completion: completion as? ResultBlock)
-        } else if let country = data as? Country {
-            sendRequest(object: Country.self,
-                        target: Api.Countries.update(id: country.uid, country),
                         completion: completion as? ResultBlock)
         } else {
             fatalError("не реализовано изменение в бд для типа \(type(of: data))")

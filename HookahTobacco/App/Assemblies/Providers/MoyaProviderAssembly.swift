@@ -13,13 +13,13 @@ import HookahTobaccoNetwork
 
 class MoyaProviderAssembly: Assembly {
     func assemble(container: Container) {
-        container.register(MoyaProvider<MultiTarget>.self) { resolver in
+        container.register(MultiMoyaProvider.self) { resolver in
             let authSettings = resolver.resolve(AuthSettingsProtocol.self)!
             let plugins: [PluginType] = [
                 AuthorizationPlugin(authGettingProtocol: authSettings),
                 HandlerErrorPlugin()
             ]
-            return MoyaProvider<MultiTarget>.makeWithPlugins(plugins)
+            return MultiMoyaProvider.makeWithPlugins(plugins)
         }
     }
 }

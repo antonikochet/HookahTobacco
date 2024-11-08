@@ -9,6 +9,8 @@
 
 import Foundation
 import Swinject
+import HookahTobaccoCore
+import HookahTobaccoCoreAdmin
 
 struct AddCountryDependency {
     var appRouter: AppRouterProtocol
@@ -25,10 +27,10 @@ class AddCountryAssembly: Assembly {
 
         container.register(AddCountryInteractorInputProtocol.self) { resolver in
             // here resolve dependency injection
-            let getDataManager = resolver.resolve(DataManagerProtocol.self)!
-            let adminNetworkingService = resolver.resolve(AdminNetworkingServiceProtocol.self)!
-            return AddCountryInteractor(getDataManager: getDataManager,
-                                        adminNetworkingService: adminNetworkingService)
+            let countryRepo = resolver.resolve(CountryRepoProtocol.self)!
+            let adminCountryRepo = resolver.resolve(AdminCountryRepoProtocol.self)!
+            return AddCountryInteractor(countryRepo: countryRepo,
+                                        adminCountryRepo: adminCountryRepo)
         }
 
         container.register(AddCountryViewOutputProtocol.self) { (_, dependency: AddCountryDependency)  in

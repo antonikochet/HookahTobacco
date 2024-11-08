@@ -1,6 +1,6 @@
 //
 //  Api+Countries.swift
-//  HookahTobacco
+//
 //
 //  Created by Anton Kochetkov on 05.07.2023.
 //
@@ -8,18 +8,17 @@
 import Moya
 
 extension Api {
-    enum Countries {
+    public enum Country {
         case list
         case detail(id: Int)
-        case create(Country)
-        case update(id: Int, Country)
+        case create(CountryChangeDTO)
+        case update(id: Int, CountryChangeDTO)
         case delete(id: Int)
     }
 }
 
-extension Api.Countries: DefaultTarget {
-
-    var path: String {
+extension Api.Country: DefaultTarget {
+    public var path: String {
         switch self {
         case .list, .create:
             return "v1/country/"
@@ -32,7 +31,7 @@ extension Api.Countries: DefaultTarget {
         }
     }
 
-    var method: Method {
+    public var method: Method {
         switch self {
         case .create:
             return .post
@@ -45,7 +44,7 @@ extension Api.Countries: DefaultTarget {
         }
     }
 
-    var task: Task {
+    public var task: Task {
         switch self {
         case .create(let country):
             return .requestJSONEncodable(country)

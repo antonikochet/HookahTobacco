@@ -10,13 +10,14 @@ import Moya
 import Alamofire
 import UIKit
 import HookahTobaccoCore
+import HookahTobaccoNetwork
 
 class BaseApiService {
-    private let provider: MoyaProvider<MultiTarget>
+    private let provider: MultiMoyaProvider
     private let authSettings: AuthSettingsProtocol
     private let handlerErrors: NetworkHandlerErrors
 
-    init(provider: MoyaProvider<MultiTarget>,
+    init(provider: MultiMoyaProvider,
          authSettings: AuthSettingsProtocol,
          handlerErrors: NetworkHandlerErrors) {
         self.provider = provider

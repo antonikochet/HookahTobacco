@@ -9,6 +9,7 @@
 
 import Foundation
 import Swinject
+import HookahTobaccoCore
 
 struct AddManufacturerDependency {
     var appRouter: AppRouterProtocol
@@ -26,14 +27,17 @@ class AddManufacturerAssembly: Assembly {
         container.register(AddManufacturerInteractorInputProtocol.self
         ) { (resolver, dependency: AddManufacturerDependency) in
             // here resolve dependency injection
+            let countryRepo = resolver.resolve(CountryRepoProtocol.self)!
             let getDataManager = resolver.resolve(DataManagerProtocol.self)!
             let adminNetworkingService = resolver.resolve(AdminNetworkingServiceProtocol.self)!
             if let manufacturer = dependency.manufacturer {
                 return AddManufacturerInteractor(manufacturer,
+                                                 countryRepo: countryRepo,
                                                  getDataManager: getDataManager,
                                                  adminNetworkingService: adminNetworkingService)
             }
-            return AddManufacturerInteractor(getDataManager: getDataManager,
+            return AddManufacturerInteractor(countryRepo: countryRepo,
+                                             getDataManager: getDataManager,
                                              adminNetworkingService: adminNetworkingService)
         }
 

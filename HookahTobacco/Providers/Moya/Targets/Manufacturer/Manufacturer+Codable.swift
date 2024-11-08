@@ -17,7 +17,7 @@ extension Manufacturer: Codable {
             try container.encode(uid, forKey: .uid)
         }
         try container.encode(name, forKey: .name)
-        try container.encode(country.uid, forKey: .countryId)
+        try container.encode(country.id, forKey: .countryId)
         try container.encode(description, forKey: .description)
         if let link {
             try container.encode(link, forKey: .link)

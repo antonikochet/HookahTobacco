@@ -23,17 +23,17 @@ class ApiNetworkingServicesAssembly: Assembly {
             SendingMetricErrorMock()
         }
         container.register(UserNetworkingServiceProtocol.self) { resolver in
-            UserApiService(provider: resolver.resolve(MoyaProvider<MultiTarget>.self)!,
+            UserApiService(provider: resolver.resolve(MultiMoyaProvider.self)!,
                            authSettings: resolver.resolve(AuthSettingsProtocol.self)!,
                            handlerErrors: resolver.resolve(NetworkHandlerErrors.self)!)
         }
         container.register(GetDataNetworkingServiceProtocol.self) { resolver in
-            DataApiService(provider: resolver.resolve(MoyaProvider<MultiTarget>.self)!,
+            DataApiService(provider: resolver.resolve(MultiMoyaProvider.self)!,
                            authSettings: resolver.resolve(AuthSettingsProtocol.self)!,
                            handlerErrors: resolver.resolve(NetworkHandlerErrors.self)!)
         }
         container.register(AdminNetworkingServiceProtocol.self) { resolver in
-            AdminApiService(provider: resolver.resolve(MoyaProvider<MultiTarget>.self)!,
+            AdminApiService(provider: resolver.resolve(MultiMoyaProvider.self)!,
                             authSettings: resolver.resolve(AuthSettingsProtocol.self)!,
                             handlerErrors: resolver.resolve(NetworkHandlerErrors.self)!)
         }

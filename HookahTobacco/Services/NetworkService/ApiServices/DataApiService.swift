@@ -21,10 +21,6 @@ extension DataApiService: GetDataNetworkingServiceProtocol {
             sendRequest(object: [Manufacturer].self,
                         target: Api.Manufacturer.list,
                         completion: completion as? ResultBlock)
-        case is Country.Type:
-            sendRequest(object: [Country].self,
-                        target: Api.Countries.list,
-                        completion: completion as? ResultBlock)
         default:
             fatalError("Метод receiveData протокола GetDataNetworkingServiceProtocol" +
                        " не поддерживает для получения тип \(type)")

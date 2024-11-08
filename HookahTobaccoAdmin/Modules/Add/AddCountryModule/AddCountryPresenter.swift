@@ -9,6 +9,7 @@
 
 import Foundation
 import TableKit
+import HookahTobaccoCore
 
 class AddCountryPresenter {
     // MARK: - Public properties
@@ -102,7 +103,7 @@ extension AddCountryPresenter: AddCountryViewOutputProtocol {
         }
         view.showBlockLoading()
         if let editingCountry {
-            interactor.editCountry(name, with: editingCountry.uid)
+            interactor.editCountry(name, with: editingCountry.id)
         } else {
             interactor.addCountry(name)
         }
