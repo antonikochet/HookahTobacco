@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import HookahTobaccoCore
 
 extension Tobacco {
     
@@ -33,8 +34,7 @@ extension Tobacco {
 extension Taste {
     static func mock(id: Int = 0, typeCount: Int = 1) -> Self {
         .init(
-            id: String(id),
-            uid: id,
+            id: id,
             taste: "Test Taste",
             typeTaste: TasteType.arrayMock(typeCount)
         )
@@ -47,7 +47,7 @@ extension Taste {
 
 extension TasteType {
     static var mock: Self {
-        .init(name: "Test TasteType")
+        .init(id: -1, name: "Test TasteType")
     }
     
     static func arrayMock(_ count: Int = 2) -> [Self] {

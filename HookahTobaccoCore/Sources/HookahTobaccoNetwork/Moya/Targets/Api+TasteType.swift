@@ -1,6 +1,6 @@
 //
-//  Api+TasteTypes.swift
-//  HookahTobacco
+//  Api+TasteType.swift
+//
 //
 //  Created by Anton Kochetkov on 05.07.2023.
 //
@@ -8,17 +8,16 @@
 import Moya
 
 extension Api {
-    enum TasteTypes {
+    public enum TasteType {
         case list
         case detail(id: Int)
-        case create(TasteType)
-        case update(id: Int, TasteType)
+        case create(TasteTypeChangeDTO)
+        case update(id: Int, TasteTypeChangeDTO)
     }
 }
 
-extension Api.TasteTypes: DefaultTarget {
-
-    var path: String {
+extension Api.TasteType: DefaultTarget {
+    public var path: String {
         switch self {
         case .list, .create:
             return "v1/taste_type/"
@@ -29,7 +28,7 @@ extension Api.TasteTypes: DefaultTarget {
         }
     }
 
-    var method: Method {
+    public var method: Method {
         switch self {
         case .create:
             return .post
@@ -40,7 +39,7 @@ extension Api.TasteTypes: DefaultTarget {
         }
     }
 
-    var task: Task {
+    public var task: Task {
         switch self {
         case .create(let tasteType):
             return .requestJSONEncodable(tasteType)

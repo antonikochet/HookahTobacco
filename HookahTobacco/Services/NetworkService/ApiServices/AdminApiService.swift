@@ -26,14 +26,6 @@ extension AdminApiService: AdminNetworkingServiceProtocol {
             sendRequest(object: TobaccoLine.self,
                         target: Api.TobaccoLines.create(tobaccoLine),
                         completion: completion as? ResultBlock)
-        } else if let taste = data as? Taste {
-            sendRequest(object: Taste.self,
-                        target: Api.Tastes.create(taste),
-                        completion: completion as? ResultBlock)
-        } else if let tasteType = data as? TasteType {
-            sendRequest(object: TasteType.self,
-                        target: Api.TasteTypes.create(tasteType),
-                        completion: completion as? ResultBlock)
         } else if let country = data as? Country {
             sendRequest(object: Country.self,
                         target: Api.Countries.create(country),
@@ -57,10 +49,6 @@ extension AdminApiService: AdminNetworkingServiceProtocol {
         } else if let tobaccoLine = data as? TobaccoLine {
             sendRequest(object: TobaccoLine.self,
                         target: Api.TobaccoLines.update(id: tobaccoLine.uid, tobaccoLine),
-                        completion: completion as? ResultBlock)
-        } else if let taste = data as? Taste {
-            sendRequest(object: Taste.self,
-                        target: Api.Tastes.update(id: taste.uid, taste),
                         completion: completion as? ResultBlock)
         } else if let country = data as? Country {
             sendRequest(object: Country.self,

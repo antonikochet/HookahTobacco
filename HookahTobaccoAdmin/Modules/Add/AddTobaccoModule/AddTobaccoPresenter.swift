@@ -9,6 +9,7 @@
 
 import Foundation
 import IVCollectionKit
+import HookahTobaccoCore
 
 class AddTobaccoPresenter {
     // MARK: - Public properties

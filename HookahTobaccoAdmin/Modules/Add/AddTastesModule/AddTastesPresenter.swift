@@ -10,6 +10,7 @@
 import Foundation
 import TableKit
 import IVCollectionKit
+import HookahTobaccoCore
 
 class AddTastesPresenter {
     // MARK: - Public properties
@@ -25,7 +26,7 @@ class AddTastesPresenter {
     // MARK: - Private methods
     private func createTasteTableRow(_ taste: Taste, isSelect: Bool) -> TableRow<AddTastesTableViewCell> {
         let item = AddTastesTableCellViewModel(taste: taste.taste,
-                                    id: String(taste.uid),
+                                    id: String(taste.id),
                                     typeTaste: taste.typeTaste.first?.name ?? "",
                                     isSelect: isSelect)
         return TableRow<AddTastesTableViewCell>(item: item)
@@ -46,10 +47,10 @@ class AddTastesPresenter {
         tableDirector.clear()
         var rows: [Row] = []
 
-        let selectedIdTastes: Set<Int> = Set(selectedTastes.map { $0.uid })
+        let selectedIdTastes: Set<Int> = Set(selectedTastes.map { $0.id })
 
         for taste in tastes {
-            let row = createTasteTableRow(taste, isSelect: selectedIdTastes.contains(taste.uid))
+            let row = createTasteTableRow(taste, isSelect: selectedIdTastes.contains(taste.id))
             rows.append(row)
         }
 
@@ -109,9 +110,9 @@ extension AddTastesPresenter: AddTastesInteractorOutputProtocol {
     }
 
     func updateData(by index: Int, with taste: Taste, and selectedTastes: [Taste]) {
-        let selectedIdTastes = Set(selectedTastes.map { $0.uid })
+        let selectedIdTastes = Set(selectedTastes.map { $0.id })
         setupCollectionView(selectedTastes)
-        let row = createTasteTableRow(taste, isSelect: selectedIdTastes.contains(taste.uid))
+        let row = createTasteTableRow(taste, isSelect: selectedIdTastes.contains(taste.id))
         let indexPath = IndexPath(row: index, section: 0)
         tableDirector?.reloadRow(at: indexPath, with: row)
     }

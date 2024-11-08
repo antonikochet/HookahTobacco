@@ -8,6 +8,7 @@
 //
 
 import Foundation
+import HookahTobaccoCore
 
 typealias SelectedTastes = [Int: Taste]
 
@@ -34,12 +35,12 @@ class AddTastesInteractor {
     weak var presenter: AddTastesInteractorOutputProtocol!
 
     // MARK: - Dependency
-    private let getDataManager: GetDataNetworkingServiceProtocol
+    private let tasteRepo: TasteRepoProtocol
 
     // MARK: - Private properties
     private var selectedTastes: SelectedTastes {
         didSet {
-            sortedSelectedTastes = Array(selectedTastes.values.sorted(by: { $0.uid < $1.uid }))
+            sortedSelectedTastes = Array(selectedTastes.values.sorted(by: { $0.id < $1.id }))
         }
     }
     private var allTastes: [Taste] = []
@@ -48,22 +49,22 @@ class AddTastesInteractor {
 
     // MARK: - Initializers
     init(selectedTastes: SelectedTastes,
-         getDataManager: GetDataNetworkingServiceProtocol) {
+         tasteRepo: TasteRepoProtocol) {
         self.selectedTastes = selectedTastes
-        self.getDataManager = getDataManager
+        self.tasteRepo = tasteRepo
         self.sortedSelectedTastes = Array(selectedTastes.values.sorted(by: { $0.taste < $1.taste }))
     }
 
     // MARK: - Private methods
     private func receiveAllTastes() {
-        getDataManager.receiveData(type: Taste.self) { [weak self] result in
+        tasteRepo.fetchTaste { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let data):
                 self.allTastes = data.sorted(by: { $0.taste < $1.taste })
                 self.presenter.initialAllTastes(self.allTastes, with: self.sortedSelectedTastes)
             case .failure(let error):
-                self.presenter.receivedError(error)
+                self.presenter.receivedError(HTError.createError(error))
             }
         }
     }
@@ -84,16 +85,16 @@ extension AddTastesInteractor: AddTastesInteractorInputProtocol {
         let slctTastes = filterTastes.isEmpty ? allTastes : filterTastes
         guard let index = slctTastes.firstIndex(where: { $0.taste == taste }) else { return }
         let taste = slctTastes[index]
-        if selectedTastes[taste.uid] != nil {
-            selectedTastes.removeValue(forKey: taste.uid)
+        if selectedTastes[taste.id] != nil {
+            selectedTastes.removeValue(forKey: taste.id)
         } else {
-            selectedTastes.updateValue(taste, forKey: taste.uid)
+            selectedTastes.updateValue(taste, forKey: taste.id)
         }
         presenter.updateData(by: index, with: taste, and: sortedSelectedTastes)
     }
 
     func addTaste(_ taste: Taste) {
-        if let index = allTastes.firstIndex(where: { $0.uid == taste.uid }) {
+        if let index = allTastes.firstIndex(where: { $0.id == taste.id }) {
             allTastes[index] = taste
         } else {
             allTastes.append(taste)

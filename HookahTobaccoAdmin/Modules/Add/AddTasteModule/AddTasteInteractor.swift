@@ -8,6 +8,8 @@
 //
 
 import Foundation
+import HookahTobaccoCore
+import HookahTobaccoCoreAdmin
 
 protocol AddTasteInteractorInputProtocol: AnyObject {
     func setupContent()
@@ -27,8 +29,10 @@ class AddTasteInteractor {
     weak var presenter: AddTasteInteractorOutputProtocol!
 
     // MARK: - Dependency
-    private let getDataManager: DataManagerProtocol
-    private let adminNetworkingService: AdminNetworkingServiceProtocol
+    private let tasteRepo: TasteRepoProtocol
+    private let tasteTypeRepo: TasteTypeRepoProtocol
+    private let adminTasteRepo: AdminTasteRepoProtocol
+    private let adminTasteTypeRepo: AdminTasteTypeRepoProtocol
 
     // MARK: - Private properties
     private var taste: Taste?
@@ -36,53 +40,57 @@ class AddTasteInteractor {
 
     // MARK: - Initializers
     init(_ taste: Taste?,
-         getDataManager: DataManagerProtocol,
-         adminNetworkingService: AdminNetworkingServiceProtocol) {
+         tasteRepo: TasteRepoProtocol,
+         tasteTypeRepo: TasteTypeRepoProtocol,
+         adminTasteRepo: AdminTasteRepoProtocol,
+         adminTasteTypeRepo: AdminTasteTypeRepoProtocol) {
         self.taste = taste
-        self.getDataManager = getDataManager
-        self.adminNetworkingService = adminNetworkingService
+        self.tasteRepo = tasteRepo
+        self.tasteTypeRepo = tasteTypeRepo
+        self.adminTasteRepo = adminTasteRepo
+        self.adminTasteTypeRepo = adminTasteTypeRepo
     }
 
     // MARK: - Private methods
     private func receiveType() {
-        getDataManager.receiveData(typeData: TasteType.self) { [weak self] result in
+        tasteTypeRepo.fetchTasteType { [weak self] result in
             switch result {
             case .success(let types):
                 self?.tasteTypes = types
                 self?.presenter.receivedSuccessTypes(types)
             case .failure(let error):
-                self?.presenter.receivedError(error)
+                self?.presenter.receivedError(HTError.createError(error))
             }
         }
     }
 
     private func addTaste(_ taste: Taste) {
-        adminNetworkingService.addData(taste) { [weak self] result in
+        adminTasteRepo.create(taste: taste) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let newTaste):
                 self.presenter.receivedSuccess(newTaste)
             case .failure(let error):
-                self.presenter.receivedError(error)
+                self.presenter.receivedError(HTError.createError(error))
             }
         }
     }
 
     private func editTaste(_ taste: Taste) {
-        adminNetworkingService.setData(taste) { [weak self] result in
+        adminTasteRepo.update(taste: taste) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let taste):
                 self.presenter.receivedSuccess(taste)
             case .failure(let error):
-                self.presenter.receivedError(error)
+                self.presenter.receivedError(HTError.createError(error))
             }
         }
     }
 
     private func addTypeToServer(_ newType: String) {
         let type = TasteType(name: newType)
-        adminNetworkingService.addData(type) { [weak self] result in
+        adminTasteTypeRepo.create(tasteType: type) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let newType):
@@ -90,7 +98,7 @@ class AddTasteInteractor {
                 self.presenter.receivedSuccessTypes(self.tasteTypes)
                 self.presenter.receivedSuccessNewType()
             case .failure(let error):
-                self.presenter.receivedError(error)
+                self.presenter.receivedError(HTError.createError(error))
             }
         }
     }
@@ -101,7 +109,7 @@ extension AddTasteInteractor: AddTasteInteractorInputProtocol {
         if let taste {
             presenter.initialData(taste: taste, isEdit: true)
         } else {
-            let taste = Taste(uid: -1, taste: "", typeTaste: [])
+            let taste = Taste(taste: "", typeTaste: [])
             presenter.initialData(taste: taste, isEdit: false)
         }
         receiveType()
@@ -109,12 +117,12 @@ extension AddTasteInteractor: AddTasteInteractorInputProtocol {
 
     func addTaste(nameTaste: String, selectedTypes: [TasteType]) {
         if let taste {
-            let taste = Taste(uid: taste.uid,
+            let taste = Taste(id: taste.id,
                               taste: nameTaste,
                               typeTaste: selectedTypes)
             editTaste(taste)
         } else {
-            let taste = Taste(uid: -1, taste: nameTaste, typeTaste: selectedTypes)
+            let taste = Taste(taste: nameTaste, typeTaste: selectedTypes)
             addTaste(taste)
         }
     }

@@ -18,6 +18,8 @@ extension AppRouter {
         apply(assemblies: [
             UserDefaultsServiceAssembly(),
             ApiNetworkingServicesAssembly(),
+            RepoAssembly(),
+            AdminRepoAssembly(),
             AuthServiceAssembly(),
             ImageStorageServiceAssembly(),
             DataManagerAssembly()

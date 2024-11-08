@@ -64,7 +64,7 @@ extension TobaccoFilterRequest {
     init?(_ filters: TobaccoFilters?) {
         guard let filters else { return nil }
         manufacturer = filters.manufacturer.isEmpty ? nil : filters.manufacturer.map { $0.id }
-        tasteType = filters.tasteType.isEmpty ? nil : filters.tasteType.map { $0.uid }
+        tasteType = filters.tasteType.isEmpty ? nil : filters.tasteType.map { $0.id }
         tastes = filters.tastes.isEmpty ? nil : filters.tastes.map { $0.id }
         tobaccoType = filters.tobaccoType.isEmpty ? nil : filters.tobaccoType.map { $0.rawValue }
     }

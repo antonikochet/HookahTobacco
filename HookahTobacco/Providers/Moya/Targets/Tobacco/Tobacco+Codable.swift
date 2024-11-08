@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import HookahTobaccoCore
 
 struct ManufacturerForTobacco: Decodable {
     let id: Int
@@ -27,7 +28,7 @@ extension Tobacco: Codable {
             try container.encode(uid, forKey: .uid)
         }
         try container.encode(name, forKey: .name)
-        try container.encode(tastes.compactMap { Int($0.uid) }, forKey: .tastes)
+        try container.encode(tastes.compactMap { Int($0.id) }, forKey: .tastes)
         try container.encode(idManufacturer, forKey: .manufacturer)
         try container.encode(description, forKey: .description)
         try container.encode(line.uid, forKey: .lineId)

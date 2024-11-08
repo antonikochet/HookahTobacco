@@ -8,6 +8,7 @@
 //
 
 import Foundation
+import HookahTobaccoCore
 
 protocol AddTobaccoInteractorInputProtocol: AnyObject {
     func sendNewTobaccoToServer(_ data: AddTobaccoEntity.Tobacco)
@@ -130,7 +131,7 @@ class AddTobaccoInteractor {
 
     private func initialTastes() {
         guard let tobacco = tobacco else { return }
-        tastes = Dictionary(uniqueKeysWithValues: tobacco.tastes.map { ($0.uid, $0) })
+        tastes = Dictionary(uniqueKeysWithValues: tobacco.tastes.map { ($0.id, $0) })
         presenter.initialTastes(Array(tastes.values))
     }
 
@@ -232,7 +233,7 @@ extension AddTobaccoInteractor: AddTobaccoInteractorInputProtocol {
     }
 
     func receivedNewSelectedTastes(_ tastes: [Taste]) {
-        self.tastes = Dictionary(uniqueKeysWithValues: tastes.map { ($0.uid, $0) })
+        self.tastes = Dictionary(uniqueKeysWithValues: tastes.map { ($0.id, $0) })
         presenter.initialTastes(tastes)
     }
 }

@@ -85,9 +85,9 @@ class TobaccoFiltersPresenter {
 
         // tasteType
         if !filters.tasteType.isEmpty {
-            let selectedIds = Set(selectedFilters.tasteType.map { $0.uid })
+            let selectedIds = Set(selectedFilters.tasteType.map { $0.id })
             let items = filters.tasteType.map {
-                FilterTobaccoCollectionViewCellItem(label: $0.name, isSelect: selectedIds.contains($0.uid))
+                FilterTobaccoCollectionViewCellItem(label: $0.name, isSelect: selectedIds.contains($0.id))
             }
             let item = CategoriesTobaccoFiltersViewCellTableViewCellItem(
                 title: "Типы вкусов",

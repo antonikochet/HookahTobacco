@@ -8,6 +8,7 @@
 //
 
 import UIKit
+import HookahTobaccoCore
 
 protocol AddTastesRouterProtocol: RouterProtocol {
     func showAddTaste(taste: Taste?, outputModule: AddTasteOutputModule)
