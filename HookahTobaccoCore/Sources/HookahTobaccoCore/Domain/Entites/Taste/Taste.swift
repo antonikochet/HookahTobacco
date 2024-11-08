@@ -12,7 +12,7 @@ public struct Taste {
     public let taste: String
     public let typeTaste: [TasteType]
     
-    public init(id: Int, taste: String, typeTaste: [TasteType]) {
+    public init(id: Int = -1, taste: String, typeTaste: [TasteType]) {
         self.id = id
         self.taste = taste
         self.typeTaste = typeTaste

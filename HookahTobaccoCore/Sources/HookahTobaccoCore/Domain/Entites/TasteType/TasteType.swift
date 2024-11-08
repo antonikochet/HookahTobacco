@@ -11,7 +11,7 @@ public struct TasteType {
     public let id: Int
     public let name: String
     
-    public init(id: Int, name: String) {
+    public init(id: Int = -1, name: String) {
         self.id = id
         self.name = name
     }

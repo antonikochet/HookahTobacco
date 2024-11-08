@@ -17,7 +17,7 @@ extension AppRouter {
     func registerServices() {
         apply(assemblies: [
             UserDefaultsServiceAssembly(),
-            ApiNetworkingServicesAssembly(),
+            AnalyticsServicesAssembly(),
             RepoAssembly(),
             AdminRepoAssembly(),
             AuthServiceAssembly(),

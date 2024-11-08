@@ -11,7 +11,7 @@ import Moya
 import HookahTobaccoCore
 import HookahTobaccoNetwork
 
-class MoyaProviderAssembly: Assembly {
+final class MoyaProviderAssembly: Assembly {
     func assemble(container: Container) {
         container.register(MultiMoyaProvider.self) { resolver in
             let authSettings = resolver.resolve(AuthSettingsProtocol.self)!
