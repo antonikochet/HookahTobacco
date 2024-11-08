@@ -8,6 +8,7 @@
 //
 
 import Foundation
+import HookahTobaccoCore
 
 protocol ProfileEditInteractorInputProtocol: AnyObject {
     func receiveStartData()
@@ -15,10 +16,10 @@ protocol ProfileEditInteractorInputProtocol: AnyObject {
 }
 
 protocol ProfileEditInteractorOutputProtocol: PresenterrProtocol {
-    func receivedStartData(_ user: RegistrationUserProtocol, isRegistration: Bool)
+    func receivedStartData(_ user: RegistrationUser, isRegistration: Bool)
     func receivedSuccessRegistration()
-    func receivedSuccessEditProfile(_ user: UserProtocol)
-    func receivedAgreementURLs(_ agreementURLs: [AgreementURLsResponse])
+    func receivedSuccessEditProfile(_ user: User)
+    func receivedAgreementURLs(_ agreementURLs: [AgreementURLs])
 }
 
 class ProfileEditInteractor {
@@ -27,49 +28,50 @@ class ProfileEditInteractor {
 
     // MARK: - Dependency
     private let registrationService: RegistrationServiceProtocol
-    private let userNetworkingService: UserNetworkingServiceProtocol
+    private let userRepo: UserRepoProtocol
 
     // MARK: - Private properties
     private let isRegistration: Bool
-    private var user: RegistrationUserProtocol
+    private var user: RegistrationUser
 
     // MARK: - Initializers
     init(isRegistration: Bool,
-         user: RegistrationUserProtocol,
+         user: RegistrationUser,
          registrationService: RegistrationServiceProtocol,
-         userNetworkingService: UserNetworkingServiceProtocol) {
+         userRepo: UserRepoProtocol) {
         self.isRegistration = isRegistration
         self.user = user
         self.registrationService = registrationService
-        self.userNetworkingService = userNetworkingService
+        self.userRepo = userRepo
     }
 
     // MARK: - Private methods
-    private func sendRegistrationData(_ newUser: RegistrationUserProtocol) {
-        registrationService.registration(user: newUser) { [weak self] error in
-            guard let self else { return }
-            if let error {
-                self.presenter.receivedError(error)
-                return
-            }
-            self.presenter.receivedSuccessRegistration()
-        }
+    private func sendRegistrationData(_ newUser: RegistrationUser) {
+        // TODO: - поправить
+//        registrationService.registration(user: newUser) { [weak self] error in
+//            guard let self else { return }
+//            if let error {
+//                self.presenter.receivedError(error)
+//                return
+//            }
+//            self.presenter.receivedSuccessRegistration()
+//        }
     }
 
-    private func sendEditProfileData(_ editUser: RegistrationUserProtocol) {
-        userNetworkingService.updateUser(editUser) { [weak self] result in
+    private func sendEditProfileData(_ editUser: RegistrationUser) {
+        userRepo.updateUser(editUser) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let user):
                 self.presenter.receivedSuccessEditProfile(user)
             case .failure(let error):
-                self.presenter.receivedError(error)
+                self.presenter.receivedError(HTError.createError(error))
             }
         }
     }
 
     private func receiveAgreementURLs() {
-        userNetworkingService.receiveAgreementURLs(
+        userRepo.fetchAgreementURLs(
             [.consentPersonalData, .userAgreement]
         ) { [weak self] result in
             guard let self else { return }
@@ -94,7 +96,6 @@ extension ProfileEditInteractor: ProfileEditInteractorInputProtocol {
             username: isRegistration ? user.username : newUser.username,
             email: isRegistration ? user.email : newUser.email,
             password: user.password,
-            repeatPassword: user.repeatPassword,
             firstName: newUser.firstName,
             lastName: newUser.lastName,
             dateOfBirth: newUser.dateOfBirth,

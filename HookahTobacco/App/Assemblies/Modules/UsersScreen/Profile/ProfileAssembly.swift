@@ -9,6 +9,7 @@
 
 import Foundation
 import Swinject
+import HookahTobaccoCore
 
 struct ProfileDependency {
     var appRouter: AppRouterProtocol
@@ -25,9 +26,9 @@ class ProfileAssembly: Assembly {
         container.register(ProfileInteractorInputProtocol.self) { resolver in
             // here resolve dependency injection
             let authService = resolver.resolve(AuthServiceProtocol.self)!
-            let userService = resolver.resolve(UserNetworkingServiceProtocol.self)!
+            let userRepo = resolver.resolve(UserRepoProtocol.self)!
             return ProfileInteractor(authService: authService,
-                                     userService: userService)
+                                     userRepo: userRepo)
         }
 
         container.register(ProfileViewOutputProtocol.self) { _ in

@@ -7,31 +7,19 @@
 
 import Foundation
 import Moya
-import SweeterSwift
 
 extension Api {
     enum Users {
-        case get
-        case patch(RegistrationUserProtocol)
-        case changePassword
-        case resetPassword
         case getFavoritesTobacco(page: Int)
         case getBuyToTobacco(page: Int)
         case updateFavoriteTobaccos([UpdateTobaccosUser])
         case updateWantBuyTobaccos([UpdateTobaccosUser])
-        case getUrls(AgreementURLsRequest)
     }
 }
 
 extension Api.Users: DefaultTarget {
     var path: String {
         switch self {
-        case .get, .patch:
-            return "v1/user/"
-        case .changePassword:
-            return "v1/user/password/change/"
-        case .resetPassword:
-            return "v1/user/password/reset/"
         case .getFavoritesTobacco:
             return "v1/user/favorite_tobacco/"
         case .getBuyToTobacco:
@@ -40,28 +28,20 @@ extension Api.Users: DefaultTarget {
             return "v1/user/update-favorite-tobacco/"
         case .updateWantBuyTobaccos:
             return "v1/user/update-wish-tobacco/"
-        case .getUrls:
-            return "v1/urls/"
         }
     }
 
     var method: Moya.Method {
         switch self {
-        case .get, .getFavoritesTobacco, .getBuyToTobacco:
+        case .getFavoritesTobacco, .getBuyToTobacco:
             return .get
-        case .patch:
-            return .patch
-        case .changePassword, .resetPassword, .updateFavoriteTobaccos, .updateWantBuyTobaccos, .getUrls:
+        case .updateFavoriteTobaccos, .updateWantBuyTobaccos:
             return .post
         }
     }
 
     var task: Moya.Task {
         switch self {
-        case .patch(let user):
-            let encoder = JSONEncoder()
-            encoder.dateEncodingStrategy = .formatted(DateFormatter(format: "yyyy-MM-dd"))
-            return .requestCustomJSONEncodable(user, encoder: encoder)
         case .getFavoritesTobacco(let page):
             return .requestParameters(parameters: ["page": page], encoding: URLEncoding())
         case .getBuyToTobacco(let page):
@@ -70,10 +50,6 @@ extension Api.Users: DefaultTarget {
             return .requestJSONEncodable(tobaccos)
         case .updateWantBuyTobaccos(let tobaccos):
             return .requestJSONEncodable(tobaccos)
-        case .getUrls(let request):
-            return .requestJSONEncodable(request)
-        default:
-            return .requestPlain
         }
     }
 }

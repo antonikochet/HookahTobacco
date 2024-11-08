@@ -11,12 +11,3 @@ struct UpdateTobaccosUser: Encodable {
     let id: Int
     let flag: Bool
 }
-
-struct AgreementURLsRequest: Encodable {
-    let urls: [TypeAgreementURLs]
-}
-
-enum TypeAgreementURLs: String, CaseIterable, Codable {
-    case consentPersonalData = "PD"
-    case userAgreement = "CL"
-}

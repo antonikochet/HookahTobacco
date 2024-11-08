@@ -7,17 +7,6 @@
 
 import Foundation
 
-protocol UserProtocol {
-    var uid: Int { get }
-    var username: String { get }
-    var email: String { get }
-    var firstName: String? { get }
-    var lastName: String? { get }
-    var isAdmin: Bool { get }
-    var dateOfBirth: Date? { get }
-    var gender: Gender? { get }
-}
-
 protocol AuthServiceProtocol {
     typealias AuthServiceCompletion = (HTError?) -> Void
     var isLoggedIn: Bool { get }

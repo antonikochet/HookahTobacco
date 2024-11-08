@@ -45,22 +45,3 @@ public final class RegistrationRepo: BaseRepo, RegistrationRepoProtocol {
         }
     }
 }
-
-private extension RegistrationUserDTO {
-    init(entity: RegistrationUser) {
-        var date_of_birth: String?
-        if let dateOfBirth = entity.dateOfBirth {
-            date_of_birth = TextFormatter.dateToString(dateOfBirth, format: .shortDate)
-        }
-        self.init(
-            username: entity.username,
-            email: entity.email,
-            password1: entity.password,
-            password2: entity.repeatPassword,
-            first_name: entity.firstName,
-            last_name: entity.lastName,
-            date_of_birth: date_of_birth,
-            gender: entity.gender?.rawValue
-        )
-    }
-}

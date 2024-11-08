@@ -8,6 +8,7 @@
 //
 
 import Foundation
+import HookahTobaccoCore
 
 protocol ProfileInteractorInputProtocol: AnyObject {
     func receiveProfileInfo()
@@ -15,7 +16,7 @@ protocol ProfileInteractorInputProtocol: AnyObject {
 }
 
 protocol ProfileInteractorOutputProtocol: PresenterrProtocol {
-    func receivedProfileInfoSuccess(_ user: UserProtocol)
+    func receivedProfileInfoSuccess(_ user: User)
     func receivedLogoutSuccess()
 }
 
@@ -25,15 +26,15 @@ final class ProfileInteractor {
 
     // MARK: - Dependency
     private let authService: AuthServiceProtocol
-    private let userService: UserNetworkingServiceProtocol
+    private let userRepo: UserRepoProtocol
 
     // MARK: - Private properties
 
     // MARK: - Initializers
     init(authService: AuthServiceProtocol,
-         userService: UserNetworkingServiceProtocol) {
+         userRepo: UserRepoProtocol) {
         self.authService = authService
-        self.userService = userService
+        self.userRepo = userRepo
     }
 
     // MARK: - Private methods
@@ -42,13 +43,13 @@ final class ProfileInteractor {
 // MARK: - InputProtocol implementation 
 extension ProfileInteractor: ProfileInteractorInputProtocol {
     func receiveProfileInfo() {
-        userService.receiveUser { [weak self] result in
+        userRepo.fetchUser { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let user):
                 self.presenter.receivedProfileInfoSuccess(user)
             case .failure(let error):
-                self.presenter.receivedError(error)
+                self.presenter.receivedError(HTError.createError(error))
             }
         }
     }

@@ -6,22 +6,22 @@
 //
 
 public struct RegistrationUserDTO: Encodable {
-    public let username: String
+    public let username: String?
     public let email: String
-    public let password1: String
-    public let password2: String
-    public let first_name: String?
-    public let last_name: String?
+    public let password1: String?
+    public let password2: String?
+    public let first_name: String
+    public let last_name: String
     public let date_of_birth: String?
     public let gender: Int?
     
     public init(
-        username: String,
+        username: String?,
         email: String,
-        password1: String,
-        password2: String,
-        first_name: String?,
-        last_name: String?,
+        password1: String?,
+        password2: String?,
+        first_name: String,
+        last_name: String,
         date_of_birth: String?,
         gender: Int?
     ) {

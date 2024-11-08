@@ -22,13 +22,10 @@ protocol GetDataNetworkingServiceProtocol {
 }
 
 protocol UserNetworkingServiceProtocol {
-    func receiveUser(completion: ResultBlock<UserProtocol>?)
-    func updateUser(_ user: RegistrationUserProtocol, completion: ResultBlock<UserProtocol>?)
     func receiveFavoriteTobaccos(page: Int, completion: ResultBlock<PageResponse<Tobacco>>?)
     func receiveWantToBuyTobaccos(page: Int, completion: ResultBlock<PageResponse<Tobacco>>?)
     func updateFavoriteTobacco(_ tobaccos: [Tobacco], completion: ResultBlock<[Tobacco]>?)
     func updateWantToBuyTobacco(_ tobaccos: [Tobacco], completion: ResultBlock<[Tobacco]>?)
-    func receiveAgreementURLs(_ types: [TypeAgreementURLs], completion: ResultBlock<[AgreementURLsResponse]>?)
 }
 
 protocol AdminNetworkingServiceProtocol {
