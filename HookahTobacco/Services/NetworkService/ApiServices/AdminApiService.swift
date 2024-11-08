@@ -14,11 +14,7 @@ final class AdminApiService: BaseApiService {
 
 extension AdminApiService: AdminNetworkingServiceProtocol {
     func addData<T>(_ data: T, completion: ResultBlock<T>?) where T: DataNetworkingServiceProtocol {
-        if let manufacturer = data as? Manufacturer {
-            sendRequest(object: Manufacturer.self,
-                        target: Api.Manufacturer.create(ManufacturerRequest(manufacturer: manufacturer)),
-                        completion: completion as? ResultBlock)
-        } else if let tobacco = data as? Tobacco {
+        if let tobacco = data as? Tobacco {
             sendRequest(object: Tobacco.self,
                         target: Api.Tobacco.create(TobaccoRequest(tobacco: tobacco)),
                         completion: completion as? ResultBlock)
@@ -28,12 +24,7 @@ extension AdminApiService: AdminNetworkingServiceProtocol {
     }
 
     func setData<T>(_ data: T, completion: ResultBlock<T>?) where T: DataNetworkingServiceProtocol {
-        if let manufacturer = data as? Manufacturer {
-            sendRequest(object: Manufacturer.self,
-                        target: Api.Manufacturer.update(id: manufacturer.uid,
-                                                        ManufacturerRequest(manufacturer: manufacturer)),
-                        completion: completion as? ResultBlock)
-        } else if let tobacco = data as? Tobacco {
+        if let tobacco = data as? Tobacco {
             sendRequest(object: Tobacco.self,
                         target: Api.Tobacco.update(id: tobacco.uid,
                                                    TobaccoRequest(tobacco: tobacco)),

@@ -53,18 +53,6 @@ class DataManager {
     // MARK: - Private methods
 
     // MARK: - Private Methods for working with network
-    private func receiveDataFromNetwork<T>(typeData: T.Type,
-                                           completion: ReceiveCompletion<T>?
-    ) where T: DataNetworkingServiceProtocol {
-        getDataNetworkingService.receiveData(type: typeData) { result in
-            switch result {
-            case .success(let data):
-                completion?(.success(data))
-            case .failure(let error):
-                completion?(.failure(error))
-            }
-        }
-    }
 
     private func convertNamedImageInImageService(from url: String) -> NamedImageStorage? {
         var named: NamedImageStorage?
@@ -128,10 +116,6 @@ class DataManager {
 
 // MARK: - DataManagerProtocol implementation
 extension DataManager: DataManagerProtocol {
-    func receiveData<T: DataManagerType>(typeData: T.Type, completion: ReceiveCompletion<T>?) {
-        receiveDataFromNetwork(typeData: typeData, completion: completion)
-    }
-
     func receiveImage(for url: String, completion: ResultBlock<Data>?) {
         imageWorkingQueue.async {
             do {

@@ -13,6 +13,5 @@ protocol DataManagerProtocol {
     typealias ReceiveCompletion<T> = (Result<[T], HTError>) -> Void
     typealias Completion = (HTError?) -> Void
 
-    func receiveData<T: DataManagerType>(typeData: T.Type, completion: ReceiveCompletion<T>?)
     func receiveImage(for url: String, completion: ResultBlock<Data>?)
 }

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import HookahTobaccoCore
 
 struct ManufacturerCellViewModel {
     let id: Int
@@ -48,7 +49,7 @@ struct ManufacturerCellView: View {
 #Preview {
     let manufacturer = Manufacturer.mock()
     let viewModel = ManufacturerCellViewModel(
-        id: manufacturer.uid,
+        id: manufacturer.id,
         name: manufacturer.name,
         county: manufacturer.country.name,
         imageURL: manufacturer.urlImage

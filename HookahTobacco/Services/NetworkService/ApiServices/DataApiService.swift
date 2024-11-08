@@ -6,27 +6,13 @@
 //
 
 import Foundation
+import HookahTobaccoCore
 
 final class DataApiService: BaseApiService {
 
 }
 
 extension DataApiService: GetDataNetworkingServiceProtocol {
-    func receiveData<T: DataNetworkingServiceProtocol>(
-        type: T.Type,
-        completion: ResultBlock<[T]>?
-    ) {
-        switch type {
-        case is Manufacturer.Type:
-            sendRequest(object: [Manufacturer].self,
-                        target: Api.Manufacturer.list,
-                        completion: completion as? ResultBlock)
-        default:
-            fatalError("Метод receiveData протокола GetDataNetworkingServiceProtocol" +
-                       " не поддерживает для получения тип \(type)")
-        }
-    }
-
     func receiveTobacco(page: Int,
                         search: String?,
                         filters: TobaccoFilters?,
@@ -76,31 +62,15 @@ extension DataApiService: GetDataNetworkingServiceProtocol {
         }
     }
 
-    func receiveDetailData<T: DataNetworkingServiceProtocol>(
-        type: T.Type,
-        uid: Int,
-        completion: ResultBlock<T>?
-    ) {
-        switch type {
-        case is Manufacturer.Type:
-            sendRequest(object: Manufacturer.self,
-                        target: Api.Manufacturer.detail(id: uid),
-                        completion: completion as? ResultBlock)
-        default:
-            fatalError("Метод receiveData протокола GetDataNetworkingServiceProtocol" +
-                       " не поддерживает для получения тип \(type)")
-        }
-    }
-
     func receiveTobaccos(
         for manufacturer: Manufacturer,
         completion: ResultBlock<[Tobacco]>?
     ) {
-        let target = Api.Manufacturer.tobaccos(id: manufacturer.uid)
-        sendRequest(object: TobaccosManufacturerResponse.self, target: target) { result in
-            completion?(.success(result.tobaccos))
-        } failure: { error in
-            completion?(.failure(error))
-        }
+//        let target = Api.Manufacturer.tobaccos(id: manufacturer.id)
+//        sendRequest(object: TobaccosManufacturerResponse.self, target: target) { result in
+//            completion?(.success(result.tobaccos))
+//        } failure: { error in
+//            completion?(.failure(error))
+//        }
     }
 }

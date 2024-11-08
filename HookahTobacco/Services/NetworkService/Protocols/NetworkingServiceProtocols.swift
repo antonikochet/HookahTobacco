@@ -9,8 +9,6 @@ import Foundation
 import HookahTobaccoCore
 
 protocol GetDataNetworkingServiceProtocol {
-    func receiveData<T: DataNetworkingServiceProtocol>(type: T.Type,
-                                                       completion: ResultBlock<[T]>?)
     func receiveTobacco(page: Int,
                         search: String?,
                         filters: TobaccoFilters?,

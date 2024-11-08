@@ -10,6 +10,7 @@
 import Swinject
 import UIKit
 import SwiftUI
+import HookahTobaccoCore
 
 final class ManufacturerListAssembly: AssemblyProtocol {
 
@@ -23,7 +24,7 @@ final class ManufacturerListAssembly: AssemblyProtocol {
     
     func assemble(resolver: Resolver) -> UIViewController {
         let viewModel = ManufacturerListViewModelImpl(
-            getDataNetworkingService: resolver.resolve(GetDataNetworkingServiceProtocol.self)!,
+            manufacturerRepo: resolver.resolve(ManufacturerRepoProtocol.self)!,
             showDetailManufacturer: showDetailManufacturer
         )
         let view = ManufacturerListView(viewModel: viewModel)

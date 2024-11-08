@@ -42,7 +42,7 @@ public struct TobaccoLine {
         self.name = dto.name
         self.packetingFormat = dto.packeting_format.split(separator: ",").compactMap { Int($0) }
         self.tobaccoType = TobaccoType(rawValue: dto.tobacco_type) ?? .tobacco
-        self.tobaccoLeafType = dto.tobacco_leaf_type?.compactMap { VarietyTobaccoLeaf(rawValue: $0) }
+        self.tobaccoLeafType = dto.tobacco_leaf_type?.compactMap { VarietyTobaccoLeaf(rawValue: $0.value) }
         self.description = dto.description
         self.isBase = dto.is_base
         self.manufacturerId = dto.manufacturer

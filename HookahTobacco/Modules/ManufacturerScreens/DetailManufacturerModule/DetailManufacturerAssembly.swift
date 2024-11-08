@@ -10,6 +10,7 @@
 import Swinject
 import UIKit
 import SwiftUI
+import HookahTobaccoCore
 
 final class DetailManufacturerAssembly: AssemblyProtocol {
     

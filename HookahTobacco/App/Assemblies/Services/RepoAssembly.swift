@@ -48,5 +48,11 @@ final class RepoAssembly: Assembly {
                         handlerErrors: resolver.resolve(HookahTobaccoNetwork.NetworkHandlerErrors.self)!,
                         sendingErrorInMetric: resolver.resolve(SendingMetricErrorProtocol.self)!)
         }
+        container.register(ManufacturerRepoProtocol.self) { resolver in
+            ManufacturerRepo(networkManager: resolver.resolve(NetworkManagerProtocol.self)!,
+                             authSettings: resolver.resolve(AuthSettingsProtocol.self)!,
+                             handlerErrors: resolver.resolve(HookahTobaccoNetwork.NetworkHandlerErrors.self)!,
+                             sendingErrorInMetric: resolver.resolve(SendingMetricErrorProtocol.self)!)
+        }
     }
 }

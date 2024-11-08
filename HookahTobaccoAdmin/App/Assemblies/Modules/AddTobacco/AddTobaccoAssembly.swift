@@ -7,6 +7,7 @@
 
 import Foundation
 import Swinject
+import HookahTobaccoCore
 
 struct AddTobaccoDependency {
     var appRouter: AppRouterProtocol
@@ -24,7 +25,9 @@ class AddTobaccoAssembly: Assembly {
         container.register(AddTobaccoInteractorInputProtocol.self) { (resolver, dependency: AddTobaccoDependency) in
             let getDataManager = resolver.resolve(GetDataNetworkingServiceProtocol.self)!
             let adminNetworkingService = resolver.resolve(AdminNetworkingServiceProtocol.self)!
+            let manufacturerRepo = resolver.resolve(ManufacturerRepoProtocol.self)!
             return AddTobaccoInteractor(dependency.tobacco,
+                                        manufacturerRepo: manufacturerRepo,
                                         getDataManager: getDataManager,
                                         adminNetworkingService: adminNetworkingService)
         }

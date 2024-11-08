@@ -77,8 +77,7 @@ extension TobaccoLine {
 extension Manufacturer {
     static func mock(id: Int = 0, countLines: Int = 2) -> Self {
         .init(
-            id: String(id),
-            uid: id,
+            id: id,
             name: "Test Manufacturer",
             country: Country.mock,
             description: "Test Manufacturer description Test Manufacturer description",

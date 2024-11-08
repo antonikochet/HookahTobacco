@@ -36,5 +36,11 @@ final class AdminRepoAssembly: Assembly {
                              handlerErrors: resolver.resolve(HookahTobaccoNetwork.NetworkHandlerErrors.self)!,
                              sendingErrorInMetric: resolver.resolve(SendingMetricErrorProtocol.self)!)
         }
+        container.register(AdminManufacturerRepoProtocol.self) { resolver in
+            AdminManufacturerRepo(networkManager: resolver.resolve(NetworkManagerProtocol.self)!,
+                                  authSettings: resolver.resolve(AuthSettingsProtocol.self)!,
+                                  handlerErrors: resolver.resolve(HookahTobaccoNetwork.NetworkHandlerErrors.self)!,
+                                  sendingErrorInMetric: resolver.resolve(SendingMetricErrorProtocol.self)!)
+        }
     }
 }

@@ -8,18 +8,17 @@
 import Moya
 
 extension Api {
-    enum Manufacturer {
+    public enum Manufacturer {
         case list
         case detail(id: Int)
-        case create(ManufacturerRequest)
-        case update(id: Int, ManufacturerRequest)
+        case create(ManufacturerRequestDTO)
+        case update(id: Int, ManufacturerRequestDTO)
         case tobaccos(id: Int)
     }
 }
 
 extension Api.Manufacturer: DefaultTarget {
-
-    var path: String {
+    public var path: String {
         switch self {
         case .list, .create:
             return "v1/manufacturer/"
@@ -32,7 +31,7 @@ extension Api.Manufacturer: DefaultTarget {
         }
     }
 
-    var method: Method {
+    public var method: Method {
         switch self {
         case .create:
             return .post
@@ -43,7 +42,7 @@ extension Api.Manufacturer: DefaultTarget {
         }
     }
 
-    var task: Task {
+    public var task: Task {
         switch self {
         case let .create(request):
             return request.createRequest()

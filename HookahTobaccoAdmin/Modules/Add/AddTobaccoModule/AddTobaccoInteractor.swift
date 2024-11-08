@@ -37,6 +37,7 @@ protocol AddTobaccoInteractorOutputProtocol: PresenterrProtocol {
 class AddTobaccoInteractor {
     weak var presenter: AddTobaccoInteractorOutputProtocol!
 
+    private let manufacturerRepo: ManufacturerRepoProtocol
     private var getDataManager: GetDataNetworkingServiceProtocol
     private var adminNetworkingService: AdminNetworkingServiceProtocol
 
@@ -56,25 +57,27 @@ class AddTobaccoInteractor {
     private var editingMainImage: Data?
 
     init(_ tobacco: Tobacco? = nil,
+         manufacturerRepo: ManufacturerRepoProtocol,
          getDataManager: GetDataNetworkingServiceProtocol,
          adminNetworkingService: AdminNetworkingServiceProtocol) {
         isEditing = tobacco != nil
         self.tobacco = tobacco
         self.selectedTobaccoLine = tobacco?.line
+        self.manufacturerRepo = manufacturerRepo
         self.getDataManager = getDataManager
         self.adminNetworkingService = adminNetworkingService
         getManufacturers()
     }
 
     private func getManufacturers() {
-        getDataManager.receiveData(type: Manufacturer.self) { [weak self] result in
+        manufacturerRepo.fetchManufacturer { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let data):
                 self.manufacturers = data
                 self.initialSelectedManufacturer()
             case .failure(let error):
-                self.presenter.receivedError(error)
+                self.presenter.receivedError(HTError.createError(error))
             }
         }
     }
@@ -109,9 +112,9 @@ class AddTobaccoInteractor {
         }
     }
 
-    private func receiveSelectedManufacturer(by uid: Int) -> Manufacturer? {
+    private func receiveSelectedManufacturer(by id: Int) -> Manufacturer? {
         guard let manufacturers = manufacturers else { return nil }
-        let manufacturer = manufacturers.first(where: { $0.uid == uid })
+        let manufacturer = manufacturers.first(where: { $0.id == id })
         return manufacturer
     }
 
@@ -148,7 +151,7 @@ class AddTobaccoInteractor {
 extension AddTobaccoInteractor: AddTobaccoInteractorInputProtocol {
     func sendNewTobaccoToServer(_ data: AddTobaccoEntity.Tobacco) {
         guard let selectManufacturer = selectedManufacturer,
-              selectManufacturer.uid != -1 else {
+              selectManufacturer.id != -1 else {
             presenter.receivedError(with: R.string.localizable.addTobaccoManufacturerEmptyMessage())
             return
         }
@@ -160,7 +163,7 @@ extension AddTobaccoInteractor: AddTobaccoInteractorInputProtocol {
         var tobacco = Tobacco(uid: tobacco?.uid ?? -1,
                               name: data.name,
                               tastes: Array(tastes.values),
-                              idManufacturer: selectManufacturer.uid,
+                              idManufacturer: selectManufacturer.id,
                               nameManufacturer: selectManufacturer.name,
                               description: data.description,
                               line: selectTobaccoLine,
