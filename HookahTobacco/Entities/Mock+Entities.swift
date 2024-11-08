@@ -58,14 +58,14 @@ extension TasteType {
 extension TobaccoLine {
     static func mock(id: Int = 0) -> Self {
         return .init(
-            id: String(id),
-            uid: id,
+            id: id,
             name: "Test TobaccoLine \(id)",
             packetingFormat: [100, 150],
             tobaccoType: .tobacco,
             tobaccoLeafType: [VarietyTobaccoLeaf.burley],
             description: "Test TobaccoLine description",
-            isBase: true
+            isBase: true,
+            manufacturerId: id
         )
     }
     

@@ -10,6 +10,7 @@
 import Foundation
 import TableKit
 import UIKit
+import HookahTobaccoCore
 
 class TobaccoFiltersPresenter {
     // MARK: - Public properties

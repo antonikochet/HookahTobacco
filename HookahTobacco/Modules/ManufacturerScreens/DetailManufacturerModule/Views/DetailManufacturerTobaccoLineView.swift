@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import HookahTobaccoCore
 
 struct DetailManufacturerTobaccoLineViewModel: Identifiable {
     let id: Int

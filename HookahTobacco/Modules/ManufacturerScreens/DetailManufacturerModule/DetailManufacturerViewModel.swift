@@ -8,6 +8,7 @@
 //
 
 import Foundation
+import HookahTobaccoCore
 
 protocol DetailManufacturerViewModel: BaseViewModel {
     var title: String { get }
@@ -111,7 +112,7 @@ final class DetailManufacturerViewModelImpl: BaseViewModelImpl, DetailManufactur
     private func updateTobaccoLines() {
         // TODO: - убрать прыгание секций при изменения табаков
         let tobaccoDict = Dictionary(grouping: tobaccos) { tobacco in
-            tobacco.line.uid
+            tobacco.line.id
         }
         
         self.tobaccoLines = tobaccoDict.values.compactMap { tobaccos -> DetailManufacturerTobaccoLineViewModel? in
@@ -127,7 +128,7 @@ final class DetailManufacturerViewModelImpl: BaseViewModelImpl, DetailManufactur
             }
             
             return DetailManufacturerTobaccoLineViewModel(
-                id: line.uid,
+                id: line.id,
                 title: line.isBase ? R.string.localizable.manufacteurerDetailBaseLineName() : line.name,
                 description: line.description,
                 tobaccos: viewModels
@@ -167,7 +168,7 @@ final class DetailManufacturerViewModelMock: BaseViewModelImpl, DetailManufactur
         self.tobaccoLines = []
         self.tobaccoLines = manufacturer.lines.map { tobaccoLine in
             DetailManufacturerTobaccoLineViewModel(
-                id: tobaccoLine.uid,
+                id: tobaccoLine.id,
                 title: tobaccoLine.name,
                 description: tobaccoLine.description,
                 tobaccos: Tobacco.arrayMock(5).map { tobacco in

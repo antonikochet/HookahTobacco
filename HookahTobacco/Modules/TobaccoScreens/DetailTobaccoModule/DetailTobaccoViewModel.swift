@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import HookahTobaccoCore
 
 // TODO: - переименовать протокол
 protocol DetailTobaccoViewModelOb: ObservableObject {

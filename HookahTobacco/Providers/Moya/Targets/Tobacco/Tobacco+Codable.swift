@@ -31,7 +31,7 @@ extension Tobacco: Codable {
         try container.encode(tastes.compactMap { Int($0.id) }, forKey: .tastes)
         try container.encode(idManufacturer, forKey: .manufacturer)
         try container.encode(description, forKey: .description)
-        try container.encode(line.uid, forKey: .lineId)
+        try container.encode(line.id, forKey: .lineId)
     }
 
     init(from decoder: Decoder) throws {

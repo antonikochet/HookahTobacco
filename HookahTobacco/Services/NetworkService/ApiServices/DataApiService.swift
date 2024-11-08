@@ -21,10 +21,6 @@ extension DataApiService: GetDataNetworkingServiceProtocol {
             sendRequest(object: [Manufacturer].self,
                         target: Api.Manufacturer.list,
                         completion: completion as? ResultBlock)
-        case is TobaccoLine.Type:
-            sendRequest(object: [TobaccoLine].self,
-                        target: Api.TobaccoLines.list,
-                        completion: completion as? ResultBlock)
         case is Country.Type:
             sendRequest(object: [Country].self,
                         target: Api.Countries.list,

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import HookahTobaccoCore
 
 extension Manufacturer: DataNetworkingServiceProtocol { }
 
@@ -21,7 +22,7 @@ extension Manufacturer: Codable {
         if let link {
             try container.encode(link, forKey: .link)
         }
-        try container.encode(lines.compactMap { Int($0.uid) }, forKey: .lines)
+        try container.encode(lines.compactMap { $0.id }, forKey: .lines)
     }
 
     init(from decoder: Decoder) throws {

@@ -1,6 +1,6 @@
 //
 //  Api+TobaccoLine.swift
-//  HookahTobacco
+//
 //
 //  Created by Anton Kochetkov on 05.07.2023.
 //
@@ -8,16 +8,15 @@
 import Moya
 
 extension Api {
-    enum TobaccoLines {
+    public enum TobaccoLine {
         case list
-        case create(TobaccoLine)
-        case update(id: Int, TobaccoLine)
+        case create(TobaccoLineChangeDTO)
+        case update(id: Int, TobaccoLineChangeDTO)
     }
 }
 
-extension Api.TobaccoLines: DefaultTarget {
-
-    var path: String {
+extension Api.TobaccoLine: DefaultTarget {
+    public var path: String {
         switch self {
         case .list, .create:
             return "v1/tobacco_line/"
@@ -26,7 +25,7 @@ extension Api.TobaccoLines: DefaultTarget {
         }
     }
 
-    var method: Method {
+    public var method: Method {
         switch self {
         case .create:
             return .post
@@ -37,7 +36,7 @@ extension Api.TobaccoLines: DefaultTarget {
         }
     }
 
-    var task: Task {
+    public var task: Task {
         switch self {
         case .create(let tobaccoLine):
             return .requestJSONEncodable(tobaccoLine)

@@ -153,7 +153,7 @@ extension AddTobaccoInteractor: AddTobaccoInteractorInputProtocol {
             return
         }
         guard let selectTobaccoLine = selectedTobaccoLine,
-              selectTobaccoLine.uid != -1 else {
+              selectTobaccoLine.id != -1 else {
             presenter.receivedError(with: R.string.localizable.addTobaccoTobaccoLineEmptyMessage())
             return
         }

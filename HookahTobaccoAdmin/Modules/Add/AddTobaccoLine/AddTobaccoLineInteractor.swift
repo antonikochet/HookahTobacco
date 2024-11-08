@@ -8,6 +8,8 @@
 //
 
 import Foundation
+import HookahTobaccoCore
+import HookahTobaccoCoreAdmin
 
 protocol AddTobaccoLineInteractorInputProtocol: AnyObject {
     func receiveStartingDataView()
@@ -24,7 +26,7 @@ class AddTobaccoLineInteractor {
     weak var presenter: AddTobaccoLineInteractorOutputProtocol!
 
     // MARK: - Dependency
-    private let adminNetworkingService: AdminNetworkingServiceProtocol
+    private let adminTobaccoLineRepo: AdminTobaccoLineRepoProtocol
 
     // MARK: - Private properties
     private let tobaccoLine: TobaccoLine?
@@ -33,30 +35,30 @@ class AddTobaccoLineInteractor {
     // MARK: - Initializers
     init(manufacturerId: Int,
          tobaccoLine: TobaccoLine?,
-         adminNetworkingService: AdminNetworkingServiceProtocol) {
+         adminTobaccoLineRepo: AdminTobaccoLineRepoProtocol) {
         self.manufacturerId = manufacturerId
         self.tobaccoLine = tobaccoLine
-        self.adminNetworkingService = adminNetworkingService
+        self.adminTobaccoLineRepo = adminTobaccoLineRepo
     }
 
     // MARK: - Private methods
     private func sendTobaccoLineToServer(_ tobaccoLine: TobaccoLine, isSet: Bool) {
         if isSet {
-            adminNetworkingService.setData(tobaccoLine) { [weak self] result in
+            adminTobaccoLineRepo.update(tobaccoLine: tobaccoLine) { [weak self] result in
                 switch result {
                 case .success(let newTobaccoLine):
                     self?.presenter.receivedSuccess(with: newTobaccoLine)
                 case .failure(let error):
-                    self?.presenter.receivedError(error)
+                    self?.presenter.receivedError(HTError.createError(error))
                 }
             }
         } else {
-            adminNetworkingService.addData(tobaccoLine) { [weak self] result in
+            adminTobaccoLineRepo.create(tobaccoLine: tobaccoLine) { [weak self] result in
                 switch result {
                 case .success(let newTobaccoLine):
                     self?.presenter.receivedSuccess(with: newTobaccoLine)
                 case .failure(let error):
-                    self?.presenter.receivedError(error)
+                    self?.presenter.receivedError(HTError.createError(error))
                 }
             }
         }
@@ -74,7 +76,6 @@ extension AddTobaccoLineInteractor: AddTobaccoLineInteractorInputProtocol {
                                     .compactMap { VarietyTobaccoLeaf(rawValue: $0) })
         if let tobaccoLine {
             let newTobaccoLine = TobaccoLine(id: tobaccoLine.id,
-                                             uid: tobaccoLine.uid,
                                              name: data.name,
                                              packetingFormat: data.packetingFormats,
                                              tobaccoType: TobaccoType(rawValue: data.selectedTobaccoTypeIndex)!,

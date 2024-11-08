@@ -8,6 +8,7 @@
 //
 
 import Foundation
+import HookahTobaccoCore
 
 class AddTobaccoLinePresenter {
     // MARK: - Public properties

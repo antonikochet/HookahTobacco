@@ -9,6 +9,8 @@
 
 import Foundation
 import Swinject
+import HookahTobaccoCore
+import HookahTobaccoCoreAdmin
 
 struct AddTobaccoLineDependency {
     var appRouter: AppRouterProtocol
@@ -30,10 +32,10 @@ class AddTobaccoLineAssembly: Assembly {
             AddTobaccoLineInteractorInputProtocol.self
         ) { (resolver, dependency: AddTobaccoLineDependency) in
             // here resolve dependency injection
-            let adminNetworkingService = resolver.resolve(AdminNetworkingServiceProtocol.self)!
+            let adminTobaccoLineRepo = resolver.resolve(AdminTobaccoLineRepoProtocol.self)!
             return AddTobaccoLineInteractor(manufacturerId: dependency.manufacturerId,
                                             tobaccoLine: dependency.tobaccoLine,
-                                            adminNetworkingService: adminNetworkingService)
+                                            adminTobaccoLineRepo: adminTobaccoLineRepo)
         }
 
         container.register(AddTobaccoLineViewOutputProtocol.self) { _ in
