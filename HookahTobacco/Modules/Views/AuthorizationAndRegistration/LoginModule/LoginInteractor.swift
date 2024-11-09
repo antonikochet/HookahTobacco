@@ -8,6 +8,7 @@
 //
 
 import Foundation
+import HookahTobaccoCore
 
 protocol LoginInteractorInputProtocol {
     func userLoginSystem(with login: String, and password: String)

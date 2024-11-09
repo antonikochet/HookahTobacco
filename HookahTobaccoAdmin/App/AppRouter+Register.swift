@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import HookahTobaccoCore
 
 extension AppRouter {
     func registerProviders() {

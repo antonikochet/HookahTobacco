@@ -8,6 +8,7 @@
 //
 
 import Foundation
+import HookahTobaccoCore
 
 protocol RegistrationInteractorInputProtocol: AnyObject {
     func sendCheckRegistrationData(username: String, email: String, password: String)

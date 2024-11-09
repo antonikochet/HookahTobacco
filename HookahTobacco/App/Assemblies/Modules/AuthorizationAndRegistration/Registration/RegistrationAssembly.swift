@@ -9,6 +9,7 @@
 
 import Foundation
 import Swinject
+import HookahTobaccoCore
 
 struct RegistrationDependency {
     var appRouter: AppRouterProtocol

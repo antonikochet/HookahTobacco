@@ -17,6 +17,13 @@ final class RepoAssembly: Assembly {
         container.register(NetworkManagerProtocol.self) { resolver in
             MoyaNetworkManager(networkProvider: resolver.resolve(MultiMoyaProvider.self)!)
         }
+        container.register(HookahTobaccoNetwork.ImageManagerProtocol.self) { _ in
+            HookahTobaccoNetwork.ImageManager()
+        }
+        container.register(ImageManagerProtocol.self) { resolver in
+            ImageManager(imageManager: resolver.resolve(HookahTobaccoNetwork.ImageManagerProtocol.self)!,
+                         handlerErrors: resolver.resolve(NetworkHandlerErrors.self)!)
+        }
         
         container.register(AuthorizationRepoProtocol.self) { resolver in
             AuthorizationRepo(

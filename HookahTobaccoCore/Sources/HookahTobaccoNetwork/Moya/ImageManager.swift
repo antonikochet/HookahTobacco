@@ -8,8 +8,12 @@
 import Foundation
 import Alamofire
 
-final class ImageManager: ImageManagerProtocol {
-    func fetchImage(_ url: URL, completion: @escaping NetworkCompletion<Data?>) {
+public final class ImageManager: ImageManagerProtocol {
+    public init() {
+        
+    }
+    
+    public func fetchImage(_ url: URL, completion: @escaping NetworkCompletion<Data?>) {
         AF.request(url).response { result in
             switch result.result {
             case let .success(data):
@@ -20,7 +24,7 @@ final class ImageManager: ImageManagerProtocol {
         }
     }
     
-    func fetchImage(_ url: URL) async throws -> Data? {
+    public func fetchImage(_ url: URL) async throws -> Data? {
         return try await withCheckedThrowingContinuation { continuation in
             AF.request(url).response { result in
                 switch result.result {

@@ -8,6 +8,7 @@
 //
 
 import Foundation
+import HookahTobaccoCore
 
 protocol AdminMenuInteractorInputProtocol: AnyObject {
     func logout()
