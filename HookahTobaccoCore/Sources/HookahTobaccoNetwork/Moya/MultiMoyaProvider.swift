@@ -8,6 +8,8 @@
 import Foundation
 import Moya
 
+public typealias PluginType = Moya.PluginType
+
 public final class MultiMoyaProvider: MoyaProvider<MultiTarget> {
     static var defaultSession: Session {
         let configuration = URLSessionConfiguration.default

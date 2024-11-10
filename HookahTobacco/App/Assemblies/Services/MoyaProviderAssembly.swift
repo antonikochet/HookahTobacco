@@ -7,7 +7,6 @@
 
 import Foundation
 import Swinject
-import Moya
 import HookahTobaccoCore
 import HookahTobaccoNetwork
 
