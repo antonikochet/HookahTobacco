@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import HookahTobaccoUIKitCore
 
 protocol AddPickerViewDelegate: AnyObject {
     func receiveNumberOfRows(_ pickerView: AddPickerView) -> Int

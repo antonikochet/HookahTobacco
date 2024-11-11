@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import HookahTobaccoUIKitCore
 
 extension Button {
     enum Style {

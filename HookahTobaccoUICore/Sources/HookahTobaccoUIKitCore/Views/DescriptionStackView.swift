@@ -1,20 +1,24 @@
 //
 //  DescriptionStackView.swift
-//  HookahTobacco
+//  
 //
-//  Created by антон кочетков on 28.01.2023.
+//  Created by Антон Кочетков on 11.11.2024.
 //
 
 import UIKit
-import SnapKit
-import SwiftUI
+import HookahTobaccoResources
 
-struct DescriptionStackViewItem {
-    let name: String
-    let description: String
+public struct DescriptionStackViewItem {
+    public let name: String
+    public let description: String
+    
+    public init(name: String, description: String) {
+        self.name = name
+        self.description = description
+    }
 }
 
-final class DescriptionStackView: UIView {
+public final class DescriptionStackView: UIView {
 
     // MARK: - Private UI
     private let stackView = UIStackView()
@@ -22,13 +26,13 @@ final class DescriptionStackView: UIView {
     private let descriptionLabel = UILabel()
 
     // MARK: - init
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
 
         setup()
     }
 
-    required init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -72,36 +76,10 @@ final class DescriptionStackView: UIView {
     }
 
     // MARK: - Configure
-    func configure(with item: DescriptionStackViewItem) {
+    public func configure(with item: DescriptionStackViewItem) {
         nameLabel.text = item.name
         descriptionLabel.text = item.description
     }
-}
-
-// TODO: - переименовать после удаления uikit
-struct DescriptionStackViewUI: View {
-    
-    let viewModel: DescriptionStackViewItem
-    
-    var body: some View {
-        HStack {
-            Text(viewModel.name)
-                .font(.appFont(size: 16.0, weight: .regular))
-                .foregroundStyle(R.color.primaryTitle.color)
-            Spacer()
-            Text(viewModel.description)
-                .font(.appFont(size: 16.0, weight: .light))
-                .foregroundStyle(R.color.primarySubtitle.color)
-        }
-    }
-}
-
-#Preview {
-    DescriptionStackViewUI(viewModel: DescriptionStackViewItem(
-        name: "Тип",
-        description: "Табак"
-    ))
-    .padding()
 }
 
 private struct LayoutValues {
@@ -110,8 +88,8 @@ private struct LayoutValues {
     }
 }
 private struct Colors {
-    static let nameText = R.color.primaryTitle()
-    static let descriptionText = R.color.primarySubtitle()
+    static let nameText = ResourceManager.provider.color(forKey: .primaryTitle).colorUIKit
+    static let descriptionText: UIColor = ResourceManager.provider.color(forKey: .primarySubtitle).colorUIKit
 }
 private struct Fonts {
     static let name = UIFont.appFont(size: 16.0, weight: .regular)

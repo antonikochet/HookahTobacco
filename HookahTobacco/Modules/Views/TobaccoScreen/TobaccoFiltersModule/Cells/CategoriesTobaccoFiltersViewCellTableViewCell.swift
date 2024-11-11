@@ -11,6 +11,7 @@ import UIKit
 import TableKit
 import SnapKit
 import IVCollectionKit
+import HookahTobaccoUIKitCore
 
 struct CategoriesTobaccoFiltersViewCellTableViewCellItem {
     let title: String
@@ -24,17 +25,17 @@ final class CategoriesTobaccoFiltersViewCellTableViewCell: UITableViewCell, Conf
     var item: CategoriesTobaccoFiltersViewCellTableViewCellItem?
 
     // MARK: - Private properties
-    private let collectionDirector: CustomCollectionDirector
+    private let collectionDirector: CollectionDirector
 
     // MARK: - UI properties
     private let titleLabel = UILabel()
-    private let collectionView = CustomCollectionView()
+    private let collectionView = ChipsCollectionView()
     private let clearButton = Button(style: .secondary)
     private let separatorView = UIView()
 
     // MARK: - Initializers
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        collectionDirector = CustomCollectionDirector(collectionView: collectionView)
+        collectionDirector = CollectionDirector(collectionView: collectionView)
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         setupUI()
@@ -80,9 +81,6 @@ final class CategoriesTobaccoFiltersViewCellTableViewCell: UITableViewCell, Conf
     }
     private func setupCollectionView() {
         contentView.addSubview(collectionView)
-        collectionView.didSelect = { [weak self] indexPath in
-            self?.item?.didSelect?(indexPath.row)
-        }
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(16.0)
             make.leading.trailing.equalToSuperview().inset(8.0)
@@ -105,12 +103,15 @@ final class CategoriesTobaccoFiltersViewCellTableViewCell: UITableViewCell, Conf
         var rows: [AbstractCollectionItem] = []
 
         for item in items {
-            let row = CollectionItem<FilterTobaccoCollectionViewCell>(item: item)
+            let row = CollectionItem<FilterTobaccoCollectionViewCell>(item: item).onSelect { [weak self] indexPath in
+                self?.item?.didSelect?(indexPath.row)
+            }
             rows.append(row)
         }
 
         let section = CollectionSection(items: rows)
-
+        section.lineSpacing = 4
+        section.minimumInterItemSpacing = 4
         collectionDirector += section
         collectionDirector.reload()
     }

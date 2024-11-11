@@ -9,6 +9,7 @@
 
 import UIKit
 import SnapKit
+import HookahTobaccoUIKitCore
 
 protocol AddTastesViewInputProtocol: AnyObject {
     func getTableView() -> UITableView

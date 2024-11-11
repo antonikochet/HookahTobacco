@@ -1,6 +1,6 @@
 //
 //  IconView.swift
-//  HookahTobacco
+//
 //
 //  Created by Anton Kochetkov on 11.09.2023.
 //
@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class IconView: UIView {
+public class IconView: UIView {
     // MARK: - Public properties
     public var size: CGFloat = 24.0 {
         didSet {
@@ -45,12 +45,12 @@ class IconView: UIView {
     private var imageView: UIImageView = UIImageView()
 
     // MARK: - Init
-    init() {
+    public init() {
         super.init(frame: .zero)
         setupUI()
     }
 
-    required init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -77,7 +77,7 @@ class IconView: UIView {
     }
 
     // MARK: - Public methods
-    func createCornerRadius(_ radius: CGFloat? = nil) {
+    public func createCornerRadius(_ radius: CGFloat? = nil) {
         let newRadius: CGFloat
         if let radius {
             newRadius = radius

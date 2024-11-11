@@ -13,6 +13,7 @@ import UIKit
 import IVCollectionKit
 import HookahTobaccoCore
 import HookahTobaccoCoreAdmin
+import HookahTobaccoUIKitCore
 
 class AppealsListPresenter: NSObject {
     // MARK: - Public properties

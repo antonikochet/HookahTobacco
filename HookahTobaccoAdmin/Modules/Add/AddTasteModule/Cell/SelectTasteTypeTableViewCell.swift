@@ -11,6 +11,7 @@ import UIKit
 import TableKit
 import SnapKit
 import HookahTobaccoCore
+import HookahTobaccoUIKitCore
 
 final class SelectTasteTypeTableViewCellItem {
     let item: TasteType

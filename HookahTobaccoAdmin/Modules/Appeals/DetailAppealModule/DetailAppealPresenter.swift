@@ -11,6 +11,7 @@ import Foundation
 import TableKit
 import HookahTobaccoCore
 import HookahTobaccoCoreAdmin
+import HookahTobaccoUIKitCore
 
 class DetailAppealPresenter {
     // MARK: - Public properties

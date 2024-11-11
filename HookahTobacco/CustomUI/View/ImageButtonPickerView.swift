@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import HookahTobaccoUIKitCore
 
 class ImageButtonPickerView: UIView {
     // MARK: - Public properties

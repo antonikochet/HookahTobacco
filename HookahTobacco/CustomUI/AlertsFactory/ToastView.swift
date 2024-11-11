@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import HookahTobaccoUIKitCore
 
 final class ToastView: UIView {
     // MARK: - Public properties

@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import HookahTobaccoUIKitCore
 
 protocol ImagePickerViewDelegate: AnyObject {
     func present(_ viewController: UIViewController)

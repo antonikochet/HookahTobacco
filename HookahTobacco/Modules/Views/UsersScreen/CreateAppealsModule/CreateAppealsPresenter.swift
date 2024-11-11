@@ -22,7 +22,7 @@ class CreateAppealsPresenter {
     private var themes: [ThemeAppeal] = []
     private var contents: [URL] = []
     private var selectContentIndex: Int?
-    private var contentDirector: CustomCollectionDirector?
+    private var contentDirector: CollectionDirector?
 
     // MARK: - Private methods
     private func setupContentView() {
@@ -39,6 +39,13 @@ class CreateAppealsPresenter {
                 self?.setupContentView()
             }
             let row = CollectionItem<ContentCreateAppealsCollectionViewCell>(item: item)
+                .onSelect { [weak self] indexPath in
+                guard let self else { return }
+                if indexPath.row != self.contents.count {
+                    self.selectContentIndex = indexPath.row
+                    self.view.showImagePickerView(.picker)
+                }
+            }
             rows.append(row)
         }
 
@@ -120,14 +127,7 @@ extension CreateAppealsPresenter: CreateAppealsInteractorOutputProtocol {
 extension CreateAppealsPresenter: CreateAppealsViewOutputProtocol {
     func viewDidLoad() {
         let collectionView = view.getContentCollectionView()
-        collectionView.didSelect = { [weak self] indexPath in
-            guard let self else { return }
-            if indexPath.row != self.contents.count {
-                self.selectContentIndex = indexPath.row
-                self.view.showImagePickerView(.picker)
-            }
-        }
-        contentDirector = CustomCollectionDirector(collectionView: collectionView)
+        contentDirector = CollectionDirector(collectionView: collectionView)
         view.showBlockLoading()
         interactor.receiveStaringData()
     }

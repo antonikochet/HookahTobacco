@@ -10,6 +10,7 @@
 import UIKit
 import SnapKit
 import HookahTobaccoCore
+import HookahTobaccoUIKitCore
 
 protocol AppealsListViewInputProtocol: ViewProtocol {
     func getTableView() -> UITableView

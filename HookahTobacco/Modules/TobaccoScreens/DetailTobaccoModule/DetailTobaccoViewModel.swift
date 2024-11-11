@@ -7,9 +7,10 @@
 
 import Foundation
 import HookahTobaccoCore
+import HookahTobaccoSwiftUICore
 
 // TODO: - переименовать протокол
-protocol DetailTobaccoViewModelOb: ObservableObject {
+protocol DetailTobaccoViewModel: ObservableObject {
     var name: String { get }
     var imageURL: String { get }
     var tastes: [String] { get }
@@ -18,7 +19,7 @@ protocol DetailTobaccoViewModelOb: ObservableObject {
     var nameManufacturer: String { get }
 }
 
-final class DetailTobaccoViewModelImpl: DetailTobaccoViewModelOb {
+final class DetailTobaccoViewModelImpl: DetailTobaccoViewModel {
     // MARK: - ViewModel properties
     @Published private(set) var name: String = ""
     @Published private(set) var imageURL: String

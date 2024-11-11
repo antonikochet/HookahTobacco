@@ -9,6 +9,7 @@
 
 import UIKit
 import SnapKit
+import HookahTobaccoUIKitCore
 
 protocol AddTobaccoLineViewInputProtocol: ViewProtocol {
     func setupView(_ viewModel: AddTobaccoLineEntity.EnterData)

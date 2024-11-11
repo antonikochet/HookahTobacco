@@ -1,31 +1,50 @@
 //
 //  ChipsContainerView.swift
-//  HookahTobacco
+//  
 //
 //  Created by Антон Кочетков on 10.07.2024.
 //
 
 import SwiftUI
 
-struct ChipModel: Hashable {
-    let title: String
+public struct ChipModel: Hashable {
+    public let title: String
+    
+    public init(title: String) {
+        self.title = title
+    }
 }
 
-struct ChipsContainerView<Data: Collection, Content: View>: View where Data.Element: Hashable {
+public struct ChipsContainerView<Data: Collection, Content: View>: View where Data.Element: Hashable {
     
     // MARK: - States
     @State private var availableWidth: CGFloat = 0
     @State private var elementsSize: [Data.Element: CGSize] = [:]
     
-    @State var data: Data
+    var data: Data
     
     // MARK: - Public properties
-    var horizontalSpacing: CGFloat = 4
-    var vertivalSpacing: CGFloat = 4
-    var alignment: HorizontalAlignment = .leading
+    var horizontalSpacing: CGFloat
+    var verticalSpacing: CGFloat
+    var alignment: HorizontalAlignment
     @ViewBuilder var content: (Data.Element) -> Content
     
-    var body: some View {
+    // MARK: - Initializer
+    public init(
+        data: Data,
+        horizontalSpacing: CGFloat = 4,
+        verticalSpacing: CGFloat = 4,
+        alignment: HorizontalAlignment = .leading,
+        @ViewBuilder content: @escaping (Data.Element) -> Content
+    ) {
+        self.data = data
+        self.horizontalSpacing = horizontalSpacing
+        self.verticalSpacing = verticalSpacing
+        self.alignment = alignment
+        self.content = content
+    }
+    
+    public var body: some View {
         ZStack {
             // проверка на получение ширины экрана
             Color.clear
@@ -33,7 +52,7 @@ struct ChipsContainerView<Data: Collection, Content: View>: View where Data.Elem
                     availableWidth = size.width
                 }
             
-            VStack(alignment: alignment, spacing: vertivalSpacing) {
+            VStack(alignment: alignment, spacing: verticalSpacing) {
                 ForEach(getRows(), id: \.self) { row in
                     HStack(spacing: horizontalSpacing) {
                         ForEach(row, id: \.self) { clip in
@@ -79,6 +98,7 @@ struct ChipsContainerView<Data: Collection, Content: View>: View where Data.Elem
     }
 }
 
+#if DEBUG
 #Preview {
     ChipsContainerView(data: [
         ChipModel(title: "Test 1"),
@@ -98,7 +118,7 @@ struct ChipsContainerView<Data: Collection, Content: View>: View where Data.Elem
             .padding(EdgeInsets(top: 4, leading: 8, bottom: 4, trailing: 8))
             .background(
                 RoundedRectangle(cornerRadius: 12)
-                    .fill(R.color.primaryPurple.color)
             )
     }
 }
+#endif
