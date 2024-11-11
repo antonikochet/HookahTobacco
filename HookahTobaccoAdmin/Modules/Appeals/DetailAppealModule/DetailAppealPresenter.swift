@@ -9,6 +9,9 @@
 
 import Foundation
 import TableKit
+import HookahTobaccoCore
+import HookahTobaccoCoreAdmin
+import HookahTobaccoUIKitCore
 
 class DetailAppealPresenter {
     // MARK: - Public properties
@@ -20,7 +23,7 @@ class DetailAppealPresenter {
     private var tableDirector: TableDirector?
 
     // MARK: - Private methods
-    private func setupTableContent(_ appeal: AppealResponse, _ contents: [DetailAppealContent]) {
+    private func setupTableContent(_ appeal: AppealEntity, _ contents: [DetailAppealContent]) {
         guard let tableDirector else { return }
         tableDirector.clear()
 
@@ -75,7 +78,7 @@ class DetailAppealPresenter {
         tableDirector += section
         reload()
     }
-    private func setupInfoCell(_ appeal: AppealResponse) -> Row {
+    private func setupInfoCell(_ appeal: AppealEntity) -> Row {
         let dateFormatter = DateFormatter(format: "dd.MM.YY HH:mm")
         var info: [DescriptionStackViewItem] = []
         info.append(DescriptionStackViewItem(name: R.string.localizable.detailAppealInfoIdTitle(),
@@ -107,7 +110,7 @@ class DetailAppealPresenter {
 
 // MARK: - InteractorOutputProtocol implementation
 extension DetailAppealPresenter: DetailAppealInteractorOutputProtocol {
-    func showData(appeal: AppealResponse, contents: [DetailAppealContent]) {
+    func showData(appeal: AppealEntity, contents: [DetailAppealContent]) {
         view.hideLoading()
         setupTableContent(appeal, contents)
     }
@@ -119,7 +122,7 @@ extension DetailAppealPresenter: DetailAppealInteractorOutputProtocol {
         }
     }
 
-    func receivedError(_ error: HTError) {
+    func receivedError(_ error: DomainError) {
         view.hideLoading()
         router.showError(with: error.message)
     }

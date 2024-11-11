@@ -11,6 +11,7 @@ import UIKit
 import TableKit
 import SnapKit
 import MultiSelectSegmentedControl
+import HookahTobaccoUIKitCore
 
 struct MultiSegmentedTobaccoTableViewCellItem {
     let title: String

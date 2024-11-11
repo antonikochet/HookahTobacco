@@ -9,6 +9,7 @@
 
 import Foundation
 import TableKit
+import HookahTobaccoCore
 
 class AddTastePresenter {
     // MARK: - Public properties
@@ -29,12 +30,12 @@ class AddTastePresenter {
         for type in types {
             let item = SelectTasteTypeTableViewCellItem(
                 item: type,
-                isSelected: selectedTypes.contains(where: { $0.uid == type.uid })
+                isSelected: selectedTypes.contains(where: { $0.id == type.id })
             )
             let row = TableRow<SelectTasteTypeTableViewCell>(item: item).on(.click) { [weak self] options in
                 guard let self else { return }
                 let selectedType = options.item.item
-                if let index = self.selectedTypes.firstIndex(where: { $0.uid == selectedType.uid }) {
+                if let index = self.selectedTypes.firstIndex(where: { $0.id == selectedType.id }) {
                     options.item.isSelected = false
                     self.selectedTypes.remove(at: index)
                 } else {
@@ -87,7 +88,7 @@ extension AddTastePresenter: AddTasteInteractorOutputProtocol {
         }
     }
 
-    func receivedError(_ error: HTError) {
+    func receivedError(_ error: DomainError) {
         view.hideLoading()
         router.showError(with: error.message)
     }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import HookahTobaccoCore
 
 extension AppRouter {
     func registerProviders() {
@@ -16,9 +17,11 @@ extension AppRouter {
 
     func registerServices() {
         apply(assemblies: [
-            UserDefaultsServiceAssembly(),
-            ApiNetworkingServicesAssembly(),
-            ApiAuthServiceAssembly(),
+            UserSettingsServiceAssembly(),
+            AnalyticsServicesAssembly(),
+            RepoAssembly(),
+            AdminRepoAssembly(),
+            AuthServiceAssembly(),
             ImageStorageServiceAssembly(),
             DataManagerAssembly()
         ])

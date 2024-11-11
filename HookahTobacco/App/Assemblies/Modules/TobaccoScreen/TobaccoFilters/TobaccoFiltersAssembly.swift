@@ -9,10 +9,11 @@
 
 import Foundation
 import Swinject
+import HookahTobaccoCore
 
 struct TobaccoFiltersDependency {
     var appRouter: AppRouterProtocol
-    var filters: TobaccoFilters?
+    var filters: TobaccoFilter?
     var delegate: TobaccoFiltersOutputModule?
 }
 
@@ -29,10 +30,10 @@ class TobaccoFiltersAssembly: Assembly {
             TobaccoFiltersInteractorInputProtocol.self
         ) { (resolver, dependency: TobaccoFiltersDependency) in
             // here resolve dependency injection
-            let dataNetworkingService = resolver.resolve(GetDataNetworkingServiceProtocol.self)!
+            let tobaccoRepo = resolver.resolve(TobaccoRepoProtocol.self)!
 
-            return TobaccoFiltersInteractor(filters: dependency.filters,
-                                            dataNetworkingService: dataNetworkingService)
+            return TobaccoFiltersInteractor(filters: dependency.filters, 
+                                            tobaccoRepo: tobaccoRepo)
         }
 
         container.register(TobaccoFiltersViewOutputProtocol.self) { _ in

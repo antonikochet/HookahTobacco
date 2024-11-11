@@ -9,6 +9,8 @@
 
 import Foundation
 import Swinject
+import HookahTobaccoCore
+import HookahTobaccoCoreAdmin
 
 struct AddManufacturerDependency {
     var appRouter: AppRouterProtocol
@@ -26,15 +28,21 @@ class AddManufacturerAssembly: Assembly {
         container.register(AddManufacturerInteractorInputProtocol.self
         ) { (resolver, dependency: AddManufacturerDependency) in
             // here resolve dependency injection
-            let getDataManager = resolver.resolve(DataManagerProtocol.self)!
-            let adminNetworkingService = resolver.resolve(AdminNetworkingServiceProtocol.self)!
+            let countryRepo = resolver.resolve(CountryRepoProtocol.self)!
+            let manufacturerRepo = resolver.resolve(ManufacturerRepoProtocol.self)!
+            let adminManufacturerRepo = resolver.resolve(AdminManufacturerRepoProtocol.self)!
+            let imageManager = resolver.resolve(ImageManagerProtocol.self)!
             if let manufacturer = dependency.manufacturer {
                 return AddManufacturerInteractor(manufacturer,
-                                                 getDataManager: getDataManager,
-                                                 adminNetworkingService: adminNetworkingService)
+                                                 countryRepo: countryRepo,
+                                                 manufacturerRepo: manufacturerRepo,
+                                                 adminManufacturerRepo: adminManufacturerRepo,
+                                                 imageManager: imageManager)
             }
-            return AddManufacturerInteractor(getDataManager: getDataManager,
-                                             adminNetworkingService: adminNetworkingService)
+            return AddManufacturerInteractor(countryRepo: countryRepo,
+                                             manufacturerRepo: manufacturerRepo,
+                                             adminManufacturerRepo: adminManufacturerRepo,
+                                             imageManager: imageManager)
         }
 
         container.register(AddManufacturerViewOutputProtocol.self) { _ in

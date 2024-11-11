@@ -9,11 +9,12 @@
 
 import UIKit
 import TableKit
+import HookahTobaccoUIKitCore
 
 struct AppealAnswerTableViewCellItem {
     let anwser: String
     let isEnableSaveButton: Bool
-    let touchSaveAnswer: CompletionBlockWithParam<String>
+    let touchSaveAnswer: BlockWithParam<String>
 }
 
 final class AppealAnswerTableViewCell: UITableViewCell, ConfigurableCell {

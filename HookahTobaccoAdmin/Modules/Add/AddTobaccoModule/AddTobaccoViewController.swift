@@ -9,9 +9,10 @@
 
 import UIKit
 import SnapKit
+import HookahTobaccoUIKitCore
 
 protocol AddTobaccoViewInputProtocol: ViewProtocol {
-    func getTasteCollectionView() -> CustomCollectionView
+    func getTasteCollectionView() -> ChipsCollectionView
     func clearView()
     func setupContent(_ viewModel: AddTobaccoEntity.ViewModel)
     func setupSelectedManufacturer(_ index: Int)
@@ -43,7 +44,7 @@ final class AddTobaccoViewController: HTScrollContentViewController {
     // MARK: - UI properties
     private let nameView = AddTextFieldView()
     private let manufacturerPickerView = AddPickerView()
-    private let tasteCollectionView = CustomCollectionView()
+    private let tasteCollectionView = ChipsCollectionView()
     private let tasteButton = ApplyButton(style: .primary)
     private let descriptionView = AddTextView()
     private let tobaccoLinePickerView = AddPickerView()
@@ -160,7 +161,7 @@ final class AddTobaccoViewController: HTScrollContentViewController {
 
 // MARK: - ViewInputProtocol implementation
 extension AddTobaccoViewController: AddTobaccoViewInputProtocol {
-    func getTasteCollectionView() -> CustomCollectionView {
+    func getTasteCollectionView() -> ChipsCollectionView {
         tasteCollectionView
     }
 

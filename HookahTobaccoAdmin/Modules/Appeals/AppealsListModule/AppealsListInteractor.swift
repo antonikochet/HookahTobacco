@@ -8,6 +8,8 @@
 //
 
 import Foundation
+import HookahTobaccoCore
+import HookahTobaccoCoreAdmin
 
 protocol AppealsListInteractorInputProtocol: AnyObject {
     func startingLoadingData()
@@ -18,9 +20,9 @@ protocol AppealsListInteractorInputProtocol: AnyObject {
 }
 
 protocol AppealsListInteractorOutputProtocol: PresenterrProtocol {
-    func receivedAppeals(_ appeals: [AppealResponse])
+    func receivedAppeals(_ appeals: [AppealEntity])
     func receivedThemes(_ themes: [ThemeAppeal])
-    func receivedAppeal(_ appeal: AppealResponse)
+    func receivedAppeal(_ appeal: AppealEntity)
 }
 
 class AppealsListInteractor {
@@ -28,28 +30,28 @@ class AppealsListInteractor {
     weak var presenter: AppealsListInteractorOutputProtocol!
 
     // MARK: - Dependency
-    private let adminNetworkingService: AdminNetworkingServiceProtocol
-    private let appealsNetworkServise: AppealsNetworkingServiceProtocol
+    private let appealsRepo: AppealsRepoProtocol
+    private let adminAppealsRepo: AdminAppealsRepoProtocol
 
     // MARK: - Private properties
-    private var appeals: [AppealResponse] = []
+    private var appeals: [AppealEntity] = []
     private var page: Int = 0
     private var status: AppealStatus?
     private var filterThemes: [ThemeAppeal] = []
 
     // MARK: - Initializers
-    init(adminNetworkingService: AdminNetworkingServiceProtocol,
-         appealsNetworkServise: AppealsNetworkingServiceProtocol) {
-        self.adminNetworkingService = adminNetworkingService
-        self.appealsNetworkServise = appealsNetworkServise
+    init(appealsRepo: AppealsRepoProtocol,
+         adminAppealsRepo: AdminAppealsRepoProtocol) {
+        self.appealsRepo = appealsRepo
+        self.adminAppealsRepo = adminAppealsRepo
     }
 
     // MARK: - Private methods
     private func receiveAppeals() {
         guard page != -1 else { return }
-        adminNetworkingService.receiveAppeals(page: page,
-                                              status: status,
-                                              themes: filterThemes
+        adminAppealsRepo.fetchAppeals(page: page,
+                                      status: status,
+                                      themes: filterThemes
         ) { [weak self] result in
             guard let self else { return }
             switch result {
@@ -64,7 +66,7 @@ class AppealsListInteractor {
     }
 
     private func receiveTheme() {
-        appealsNetworkServise.receiveThemes { [weak self] result in
+        appealsRepo.fetchThemes { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let response):

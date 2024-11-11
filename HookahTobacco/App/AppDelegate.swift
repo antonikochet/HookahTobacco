@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseCore
+import HookahTobaccoResources
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,6 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     ) -> Bool {
 
         window = UIWindow(frame: UIScreen.main.bounds)
+
+        LocalizationManager.provider = RSwiftLocalizationProvider()
+        ResourceManager.provider = RSwiftResourcesProvider()
 
         let router = AppRouter(window!)
         router.registerProviders()

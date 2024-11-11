@@ -10,6 +10,7 @@
 import UIKit
 import FittedSheets
 import SnapKit
+import HookahTobaccoUIKitCore
 
 enum ProfileEditInputFields {
     case firstName

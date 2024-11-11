@@ -8,6 +8,7 @@
 //
 
 import UIKit
+import HookahTobaccoCore
 
 protocol AddTobaccoRouterProtocol: RouterProtocol {
     func dismissView()

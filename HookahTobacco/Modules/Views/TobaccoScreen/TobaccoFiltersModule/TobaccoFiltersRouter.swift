@@ -8,14 +8,15 @@
 //
 
 import UIKit
+import HookahTobaccoCore
 
 protocol TobaccoFiltersRouterProtocol: RouterProtocol {
     func dismissView()
-    func applyFiltersView(_ filters: TobaccoFilters)
+    func applyFiltersView(_ filters: TobaccoFilter)
 }
 
 protocol TobaccoFiltersOutputModule: AnyObject {
-    func receiveFilter(_ filters: TobaccoFilters?)
+    func receiveFilter(_ filters: TobaccoFilter?)
 }
 
 class TobaccoFiltersRouter: TobaccoFiltersRouterProtocol {
@@ -31,7 +32,7 @@ class TobaccoFiltersRouter: TobaccoFiltersRouterProtocol {
         appRouter.dismissView(animated: true, completion: nil)
     }
 
-    func applyFiltersView(_ filters: TobaccoFilters) {
+    func applyFiltersView(_ filters: TobaccoFilter) {
         delegate?.receiveFilter(filters)
         appRouter.dismissView(animated: true, completion: nil)
     }

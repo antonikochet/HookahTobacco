@@ -8,6 +8,8 @@
 //
 
 import Foundation
+import HookahTobaccoCore
+import HookahTobaccoCoreAdmin
 
 protocol AddCountryInteractorInputProtocol: AnyObject {
     func receiveStartingData()
@@ -27,22 +29,22 @@ class AddCountryInteractor {
     weak var presenter: AddCountryInteractorOutputProtocol!
 
     // MARK: - Dependency
-    private let getDataManager: DataManagerProtocol
-    private let adminNetworkingService: AdminNetworkingServiceProtocol
+    private let countryRepo: CountryRepoProtocol
+    private let adminCountryRepo: AdminCountryRepoProtocol
 
     // MARK: - Private properties
     private var countries: [Country] = []
 
     // MARK: - Initializers
-    init(getDataManager: DataManagerProtocol,
-         adminNetworkingService: AdminNetworkingServiceProtocol) {
-        self.getDataManager = getDataManager
-        self.adminNetworkingService = adminNetworkingService
+    init(countryRepo: CountryRepoProtocol,
+         adminCountryRepo: AdminCountryRepoProtocol) {
+        self.countryRepo = countryRepo
+        self.adminCountryRepo = adminCountryRepo
     }
 
     // MARK: - Private methods
     private func receiveCountriesFromServer() {
-        getDataManager.receiveData(typeData: Country.self) { [weak self] result in
+        countryRepo.fetchCountry { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let counties):
@@ -55,7 +57,7 @@ class AddCountryInteractor {
     }
 
     private func sendNewCountry(_ country: Country) {
-        adminNetworkingService.addData(country) { [weak self] result in
+        adminCountryRepo.create(country: country) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let newCountry):
@@ -68,7 +70,7 @@ class AddCountryInteractor {
     }
 
     private func sendEditCountry(_ country: Country, with index: Int) {
-        adminNetworkingService.setData(country) { [weak self] result in
+        adminCountryRepo.update(country: country) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let editCountry):
@@ -91,14 +93,13 @@ extension AddCountryInteractor: AddCountryInteractorInputProtocol {
         sendNewCountry(newCountry)
     }
 
-    func editCountry(_ name: String, with uid: Int) {
-        guard let index = countries.firstIndex(where: { $0.uid == uid }) else {
-            presenter.receivedError(with: R.string.localizable.addCountryCountryErrorMessage("\(uid)"))
+    func editCountry(_ name: String, with id: Int) {
+        guard let index = countries.firstIndex(where: { $0.id == id }) else {
+            presenter.receivedError(with: R.string.localizable.addCountryCountryErrorMessage("\(id)"))
             return
         }
         let country = countries[index]
         let editCountry = Country(id: country.id,
-                                  uid: country.uid,
                                   name: name)
         sendEditCountry(editCountry, with: index)
     }

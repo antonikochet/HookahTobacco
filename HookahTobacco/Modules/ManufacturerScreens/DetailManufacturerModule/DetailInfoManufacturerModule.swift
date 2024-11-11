@@ -8,6 +8,7 @@
 //
 
 import UIKit
+import HookahTobaccoCore
 
 struct DetailInfoManufacturerDataModule: DataModuleProtocol {
     let manufacturer: Manufacturer

@@ -9,6 +9,7 @@
 
 import UIKit
 import SnapKit
+import HookahTobaccoUIKitCore
 
 protocol AddCountryViewInputProtocol: ViewProtocol {
     func getTableView() -> UITableView

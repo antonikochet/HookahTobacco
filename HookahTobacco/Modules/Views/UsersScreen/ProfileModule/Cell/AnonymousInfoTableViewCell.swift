@@ -9,6 +9,7 @@
 
 import UIKit
 import TableKit
+import HookahTobaccoUIKitCore
 
 struct AnonymousInfoTableViewCellItem {
     var text: String

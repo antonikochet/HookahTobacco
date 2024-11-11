@@ -8,6 +8,7 @@
 //
 
 import Foundation
+import HookahTobaccoCore
 
 class AdminMenuPresenter {
     weak var view: AdminMenuViewInputProtocol!
@@ -17,7 +18,7 @@ class AdminMenuPresenter {
 
 // MARK: - AdminMenuInteractorOutputProtocol implementation
 extension AdminMenuPresenter: AdminMenuInteractorOutputProtocol {
-    func receivedError(_ error: HTError) {
+    func receivedError(_ error: DomainError) {
         router.showError(with: error.message)
     }
 

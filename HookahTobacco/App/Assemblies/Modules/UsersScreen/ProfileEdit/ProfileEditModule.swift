@@ -8,10 +8,11 @@
 //
 
 import UIKit
+import HookahTobaccoCore
 
 struct ProfileEditDataModule: DataModuleProtocol {
     let isRegistration: Bool
-    let user: RegistrationUserProtocol
+    let user: RegistrationUser
     let output: ProfileEditOutputModule?
 }
 

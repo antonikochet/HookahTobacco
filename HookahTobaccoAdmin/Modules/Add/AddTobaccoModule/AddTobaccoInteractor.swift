@@ -8,6 +8,8 @@
 //
 
 import Foundation
+import HookahTobaccoCore
+import HookahTobaccoCoreAdmin
 
 protocol AddTobaccoInteractorInputProtocol: AnyObject {
     func sendNewTobaccoToServer(_ data: AddTobaccoEntity.Tobacco)
@@ -36,8 +38,8 @@ protocol AddTobaccoInteractorOutputProtocol: PresenterrProtocol {
 class AddTobaccoInteractor {
     weak var presenter: AddTobaccoInteractorOutputProtocol!
 
-    private var getDataManager: GetDataNetworkingServiceProtocol
-    private var adminNetworkingService: AdminNetworkingServiceProtocol
+    private let manufacturerRepo: ManufacturerRepoProtocol
+    private let adminTobaccoRepo: AdminTobaccoRepoProtocol
 
     private var manufacturers: [Manufacturer]? {
         didSet {
@@ -55,18 +57,18 @@ class AddTobaccoInteractor {
     private var editingMainImage: Data?
 
     init(_ tobacco: Tobacco? = nil,
-         getDataManager: GetDataNetworkingServiceProtocol,
-         adminNetworkingService: AdminNetworkingServiceProtocol) {
+         manufacturerRepo: ManufacturerRepoProtocol,
+         adminTobaccoRepo: AdminTobaccoRepoProtocol) {
         isEditing = tobacco != nil
         self.tobacco = tobacco
         self.selectedTobaccoLine = tobacco?.line
-        self.getDataManager = getDataManager
-        self.adminNetworkingService = adminNetworkingService
+        self.manufacturerRepo = manufacturerRepo
+        self.adminTobaccoRepo = adminTobaccoRepo
         getManufacturers()
     }
 
     private func getManufacturers() {
-        getDataManager.receiveData(type: Manufacturer.self) { [weak self] result in
+        manufacturerRepo.fetchManufacturer { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let data):
@@ -83,7 +85,7 @@ class AddTobaccoInteractor {
         if let image = try? Data(contentsOf: imageFileURL) {
             tobaccoWithImage.image = image
         }
-        adminNetworkingService.addData(tobaccoWithImage) { [weak self] result in
+        adminTobaccoRepo.create(tobacco: tobaccoWithImage) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success:
@@ -96,7 +98,7 @@ class AddTobaccoInteractor {
     }
 
     private func setTobacco(_ tobacco: Tobacco) {
-        adminNetworkingService.setData(tobacco) { [weak self] result in
+        adminTobaccoRepo.update(tobacco: tobacco) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(var newTobacco):
@@ -108,15 +110,15 @@ class AddTobaccoInteractor {
         }
     }
 
-    private func receiveSelectedManufacturer(by uid: Int) -> Manufacturer? {
+    private func receiveSelectedManufacturer(by id: Int) -> Manufacturer? {
         guard let manufacturers = manufacturers else { return nil }
-        let manufacturer = manufacturers.first(where: { $0.uid == uid })
+        let manufacturer = manufacturers.first(where: { $0.id == id })
         return manufacturer
     }
 
     private func initialSelectedManufacturer() {
         guard let tobacco = tobacco,
-              let manufacturer = receiveSelectedManufacturer(by: tobacco.idManufacturer) else { return }
+              let manufacturer = receiveSelectedManufacturer(by: tobacco.manufacturerID) else { return }
         selectedManufacturer = manufacturer
         presenter.initialSelectedManufacturer(manufacturer.name)
         presenter.showNameTobaccoLinesForSelect(
@@ -130,7 +132,7 @@ class AddTobaccoInteractor {
 
     private func initialTastes() {
         guard let tobacco = tobacco else { return }
-        tastes = Dictionary(uniqueKeysWithValues: tobacco.tastes.map { ($0.uid, $0) })
+        tastes = Dictionary(uniqueKeysWithValues: tobacco.tastes.map { ($0.id, $0) })
         presenter.initialTastes(Array(tastes.values))
     }
 
@@ -147,23 +149,23 @@ class AddTobaccoInteractor {
 extension AddTobaccoInteractor: AddTobaccoInteractorInputProtocol {
     func sendNewTobaccoToServer(_ data: AddTobaccoEntity.Tobacco) {
         guard let selectManufacturer = selectedManufacturer,
-              selectManufacturer.uid != -1 else {
+              selectManufacturer.id != -1 else {
             presenter.receivedError(with: R.string.localizable.addTobaccoManufacturerEmptyMessage())
             return
         }
         guard let selectTobaccoLine = selectedTobaccoLine,
-              selectTobaccoLine.uid != -1 else {
+              selectTobaccoLine.id != -1 else {
             presenter.receivedError(with: R.string.localizable.addTobaccoTobaccoLineEmptyMessage())
             return
         }
-        var tobacco = Tobacco(uid: tobacco?.uid ?? -1,
+        var tobacco = Tobacco(id: tobacco?.id ?? -1,
                               name: data.name,
                               tastes: Array(tastes.values),
-                              idManufacturer: selectManufacturer.uid,
-                              nameManufacturer: selectManufacturer.name,
+                              manufacturerID: selectManufacturer.id,
+                              manufacturerName: selectManufacturer.name,
                               description: data.description,
                               line: selectTobaccoLine,
-                              imageURL: tobacco?.imageURL ?? "",
+                              imageURL: mainImageFileURL?.absoluteString ?? tobacco?.imageURL ?? "",
                               isFavorite: false,
                               isWantBuy: false,
                               image: tobacco?.image)
@@ -210,7 +212,7 @@ extension AddTobaccoInteractor: AddTobaccoInteractorInputProtocol {
             pTobacco = AddTobaccoEntity.Tobacco(
                         name: tobacco.name,
                         description: tobacco.description)
-            manufacturer = receiveSelectedManufacturer(by: tobacco.idManufacturer)
+            manufacturer = receiveSelectedManufacturer(by: tobacco.manufacturerID)
             if manufacturer != nil {
                 selectedManufacturer = manufacturer
             }
@@ -232,7 +234,7 @@ extension AddTobaccoInteractor: AddTobaccoInteractorInputProtocol {
     }
 
     func receivedNewSelectedTastes(_ tastes: [Taste]) {
-        self.tastes = Dictionary(uniqueKeysWithValues: tastes.map { ($0.uid, $0) })
+        self.tastes = Dictionary(uniqueKeysWithValues: tastes.map { ($0.id, $0) })
         presenter.initialTastes(tastes)
     }
 }

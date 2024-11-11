@@ -8,9 +8,10 @@
 //
 
 import UIKit
+import HookahTobaccoCore
 
 protocol RegistrationRouterProtocol: RouterProtocol {
-    func showProfileRegistrationView(user: RegistrationUserProtocol)
+    func showProfileRegistrationView(user: RegistrationUser)
 }
 
 final class RegistrationRouter: RegistrationRouterProtocol {
@@ -20,7 +21,7 @@ final class RegistrationRouter: RegistrationRouterProtocol {
         self.appRouter = appRouter
     }
 
-    func showProfileRegistrationView(user: RegistrationUserProtocol) {
+    func showProfileRegistrationView(user: RegistrationUser) {
         let data = ProfileEditDataModule(isRegistration: true, user: user, output: nil)
         appRouter.pushViewController(module: ProfileEditModule.self, moduleData: data, animateDisplay: true)
     }

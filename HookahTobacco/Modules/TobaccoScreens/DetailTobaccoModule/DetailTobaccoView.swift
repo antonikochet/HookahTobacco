@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import HookahTobaccoCore
+import HookahTobaccoSwiftUICore
 
-struct DetailTobaccoView<ViewModel: DetailTobaccoViewModelOb>: View {
+struct DetailTobaccoView<ViewModel: DetailTobaccoViewModel>: View {
     // MARK: - Private properties
     @ObservedObject private var viewModel: ViewModel
     
@@ -35,7 +37,7 @@ struct DetailTobaccoView<ViewModel: DetailTobaccoViewModelOb>: View {
                 }
                 
                 ForEach(viewModel.info, id: \.name) { viewModel in
-                    DescriptionStackViewUI(viewModel: viewModel)
+                    DescriptionStackView(viewModel: viewModel)
                         .padding(.vertical, 4)
                 }
                 

@@ -8,6 +8,7 @@
 //
 
 import Foundation
+import HookahTobaccoCore
 
 protocol ManufacturerListViewModel: BaseViewModel {
     var manufacturers: [ManufacturerCellViewModel] { get }
@@ -25,17 +26,17 @@ final class ManufacturerListViewModelImpl: BaseViewModelImpl, ManufacturerListVi
     private var isDownloadData = false
     
     // MARK: - Dependency
-    private let getDataNetworkingService: GetDataNetworkingServiceProtocol
+    private let manufacturerRepo: ManufacturerRepoProtocol
     
     // MARK: - Routing
     private var showDetailManufacturer: BlockWithParam<Manufacturer>
     
     // MARK: - Initializers
     init(
-        getDataNetworkingService: GetDataNetworkingServiceProtocol,
+        manufacturerRepo: ManufacturerRepoProtocol,
         showDetailManufacturer: @escaping BlockWithParam<Manufacturer>
     ) {
-        self.getDataNetworkingService = getDataNetworkingService
+        self.manufacturerRepo = manufacturerRepo
         self.showDetailManufacturer = showDetailManufacturer
     }
     
@@ -45,14 +46,14 @@ final class ManufacturerListViewModelImpl: BaseViewModelImpl, ManufacturerListVi
     }
     
     func showDetail(id: Int) {
-        guard let manufacturer = privateManufacturers.first(where: { $0.uid == id }) else { return }
+        guard let manufacturer = privateManufacturers.first(where: { $0.id == id }) else { return }
         showDetailManufacturer(manufacturer)
     }
     
     // MARK: - Private methods
     private func receiveManufacturers() {
         isLoading = true
-        getDataNetworkingService.receiveData(type: Manufacturer.self) { [weak self] result in
+        manufacturerRepo.fetchManufacturer { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let data):
@@ -77,7 +78,7 @@ final class ManufacturerListViewModelImpl: BaseViewModelImpl, ManufacturerListVi
         privateManufacturers = manufacturers
         self.manufacturers = manufacturers.map {
             .init(
-                id: $0.uid,
+                id: $0.id,
                 name: $0.name,
                 county: $0.country.name,
                 imageURL: $0.urlImage
@@ -85,9 +86,9 @@ final class ManufacturerListViewModelImpl: BaseViewModelImpl, ManufacturerListVi
         }
     }
     
-    private func handlerError(_ error: HTError) {
+    private func handlerError(_ error: DomainError) {
         switch error {
-        case .apiError:
+        case .error:
             showAlertError(message: error.message)
         case .noInternetConnection, .unexpectedError, .unknownError, .serverNotAvailable:
             if isDownloadData {
@@ -125,7 +126,7 @@ final class ManufacturerListViewModelMock: BaseViewModelImpl, ManufacturerListVi
             } else {
                 self.manufacturers = manufacturers.map {
                     .init(
-                        id: $0.uid,
+                        id: $0.id,
                         name: $0.name,
                         county: $0.country.name,
                         imageURL: $0.urlImage

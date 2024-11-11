@@ -8,6 +8,7 @@
 //
 
 import Foundation
+import HookahTobaccoCore
 
 class AddTobaccoLinePresenter {
     // MARK: - Public properties
@@ -58,7 +59,7 @@ extension AddTobaccoLinePresenter: AddTobaccoLineInteractorOutputProtocol {
         router.showError(with: message)
     }
 
-    func receivedError(_ error: HTError) {
+    func receivedError(_ error: DomainError) {
         view.hideLoading()
         router.showError(with: error.message)
     }

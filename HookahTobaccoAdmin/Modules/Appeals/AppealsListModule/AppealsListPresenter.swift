@@ -11,6 +11,9 @@ import Foundation
 import TableKit
 import UIKit
 import IVCollectionKit
+import HookahTobaccoCore
+import HookahTobaccoCoreAdmin
+import HookahTobaccoUIKitCore
 
 class AppealsListPresenter: NSObject {
     // MARK: - Public properties
@@ -22,14 +25,14 @@ class AppealsListPresenter: NSObject {
     private var allThemes: [ThemeAppeal] = []
     private var selectedThemes: [ThemeAppeal] = []
     private var selectedStatus: AppealStatus?
-    private var themesDirector: CustomCollectionDirector?
+    private var themesDirector: CollectionDirector?
     private var tableDirector: TableDirector?
     private var isLoadingData: Bool = false
     private var isError: Bool = false
     private var oldContentHeight: CGFloat = 0.0
 
     // MARK: - Private methods
-    private func setupAppealsContent(_ appeals: [AppealResponse]) {
+    private func setupAppealsContent(_ appeals: [AppealEntity]) {
         guard let tableDirector else { return }
         tableDirector.clear()
 
@@ -84,6 +87,16 @@ class AppealsListPresenter: NSObject {
         for theme in allThemes {
             let item = FilterTobaccoCollectionViewCellItem(label: theme.name, isSelect: setIds.contains(theme.id))
             let row = CollectionItem<FilterTobaccoCollectionViewCell>(item: item)
+                .onSelect { [weak self] indexPath in
+                    guard let self else { return }
+                    let touchTheme = self.allThemes[indexPath.row]
+                    if let index = self.selectedThemes.firstIndex(where: { $0.id == touchTheme.id }) {
+                        self.selectedThemes.remove(at: index)
+                    } else {
+                        self.selectedThemes.append(touchTheme)
+                    }
+                    self.setupThemesFilterContent()
+                }
             rows.append(row)
         }
 
@@ -96,7 +109,7 @@ class AppealsListPresenter: NSObject {
 
 // MARK: - InteractorOutputProtocol implementation
 extension AppealsListPresenter: AppealsListInteractorOutputProtocol {
-    func receivedAppeals(_ appeals: [AppealResponse]) {
+    func receivedAppeals(_ appeals: [AppealEntity]) {
         isLoadingData = false
         isError = false
         setupAppealsContent(appeals)
@@ -108,11 +121,11 @@ extension AppealsListPresenter: AppealsListInteractorOutputProtocol {
         setupThemesFilterContent()
     }
 
-    func receivedAppeal(_ appeal: AppealResponse) {
+    func receivedAppeal(_ appeal: AppealEntity) {
         router.showDetailAppeal(appeal)
     }
 
-    func receivedError(_ error: HTError) {
+    func receivedError(_ error: DomainError) {
         view.hideLoading()
         isError = true
         isLoadingData = false
@@ -125,17 +138,7 @@ extension AppealsListPresenter: AppealsListViewOutputProtocol {
         let tableView = view.getTableView()
         tableDirector = TableDirector(tableView: tableView, scrollDelegate: self)
         let themesCollView = view.getThemesCollectionView()
-        themesCollView.didSelect = { [weak self] indexPath in
-            guard let self else { return }
-            let touchTheme = self.allThemes[indexPath.row]
-            if let index = self.selectedThemes.firstIndex(where: { $0.id == touchTheme.id }) {
-                self.selectedThemes.remove(at: index)
-            } else {
-                self.selectedThemes.append(touchTheme)
-            }
-            self.setupThemesFilterContent()
-        }
-        themesDirector = CustomCollectionDirector(collectionView: themesCollView)
+        themesDirector = CollectionDirector(collectionView: themesCollView)
         view.showLoading()
         interactor.receiveThemes()
     }

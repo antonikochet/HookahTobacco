@@ -8,10 +8,11 @@
 //
 
 import UIKit
+import HookahTobaccoCore
 
 protocol ProfileEditRouterProtocol: RouterProtocol {
     func showProfileView()
-    func dismissEditProfileView(_ user: UserProtocol?)
+    func dismissEditProfileView(_ user: User?)
     func showDatePickerView(date: Date?,
                             title: String?,
                             minDate: Date?,
@@ -25,7 +26,7 @@ protocol ProfileEditRouterProtocol: RouterProtocol {
 }
 
 protocol ProfileEditOutputModule: AnyObject {
-    func receivedUpdateUser(_ user: UserProtocol)
+    func receivedUpdateUser(_ user: User)
 }
 
 class ProfileEditRouter: ProfileEditRouterProtocol {
@@ -41,7 +42,7 @@ class ProfileEditRouter: ProfileEditRouterProtocol {
         appRouter.presentView(module: ProfileModule.self, moduleData: nil, animated: true)
     }
 
-    func dismissEditProfileView(_ user: UserProtocol?) {
+    func dismissEditProfileView(_ user: User?) {
         if let user {
             output?.receivedUpdateUser(user)
         }

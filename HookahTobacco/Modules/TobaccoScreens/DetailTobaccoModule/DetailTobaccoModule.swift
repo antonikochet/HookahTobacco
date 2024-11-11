@@ -9,6 +9,7 @@
 
 import UIKit
 import SwiftUI
+import HookahTobaccoCore
 
 struct DetailTobaccoDataModule: DataModuleProtocol {
     let tobacco: Tobacco

@@ -9,6 +9,7 @@
 
 import Foundation
 import Swinject
+import HookahTobaccoCore
 
 struct CreateAppealsDependency {
     var appRouter: AppRouterProtocol
@@ -24,8 +25,8 @@ class CreateAppealsAssembly: Assembly {
 
         container.register(CreateAppealsInteractorInputProtocol.self) { resolver in
             // here resolve dependency injection
-            let appealsNetworkingService = resolver.resolve(AppealsNetworkingServiceProtocol.self)!
-            return CreateAppealsInteractor(appealsNetworkingService: appealsNetworkingService)
+            let appealsRepo = resolver.resolve(AppealsRepoProtocol.self)!
+            return CreateAppealsInteractor(appealsRepo: appealsRepo)
         }
 
         container.register(CreateAppealsViewOutputProtocol.self) { _ in

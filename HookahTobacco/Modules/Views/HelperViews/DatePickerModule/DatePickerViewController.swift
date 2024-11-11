@@ -9,6 +9,7 @@
 
 import UIKit
 import SnapKit
+import HookahTobaccoUIKitCore
 
 protocol DatePickerViewInputProtocol: AnyObject {
     func setupView(valueData: Date, title: String?, minDate: Date?, maxDate: Date?)

@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import TableKit
+import HookahTobaccoUIKitCore
 
 struct AddTastesTableCellViewModel {
     let taste: String

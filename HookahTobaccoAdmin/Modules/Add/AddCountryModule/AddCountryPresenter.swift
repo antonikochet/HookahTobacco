@@ -9,6 +9,7 @@
 
 import Foundation
 import TableKit
+import HookahTobaccoCore
 
 class AddCountryPresenter {
     // MARK: - Public properties
@@ -64,7 +65,7 @@ extension AddCountryPresenter: AddCountryInteractorOutputProtocol {
         router.showError(with: message)
     }
 
-    func receivedError(_ error: HTError) {
+    func receivedError(_ error: DomainError) {
         view.hideLoading()
         router.showError(with: error.message)
     }
@@ -102,7 +103,7 @@ extension AddCountryPresenter: AddCountryViewOutputProtocol {
         }
         view.showBlockLoading()
         if let editingCountry {
-            interactor.editCountry(name, with: editingCountry.uid)
+            interactor.editCountry(name, with: editingCountry.id)
         } else {
             interactor.addCountry(name)
         }

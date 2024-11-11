@@ -8,6 +8,7 @@
 //
 
 import UIKit
+import HookahTobaccoCore
 
 struct AddManufacturerDataModule: DataModuleProtocol {
     let editingManufacturer: Manufacturer

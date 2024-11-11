@@ -6,17 +6,17 @@
 //
 
 import Foundation
+import HookahTobaccoCore
 
 extension Tobacco {
     
     static func mock(id: Int = 0, tasteCount: Int = 2, repeatDescription: Int = 3, isFavorite: Bool = false, isWantBuy: Bool = false) -> Self {
         .init(
-            id: String(id),
-            uid: id,
+            id: id,
             name: "Test Tobacco",
             tastes: Taste.arrayMock(tasteCount),
-            idManufacturer: 1,
-            nameManufacturer: "Test Tobacco Manufacturer",
+            manufacturerID: 1,
+            manufacturerName: "Test Tobacco Manufacturer",
             description: Array(repeating: "Test Tobacco description", count: repeatDescription).joined(separator: " "),
             line: TobaccoLine.mock(),
             imageURL: "http://127.0.0.1:8000/media/images/manufacturers/Adalya.png",
@@ -33,8 +33,7 @@ extension Tobacco {
 extension Taste {
     static func mock(id: Int = 0, typeCount: Int = 1) -> Self {
         .init(
-            id: String(id),
-            uid: id,
+            id: id,
             taste: "Test Taste",
             typeTaste: TasteType.arrayMock(typeCount)
         )
@@ -47,7 +46,7 @@ extension Taste {
 
 extension TasteType {
     static var mock: Self {
-        .init(name: "Test TasteType")
+        .init(id: -1, name: "Test TasteType")
     }
     
     static func arrayMock(_ count: Int = 2) -> [Self] {
@@ -58,14 +57,14 @@ extension TasteType {
 extension TobaccoLine {
     static func mock(id: Int = 0) -> Self {
         return .init(
-            id: String(id),
-            uid: id,
+            id: id,
             name: "Test TobaccoLine \(id)",
             packetingFormat: [100, 150],
             tobaccoType: .tobacco,
             tobaccoLeafType: [VarietyTobaccoLeaf.burley],
             description: "Test TobaccoLine description",
-            isBase: true
+            isBase: true,
+            manufacturerId: id
         )
     }
     
@@ -77,8 +76,7 @@ extension TobaccoLine {
 extension Manufacturer {
     static func mock(id: Int = 0, countLines: Int = 2) -> Self {
         .init(
-            id: String(id),
-            uid: id,
+            id: id,
             name: "Test Manufacturer",
             country: Country.mock,
             description: "Test Manufacturer description Test Manufacturer description",

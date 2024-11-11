@@ -9,6 +9,7 @@
 
 import UIKit
 import SnapKit
+import HookahTobaccoUIKitCore
 
 enum CreateAppealsInputType {
     case name
@@ -23,7 +24,7 @@ enum OpenImagePickerType {
 }
 
 protocol CreateAppealsViewInputProtocol: ViewProtocol {
-    func getContentCollectionView() -> CustomCollectionView
+    func getContentCollectionView() -> ChipsCollectionView
     func setupView(_ viewModel: CreateAppealsEntity.ViewModel)
     func setupThemeView(_ text: String)
     func showError(_ message: String, field: CreateAppealsInputType)
@@ -55,7 +56,7 @@ class CreateAppealsViewController: HTScrollContentViewController {
     private let messageTextView = AddTextView()
     private let titleContentLabel = UILabel()
     private let subtitleContentLabel = UILabel()
-    private let contentCollectionView = CustomCollectionView()
+    private let contentCollectionView = ChipsCollectionView()
     private let sendButton = ApplyButton(style: .primary)
 
     // MARK: - ViewController Lifecycle
@@ -160,7 +161,7 @@ class CreateAppealsViewController: HTScrollContentViewController {
 
 // MARK: - ViewInputProtocol implementation
 extension CreateAppealsViewController: CreateAppealsViewInputProtocol {
-    func getContentCollectionView() -> CustomCollectionView {
+    func getContentCollectionView() -> ChipsCollectionView {
         contentCollectionView
     }
 

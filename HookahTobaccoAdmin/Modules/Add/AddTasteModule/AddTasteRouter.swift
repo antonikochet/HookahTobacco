@@ -8,6 +8,7 @@
 //
 
 import UIKit
+import HookahTobaccoCore
 
 protocol AddTasteRouterProtocol: RouterProtocol {
     func dismissView(_ newTaste: Taste)

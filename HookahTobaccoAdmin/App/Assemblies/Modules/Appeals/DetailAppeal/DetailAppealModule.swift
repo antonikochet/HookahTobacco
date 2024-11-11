@@ -8,9 +8,10 @@
 //
 
 import UIKit
+import HookahTobaccoCoreAdmin
 
 struct DetailAppealDataModule: DataModuleProtocol {
-    var appeal: AppealResponse
+    var appeal: AppealEntity
 }
 
 class DetailAppealModule: ModuleProtocol {

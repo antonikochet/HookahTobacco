@@ -10,6 +10,7 @@
 import UIKit
 import TableKit
 import SnapKit
+import HookahTobaccoCore
 
 struct AddCountryTableViewCellItem {
     let country: Country
@@ -69,7 +70,7 @@ final class AddCountryTableViewCell: UITableViewCell, ConfigurableCell {
 
     // MARK: - ConfigurableCell
     func configure(with item: AddCountryTableViewCellItem) {
-        idLabel.text = String(item.country.uid)
+        idLabel.text = String(item.country.id)
         nameLabel.text = item.country.name
     }
 }

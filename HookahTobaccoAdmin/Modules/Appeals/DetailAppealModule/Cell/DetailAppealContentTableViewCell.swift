@@ -10,6 +10,7 @@
 import UIKit
 import TableKit
 import IVCollectionKit
+import HookahTobaccoUIKitCore
 
 struct DetailAppealContent {
     let url: String
@@ -23,7 +24,7 @@ struct DetailAppealContent {
 struct DetailAppealContentTableViewCellItem {
     let title: String
     let contents: [DetailAppealContent]
-    let didSelect: CompletionBlockWithParam<Int>?
+    let didSelect: BlockWithParam<Int>?
 }
 
 final class DetailAppealContentTableViewCell: UITableViewCell, ConfigurableCell {
@@ -31,15 +32,15 @@ final class DetailAppealContentTableViewCell: UITableViewCell, ConfigurableCell 
 
     // MARK: - Private properties
     private var item: DetailAppealContentTableViewCellItem?
-    private var collectionDirector: CustomCollectionDirector
+    private var collectionDirector: CollectionDirector
 
     // MARK: - UI properties
     private let titleLabel = UILabel()
-    private let collectionView = CustomCollectionView()
+    private let collectionView = ChipsCollectionView()
 
     // MARK: - Initializers
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        collectionDirector = CustomCollectionDirector(collectionView: collectionView)
+        collectionDirector = CollectionDirector(collectionView: collectionView)
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         setupUI()
@@ -68,9 +69,6 @@ final class DetailAppealContentTableViewCell: UITableViewCell, ConfigurableCell 
     }
     private func setupCollectionView() {
         contentView.addSubview(collectionView)
-        collectionView.didSelect = { [weak self] indexPath in
-            self?.item?.didSelect?(indexPath.row)
-        }
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(8)
             make.leading.trailing.bottom.equalToSuperview().inset(8.0).priority(999)
@@ -96,6 +94,9 @@ final class DetailAppealContentTableViewCell: UITableViewCell, ConfigurableCell 
                                                               image: image,
                                                               removeButtonAction: nil)
             let row = CollectionItem<ContentCreateAppealsCollectionViewCell>(item: item)
+                .onSelect { [weak self] indexPath in
+                    self?.item?.didSelect?(indexPath.row)
+                }
             rows.append(row)
         }
 

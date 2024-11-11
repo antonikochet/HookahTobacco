@@ -8,17 +8,18 @@
 import Swinject
 import UIKit
 import SwiftUI
+import HookahTobaccoCore
 
 final class TobaccoListAssembly: AssemblyProtocol {
     
     private let filter: TobaccoListInput
     private let showDetailTobacco: BlockWithParam<Tobacco>
-    private let showFilterTobacco: BlockWithParam<(filters: TobaccoFilters?, delegate: TobaccoFiltersOutputModule)>
+    private let showFilterTobacco: BlockWithParam<(filters: TobaccoFilter?, delegate: TobaccoFiltersOutputModule)>
     
     init(
         filter: TobaccoListInput,
         showDetailTobacco: @escaping BlockWithParam<Tobacco>,
-        showFilterTobacco: @escaping BlockWithParam<(filters: TobaccoFilters?, delegate: TobaccoFiltersOutputModule)>
+        showFilterTobacco: @escaping BlockWithParam<(filters: TobaccoFilter?, delegate: TobaccoFiltersOutputModule)>
     ) {
         self.filter = filter
         self.showDetailTobacco = showDetailTobacco
@@ -28,8 +29,10 @@ final class TobaccoListAssembly: AssemblyProtocol {
     func assemble(resolver: Resolver) -> UIViewController {
         let viewModel = TobaccoListViewModelImpl(
             input: filter,
-            getDataNetworkingService: resolver.resolve(GetDataNetworkingServiceProtocol.self)!,
-            userService: resolver.resolve(UserNetworkingServiceProtocol.self)!,
+            tobaccoRepo: resolver.resolve(TobaccoRepoProtocol.self)!,
+            favoriteTobaccoRepo: resolver.resolve(FavoriteTobaccoRepoProtocol.self)!,
+            wantBuyTobaccoRepo: resolver.resolve(WantBuyTobaccoRepoProtocol.self)!,
+            imageManager: resolver.resolve(ImageManagerProtocol.self)!,
             showDetailTobacco: showDetailTobacco,
             showFilterTobacco: showFilterTobacco
             

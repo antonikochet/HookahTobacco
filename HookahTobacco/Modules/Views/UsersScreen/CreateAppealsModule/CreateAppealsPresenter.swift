@@ -10,6 +10,7 @@
 import Foundation
 import IVCollectionKit
 import UIKit
+import HookahTobaccoCore
 
 class CreateAppealsPresenter {
     // MARK: - Public properties
@@ -21,7 +22,7 @@ class CreateAppealsPresenter {
     private var themes: [ThemeAppeal] = []
     private var contents: [URL] = []
     private var selectContentIndex: Int?
-    private var contentDirector: CustomCollectionDirector?
+    private var contentDirector: CollectionDirector?
 
     // MARK: - Private methods
     private func setupContentView() {
@@ -38,6 +39,13 @@ class CreateAppealsPresenter {
                 self?.setupContentView()
             }
             let row = CollectionItem<ContentCreateAppealsCollectionViewCell>(item: item)
+                .onSelect { [weak self] indexPath in
+                guard let self else { return }
+                if indexPath.row != self.contents.count {
+                    self.selectContentIndex = indexPath.row
+                    self.view.showImagePickerView(.picker)
+                }
+            }
             rows.append(row)
         }
 
@@ -79,7 +87,7 @@ extension CreateAppealsPresenter: CreateAppealsInteractorOutputProtocol {
         setupContentView()
     }
 
-    func receivedSuccessNewAppeal(_ response: CreateAppealResponse) {
+    func receivedSuccessNewAppeal(_ response: CreatedAppeal) {
         view.hideLoading()
         let dateFormatter = DateFormatter(format: "dd.mm.YYYY hh:MM")
         let title = R.string.localizable.createAppealsSuccessTitle("\(response.id)")
@@ -93,17 +101,17 @@ extension CreateAppealsPresenter: CreateAppealsInteractorOutputProtocol {
                        titleForAction: R.string.localizable.createAppealsSuccessActionButtonTitle())
     }
 
-    func receivedError(_ error: HTError) {
+    func receivedError(_ error: DomainError) {
         view.hideLoading()
-        if case .apiError(let apiErrors) = error {
+        if case .error(let apiErrors) = error {
             for apiError in apiErrors {
-                if apiError.fieldName == CreateAppealEntity.CodingKeys.name.rawValue {
+                if apiError.fieldName == CreateAppealEntity.Field.name.rawValue {
                     view.showError(apiError.message, field: .name)
-                } else if apiError.fieldName == CreateAppealEntity.CodingKeys.email.rawValue {
+                } else if apiError.fieldName == CreateAppealEntity.Field.email.rawValue {
                     view.showError(apiError.message, field: .email)
-                } else if apiError.fieldName == CreateAppealEntity.CodingKeys.theme.rawValue {
+                } else if apiError.fieldName == CreateAppealEntity.Field.theme.rawValue {
                     view.showError(apiError.message, field: .theme)
-                } else if apiError.fieldName == CreateAppealEntity.CodingKeys.message.rawValue {
+                } else if apiError.fieldName == CreateAppealEntity.Field.message.rawValue {
                     view.showError(apiError.message, field: .message)
                 } else {
                     router.showError(with: apiError.message)
@@ -119,14 +127,7 @@ extension CreateAppealsPresenter: CreateAppealsInteractorOutputProtocol {
 extension CreateAppealsPresenter: CreateAppealsViewOutputProtocol {
     func viewDidLoad() {
         let collectionView = view.getContentCollectionView()
-        collectionView.didSelect = { [weak self] indexPath in
-            guard let self else { return }
-            if indexPath.row != self.contents.count {
-                self.selectContentIndex = indexPath.row
-                self.view.showImagePickerView(.picker)
-            }
-        }
-        contentDirector = CustomCollectionDirector(collectionView: collectionView)
+        contentDirector = CollectionDirector(collectionView: collectionView)
         view.showBlockLoading()
         interactor.receiveStaringData()
     }

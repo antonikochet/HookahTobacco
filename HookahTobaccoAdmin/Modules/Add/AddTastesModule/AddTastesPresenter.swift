@@ -10,6 +10,7 @@
 import Foundation
 import TableKit
 import IVCollectionKit
+import HookahTobaccoCore
 
 class AddTastesPresenter {
     // MARK: - Public properties
@@ -19,13 +20,13 @@ class AddTastesPresenter {
 
     // MARK: - Private properties
     private var tableDirector: CustomTableDirector?
-    private var tasteDirector: CustomCollectionDirector?
-    private var selectedTastesViewModel: [TasteCollectionCellViewModel] = []
+    private var tasteDirector: CollectionDirector?
+    private var selectedTastesViewModel: [ChipCollectionCellViewModel] = []
 
     // MARK: - Private methods
     private func createTasteTableRow(_ taste: Taste, isSelect: Bool) -> TableRow<AddTastesTableViewCell> {
         let item = AddTastesTableCellViewModel(taste: taste.taste,
-                                    id: String(taste.uid),
+                                    id: String(taste.id),
                                     typeTaste: taste.typeTaste.first?.name ?? "",
                                     isSelect: isSelect)
         return TableRow<AddTastesTableViewCell>(item: item)
@@ -37,8 +38,8 @@ class AddTastesPresenter {
             }
     }
 
-    private func createSelectedTasteViewModel(_ taste: Taste) -> TasteCollectionCellViewModel {
-        TasteCollectionCellViewModel(label: taste.taste)
+    private func createSelectedTasteViewModel(_ taste: Taste) -> ChipCollectionCellViewModel {
+        ChipCollectionCellViewModel(label: taste.taste)
     }
 
     private func setupAllTastesContent(_ tastes: [Taste], with selectedTastes: [Taste]) {
@@ -46,10 +47,10 @@ class AddTastesPresenter {
         tableDirector.clear()
         var rows: [Row] = []
 
-        let selectedIdTastes: Set<Int> = Set(selectedTastes.map { $0.uid })
+        let selectedIdTastes: Set<Int> = Set(selectedTastes.map { $0.id })
 
         for taste in tastes {
-            let row = createTasteTableRow(taste, isSelect: selectedIdTastes.contains(taste.uid))
+            let row = createTasteTableRow(taste, isSelect: selectedIdTastes.contains(taste.id))
             rows.append(row)
         }
 
@@ -76,7 +77,7 @@ class AddTastesPresenter {
         for taste in selectedTastes {
             let item = createSelectedTasteViewModel(taste)
             selectedTastesViewModel.append(item)
-            let row = CollectionItem<TasteCollectionViewCell>(item: item)
+            let row = CollectionItem<ChipCollectionViewCell>(item: item)
             rows.append(row)
         }
 
@@ -104,14 +105,14 @@ extension AddTastesPresenter: AddTastesInteractorOutputProtocol {
         setupCollectionView(selectedTastes)
     }
 
-    func receivedError(_ error: HTError) {
+    func receivedError(_ error: DomainError) {
         router.showError(with: error.message)
     }
 
     func updateData(by index: Int, with taste: Taste, and selectedTastes: [Taste]) {
-        let selectedIdTastes = Set(selectedTastes.map { $0.uid })
+        let selectedIdTastes = Set(selectedTastes.map { $0.id })
         setupCollectionView(selectedTastes)
-        let row = createTasteTableRow(taste, isSelect: selectedIdTastes.contains(taste.uid))
+        let row = createTasteTableRow(taste, isSelect: selectedIdTastes.contains(taste.id))
         let indexPath = IndexPath(row: index, section: 0)
         tableDirector?.reloadRow(at: indexPath, with: row)
     }
@@ -132,7 +133,7 @@ extension AddTastesPresenter: AddTastesViewOutputProtocol {
         let tableView = view.getTableView()
         tableDirector = CustomTableDirector(tableView: tableView)
         let collectionView = view.getSelectCollectionView()
-        tasteDirector = CustomCollectionDirector(collectionView: collectionView)
+        tasteDirector = CollectionDirector(collectionView: collectionView)
         interactor.receiveStartingDataView()
     }
 

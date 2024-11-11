@@ -9,6 +9,7 @@
 
 import UIKit
 import IVCollectionKit
+import HookahTobaccoUIKitCore
 
 struct ContentCreateAppealsCollectionCellItem {
     let index: Int

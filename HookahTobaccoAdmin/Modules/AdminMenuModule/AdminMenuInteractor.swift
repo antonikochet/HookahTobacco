@@ -8,6 +8,7 @@
 //
 
 import Foundation
+import HookahTobaccoCore
 
 protocol AdminMenuInteractorInputProtocol: AnyObject {
     func logout()
@@ -25,18 +26,12 @@ class AdminMenuInteractor {
 
     // MARK: - Dependency
     private let authService: AuthServiceProtocol
-    private let getDataManager: GetDataNetworkingServiceProtocol
-    private let adminNetworkingService: AdminNetworkingServiceProtocol
 
     // MARK: - Private properties
 
     // MARK: - Initializers
-    init(authService: AuthServiceProtocol,
-         getDataManager: GetDataNetworkingServiceProtocol,
-         adminNetworkingService: AdminNetworkingServiceProtocol) {
+    init(authService: AuthServiceProtocol) {
         self.authService = authService
-        self.getDataManager = getDataManager
-        self.adminNetworkingService = adminNetworkingService
     }
 }
 

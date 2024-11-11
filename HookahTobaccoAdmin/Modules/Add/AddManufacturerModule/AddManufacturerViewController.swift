@@ -9,9 +9,10 @@
 
 import UIKit
 import SnapKit
+import HookahTobaccoUIKitCore
 
 protocol AddManufacturerViewInputProtocol: ViewProtocol {
-    func getTobaccoLineCollectionView() -> CustomCollectionView
+    func getTobaccoLineCollectionView() -> ChipsCollectionView
     func clearView()
     func setupContent(_ viewModel: AddManufacturerEntity.ViewModel)
     func setupImageManufacturer(_ image: Data?)
@@ -44,7 +45,7 @@ final class AddManufacturerViewController: HTScrollContentViewController {
     private let countryPicketView = AddPickerView(isAddButton: true)
     private let descriptionView = AddTextView()
     private let linkTextFieldView = AddTextFieldView()
-    private let tobaccoLineCollectionView = CustomCollectionView()
+    private let tobaccoLineCollectionView = ChipsCollectionView()
     private let addTobaccoLineButton = ApplyButton(style: .secondary)
     private let imageContainerView = UIView()
     private let imagePickerView = ImageButtonPickerView()
@@ -150,7 +151,7 @@ final class AddManufacturerViewController: HTScrollContentViewController {
 
 // MARK: - ViewInputProtocol implementation
 extension AddManufacturerViewController: AddManufacturerViewInputProtocol {
-    func getTobaccoLineCollectionView() -> CustomCollectionView {
+    func getTobaccoLineCollectionView() -> ChipsCollectionView {
         tobaccoLineCollectionView
     }
 

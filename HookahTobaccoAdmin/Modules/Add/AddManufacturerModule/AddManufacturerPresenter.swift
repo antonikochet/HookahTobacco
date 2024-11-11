@@ -9,6 +9,7 @@
 
 import Foundation
 import IVCollectionKit
+import HookahTobaccoCore
 
 class AddManufacturerPresenter {
     // MARK: - Public properties
@@ -17,8 +18,8 @@ class AddManufacturerPresenter {
     var router: AddManufacturerRouterProtocol!
 
     // MARK: - Private properties
-    private var tobaccoLinesDirector: CustomCollectionDirector?
-    private var tobaccoLinesViewModels: [TasteCollectionCellViewModel] = []
+    private var tobaccoLinesDirector: CollectionDirector?
+    private var tobaccoLinesViewModels: [ChipCollectionCellViewModel] = []
     private var countries: [String] = []
     private var isImage: Bool = false
     private var editingTobaccoLineIndex: Int?
@@ -32,11 +33,15 @@ class AddManufacturerPresenter {
         var rows: [AbstractCollectionItem] = []
 
         for line in tobaccoLines {
-            let item = TasteCollectionCellViewModel(
+            let item = ChipCollectionCellViewModel(
                 label: line.isBase ? R.string.localizable.generalBasicLine() : line.name
             )
             tobaccoLinesViewModels.append(item)
-            let row = CollectionItem<TasteCollectionViewCell>(item: item)
+            let row = CollectionItem<ChipCollectionViewCell>(item: item)
+                .onSelect { [weak self] indexPath in
+                    self?.editingTobaccoLineIndex = indexPath.row
+                    self?.interactor.receiveEditingTobaccoLine(at: indexPath.row)
+                }
             rows.append(row)
         }
 
@@ -70,7 +75,7 @@ extension AddManufacturerPresenter: AddManufacturerInteractorOutputProtocol {
         router.showError(with: message)
     }
 
-    func receivedError(_ error: HTError) {
+    func receivedError(_ error: DomainError) {
         view.hideLoading()
         router.showError(with: error.message)
     }
@@ -156,11 +161,7 @@ extension AddManufacturerPresenter: AddManufacturerViewOutputProtocol {
 
     func viewDidLoad() {
         let collectionView = view.getTobaccoLineCollectionView()
-        collectionView.didSelect = { [weak self] indexPath in
-            self?.editingTobaccoLineIndex = indexPath.row
-            self?.interactor.receiveEditingTobaccoLine(at: indexPath.row)
-        }
-        tobaccoLinesDirector = CustomCollectionDirector(collectionView: collectionView)
+        tobaccoLinesDirector = CollectionDirector(collectionView: collectionView)
         interactor.receiveStartingDataView()
     }
 

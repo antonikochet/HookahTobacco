@@ -10,6 +10,7 @@
 import UIKit
 import SnapKit
 import FittedSheets
+import HookahTobaccoUIKitCore
 
 protocol TobaccoFiltersViewInputProtocol: ViewProtocol {
     func getTableView() -> UITableView

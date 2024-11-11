@@ -8,6 +8,7 @@
 //
 
 import Foundation
+import HookahTobaccoCore
 
 class LoginPresenter {
     weak var view: LoginViewInputProtocol!
@@ -21,7 +22,7 @@ extension LoginPresenter: LoginInteractorOutputProtocol {
         router.showProfileView()
     }
 
-    func receivedError(_ error: HTError) {
+    func receivedError(_ error: DomainError) {
         view.hideLoading()
         router.showError(with: error.message)
     }

@@ -10,6 +10,7 @@
 import Foundation
 import TableKit
 import UIKit
+import HookahTobaccoCore
 
 class TobaccoFiltersPresenter {
     // MARK: - Public properties
@@ -19,14 +20,14 @@ class TobaccoFiltersPresenter {
 
     // MARK: - Private properties
     private var tableDirector: TableDirector?
-    private var filters: TobaccoFilters = TobaccoFilters()
-    private var selectedFilters: TobaccoFilters = TobaccoFilters()
+    private var filters: TobaccoFilter = TobaccoFilter()
+    private var selectedFilters: TobaccoFilter = TobaccoFilter()
     private var isDownloadData: Bool = false
     private weak var timer: Timer?
 
     // MARK: - Private methods
     // swiftlint:disable:next function_body_length
-    private func setupContent(_ filters: TobaccoFilters) {
+    private func setupContent(_ filters: TobaccoFilter) {
         guard let tableDirector else { return }
         tableDirector.clear()
 
@@ -85,9 +86,9 @@ class TobaccoFiltersPresenter {
 
         // tasteType
         if !filters.tasteType.isEmpty {
-            let selectedIds = Set(selectedFilters.tasteType.map { $0.uid })
+            let selectedIds = Set(selectedFilters.tasteType.map { $0.id })
             let items = filters.tasteType.map {
-                FilterTobaccoCollectionViewCellItem(label: $0.name, isSelect: selectedIds.contains($0.uid))
+                FilterTobaccoCollectionViewCellItem(label: $0.name, isSelect: selectedIds.contains($0.id))
             }
             let item = CategoriesTobaccoFiltersViewCellTableViewCellItem(
                 title: "Типы вкусов",
@@ -194,7 +195,7 @@ class TobaccoFiltersPresenter {
 
 // MARK: - InteractorOutputProtocol implementation
 extension TobaccoFiltersPresenter: TobaccoFiltersInteractorOutputProtocol {
-    func receivedFilters(_ filters: TobaccoFilters) {
+    func receivedFilters(_ filters: TobaccoFilter) {
         isDownloadData = true
         self.filters = filters
         reloadFilters()
@@ -203,7 +204,7 @@ extension TobaccoFiltersPresenter: TobaccoFiltersInteractorOutputProtocol {
         view.hideLoading()
     }
 
-    func receivedError(_ error: HTError) {
+    func receivedError(_ error: DomainError) {
         view.hideLoading()
         if isDownloadData {
             router.showError(with: error.message)
@@ -215,7 +216,7 @@ extension TobaccoFiltersPresenter: TobaccoFiltersInteractorOutputProtocol {
         }
     }
 
-    func selectedFilters(_ selectedFilters: TobaccoFilters) {
+    func selectedFilters(_ selectedFilters: TobaccoFilter) {
         self.selectedFilters = selectedFilters
     }
 }
@@ -230,7 +231,7 @@ extension TobaccoFiltersPresenter: TobaccoFiltersViewOutputProtocol {
     }
 
     func touchAllClearButton() {
-        selectedFilters = TobaccoFilters()
+        selectedFilters = TobaccoFilter()
         view.showBlockLoading()
         interactor.receiveBaseFilters()
     }
@@ -241,16 +242,6 @@ extension TobaccoFiltersPresenter: TobaccoFiltersViewOutputProtocol {
 
     func touchCloseButton() {
         router.dismissView()
-    }
-}
-
-private extension TobaccoFilters {
-    init() {
-        manufacturer = []
-        tastes = []
-        tasteType = []
-        tobaccoType = []
-        count = 0
     }
 }
 

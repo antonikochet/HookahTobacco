@@ -8,6 +8,7 @@
 //
 
 import Foundation
+import HookahTobaccoCore
 
 struct ProfileEditEntity {
     struct EnterData {

@@ -10,6 +10,8 @@
 import UIKit
 import TableKit
 import SnapKit
+import HookahTobaccoCore
+import HookahTobaccoUIKitCore
 
 final class SelectTasteTypeTableViewCellItem {
     let item: TasteType
@@ -83,7 +85,7 @@ final class SelectTasteTypeTableViewCell: UITableViewCell, ConfigurableCell {
     }
     // MARK: - ConfigurableCell
     func configure(with item: SelectTasteTypeTableViewCellItem) {
-        idLabel.text = item.item.id
+        idLabel.text = String(item.item.id)
         nameLabel.text = item.item.name
         let checkmarkImage = R.image.checkmark()
         checkmarkImageView.image = item.isSelected ? checkmarkImage : nil

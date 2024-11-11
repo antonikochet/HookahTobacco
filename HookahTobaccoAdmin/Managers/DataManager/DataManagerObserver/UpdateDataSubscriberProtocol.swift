@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import HookahTobaccoCore
 
 enum UpdateDataNotification<T> {
     case update(T)
-    case error(HTError)
+    case error(DomainError)
 }
 
 protocol UpdateDataSubscriberProtocol: SubscriberProtocol {

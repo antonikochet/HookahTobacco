@@ -8,6 +8,8 @@
 //
 
 import Foundation
+import HookahTobaccoCore
+import HookahTobaccoCoreAdmin
 
 protocol AddManufacturerInteractorInputProtocol {
     func didEnterDataManufacturer(_ data: AddManufacturerEntity.Manufacturer)
@@ -36,8 +38,10 @@ class AddManufacturerInteractor {
 
     weak var presenter: AddManufacturerInteractorOutputProtocol!
 
-    private var getDataManager: DataManagerProtocol
-    private var adminNetworkingService: AdminNetworkingServiceProtocol
+    private let countryRepo: CountryRepoProtocol
+    private let manufacturerRepo: ManufacturerRepoProtocol
+    private let adminManufacturerRepo: AdminManufacturerRepoProtocol
+    private let imageManager: ImageManagerProtocol
 
     private var imageFileURL: URL?
     private var manufacturer: Manufacturer?
@@ -48,21 +52,29 @@ class AddManufacturerInteractor {
     private var selectedCountry: Country?
 
     // init for add manufacturer
-    init(getDataManager: DataManagerProtocol,
-         adminNetworkingService: AdminNetworkingServiceProtocol) {
-        self.getDataManager = getDataManager
-        self.adminNetworkingService = adminNetworkingService
+    init(countryRepo: CountryRepoProtocol,
+         manufacturerRepo: ManufacturerRepoProtocol,
+         adminManufacturerRepo: AdminManufacturerRepoProtocol,
+         imageManager: ImageManagerProtocol) {
+        self.countryRepo = countryRepo
+        self.manufacturerRepo = manufacturerRepo
+        self.adminManufacturerRepo = adminManufacturerRepo
+        self.imageManager = imageManager
         self.isEditing = false
         getCountries()
     }
 
     // init for edit manufacturer
     init(_ manufacturer: Manufacturer,
-         getDataManager: DataManagerProtocol,
-         adminNetworkingService: AdminNetworkingServiceProtocol) {
+         countryRepo: CountryRepoProtocol,
+         manufacturerRepo: ManufacturerRepoProtocol,
+         adminManufacturerRepo: AdminManufacturerRepoProtocol,
+         imageManager: ImageManagerProtocol) {
         self.manufacturer = manufacturer
-        self.getDataManager = getDataManager
-        self.adminNetworkingService = adminNetworkingService
+        self.countryRepo = countryRepo
+        self.manufacturerRepo = manufacturerRepo
+        self.adminManufacturerRepo = adminManufacturerRepo
+        self.imageManager = imageManager
         self.isEditing = true
         self.tobaccoLines = manufacturer.lines
         self.selectedCountry = manufacturer.country
@@ -71,7 +83,7 @@ class AddManufacturerInteractor {
 
     // MARK: - private methods
     private func getCountries() {
-        getDataManager.receiveData(typeData: Country.self) { [weak self] result in
+        countryRepo.fetchCountry { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let countries):
@@ -88,8 +100,8 @@ class AddManufacturerInteractor {
 
     // MARK: - methods for adding manufacturer data
     private func addManufacturerToServer(_ manufacturer: Manufacturer) {
-        adminNetworkingService.addData(manufacturer) { [weak self] result in
-            guard let self = self else { return }
+        adminManufacturerRepo.create(manufacturer: manufacturer) { [weak self] result in
+            guard let self else { return }
             switch result {
             case .success:
                 self.presenter.receivedSuccessAddition()
@@ -101,7 +113,8 @@ class AddManufacturerInteractor {
 
     // MARK: - methods for changing manufacturer data
     private func receiveImage(for manufacturer: Manufacturer) {
-        getDataManager.receiveImage(for: manufacturer.urlImage) { [weak self] result in
+        guard let imageURL = URL(string: manufacturer.urlImage) else { return }
+        imageManager.fetchImage(imageURL) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let image):
@@ -114,8 +127,8 @@ class AddManufacturerInteractor {
     }
 
     private func setManufacturer(_ new: Manufacturer) {
-        adminNetworkingService.setData(new) { [weak self] result in
-            guard let self = self else { return }
+        adminManufacturerRepo.update(manufacturer: new) { [weak self] result in
+            guard let self else { return }
             switch result {
             case .success(var manufacturer):
                 manufacturer.image = new.image
@@ -133,25 +146,37 @@ extension AddManufacturerInteractor: AddManufacturerInteractorInputProtocol {
             presenter.receivedError(with: R.string.localizable.addManufacturerCountryEmptyMessage())
             return
         }
-        var enterManufacturer = Manufacturer(name: data.name,
-                                             country: selectedCountry,
-                                             description: data.description ?? "",
-                                             urlImage: manufacturer?.urlImage ?? "",
-                                             image: manufacturer?.image,
-                                             link: data.link,
-                                             lines: tobaccoLines)
+        
         if isEditing {
             guard let manufacturer = manufacturer else { return }
+            var enterImage: Data?
             if let newURLFile = imageFileURL {
                 if let image = try? Data(contentsOf: newURLFile) {
-                    enterManufacturer.image = image
+                    enterImage = image
                     editingImage = image
                 }
             }
-            enterManufacturer.uid = manufacturer.uid
+            let enterManufacturer = Manufacturer(
+                id: manufacturer.id,
+                name: data.name,
+                country: selectedCountry,
+                description: data.description ?? "",
+                urlImage: imageFileURL?.absoluteString ?? manufacturer.urlImage,
+                image: enterImage,
+                link: data.link,
+                lines: tobaccoLines
+            )
             setManufacturer(enterManufacturer)
         } else {
             guard let fileURL = imageFileURL else { return }
+            var enterManufacturer = Manufacturer(
+                name: data.name,
+                country: selectedCountry,
+                description: data.description ?? "",
+                urlImage: manufacturer?.urlImage ?? "",
+                image: manufacturer?.image,
+                link: data.link,
+                lines: tobaccoLines)
             if let image = try? Data(contentsOf: fileURL) {
                 enterManufacturer.image = image
             }
@@ -192,7 +217,7 @@ extension AddManufacturerInteractor: AddManufacturerInteractorInputProtocol {
 
     func receiveEditingTobaccoLine(at index: Int) {
         guard index < tobaccoLines.count,
-            let id = manufacturer?.uid else { return }
+              let id = manufacturer?.id else { return }
         presenter.changeTobaccoLine(for: id, tobaccoLines[index])
     }
 
@@ -212,7 +237,7 @@ extension AddManufacturerInteractor: AddManufacturerInteractorInputProtocol {
     }
 
     var manufacturerId: Int? {
-        guard let strId = manufacturer?.uid else {
+        guard let strId = manufacturer?.id else {
             return nil
         }
         return Int(strId)
@@ -220,8 +245,8 @@ extension AddManufacturerInteractor: AddManufacturerInteractorInputProtocol {
 
     func receivedCountriesAfterUpdate(_ newCountries: [Country]) {
         if let selectedCountry {
-            let uid = selectedCountry.uid
-            if let newSelectedCountry = newCountries.first(where: { $0.uid == uid }) {
+            let id = selectedCountry.id
+            if let newSelectedCountry = newCountries.first(where: { $0.id == id }) {
                 self.selectedCountry = newSelectedCountry
             }
         }

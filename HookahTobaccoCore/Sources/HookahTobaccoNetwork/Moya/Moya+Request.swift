@@ -1,0 +1,35 @@
+//
+//  Moya+Request.swift
+//  HookahTobacco
+//
+//  Created by Anton Kochetkov on 04.07.2023.
+//
+
+import Moya
+import Foundation
+
+public extension MoyaProviderType {
+
+    @available(*, deprecated, message: "Используй MoyaNetworkManager")
+    @discardableResult
+    func request<T: Decodable>(
+        object: T.Type,
+        target: Target,
+        progress: ProgressBlock? = nil,
+        completion: @escaping NetworkCompletion<T>
+    ) -> Moya.Cancellable {
+        request(target, callbackQueue: .main, progress: progress) { result in
+            switch result {
+            case let .success(response):
+                do {
+                    let data = try response.map(T.self, using: JSONDecoder.defaultDecoder, failsOnEmptyData: false)
+                    completion(.success(data))
+                } catch {
+                    completion(.failure(error))
+                }
+            case let .failure(error):
+                completion(.failure(error))
+            }
+        }
+    }
+}

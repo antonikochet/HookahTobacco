@@ -9,6 +9,7 @@
 
 import UIKit
 import TableKit
+import HookahTobaccoUIKitCore
 
 struct ProfileTableViewCellItem {
     let photo: Data?

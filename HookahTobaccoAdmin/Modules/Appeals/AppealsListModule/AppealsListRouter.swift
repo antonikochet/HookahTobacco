@@ -8,9 +8,10 @@
 //
 
 import UIKit
+import HookahTobaccoCoreAdmin
 
 protocol AppealsListRouterProtocol: RouterProtocol {
-    func showDetailAppeal(_ appeal: AppealResponse)
+    func showDetailAppeal(_ appeal: AppealEntity)
 }
 
 class AppealsListRouter: AppealsListRouterProtocol {
@@ -20,7 +21,7 @@ class AppealsListRouter: AppealsListRouterProtocol {
         self.appRouter = appRouter
     }
 
-    func showDetailAppeal(_ appeal: AppealResponse) {
+    func showDetailAppeal(_ appeal: AppealEntity) {
         let data = DetailAppealDataModule(appeal: appeal)
         appRouter.pushViewController(module: DetailAppealModule.self, moduleData: data, animateDisplay: true)
     }

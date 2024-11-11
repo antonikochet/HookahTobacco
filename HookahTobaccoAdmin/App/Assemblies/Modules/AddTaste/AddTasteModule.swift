@@ -8,6 +8,7 @@
 //
 
 import UIKit
+import HookahTobaccoCore
 
 struct AddTasteDataModule: DataModuleProtocol {
     let taste: Taste?

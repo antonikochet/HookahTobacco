@@ -9,11 +9,12 @@
 
 import Foundation
 import Swinject
+import HookahTobaccoCore
 
 struct ProfileEditDependency {
     var appRouter: AppRouterProtocol
     var isRegistration: Bool
-    var user: RegistrationUserProtocol
+    var user: RegistrationUser
     let output: ProfileEditOutputModule?
 }
 
@@ -29,11 +30,11 @@ class ProfileEditAssembly: Assembly {
         container.register(ProfileEditInteractorInputProtocol.self) { (resolver, dependency: ProfileEditDependency) in
             // here resolve dependency injection
             let registrationService = resolver.resolve(RegistrationServiceProtocol.self)!
-            let userNetworkingService = resolver.resolve(UserNetworkingServiceProtocol.self)!
+            let userRepo = resolver.resolve(UserRepoProtocol.self)!
             return ProfileEditInteractor(isRegistration: dependency.isRegistration,
                                          user: dependency.user,
                                          registrationService: registrationService,
-                                         userNetworkingService: userNetworkingService)
+                                         userRepo: userRepo)
         }
 
         container.register(ProfileEditViewOutputProtocol.self) { _ in

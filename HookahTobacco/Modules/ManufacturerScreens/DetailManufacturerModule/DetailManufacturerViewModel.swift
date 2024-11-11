@@ -8,6 +8,7 @@
 //
 
 import Foundation
+import HookahTobaccoCore
 
 protocol DetailManufacturerViewModel: BaseViewModel {
     var title: String { get }
@@ -34,8 +35,9 @@ final class DetailManufacturerViewModelImpl: BaseViewModelImpl, DetailManufactur
     private var tobaccos: [Tobacco] = []
     
     // MARK: - Dependency
-    private var getDataNetworkingService: GetDataNetworkingServiceProtocol
-    private var userNetworkingService: UserNetworkingServiceProtocol
+    private let manufacturerRepo: ManufacturerRepoProtocol
+    private let favoriteTobaccoRepo: FavoriteTobaccoRepoProtocol
+    private var imageManager: ImageManagerProtocol
     
     // MARK: - Routing
     private var showDetailTobacco: BlockWithParam<Tobacco>
@@ -43,13 +45,15 @@ final class DetailManufacturerViewModelImpl: BaseViewModelImpl, DetailManufactur
     // MARK: - Initializers
     init(
         manufacturer: Manufacturer,
-        getDataNetworkingService: GetDataNetworkingServiceProtocol,
-        userNetworkingService: UserNetworkingServiceProtocol,
+        manufacturerRepo: ManufacturerRepoProtocol,
+        favoriteTobaccoRepo: FavoriteTobaccoRepoProtocol,
+        imageManager: ImageManagerProtocol,
         showDetailTobacco: @escaping BlockWithParam<Tobacco>
     ) {
         self.manufacturer = manufacturer
-        self.getDataNetworkingService = getDataNetworkingService
-        self.userNetworkingService = userNetworkingService
+        self.manufacturerRepo = manufacturerRepo
+        self.favoriteTobaccoRepo = favoriteTobaccoRepo
+        self.imageManager = imageManager
         self.showDetailTobacco = showDetailTobacco
         
         self.title = manufacturer.name
@@ -65,14 +69,14 @@ final class DetailManufacturerViewModelImpl: BaseViewModelImpl, DetailManufactur
     
     // MARK: - ViewModel methods
     func showDetail(id: Int) {
-        guard let tobacco = tobaccos.first(where: { $0.uid == id }) else { return }
+        guard let tobacco = tobaccos.first(where: { $0.id == id }) else { return }
         showDetailTobacco(tobacco)
     }
     
     // MARK: - Private methods
     private func receiveTobacco() {
         isLoading = true
-        getDataNetworkingService.receiveTobaccos(for: manufacturer) { [weak self] result in
+        manufacturerRepo.fetchTobaccos(for: manufacturer) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let tobaccos):
@@ -85,11 +89,11 @@ final class DetailManufacturerViewModelImpl: BaseViewModelImpl, DetailManufactur
     }
     
     private func updateFavorite(id: Int) {
-        guard let index = tobaccos.firstIndex(where: { $0.uid == id }) else { return }
+        guard let index = tobaccos.firstIndex(where: { $0.id == id }) else { return }
         var tobacco = tobaccos[index]
         tobacco.isFavorite.toggle()
         isLoading = true
-        userNetworkingService.updateFavoriteTobacco([tobacco]) { [weak self] result in
+        favoriteTobaccoRepo.update(tobaccos: [tobacco]) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let tobaccos):
@@ -111,7 +115,7 @@ final class DetailManufacturerViewModelImpl: BaseViewModelImpl, DetailManufactur
     private func updateTobaccoLines() {
         // TODO: - убрать прыгание секций при изменения табаков
         let tobaccoDict = Dictionary(grouping: tobaccos) { tobacco in
-            tobacco.line.uid
+            tobacco.line.id
         }
         
         self.tobaccoLines = tobaccoDict.values.compactMap { tobaccos -> DetailManufacturerTobaccoLineViewModel? in
@@ -122,12 +126,12 @@ final class DetailManufacturerViewModelImpl: BaseViewModelImpl, DetailManufactur
                     tobacco,
                     isShowWantBuyButton: false,
                     favoriteAction: { [weak self] in
-                        self?.updateFavorite(id: tobacco.uid)
+                        self?.updateFavorite(id: tobacco.id)
                     })
             }
             
             return DetailManufacturerTobaccoLineViewModel(
-                id: line.uid,
+                id: line.id,
                 title: line.isBase ? R.string.localizable.manufacteurerDetailBaseLineName() : line.name,
                 description: line.description,
                 tobaccos: viewModels
@@ -135,7 +139,7 @@ final class DetailManufacturerViewModelImpl: BaseViewModelImpl, DetailManufactur
         }
     }
     
-    private func handlerError(_ error: HTError) {
+    private func handlerError(_ error: DomainError) {
         showAlertError(message: error.message)
     }
 }
@@ -167,7 +171,7 @@ final class DetailManufacturerViewModelMock: BaseViewModelImpl, DetailManufactur
         self.tobaccoLines = []
         self.tobaccoLines = manufacturer.lines.map { tobaccoLine in
             DetailManufacturerTobaccoLineViewModel(
-                id: tobaccoLine.uid,
+                id: tobaccoLine.id,
                 title: tobaccoLine.name,
                 description: tobaccoLine.description,
                 tobaccos: Tobacco.arrayMock(5).map { tobacco in

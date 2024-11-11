@@ -6,7 +6,8 @@
 //
 
 import Foundation
+import HookahTobaccoCore
 
 protocol PresenterrProtocol: AnyObject {
-    func receivedError(_ error: HTError)
+    func receivedError(_ error: DomainError)
 }

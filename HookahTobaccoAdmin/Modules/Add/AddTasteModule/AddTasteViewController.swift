@@ -9,6 +9,7 @@
 
 import UIKit
 import SnapKit
+import HookahTobaccoUIKitCore
 
 protocol AddTasteViewInputProtocol: ViewProtocol {
     func setupContent(taste: String?, addButtonText: String)

@@ -8,6 +8,7 @@
 //
 
 import Foundation
+import HookahTobaccoCore
 
 protocol CreateAppealsInteractorInputProtocol: AnyObject {
     func receiveStaringData()
@@ -18,7 +19,7 @@ protocol CreateAppealsInteractorInputProtocol: AnyObject {
 
 protocol CreateAppealsInteractorOutputProtocol: PresenterrProtocol {
     func receivedStartingData(_ themes: [ThemeAppeal], _ user: ThemeAppealUser?)
-    func receivedSuccessNewAppeal(_ response: CreateAppealResponse)
+    func receivedSuccessNewAppeal(_ response: CreatedAppeal)
 }
 
 class CreateAppealsInteractor {
@@ -26,7 +27,7 @@ class CreateAppealsInteractor {
     weak var presenter: CreateAppealsInteractorOutputProtocol!
 
     // MARK: - Dependency
-    private let appealsNetworkingService: AppealsNetworkingServiceProtocol
+    private let appealsRepo: AppealsRepoProtocol
 
     // MARK: - Private properties
     private var themes: [ThemeAppeal] = []
@@ -34,13 +35,13 @@ class CreateAppealsInteractor {
     private var selectedThemes: ThemeAppeal?
 
     // MARK: - Initializers
-    init(appealsNetworkingService: AppealsNetworkingServiceProtocol) {
-        self.appealsNetworkingService = appealsNetworkingService
+    init(appealsRepo: AppealsRepoProtocol) {
+        self.appealsRepo = appealsRepo
     }
 
     // MARK: - Private methods
     private func receiveThemes() {
-        appealsNetworkingService.receiveThemes { [weak self] result in
+        appealsRepo.fetchThemes { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let response):
@@ -54,7 +55,7 @@ class CreateAppealsInteractor {
     }
 
     private func sendNewAppeals(_ appeal: CreateAppealEntity) {
-        appealsNetworkingService.createAppeal(appeal) { [weak self] result in
+        appealsRepo.createAppeal(appeal) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let response):

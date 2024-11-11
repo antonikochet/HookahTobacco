@@ -8,6 +8,7 @@
 //
 
 import Foundation
+import HookahTobaccoCore
 
 class ProfileEditPresenter {
     // MARK: - Public properties
@@ -46,7 +47,7 @@ class ProfileEditPresenter {
 
 // MARK: - InteractorOutputProtocol implementation
 extension ProfileEditPresenter: ProfileEditInteractorOutputProtocol {
-    func receivedStartData(_ user: RegistrationUserProtocol, isRegistration: Bool) {
+    func receivedStartData(_ user: RegistrationUser, isRegistration: Bool) {
         view.hideLoading()
         self.isRegistration = isRegistration
         view.setupView(
@@ -77,14 +78,14 @@ extension ProfileEditPresenter: ProfileEditInteractorOutputProtocol {
         }
     }
 
-    func receivedSuccessEditProfile(_ user: UserProtocol) {
+    func receivedSuccessEditProfile(_ user: User) {
         view.hideLoading()
         router.showSuccess(delay: 1.0) { [weak self] in
             self?.router.dismissEditProfileView(user)
         }
     }
 
-    func receivedAgreementURLs(_ agreementURLs: [AgreementURLsResponse]) {
+    func receivedAgreementURLs(_ agreementURLs: [AgreementURLs]) {
         let text = R.string.localizable.profileEditAgreementTextViewText()
         let resultText = NSMutableAttributedString(string: text)
         for agreementURL in agreementURLs {
@@ -103,13 +104,13 @@ extension ProfileEditPresenter: ProfileEditInteractorOutputProtocol {
         view.setupAgreementTextView(resultText)
     }
 
-    func receivedError(_ error: HTError) {
+    func receivedError(_ error: DomainError) {
         view.hideLoading()
-        if case let .apiError(apiErrors) = error {
+        if case let .error(apiErrors) = error {
             apiErrors.forEach { error in
-                if error.fieldName == User.CodingKeys.username.rawValue {
+                if error.fieldName == User.Field.username.rawValue {
                     view.showFieldError(error.message, field: .username)
-                } else if error.fieldName == User.CodingKeys.email.rawValue {
+                } else if error.fieldName == User.Field.email.rawValue {
                     view.showFieldError(error.message, field: .email)
                 } else {
                     router.showError(with: error.message)

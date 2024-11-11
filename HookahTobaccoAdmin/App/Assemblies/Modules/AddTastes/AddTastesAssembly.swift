@@ -9,6 +9,7 @@
 
 import Foundation
 import Swinject
+import HookahTobaccoCore
 
 struct AddTastesDependency {
     var appRouter: AppRouterProtocol
@@ -27,10 +28,10 @@ class AddTastesAssembly: Assembly {
 
         container.register(AddTastesInteractorInputProtocol.self) { (resolver, dependency: AddTastesDependency) in
             // here resolve dependency injection
-            let getDataManager = resolver.resolve(GetDataNetworkingServiceProtocol.self)!
+            let tasteRepo = resolver.resolve(TasteRepoProtocol.self)!
 
             return AddTastesInteractor(selectedTastes: dependency.selectedTastes,
-                                       getDataManager: getDataManager)
+                                       tasteRepo: tasteRepo)
         }
 
         container.register(AddTastesViewOutputProtocol.self) { _ in

@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import HookahTobaccoCore
+import HookahTobaccoSwiftUICore
 
 struct DetailManufacturerTobaccoLineViewModel: Identifiable {
     let id: Int
@@ -64,7 +66,7 @@ struct DetailManufacturerTobaccoLineView<Content: View>: View {
             tobacco,
             isShowWantBuyButton: false,
             favoriteAction: {
-                print(tobacco.uid)
+                print(tobacco.id)
             }
         )
     }

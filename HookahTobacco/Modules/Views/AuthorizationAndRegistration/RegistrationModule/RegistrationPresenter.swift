@@ -8,6 +8,7 @@
 //
 
 import Foundation
+import HookahTobaccoCore
 
 final class RegistrationPresenter {
     // MARK: - Public properties
@@ -30,18 +31,17 @@ extension RegistrationPresenter: RegistrationInteractorOutputProtocol {
         view.hideLoading()
         let user = RegistrationUser(username: username,
                                     email: email,
-                                    password: password,
-                                    repeatPassword: password)
+                                    password: password)
         router.showProfileRegistrationView(user: user)
     }
 
-    func receivedError(_ error: HTError) {
+    func receivedError(_ error: DomainError) {
         view.hideLoading()
-        if case let .apiError(apiErrors) = error {
+        if case let .error(apiErrors) = error {
             apiErrors.forEach { error in
-                if error.fieldName == User.CodingKeys.username.rawValue {
+                if error.fieldName == User.Field.username.rawValue {
                     view.showFieldError(error.message, field: .username)
-                } else if error.fieldName == User.CodingKeys.email.rawValue {
+                } else if error.fieldName == User.Field.email.rawValue {
                     view.showFieldError(error.message, field: .email)
                 } else if error.fieldName == "password" {
                     view.showFieldError(error.message, field: .password)

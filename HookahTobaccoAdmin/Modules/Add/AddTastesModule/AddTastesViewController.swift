@@ -9,10 +9,11 @@
 
 import UIKit
 import SnapKit
+import HookahTobaccoUIKitCore
 
 protocol AddTastesViewInputProtocol: AnyObject {
     func getTableView() -> UITableView
-    func getSelectCollectionView() -> CustomCollectionView
+    func getSelectCollectionView() -> ChipsCollectionView
 }
 
 protocol AddTastesViewOutputProtocol: AnyObject {
@@ -29,7 +30,7 @@ class AddTastesViewController: UIViewController {
 
     // MARK: - UI properties
     private let searchBar = UISearchBar()
-    private let tasteCollectionView = CustomCollectionView()
+    private let tasteCollectionView = ChipsCollectionView()
     private let tableView = UITableView()
     private let addButton = IconButton()
 
@@ -113,7 +114,7 @@ extension AddTastesViewController: AddTastesViewInputProtocol {
         tableView
     }
 
-    func getSelectCollectionView() -> CustomCollectionView {
+    func getSelectCollectionView() -> ChipsCollectionView {
         tasteCollectionView
     }
 }

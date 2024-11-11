@@ -9,6 +9,7 @@
 
 import Foundation
 import TableKit
+import HookahTobaccoCore
 
 final class ProfilePresenter {
     // MARK: - Public properties
@@ -20,7 +21,7 @@ final class ProfilePresenter {
     private var tableDirector: TableDirector!
 
     // MARK: - Private methods
-    private func setupContentView(_ user: UserProtocol) {
+    private func setupContentView(_ user: User) {
         tableDirector.clear()
         var rows: [Row] = []
 
@@ -36,7 +37,7 @@ final class ProfilePresenter {
 
         let editProfileItem = ButtonProfileTableViewCellItem(text: "Изменить данные") { [weak self] in
             guard let self else { return }
-            let data = ProfileEditDataModule(isRegistration: false, user: RegistrationUser(user), output: self)
+            let data = ProfileEditDataModule(isRegistration: false, user: RegistrationUser(user: user), output: self)
             self.router.appRouter.presentViewModally(module: ProfileEditModule.self, moduleData: data)
         }
         let editProfileRow = TableRow<ButtonProfileTableViewCell>(item: editProfileItem)
@@ -82,12 +83,12 @@ final class ProfilePresenter {
 
 // MARK: - InteractorOutputProtocol implementation
 extension ProfilePresenter: ProfileInteractorOutputProtocol {
-    func receivedError(_ error: HTError) {
+    func receivedError(_ error: DomainError) {
         view.hideLoading()
         router.showError(with: error.message)
     }
 
-    func receivedProfileInfoSuccess(_ user: UserProtocol) {
+    func receivedProfileInfoSuccess(_ user: User) {
         view.hideLoading()
         setupContentView(user)
     }
@@ -115,7 +116,7 @@ extension ProfilePresenter: ProfileViewOutputProtocol {
 }
 
 extension ProfilePresenter: ProfileEditOutputModule {
-    func receivedUpdateUser(_ user: UserProtocol) {
+    func receivedUpdateUser(_ user: User) {
         setupContentView(user)
     }
 }
