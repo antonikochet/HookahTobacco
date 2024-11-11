@@ -1,21 +1,22 @@
 //
 //  AddTextFieldView.swift
-//  HookahTobacco
+//  
 //
 //  Created by антон кочетков on 15.09.2022.
 //
 
 import UIKit
 import SnapKit
+import HookahTobaccoResources
 
-class AddTextFieldView: UIView {
+public final class AddTextFieldView: UIView {
     // MARK: - Public properties
-    var text: String? {
+    public var text: String? {
         get { textField.text }
         set { textField.text = newValue }
     }
 
-    override var intrinsicContentSize: CGSize {
+    public override var intrinsicContentSize: CGSize {
         CGSize(width: .greatestFiniteMagnitude,
                height: (
                 titleLabel.intrinsicContentSize.height +
@@ -35,12 +36,12 @@ class AddTextFieldView: UIView {
     private let errorLabel = UILabel()
 
     // MARK: - Init
-    init() {
+    public init() {
         super.init(frame: .zero)
         setupUI()
     }
 
-    required init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -59,8 +60,8 @@ class AddTextFieldView: UIView {
         }
     }
     private func setupTextField() {
-        textField.textColor = R.color.primaryBlack()
-        textField.tintColor = R.color.primaryBlack()
+        textField.textColor = ResourceManager.provider.color(forKey: .primaryBlack).colorUIKit
+        textField.tintColor = ResourceManager.provider.color(forKey: .primaryBlack).colorUIKit
         textField.font = UIFont.appFont(size: 16.0, weight: .medium)
         textField.clearButtonMode = .whileEditing
         textField.textAlignment = .left
@@ -69,7 +70,7 @@ class AddTextFieldView: UIView {
         textField.autocapitalizationType = .none
         textField.createPaddingView(LayoutValues.textFieldPadding, in: .left, with: .always)
         textField.createPaddingView(LayoutValues.textFieldPadding, in: .right, with: .always)
-        textField.backgroundColor = R.color.inputBackground()
+        textField.backgroundColor = ResourceManager.provider.color(forKey: .inputBackground).colorUIKit
         textField.layer.cornerRadius = 8.0
         textField.clipsToBounds = true
         addSubview(textField)
@@ -81,7 +82,7 @@ class AddTextFieldView: UIView {
     }
     private func setupErrorLabel() {
         errorLabel.font = UIFont.appFont(size: 14.0, weight: .medium)
-        errorLabel.textColor = R.color.primaryRed()
+        errorLabel.textColor = ResourceManager.provider.color(forKey: .primaryRed).colorUIKit
         errorLabel.numberOfLines = 0
         errorLabel.textAlignment = .left
         errorLabel.isHidden = true
@@ -94,53 +95,53 @@ class AddTextFieldView: UIView {
     }
 
     // MARK: - Public methods
-    func setupView(textLabel: String, placeholder: String, delegate: UITextFieldDelegate? = nil) {
+    public func setupView(textLabel: String, placeholder: String, delegate: UITextFieldDelegate? = nil) {
         titleLabel.text = textLabel
         textField.attributedPlaceholder = NSAttributedString(
             string: placeholder,
-            attributes: [.foregroundColor: R.color.secondarySubtitle() ?? .systemGray5]
+            attributes: [.foregroundColor: ResourceManager.provider.color(forKey: .secondarySubtitle).colorUIKit ?? .systemGray5]
         )
         textField.delegate = delegate
     }
 
-    func setError(message: String?) {
+    public func setError(message: String?) {
         errorLabel.text = message
         errorLabel.isHidden = message == nil
-        textField.textColor = message == nil ? R.color.primaryBlack() : R.color.primaryRed()
+        textField.textColor = ResourceManager.provider.color(forKey: message == nil ? .primaryBlack : .primaryRed).colorUIKit
     }
 
-    func isMyTextField(_ textField: UITextField) -> Bool {
+    public func isMyTextField(_ textField: UITextField) -> Bool {
         textField == self.textField
     }
 
     @discardableResult
-    func becomeFirstResponderTextField() -> Bool {
+    public func becomeFirstResponderTextField() -> Bool {
         textField.becomeFirstResponder()
     }
 
-    func enableTextField() {
+    public func enableTextField() {
         textField.isEnabled = true
         textField.alpha = 1.0
     }
 
-    func disableTextField() {
+    public func disableTextField() {
         textField.isEnabled = false
         textField.alpha = 0.5
     }
 
-    func setTextContentType(_ textContentType: UITextContentType) {
+    public func setTextContentType(_ textContentType: UITextContentType) {
         textField.textContentType = textContentType
     }
 
-    func setTextAlignmentTextField(_ textAlignment: NSTextAlignment) {
+    public func setTextAlignmentTextField(_ textAlignment: NSTextAlignment) {
         textField.textAlignment = textAlignment
     }
 
-    func setKeyboardType(_ keyboardType: UIKeyboardType) {
+    public func setKeyboardType(_ keyboardType: UIKeyboardType) {
         textField.keyboardType = keyboardType
     }
 
-    func setIsSecureTextEntry(_ isSecureTextEntry: Bool) {
+    public func setIsSecureTextEntry(_ isSecureTextEntry: Bool) {
         textField.isSecureTextEntry = isSecureTextEntry
     }
 

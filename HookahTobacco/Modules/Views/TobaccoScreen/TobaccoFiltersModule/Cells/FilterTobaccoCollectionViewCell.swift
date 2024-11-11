@@ -8,6 +8,7 @@
 import UIKit
 import IVCollectionKit
 import SnapKit
+import HookahTobaccoUIKitCore
 
 struct FilterTobaccoCollectionViewCellItem {
     let label: String

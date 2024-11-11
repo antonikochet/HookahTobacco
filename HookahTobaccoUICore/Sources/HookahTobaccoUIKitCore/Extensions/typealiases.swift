@@ -6,4 +6,4 @@
 //
 
 public typealias VoidBlock = () -> Void
-
+public typealias BlockWithParam<T> = (T) -> Void

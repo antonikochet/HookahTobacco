@@ -1,36 +1,37 @@
 //
 //  AddSwitchView.swift
-//  HookahTobacco
+//
 //
 //  Created by антон кочетков on 02.12.2022.
 //
 
 import UIKit
 import SnapKit
+import HookahTobaccoResources
 
-class AddSwitchView: UIView {
+public final class AddSwitchView: UIView {
     // MARK: - Public properties
-    var heightView: CGFloat {
+    public var heightView: CGFloat {
         switchView.frame.height
     }
 
-    var isOn: Bool {
+    public var isOn: Bool {
         switchView.isOn
     }
 
-    var didChangeSwitch: ((Bool) -> Void)?
+    public var didChangeSwitch: ((Bool) -> Void)?
 
     // MARK: - Private UI
     private let label = UILabel()
     private let switchView = UISwitch()
 
     // MARK: - Initializers
-    init() {
+    public init() {
         super.init(frame: .zero)
         setupSubviews()
     }
 
-    required init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -48,8 +49,8 @@ class AddSwitchView: UIView {
         }
 
         switchView.isOn = false
-        switchView.onTintColor = R.color.primaryGreen()
-        switchView.tintColor = R.color.fourthBackground()
+        switchView.onTintColor = ResourceManager.provider.color(forKey: .primaryGreen).colorUIKit
+        switchView.tintColor = ResourceManager.provider.color(forKey: .fourthBackground).colorUIKit
         switchView.addTarget(self, action: #selector(didChangeSwitchValue), for: .valueChanged)
         switchView.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview()
@@ -59,7 +60,7 @@ class AddSwitchView: UIView {
     }
 
     // MARK: - Public methods
-    func setupView(textLabel: String, isOn: Bool) {
+    public func setupView(textLabel: String, isOn: Bool) {
         label.text = textLabel
         switchView.isOn = isOn
     }

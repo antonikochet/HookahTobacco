@@ -1,21 +1,22 @@
 //
 //  AddTextView.swift
-//  HookahTobacco
+//
 //
 //  Created by антон кочетков on 28.10.2022.
 //
 
 import UIKit
 import SnapKit
+import HookahTobaccoResources
 
-class AddTextView: UIView {
+public final class AddTextView: UIView {
     // MARK: - Public properties
-    var text: String! {
+    public var text: String! {
         get { textView.text }
         set { textView.text = newValue }
     }
 
-    var heightTextView: CGFloat = 160 {
+    public var heightTextView: CGFloat = 160 {
         didSet {
             textView.snp.updateConstraints { make in
                 make.height.equalTo(heightTextView)
@@ -23,7 +24,7 @@ class AddTextView: UIView {
         }
     }
 
-    override var intrinsicContentSize: CGSize {
+    public override var intrinsicContentSize: CGSize {
         CGSize(width: .greatestFiniteMagnitude,
                height: (
                 titleLabel.intrinsicContentSize.height +
@@ -40,12 +41,12 @@ class AddTextView: UIView {
     private let errorLabel = UILabel()
 
     // MARK: - Init
-    init() {
+    public init() {
         super.init(frame: .zero)
         setupUI()
     }
 
-    required init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -64,9 +65,9 @@ class AddTextView: UIView {
         }
     }
     private func setupTextView() {
-        textView.backgroundColor = R.color.inputBackground()
-        textView.textColor = R.color.primaryBlack()
-        textView.tintColor = R.color.primaryBlack()
+        textView.backgroundColor = ResourceManager.provider.color(forKey: .inputBackground).colorUIKit
+        textView.textColor = ResourceManager.provider.color(forKey: .primaryBlack).colorUIKit
+        textView.tintColor = ResourceManager.provider.color(forKey: .primaryBlack).colorUIKit
         textView.font = UIFont.appFont(size: 16, weight: .regular)
         textView.layer.cornerRadius = 10
         textView.textContainerInset = UIEdgeInsets(horizontal: 8, vertical: 4)
@@ -79,7 +80,7 @@ class AddTextView: UIView {
     }
     private func setupErrorLabel() {
         errorLabel.font = UIFont.appFont(size: 14.0, weight: .medium)
-        errorLabel.textColor = R.color.primaryRed()
+        errorLabel.textColor = ResourceManager.provider.color(forKey: .primaryRed).colorUIKit
         errorLabel.numberOfLines = 0
         errorLabel.textAlignment = .left
         errorLabel.isHidden = true
@@ -92,17 +93,17 @@ class AddTextView: UIView {
     }
 
     // MARK: public methods
-    func setupView(textLabel: String, delegate: UITextViewDelegate? = nil) {
+    public func setupView(textLabel: String, delegate: UITextViewDelegate? = nil) {
         titleLabel.text = textLabel
         textView.delegate = delegate
     }
 
     @discardableResult
-    override func becomeFirstResponder() -> Bool {
+    public override func becomeFirstResponder() -> Bool {
         textView.becomeFirstResponder()
     }
 
-    func setError(message: String?) {
+    public func setError(message: String?) {
         errorLabel.text = message
         errorLabel.isHidden = message == nil
     }

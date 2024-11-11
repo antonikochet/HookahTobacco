@@ -8,6 +8,7 @@
 public enum ImageKeys {
     case notFound
     case close
+    case add
 }
 
 public enum ColorKeys {
@@ -31,6 +32,8 @@ public enum ColorKeys {
     case secondaryPurple
     // MARK: - Red
     case primaryRed
+    // MARK: - Green
+    case primaryGreen
 }
 
 public enum LocalizationKeys {

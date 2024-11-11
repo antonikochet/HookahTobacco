@@ -37,6 +37,8 @@ struct RSwiftResourcesProvider: ResourceProvider {
             R.image.notFound
         case .close:
             R.image.close
+        case .add:
+            R.image.add
         }
     }
     
@@ -68,6 +70,8 @@ struct RSwiftResourcesProvider: ResourceProvider {
             R.color.secondaryPurple
         case .primaryRed:
             R.color.primaryRed
+        case .primaryGreen:
+            R.color.primaryGreen
         }
     }
 }

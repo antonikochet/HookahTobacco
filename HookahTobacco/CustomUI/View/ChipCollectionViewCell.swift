@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import IVCollectionKit
+import HookahTobaccoUIKitCore
 
 struct ChipCollectionCellViewModel {
     let label: String

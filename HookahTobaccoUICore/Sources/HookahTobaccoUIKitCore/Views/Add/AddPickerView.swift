@@ -1,39 +1,39 @@
 //
 //  AddPickerView.swift
-//  HookahTobacco
+//  
 //
 //  Created by антон кочетков on 28.10.2022.
 //
 
 import UIKit
 import SnapKit
-import HookahTobaccoUIKitCore
+import HookahTobaccoResources
 
-protocol AddPickerViewDelegate: AnyObject {
+public protocol AddPickerViewDelegate: AnyObject {
     func receiveNumberOfRows(_ pickerView: AddPickerView) -> Int
     func receiveRow(_ pickerView: AddPickerView, by row: Int) -> String
     func didSelected(_ pickerView: AddPickerView, by row: Int)
     func receiveIndex(_ pickerView: AddPickerView, for title: String) -> Int
 }
 
-class AddPickerView: UIView {
+public class AddPickerView: UIView {
     // MARK: public properties
-    weak var delegate: AddPickerViewDelegate?
+    public weak var delegate: AddPickerViewDelegate?
 
-    var text: String? {
+    public var text: String? {
         get { textField.text }
         set { textField.text = newValue }
     }
 
-    var pickerViewHeight: CGFloat = 120
+    public var pickerViewHeight: CGFloat = 120
 
-    var addButtonAction: VoidBlock?
+    public var addButtonAction: VoidBlock?
 
     // MARK: private properties
 
     private let isAddButton: Bool
 
-    var viewHeight: CGFloat {
+    public var viewHeight: CGFloat {
         label.intrinsicContentSize.height + 4 + 34
     }
 
@@ -43,25 +43,25 @@ class AddPickerView: UIView {
     private lazy var addButton = IconButton()
 
     // MARK: init
-    init(isAddButton: Bool = false) {
+    public init(isAddButton: Bool = false) {
         self.isAddButton = isAddButton
         super.init(frame: .zero)
         setupUI()
     }
 
-    required init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: public methods
-    func setupView(text: String) {
+    public func setupView(text: String) {
         label.text = text
         snp.updateConstraints { make in
             make.height.equalTo(viewHeight)
         }
     }
 
-    func showView() {
+    public func showView() {
         pickerView.snp.updateConstraints { make in
             make.height.equalTo(pickerViewHeight)
         }
@@ -70,7 +70,7 @@ class AddPickerView: UIView {
         }
     }
 
-    func hideView() {
+    public func hideView() {
         pickerView.snp.updateConstraints { make in
             make.height.equalTo(0)
         }
@@ -102,8 +102,8 @@ class AddPickerView: UIView {
     private func setupTextField() {
         textField.borderStyle = .roundedRect
         textField.textAlignment = .center
-        textField.backgroundColor = R.color.inputBackground()
-        textField.textColor = R.color.primaryBlack()
+        textField.backgroundColor = ResourceManager.provider.color(forKey: .inputBackground).colorUIKit
+        textField.textColor = ResourceManager.provider.color(forKey: .primaryBlack).colorUIKit
         addSubview(textField)
         textField.delegate = self
         textField.snp.makeConstraints { make in
@@ -118,7 +118,7 @@ class AddPickerView: UIView {
         addButton.action = { [weak self] in
             self?.addButtonAction?()
         }
-        addButton.image = R.image.add()
+        addButton.image = ResourceManager.provider.image(forKey: .add).imageUIKit
         addSubview(addButton)
         addButton.snp.makeConstraints { make in
             make.leading.equalTo(textField.snp.trailing).offset(8)
@@ -151,7 +151,7 @@ class AddPickerView: UIView {
 }
 
 extension AddPickerView: UITextFieldDelegate {
-    func textFieldDidBeginEditing(_ textField: UITextField) {
+    public func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == self.textField,
            delegate?.receiveNumberOfRows(self) ?? 0 > 1 {
             showView()
@@ -162,21 +162,21 @@ extension AddPickerView: UITextFieldDelegate {
 }
 
 extension AddPickerView: UIPickerViewDataSource {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+    public func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
 
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return delegate?.receiveNumberOfRows(self) ?? 0
     }
 }
 
 extension AddPickerView: UIPickerViewDelegate {
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    public func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return delegate?.receiveRow(self, by: row)
     }
 
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         delegate?.didSelected(self, by: row)
         text = delegate?.receiveRow(self, by: row)
         hideView()

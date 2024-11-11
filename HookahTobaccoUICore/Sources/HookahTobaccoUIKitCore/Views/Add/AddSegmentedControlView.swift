@@ -1,38 +1,41 @@
 //
-//  AddMultiSegmentedControlView.swift
-//  HookahTobacco
+//  AddSegmentedControlView.swift
+//  
 //
-//  Created by антон кочетков on 03.12.2022.
+//  Created by антон кочетков on 01.12.2022.
 //
 
 import UIKit
-import MultiSelectSegmentedControl
 import SnapKit
+import HookahTobaccoResources
 
-class AddMultiSegmentedControlView: UIView {
+public final class AddSegmentedControlView: UIView {
     // MARK: - Public properties
-    var selectedIndex: [Int] {
+    public var didTouchSegmentedControl: BlockWithParam<Int>?
+
+    public var selectedIndex: Int {
         get {
-            Array(segmentedControl.selectedSegmentIndexes)
+            segmentedControl.selectedSegmentIndex
         }
         set {
-            segmentedControl.selectedSegmentIndexes = IndexSet(newValue)
+            segmentedControl.selectedSegmentIndex = newValue
         }
     }
 
     // MARK: - Provate properties
+    private let topMargin: CGFloat = 8.0
 
     // MARK: - Private UI
     private let label = UILabel()
-    private let segmentedControl = MultiSelectSegmentedControl()
+    private let segmentedControl = UISegmentedControl()
 
     // MARK: - Initializers
-    init() {
+    public init() {
         super.init(frame: .zero)
         setupSubviews()
     }
 
-    required init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -46,30 +49,24 @@ class AddMultiSegmentedControlView: UIView {
             make.top.leading.trailing.equalToSuperview()
         }
 
-        segmentedControl.selectedBackgroundColor = R.color.primaryPurple()
-        segmentedControl.tintColor = R.color.primaryTitle()
+        segmentedControl.addTarget(self, action: #selector(didTouchSegment), for: .valueChanged)
         segmentedControl.snp.makeConstraints { make in
             make.top.equalTo(label.snp.bottom).offset(8)
-            make.leading.trailing.bottom.equalToSuperview()
+            make.leading.trailing.bottom.equalToSuperview().priority(999)
         }
     }
 
+    @objc private func didTouchSegment() {
+        didTouchSegmentedControl?(segmentedControl.selectedSegmentIndex)
+    }
+
     // MARK: - Public methods
-    func setupView(textLabel: String, segmentTitles: [String]) {
+    public func setupView(textLabel: String, segmentTitles: [String]) {
         label.text = textLabel
         segmentedControl.removeAllSegments()
         segmentTitles.enumerated().forEach { index, title in
             segmentedControl.insertSegment(withTitle: title, at: index, animated: true)
         }
         segmentedControl.selectedSegmentIndex = -1
-    }
-
-    func showView() {
-        isHidden = false
-    }
-
-    func hideView() {
-        segmentedControl.selectedSegmentIndexes = []
-        isHidden = true
     }
 }

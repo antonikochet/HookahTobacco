@@ -26,6 +26,12 @@ extension DomainError {
     }
 }
 
+extension DomainError: LocalizedError {
+    public var errorDescription: String? {
+        return self.message
+    }
+}
+
 extension DomainError: Equatable {
     public static func == (lhs: DomainError, rhs: DomainError) -> Bool {
         switch (lhs, rhs) {
