@@ -1,17 +1,21 @@
 //
 //  ViewDidLoadModifier.swift
-//  HookahTobacco
+//
 //
 //  Created by Антон Кочетков on 08.07.2024.
 //
 
 import SwiftUI
 
-struct ViewDidLoadModifier: ViewModifier {
+public struct ViewDidLoadModifier: ViewModifier {
     @State private var viewDidLoad = false
     let action: VoidBlock?
     
-    func body(content: Content) -> some View {
+    public init(action: VoidBlock?) {
+        self.action = action
+    }
+    
+    public func body(content: Content) -> some View {
         content
             .onAppear {
                 if viewDidLoad == false {
@@ -23,7 +27,7 @@ struct ViewDidLoadModifier: ViewModifier {
 }
 
 extension View {
-    func onViewDidLoad(perform action: VoidBlock? = nil) -> some View {
+    public func onViewDidLoad(perform action: VoidBlock? = nil) -> some View {
         modifier(ViewDidLoadModifier(action: action))
     }
 }

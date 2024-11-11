@@ -1,22 +1,28 @@
 //
 //  ImageButtonPickerView.swift
-//  HookahTobacco
+//  
 //
 //  Created by антон кочетков on 09.11.2022.
 //
 
 import UIKit
 import SnapKit
-import HookahTobaccoUIKitCore
+import HookahTobaccoResources
 
-class ImageButtonPickerView: UIView {
+public protocol ImagePickerViewDelegate: AnyObject {
+    func present(_ viewController: UIViewController)
+    func didSelectedImage(by fileURL: URL)
+    func didCancel()
+}
+
+public class ImageButtonPickerView: UIView {
     // MARK: - Public properties
-    weak var delegate: ImagePickerViewDelegate?
+    public weak var delegate: ImagePickerViewDelegate?
 
-    var image: UIImage? {
+    public var image: UIImage? {
         didSet {
             imageView.image = image
-            imageView.backgroundColor = image != nil ? .clear : R.color.secondarySubtitle()
+            imageView.backgroundColor = image != nil ? .clear : ResourceManager.provider.color(forKey: .secondarySubtitle).colorUIKit
             removeButton.isHidden = image == nil
         }
     }
@@ -26,12 +32,12 @@ class ImageButtonPickerView: UIView {
     private let removeButton = IconButton()
 
     // MARK: - Initializers
-    init() {
+    public init() {
         super.init(frame: .zero)
         setupUI()
     }
 
-    required init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupUI()
     }
@@ -42,7 +48,7 @@ class ImageButtonPickerView: UIView {
         setupRemoveButton()
     }
     private func setupImageView() {
-        imageView.backgroundColor = R.color.inputBackground()
+        imageView.backgroundColor = ResourceManager.provider.color(forKey: .inputBackground).colorUIKit
         imageView.contentMode = .scaleAspectFit
         imageView.layer.cornerRadius = 8.0
         imageView.clipsToBounds = true
@@ -61,7 +67,7 @@ class ImageButtonPickerView: UIView {
         }
         removeButton.size = 16.0
         removeButton.imageSize = 16.0
-        removeButton.image = R.image.close()
+        removeButton.image = ResourceManager.provider.image(forKey: .close).imageUIKit
         removeButton.isHidden = true
         removeButton.createCornerRadius()
         addSubview(removeButton)
@@ -80,7 +86,7 @@ class ImageButtonPickerView: UIView {
 
 // MARK: - UIImagePickerControllerDelegate implementation
 extension ImageButtonPickerView: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
-    func imagePickerController(
+    public func imagePickerController(
         _ picker: UIImagePickerController,
         didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
     ) {
@@ -93,7 +99,7 @@ extension ImageButtonPickerView: UIImagePickerControllerDelegate & UINavigationC
         }
     }
 
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+    public func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true) {
             self.delegate?.didCancel()
         }

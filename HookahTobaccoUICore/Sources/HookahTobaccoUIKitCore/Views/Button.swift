@@ -1,16 +1,16 @@
 //
 //  Button.swift
-//  HookahTobacco
+//
 //
 //  Created by Anton Kochetkov on 11.09.2023.
 //
 
 import UIKit
 import SnapKit
-import HookahTobaccoUIKitCore
+import HookahTobaccoResources
 
 extension Button {
-    enum Style {
+    public enum Style {
         case primary
         case secondary
         case third
@@ -22,27 +22,27 @@ extension Button {
             case .primary, .secondary, .third, .stroke:
                 return .clear
             case .fill:
-                return R.color.primaryPurple()
+                return ResourceManager.provider.color(forKey: .primaryPurple).colorUIKit
             }
         }
 
         var tintColor: UIColor? {
             switch self {
             case .primary, .stroke:
-                return R.color.primarySubtitle()
+                return ResourceManager.provider.color(forKey: .primarySubtitle).colorUIKit
             case .secondary:
-                return R.color.secondarySubtitle()
+                return ResourceManager.provider.color(forKey: .secondarySubtitle).colorUIKit
             case .third:
-                return R.color.primaryPurple()
+                return ResourceManager.provider.color(forKey: .primaryPurple).colorUIKit
             case .fill:
-                return R.color.primaryWhite()
+                return ResourceManager.provider.color(forKey: .primaryWhite).colorUIKit
             }
         }
 
         var borderColor: CGColor? {
             switch self {
             case .stroke:
-                return R.color.primaryPurple()?.cgColor
+                return ResourceManager.provider.color(forKey: .primaryPurple).colorUIKit?.cgColor
             default:
                 return nil
             }
@@ -59,18 +59,18 @@ extension Button {
     }
 }
 
-final class Button: UIView {
+public final class Button: UIView {
 
     // MARK: - Public properties
-    var action: VoidBlock?
+    public var action: VoidBlock?
 
-    var isEnabled: Bool = true {
+    public var isEnabled: Bool = true {
         didSet {
             alpha = isEnabled ? 1.0 : 0.5
         }
     }
 
-    override var intrinsicContentSize: CGSize {
+    public override var intrinsicContentSize: CGSize {
         stackView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize) + LayoutValues.edgesStackView
     }
 
@@ -83,13 +83,13 @@ final class Button: UIView {
     private let labelView = UILabel()
 
     // MARK: - Init
-    init(style: Style) {
+    public init(style: Style) {
         self.style = style
         super.init(frame: .zero)
         setupUI()
     }
 
-    required init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -131,17 +131,17 @@ final class Button: UIView {
     }
 
     // MARK: - Public methods
-    func setStyle(_ style: Style) {
+    public func setStyle(_ style: Style) {
         self.style = style
         setupStyle()
     }
 
-    func setTitle(_ title: String?) {
+    public func setTitle(_ title: String?) {
         labelView.text = title
         labelView.isHidden = title == nil
     }
 
-    func setImage(_ image: UIImage?, imageSize: CGFloat? = nil, isUseTintColor: Bool = false) {
+    public func setImage(_ image: UIImage?, imageSize: CGFloat? = nil, isUseTintColor: Bool = false) {
         iconView.image = image
         iconView.isHidden = image == nil
         if let imageSize {

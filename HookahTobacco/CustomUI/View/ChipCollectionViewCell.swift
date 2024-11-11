@@ -1,5 +1,5 @@
 //
-//  TasteCollectionViewCell.swift
+//  ChipCollectionViewCell.swift
 //  HookahTobacco
 //
 //  Created by антон кочетков on 13.11.2022.
@@ -9,11 +9,11 @@ import UIKit
 import SnapKit
 import IVCollectionKit
 
-struct TasteCollectionCellViewModel {
+struct ChipCollectionCellViewModel {
     let label: String
 }
 
-class TasteCollectionViewCell: UICollectionViewCell, ConfigurableCollectionItem {
+class ChipCollectionViewCell: UICollectionViewCell, ConfigurableCollectionItem {
 
     // MARK: - Private UI
     private let tasteLabel: UILabel = {
@@ -45,11 +45,11 @@ class TasteCollectionViewCell: UICollectionViewCell, ConfigurableCollectionItem 
         contentView.layer.cornerRadius = LayoutValues.cornerRadiusCell
     }
 
-    func configure(item: TasteCollectionCellViewModel) {
+    func configure(item: ChipCollectionCellViewModel) {
         tasteLabel.text = item.label
     }
 
-    static func estimatedSize(item: TasteCollectionCellViewModel,
+    static func estimatedSize(item: ChipCollectionCellViewModel,
                               boundingSize: CGSize,
                               in section: AbstractCollectionSection) -> CGSize {
         let size = item.label.sizeOfString(usingFont: Fonts.tasteLabel)

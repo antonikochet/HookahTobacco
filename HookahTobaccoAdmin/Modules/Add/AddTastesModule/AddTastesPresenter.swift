@@ -20,8 +20,8 @@ class AddTastesPresenter {
 
     // MARK: - Private properties
     private var tableDirector: CustomTableDirector?
-    private var tasteDirector: CustomCollectionDirector?
-    private var selectedTastesViewModel: [TasteCollectionCellViewModel] = []
+    private var tasteDirector: CollectionDirector?
+    private var selectedTastesViewModel: [ChipCollectionCellViewModel] = []
 
     // MARK: - Private methods
     private func createTasteTableRow(_ taste: Taste, isSelect: Bool) -> TableRow<AddTastesTableViewCell> {
@@ -38,8 +38,8 @@ class AddTastesPresenter {
             }
     }
 
-    private func createSelectedTasteViewModel(_ taste: Taste) -> TasteCollectionCellViewModel {
-        TasteCollectionCellViewModel(label: taste.taste)
+    private func createSelectedTasteViewModel(_ taste: Taste) -> ChipCollectionCellViewModel {
+        ChipCollectionCellViewModel(label: taste.taste)
     }
 
     private func setupAllTastesContent(_ tastes: [Taste], with selectedTastes: [Taste]) {
@@ -77,7 +77,7 @@ class AddTastesPresenter {
         for taste in selectedTastes {
             let item = createSelectedTasteViewModel(taste)
             selectedTastesViewModel.append(item)
-            let row = CollectionItem<TasteCollectionViewCell>(item: item)
+            let row = CollectionItem<ChipCollectionViewCell>(item: item)
             rows.append(row)
         }
 
@@ -133,7 +133,7 @@ extension AddTastesPresenter: AddTastesViewOutputProtocol {
         let tableView = view.getTableView()
         tableDirector = CustomTableDirector(tableView: tableView)
         let collectionView = view.getSelectCollectionView()
-        tasteDirector = CustomCollectionDirector(collectionView: collectionView)
+        tasteDirector = CollectionDirector(collectionView: collectionView)
         interactor.receiveStartingDataView()
     }
 

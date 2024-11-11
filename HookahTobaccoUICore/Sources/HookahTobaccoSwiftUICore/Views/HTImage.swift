@@ -1,24 +1,23 @@
 //
 //  HTImage.swift
-//  HookahTobacco
+//
 //
 //  Created by Антон Кочетков on 05.07.2024.
 //
 
 import SwiftUI
-import HookahTobaccoCore
 
-struct HTImage: View {
+public struct HTImage: View {
     
     let imageURL: String
     let height: CGFloat?
     
-    init(imageURL: String, height: CGFloat? = nil) {
+    public init(imageURL: String, height: CGFloat? = nil) {
         self.imageURL = imageURL
         self.height = height
     }
     
-    var body: some View {
+    public var body: some View {
         AsyncImage(url: URL(string: imageURL)) { phase in
             switch phase {
             case .empty:
@@ -43,6 +42,6 @@ struct HTImage: View {
 }
 
 #Preview {
-    HTImage(imageURL: Tobacco.mock().imageURL)
+    HTImage(imageURL: "URL")
         .padding()
 }

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import HookahTobaccoCore
+import HookahTobaccoSwiftUICore
 
 struct ManufacturerCellViewModel {
     let id: Int

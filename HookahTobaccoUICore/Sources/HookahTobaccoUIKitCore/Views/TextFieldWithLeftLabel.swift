@@ -1,15 +1,16 @@
 //
 //  TextFieldWithLeftLabel.swift
-//  HookahTobacco
+//
 //
 //  Created by Anton Kochetkov on 11.09.2023.
 //
 
 import UIKit
 import SnapKit
+import HookahTobaccoResources
 
 extension TextFieldWithLeftLabel {
-    enum Rounding {
+    public enum Rounding {
         case up
         case down
 
@@ -22,7 +23,7 @@ extension TextFieldWithLeftLabel {
             }
         }
     }
-    enum TextFieldType {
+    public enum TextFieldType {
         case text
         case email
         case password
@@ -36,10 +37,10 @@ extension TextFieldWithLeftLabel {
     }
 }
 
-final class TextFieldWithLeftLabel: UIView {
+public final class TextFieldWithLeftLabel: UIView {
 
     // MARK: - Public properties
-    var text: String? {
+    public var text: String? {
         get {
             textField.text
         }
@@ -48,12 +49,12 @@ final class TextFieldWithLeftLabel: UIView {
         }
     }
 
-    var didBeginEditing: VoidBlock?
-    var didEndEditing: VoidBlock?
-    var shouldBeginEditing: (() -> Bool)?
-    var shouldEndEditing: (() -> Bool)?
+    public var didBeginEditing: VoidBlock?
+    public var didEndEditing: VoidBlock?
+    public var shouldBeginEditing: (() -> Bool)?
+    public var shouldEndEditing: (() -> Bool)?
 
-    override var intrinsicContentSize: CGSize {
+    public override var intrinsicContentSize: CGSize {
         return CGSize(width: .greatestFiniteMagnitude,
                       height: (LayoutValues.textFieldHeight +
                                (errorLabel.isHidden ? 0 : LayoutValues.errorLabelTop) +
@@ -70,14 +71,14 @@ final class TextFieldWithLeftLabel: UIView {
     private let errorLabel = UILabel()
 
     // MARK: - Init
-    init(rounding: Rounding, type: TextFieldType) {
+    public init(rounding: Rounding, type: TextFieldType) {
         self.rounding = rounding
         self.type = type
         super.init(frame: .zero)
         setupUI()
     }
 
-    required init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -93,14 +94,14 @@ final class TextFieldWithLeftLabel: UIView {
     }
     private func setupTitleLabel() {
         titleLabel.font = UIFont.appFont(size: 16.0, weight: .medium)
-        titleLabel.textColor = R.color.secondarySubtitle()
+        titleLabel.textColor = ResourceManager.provider.color(forKey: .secondarySubtitle).colorUIKit
         titleLabel.numberOfLines = 1
         titleLabel.textAlignment = .left
     }
     private func setupTextField() {
-        textField.textColor = R.color.primaryBlack()
-        textField.tintColor = R.color.primaryBlack()
-        textField.backgroundColor = R.color.inputBackground()
+        textField.textColor = ResourceManager.provider.color(forKey: .primaryBlack).colorUIKit 
+        textField.tintColor = ResourceManager.provider.color(forKey: .primaryBlack).colorUIKit
+        textField.backgroundColor = ResourceManager.provider.color(forKey: .inputBackground).colorUIKit
         textField.keyboardType = type.keyboardType
         textField.clearButtonMode = .whileEditing
         textField.textAlignment = .right
@@ -119,7 +120,7 @@ final class TextFieldWithLeftLabel: UIView {
     }
     private func setupErrorLabel() {
         errorLabel.font = UIFont.appFont(size: 14.0, weight: .medium)
-        errorLabel.textColor = R.color.primaryRed()
+        errorLabel.textColor = ResourceManager.provider.color(forKey: .primaryRed).colorUIKit
         errorLabel.numberOfLines = 0
         errorLabel.textAlignment = .left
         errorLabel.isHidden = true
@@ -132,18 +133,18 @@ final class TextFieldWithLeftLabel: UIView {
     }
 
     // MARK: - Public methods
-    func setupView(title: String, placeholder: String? = nil) {
+    public func setupView(title: String, placeholder: String? = nil) {
         titleLabel.text = "   \(title)"
         textField.placeholder = placeholder
     }
 
-    func setError(message: String?) {
+    public func setError(message: String?) {
         errorLabel.text = message
         errorLabel.isHidden = message == nil
-        textField.textColor = message == nil ? R.color.primaryBlack() : R.color.primaryRed()
+        textField.textColor = message == nil ? ResourceManager.provider.color(forKey: .primaryBlack).colorUIKit : ResourceManager.provider.color(forKey: .primaryRed).colorUIKit
     }
 
-    func setRounding(_ rounding: Rounding) {
+    public func setRounding(_ rounding: Rounding) {
         self.rounding = rounding
         setupRoundingTextField()
     }
@@ -161,24 +162,24 @@ final class TextFieldWithLeftLabel: UIView {
 }
 
 extension TextFieldWithLeftLabel: UITextFieldDelegate {
-    func textFieldDidBeginEditing(_ textField: UITextField) {
+    public func textFieldDidBeginEditing(_ textField: UITextField) {
         setError(message: nil)
         textField.createPaddingView(LayoutValues.textFieldPadding, in: .left, with: .always)
         textField.textAlignment = .left
         didBeginEditing?()
     }
 
-    func textFieldDidEndEditing(_ textField: UITextField) {
+    public func textFieldDidEndEditing(_ textField: UITextField) {
         textField.leftView = titleLabel
         textField.textAlignment = .right
         didEndEditing?()
     }
 
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+    public func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         return shouldEndEditing?() ?? true
     }
 
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+    public func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         return shouldBeginEditing?() ?? true
     }
 }

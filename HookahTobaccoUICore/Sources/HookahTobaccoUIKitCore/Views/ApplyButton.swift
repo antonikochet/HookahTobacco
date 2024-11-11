@@ -1,38 +1,39 @@
 //
 //  ApplyButton.swift
-//  HookahTobacco
+//
 //
 //  Created by Anton Kochetkov on 07.08.2023.
 //
 
 import UIKit
+import HookahTobaccoResources
 
-final class ApplyButton: UIButton {
+public final class ApplyButton: UIButton {
 
     // MARK: - Private properties
     private var style: Style
 
     // MARK: - Public properties
-    var action: VoidBlock?
+    public var action: VoidBlock?
 
-    override var intrinsicContentSize: CGSize {
+    public override var intrinsicContentSize: CGSize {
         CGSize(width: 300, height: 50)
     }
 
-    override var isEnabled: Bool {
+    public override var isEnabled: Bool {
         didSet {
             setbackgroundColor()
         }
     }
 
     // MARK: - Init
-    init(style: Style) {
+    public init(style: Style) {
         self.style = style
         super.init(frame: .zero)
         setup()
     }
 
-    required init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -48,7 +49,7 @@ final class ApplyButton: UIButton {
     }
 
     // MARK: - Public methods
-    func applyStyle(_ style: ApplyButton.Style) {
+    public func applyStyle(_ style: ApplyButton.Style) {
         self.style = style
         backgroundColor = style.backgroundColor
         setTitleColor(style.textColor, for: .normal)
@@ -57,7 +58,7 @@ final class ApplyButton: UIButton {
     // MARK: - Private methods
     private func setbackgroundColor() {
         if !isEnabled {
-            backgroundColor = R.color.fourthBackground()
+            backgroundColor = ResourceManager.provider.color(forKey: .fourthBackground).colorUIKit
             return
         }
 
@@ -71,25 +72,25 @@ final class ApplyButton: UIButton {
 }
 
 extension ApplyButton {
-    enum Style {
+    public enum Style {
         case primary
         case secondary
 
         var backgroundColor: UIColor? {
             switch self {
             case .primary:
-                return R.color.primaryPurple()
+                return ResourceManager.provider.color(forKey: .primaryPurple).colorUIKit
             case .secondary:
-                return R.color.secondaryPurple()
+                return ResourceManager.provider.color(forKey: .secondaryPurple).colorUIKit
             }
         }
 
         var textColor: UIColor? {
             switch self {
             case .primary:
-                return R.color.primaryWhite()
+                return ResourceManager.provider.color(forKey: .primaryWhite).colorUIKit
             case .secondary:
-                return R.color.primaryWhite()
+                return ResourceManager.provider.color(forKey: .primaryWhite).colorUIKit
             }
         }
     }

@@ -9,6 +9,7 @@
 
 import UIKit
 import SnapKit
+import HookahTobaccoUIKitCore
 
 protocol AdminMenuViewInputProtocol: AnyObject {
 }

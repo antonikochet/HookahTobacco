@@ -14,7 +14,7 @@ public protocol ImageResourceProtocol {
 }
 
 public protocol ColorResourceProtocol {
-    var colorUIKit: UIColor { get }
+    var colorUIKit: UIColor? { get }
     var colorSwiftUI: Color { get }
 }
 
@@ -38,7 +38,7 @@ internal struct MockImageResource: ImageResourceProtocol {
 }
 
 internal struct MockColorResource: ColorResourceProtocol {
-    var colorUIKit: UIColor {
+    var colorUIKit: UIColor? {
         .white
     }
     

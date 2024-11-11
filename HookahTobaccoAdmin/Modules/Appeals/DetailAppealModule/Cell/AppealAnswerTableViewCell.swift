@@ -9,6 +9,7 @@
 
 import UIKit
 import TableKit
+import HookahTobaccoUIKitCore
 
 struct AppealAnswerTableViewCellItem {
     let anwser: String

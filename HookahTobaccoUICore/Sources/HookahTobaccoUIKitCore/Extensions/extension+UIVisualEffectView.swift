@@ -1,6 +1,6 @@
 //
 //  extension+UIVisualEffectView.swift
-//  HookahTobacco
+//
 //
 //  Created by Anton Kochetkov on 07.08.2023.
 //
@@ -23,7 +23,7 @@ extension UIVisualEffectView {
             .first(where: { $0.value(forKey: "name") as? String == "gaussianBlur" })
     }
 
-    var effectBackgroundColor: UIColor? {
+    public var effectBackgroundColor: UIColor? {
         get {
             if let background = effectSubviewLayer?.backgroundColor {
                 return UIColor(cgColor: background)
@@ -36,7 +36,7 @@ extension UIVisualEffectView {
         }
     }
 
-    var blurRadius: CGFloat {
+    public var blurRadius: CGFloat {
         get {
             return blurFilter?.value(forKey: "inputRadius") as? CGFloat ?? 0
         }

@@ -14,7 +14,7 @@ import HookahTobaccoUIKitCore
 
 protocol AppealsListViewInputProtocol: ViewProtocol {
     func getTableView() -> UITableView
-    func getThemesCollectionView() -> CustomCollectionView
+    func getThemesCollectionView() -> ChipsCollectionView
     func clearStatus()
 }
 
@@ -33,7 +33,7 @@ class AppealsListViewController: BaseViewController {
     // MARK: - UI properties
     private let filterContainer = UIView()
     private let themesFilterTitle = UILabel()
-    private let themesFilterCollectionView = CustomCollectionView()
+    private let themesFilterCollectionView = ChipsCollectionView()
     private let statusSegmentedControlView = AddSegmentedControlView()
     private let applyFilterButton = Button(style: .fill)
     private let clearFilterButton = Button(style: .secondary)
@@ -176,7 +176,7 @@ extension AppealsListViewController: AppealsListViewInputProtocol {
         tableView
     }
 
-    func getThemesCollectionView() -> CustomCollectionView {
+    func getThemesCollectionView() -> ChipsCollectionView {
         themesFilterCollectionView
     }
 

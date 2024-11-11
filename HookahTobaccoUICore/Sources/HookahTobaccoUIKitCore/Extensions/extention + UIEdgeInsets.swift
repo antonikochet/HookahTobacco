@@ -8,21 +8,21 @@
 import UIKit
 
 extension UIEdgeInsets {
-    init(_ padding: CGFloat) {
+    public init(_ padding: CGFloat) {
         self.init(top: padding,
                   left: padding,
                   bottom: padding,
                   right: padding)
     }
 
-    init(left: CGFloat, right: CGFloat) {
+    public init(left: CGFloat, right: CGFloat) {
         self.init(top: 0,
                   left: left,
                   bottom: 0,
                   right: right)
     }
 
-    init(horizontal: CGFloat, vertical: CGFloat) {
+    public init(horizontal: CGFloat, vertical: CGFloat) {
         self.init(top: vertical,
                   left: horizontal,
                   bottom: vertical,

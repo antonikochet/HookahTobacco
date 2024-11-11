@@ -21,8 +21,8 @@ extension RswiftResources.ImageResource: ImageResourceProtocol {
 }
 
 extension RswiftResources.ColorResource: ColorResourceProtocol {
-    public var colorUIKit: UIColor {
-        .init()
+    public var colorUIKit: UIColor? {
+        .init(resource: self)
     }
     
     public var colorSwiftUI: Color {
@@ -35,6 +35,8 @@ struct RSwiftResourcesProvider: ResourceProvider {
         switch key {
         case .notFound:
             R.image.notFound
+        case .close:
+            R.image.close
         }
     }
     
@@ -44,6 +46,28 @@ struct RSwiftResourcesProvider: ResourceProvider {
             R.color.primaryTitle
         case .primarySubtitle:
             R.color.primarySubtitle
+        case .secondarySubtitle:
+            R.color.secondarySubtitle
+        case .primaryBackground:
+            R.color.primaryBackground
+        case .secondaryBackground:
+            R.color.secondaryBackground
+        case .thirdBackground:
+            R.color.thirdBackground
+        case .fourthBackground:
+            R.color.fourthBackground
+        case .inputBackground:
+            R.color.inputBackground
+        case .primaryWhite:
+            R.color.primaryWhite
+        case .primaryBlack:
+            R.color.primaryBlack
+        case .primaryPurple:
+            R.color.primaryPurple
+        case .secondaryPurple:
+            R.color.secondaryPurple
+        case .primaryRed:
+            R.color.primaryRed
         }
     }
 }

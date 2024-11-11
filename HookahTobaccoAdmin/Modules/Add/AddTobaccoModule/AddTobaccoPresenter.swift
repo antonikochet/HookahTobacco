@@ -19,9 +19,9 @@ class AddTobaccoPresenter {
 
     // MARK: - Private properties
     private var manufacturerSelectItems: [String] = [.dash]
-    private var tasteViewModels: [TasteCollectionCellViewModel] = []
+    private var tasteViewModels: [ChipCollectionCellViewModel] = []
     private var tobaccoLinesSelectItems: [String] = [R.string.localizable.generalAbsent()]
-    private var tasteDirector: CustomCollectionDirector?
+    private var tasteDirector: CollectionDirector?
 
     // MARK: - Private methods
     private func setupTasteCollectionView(_ selectedTaste: [Taste]) {
@@ -31,9 +31,9 @@ class AddTobaccoPresenter {
         var rows: [AbstractCollectionItem] = []
 
         for taste in selectedTaste {
-            let item = TasteCollectionCellViewModel(label: taste.taste)
+            let item = ChipCollectionCellViewModel(label: taste.taste)
             tasteViewModels.append(item)
-            let row = CollectionItem<TasteCollectionViewCell>(item: item)
+            let row = CollectionItem<ChipCollectionViewCell>(item: item)
             rows.append(row)
         }
 
@@ -191,7 +191,7 @@ extension AddTobaccoPresenter: AddTobaccoViewOutputProtocol {
 
     func viewDidLoad() {
         let tasteCollectionView = view.getTasteCollectionView()
-        tasteDirector = CustomCollectionDirector(collectionView: tasteCollectionView)
+        tasteDirector = CollectionDirector(collectionView: tasteCollectionView)
         interactor.receiveStartingDataView()
     }
 

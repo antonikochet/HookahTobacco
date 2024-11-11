@@ -8,6 +8,7 @@
 import SnapKit
 import UIKit
 import SwiftUI
+import HookahTobaccoUIKitCore
 
 // TODO: - переименовать
 struct SInfoView: UIViewRepresentable {

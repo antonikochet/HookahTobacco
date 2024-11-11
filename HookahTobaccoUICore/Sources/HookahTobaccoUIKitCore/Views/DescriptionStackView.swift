@@ -89,7 +89,7 @@ private struct LayoutValues {
 }
 private struct Colors {
     static let nameText = ResourceManager.provider.color(forKey: .primaryTitle).colorUIKit
-    static let descriptionText: UIColor = ResourceManager.provider.color(forKey: .primarySubtitle).colorUIKit
+    static let descriptionText = ResourceManager.provider.color(forKey: .primarySubtitle).colorUIKit
 }
 private struct Fonts {
     static let name = UIFont.appFont(size: 16.0, weight: .regular)
