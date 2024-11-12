@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import HookahTobaccoCore
 
 struct AlertState {
     let title: String
@@ -31,6 +32,28 @@ class BaseViewModelImpl: BaseViewModel {
     @Published var alertState: AlertState = AlertState(title: "", message: "", actions: [])
     
     @Published var infoView: InfoViewModel?
+    
+    func changeIsLoading(newValue: Bool) async {
+        await MainActor.run {
+            isLoading = newValue
+        }
+    }
+    
+    func networkRequest(
+        closure: @escaping (() async throws -> Void),
+        errorClosure: @escaping (DomainError) async -> Void
+    ) {
+        Task {
+            await self.changeIsLoading(newValue: true)
+            do {
+                try await closure()
+                await self.changeIsLoading(newValue: false)
+            } catch let error as DomainError {
+                await self.changeIsLoading(newValue: false)
+                await errorClosure(error)
+            }
+        }
+    }
 }
 
 // MARK: - Alerts

@@ -102,7 +102,7 @@ final class TobaccoListViewModelImpl: BaseViewModelImpl, TobaccoListViewModel {
         $search
             .debounce(for: .milliseconds(800), scheduler: RunLoop.main)
             .removeDuplicates()
-            .sink { [weak self] search in
+            .sink { [weak self] _ in
                 self?.startReceiveTobacco()
             }.store(in: &subscription)
     }
@@ -133,31 +133,24 @@ final class TobaccoListViewModelImpl: BaseViewModelImpl, TobaccoListViewModel {
     
     // MARK: - Private methods
     private func getTobacco() {
-        let completion: ResultBlockWithError<Page<Tobacco>, DomainError> = { [weak self] result in
+        guard page != -1 else { return }
+        networkRequest { [weak self] in
             guard let self else { return }
-            switch result {
-            case .success(let response):
-                self.handlerSuccess(response)
-            case .failure(let error):
-                self.handlerError(error)
-            }
-            self.isLoading = false
-        }
-        if page != -1 {
-            isLoading = true
-            switch input {
+            let result: Page<Tobacco>
+            switch self.input {
             case .none:
-                tobaccoRepo.fetchTobacco(
+                result = try await self.tobaccoRepo.fetchTobacco(
                     page: page,
                     search: search.isEmpty ? nil : search,
-                    filter: filters,
-                    completion: completion
-                )
+                    filter: filters)
             case .favorite:
-                favoriteTobaccoRepo.fetch(page: page, completion: completion)
+                result = try await self.favoriteTobaccoRepo.fetch(page: page)
             case .wantBuy:
-                wantBuyTobaccoRepo.fetch(page: page, completion: completion)
+                result = try await self.wantBuyTobaccoRepo.fetch(page: page)
             }
+            await self.handlerSuccess(result)
+        } errorClosure: { [weak self] error in
+            await self?.handlerError(error)
         }
     }
     
@@ -166,24 +159,22 @@ final class TobaccoListViewModelImpl: BaseViewModelImpl, TobaccoListViewModel {
         var tobacco = privateTobaccos[index]
         tobacco.isFlagsChanged = true
         tobacco.isFavorite.toggle()
-        isLoading = true
-        favoriteTobaccoRepo.update(tobaccos: [tobacco]) { [weak self] result in
+        networkRequest { [weak self] in
             guard let self else { return }
-            switch result {
-            case .success(let tobaccos):
-                guard let newTobacco = tobaccos.first else { return }
-                guard self.privateTobaccos.count > index else { return }
-                if self.input != .favorite {
-                    self.privateTobaccos[index] = newTobacco
-                    self.tobaccos[index] = createTobaccoViewModel(newTobacco)
-                } else {
+            let result = try await self.favoriteTobaccoRepo.update(tobaccos: [tobacco])
+            guard let newTobacco = result.first,
+                  self.privateTobaccos.count > index else { return }
+            await MainActor.run {
+                guard self.input != .favorite else {
                     self.privateTobaccos.remove(at: index)
                     self.tobaccos.remove(at: index)
+                    return
                 }
-            case .failure(let error):
-                self.handlerError(error)
+                self.privateTobaccos[index] = newTobacco
+                self.tobaccos[index] = self.createTobaccoViewModel(newTobacco)
             }
-            self.isLoading = false
+        } errorClosure: { [weak self] error in
+            await self?.handlerError(error)
         }
     }
     
@@ -192,36 +183,30 @@ final class TobaccoListViewModelImpl: BaseViewModelImpl, TobaccoListViewModel {
         var tobacco = privateTobaccos[index]
         tobacco.isFlagsChanged = true
         tobacco.isWantBuy.toggle()
-        isLoading = true
-        wantBuyTobaccoRepo.update(tobaccos: [tobacco]) { [weak self] result in
+        networkRequest { [weak self] in
             guard let self else { return }
-            switch result {
-            case .success(let tobaccos):
-                guard let newTobacco = tobaccos.first else { return }
-                guard self.privateTobaccos.count > index else { return }
-                if self.input != .wantBuy {
-                    self.privateTobaccos[index] = newTobacco
-                    self.tobaccos[index] = createTobaccoViewModel(newTobacco)
-                    if newTobacco.isWantBuy {
-                        // TODO: - добавить toast
-//                        self.showToast(R.string.localizable.addWantMessage())
-                    } else {
-//                        self.showToast(R.string.localizable.deleteWantMessage())
-                    }
-                } else {
+            let result = try await wantBuyTobaccoRepo.update(tobaccos: [tobacco])
+            guard let newTobacco = result.first,
+                  self.privateTobaccos.count > index else { return }
+            await MainActor.run {
+                guard self.input != .wantBuy else {
                     self.privateTobaccos.remove(at: index)
                     self.tobaccos.remove(at: index)
 //                    self.showToast(R.string.localizable.deleteWantMessage())
+                    return
                 }
-                
-            case .failure(let error):
-                self.handlerError(error)
+                self.privateTobaccos[index] = newTobacco
+                self.tobaccos[index] = self.createTobaccoViewModel(newTobacco)
+                // TODO: - добавить toast
+//                self.showToast(R.string.localizable.addWantMessage())
             }
-            self.isLoading = false
+        } errorClosure: { [weak self] error in
+            await self?.handlerError(error)
         }
     }
     
     // MARK: - Helper methods
+    @MainActor
     private func handlerSuccess(_ response: Page<Tobacco>) {
         if infoView != nil {
             infoView = nil
@@ -238,6 +223,7 @@ final class TobaccoListViewModelImpl: BaseViewModelImpl, TobaccoListViewModel {
         }
     }
     
+    @MainActor
     private func handlerError(_ error: DomainError) {
         switch error {
         case .noInternetConnection, .unexpectedError, .unknownError, .serverNotAvailable:
