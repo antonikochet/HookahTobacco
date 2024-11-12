@@ -13,7 +13,7 @@ public struct AppealDTO: Decodable {
     public let message: String
     public let contents: [AppealContentDTO]
     public let created_date: String
-    public let status: String
+    public let status: Int
     public let handled_date: String?
     public let reply_message: String
 }

@@ -92,8 +92,6 @@
 		386CB4062C385B2900D73C71 /* ObserverProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B30A1B29325FFF00204913 /* ObserverProtocol.swift */; };
 		386CB40D2C385F1400D73C71 /* ProfileAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A46B22967313B0006B787 /* ProfileAssembly.swift */; };
 		386CB40E2C385F3C00D73C71 /* ProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A46A72966F9DC0006B787 /* ProfileInteractor.swift */; };
-		386CB40F2C385F4300D73C71 /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A46A32966F9DC0006B787 /* ProfilePresenter.swift */; };
-		386CB4112C385F5000D73C71 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A46A62966F9DC0006B787 /* ProfileViewController.swift */; };
 		386CB4122C385F6700D73C71 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385505362A814A7A00855E50 /* LoadingView.swift */; };
 		386CB4132C385F7200D73C71 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385505342A814A4F00855E50 /* BaseViewController.swift */; };
 		386CB4142C385F7E00D73C71 /* ViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3855053A2A8155FA00855E50 /* ViewProtocol.swift */; };
@@ -245,6 +243,8 @@
 		387F20A02C47C9E700874808 /* DetailManufacturerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387F209D2C47C9E700874808 /* DetailManufacturerView.swift */; };
 		387F20A12C47C9E700874808 /* DetailManufacturerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387F209E2C47C9E700874808 /* DetailManufacturerViewModel.swift */; };
 		387F20A82C47DED400874808 /* DetailManufacturerTobaccoLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387F20A72C47DED400874808 /* DetailManufacturerTobaccoLineView.swift */; };
+		389047CB2CE36C80002EE1BC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A46A62966F9DC0006B787 /* ProfileViewController.swift */; };
+		389047CE2CE36C95002EE1BC /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389047CD2CE36C95002EE1BC /* ProfilePresenter.swift */; };
 		3899FC672CDBB02600DA73BD /* HookahTobaccoCore in Frameworks */ = {isa = PBXBuildFile; productRef = 3899FC662CDBB02600DA73BD /* HookahTobaccoCore */; };
 		38A0EB362AA4EF7200CB0D13 /* RswiftLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 38A0EB352AA4EF7200CB0D13 /* RswiftLibrary */; };
 		38A8B1EC2A91747C009FAFF7 /* PresenterrProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A8B1EB2A91747C009FAFF7 /* PresenterrProtocol.swift */; };
@@ -421,6 +421,7 @@
 		387F209D2C47C9E700874808 /* DetailManufacturerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailManufacturerView.swift; sourceTree = "<group>"; };
 		387F209E2C47C9E700874808 /* DetailManufacturerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailManufacturerViewModel.swift; sourceTree = "<group>"; };
 		387F20A72C47DED400874808 /* DetailManufacturerTobaccoLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailManufacturerTobaccoLineView.swift; sourceTree = "<group>"; };
+		389047CD2CE36C95002EE1BC /* ProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
 		3899FC622CDBAFC500DA73BD /* HookahTobaccoCore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = HookahTobaccoCore; sourceTree = "<group>"; };
 		38A8B1EB2A91747C009FAFF7 /* PresenterrProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterrProtocol.swift; sourceTree = "<group>"; };
 		38A8BC6B2AA51B500074CC3C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -940,6 +941,7 @@
 			isa = PBXGroup;
 			children = (
 				386CB42E2C3862BB00D73C71 /* ProfileRouter.swift */,
+				389047CD2CE36C95002EE1BC /* ProfilePresenter.swift */,
 			);
 			path = ProfileModule;
 			sourceTree = "<group>";
@@ -1876,6 +1878,7 @@
 				386CB4422C38642400D73C71 /* RegistrationPresenter.swift in Sources */,
 				386CB4F62C389AC400D73C71 /* extention + UIViewController.swift in Sources */,
 				386CB4B32C388F8300D73C71 /* AuthServiceAssembly.swift in Sources */,
+				389047CB2CE36C80002EE1BC /* ProfileViewController.swift in Sources */,
 				386CB3FF2C385AC400D73C71 /* BottomSheetPresenter.swift in Sources */,
 				386CB4C62C38965400D73C71 /* AddManufacturerInteractor.swift in Sources */,
 				386CB4EC2C389A0500D73C71 /* AddTobaccoLineViewController.swift in Sources */,
@@ -1935,7 +1938,6 @@
 				386CB51C2C38A15100D73C71 /* AppealsListModule.swift in Sources */,
 				386CB5242C38A1DB00D73C71 /* AppealAnswerTableViewCell.swift in Sources */,
 				386CB41C2C38601100D73C71 /* AnonymousInfoTableViewCell.swift in Sources */,
-				386CB4112C385F5000D73C71 /* ProfileViewController.swift in Sources */,
 				386CB51E2C38A16300D73C71 /* AdminMenuModule.swift in Sources */,
 				386CB52E2C38A21E00D73C71 /* AdminMenuRouter.swift in Sources */,
 				386CB4062C385B2900D73C71 /* ObserverProtocol.swift in Sources */,
@@ -1992,7 +1994,6 @@
 				386CB4D72C3897CB00D73C71 /* UpdateDataSubscriberProtocol.swift in Sources */,
 				386CB4202C3860DF00D73C71 /* ProfileModule.swift in Sources */,
 				386CB5042C389D8C00D73C71 /* AddTastesInteractor.swift in Sources */,
-				386CB40F2C385F4300D73C71 /* ProfilePresenter.swift in Sources */,
 				386CB4352C38636F00D73C71 /* SelectListBottomSheetModule.swift in Sources */,
 				386CB43D2C38639100D73C71 /* DatePickerViewController.swift in Sources */,
 				386CB45D2C3865B800D73C71 /* extension+String.swift in Sources */,
@@ -2028,6 +2029,7 @@
 				386CB52F2C38A22100D73C71 /* AdminMenuViewController.swift in Sources */,
 				386CB5312C38A26500D73C71 /* CreateAppealsEntity.swift in Sources */,
 				386CB4EB2C389A0100D73C71 /* AddTobaccoLineRouter.swift in Sources */,
+				389047CE2CE36C95002EE1BC /* ProfilePresenter.swift in Sources */,
 				386CB4132C385F7200D73C71 /* BaseViewController.swift in Sources */,
 				386CB5292C38A1F800D73C71 /* AppealsListRouter.swift in Sources */,
 				386CB4AC2C38832B00D73C71 /* LoginViewController.swift in Sources */,

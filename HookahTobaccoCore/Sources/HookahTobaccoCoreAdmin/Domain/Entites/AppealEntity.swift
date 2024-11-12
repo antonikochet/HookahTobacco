@@ -29,7 +29,7 @@ public struct AppealEntity {
         self.message = dto.message
         self.contents = dto.contents.map { .init(dto: $0) }
         self.createdDate = TextFormatter.createDate(from: dto.created_date, format: .fullServer)
-        self.status = AppealStatus(dto: dto.status)
+        self.status = AppealStatus(rawValue: dto.status)
         if let handledDate = dto.handled_date {
             self.handledDate = TextFormatter.createDate(from: handledDate, format: .fullServer)
         } else {
