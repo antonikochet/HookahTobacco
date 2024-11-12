@@ -52,19 +52,16 @@ final class ManufacturerListViewModelImpl: BaseViewModelImpl, ManufacturerListVi
     
     // MARK: - Private methods
     private func receiveManufacturers() {
-        isLoading = true
-        manufacturerRepo.fetchManufacturer { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let data):
-                self.handlerSuccess(data)
-            case .failure(let error):
-                self.handlerError(error)
-            }
-            self.isLoading = false
+        networkRequest { [weak self] in
+            guard let self else { return }
+            let result = try await self.manufacturerRepo.fetchManufacturer()
+            await self.handlerSuccess(result)
+        } errorClosure: { [weak self] error in
+            await self?.handlerError(error)
         }
     }
     
+    @MainActor
     private func handlerSuccess(_ manufacturers: [Manufacturer]) {
         isDownloadData = true
         if manufacturers.isEmpty {
@@ -86,6 +83,7 @@ final class ManufacturerListViewModelImpl: BaseViewModelImpl, ManufacturerListVi
         }
     }
     
+    @MainActor
     private func handlerError(_ error: DomainError) {
         switch error {
         case .error:

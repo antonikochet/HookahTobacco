@@ -9,6 +9,7 @@ import HookahTobaccoNetwork
 
 public protocol TobaccoRepoProtocol {
     func fetchTobacco(page: Int, search: String?, filter: TobaccoFilter?, completion: ResultBlock<Page<Tobacco>>?)
+    func fetchTobacco(page: Int, search: String?, filter: TobaccoFilter?) async throws -> Page<Tobacco>
     func fetchTobaccoFilters(completion: ResultBlock<TobaccoFilter>?)
     func updateTobaccoFilters(filters: TobaccoFilter, completion: ResultBlock<TobaccoFilter>?)
 }
@@ -30,6 +31,17 @@ public final class TobaccoRepo: BaseRepo, TobaccoRepoProtocol {
                 completion?(.failure(error))
             }
         }
+    }
+    
+    public func fetchTobacco(page: Int, search: String?, filter: TobaccoFilter?) async throws -> Page<Tobacco> {
+        let filterDTO = TobaccoFilterRequestDTO(filter: filter)
+        let target = Api.Tobacco.list(page: page, search: search, filter: filterDTO)
+        let dto = try await sendRequest(object: PageDTO<TobaccoDTO>.self, target: target)
+        return Page(
+            count: dto.count,
+            next: dto.next,
+            previous: dto.previous,
+            results: dto.results.map { Tobacco(dto: $0) })
     }
     
     public func fetchTobaccoFilters(completion: ResultBlock<TobaccoFilter>?) {

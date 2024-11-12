@@ -75,16 +75,12 @@ final class DetailManufacturerViewModelImpl: BaseViewModelImpl, DetailManufactur
     
     // MARK: - Private methods
     private func receiveTobacco() {
-        isLoading = true
-        manufacturerRepo.fetchTobaccos(for: manufacturer) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let tobaccos):
-                self.handlerSuccess(tobaccos)
-            case .failure(let error):
-                self.handlerError(error)
-            }
-            self.isLoading = false
+        networkRequest { [weak self] in
+            guard let self else { return }
+            let result = try await self.manufacturerRepo.fetchTobaccos(for: self.manufacturer)
+            await self.handlerSuccess(result)
+        } errorClosure: { [weak self] error in
+            await self?.handlerError(error)
         }
     }
     
@@ -92,26 +88,24 @@ final class DetailManufacturerViewModelImpl: BaseViewModelImpl, DetailManufactur
         guard let index = tobaccos.firstIndex(where: { $0.id == id }) else { return }
         var tobacco = tobaccos[index]
         tobacco.isFavorite.toggle()
-        isLoading = true
-        favoriteTobaccoRepo.update(tobaccos: [tobacco]) { [weak self] result in
+        networkRequest { [weak self] in
             guard let self else { return }
-            switch result {
-            case .success(let tobaccos):
-                guard let newTobacco = tobaccos.first else { return }
-                self.tobaccos[index] = newTobacco
-                self.updateTobaccoLines()
-            case .failure(let error):
-                self.handlerError(error)
-            }
-            self.isLoading = false
+            let result = try await self.favoriteTobaccoRepo.update(tobaccos: [tobacco])
+            guard let newTobacco = result.first else { return }
+            self.tobaccos[index] = newTobacco
+            await self.updateTobaccoLines()
+        } errorClosure: { [weak self] error in
+            await self?.handlerError(error)
         }
     }
     
+    @MainActor
     private func handlerSuccess(_ tobaccos: [Tobacco]) {
         self.tobaccos = tobaccos
         updateTobaccoLines()
     }
     
+    @MainActor
     private func updateTobaccoLines() {
         // TODO: - убрать прыгание секций при изменения табаков
         let tobaccoDict = Dictionary(grouping: tobaccos) { tobacco in
@@ -139,6 +133,7 @@ final class DetailManufacturerViewModelImpl: BaseViewModelImpl, DetailManufactur
         }
     }
     
+    @MainActor
     private func handlerError(_ error: DomainError) {
         showAlertError(message: error.message)
     }
