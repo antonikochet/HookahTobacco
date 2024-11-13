@@ -26,21 +26,19 @@ class AdminMenuRouter: AdminMenuRouterProtocol {
     }
 
     func showAddManufacturerModule() {
-//        appRouter.pushViewController(module: AddManufacturerModule.self, moduleData: nil, animateDisplay: true)
+        appRouter.pushViewController(module: AddManufacturerModule.self, moduleData: nil, animateDisplay: true)
     }
 
     func showAddTobaccoModule() {
-//        appRouter.pushViewController(module: AddTobaccoModule.self, moduleData: nil, animateDisplay: true)
+        appRouter.pushViewController(module: AddTobaccoModule.self, moduleData: nil, animateDisplay: true)
     }
 
     func showManufacturerListModule() {
-//        let data = ManufacturerListDataModile(isAdminMode: true)
-//        appRouter.pushViewController(module: ManufacturerListModule.self, moduleData: data, animateDisplay: true)
+        appRouter.pushViewController(module: ManufacturerListModule.self, moduleData: nil, animateDisplay: true)
     }
 
     func showTobaccoListModule() {
-//        let data = TobaccoListDataModile(isAdminMode: true, filter: .none)
-//        appRouter.pushViewController(module: TobaccoListModule.self, moduleData: data, animateDisplay: true)
+        appRouter.pushViewController(module: TobaccoListModule.self, moduleData: nil, animateDisplay: true)
     }
 
     func showLoginModule() {

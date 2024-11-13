@@ -12,6 +12,7 @@ protocol ProfileRouterProtocol: RouterProtocol {
     func showFavoriteList()
     func showWantToBuyList()
     func showCreateAppeal()
+    func showAdminMenu()
 }
 
 final class ProfileRouter: ProfileRouterProtocol {
@@ -32,5 +33,9 @@ final class ProfileRouter: ProfileRouterProtocol {
     }
 
     func showCreateAppeal() {
+    }
+    
+    func showAdminMenu() {
+        appRouter.presentView(module: AdminMenuModule.self, moduleData: nil, animated: true)
     }
 }

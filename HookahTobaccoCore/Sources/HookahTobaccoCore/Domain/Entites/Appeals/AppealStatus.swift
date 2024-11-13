@@ -10,6 +10,19 @@ public enum AppealStatus: Int, CaseIterable {
     case processing
     case handled
     
+    public init(rawValue: Int) {
+        switch rawValue {
+        case 0:
+            self = .notViewed
+        case 1:
+            self = .processing
+        case 2:
+            self = .handled
+        default:
+            self = .notViewed
+        }
+    }
+    
     public init(dto: String) {
         switch dto {
         case "notViewed":

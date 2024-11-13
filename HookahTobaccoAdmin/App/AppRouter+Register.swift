@@ -28,6 +28,12 @@ extension AppRouter {
     }
 
     func registerAppModules() {
+        // SwiftUI
+        registerModule(ManufacturerListModule.nameModule) { ManufacturerListModule($0) }
+        registerModule(TobaccoListModule.nameModule) { TobaccoListModule($0) }
+        
+        // UIKit
+        registerModule(TobaccoFiltersAssembly(), TobaccoFiltersModule.nameModule) { TobaccoFiltersModule($0) }
         registerModule(ProfileAssembly(), ProfileModule.nameModule) { ProfileModule($0) }
         registerModule(LoginAssembly(), LoginModule.nameModule) { LoginModule($0) }
         registerModule(AdminMenuAssembly(), AdminMenuModule.nameModule) { AdminMenuModule($0) }

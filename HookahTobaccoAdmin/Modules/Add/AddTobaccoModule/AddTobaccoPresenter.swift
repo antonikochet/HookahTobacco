@@ -38,6 +38,8 @@ class AddTobaccoPresenter {
         }
 
         let section = CollectionSection(items: rows)
+        section.lineSpacing = 4
+        section.minimumInterItemSpacing = 4
 
         tasteDirector += section
         tasteDirector.reload()
