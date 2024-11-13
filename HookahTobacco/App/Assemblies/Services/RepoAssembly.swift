@@ -53,6 +53,20 @@ final class RepoAssembly: Assembly {
                 handlerErrors: resolver.resolve(NetworkHandlerErrors.self)!,
                 sendingErrorInMetric: resolver.resolve(SendingMetricErrorProtocol.self)!)
         }
+        container.register(TasteTypeRepoProtocol.self) { resolver in
+            TasteTypeRepo(
+                networkManager: resolver.resolve(NetworkManagerProtocol.self)!,
+                authSettings: resolver.resolve(AuthSettingsProtocol.self)!,
+                handlerErrors: resolver.resolve(NetworkHandlerErrors.self)!,
+                sendingErrorInMetric: resolver.resolve(SendingMetricErrorProtocol.self)!)
+        }
+        container.register(TasteRepoProtocol.self) { resolver in
+            TasteRepo(
+                networkManager: resolver.resolve(NetworkManagerProtocol.self)!,
+                authSettings: resolver.resolve(AuthSettingsProtocol.self)!,
+                handlerErrors: resolver.resolve(NetworkHandlerErrors.self)!,
+                sendingErrorInMetric: resolver.resolve(SendingMetricErrorProtocol.self)!)
+        }
         container.register(CountryRepoProtocol.self) { resolver in
             CountryRepo(
                 networkManager: resolver.resolve(NetworkManagerProtocol.self)!,

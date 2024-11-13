@@ -245,6 +245,29 @@
 		387F20A82C47DED400874808 /* DetailManufacturerTobaccoLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387F20A72C47DED400874808 /* DetailManufacturerTobaccoLineView.swift */; };
 		389047CB2CE36C80002EE1BC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A46A62966F9DC0006B787 /* ProfileViewController.swift */; };
 		389047CE2CE36C95002EE1BC /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389047CD2CE36C95002EE1BC /* ProfilePresenter.swift */; };
+		389047D12CE3758C002EE1BC /* ManufacturerListAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387F208D2C46B2A100874808 /* ManufacturerListAssembly.swift */; };
+		389047D22CE3758F002EE1BC /* ManufacturerListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387F208E2C46B2A100874808 /* ManufacturerListView.swift */; };
+		389047D32CE37592002EE1BC /* ManufacturerListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387F208F2C46B2A100874808 /* ManufacturerListViewModel.swift */; };
+		389047D52CE3759F002EE1BC /* ManufacturerCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387F20932C46B2DE00874808 /* ManufacturerCellView.swift */; };
+		389047D82CE3763A002EE1BC /* ManufacturerListModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389047D72CE3763A002EE1BC /* ManufacturerListModule.swift */; };
+		389047DB2CE37768002EE1BC /* HookahTobaccoSwiftUICore in Frameworks */ = {isa = PBXBuildFile; productRef = 389047DA2CE37768002EE1BC /* HookahTobaccoSwiftUICore */; };
+		389047DE2CE3777C002EE1BC /* Mock+Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386CB5612C38AD9300D73C71 /* Mock+Entities.swift */; };
+		389047DF2CE37792002EE1BC /* AssemblyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387F207F2C46A03800874808 /* AssemblyProtocol.swift */; };
+		389047E12CE377A8002EE1BC /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381910412C3BE3F8001CADC0 /* BaseView.swift */; };
+		389047E22CE377AA002EE1BC /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3819103D2C3B403E001CADC0 /* BaseViewModel.swift */; };
+		389047E62CE4A6FD002EE1BC /* TobaccoListModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389047E52CE4A6FD002EE1BC /* TobaccoListModule.swift */; };
+		389047E72CE4A702002EE1BC /* TobaccoListAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387F20812C46A7BF00874808 /* TobaccoListAssembly.swift */; };
+		389047E82CE4A705002EE1BC /* TobaccoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381910392C3B151B001CADC0 /* TobaccoListViewModel.swift */; };
+		389047E92CE4A707002EE1BC /* TobaccoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381910382C3B151B001CADC0 /* TobaccoListView.swift */; };
+		389047EA2CE4A70F002EE1BC /* TobaccoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381910362C3B1500001CADC0 /* TobaccoView.swift */; };
+		389047EB2CE4A793002EE1BC /* CategoriesTobaccoFiltersViewCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38041BEB2AA0D24900DEEE6D /* CategoriesTobaccoFiltersViewCellTableViewCell.swift */; };
+		389047ED2CE4A798002EE1BC /* MultiSegmentedTobaccoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DE7EC02AA278BE00DE4D01 /* MultiSegmentedTobaccoTableViewCell.swift */; };
+		389047EE2CE4A79A002EE1BC /* TobaccoFiltersRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38041BEC2AA0D24900DEEE6D /* TobaccoFiltersRouter.swift */; };
+		389047EF2CE4A79D002EE1BC /* TobaccoFiltersPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38041BED2AA0D24900DEEE6D /* TobaccoFiltersPresenter.swift */; };
+		389047F02CE4A79F002EE1BC /* TobaccoFiltersInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38041BEE2AA0D24900DEEE6D /* TobaccoFiltersInteractor.swift */; };
+		389047F12CE4A7A2002EE1BC /* TobaccoFiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38041BEF2AA0D24900DEEE6D /* TobaccoFiltersViewController.swift */; };
+		389047F22CE4A7B2002EE1BC /* TobaccoFiltersModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38041BF62AA0D26500DEEE6D /* TobaccoFiltersModule.swift */; };
+		389047F32CE4A7B5002EE1BC /* TobaccoFiltersAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38041BF72AA0D26500DEEE6D /* TobaccoFiltersAssembly.swift */; };
 		3899FC672CDBB02600DA73BD /* HookahTobaccoCore in Frameworks */ = {isa = PBXBuildFile; productRef = 3899FC662CDBB02600DA73BD /* HookahTobaccoCore */; };
 		38A0EB362AA4EF7200CB0D13 /* RswiftLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 38A0EB352AA4EF7200CB0D13 /* RswiftLibrary */; };
 		38A8B1EC2A91747C009FAFF7 /* PresenterrProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A8B1EB2A91747C009FAFF7 /* PresenterrProtocol.swift */; };
@@ -422,6 +445,8 @@
 		387F209E2C47C9E700874808 /* DetailManufacturerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailManufacturerViewModel.swift; sourceTree = "<group>"; };
 		387F20A72C47DED400874808 /* DetailManufacturerTobaccoLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailManufacturerTobaccoLineView.swift; sourceTree = "<group>"; };
 		389047CD2CE36C95002EE1BC /* ProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
+		389047D72CE3763A002EE1BC /* ManufacturerListModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManufacturerListModule.swift; sourceTree = "<group>"; };
+		389047E52CE4A6FD002EE1BC /* TobaccoListModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TobaccoListModule.swift; sourceTree = "<group>"; };
 		3899FC622CDBAFC500DA73BD /* HookahTobaccoCore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = HookahTobaccoCore; sourceTree = "<group>"; };
 		38A8B1EB2A91747C009FAFF7 /* PresenterrProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterrProtocol.swift; sourceTree = "<group>"; };
 		38A8BC6B2AA51B500074CC3C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -565,6 +590,7 @@
 				386CB3F92C385A7100D73C71 /* SnapKit in Frameworks */,
 				384C83D82CE2537100D6C826 /* HookahTobaccoUIKitCore in Frameworks */,
 				386CB41A2C385FDE00D73C71 /* TableKit in Frameworks */,
+				389047DB2CE37768002EE1BC /* HookahTobaccoSwiftUICore in Frameworks */,
 				386CB4CA2C38967900D73C71 /* IVCollectionKit in Frameworks */,
 				386CB3E42C3857AE00D73C71 /* Swinject in Frameworks */,
 				385A45FB2CDD4CDF0016DBDB /* HookahTobaccoCoreAdmin in Frameworks */,
@@ -923,6 +949,8 @@
 		386CB42B2C38629600D73C71 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				389047E32CE4A6E6002EE1BC /* Tobacoos */,
+				389047D92CE3763F002EE1BC /* Manufacturer */,
 				386CB4AF2C388EAF00D73C71 /* AuthorizationAndRegistration */,
 				386CB42C2C38629F00D73C71 /* UsersScreen */,
 			);
@@ -1053,6 +1081,22 @@
 				387F20A72C47DED400874808 /* DetailManufacturerTobaccoLineView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		389047D92CE3763F002EE1BC /* Manufacturer */ = {
+			isa = PBXGroup;
+			children = (
+				389047D72CE3763A002EE1BC /* ManufacturerListModule.swift */,
+			);
+			path = Manufacturer;
+			sourceTree = "<group>";
+		};
+		389047E32CE4A6E6002EE1BC /* Tobacoos */ = {
+			isa = PBXGroup;
+			children = (
+				389047E52CE4A6FD002EE1BC /* TobaccoListModule.swift */,
+			);
+			path = Tobacoos;
 			sourceTree = "<group>";
 		};
 		38A8B1E82A91743D009FAFF7 /* VIPER */ = {
@@ -1712,6 +1756,7 @@
 				385A45FA2CDD4CDF0016DBDB /* HookahTobaccoCoreAdmin */,
 				384C83D52CE2536C00D6C826 /* HookahTobaccoResources */,
 				384C83D72CE2537100D6C826 /* HookahTobaccoUIKitCore */,
+				389047DA2CE37768002EE1BC /* HookahTobaccoSwiftUICore */,
 			);
 			productName = HookahTobaccoAdmin;
 			productReference = 386CB3CB2C38565100D73C71 /* HookahTobaccoAdmin.app */;
@@ -1873,6 +1918,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				386CB4C02C3895E100D73C71 /* AddManufacturerModule.swift in Sources */,
+				389047D12CE3758C002EE1BC /* ManufacturerListAssembly.swift in Sources */,
 				386CB43B2C38638A00D73C71 /* SelectListBottomSheetTableViewCell.swift in Sources */,
 				385A46022CDD510C0016DBDB /* extension+RswiftResources.swift in Sources */,
 				386CB4422C38642400D73C71 /* RegistrationPresenter.swift in Sources */,
@@ -1881,6 +1927,7 @@
 				389047CB2CE36C80002EE1BC /* ProfileViewController.swift in Sources */,
 				386CB3FF2C385AC400D73C71 /* BottomSheetPresenter.swift in Sources */,
 				386CB4C62C38965400D73C71 /* AddManufacturerInteractor.swift in Sources */,
+				389047EE2CE4A79A002EE1BC /* TobaccoFiltersRouter.swift in Sources */,
 				386CB4EC2C389A0500D73C71 /* AddTobaccoLineViewController.swift in Sources */,
 				386CB4DF2C38993200D73C71 /* AddCountryModule.swift in Sources */,
 				386CB4C52C38965100D73C71 /* AddManufacturerViewController.swift in Sources */,
@@ -1900,9 +1947,11 @@
 				386CB3EB2C38595200D73C71 /* PopupAlertView.swift in Sources */,
 				386CB50C2C389DFC00D73C71 /* AddTasteRouter.swift in Sources */,
 				386CB4E52C38996400D73C71 /* AddCountryPresenter.swift in Sources */,
+				389047D52CE3759F002EE1BC /* ManufacturerCellView.swift in Sources */,
 				386CB5262C38A1E400D73C71 /* AppealMessageTableViewCell.swift in Sources */,
 				386CB4412C38641400D73C71 /* ProfileEditAssembly.swift in Sources */,
 				386CB4E32C38995E00D73C71 /* AddCountryViewController.swift in Sources */,
+				389047D32CE37592002EE1BC /* ManufacturerListViewModel.swift in Sources */,
 				386CB51D2C38A15600D73C71 /* AppealsListAssembly.swift in Sources */,
 				386CB4F92C389CB200D73C71 /* AddTobaccoModule.swift in Sources */,
 				386CB5302C38A22600D73C71 /* AdminMenuInteractor.swift in Sources */,
@@ -1913,15 +1962,20 @@
 				386CB5282C38A1F400D73C71 /* AppealsListPresenter.swift in Sources */,
 				386CB4742C3867D700D73C71 /* extension+TobaccoLine.swift in Sources */,
 				386CB43A2C38638600D73C71 /* SelectListBottomSheetPresenter.swift in Sources */,
+				389047EF2CE4A79D002EE1BC /* TobaccoFiltersPresenter.swift in Sources */,
 				386CB5202C38A1C800D73C71 /* DetailAppealInteractor.swift in Sources */,
 				386CB51F2C38A16600D73C71 /* AdminMenuAssembly.swift in Sources */,
 				386CB4152C385F9100D73C71 /* InfoView.swift in Sources */,
 				386CB4712C3867CC00D73C71 /* extension+TobaccoFilter.swift in Sources */,
 				386CB41F2C3860CE00D73C71 /* PresenterrProtocol.swift in Sources */,
+				389047E82CE4A705002EE1BC /* TobaccoListViewModel.swift in Sources */,
+				389047F02CE4A79F002EE1BC /* TobaccoFiltersInteractor.swift in Sources */,
 				386CB42F2C3862BB00D73C71 /* ProfileRouter.swift in Sources */,
 				386CB4392C38638400D73C71 /* SelectListBottomSheetRouter.swift in Sources */,
 				384020A62CDE5BED00AE2BE4 /* extension+Gender.swift in Sources */,
 				386CB5052C389D9000D73C71 /* AddTastesViewController.swift in Sources */,
+				389047EB2CE4A793002EE1BC /* CategoriesTobaccoFiltersViewCellTableViewCell.swift in Sources */,
+				389047D82CE3763A002EE1BC /* ManufacturerListModule.swift in Sources */,
 				386CB52A2C38A1FE00D73C71 /* AppealsListViewController.swift in Sources */,
 				386CB4AA2C38832500D73C71 /* LoginPresenter.swift in Sources */,
 				386CB4D12C38979100D73C71 /* DataManager.swift in Sources */,
@@ -1941,14 +1995,18 @@
 				386CB51E2C38A16300D73C71 /* AdminMenuModule.swift in Sources */,
 				386CB52E2C38A21E00D73C71 /* AdminMenuRouter.swift in Sources */,
 				386CB4062C385B2900D73C71 /* ObserverProtocol.swift in Sources */,
+				389047E62CE4A6FD002EE1BC /* TobaccoListModule.swift in Sources */,
 				386CB4BF2C3895DE00D73C71 /* AddManufacturerAssembly.swift in Sources */,
+				389047EA2CE4A70F002EE1BC /* TobaccoView.swift in Sources */,
 				386CB4E12C38995700D73C71 /* AddCountryEntity.swift in Sources */,
+				389047ED2CE4A798002EE1BC /* MultiSegmentedTobaccoTableViewCell.swift in Sources */,
 				386CB5072C389D9700D73C71 /* AddTastesPresenter.swift in Sources */,
 				386CB5212C38A1CC00D73C71 /* DetailAppealViewController.swift in Sources */,
 				386CB5132C389E5A00D73C71 /* AddTasteAssembly.swift in Sources */,
 				386CB5062C389D9300D73C71 /* AddTastesRouter.swift in Sources */,
 				386CB4732C3867D400D73C71 /* extension+Taste.swift in Sources */,
 				386CB4ED2C389A0800D73C71 /* AddTobaccoLineInteractor.swift in Sources */,
+				389047DE2CE3777C002EE1BC /* Mock+Entities.swift in Sources */,
 				386CB3ED2C38598300D73C71 /* AppRouter+Register.swift in Sources */,
 				386CB40D2C385F1400D73C71 /* ProfileAssembly.swift in Sources */,
 				386CB50A2C389DF300D73C71 /* AddTasteInteractor.swift in Sources */,
@@ -1958,6 +2016,8 @@
 				386CB4FC2C389CF700D73C71 /* AddTobaccoRouter.swift in Sources */,
 				386CB52D2C38A21A00D73C71 /* AdminMenuPresenter.swift in Sources */,
 				386CB4FA2C389CB500D73C71 /* AddTobaccoAssembly.swift in Sources */,
+				389047DF2CE37792002EE1BC /* AssemblyProtocol.swift in Sources */,
+				389047E12CE377A8002EE1BC /* BaseView.swift in Sources */,
 				384020D52CDEC4D800AE2BE4 /* extension+DomainError.swift in Sources */,
 				386CB52B2C38A20200D73C71 /* AppealsListInteractor.swift in Sources */,
 				386CB4632C38665F00D73C71 /* ProfileEditPresenter.swift in Sources */,
@@ -1976,9 +2036,12 @@
 				386CB4372C38638000D73C71 /* SelectListBottomSheetInteractor.swift in Sources */,
 				386CB4452C38642E00D73C71 /* RegistrationInteractor.swift in Sources */,
 				386CB3E62C3858F000D73C71 /* GlobalConstant.swift in Sources */,
+				389047F32CE4A7B5002EE1BC /* TobaccoFiltersAssembly.swift in Sources */,
 				386CB43E2C38639400D73C71 /* DatePickerInteractor.swift in Sources */,
+				389047E92CE4A707002EE1BC /* TobaccoListView.swift in Sources */,
 				386CB4822C38691300D73C71 /* MoyaProviderAssembly.swift in Sources */,
 				386CB5082C389D9F00D73C71 /* AddTastesTableViewCell.swift in Sources */,
+				389047F12CE4A7A2002EE1BC /* TobaccoFiltersViewController.swift in Sources */,
 				386CB4402C38640700D73C71 /* ProfileEditModule.swift in Sources */,
 				386CB3E92C38593F00D73C71 /* AlertFactory.swift in Sources */,
 				386CB5222C38A1D100D73C71 /* DetailAppealRouter.swift in Sources */,
@@ -1986,6 +2049,7 @@
 				386CB5122C389E5800D73C71 /* AddTasteModule.swift in Sources */,
 				386CB4382C38638200D73C71 /* SelectListBottomSheetViewController.swift in Sources */,
 				386CB4D62C3897B200D73C71 /* NamedImageStorage.swift in Sources */,
+				389047E22CE377AA002EE1BC /* BaseViewModel.swift in Sources */,
 				386CB4FD2C389CFA00D73C71 /* AddTobaccoViewController.swift in Sources */,
 				386CB50D2C389E0200D73C71 /* AddTastePresenter.swift in Sources */,
 				386CB4E92C3899D600D73C71 /* AddTobaccoLineAssembly.swift in Sources */,
@@ -1998,6 +2062,7 @@
 				386CB43D2C38639100D73C71 /* DatePickerViewController.swift in Sources */,
 				386CB45D2C3865B800D73C71 /* extension+String.swift in Sources */,
 				386CB4E22C38995B00D73C71 /* AddCountryInteractor.swift in Sources */,
+				389047E72CE4A702002EE1BC /* TobaccoListAssembly.swift in Sources */,
 				384C83F02CE26B0500D6C826 /* ChipCollectionViewCell.swift in Sources */,
 				386CB4E02C38993600D73C71 /* AddCountryAssembly.swift in Sources */,
 				386CB4B62C3890AD00D73C71 /* UserSettingsServiceAssembly.swift in Sources */,
@@ -2023,6 +2088,7 @@
 				385A45FE2CDD4FBE0016DBDB /* SendingMetricErrorMock.swift in Sources */,
 				386CB4302C38630C00D73C71 /* ProfileEditRouter.swift in Sources */,
 				386CB4FF2C389D0100D73C71 /* AddTobaccoEntity.swift in Sources */,
+				389047D22CE3758F002EE1BC /* ManufacturerListView.swift in Sources */,
 				386CB4E42C38996000D73C71 /* AddCountryRouter.swift in Sources */,
 				386CB4C32C38964A00D73C71 /* AddManufacturerPresenter.swift in Sources */,
 				386CB50B2C389DF700D73C71 /* AddTasteViewController.swift in Sources */,
@@ -2031,6 +2097,7 @@
 				386CB4EB2C389A0100D73C71 /* AddTobaccoLineRouter.swift in Sources */,
 				389047CE2CE36C95002EE1BC /* ProfilePresenter.swift in Sources */,
 				386CB4132C385F7200D73C71 /* BaseViewController.swift in Sources */,
+				389047F22CE4A7B2002EE1BC /* TobaccoFiltersModule.swift in Sources */,
 				386CB5292C38A1F800D73C71 /* AppealsListRouter.swift in Sources */,
 				386CB4AC2C38832B00D73C71 /* LoginViewController.swift in Sources */,
 			);
@@ -2859,6 +2926,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 38041BE32A9FB8CA00DEEE6D /* XCRemoteSwiftPackageReference "CollectionKit" */;
 			productName = IVCollectionKit;
+		};
+		389047DA2CE37768002EE1BC /* HookahTobaccoSwiftUICore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = HookahTobaccoSwiftUICore;
 		};
 		3899FC662CDBB02600DA73BD /* HookahTobaccoCore */ = {
 			isa = XCSwiftPackageProductDependency;
