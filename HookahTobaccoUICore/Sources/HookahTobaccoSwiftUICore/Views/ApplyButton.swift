@@ -18,7 +18,7 @@ public struct ApplyButton: View {
     public init(
         style: Style,
         text: String,
-        image: Image?,
+        image: Image? = nil,
         isEnabled: Bool = true,
         action: @escaping VoidBlock
     ) {
@@ -31,16 +31,18 @@ public struct ApplyButton: View {
     
     public var body: some View {
         Button(action: action) {
-            if let image {
-                image
+            HStack {
+                if let image {
+                    image
+                }
+                Text(text)
+                    .font(Font.appFont(size: 20, weight: .semibold))
             }
-            Text(text)
-                .font(Font.appFont(size: 20, weight: .semibold))
+            .frame(maxWidth: .infinity, maxHeight: 50)
+            .foregroundStyle(style.foreground)
+            .background(isEnabled ? style.background : Constants.disableBackground)
+            .clipShape(RoundedRectangle(cornerRadius: 25.0))
         }
-        .frame(maxWidth: .infinity, maxHeight: 50)
-        .foregroundStyle(style.foreground)
-        .background(isEnabled ? style.background : Constants.disableBackground)
-        .clipShape(RoundedRectangle(cornerRadius: 25.0))
         .disabled(!isEnabled)
     }
 }

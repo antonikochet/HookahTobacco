@@ -7,6 +7,6 @@
 
 public protocol AuthServiceProtocol {
     var isLoggedIn: Bool { get }
-    func login(with name: String, password: String, completion: BlockWithParam<DomainError?>?)
+    func login(with name: String, password: String) async throws
     func logout(completion: BlockWithParam<DomainError?>?)
 }

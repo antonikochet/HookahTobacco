@@ -17,7 +17,7 @@ public struct TextFieldWithLeftLabel: View {
     
     @FocusState private var isFocus: Bool
     @Binding private var text: String
-    @State private var error: String
+    @Binding private var error: String
     
     public init(
         title: String,
@@ -26,7 +26,7 @@ public struct TextFieldWithLeftLabel: View {
         rounding: Rounding,
         canEdit: Bool = true,
         text: Binding<String>,
-        error: State<String>
+        error: Binding<String>
     ) {
         self.title = title
         self.placeholder = placeholder
@@ -40,7 +40,12 @@ public struct TextFieldWithLeftLabel: View {
     public var body: some View {
         VStack {
             textFieldView
-            errorView
+            if !error.isEmpty {
+                errorView
+            }
+        }
+        .onTapGesture {
+            isFocus = true
         }
     }
     
@@ -76,20 +81,17 @@ public struct TextFieldWithLeftLabel: View {
                                   ResourceManager.provider.color(forKey: .primaryRed)).colorSwiftUI)
                 .tint(ResourceManager.provider.color(forKey: .primaryBlack).colorSwiftUI)
                 .onChange(of: isFocus) { isFocused in
-                    if isFocused {
-                        if !canEdit {
-                            self.isFocus = false
-                        }
-                    } else {
-                        
+                    guard isFocused else { return }
+                    if !canEdit {
+                        self.isFocus = false
                     }
+                    error = ""
                 }
                 
         }
         .padding(12)
         .background(ResourceManager.provider.color(forKey: .inputBackground).colorSwiftUI)
         .clipShape(RoundedCorner(radius: 19.0, corners: rounding.corners))
-        .frame(height: 46)
     }
     
     @ViewBuilder private var errorView: some View {
@@ -142,7 +144,7 @@ extension TextFieldWithLeftLabel {
         type: .text,
         rounding: .up,
         text: .constant("text"),
-        error: .init(initialValue: ""))
+        error: .constant(""))
         .padding()
 }
 #endif

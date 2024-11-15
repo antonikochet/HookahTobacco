@@ -32,19 +32,22 @@ public struct ChipButton: View {
     
     public var body: some View {
         Button(action: action, label: {
-            if let image {
-                image
+            HStack {
+                if let image {
+                    image
+                }
+                Text(text)
+                    .font(.appFont(size: 17.0, weight: .semibold))
+                    .multilineTextAlignment(.center)
             }
-            Text(text)
-                .font(.appFont(size: 17.0, weight: .semibold))
-                .multilineTextAlignment(.center)
+            .padding(EdgeInsets(top: 4, leading: 8, bottom: 4, trailing: 8))
+            .background((isEnabled ? style.background : Constants.disableBackground).clipShape(RoundedRectangle(cornerRadius: 8.0)))
+            .foregroundStyle(style.foreground)
+            .overlay(content: {
+                style.border
+            })
         })
-        .padding(EdgeInsets(top: 4, leading: 8, bottom: 4, trailing: 8))
-        .background((isEnabled ? style.background : Constants.disableBackground).clipShape(RoundedRectangle(cornerRadius: 8.0)))
-        .foregroundStyle(style.foreground)
-        .overlay(content: {
-            style.border 
-        })
+        
         .disabled(!isEnabled)
     }
 }

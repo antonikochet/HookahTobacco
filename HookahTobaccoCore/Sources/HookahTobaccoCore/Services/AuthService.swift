@@ -32,24 +32,17 @@ extension AuthService: AuthServiceProtocol {
     public var isLoggedIn: Bool {
         !(settings.getToken()?.isEmpty ?? true)
     }
-
-    public func login(with name: String, password: String, completion: BlockWithParam<DomainError?>?) {
-        authRepo.login(with: name, password: password) { [weak self] result in
-            switch result {
-            case .success(let login):
-                self?.settings.setToken(login.token)
-                completion?(nil)
-            case .failure(let error):
-                completion?(error)
-            }
-            
-        }
+    
+    public func login(with name: String, password: String) async throws {
+        let login = try await authRepo.login(with: name, password: password)
+        settings.setToken(login.token)
     }
 
     public func logout(completion: BlockWithParam<DomainError?>?) {
         authRepo.logout { [weak self] error in
             guard let error else {
                 self?.settings.setToken(nil)
+                completion?(nil)
                 return
             }
             completion?(error)
