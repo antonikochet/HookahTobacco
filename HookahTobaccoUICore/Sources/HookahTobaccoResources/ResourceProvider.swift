@@ -58,7 +58,7 @@ internal struct MockColorResource: ColorResourceProtocol {
         case .fourthBackground:
             self.color = .tertiarySystemBackground
         case .inputBackground:
-            self.color = .black
+            self.color = .systemGray6
         case .primaryWhite:
             self.color = .white
         case .primaryBlack:
