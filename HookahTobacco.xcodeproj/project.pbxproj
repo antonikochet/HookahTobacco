@@ -56,7 +56,6 @@
 		384C83EF2CE26B0500D6C826 /* ChipCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384C83E02CE2587700D6C826 /* ChipCollectionViewCell.swift */; };
 		384C83F02CE26B0500D6C826 /* ChipCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384C83E02CE2587700D6C826 /* ChipCollectionViewCell.swift */; };
 		385505352A814A4F00855E50 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385505342A814A4F00855E50 /* BaseViewController.swift */; };
-		385505372A814A7A00855E50 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385505362A814A7A00855E50 /* LoadingView.swift */; };
 		3855053B2A8155FA00855E50 /* ViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3855053A2A8155FA00855E50 /* ViewProtocol.swift */; };
 		3858673C2AB987ED001776D9 /* SuccessBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385867372AB987ED001776D9 /* SuccessBottomSheetViewController.swift */; };
 		385867442AB98BDC001776D9 /* SuccessBottomSheetModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385867422AB98BDC001776D9 /* SuccessBottomSheetModule.swift */; };
@@ -92,7 +91,6 @@
 		386CB4062C385B2900D73C71 /* ObserverProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B30A1B29325FFF00204913 /* ObserverProtocol.swift */; };
 		386CB40D2C385F1400D73C71 /* ProfileAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A46B22967313B0006B787 /* ProfileAssembly.swift */; };
 		386CB40E2C385F3C00D73C71 /* ProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92A46A72966F9DC0006B787 /* ProfileInteractor.swift */; };
-		386CB4122C385F6700D73C71 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385505362A814A7A00855E50 /* LoadingView.swift */; };
 		386CB4132C385F7200D73C71 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385505342A814A4F00855E50 /* BaseViewController.swift */; };
 		386CB4142C385F7E00D73C71 /* ViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3855053A2A8155FA00855E50 /* ViewProtocol.swift */; };
 		386CB4152C385F9100D73C71 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38AFD1202A92633000800342 /* InfoView.swift */; };
@@ -413,7 +411,6 @@
 		384C83E72CE264CC00D6C826 /* RSwiftLocalizationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSwiftLocalizationProvider.swift; sourceTree = "<group>"; };
 		384C83EB2CE265F800D6C826 /* RSwiftResourcesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSwiftResourcesProvider.swift; sourceTree = "<group>"; };
 		385505342A814A4F00855E50 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
-		385505362A814A7A00855E50 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		3855053A2A8155FA00855E50 /* ViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewProtocol.swift; sourceTree = "<group>"; };
 		385867372AB987ED001776D9 /* SuccessBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessBottomSheetViewController.swift; sourceTree = "<group>"; };
 		385867422AB98BDC001776D9 /* SuccessBottomSheetModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessBottomSheetModule.swift; sourceTree = "<group>"; };
@@ -1539,7 +1536,6 @@
 			isa = PBXGroup;
 			children = (
 				384C83E02CE2587700D6C826 /* ChipCollectionViewCell.swift */,
-				385505362A814A7A00855E50 /* LoadingView.swift */,
 				38AFD1202A92633000800342 /* InfoView.swift */,
 			);
 			path = View;
@@ -1983,7 +1979,6 @@
 				384C83E92CE264CC00D6C826 /* RSwiftLocalizationProvider.swift in Sources */,
 				386CB3FB2C385A8300D73C71 /* HTTabBarControllerAssembly.swift in Sources */,
 				386CB4362C38637100D73C71 /* SelectListBottomSheetAssembly.swift in Sources */,
-				386CB4122C385F6700D73C71 /* LoadingView.swift in Sources */,
 				386CB4D42C3897A800D73C71 /* ImageStorageError.swift in Sources */,
 				386CB4D32C3897A200D73C71 /* ImageStorageServiceDataProtocol.swift in Sources */,
 				386CB3CE2C38565100D73C71 /* AppDelegate.swift in Sources */,
@@ -2158,7 +2153,6 @@
 				385867442AB98BDC001776D9 /* SuccessBottomSheetModule.swift in Sources */,
 				384B94082AB354AA00DBE89C /* SelectListBottomSheetAssembly.swift in Sources */,
 				386CB55C2C38AD3200D73C71 /* DetailTobaccoView.swift in Sources */,
-				385505372A814A7A00855E50 /* LoadingView.swift in Sources */,
 				387F20A82C47DED400874808 /* DetailManufacturerTobaccoLineView.swift in Sources */,
 				384C83EC2CE265F800D6C826 /* RSwiftResourcesProvider.swift in Sources */,
 				387F20A02C47C9E700874808 /* DetailManufacturerView.swift in Sources */,

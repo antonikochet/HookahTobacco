@@ -38,12 +38,48 @@ internal struct MockImageResource: ImageResourceProtocol {
 }
 
 internal struct MockColorResource: ColorResourceProtocol {
+    
+    private let color: UIColor
+    
+    init(key: ColorKeys) {
+        switch key {
+        case .primaryTitle:
+            self.color = .label
+        case .primarySubtitle:
+            self.color = .label
+        case .secondarySubtitle:
+            self.color = .secondaryLabel
+        case .primaryBackground:
+            self.color = .systemBackground
+        case .secondaryBackground:
+            self.color = .secondarySystemBackground
+        case .thirdBackground:
+            self.color = .tertiarySystemBackground
+        case .fourthBackground:
+            self.color = .tertiarySystemBackground
+        case .inputBackground:
+            self.color = .black
+        case .primaryWhite:
+            self.color = .white
+        case .primaryBlack:
+            self.color = .black
+        case .primaryPurple:
+            self.color = .purple
+        case .secondaryPurple:
+            self.color = .purple.withAlphaComponent(0.9)
+        case .primaryRed:
+            self.color = .red
+        case .primaryGreen:
+            self.color = .green
+        }
+    }
+    
     var colorUIKit: UIColor? {
-        .white
+        color
     }
     
     var colorSwiftUI: Color {
-        .white
+        Color(uiColor: color)
     }
 }
 
@@ -53,6 +89,6 @@ internal struct MockResourceProvider: ResourceProvider {
     }
     
     func color(forKey key: ColorKeys) -> ColorResourceProtocol {
-        MockColorResource()
+        MockColorResource(key: key)
     }
 }

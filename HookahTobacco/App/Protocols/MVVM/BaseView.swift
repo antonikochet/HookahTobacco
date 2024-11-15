@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import HookahTobaccoSwiftUICore
 
 struct BaseView<ViewModel: BaseViewModel, Content: View>: View {
     
@@ -23,8 +24,9 @@ struct BaseView<ViewModel: BaseViewModel, Content: View>: View {
             if let viewModel = viewModel.infoView {
                 SInfoView(viewModel: viewModel)
             }
-            SLoadingView(isLoading: $viewModel.isLoading)
-                .frame(width: 80, height: 80)
+            if viewModel.isLoading {
+                LoadingView(isBlur: true)
+            }
         }
             .alert(
                 viewModel.alertState.title,
