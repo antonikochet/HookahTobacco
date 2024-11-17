@@ -36,5 +36,6 @@ public struct User {
     public enum Field: String {
         case username
         case email
+        case password
     }
 }

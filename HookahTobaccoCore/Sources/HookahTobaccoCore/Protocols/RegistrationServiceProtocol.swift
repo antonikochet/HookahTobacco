@@ -8,6 +8,6 @@
 import Foundation
 
 public protocol RegistrationServiceProtocol {
-    func checkRegistrationData(email: String, username: String, password: String, completion: BlockWithParam<DomainError?>?)
+    func checkRegistrationData(email: String, username: String, password: String) async throws
     func registration(user: RegistrationUser, completion: BlockWithParam<DomainError?>?)
 }

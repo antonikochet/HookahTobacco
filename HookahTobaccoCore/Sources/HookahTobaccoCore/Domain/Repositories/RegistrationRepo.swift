@@ -8,27 +8,15 @@
 import HookahTobaccoNetwork
 
 public protocol RegistrationRepoProtocol {
-    func checkRegistrationData(email: String, username: String, password: String, completion: BlockWithParam<DomainError?>?)
+    func checkRegistrationData(email: String, username: String, password: String) async throws
     func registration(user: RegistrationUser, completion: ResultBlock<LoginEntity>?)
 }
 
 public final class RegistrationRepo: BaseRepo, RegistrationRepoProtocol {
-    public func checkRegistrationData(
-        email: String,
-        username: String,
-        password: String,
-        completion: BlockWithParam<DomainError?>?
-    ) {
+    public func checkRegistrationData(email: String, username: String, password: String) async throws {
         let request = CheckRegistrationDTO(email: email, username: username, password: password)
         let target = Api.Registration.check(request)
-        sendRequest(object: EmptyDTO.self, target: target) { result in
-            switch result {
-            case .success:
-                completion?(nil)
-            case .failure(let error):
-                completion?(error)
-            }
-        }
+        _ = try await sendRequest(object: EmptyDTO.self, target: target)
     }
     
     public func registration(user: RegistrationUser, completion: ResultBlock<LoginEntity>?) {

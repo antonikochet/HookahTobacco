@@ -31,7 +31,9 @@ struct LoginView<ViewModel: LoginViewModel>: View {
                     .padding(.horizontal, 21)
             }
             .padding(.horizontal, 24.0)
+            .dismissKeyboardOnTap()
         }
+        .background(R.color.primaryBackground.color)
     }
     
     // MARK: - Subviews

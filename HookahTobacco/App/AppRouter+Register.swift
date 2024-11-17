@@ -31,9 +31,9 @@ extension AppRouter {
         registerModule(ManufacturerListModule.nameModule) { ManufacturerListModule($0) }
         registerModule(DetailInfoManufacturerModule.nameModule) { DetailInfoManufacturerModule($0) }
         registerModule(LoginModule.nameModule) { LoginModule($0) }
+        registerModule(RegistrationModule.nameModule) { RegistrationModule($0) }
         
         // UIKit Module
-        registerModule(RegistrationAssembly(), RegistrationModule.nameModule) { RegistrationModule($0) }
         registerModule(ProfileAssembly(), ProfileModule.nameModule) { ProfileModule($0) }
         registerModule(ProfileEditAssembly(), ProfileEditModule.nameModule) { ProfileEditModule($0) }
         registerModule(DatePickerAssembly(), DatePickerModule.nameModule) { DatePickerModule($0) }

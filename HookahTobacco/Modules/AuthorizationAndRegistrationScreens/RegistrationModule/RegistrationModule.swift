@@ -17,9 +17,10 @@ class RegistrationModule: ModuleProtocol {
     }
 
     func createModule(_ appRouter: AppRouterProtocol) -> UIViewController? {
-        let dependency = RegistrationDependency(appRouter: appRouter)
-//        if let data = data as? RegistrationDataModule { }
-        return appRouter.resolver.resolve(RegistrationViewController.self,
-                                          argument: dependency)
+        let assembly = RegistrationAssembly { user in
+            let data = ProfileEditDataModule(isRegistration: true, user: user, output: nil)
+            appRouter.pushViewController(module: ProfileEditModule.self, moduleData: data, animateDisplay: true)
+        }
+        return assembly.assemble(resolver: appRouter.resolver)
     }
 }

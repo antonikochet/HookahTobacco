@@ -51,14 +51,8 @@ extension AuthService: AuthServiceProtocol {
 }
 
 extension AuthService: RegistrationServiceProtocol {
-    public func checkRegistrationData(email: String, username: String, password: String, completion: BlockWithParam<DomainError?>?) {
-        registrationRepo.checkRegistrationData(email: email, username: username, password: password) { error in
-            guard let error else {
-                completion?(nil)
-                return
-            }
-            completion?(error)
-        }
+    public func checkRegistrationData(email: String, username: String, password: String) async throws {
+        try await registrationRepo.checkRegistrationData(email: email, username: username, password: password)
     }
 
     public func registration(user: HookahTobaccoCore.RegistrationUser, completion: BlockWithParam<DomainError?>?) {
