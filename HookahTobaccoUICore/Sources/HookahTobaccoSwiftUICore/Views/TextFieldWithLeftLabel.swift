@@ -14,6 +14,7 @@ public struct TextFieldWithLeftLabel: View {
     private let type: TextFieldType
     private let rounding: Rounding
     private let canEdit: Bool
+    private let didBeginEditing: VoidBlock?
     
     @FocusState private var isFocus: Bool
     @Binding private var text: String
@@ -26,7 +27,8 @@ public struct TextFieldWithLeftLabel: View {
         rounding: Rounding,
         canEdit: Bool = true,
         text: Binding<String>,
-        error: Binding<String>
+        error: Binding<String>,
+        didBeginEditing: VoidBlock? = nil
     ) {
         self.title = title
         self.placeholder = placeholder
@@ -35,6 +37,7 @@ public struct TextFieldWithLeftLabel: View {
         self.canEdit = canEdit
         self._text = text
         self._error = error
+        self.didBeginEditing = didBeginEditing
     }
     
     public var body: some View {
@@ -85,6 +88,7 @@ public struct TextFieldWithLeftLabel: View {
                     if !canEdit {
                         self.isFocus = false
                     }
+                    didBeginEditing?()
                     error = ""
                 }
                 

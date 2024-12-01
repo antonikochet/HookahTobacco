@@ -54,7 +54,7 @@ public struct Tobacco {
         self.tastes = dto.tastes.map { .init(dto: $0) }
         self.manufacturerID = dto.manufacturer.id
         self.manufacturerName = dto.manufacturer.name
-        self.description = dto.description
+        self.description = dto.description ?? ""
         self.line = TobaccoLine(dto: dto.line)
         self.imageURL = dto.image_url
         self.isFavorite = dto.is_favorite

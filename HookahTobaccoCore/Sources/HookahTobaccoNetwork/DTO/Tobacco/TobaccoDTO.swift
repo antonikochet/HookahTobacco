@@ -10,7 +10,7 @@ public struct TobaccoDTO: Decodable {
     public let name: String
     public let tastes: [TasteDTO]
     public let manufacturer: ManufacturerForTobaccoDTO
-    public let description: String
+    public let description: String?
     public let line: TobaccoLineDTO
     public let image_url: String
     public let is_favorite: Bool
